@@ -1463,3 +1463,108 @@ table {
     padding-bottom: calc(var(--space-sm) + env(safe-area-inset-bottom));
   }
 }
+
+/* ============================================
+   MOBILE RESPONSIVE FIXES — Global overflow + component-specific
+   ============================================ */
+
+/* Prevent flex/grid items from overflowing their containers */
+* { min-width: 0; }
+
+/* Responsive media by default */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  /* --- Urgency bar: single line, compact, hide toggle tabs --- */
+  .urgency-bar {
+    padding: 6px 0;
+    font-size: 12px;
+  }
+  .urgency-bar-inner {
+    flex-direction: row;
+    gap: 8px;
+    padding: 0 12px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .urgency-bar-inner::-webkit-scrollbar { display: none; }
+  .urgency-bar .toggle-tabs { display: none !important; }
+  .urgency-bar-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* --- Testimonials: prevent horizontal page overflow --- */
+  .testimonial-track-wrapper {
+    margin-left: calc(-1 * var(--space-md));
+    margin-right: calc(-1 * var(--space-md));
+    overflow-x: hidden;
+    width: calc(100% + 2 * var(--space-md));
+    max-width: 100vw;
+  }
+  .testimonial-track .card-testimonial {
+    width: 280px;
+    max-width: 90vw;
+  }
+
+  /* --- CTA banner: reduced padding, column layout --- */
+  .cta-banner {
+    margin-left: 16px;
+    margin-right: 16px;
+    border-radius: var(--radius-lg);
+  }
+  .cta-banner-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    padding: 32px 24px;
+  }
+  .cta-banner-actions { width: 100%; }
+  .cta-banner-actions .btn { width: 100%; justify-content: center; }
+  .cta-banner-reassurance {
+    flex-direction: column;
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
+  /* --- Pro banner: reduced padding on mobile --- */
+  .pro-banner-inner {
+    padding: 32px 24px;
+    gap: var(--space-lg);
+  }
+  .pro-banner-features { gap: var(--space-sm); }
+
+  /* --- Hero reassurance: stack vertically on mobile --- */
+  .hero-reassurance-wrapper {
+    mask-image: none;
+    -webkit-mask-image: none;
+    overflow: visible;
+  }
+  .hero-reassurance {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    animation: none;
+    align-items: stretch;
+  }
+  .hero-reassurance-item {
+    white-space: normal;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+
+/* Desktop: hero reassurance items in a row with proper spacing */
+@media (min-width: 769px) {
+  .hero-reassurance {
+    flex-direction: row;
+    gap: var(--space-sm);
+  }
+}

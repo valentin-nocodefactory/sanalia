@@ -112,7 +112,7 @@ p { margin-bottom: var(--space-md); max-width: 75ch; }
   h1 { font-size: 32px; }
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }
-  .container { padding: 0 var(--space-md); }
+  .container { padding: 0 16px; }
   .section { padding: var(--space-2xl) 0; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .hide-mobile { display: none !important; }
