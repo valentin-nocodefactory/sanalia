@@ -90,6 +90,7 @@ Blue #B0D5F5/#E6F3FF, Lavender #EFDFF6/#FBF2FF, Rose #FFD4CF/#FFECE9, Peach #FFD
 6. Les tokens CSS sont definis dans `tokens.css`
 7. Les CTAs sont TOUJOURS violet — JAMAIS orange
 8. Le orange est UNIQUEMENT pour les alertes urgentes
+9. **RÈGLE D'OR — ACCENTS FRANÇAIS** : Tous les textes visibles sur le site DOIVENT avoir les accents français corrects (é, è, ê, à, ù, ç, î, ô, etc.). Cela concerne TOUTES les pages HTML, les titres, les paragraphes, les boutons, les labels, les attributs alt, les meta descriptions. JAMAIS de texte sans accent. Vérifier systématiquement avant chaque livraison.
 
 ## Fichiers
 ```
@@ -114,6 +115,28 @@ Blue #B0D5F5/#E6F3FF, Lavender #EFDFF6/#FBF2FF, Rose #FFD4CF/#FFECE9, Peach #FFD
 - **Brief marketing** : voir `MARKETING-BRIEF.md` — souffrances clients, psychologie, arguments de conversion
 - **Regle cardinale** : 1 intention de recherche = 1 seule page. Jamais de cannibalisation.
 - **Ancien nom** : toute reference a "Ciao Nuisible" doit etre remplacee par "Sanalia"
+- **Domaine** : le site est sur `https://www.sanalia.fr` (avec www). Le root `sanalia.fr` redirige vers `www.sanalia.fr`.
+
+## SEO Technique — Checklist OBLIGATOIRE avant chaque deploiement
+**Cette checklist DOIT etre verifiee avant chaque push/deploiement. C'est un site SEO, le technique doit etre parfait.**
+
+1. **Meta title** : chaque page a un `<title>` unique, < 60 caracteres, avec le keyword cible
+2. **Meta description** : chaque page a un `<meta name="description">` unique, 120-155 caracteres, avec CTA
+3. **Canonical** : chaque page a un `<link rel="canonical" href="https://www.sanalia.fr/...">` correct
+4. **Open Graph** : og:title, og:description, og:type, og:url, og:image, og:locale sur chaque page
+5. **Twitter Card** : twitter:card, twitter:title, twitter:description, twitter:image sur chaque page
+6. **Schema.org** : JSON-LD adapte au type de page (LocalBusiness, Service, Article, FAQPage, BreadcrumbList)
+7. **H1 unique** : exactement 1 seul H1 par page, contenant le keyword cible
+8. **Hierarchie Hn** : H1 > H2 > H3, jamais de saut de niveau
+9. **Images** : tous les `<img>` ont un attribut `alt` descriptif avec keyword quand pertinent
+10. **Liens internes** : chaque page a au moins 3 liens internes vers d'autres pages du site
+11. **sitemap.xml** : a jour avec toutes les pages publiques, pas de pages noindex
+12. **robots.txt** : present, pointe vers le sitemap, bloque les pages privees (/merci/)
+13. **noindex** : la page /merci/ a `<meta name="robots" content="noindex, follow">`
+14. **Accents** : TOUS les textes ont les accents francais corrects (regle n°9)
+15. **URLs** : toutes les URLs canoniques utilisent `https://www.sanalia.fr` (avec www)
+16. **Performance** : images optimisees, CSS/JS minifies, pas de ressources bloquantes inutiles
+17. **Mobile** : toutes les pages sont responsive et passent le test Mobile-Friendly
 
 ## Sync Figma ↔ Code
 1. User dit "update from Figma" → `get_variable_defs` / `get_design_context`
