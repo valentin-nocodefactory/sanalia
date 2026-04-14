@@ -105,8 +105,23 @@ Blue #B0D5F5/#E6F3FF, Lavender #EFDFF6/#FBF2FF, Rose #FFD4CF/#FFECE9, Peach #FFD
 ├── MARKETING-BRIEF.md              # Brief marketing : cibles, souffrances, psychologie client
 ├── SEO-ARCHITECTURE.md             # Architecture SEO complete : double arbre, URLs, maillage, anti-duplicate
 ├── SEO-INTENTIONS-RECHERCHE.md     # Intentions de recherche par page : questions DOIT/INTERDIT
-└── SEO-PAGES-LISTE-GLOBALE.md      # Liste globale pages : URLs, H1, KW, volumes, KD, TP
+├── SEO-PAGES-LISTE-GLOBALE.md      # Liste globale pages : URLs, H1, KW, volumes, KD, TP
+├── build.sh                        # Script de build : synchronise les composants
+├── components/
+│   ├── header.html                 # SOURCE du header (modifier ici)
+│   ├── footer.html                 # SOURCE du footer (modifier ici)
+│   ├── certifications.html         # SOURCE des certifications (modifier ici)
+│   └── mobile-sticky-cta.html      # SOURCE du CTA mobile (modifier ici)
+├── robots.txt                      # Fichier robots.txt
+└── sitemap.xml                     # Sitemap XML
 ```
+
+## Composants partagés — RÈGLE CRITIQUE
+- Les fichiers dans `components/` sont la **source unique** du header, footer, certifications et CTA mobile
+- Ces composants sont **inlinés** dans toutes les pages HTML pour le SSR (SEO)
+- **JAMAIS modifier le header/footer directement dans une page** — toujours modifier le fichier source dans `components/`
+- Après toute modification d'un composant, **lancer `./build.sh`** pour synchroniser toutes les pages
+- Le build est aussi lancé automatiquement par Cloudflare Pages au déploiement
 
 ## SEO — Regles
 - **Architecture** : voir `SEO-ARCHITECTURE.md` pour la structure URL complete, le double arbre Particulier/Pro, les templates geo programmatiques
