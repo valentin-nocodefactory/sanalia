@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devis gratuit — Sanalia Dératisation & Désinsectisation</title>
+<meta name="description" content="Demandez votre devis gratuit pour une intervention anti-nuisibles. Réponse sous 2h, sans engagement. Dératisation, désinsectisation à Lyon et Paris.">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<style>
+/* ═══ DEVIS PAGE STYLES ═══ */
+.devis-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg);
+  min-height: 60vh;
+}
+.devis-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+.devis-title {
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-primary-900);
+  margin-bottom: var(--space-sm);
+}
+.devis-subtitle {
+  font-family: 'Uxum', sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem;
+  color: var(--color-primary-800);
+}
+.devis-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .devis-layout {
+    grid-template-columns: 1fr;
+  }
+  .devis-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* Form card */
+.devis-form-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: 0 2px 12px rgba(14,5,42,0.06);
+}
+
+/* Steps */
+.devis-steps {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xl);
+}
+.devis-step-indicator {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-sm) var(--space-xs);
+  border-radius: var(--radius-md);
+  background: var(--color-gray-light);
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+  font-size: 0.8125rem;
+  color: #999;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.devis-step-indicator.active {
+  background: var(--color-primary-900);
+  color: #fff;
+}
+.devis-step-indicator.completed {
+  background: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
+
+/* Fieldsets */
+.devis-fieldset {
+  display: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.devis-fieldset.active {
+  display: block;
+}
+.devis-fieldset legend {
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-primary-900);
+  margin-bottom: var(--space-lg);
+}
+
+/* Form fields */
+.devis-field {
+  margin-bottom: var(--space-md);
+}
+.devis-field label {
+  display: block;
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--color-primary-900);
+  margin-bottom: var(--space-xs);
+}
+.devis-field input,
+.devis-field select,
+.devis-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  font-family: 'Uxum', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--color-primary-900);
+  background: var(--color-surface);
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.devis-field input:focus,
+.devis-field select:focus,
+.devis-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-600);
+}
+.devis-field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.devis-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+@media (max-width: 480px) {
+  .devis-field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Radio group */
+.devis-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+.devis-radio-group label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 2px solid var(--color-gray-light);
+  border-radius: var(--radius-full);
+  transition: border-color 0.2s, background 0.2s;
+}
+.devis-radio-group label:has(input:checked) {
+  border-color: var(--color-primary-600);
+  background: var(--color-primary-100);
+}
+.devis-radio-group input[type="radio"] {
+  width: auto;
+  margin: 0;
+}
+
+/* Pro fields */
+.devis-pro-only {
+  display: none;
+}
+
+/* Nav buttons */
+.devis-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-lg);
+  gap: var(--space-md);
+}
+.devis-nav .btn {
+  flex: 0 0 auto;
+}
+
+/* Sidebar */
+.devis-sidebar {
+  position: sticky;
+  top: var(--space-lg);
+}
+.devis-reassurance-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: 0 2px 12px rgba(14,5,42,0.06);
+}
+.devis-reassurance-card h3 {
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--color-primary-900);
+  margin-bottom: var(--space-md);
+}
+.devis-reassurance-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  font-family: 'Uxum', sans-serif;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: var(--color-primary-800);
+}
+.devis-reassurance-item:last-child {
+  margin-bottom: 0;
+}
+.devis-reassurance-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+.devis-reassurance-item strong {
+  display: block;
+  color: var(--color-primary-900);
+  margin-bottom: 2px;
+}
+.devis-contact-card {
+  background: var(--color-primary-900);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-top: var(--space-md);
+  color: #fff;
+  text-align: center;
+}
+.devis-contact-card p {
+  font-family: 'Uxum', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  margin-bottom: var(--space-sm);
+  opacity: 0.8;
+}
+.devis-contact-card a {
+  display: block;
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: var(--space-xs);
+}
+.devis-contact-card .devis-hours {
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+  font-size: 0.75rem;
+  color: #999;
+}
+</style>
+</head>
+<body>
+
+<div data-component="header"></div>
+
+<!-- ════════ DEVIS FORM ════════ -->
+<section class="devis-section">
+  <div class="container">
+    <div class="devis-header">
+      <h1 class="devis-title" id="devisTitle">Demandez votre devis gratuit</h1>
+      <p class="devis-subtitle">Réponse sous 2h, sans engagement</p>
+    </div>
+
+    <div class="devis-layout">
+      <!-- Form -->
+      <div class="devis-form-card">
+        <div class="devis-steps">
+          <div class="devis-step-indicator active" data-step="1">1. Nuisible</div>
+          <div class="devis-step-indicator" data-step="2">2. Situation</div>
+          <div class="devis-step-indicator" data-step="3">3. Coordonnées</div>
+        </div>
+
+        <form action="#" method="POST" id="devisForm">
+
+          <!-- Step 1: Type de nuisible -->
+          <fieldset class="devis-fieldset active" data-step="1">
+            <legend>Quel nuisible vous pose problème ?</legend>
+
+            <div class="devis-field">
+              <label for="nuisible">Type de nuisible</label>
+              <select id="nuisible" name="nuisible" required>
+                <option value="">-- Sélectionnez --</option>
+                <option value="rats-souris">Rats / Souris</option>
+                <option value="cafards-blattes">Cafards / Blattes</option>
+                <option value="punaises-de-lit">Punaises de lit</option>
+                <option value="guepes-frelons">Guêpes / Frelons</option>
+                <option value="pigeons">Pigeons</option>
+                <option value="fourmis">Fourmis</option>
+                <option value="moustiques">Moustiques</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+
+            <div class="devis-nav">
+              <span></span>
+              <button type="button" class="btn btn-primary" onclick="goToStep(2)">Suivant →</button>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: Votre situation -->
+          <fieldset class="devis-fieldset" data-step="2">
+            <legend>Décrivez votre situation</legend>
+
+            <div class="devis-field">
+              <label for="surface">Surface approximative</label>
+              <select id="surface" name="surface">
+                <option value="">-- Sélectionnez --</option>
+                <option value="moins-30">Moins de 30 m²</option>
+                <option value="30-60">30 à 60 m²</option>
+                <option value="60-100">60 à 100 m²</option>
+                <option value="100-200">100 à 200 m²</option>
+                <option value="plus-200">Plus de 200 m²</option>
+              </select>
+            </div>
+
+            <div class="devis-field">
+              <label for="depuis">Depuis quand ?</label>
+              <select id="depuis" name="depuis">
+                <option value="">-- Sélectionnez --</option>
+                <option value="quelques-jours">Quelques jours</option>
+                <option value="1-2-semaines">1 à 2 semaines</option>
+                <option value="1-mois">Environ 1 mois</option>
+                <option value="plusieurs-mois">Plusieurs mois</option>
+                <option value="ne-sais-pas">Je ne sais pas</option>
+              </select>
+            </div>
+
+            <div class="devis-field">
+              <label>Degré d'urgence</label>
+              <div class="devis-radio-group">
+                <label><input type="radio" name="urgence" value="normale"> Normale</label>
+                <label><input type="radio" name="urgence" value="rapide"> Rapide (sous 48h)</label>
+                <label><input type="radio" name="urgence" value="urgente"> Urgente (sous 24h)</label>
+              </div>
+            </div>
+
+            <div class="devis-nav">
+              <button type="button" class="btn btn-outline" onclick="goToStep(1)">← Retour</button>
+              <button type="button" class="btn btn-primary" onclick="goToStep(3)">Suivant →</button>
+            </div>
+          </fieldset>
+
+          <!-- Step 3: Coordonnées -->
+          <fieldset class="devis-fieldset" data-step="3">
+            <legend>Vos coordonnées</legend>
+
+            <div class="devis-field-row">
+              <div class="devis-field">
+                <label for="nom">Nom complet *</label>
+                <input type="text" id="nom" name="nom" required placeholder="Votre nom et prénom">
+              </div>
+              <div class="devis-field">
+                <label for="tel">Téléphone *</label>
+                <input type="tel" id="tel" name="tel" required placeholder="06 00 00 00 00">
+              </div>
+            </div>
+
+            <div class="devis-field">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required placeholder="votre@email.com">
+            </div>
+
+            <div class="devis-field">
+              <label for="adresse">Adresse</label>
+              <input type="text" id="adresse" name="adresse" placeholder="Numéro et nom de rue">
+            </div>
+
+            <div class="devis-field-row">
+              <div class="devis-field">
+                <label for="cp">Code postal</label>
+                <input type="text" id="cp" name="cp" placeholder="69003">
+              </div>
+              <div class="devis-field">
+                <label for="ville">Ville *</label>
+                <select id="ville" name="ville" required>
+                  <option value="">-- Sélectionnez --</option>
+                  <option value="Lyon">Lyon</option>
+                  <option value="Paris">Paris</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Pro fields -->
+            <div class="devis-pro-only" id="proFields">
+              <div class="devis-field">
+                <label for="siret">Numéro SIRET</label>
+                <input type="text" id="siret" name="siret" placeholder="123 456 789 00012">
+              </div>
+              <div class="devis-field">
+                <label for="secteur">Secteur d'activité</label>
+                <select id="secteur" name="secteur">
+                  <option value="">-- Sélectionnez --</option>
+                  <option value="restauration">Restauration</option>
+                  <option value="hotellerie">Hôtellerie</option>
+                  <option value="commerce">Commerce</option>
+                  <option value="bureau">Bureaux</option>
+                  <option value="industrie">Industrie</option>
+                  <option value="sante">Santé</option>
+                  <option value="copropriete">Copropriété</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+              <div class="devis-field-row">
+                <div class="devis-field">
+                  <label for="nb-sites">Nombre de sites</label>
+                  <input type="number" id="nb-sites" name="nb-sites" min="1" placeholder="1">
+                </div>
+                <div class="devis-field">
+                  <label for="contrat">Type de contrat souhaité</label>
+                  <select id="contrat" name="contrat">
+                    <option value="">-- Sélectionnez --</option>
+                    <option value="ponctuel">Intervention ponctuelle</option>
+                    <option value="annuel">Contrat annuel</option>
+                    <option value="trimestriel">Contrat trimestriel</option>
+                    <option value="ne-sais-pas">Je ne sais pas encore</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="devis-field">
+              <label for="message">Message (optionnel)</label>
+              <textarea id="message" name="message" placeholder="Décrivez votre situation en quelques mots..."></textarea>
+            </div>
+
+            <div class="devis-nav">
+              <button type="button" class="btn btn-outline" onclick="goToStep(2)">← Retour</button>
+              <button type="submit" class="btn btn-accent btn-lg" style="flex:1;">Envoyer ma demande</button>
+            </div>
+          </fieldset>
+
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="devis-sidebar">
+        <div class="devis-reassurance-card">
+          <h3>Pourquoi choisir Sanalia ?</h3>
+
+          <div class="devis-reassurance-item">
+            <div class="devis-reassurance-icon">💰</div>
+            <div>
+              <strong>Devis 100% gratuit</strong>
+              Aucun frais, aucune obligation.
+            </div>
+          </div>
+
+          <div class="devis-reassurance-item">
+            <div class="devis-reassurance-icon">⚡</div>
+            <div>
+              <strong>Réponse sous 2h</strong>
+              Un technicien vous rappelle rapidement.
+            </div>
+          </div>
+
+          <div class="devis-reassurance-item">
+            <div class="devis-reassurance-icon">🤝</div>
+            <div>
+              <strong>Sans engagement</strong>
+              Vous décidez en toute liberté.
+            </div>
+          </div>
+
+          <div class="devis-reassurance-item">
+            <div class="devis-reassurance-icon">✅</div>
+            <div>
+              <strong>Résultat garanti</strong>
+              Nous revenons gratuitement si besoin.
+            </div>
+          </div>
+        </div>
+
+        <div class="devis-contact-card">
+          <p>Vous préférez nous appeler ?</p>
+          <a href="tel:0667464897">📞 06 67 46 48 97</a>
+          <span class="devis-hours">8h - 20h, 7j/7</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div data-component="certifications"></div>
+
+<div data-component="footer"></div>
+
+<div data-component="mobile-sticky-cta"></div>
+
+<script src="/js/app.js"></script>
+<script>
+// ═══ Multi-step form navigation ═══
+function goToStep(step) {
+  // Hide all fieldsets
+  document.querySelectorAll('.devis-fieldset').forEach(fs => fs.classList.remove('active'));
+  // Show target
+  document.querySelector('.devis-fieldset[data-step="' + step + '"]').classList.add('active');
+  // Update indicators
+  document.querySelectorAll('.devis-step-indicator').forEach(ind => {
+    const s = parseInt(ind.dataset.step);
+    ind.classList.remove('active', 'completed');
+    if (s === step) ind.classList.add('active');
+    else if (s < step) ind.classList.add('completed');
+  });
+  // Scroll to top of form
+  document.querySelector('.devis-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ═══ URL params prefill ═══
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+
+  // Prefill nuisible
+  const nuisible = params.get('nuisible');
+  if (nuisible) {
+    const sel = document.getElementById('nuisible');
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === nuisible) {
+        sel.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
+  // Prefill ville
+  const ville = params.get('ville');
+  if (ville) {
+    const sel = document.getElementById('ville');
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value.toLowerCase() === ville.toLowerCase()) {
+        sel.selectedIndex = i;
+        break;
+      }
+    }
+  }
+
+  // Pro mode
+  const type = params.get('type');
+  if (type === 'pro') {
+    document.getElementById('proFields').style.display = 'block';
+    document.getElementById('devisTitle').textContent = 'Demandez votre devis professionnel';
+  }
+
+  // Step indicator click
+  document.querySelectorAll('.devis-step-indicator').forEach(ind => {
+    ind.addEventListener('click', function() {
+      goToStep(parseInt(this.dataset.step));
+    });
+  });
+
+  // Form submit -> redirect to merci
+  document.getElementById('devisForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    window.location.href = '/merci/';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanalia - Style Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+  @font-face {
+    font-family: 'Uxum';
+    src: url('fonts/uxumbold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Uxum';
+    src: url('fonts/uxumregular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Uxum';
+    src: url('fonts/uxumlight.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1440px;
+    min-height: 100px;
+    font-family: 'Uxum', sans-serif;
+    background: #f6f5f0;
+    color: #0e052a;
+    padding: 80px;
+  }
+
+  /* ===== HEADER ===== */
+  .sg-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    padding-bottom: 40px;
+    border-bottom: 3px solid #e9e8ff;
+  }
+  .sg-header-left { display: flex; align-items: center; }
+  .sg-header-left svg { height: 48px; width: auto; }
+  .sg-header .sg-badge {
+    background: #e9e8ff;
+    color: #635ddd;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 100px;
+  }
+
+  /* ===== SECTIONS ===== */
+  .sg-section { margin-bottom: 72px; }
+  .sg-section-title {
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #999;
+    margin-bottom: 32px;
+    font-family: 'Space Mono', monospace;
+  }
+  .sg-section-subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #0e052a;
+    margin-bottom: 20px;
+  }
+
+  /* ===== COULEURS ===== */
+  .sg-colors-grid { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+  .sg-color-card { width: 155px; }
+  .sg-color-swatch {
+    width: 155px; height: 120px; border-radius: 16px;
+    margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05);
+  }
+  .sg-color-name { font-size: 14px; font-weight: 600; color: #0e052a; margin-bottom: 2px; }
+  .sg-color-hex { font-size: 13px; color: #666; font-family: 'Space Mono', monospace; }
+
+  .sg-pastels-grid { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
+  .sg-pastel-card { width: 110px; }
+  .sg-pastel-swatch { width: 110px; height: 80px; border-radius: 12px; margin-bottom: 8px; }
+  .sg-pastel-label { font-size: 11px; font-weight: 600; color: #0e052a; }
+  .sg-pastel-hex { font-size: 11px; color: #999; font-family: 'Space Mono', monospace; }
+
+  /* ===== TYPOGRAPHIE ===== */
+  .sg-typo-block { background: white; border-radius: 20px; padding: 48px; margin-bottom: 24px; }
+  .sg-typo-row {
+    display: flex; align-items: baseline; gap: 40px;
+    padding: 24px 0; border-bottom: 1px solid #f0ede4;
+  }
+  .sg-typo-row:last-child { border-bottom: none; }
+  .sg-typo-meta { width: 220px; flex-shrink: 0; }
+  .sg-typo-label {
+    font-size: 12px; font-weight: 400; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #999; margin-bottom: 4px;
+  }
+  .sg-typo-specs { font-size: 12px; color: #999; font-family: 'Space Mono', monospace; }
+  .sg-font-tag {
+    display: inline-block; background: #eee; color: #666;
+    font-size: 11px; font-weight: 400; padding: 3px 10px;
+    border-radius: 4px; margin-bottom: 8px;
+    font-family: 'Space Mono', monospace;
+  }
+  .sg-font-info {
+    background: #f6f5f0; border-radius: 12px; padding: 20px 24px;
+    margin-bottom: 24px; display: flex; gap: 32px; align-items: center;
+  }
+  .sg-font-info-name { font-size: 24px; font-weight: 700; color: #0e052a; }
+  .sg-font-info-detail { font-size: 13px; color: #666; line-height: 1.6; }
+  .sg-font-info-usage { font-size: 12px; color: #999; font-weight: 400; font-family: 'Space Mono', monospace; }
+
+  /* ===== BOUTONS ===== */
+  .sg-buttons-row { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+  .sg-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Uxum', sans-serif; font-weight: 700; font-size: 16px;
+    border: none; cursor: pointer; border-radius: 8px; padding: 13px 32px;
+  }
+  .sg-btn-primary { background: #0e052a; color: white; }
+  .sg-btn-secondary { background: #635ddd; color: white; }
+  .sg-btn-accent { background: #f66c24; color: white; }
+  .sg-btn-outline { background: transparent; color: #0e052a; border: 2px solid #0e052a; }
+  .sg-btn-ghost { background: #e9e8ff; color: #635ddd; }
+  .sg-btn-lg { padding: 18px 40px; font-size: 18px; border-radius: 12px; }
+  .sg-btn-sm { padding: 8px 20px; font-size: 14px; border-radius: 6px; }
+
+  /* ===== COMPOSANTS ===== */
+  .sg-components-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .sg-component-card { background: white; border-radius: 20px; padding: 40px; }
+  .sg-component-label {
+    font-size: 12px; font-weight: 400; text-transform: uppercase;
+    letter-spacing: 1.5px; color: #999; margin-bottom: 24px;
+    font-family: 'Space Mono', monospace;
+  }
+  .sg-hero-preview {
+    background: #e9e8ff; border-radius: 12px; border: 4px solid white;
+    padding: 40px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .sg-hero-preview h3 { font-size: 28px; font-weight: 700; line-height: 1.3; }
+  .sg-hero-preview .highlight { color: #7671d5; }
+  .sg-card-demo { background: #f6f5f0; border-radius: 12px; padding: 24px; display: flex; gap: 16px; }
+  .sg-card-thumb { width: 80px; height: 80px; border-radius: 8px; flex-shrink: 0; }
+  .sg-card-content h4 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .sg-card-content p { font-size: 13px; color: #666; line-height: 1.5; }
+
+  /* ===== SPACINGS ===== */
+  .sg-spacing-row { display: flex; align-items: center; gap: 20px; margin-bottom: 16px; }
+  .sg-spacing-block { background: #635ddd; border-radius: 4px; opacity: 0.3; }
+  .sg-spacing-label { font-size: 13px; font-weight: 600; color: #0e052a; width: 80px; }
+  .sg-spacing-value { font-size: 12px; color: #999; font-family: 'Space Mono', monospace; }
+
+  /* ===== BORDER RADIUS ===== */
+  .sg-radius-grid { display: flex; gap: 24px; align-items: flex-end; }
+  .sg-radius-item { text-align: center; }
+  .sg-radius-box { width: 80px; height: 80px; background: #e9e8ff; border: 2px solid #ceccfc; margin-bottom: 8px; }
+  .sg-radius-val { font-size: 12px; font-weight: 600; color: #0e052a; }
+
+  /* ===== DA ===== */
+  .sg-da-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .sg-da-card { background: white; border-radius: 20px; padding: 32px; text-align: center; }
+  .sg-da-icon {
+    width: 64px; height: 64px; border-radius: 16px;
+    margin: 0 auto 16px; display: flex; align-items: center; justify-content: center;
+  }
+  .sg-da-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .sg-da-card p { font-size: 13px; color: #666; line-height: 1.6; }
+
+  /* ===== GRADIENT BAR ===== */
+  .sg-gradient-bar { height: 80px; border-radius: 16px; display: flex; overflow: hidden; margin-bottom: 12px; }
+  .sg-gradient-bar div { flex: 1; }
+
+  /* ===== LOGO ZONE ===== */
+  .sg-logo-zone {
+    background: white; border-radius: 20px; padding: 48px;
+    display: flex; gap: 48px; align-items: center; justify-content: center;
+  }
+  .sg-logo-variant { text-align: center; }
+  .sg-logo-display {
+    width: 280px; height: 140px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px;
+  }
+  .sg-logo-display svg { height: 40px; width: auto; }
+  .sg-logo-label {
+    font-size: 12px; font-weight: 600; color: #999;
+    text-transform: uppercase; letter-spacing: 1px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ===== TOKENS ===== */
+  .sg-token-code {
+    background: #f5f5f5; padding: 2px 8px; border-radius: 4px;
+    font-family: 'Space Mono', monospace;
+  }
+
+</style>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="sg-header">
+    <div class="sg-header-left">
+      <svg viewBox="0 0 159 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip_h)">
+          <mask id="mask_h" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask>
+          <g mask="url(#mask_h)"><path d="M23.9401 18.74V22.87H15.05V17.48C15.05 14.0267 13.9534 12.3 11.76 12.3C10.8267 12.3 10.1034 12.6733 9.59 13.42C9.07667 14.12 8.82 15.03 8.82 16.15C8.82 17.0833 9.1 18.11 9.66 19.23C10.22 20.3033 11.27 21.8433 12.81 23.85L19.3899 32.67C21.35 35.33 22.6567 37.4767 23.3101 39.11C24.01 40.7433 24.36 42.68 24.36 44.92C24.36 48.2333 23.1934 50.9867 20.8601 53.18C18.5267 55.3267 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3033 3.5 53.11C1.16667 50.9167 0 47.5333 0 42.96V38.2H8.89V44.5C8.89 48.2333 10.0567 50.1 12.39 50.1C13.37 50.1 14.1634 49.7267 14.77 48.98C15.4234 48.2333 15.75 47.2533 15.75 46.04C15.75 44.8267 15.5167 43.7067 15.05 42.68C14.5834 41.6067 13.6034 40.09 12.11 38.13L5.53 29.45C3.57 26.8367 2.24 24.6433 1.54 22.87C0.886667 21.0967 0.56 19.0433 0.56 16.71C0.56 13.9567 1.58667 11.4833 3.64 9.29C5.74 7.09667 8.56333 6 12.11 6C15.5634 6 18.3866 7.16667 20.58 9.5C22.82 11.7867 23.9401 14.8667 23.9401 18.74ZM49.8515 55.7H41.2415L42.0815 50.8H41.2415C40.6349 51.78 40.0982 52.5967 39.6315 53.25C39.1649 53.8567 38.3714 54.5333 37.2514 55.28C36.1314 56.0267 34.9414 56.4 33.6814 56.4C31.4414 56.4 29.6682 55.6067 28.3615 54.02C27.1015 52.4333 26.4715 50.3567 26.4715 47.79C26.4715 45.1767 27.0315 42.82 28.1515 40.72C29.2715 38.5733 31.0915 36.2867 33.6115 33.86L41.1015 26.58V25.6C41.1015 22.3333 40.1681 20.7 38.3014 20.7C36.4348 20.7 35.5014 22.3333 35.5014 25.6V30.15H26.7514V27.56C26.7514 23.5 27.7781 20.3033 29.8314 17.97C31.8848 15.59 34.7081 14.4 38.3014 14.4C41.8948 14.4 44.7182 15.59 46.7715 17.97C48.8249 20.3033 49.8515 23.5233 49.8515 27.63V55.7ZM41.1015 44.43V34.28L37.8115 37.78C35.4315 40.3 34.2415 42.61 34.2415 44.71C34.2415 46.9033 35.0582 48 36.6915 48C38.2782 48 39.7482 46.81 41.1015 44.43ZM63.1614 55.7H54.4114V15.1H63.1614L62.3214 19.86H63.1614C65.3547 16.22 68.0147 14.4 71.1414 14.4C73.148 14.4 74.8514 15.2867 76.2514 17.06C77.6514 18.7867 78.3514 21.47 78.3514 25.11V55.7H69.6014V27.7C69.6014 24.7133 68.7147 23.22 66.9414 23.22C65.588 23.22 64.328 24.2933 63.1614 26.44V55.7ZM104.914 55.7H96.3036L97.1436 50.8H96.3036C95.697 51.78 95.1603 52.5967 94.6936 53.25C94.227 53.8567 93.4336 54.5333 92.3136 55.28C91.1936 56.0267 90.0036 56.4 88.7436 56.4C86.5036 56.4 84.7303 55.6067 83.4236 54.02C82.1636 52.4333 81.5336 50.3567 81.5336 47.79C81.5336 45.1767 82.0936 42.82 83.2136 40.72C84.3336 38.5733 86.1536 36.2867 88.6736 33.86L96.1636 26.58V25.6C96.1636 22.3333 95.2303 20.7 93.3636 20.7C91.497 20.7 90.5636 22.3333 90.5636 25.6V30.15H81.8136V27.56C81.8136 23.5 82.8403 20.3033 84.8936 17.97C86.947 15.59 89.7703 14.4 93.3636 14.4C96.957 14.4 99.7803 15.59 101.834 17.97C103.887 20.3033 104.914 23.5233 104.914 27.63V55.7ZM96.1636 44.43V34.28L92.8736 37.78C90.4936 40.3 89.3036 42.61 89.3036 44.71C89.3036 46.9033 90.1203 48 91.7536 48C93.3403 48 94.8103 46.81 96.1636 44.43ZM109.473 6.7H118.223V55.7H109.473V6.7ZM127 10.5L132.893 6.7C132.893 10.7133 131.377 13.1867 128.343 14.12V15.1H131.843V55.7H123.093V15.1H126.593V14.12C123.56 13.1867 127 14.5133 127 10.5ZM158.693 55.7H150.083L150.923 50.8H150.083C149.477 51.78 148.94 52.5967 148.473 53.25C148.007 53.8567 147.213 54.5333 146.093 55.28C144.973 56.0267 143.783 56.4 142.523 56.4C140.283 56.4 138.51 55.6067 137.203 54.02C135.943 52.4333 135.313 50.3567 135.313 47.79C135.313 45.1767 135.873 42.82 136.993 40.72C138.113 38.5733 139.933 36.2867 142.453 33.86L149.943 26.58V25.6C149.943 22.3333 149.01 20.7 147.143 20.7C145.277 20.7 144.343 22.3333 144.343 25.6V30.15H135.593V27.56C135.593 23.5 136.62 20.3033 138.673 17.97C140.727 15.59 143.55 14.4 147.143 14.4C150.737 14.4 153.56 15.59 155.613 17.97C157.667 20.3033 158.693 23.5233 158.693 27.63V55.7ZM149.943 44.43V34.28L146.653 37.78C144.273 40.3 143.083 42.61 143.083 44.71C143.083 46.9033 143.9 48 145.533 48C147.12 48 148.59 46.81 149.943 44.43Z" fill="#0E052A"/></g>
+          <path d="M123.391 16.6304C123.251 16.003 123.036 15.3996 122.836 14.8434C122.526 13.9844 122.232 13.1859 122.088 12.3126C121.818 10.6778 122.05 8.63123 124.452 5.74813C126.242 3.59975 129.234 2.31614 131.963 1.63019C133.309 1.29191 134.546 1.11031 135.462 1.03716C135.83 1.00778 136.137 0.998543 136.371 1.00018C136.415 1.23036 136.46 1.53314 136.497 1.8998C136.591 2.81441 136.636 4.06349 136.546 5.44831C136.364 8.25653 135.642 11.431 133.852 13.5794C131.484 16.4204 129.162 17.071 127.267 17.1069C126.288 17.1254 125.393 16.9797 124.591 16.8332C124.204 16.7625 123.805 16.6848 123.459 16.638C123.437 16.635 123.414 16.6333 123.391 16.6304Z" fill="#635DDD" stroke="white" stroke-width="2"/>
+        </g>
+        <defs><clipPath id="clip_h"><rect width="159" height="57" fill="white"/></clipPath></defs>
+      </svg>
+    </div>
+    <div class="sg-badge">Style Guide v1.0</div>
+  </div>
+
+  <!-- 01 — DIRECTION ARTISTIQUE -->
+  <div class="sg-section">
+    <div class="sg-section-title">01 — Direction Artistique</div>
+    <div class="sg-da-grid">
+      <div class="sg-da-card">
+        <div class="sg-da-icon" style="background: #e9e8ff;">
+          <svg width="28" height="28" viewBox="0 0 46 58" fill="none"><path d="M23 0C12.86 9.03 0 6 0 26.53C0 42.5 21 58.47 23 58.47C25 58.47 46 42.5 46 26.53C46 6 32 9.03 23 0Z" fill="#635DDD"/></svg>
+        </div>
+        <h4>Confiance & Expertise</h4>
+        <p>Un univers violet profond et structurant qui inspire le professionnalisme et la fiabilite dans le domaine anti-nuisible.</p>
+      </div>
+      <div class="sg-da-card">
+        <div class="sg-da-icon" style="background: #ffe5cf;">
+          <span style="font-size: 24px;">&#9786;</span>
+        </div>
+        <h4>Accessible & Bienveillant</h4>
+        <p>Des formes arrondies, des couleurs pastels chaleureuses et un ton rassurant pour destigmatiser le sujet.</p>
+      </div>
+      <div class="sg-da-card">
+        <div class="sg-da-icon" style="background: #e1f7f1;">
+          <span style="font-size: 24px;">&#10024;</span>
+        </div>
+        <h4>Moderne & Epure</h4>
+        <p>Un design minimaliste avec beaucoup d'espace, des typographies bold et un fond creme distinctif.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 — LOGO -->
+  <div class="sg-section">
+    <div class="sg-section-title">02 — Logo</div>
+
+    <div style="background: white; border-radius: 20px; padding: 40px; margin-bottom: 24px;">
+      <div class="sg-component-label">Logo principal — Wordmark vectorise + feuille</div>
+      <div style="display: flex; align-items: center; gap: 48px;">
+        <svg width="318" height="114" viewBox="0 0 159 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip_main)">
+            <mask id="mask_main" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask>
+            <g mask="url(#mask_main)"><path d="M23.9401 18.74V22.87H15.05V17.48C15.05 14.0267 13.9534 12.3 11.76 12.3C10.8267 12.3 10.1034 12.6733 9.59 13.42C9.07667 14.12 8.82 15.03 8.82 16.15C8.82 17.0833 9.1 18.11 9.66 19.23C10.22 20.3033 11.27 21.8433 12.81 23.85L19.3899 32.67C21.35 35.33 22.6567 37.4767 23.3101 39.11C24.01 40.7433 24.36 42.68 24.36 44.92C24.36 48.2333 23.1934 50.9867 20.8601 53.18C18.5267 55.3267 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3033 3.5 53.11C1.16667 50.9167 0 47.5333 0 42.96V38.2H8.89V44.5C8.89 48.2333 10.0567 50.1 12.39 50.1C13.37 50.1 14.1634 49.7267 14.77 48.98C15.4234 48.2333 15.75 47.2533 15.75 46.04C15.75 44.8267 15.5167 43.7067 15.05 42.68C14.5834 41.6067 13.6034 40.09 12.11 38.13L5.53 29.45C3.57 26.8367 2.24 24.6433 1.54 22.87C0.886667 21.0967 0.56 19.0433 0.56 16.71C0.56 13.9567 1.58667 11.4833 3.64 9.29C5.74 7.09667 8.56333 6 12.11 6C15.5634 6 18.3866 7.16667 20.58 9.5C22.82 11.7867 23.9401 14.8667 23.9401 18.74ZM49.8515 55.7H41.2415L42.0815 50.8H41.2415C40.6349 51.78 40.0982 52.5967 39.6315 53.25C39.1649 53.8567 38.3714 54.5333 37.2514 55.28C36.1314 56.0267 34.9414 56.4 33.6814 56.4C31.4414 56.4 29.6682 55.6067 28.3615 54.02C27.1015 52.4333 26.4715 50.3567 26.4715 47.79C26.4715 45.1767 27.0315 42.82 28.1515 40.72C29.2715 38.5733 31.0915 36.2867 33.6115 33.86L41.1015 26.58V25.6C41.1015 22.3333 40.1681 20.7 38.3014 20.7C36.4348 20.7 35.5014 22.3333 35.5014 25.6V30.15H26.7514V27.56C26.7514 23.5 27.7781 20.3033 29.8314 17.97C31.8848 15.59 34.7081 14.4 38.3014 14.4C41.8948 14.4 44.7182 15.59 46.7715 17.97C48.8249 20.3033 49.8515 23.5233 49.8515 27.63V55.7ZM41.1015 44.43V34.28L37.8115 37.78C35.4315 40.3 34.2415 42.61 34.2415 44.71C34.2415 46.9033 35.0582 48 36.6915 48C38.2782 48 39.7482 46.81 41.1015 44.43ZM63.1614 55.7H54.4114V15.1H63.1614L62.3214 19.86H63.1614C65.3547 16.22 68.0147 14.4 71.1414 14.4C73.148 14.4 74.8514 15.2867 76.2514 17.06C77.6514 18.7867 78.3514 21.47 78.3514 25.11V55.7H69.6014V27.7C69.6014 24.7133 68.7147 23.22 66.9414 23.22C65.588 23.22 64.328 24.2933 63.1614 26.44V55.7ZM104.914 55.7H96.3036L97.1436 50.8H96.3036C95.697 51.78 95.1603 52.5967 94.6936 53.25C94.227 53.8567 93.4336 54.5333 92.3136 55.28C91.1936 56.0267 90.0036 56.4 88.7436 56.4C86.5036 56.4 84.7303 55.6067 83.4236 54.02C82.1636 52.4333 81.5336 50.3567 81.5336 47.79C81.5336 45.1767 82.0936 42.82 83.2136 40.72C84.3336 38.5733 86.1536 36.2867 88.6736 33.86L96.1636 26.58V25.6C96.1636 22.3333 95.2303 20.7 93.3636 20.7C91.497 20.7 90.5636 22.3333 90.5636 25.6V30.15H81.8136V27.56C81.8136 23.5 82.8403 20.3033 84.8936 17.97C86.947 15.59 89.7703 14.4 93.3636 14.4C96.957 14.4 99.7803 15.59 101.834 17.97C103.887 20.3033 104.914 23.5233 104.914 27.63V55.7ZM96.1636 44.43V34.28L92.8736 37.78C90.4936 40.3 89.3036 42.61 89.3036 44.71C89.3036 46.9033 90.1203 48 91.7536 48C93.3403 48 94.8103 46.81 96.1636 44.43ZM109.473 6.7H118.223V55.7H109.473V6.7ZM127 10.5L132.893 6.7C132.893 10.7133 131.377 13.1867 128.343 14.12V15.1H131.843V55.7H123.093V15.1H126.593V14.12C123.56 13.1867 127 14.5133 127 10.5ZM158.693 55.7H150.083L150.923 50.8H150.083C149.477 51.78 148.94 52.5967 148.473 53.25C148.007 53.8567 147.213 54.5333 146.093 55.28C144.973 56.0267 143.783 56.4 142.523 56.4C140.283 56.4 138.51 55.6067 137.203 54.02C135.943 52.4333 135.313 50.3567 135.313 47.79C135.313 45.1767 135.873 42.82 136.993 40.72C138.113 38.5733 139.933 36.2867 142.453 33.86L149.943 26.58V25.6C149.943 22.3333 149.01 20.7 147.143 20.7C145.277 20.7 144.343 22.3333 144.343 25.6V30.15H135.593V27.56C135.593 23.5 136.62 20.3033 138.673 17.97C140.727 15.59 143.55 14.4 147.143 14.4C150.737 14.4 153.56 15.59 155.613 17.97C157.667 20.3033 158.693 23.5233 158.693 27.63V55.7ZM149.943 44.43V34.28L146.653 37.78C144.273 40.3 143.083 42.61 143.083 44.71C143.083 46.9033 143.9 48 145.533 48C147.12 48 148.59 46.81 149.943 44.43Z" fill="#0E052A"/></g>
+            <path d="M123.391 16.6304C123.251 16.003 123.036 15.3996 122.836 14.8434C122.526 13.9844 122.232 13.1859 122.088 12.3126C121.818 10.6778 122.05 8.63123 124.452 5.74813C126.242 3.59975 129.234 2.31614 131.963 1.63019C133.309 1.29191 134.546 1.11031 135.462 1.03716C135.83 1.00778 136.137 0.998543 136.371 1.00018C136.415 1.23036 136.46 1.53314 136.497 1.8998C136.591 2.81441 136.636 4.06349 136.546 5.44831C136.364 8.25653 135.642 11.431 133.852 13.5794C131.484 16.4204 129.162 17.071 127.267 17.1069C126.288 17.1254 125.393 16.9797 124.591 16.8332C124.204 16.7625 123.805 16.6848 123.459 16.638C123.437 16.635 123.414 16.6333 123.391 16.6304Z" fill="#635DDD" stroke="white" stroke-width="2"/>
+          </g>
+          <defs><clipPath id="clip_main"><rect width="159" height="57" fill="white"/></clipPath></defs>
+        </svg>
+        <div style="font-size: 13px; color: #666; line-height: 2;">
+          <div><strong>Type :</strong> Wordmark vectorise</div>
+          <div><strong>Couleur texte :</strong> <code class="sg-token-code">#0E052A</code></div>
+          <div><strong>Couleur feuille :</strong> <code class="sg-token-code">#635DDD</code></div>
+          <div><strong>Format :</strong> SVG</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-logo-zone">
+      <div class="sg-logo-variant">
+        <div class="sg-logo-display" style="background: #f6f5f0; border: 1px solid #eee;">
+          <svg viewBox="0 0 159 57" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#c1)"><mask id="m1" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask><g mask="url(#m1)"><path d="M23.94 18.74V22.87H15.05V17.48C15.05 14.03 13.95 12.3 11.76 12.3C10.83 12.3 10.1 12.67 9.59 13.42C9.08 14.12 8.82 15.03 8.82 16.15C8.82 17.08 9.1 18.11 9.66 19.23C10.22 20.3 11.27 21.84 12.81 23.85L19.39 32.67C21.35 35.33 22.66 37.48 23.31 39.11C24.01 40.74 24.36 42.68 24.36 44.92C24.36 48.23 23.19 50.99 20.86 53.18C18.53 55.33 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3 3.5 53.11C1.17 50.92 0 47.53 0 42.96V38.2H8.89V44.5C8.89 48.23 10.06 50.1 12.39 50.1C13.37 50.1 14.16 49.73 14.77 48.98C15.42 48.23 15.75 47.25 15.75 46.04C15.75 44.83 15.52 43.71 15.05 42.68C14.58 41.61 13.6 40.09 12.11 38.13L5.53 29.45C3.57 26.84 2.24 24.64 1.54 22.87C.89 21.1.56 19.04.56 16.71.56 13.96 1.59 11.48 3.64 9.29 5.74 7.1 8.56 6 12.11 6 15.56 6 18.39 7.17 20.58 9.5 22.82 11.79 23.94 14.87 23.94 18.74ZM49.85 55.7H41.24L42.08 50.8H41.24C40.63 51.78 40.1 52.6 39.63 53.25 39.16 53.86 38.37 54.53 37.25 55.28 36.13 56.03 34.94 56.4 33.68 56.4 31.44 56.4 29.67 55.61 28.36 54.02 27.1 52.43 26.47 50.36 26.47 47.79 26.47 45.18 27.03 42.82 28.15 40.72 29.27 38.57 31.09 36.29 33.61 33.86L41.1 26.58V25.6C41.1 22.33 40.17 20.7 38.3 20.7 36.43 20.7 35.5 22.33 35.5 25.6V30.15H26.75V27.56C26.75 23.5 27.78 20.3 29.83 17.97 31.88 15.59 34.71 14.4 38.3 14.4 41.89 14.4 44.72 15.59 46.77 17.97 48.82 20.3 49.85 23.52 49.85 27.63V55.7ZM41.1 44.43V34.28L37.81 37.78C35.43 40.3 34.24 42.61 34.24 44.71 34.24 46.9 35.06 48 36.69 48 38.28 48 39.75 46.81 41.1 44.43ZM63.16 55.7H54.41V15.1H63.16L62.32 19.86H63.16C65.35 16.22 68.01 14.4 71.14 14.4 73.15 14.4 74.85 15.29 76.25 17.06 77.65 18.79 78.35 21.47 78.35 25.11V55.7H69.6V27.7C69.6 24.71 68.71 23.22 66.94 23.22 65.59 23.22 64.33 24.29 63.16 26.44V55.7ZM104.91 55.7H96.3L97.14 50.8H96.3C95.7 51.78 95.16 52.6 94.69 53.25 94.23 53.86 93.43 54.53 92.31 55.28 91.19 56.03 90 56.4 88.74 56.4 86.5 56.4 84.73 55.61 83.42 54.02 82.16 52.43 81.53 50.36 81.53 47.79 81.53 45.18 82.09 42.82 83.21 40.72 84.33 38.57 86.15 36.29 88.67 33.86L96.16 26.58V25.6C96.16 22.33 95.23 20.7 93.36 20.7 91.5 20.7 90.56 22.33 90.56 25.6V30.15H81.81V27.56C81.81 23.5 82.84 20.3 84.89 17.97 86.95 15.59 89.77 14.4 93.36 14.4 96.96 14.4 99.78 15.59 101.83 17.97 103.89 20.3 104.91 23.52 104.91 27.63V55.7ZM96.16 44.43V34.28L92.87 37.78C90.49 40.3 89.3 42.61 89.3 44.71 89.3 46.9 90.12 48 91.75 48 93.34 48 94.81 46.81 96.16 44.43ZM109.47 6.7H118.22V55.7H109.47V6.7ZM127 10.5L132.89 6.7C132.89 10.71 131.38 13.19 128.34 14.12V15.1H131.84V55.7H123.09V15.1H126.59V14.12C123.56 13.19 127 14.51 127 10.5ZM158.69 55.7H150.08L150.92 50.8H150.08C149.48 51.78 148.94 52.6 148.47 53.25 148.01 53.86 147.21 54.53 146.09 55.28 144.97 56.03 143.78 56.4 142.52 56.4 140.28 56.4 138.51 55.61 137.2 54.02 135.94 52.43 135.31 50.36 135.31 47.79 135.31 45.18 135.87 42.82 136.99 40.72 138.11 38.57 139.93 36.29 142.45 33.86L149.94 26.58V25.6C149.94 22.33 149.01 20.7 147.14 20.7 145.28 20.7 144.34 22.33 144.34 25.6V30.15H135.59V27.56C135.59 23.5 136.62 20.3 138.67 17.97 140.73 15.59 143.55 14.4 147.14 14.4 150.74 14.4 153.56 15.59 155.61 17.97 157.67 20.3 158.69 23.52 158.69 27.63V55.7ZM149.94 44.43V34.28L146.65 37.78C144.27 40.3 143.08 42.61 143.08 44.71 143.08 46.9 143.9 48 145.53 48 147.12 48 148.59 46.81 149.94 44.43Z" fill="#0E052A"/></g>
+          <path d="M123.391 16.63C123.251 16 123.036 15.4 122.836 14.84C122.526 13.98 122.232 13.19 122.088 12.31C121.818 10.68 122.05 8.63 124.452 5.75C126.242 3.6 129.234 2.32 131.963 1.63C133.309 1.29 134.546 1.11 135.462 1.04C135.83 1.01 136.137 1 136.371 1C136.415 1.23 136.46 1.53 136.497 1.9C136.591 2.81 136.636 4.06 136.546 5.45C136.364 8.26 135.642 11.43 133.852 13.58C131.484 16.42 129.162 17.07 127.267 17.11C126.288 17.13 125.393 16.98 124.591 16.83C124.204 16.76 123.805 16.68 123.459 16.64C123.437 16.64 123.414 16.63 123.391 16.63Z" fill="#635DDD" stroke="white" stroke-width="2"/></g>
+          <defs><clipPath id="c1"><rect width="159" height="57" fill="white"/></clipPath></defs></svg>
+        </div>
+        <div class="sg-logo-label">Fond creme</div>
+      </div>
+      <div class="sg-logo-variant">
+        <div class="sg-logo-display" style="background: #0e052a;">
+          <svg viewBox="0 0 159 57" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#c2)"><mask id="m2" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask><g mask="url(#m2)"><path d="M23.94 18.74V22.87H15.05V17.48C15.05 14.03 13.95 12.3 11.76 12.3C10.83 12.3 10.1 12.67 9.59 13.42C9.08 14.12 8.82 15.03 8.82 16.15C8.82 17.08 9.1 18.11 9.66 19.23C10.22 20.3 11.27 21.84 12.81 23.85L19.39 32.67C21.35 35.33 22.66 37.48 23.31 39.11C24.01 40.74 24.36 42.68 24.36 44.92C24.36 48.23 23.19 50.99 20.86 53.18C18.53 55.33 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3 3.5 53.11C1.17 50.92 0 47.53 0 42.96V38.2H8.89V44.5C8.89 48.23 10.06 50.1 12.39 50.1C13.37 50.1 14.16 49.73 14.77 48.98C15.42 48.23 15.75 47.25 15.75 46.04C15.75 44.83 15.52 43.71 15.05 42.68C14.58 41.61 13.6 40.09 12.11 38.13L5.53 29.45C3.57 26.84 2.24 24.64 1.54 22.87C.89 21.1.56 19.04.56 16.71.56 13.96 1.59 11.48 3.64 9.29 5.74 7.1 8.56 6 12.11 6 15.56 6 18.39 7.17 20.58 9.5 22.82 11.79 23.94 14.87 23.94 18.74ZM49.85 55.7H41.24L42.08 50.8H41.24C40.63 51.78 40.1 52.6 39.63 53.25 39.16 53.86 38.37 54.53 37.25 55.28 36.13 56.03 34.94 56.4 33.68 56.4 31.44 56.4 29.67 55.61 28.36 54.02 27.1 52.43 26.47 50.36 26.47 47.79 26.47 45.18 27.03 42.82 28.15 40.72 29.27 38.57 31.09 36.29 33.61 33.86L41.1 26.58V25.6C41.1 22.33 40.17 20.7 38.3 20.7 36.43 20.7 35.5 22.33 35.5 25.6V30.15H26.75V27.56C26.75 23.5 27.78 20.3 29.83 17.97 31.88 15.59 34.71 14.4 38.3 14.4 41.89 14.4 44.72 15.59 46.77 17.97 48.82 20.3 49.85 23.52 49.85 27.63V55.7ZM41.1 44.43V34.28L37.81 37.78C35.43 40.3 34.24 42.61 34.24 44.71 34.24 46.9 35.06 48 36.69 48 38.28 48 39.75 46.81 41.1 44.43ZM63.16 55.7H54.41V15.1H63.16L62.32 19.86H63.16C65.35 16.22 68.01 14.4 71.14 14.4 73.15 14.4 74.85 15.29 76.25 17.06 77.65 18.79 78.35 21.47 78.35 25.11V55.7H69.6V27.7C69.6 24.71 68.71 23.22 66.94 23.22 65.59 23.22 64.33 24.29 63.16 26.44V55.7ZM104.91 55.7H96.3L97.14 50.8H96.3C95.7 51.78 95.16 52.6 94.69 53.25 94.23 53.86 93.43 54.53 92.31 55.28 91.19 56.03 90 56.4 88.74 56.4 86.5 56.4 84.73 55.61 83.42 54.02 82.16 52.43 81.53 50.36 81.53 47.79 81.53 45.18 82.09 42.82 83.21 40.72 84.33 38.57 86.15 36.29 88.67 33.86L96.16 26.58V25.6C96.16 22.33 95.23 20.7 93.36 20.7 91.5 20.7 90.56 22.33 90.56 25.6V30.15H81.81V27.56C81.81 23.5 82.84 20.3 84.89 17.97 86.95 15.59 89.77 14.4 93.36 14.4 96.96 14.4 99.78 15.59 101.83 17.97 103.89 20.3 104.91 23.52 104.91 27.63V55.7ZM96.16 44.43V34.28L92.87 37.78C90.49 40.3 89.3 42.61 89.3 44.71 89.3 46.9 90.12 48 91.75 48 93.34 48 94.81 46.81 96.16 44.43ZM109.47 6.7H118.22V55.7H109.47V6.7ZM127 10.5L132.89 6.7C132.89 10.71 131.38 13.19 128.34 14.12V15.1H131.84V55.7H123.09V15.1H126.59V14.12C123.56 13.19 127 14.51 127 10.5ZM158.69 55.7H150.08L150.92 50.8H150.08C149.48 51.78 148.94 52.6 148.47 53.25 148.01 53.86 147.21 54.53 146.09 55.28 144.97 56.03 143.78 56.4 142.52 56.4 140.28 56.4 138.51 55.61 137.2 54.02 135.94 52.43 135.31 50.36 135.31 47.79 135.31 45.18 135.87 42.82 136.99 40.72 138.11 38.57 139.93 36.29 142.45 33.86L149.94 26.58V25.6C149.94 22.33 149.01 20.7 147.14 20.7 145.28 20.7 144.34 22.33 144.34 25.6V30.15H135.59V27.56C135.59 23.5 136.62 20.3 138.67 17.97 140.73 15.59 143.55 14.4 147.14 14.4 150.74 14.4 153.56 15.59 155.61 17.97 157.67 20.3 158.69 23.52 158.69 27.63V55.7ZM149.94 44.43V34.28L146.65 37.78C144.27 40.3 143.08 42.61 143.08 44.71 143.08 46.9 143.9 48 145.53 48 147.12 48 148.59 46.81 149.94 44.43Z" fill="white"/></g>
+          <path d="M123.391 16.63C123.251 16 123.036 15.4 122.836 14.84C122.526 13.98 122.232 13.19 122.088 12.31C121.818 10.68 122.05 8.63 124.452 5.75C126.242 3.6 129.234 2.32 131.963 1.63C133.309 1.29 134.546 1.11 135.462 1.04C135.83 1.01 136.137 1 136.371 1C136.415 1.23 136.46 1.53 136.497 1.9C136.591 2.81 136.636 4.06 136.546 5.45C136.364 8.26 135.642 11.43 133.852 13.58C131.484 16.42 129.162 17.07 127.267 17.11C126.288 17.13 125.393 16.98 124.591 16.83C124.204 16.76 123.805 16.68 123.459 16.64C123.437 16.64 123.414 16.63 123.391 16.63Z" fill="#635DDD" stroke="#0e052a" stroke-width="2"/></g>
+          <defs><clipPath id="c2"><rect width="159" height="57" fill="white"/></clipPath></defs></svg>
+        </div>
+        <div class="sg-logo-label">Fond sombre</div>
+      </div>
+      <div class="sg-logo-variant">
+        <div class="sg-logo-display" style="background: #635ddd;">
+          <svg viewBox="0 0 159 57" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#c3)"><mask id="m3" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask><g mask="url(#m3)"><path d="M23.94 18.74V22.87H15.05V17.48C15.05 14.03 13.95 12.3 11.76 12.3C10.83 12.3 10.1 12.67 9.59 13.42C9.08 14.12 8.82 15.03 8.82 16.15C8.82 17.08 9.1 18.11 9.66 19.23C10.22 20.3 11.27 21.84 12.81 23.85L19.39 32.67C21.35 35.33 22.66 37.48 23.31 39.11C24.01 40.74 24.36 42.68 24.36 44.92C24.36 48.23 23.19 50.99 20.86 53.18C18.53 55.33 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3 3.5 53.11C1.17 50.92 0 47.53 0 42.96V38.2H8.89V44.5C8.89 48.23 10.06 50.1 12.39 50.1C13.37 50.1 14.16 49.73 14.77 48.98C15.42 48.23 15.75 47.25 15.75 46.04C15.75 44.83 15.52 43.71 15.05 42.68C14.58 41.61 13.6 40.09 12.11 38.13L5.53 29.45C3.57 26.84 2.24 24.64 1.54 22.87C.89 21.1.56 19.04.56 16.71.56 13.96 1.59 11.48 3.64 9.29 5.74 7.1 8.56 6 12.11 6 15.56 6 18.39 7.17 20.58 9.5 22.82 11.79 23.94 14.87 23.94 18.74ZM49.85 55.7H41.24L42.08 50.8H41.24C40.63 51.78 40.1 52.6 39.63 53.25 39.16 53.86 38.37 54.53 37.25 55.28 36.13 56.03 34.94 56.4 33.68 56.4 31.44 56.4 29.67 55.61 28.36 54.02 27.1 52.43 26.47 50.36 26.47 47.79 26.47 45.18 27.03 42.82 28.15 40.72 29.27 38.57 31.09 36.29 33.61 33.86L41.1 26.58V25.6C41.1 22.33 40.17 20.7 38.3 20.7 36.43 20.7 35.5 22.33 35.5 25.6V30.15H26.75V27.56C26.75 23.5 27.78 20.3 29.83 17.97 31.88 15.59 34.71 14.4 38.3 14.4 41.89 14.4 44.72 15.59 46.77 17.97 48.82 20.3 49.85 23.52 49.85 27.63V55.7ZM41.1 44.43V34.28L37.81 37.78C35.43 40.3 34.24 42.61 34.24 44.71 34.24 46.9 35.06 48 36.69 48 38.28 48 39.75 46.81 41.1 44.43ZM63.16 55.7H54.41V15.1H63.16L62.32 19.86H63.16C65.35 16.22 68.01 14.4 71.14 14.4 73.15 14.4 74.85 15.29 76.25 17.06 77.65 18.79 78.35 21.47 78.35 25.11V55.7H69.6V27.7C69.6 24.71 68.71 23.22 66.94 23.22 65.59 23.22 64.33 24.29 63.16 26.44V55.7ZM104.91 55.7H96.3L97.14 50.8H96.3C95.7 51.78 95.16 52.6 94.69 53.25 94.23 53.86 93.43 54.53 92.31 55.28 91.19 56.03 90 56.4 88.74 56.4 86.5 56.4 84.73 55.61 83.42 54.02 82.16 52.43 81.53 50.36 81.53 47.79 81.53 45.18 82.09 42.82 83.21 40.72 84.33 38.57 86.15 36.29 88.67 33.86L96.16 26.58V25.6C96.16 22.33 95.23 20.7 93.36 20.7 91.5 20.7 90.56 22.33 90.56 25.6V30.15H81.81V27.56C81.81 23.5 82.84 20.3 84.89 17.97 86.95 15.59 89.77 14.4 93.36 14.4 96.96 14.4 99.78 15.59 101.83 17.97 103.89 20.3 104.91 23.52 104.91 27.63V55.7ZM96.16 44.43V34.28L92.87 37.78C90.49 40.3 89.3 42.61 89.3 44.71 89.3 46.9 90.12 48 91.75 48 93.34 48 94.81 46.81 96.16 44.43ZM109.47 6.7H118.22V55.7H109.47V6.7ZM127 10.5L132.89 6.7C132.89 10.71 131.38 13.19 128.34 14.12V15.1H131.84V55.7H123.09V15.1H126.59V14.12C123.56 13.19 127 14.51 127 10.5ZM158.69 55.7H150.08L150.92 50.8H150.08C149.48 51.78 148.94 52.6 148.47 53.25 148.01 53.86 147.21 54.53 146.09 55.28 144.97 56.03 143.78 56.4 142.52 56.4 140.28 56.4 138.51 55.61 137.2 54.02 135.94 52.43 135.31 50.36 135.31 47.79 135.31 45.18 135.87 42.82 136.99 40.72 138.11 38.57 139.93 36.29 142.45 33.86L149.94 26.58V25.6C149.94 22.33 149.01 20.7 147.14 20.7 145.28 20.7 144.34 22.33 144.34 25.6V30.15H135.59V27.56C135.59 23.5 136.62 20.3 138.67 17.97 140.73 15.59 143.55 14.4 147.14 14.4 150.74 14.4 153.56 15.59 155.61 17.97 157.67 20.3 158.69 23.52 158.69 27.63V55.7ZM149.94 44.43V34.28L146.65 37.78C144.27 40.3 143.08 42.61 143.08 44.71 143.08 46.9 143.9 48 145.53 48 147.12 48 148.59 46.81 149.94 44.43Z" fill="white"/></g>
+          <path d="M123.391 16.63C123.251 16 123.036 15.4 122.836 14.84C122.526 13.98 122.232 13.19 122.088 12.31C121.818 10.68 122.05 8.63 124.452 5.75C126.242 3.6 129.234 2.32 131.963 1.63C133.309 1.29 134.546 1.11 135.462 1.04C135.83 1.01 136.137 1 136.371 1C136.415 1.23 136.46 1.53 136.497 1.9C136.591 2.81 136.636 4.06 136.546 5.45C136.364 8.26 135.642 11.43 133.852 13.58C131.484 16.42 129.162 17.07 127.267 17.11C126.288 17.13 125.393 16.98 124.591 16.83C124.204 16.76 123.805 16.68 123.459 16.64C123.437 16.64 123.414 16.63 123.391 16.63Z" fill="white" stroke="#635ddd" stroke-width="2"/></g>
+          <defs><clipPath id="c3"><rect width="159" height="57" fill="white"/></clipPath></defs></svg>
+        </div>
+        <div class="sg-logo-label">Fond violet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 — COULEURS -->
+  <div class="sg-section">
+    <div class="sg-section-title">03 — Palette de Couleurs</div>
+
+    <div class="sg-section-subtitle">Couleurs principales</div>
+    <div class="sg-colors-grid">
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #0e052a;"></div><div class="sg-color-name">Dark Navy</div><div class="sg-color-hex">#0E052A</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #34285a;"></div><div class="sg-color-name">Deep Purple</div><div class="sg-color-hex">#34285A</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #635ddd;"></div><div class="sg-color-name">Primary Purple</div><div class="sg-color-hex">#635DDD</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #7671d5;"></div><div class="sg-color-name">Accent Purple</div><div class="sg-color-hex">#7671D5</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #8781f3;"></div><div class="sg-color-name">Medium Purple</div><div class="sg-color-hex">#8781F3</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #ceccfc;"></div><div class="sg-color-name">Light Purple</div><div class="sg-color-hex">#CECCFC</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #e9e8ff;"></div><div class="sg-color-name">Pale Purple</div><div class="sg-color-hex">#E9E8FF</div></div>
+    </div>
+    <div class="sg-gradient-bar">
+      <div style="background: #0e052a;"></div><div style="background: #34285a;"></div><div style="background: #635ddd;"></div>
+      <div style="background: #7671d5;"></div><div style="background: #8781f3;"></div><div style="background: #ceccfc;"></div><div style="background: #e9e8ff;"></div>
+    </div>
+
+    <div style="height: 48px;"></div>
+    <div class="sg-section-subtitle">Couleur d'accent</div>
+    <div class="sg-colors-grid">
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #f66c24;"></div><div class="sg-color-name">Orange CTA</div><div class="sg-color-hex">#F66C24</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #ffe5cf;"></div><div class="sg-color-name">Peach Light</div><div class="sg-color-hex">#FFE5CF</div></div>
+    </div>
+
+    <div style="height: 24px;"></div>
+    <div class="sg-section-subtitle">Fonds & Neutres</div>
+    <div class="sg-colors-grid">
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #f6f5f0;"></div><div class="sg-color-name">Cream (fond)</div><div class="sg-color-hex">#F6F5F0</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #f1ecdf;"></div><div class="sg-color-name">Sand</div><div class="sg-color-hex">#F1ECDF</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #fffdf8;"></div><div class="sg-color-name">Off-White</div><div class="sg-color-hex">#FFFDF8</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #ffffff; border: 1px solid #eee;"></div><div class="sg-color-name">White</div><div class="sg-color-hex">#FFFFFF</div></div>
+      <div class="sg-color-card"><div class="sg-color-swatch" style="background: #e5e5e5;"></div><div class="sg-color-name">Gray Light</div><div class="sg-color-hex">#E5E5E5</div></div>
+    </div>
+
+    <div style="height: 24px;"></div>
+    <div class="sg-section-subtitle">Palette pastel (categories)</div>
+    <div class="sg-pastels-grid">
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #b0d5f5;"></div><div class="sg-pastel-label">Blue</div><div class="sg-pastel-hex">#B0D5F5</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #e6f3ff;"></div><div class="sg-pastel-label">Blue Light</div><div class="sg-pastel-hex">#E6F3FF</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #efdff6;"></div><div class="sg-pastel-label">Lavender</div><div class="sg-pastel-hex">#EFDFF6</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #fbf2ff;"></div><div class="sg-pastel-label">Lavender Light</div><div class="sg-pastel-hex">#FBF2FF</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #ffd4cf;"></div><div class="sg-pastel-label">Rose</div><div class="sg-pastel-hex">#FFD4CF</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #ffece9;"></div><div class="sg-pastel-label">Rose Light</div><div class="sg-pastel-hex">#FFECE9</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #ffd4a7;"></div><div class="sg-pastel-label">Peach</div><div class="sg-pastel-hex">#FFD4A7</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #fff3e7;"></div><div class="sg-pastel-label">Peach Light</div><div class="sg-pastel-hex">#FFF3E7</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #f4e9c1;"></div><div class="sg-pastel-label">Gold</div><div class="sg-pastel-hex">#F4E9C1</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #fffae7;"></div><div class="sg-pastel-label">Gold Light</div><div class="sg-pastel-hex">#FFFAE7</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #abe0d1;"></div><div class="sg-pastel-label">Mint</div><div class="sg-pastel-hex">#ABE0D1</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #e1f7f1;"></div><div class="sg-pastel-label">Mint Light</div><div class="sg-pastel-hex">#E1F7F1</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #c8ebb3;"></div><div class="sg-pastel-label">Green</div><div class="sg-pastel-hex">#C8EBB3</div></div>
+      <div class="sg-pastel-card"><div class="sg-pastel-swatch" style="background: #eaf9e0;"></div><div class="sg-pastel-label">Green Light</div><div class="sg-pastel-hex">#EAF9E0</div></div>
+    </div>
+  </div>
+
+  <!-- 04 — TYPOGRAPHIE -->
+  <div class="sg-section">
+    <div class="sg-section-title">04 — Typographie</div>
+    <div class="sg-typo-block">
+
+      <div class="sg-font-info">
+        <div>
+          <div class="sg-font-tag">FONT PRINCIPALE</div>
+          <div class="sg-font-info-name">Uxum</div>
+        </div>
+        <div class="sg-font-info-detail">Famille typographique principale. Bold pour les titres et accroches, Regular pour le corps de texte, Light pour les textes longs.</div>
+        <div class="sg-font-info-usage">Titres / Paragraphes / CTA</div>
+      </div>
+
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">H1 — Titre principal</div><div class="sg-typo-specs">Uxum Bold / 48px</div></div>
+        <div style="font-size: 48px; font-weight: 700;">Debarassez vous des nuisibles</div>
+      </div>
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">H2 — Titre hero</div><div class="sg-typo-specs">Uxum Bold / 32px</div></div>
+        <div style="font-size: 32px; font-weight: 700; line-height: 1.3;">Facilement, sereinement,<br><span style="color: #7671d5;">definitivement !</span></div>
+      </div>
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">H3 — Sous-titre</div><div class="sg-typo-specs">Uxum Bold / 24px</div></div>
+        <div style="font-size: 24px; font-weight: 700; color: #635ddd;">N°1 de l'anti-nuisible</div>
+      </div>
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">Body</div><div class="sg-typo-specs">Uxum Regular / 16px / 1.6</div></div>
+        <div style="font-size: 16px; font-weight: 400; line-height: 1.6; max-width: 500px; color: #444;">Sanalia est le numero 1 de l'anti-nuisible en France. Nous vous debarrassons des nuisibles facilement et definitivement.</div>
+      </div>
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">Body Light</div><div class="sg-typo-specs">Uxum Light / 16px / 1.6</div></div>
+        <div style="font-size: 16px; font-weight: 300; line-height: 1.6; max-width: 500px; color: #444;">Intervention rapide et professionnelle pour eliminer durablement tous types de nuisibles de votre habitat.</div>
+      </div>
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">Bouton CTA</div><div class="sg-typo-specs">Uxum Bold / 16px</div></div>
+        <div style="font-size: 16px; font-weight: 700;">Devis gratuit</div>
+      </div>
+
+      <div style="height: 40px; border-bottom: 3px solid #e9e8ff;"></div>
+      <div style="height: 32px;"></div>
+
+      <div class="sg-font-info">
+        <div>
+          <div class="sg-font-tag">FONT SECONDAIRE</div>
+          <div class="sg-font-info-name" style="font-family: 'Space Mono', monospace;">Space Mono</div>
+        </div>
+        <div class="sg-font-info-detail">Google Font monospace pour les elements system : codes hex, tags, tokens CSS, petits textes techniques secondaires.</div>
+        <div class="sg-font-info-usage">Tags / Codes couleurs / Tokens / Specs</div>
+      </div>
+
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">Code / Hex</div><div class="sg-typo-specs">Space Mono / 13px</div></div>
+        <div style="font-size: 13px; font-family: 'Space Mono', monospace; color: #666;">#635DDD &nbsp; #0E052A &nbsp; #F66C24 &nbsp; #F6F5F0</div>
+      </div>
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">Tag / Label</div><div class="sg-typo-specs">Space Mono / 11px / regular</div></div>
+        <div style="display: flex; gap: 12px;">
+          <span class="sg-font-tag">FONT PRINCIPALE</span>
+          <span class="sg-font-tag">COULEURS</span>
+          <span class="sg-font-tag">COMPOSANTS</span>
+        </div>
+      </div>
+      <div class="sg-typo-row">
+        <div class="sg-typo-meta"><div class="sg-typo-label">Variable CSS</div><div class="sg-typo-specs">Space Mono / 14px</div></div>
+        <div style="font-size: 14px; font-family: 'Space Mono', monospace; color: #444;">--color-primary: #635DDD;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 — BOUTONS -->
+  <div class="sg-section">
+    <div class="sg-section-title">05 — Boutons</div>
+    <div class="sg-component-card" style="margin-bottom: 24px;">
+      <div class="sg-component-label">Variantes</div>
+      <div class="sg-buttons-row" style="margin-bottom: 32px;">
+        <button class="sg-btn sg-btn-primary">Devis gratuit</button>
+        <button class="sg-btn sg-btn-secondary">En savoir plus</button>
+        <button class="sg-btn sg-btn-accent">Appeler maintenant</button>
+        <button class="sg-btn sg-btn-outline">Nos services</button>
+        <button class="sg-btn sg-btn-ghost">Voir les avis</button>
+      </div>
+      <div class="sg-component-label" style="margin-top: 32px;">Tailles</div>
+      <div class="sg-buttons-row">
+        <button class="sg-btn sg-btn-primary sg-btn-lg">Large</button>
+        <button class="sg-btn sg-btn-primary">Default</button>
+        <button class="sg-btn sg-btn-primary sg-btn-sm">Small</button>
+      </div>
+    </div>
+    <div style="background: white; border-radius: 20px; padding: 32px;">
+      <div class="sg-component-label">Specs bouton principal</div>
+      <div style="display: flex; gap: 40px; align-items: center;">
+        <div style="background: #0e052a; color: white; font-weight: 700; font-size: 16px; padding: 13px 32px; border-radius: 8px;">Devis gratuit</div>
+        <div style="font-size: 13px; color: #666; line-height: 2; font-family: 'Space Mono', monospace;">
+          <div>background: #0E052A</div>
+          <div>color: #FFFFFF</div>
+          <div>font: Uxum Bold 16px</div>
+          <div>padding: 13px 24px</div>
+          <div>border-radius: 8px</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 — COMPOSANTS UI -->
+  <div class="sg-section">
+    <div class="sg-section-title">06 — Composants UI</div>
+    <div class="sg-components-grid">
+      <div class="sg-component-card">
+        <div class="sg-component-label">Hero Banner</div>
+        <div class="sg-hero-preview">
+          <div><h3>Debarassez vous<br>des nuisibles<br><span class="highlight">definitivement !</span></h3></div>
+          <button class="sg-btn sg-btn-primary" style="white-space: nowrap;">Devis gratuit</button>
+        </div>
+      </div>
+      <div class="sg-component-card">
+        <div class="sg-component-label">Card Service</div>
+        <div class="sg-card-demo">
+          <div class="sg-card-thumb" style="background: #e9e8ff;"></div>
+          <div class="sg-card-content"><h4>Deratisation</h4><p>Intervention rapide et efficace pour eliminer les rongeurs de votre habitat.</p></div>
+        </div>
+        <div style="height: 16px;"></div>
+        <div class="sg-card-demo">
+          <div class="sg-card-thumb" style="background: #ffe5cf;"></div>
+          <div class="sg-card-content"><h4>Desinsectisation</h4><p>Traitement complet contre les insectes nuisibles.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 — ESPACEMENTS & RADIUS -->
+  <div class="sg-section">
+    <div class="sg-section-title">07 — Espacements & Arrondis</div>
+    <div class="sg-components-grid">
+      <div class="sg-component-card">
+        <div class="sg-component-label">Espacements</div>
+        <div class="sg-spacing-row"><div class="sg-spacing-label">4px</div><div class="sg-spacing-block" style="width: 4px; height: 20px;"></div><div class="sg-spacing-value">xs</div></div>
+        <div class="sg-spacing-row"><div class="sg-spacing-label">8px</div><div class="sg-spacing-block" style="width: 8px; height: 20px;"></div><div class="sg-spacing-value">sm</div></div>
+        <div class="sg-spacing-row"><div class="sg-spacing-label">16px</div><div class="sg-spacing-block" style="width: 16px; height: 20px;"></div><div class="sg-spacing-value">md</div></div>
+        <div class="sg-spacing-row"><div class="sg-spacing-label">24px</div><div class="sg-spacing-block" style="width: 24px; height: 20px;"></div><div class="sg-spacing-value">lg</div></div>
+        <div class="sg-spacing-row"><div class="sg-spacing-label">32px</div><div class="sg-spacing-block" style="width: 32px; height: 20px;"></div><div class="sg-spacing-value">xl</div></div>
+        <div class="sg-spacing-row"><div class="sg-spacing-label">48px</div><div class="sg-spacing-block" style="width: 48px; height: 20px;"></div><div class="sg-spacing-value">2xl</div></div>
+        <div class="sg-spacing-row"><div class="sg-spacing-label">64px</div><div class="sg-spacing-block" style="width: 64px; height: 20px;"></div><div class="sg-spacing-value">3xl</div></div>
+      </div>
+      <div class="sg-component-card">
+        <div class="sg-component-label">Border Radius</div>
+        <div class="sg-radius-grid">
+          <div class="sg-radius-item"><div class="sg-radius-box" style="border-radius: 2px;"></div><div class="sg-radius-val">2px</div></div>
+          <div class="sg-radius-item"><div class="sg-radius-box" style="border-radius: 4px;"></div><div class="sg-radius-val">4px</div></div>
+          <div class="sg-radius-item"><div class="sg-radius-box" style="border-radius: 8px;"></div><div class="sg-radius-val">8px</div></div>
+          <div class="sg-radius-item"><div class="sg-radius-box" style="border-radius: 16px;"></div><div class="sg-radius-val">16px</div></div>
+          <div class="sg-radius-item"><div class="sg-radius-box" style="border-radius: 20px;"></div><div class="sg-radius-val">20px</div></div>
+          <div class="sg-radius-item"><div class="sg-radius-box" style="border-radius: 100px;"></div><div class="sg-radius-val">Full</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 — DESIGN TOKENS -->
+  <div class="sg-section">
+    <div class="sg-section-title">08 — Resume des Design Tokens</div>
+    <div style="background: white; border-radius: 20px; padding: 48px; font-size: 14px; line-height: 2.2;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+        <div>
+          <div style="font-weight: 400; color: #999; margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Space Mono', monospace;">Couleurs</div>
+          <div><strong>--color-primary:</strong> <code class="sg-token-code">#635DDD</code></div>
+          <div><strong>--color-primary-dark:</strong> <code class="sg-token-code">#0E052A</code></div>
+          <div><strong>--color-accent:</strong> <code class="sg-token-code">#F66C24</code></div>
+          <div><strong>--color-bg:</strong> <code class="sg-token-code">#F6F5F0</code></div>
+          <div><strong>--color-surface:</strong> <code class="sg-token-code">#FFFFFF</code></div>
+          <div><strong>--color-purple-light:</strong> <code class="sg-token-code">#E9E8FF</code></div>
+          <div><strong>--color-text:</strong> <code class="sg-token-code">#0E052A</code></div>
+        </div>
+        <div>
+          <div style="font-weight: 400; color: #999; margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Space Mono', monospace;">Typographie</div>
+          <div><strong>--font-primary:</strong> Uxum (Bold / Regular / Light)</div>
+          <div><strong>--font-system:</strong> Space Mono (Google Fonts)</div>
+          <div style="height: 16px;"></div>
+          <div style="font-weight: 400; color: #999; margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Space Mono', monospace;">Logo</div>
+          <div><strong>--logo:</strong> Wordmark vectorise SVG</div>
+          <div><strong>--logo-text:</strong> <code class="sg-token-code">#0E052A</code></div>
+          <div><strong>--logo-leaf:</strong> <code class="sg-token-code">#635DDD</code></div>
+          <div style="height: 16px;"></div>
+          <div style="font-weight: 400; color: #999; margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Space Mono', monospace;">Rayons</div>
+          <div><strong>--radius-sm:</strong> 4px</div>
+          <div><strong>--radius-md:</strong> 8px</div>
+          <div><strong>--radius-lg:</strong> 16px</div>
+          <div><strong>--radius-xl:</strong> 20px</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

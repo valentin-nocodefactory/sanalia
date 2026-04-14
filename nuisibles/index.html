@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide des Nuisibles en France — Identification & Solutions | Sanalia</title>
+<meta name="description" content="Identifiez les nuisibles qui envahissent votre logement : rats, souris, cafards, punaises de lit, guepes, fourmis et plus. Fiches completes et solutions professionnelles.">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/components.css">
+<style>
+.nuisibles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+}
+.nuisible-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+.nuisible-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(14,5,42,0.1);
+}
+.nuisible-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: var(--color-bg-sand);
+}
+.nuisible-card-body {
+  padding: var(--space-lg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.nuisible-card-body h3 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-h3);
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary-900);
+}
+.nuisible-card-body p {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-body);
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+  margin: 0 0 var(--space-md);
+  flex: 1;
+}
+.nuisible-card-link {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--text-body);
+  color: var(--color-primary-600);
+  text-decoration: none;
+}
+.nuisible-card-link:hover {
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<div data-component="header"></div>
+
+<!-- HERO -->
+<section class="section" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-primary-100) 100%); padding-top: var(--space-3xl); padding-bottom: var(--space-2xl);">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumb">
+  <a href="/" class="bc-home"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg></a>
+  <span class="bc-sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></span>
+  <span class="bc-current">Nuisibles</span>
+</nav>
+    <span class="mono" style="color: #999;">Encyclopedie des nuisibles</span>
+    <h1 style="margin-top: var(--space-sm);">Guide des Nuisibles en France — Identification & Solutions</h1>
+    <p style="max-width: 700px; color: var(--color-text-muted); margin-top: var(--space-md);">Rats, cafards, punaises de lit, guepes... Apprenez a identifier chaque nuisible, comprendre ses dangers et decouvrir les solutions adaptees. Si vous etes deja envahi, contactez-nous pour une intervention rapide.</p>
+  </div>
+</section>
+
+<!-- GRID -->
+<section class="section">
+  <div class="container">
+    <div class="nuisibles-grid">
+
+      <a href="/nuisibles/rats/" class="nuisible-card">
+        <img src="../assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="Rat brun" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Rats</h3>
+          <p>Le rat brun (Rattus norvegicus) envahit caves, egouts et cuisines. Porteur de maladies, il cause aussi d'importants degats materiels.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/souris/" class="nuisible-card">
+        <img src="../assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="Souris domestique" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Souris</h3>
+          <p>La souris domestique se faufile partout grace a sa petite taille. Tres prolifique, une seule souris peut engendrer des dizaines de descendants en quelques mois.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/cafards/" class="nuisible-card">
+        <img src="../assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cafard" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Cafards</h3>
+          <p>Les blattes (cafards) proliferent dans les cuisines et salles de bain. Elles vehiculent des bacteries et allergenes dangereux pour la sante.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/punaises-de-lit/" class="nuisible-card">
+        <img src="../assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="Punaise de lit" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Punaises de lit</h3>
+          <p>La punaise de lit pique la nuit et provoque des demangeaisons intenses. En forte recrudescence en France, elle necessite un traitement professionnel.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/guepes-frelons/" class="nuisible-card">
+        <img src="../assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="Guepe" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Guepes & Frelons</h3>
+          <p>Guepes et frelons construisent leurs nids pres des habitations. Leurs piqures peuvent provoquer des reactions allergiques graves.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/fourmis/" class="nuisible-card">
+        <img src="../assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Fourmis</h3>
+          <p>Les fourmis envahissent les habitations en colonies organisees, a la recherche de nourriture. Certaines especes endommagent les structures en bois.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/moustiques/" class="nuisible-card">
+        <img src="../assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="Moustique" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Moustiques</h3>
+          <p>Le moustique tigre progresse en France et peut transmettre la dengue ou le chikungunya. La prevention passe par l'elimination des eaux stagnantes.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/pigeons/" class="nuisible-card">
+        <img src="../assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" alt="Pigeon" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Pigeons</h3>
+          <p>Les pigeons salissent les facades, obstruent les gouttieres et transmettent des maladies via leurs fientes. Le depigeonnage est souvent indispensable.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/chenilles-processionnaires/" class="nuisible-card">
+        <img src="../assets/nuisibles/bacteria-cell--realistic-microorganism-shape--rod-.png" alt="Chenille processionnaire" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Chenilles processionnaires</h3>
+          <p>Leurs poils urticants provoquent des reactions allergiques severes chez l'homme et les animaux. Elles menacent aussi la sante des arbres.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/puces/" class="nuisible-card">
+        <img src="../assets/nuisibles/bacteria-cell--realistic-microorganism-shape--rod-.png" alt="Puce" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Puces</h3>
+          <p>Les puces infestent les habitations via les animaux domestiques. Leurs piqures provoquent des demangeaisons et elles se reproduisent tres rapidement.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/taupes/" class="nuisible-card">
+        <img src="../assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Taupes</h3>
+          <p>Les taupes creusent des galeries souterraines qui defigurent les pelouses et jardins. Leurs taupinieres rendent l'entretien du terrain difficile.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/termites/" class="nuisible-card">
+        <img src="../assets/nuisibles/mold-spores--aspergillus--realistic-fungal-shape--.png" alt="Termite" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Termites</h3>
+          <p>Les termites degradent silencieusement les structures en bois de votre habitation. Quand les degats sont visibles, l'infestation est souvent avancee.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+      <a href="/nuisibles/mites-alimentaires/" class="nuisible-card">
+        <img src="../assets/nuisibles/mold-spores--aspergillus--realistic-fungal-shape--.png" alt="Mite alimentaire" class="nuisible-card-img">
+        <div class="nuisible-card-body">
+          <h3>Mites alimentaires</h3>
+          <p>Les mites alimentaires (pyrales) infestent la farine, les cereales et les fruits secs. Elles contaminent vos reserves et se reproduisent tres vite.</p>
+          <span class="nuisible-card-link">En savoir plus →</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="background: var(--color-primary-900); color: #fff; text-align: center;">
+  <div class="container">
+    <h2 style="color: #fff;">Vous avez identifie un nuisible ?</h2>
+    <p style="color: rgba(255,255,255,0.7); max-width: 500px; margin: var(--space-md) auto var(--space-lg);">Nos techniciens certifies interviennent rapidement pour eliminer le probleme. Devis gratuit et sans engagement.</p>
+    <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+      <a href="/devis/" class="btn btn-accent btn-lg">Devis gratuit →</a>
+      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="border-color:#fff;color:#fff;">📞 06 67 46 48 97</a>
+    </div>
+  </div>
+</section>
+
+<div data-component="certifications"></div>
+
+<div data-component="footer"></div>
+
+<div data-component="mobile-sticky-cta"></div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
