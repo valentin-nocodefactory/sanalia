@@ -96,9 +96,15 @@
   box-shadow: 0 2px 12px rgba(14, 5, 42, 0.08);
 }
 .btn-white:hover { box-shadow: 0 8px 24px rgba(14, 5, 42, 0.15); }
-.btn-sm { font-size: 14px; padding: 10px 20px; }
+.btn-sm { font-size: 14px; padding: 10px 20px; min-height: 44px; }
 .btn-lg { font-size: 17px; padding: 16px 36px; }
 .btn-full { width: 100%; }
+
+/* Touch targets: ensure minimum 44x44px on all interactive elements */
+@media (max-width: 768px) {
+  .btn { min-height: 44px; min-width: 44px; }
+  .btn-sm { min-height: 44px; }
+}
 
 /* ── Badge ── */
 .badge {
@@ -248,7 +254,8 @@
 /* Legacy bento */
 .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-md); }
 .bento-grid .bento-wide { grid-column: span 2; }
-@media (max-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } .bento-grid .bento-wide { grid-column: span 1; } }
+@media (max-width: 480px) { .bento-grid { grid-template-columns: 1fr; } }
 
 /* ── Service Card ── */
 .card-service {
@@ -346,6 +353,9 @@
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+@media (max-width: 480px) {
+  .testimonial-track .card-testimonial { width: 280px; }
+}
 
 /* ── Trust Bar ── */
 .trust-bar {
@@ -431,10 +441,11 @@
   padding: 14px 18px;
   border: 2px solid var(--color-gray-light);
   border-radius: var(--radius-lg);
-  font-size: var(--text-body);
+  font-size: 16px; /* Prevent iOS zoom */
   transition: border-color 0.2s, box-shadow 0.2s;
   background: var(--color-surface);
   font-family: var(--font-primary);
+  min-height: 44px;
 }
 .form-input:focus {
   outline: none;
@@ -445,10 +456,11 @@
   padding: 14px 18px;
   border: 2px solid var(--color-gray-light);
   border-radius: var(--radius-lg);
-  font-size: var(--text-body);
+  font-size: 16px; /* Prevent iOS zoom */
   background: var(--color-surface);
   font-family: var(--font-primary);
   appearance: none;
+  min-height: 44px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' fill='none' stroke-width='2'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
@@ -563,6 +575,7 @@ textarea.form-input {
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
   z-index: 200;
   min-width: 420px;
+  max-width: calc(100vw - 32px);
 }
 .nav-item:hover > .mega-menu {
   opacity: 1;
@@ -665,8 +678,8 @@ textarea.form-input {
 }
 .mobile-menu-btn {
   display: none;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   font-size: 24px;
@@ -687,6 +700,14 @@ textarea.form-input {
     border-bottom: 1px solid var(--color-gray-light);
     box-shadow: 0 12px 40px rgba(0,0,0,0.1);
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .header-nav.open > .nav-item > a,
+  .header-nav.open > a:not(.btn) {
+    min-height: 44px;
+    padding: 12px 14px;
   }
   .mega-menu { display: none; }
   .nav-chevron { display: none; }
@@ -799,6 +820,16 @@ textarea.form-input {
   justify-content: center;
   flex-shrink: 0;
 }
+/* Hero responsive */
+@media (max-width: 768px) {
+  .hero { padding: 48px 0 40px; }
+  .hero-visual { flex: none; max-width: 100%; width: 100%; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+}
+@media (max-width: 1024px) {
+  .hero-visual { flex: 0 0 280px; max-width: 280px; }
+}
 /* ── Logo Cloud (Certifications) ── */
 .logo-cloud-box {
   background: var(--color-surface);
@@ -889,16 +920,17 @@ textarea.form-input {
   right: 0;
   z-index: 90;
   padding: var(--space-sm) var(--space-md);
+  padding-bottom: calc(var(--space-sm) + env(safe-area-inset-bottom, 0px));
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(0,0,0,0.06);
   box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
 }
-.mobile-sticky-cta .btn { width: 100%; justify-content: center; }
+.mobile-sticky-cta .btn { width: 100%; justify-content: center; min-height: 44px; }
 @media (max-width: 768px) {
   .mobile-sticky-cta { display: flex; gap: var(--space-sm); }
-  body { padding-bottom: 72px; }
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* Phone icon in CTA */
@@ -1383,4 +1415,51 @@ textarea.form-input {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES — Global fixes
+   ============================================ */
+
+/* Tables & horizontal-scrolling content on mobile */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+}
+table {
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+/* Prevent any fixed-width element from causing overflow */
+@media (max-width: 768px) {
+  .mega-menu { min-width: 0; }
+  .cta-banner-visual { flex: none; width: 100%; }
+  .pro-banner-visual { flex: none; width: 100%; }
+  /* Hero stacking: override inline flex on container */
+  .hero > .container,
+  .hero > [class*="container"] {
+    flex-direction: column !important;
+    gap: var(--space-xl) !important;
+  }
+}
+
+/* Touch target minimum for all interactive elements on mobile */
+@media (max-width: 768px) {
+  .tag { min-height: 44px; display: inline-flex; align-items: center; }
+  .process-tab { min-height: 44px; }
+  .header-toggle { min-height: 44px; }
+  .trust-item a { min-height: 44px; display: inline-flex; align-items: center; }
+  .footer-col li a { min-height: 44px; display: inline-flex; align-items: center; }
+  .card-nuisible { min-height: 44px; }
+}
+
+/* iOS safe area support */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .mobile-sticky-cta {
+    padding-bottom: calc(var(--space-sm) + env(safe-area-inset-bottom));
+  }
 }

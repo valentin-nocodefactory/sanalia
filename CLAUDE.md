@@ -123,6 +123,59 @@ Blue #B0D5F5/#E6F3FF, Lavender #EFDFF6/#FBF2FF, Rose #FFD4CF/#FFECE9, Peach #FFD
 - Après toute modification d'un composant, **lancer `./build.sh`** pour synchroniser toutes les pages
 - Le build est aussi lancé automatiquement par Cloudflare Pages au déploiement
 
+## Template Page Nuisible — Structure de référence
+La page `/nuisibles/rats/index.html` est le **modèle à suivre** pour TOUTES les fiches nuisibles. Chaque nouvelle page nuisible DOIT reproduire cette structure exacte.
+
+### Structure des sections (dans l'ordre)
+| # | Section ID | Contenu | Interactif |
+|---|-----------|---------|------------|
+| 1 | `<head>` | Meta SEO, OG, Twitter, Schema.org (Article + FAQPage + BreadcrumbList) | Non |
+| 2 | `<style>` | CSS inline de la page (copier depuis rats, adapter couleurs pastels) | Non |
+| 3 | Header | Composant inline (`data-component="header"`) | Mega-menus |
+| 4 | `.step-nav` | Sticky breadcrumb + dropdown nuisibles + liens sections horizontaux | Scroll spy, dropdown |
+| 5 | `#hero` | Hero pastel : H1, sous-titre, 2 CTAs, image, 4 stats animées | Compteurs animés |
+| 6 | `#intro-seo` | Texte intro SEO + radar chart (Chart.js) + jauges horizontales | Chart.js radar |
+| 7 | `#anatomie` | Schéma interactif : image + points cliquables + détail | Clic sur points |
+| 8 | `#identification` | Comparaison espèces (2 cartes), callout, signes de présence photos | Lightbox zoom |
+| 9 | `#dangers` | 3 onglets : Nuit / Maladies / Dégâts | Tabs JS |
+| 10 | `#simulateur` | Simulateur prolifération : config pills + slider + résultats visuels | Calculs dynamiques |
+| 11 | `#zones` | Coupe maison SVG : zones d'infestation jour/nuit | SVG interactif |
+| 12 | `#evaluation` | Score de risque : 8 checkboxes + jauge SVG + verdict + CTA conditionnel | Calcul score temps réel |
+| 13 | `#calendrier` | Calendrier 12 mois : activité, reproduction, intrusion, traitement | Génération JS |
+| 14 | `#carte` | Carte de France SVG : régions cliquables + détail à droite | Clic région |
+| 15 | `#methodes` | Comparaison méthodes : cartes avec barres efficacité/rapidité/sécurité | Filtres par niveau |
+| 16 | `#protocole` | 5 étapes avec checkboxes interactives | Checkboxes |
+| 17 | `#quiz` | Quiz 8 questions, progression, score cercle, verdict | Quiz complet |
+| 18 | `#cout` | 4 cartes coûts + graphique Chart.js + slider ROI | Chart.js + slider |
+| 19 | `#histoire` | Timeline historique (5 dates clés) | Statique |
+| 20 | `#monde` | Carte mondiale : 6 villes cliquables + détail | Clic ville |
+| 21 | `#faq` | 6 questions FAQ accordéon | Accordéon |
+| 22 | `#action` | CTA final : heading + bouton + badges confiance | Statique |
+| 23 | Sidebar | Carte sticky : image, nom, badge, stats, CTA, lien quiz | Sticky |
+| 24 | `#cohabitants` | 4 cartes nuisibles liés | Statique |
+| 25 | Footer + certifs | Composants inline | Statique |
+
+### Layout CSS
+```
+.page-layout      → grid: 1fr 320px (collapse 1col à 1024px)
+.page-content     → colonne gauche, sections avec padding 3xl + border-bottom
+.sidebar-wrap     → sticky top: 130px (statique à 1024px)
+.step-nav         → sticky top: 72px, backdrop-filter blur
+html              → scroll-padding-top: 130px
+```
+
+### Données à adapter par nuisible
+- **Couleur pastel** : chaque nuisible a sa couleur (blue=rats, lavender=souris, rose=punaises, peach=cafards, gold=guêpes, mint=fourmis, green=moustiques)
+- **Image** : schéma crayon + photo signs
+- **Stats hero** : 4 chiffres clés spécifiques
+- **Radar** : 6 axes (Dangerosité, Reproduction, Résistance, Discrétion, Agilité, Intelligence)
+- **Espèces** : 2 variantes à comparer
+- **Maladies** : liste spécifique au nuisible
+- **FAQ** : 6 questions spécifiques
+- **Cohabitants** : 4 nuisibles liés
+- **Données calendrier** : saisonnalité spécifique
+- **Score de risque** : critères adaptés au nuisible
+
 ## SEO — Regles
 - **Architecture** : voir `SEO-ARCHITECTURE.md` pour la structure URL complete, le double arbre Particulier/Pro, les templates geo programmatiques
 - **Anti-cannibalisation** : voir `SEO-INTENTIONS-RECHERCHE.md` — chaque page a ses questions AUTORISEES et INTERDITES
