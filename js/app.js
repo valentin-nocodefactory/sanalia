@@ -3,32 +3,13 @@
    Component loader, mobile menu, toggle, accordion, form prefill
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await loadComponents();
+document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initAccordions();
   initFormPrefill();
   initToggle();
   initProcessTabs();
 });
-
-/* ── Component Loader ── */
-async function loadComponents() {
-  const slots = document.querySelectorAll('[data-component]');
-  if (!slots.length) return;
-
-  await Promise.all(Array.from(slots).map(async (slot) => {
-    const name = slot.dataset.component;
-    try {
-      const res = await fetch('/components/' + name + '.html');
-      if (!res.ok) return;
-      const html = await res.text();
-      slot.innerHTML = html;
-    } catch (e) {
-      // Component failed to load — keep slot empty
-    }
-  }));
-}
 
 /* ── Mobile Menu ── */
 function initMobileMenu() {
