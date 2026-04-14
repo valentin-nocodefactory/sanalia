@@ -494,10 +494,16 @@ textarea.form-input {
   flex: 1;
 }
 
+/* ── Header wrapper (component loader) ── */
+[data-component="header"] {
+  position: sticky;
+  top: -45px; /* hide urgency bar on scroll, keep main nav visible */
+  z-index: 100;
+}
+
 /* ── Header ── */
 .header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 100;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
