@@ -362,6 +362,15 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 /* ── Scroll Animations ── */
 .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
+/* ── House zones (chambre focus) ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; color: var(--color-primary-900); }
+.house-tooltip p { margin: 0; color: var(--color-text-muted); line-height: 1.5; }
+.house-hotspot { cursor: pointer; }
+@keyframes hotspot-pulse { 0%,100% { opacity: 0.6; r: 6; } 50% { opacity: 1; r: 9; } }
 </style>
 </head>
 <body>
@@ -534,6 +543,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     <a href="#identification" data-nav>Identification</a>
     <a href="#dangers" data-nav>Risques</a>
     <a href="#simulateur" data-nav>Prolifération</a>
+    <a href="#zones" data-nav>Cachettes</a>
     <a href="#evaluation" data-nav>Votre risque</a>
     <a href="#calendrier" data-nav>Saisons</a>
     <a href="#methodes" data-nav>Méthodes</a>
@@ -702,6 +712,14 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
           <div class="prolif-cta" id="prolifCta" style="display:none;"><a href="/devis/?nuisible=punaises-de-lit" class="btn btn-primary" style="width:100%;">Intervenir maintenant <span class="btn-arrow"></span></a></div>
         </div>
       </div>
+    </section>
+
+    <section id="zones">
+      <span class="section-label fade-up">Étape 4 — Votre chambre</span>
+      <h2>Où se cachent les punaises de lit chez vous ?</h2>
+      <p>La punaise de lit vit <strong>à moins de 2 mètres de sa source de nourriture</strong> : vous. Dans 95 % des cas, elle se cache dans le lit et son environnement immédiat. Voici la cartographie exacte des cachettes à inspecter.</p>
+      <div class="house-wrap" id="houseWrap"><svg viewBox="0 0 900 550" id="houseSvg" aria-label="Chambre zoomée — zones d'infestation punaises de lit"></svg><div class="house-tooltip" id="houseTooltip"></div></div>
+      <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Les punaises de lit se cachent toujours dans un rayon de <strong>1,5 mètre</strong> autour de l'hôte endormi. Plus vous vous éloignez du lit, moins vous avez de chances d'en trouver — sauf en cas d'infestation sévère où elles colonisent toute la pièce.</p></div>
     </section>
 
     <!-- ═══ Score de risque ═══ -->
@@ -995,11 +1013,25 @@ var DATA={
     {q:'Avez-vous acheté des meubles ou vêtements d\'occasion ?',opts:['Oui','Non'],scores:[3,0]},
     {q:'Un voisin ou proche a-t-il des punaises de lit ?',opts:['Oui','Non'],scores:[3,0]},
     {q:'Vous réveillez-vous la nuit avec des démangeaisons ?',opts:['Oui','Non'],scores:[3,0]}
+  ],
+  houseZones:[
+    {x:300,y:295,label:'Coutures et piqûres du matelas',desc:'Cachette n°1. Les punaises se réfugient dans les coutures, plis et étiquettes du matelas. Inspectez à la lampe torche — les points noirs sont leurs déjections.'},
+    {x:440,y:325,label:'Sommier à lattes',desc:'Entre les lattes, sous la toile de fond, dans les angles du cadre. Zone très difficile d\'accès — les punaises y sont à l\'abri de la vie quotidienne.'},
+    {x:570,y:335,label:'Cadre de lit — vis et assemblages',desc:'Les vis, équerres et jonctions du cadre offrent des micro-cachettes parfaites. À démonter et inspecter en cas de doute.'},
+    {x:350,y:210,label:'Tête de lit',desc:'Derrière la tête de lit capitonnée, dans les boutons, dans le tissu. Un des foyers principaux — la punaise remonte sur vous par ce chemin.'},
+    {x:185,y:400,label:'Plinthes près du lit',desc:'Les punaises longent les plinthes pour rejoindre leur cachette. Fissures entre plinthe et mur, angles : à inspecter dans un rayon de 2 m du lit.'},
+    {x:115,y:300,label:'Table de chevet',desc:'Tiroirs, charnières, sous le meuble. Livres et objets stockés sont des refuges. Éloignez la table du mur en cas d\'infestation.'},
+    {x:115,y:170,label:'Prises électriques',desc:'L\'intérieur des prises et interrupteurs près du lit abrite souvent des colonies entières. Cachette chaude, sombre et rarement inspectée.'},
+    {x:760,y:160,label:'Cadres et tableaux',desc:'Derrière les cadres accrochés au mur, dans les coins du cadre en bois. Les punaises y pondent leurs œufs collés (1 mm, blancs).'},
+    {x:790,y:340,label:'Rideaux et tringles',desc:'Ourlets du rideau, tête du rideau, intérieur de la tringle. Les punaises grimpent le long des rideaux pour rejoindre le plafond.'},
+    {x:640,y:465,label:'Tapis / moquette au sol',desc:'Sous les tapis, dans la moquette le long des murs, dans les rails de porte. Zone de circulation nocturne.'},
+    {x:150,y:460,label:'Valise rangée',desc:'Point d\'entrée n°1 après un voyage. Ne jamais poser la valise sur le lit au retour. À stocker scellée dans un sac hermétique.'},
+    {x:820,y:470,label:'Fauteuil / canapé proche',desc:'Si vous dormez parfois sur le canapé, il devient un foyer secondaire. Coutures, dessous des coussins, dossier : à traiter aussi.'}
   ]
 };
 
 document.addEventListener('DOMContentLoaded',function(){
-  initScrollAnimations();initSimulator();initAnatomy();initRiskGauges();initCalendar();initQuiz();initCostChart();initCostSlider();initProtocol();initLightbox();initAccordions();initRiskTabs();initBackToTop();initStepNav();
+  initScrollAnimations();initSimulator();initAnatomy();initRiskGauges();initCalendar();initQuiz();initCostChart();initCostSlider();initProtocol();initLightbox();initAccordions();initRiskTabs();initBackToTop();initStepNav();initHouseZones();
   var crumb=document.querySelector('.step-crumb-current');if(crumb)crumb.addEventListener('click',function(){var dd=document.querySelector('.step-crumb-dropdown');dd.style.display=dd.style.display==='block'?'none':'block';});
   if(typeof initFicheRadar==="function")initFicheRadar();
   initHeroCounters();
@@ -1042,6 +1074,114 @@ function initHeroCounters(){var heroStats=document.querySelectorAll('.hero-stat-
 function filterMethods(level){document.querySelectorAll('.method-filter').forEach(function(f){f.classList.toggle('active',f.dataset.level===level)});document.querySelectorAll('.method-card').forEach(function(card){if(level==='all')card.classList.remove('dimmed');else card.classList.toggle('dimmed',card.dataset.level!==level)});}
 
 function initBackToTop(){var btn=document.getElementById('backToTop');window.addEventListener('scroll',function(){btn.style.display=window.scrollY>600?'flex':'none'},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});}
+
+function initHouseZones(){
+  var svg=document.getElementById('houseSvg');if(!svg)return;
+  var h='';
+  // Fond — chambre rose pastel
+  h+='<rect x="0" y="0" width="900" height="550" fill="#FFECE9" rx="12"/>';
+  // Mur du fond + papier peint motif
+  h+='<rect x="40" y="40" width="820" height="410" fill="#FFD4CF"/>';
+  h+='<defs><pattern id="wallPat" width="50" height="50" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="2" fill="#F5B0A8" opacity="0.4"/></pattern></defs>';
+  h+='<rect x="40" y="40" width="820" height="410" fill="url(#wallPat)"/>';
+  // Sol parquet
+  h+='<rect x="40" y="450" width="820" height="60" fill="#D8B59A"/>';
+  for(var i=0;i<10;i++){h+='<line x1="'+(40+i*82)+'" y1="450" x2="'+(40+i*82)+'" y2="510" stroke="#B89878" stroke-width="1.5"/>';}
+  h+='<line x1="40" y1="480" x2="860" y2="480" stroke="#B89878" stroke-width="0.8"/>';
+  // Plinthe
+  h+='<rect x="40" y="440" width="820" height="12" fill="#F5E8DC"/>';
+  // Fenêtre arrière
+  h+='<rect x="640" y="90" width="140" height="180" fill="#E6F3FF" stroke="#B0C5DB" stroke-width="2" rx="2"/>';
+  h+='<line x1="710" y1="90" x2="710" y2="270" stroke="#B0C5DB" stroke-width="1.5"/>';
+  h+='<line x1="640" y1="180" x2="780" y2="180" stroke="#B0C5DB" stroke-width="1.5"/>';
+  // Rideaux
+  h+='<path d="M 610 85 L 620 260 L 640 260 L 640 90 Z" fill="#F5B0A8" opacity="0.8"/>';
+  h+='<path d="M 780 90 L 780 260 L 800 260 L 810 85 Z" fill="#F5B0A8" opacity="0.8"/>';
+  // Cadre / tableau au mur
+  h+='<rect x="720" y="130" width="90" height="70" fill="#FFFDF8" stroke="#8B6F4E" stroke-width="3"/>';
+  h+='<circle cx="765" cy="165" r="15" fill="#E8D4C0"/>';
+  h+='<rect x="735" y="180" width="60" height="15" fill="#C8B89A"/>';
+  // Tête de lit capitonnée
+  h+='<rect x="230" y="175" width="420" height="90" fill="#C89A9A" stroke="#A07878" stroke-width="2" rx="10"/>';
+  h+='<circle cx="280" cy="210" r="4" fill="#8B6060"/>';
+  h+='<circle cx="350" cy="210" r="4" fill="#8B6060"/>';
+  h+='<circle cx="420" cy="210" r="4" fill="#8B6060"/>';
+  h+='<circle cx="490" cy="210" r="4" fill="#8B6060"/>';
+  h+='<circle cx="560" cy="210" r="4" fill="#8B6060"/>';
+  h+='<circle cx="280" cy="240" r="4" fill="#8B6060"/>';
+  h+='<circle cx="350" cy="240" r="4" fill="#8B6060"/>';
+  h+='<circle cx="420" cy="240" r="4" fill="#8B6060"/>';
+  h+='<circle cx="490" cy="240" r="4" fill="#8B6060"/>';
+  h+='<circle cx="560" cy="240" r="4" fill="#8B6060"/>';
+  // Matelas
+  h+='<rect x="230" y="265" width="420" height="60" fill="#FFFDF8" stroke="#C8B89A" stroke-width="2" rx="6"/>';
+  // Coutures du matelas (détail)
+  h+='<line x1="240" y1="290" x2="640" y2="290" stroke="#E8D4C0" stroke-width="1" stroke-dasharray="4,3"/>';
+  h+='<line x1="240" y1="305" x2="640" y2="305" stroke="#E8D4C0" stroke-width="1" stroke-dasharray="4,3"/>';
+  // Oreillers
+  h+='<rect x="245" y="240" width="90" height="45" fill="#FFFDF8" stroke="#C8B89A" stroke-width="1.5" rx="8" transform="rotate(-3 290 262)"/>';
+  h+='<rect x="545" y="240" width="90" height="45" fill="#FFFDF8" stroke="#C8B89A" stroke-width="1.5" rx="8" transform="rotate(3 590 262)"/>';
+  // Couette repliée
+  h+='<path d="M 230 325 L 230 390 L 650 390 L 650 325 Z" fill="#F5C5C0" stroke="#C89A9A" stroke-width="1.5"/>';
+  h+='<path d="M 230 325 Q 440 310 650 325" fill="#F5C5C0" stroke="#C89A9A" stroke-width="1.5"/>';
+  // Sommier à lattes
+  h+='<rect x="235" y="320" width="410" height="15" fill="#B89878"/>';
+  for(var j=0;j<18;j++){h+='<rect x="'+(245+j*22)+'" y="335" width="18" height="6" fill="#C8A890"/>';}
+  // Pieds du lit
+  h+='<rect x="240" y="340" width="14" height="105" fill="#8B6F4E"/>';
+  h+='<rect x="626" y="340" width="14" height="105" fill="#8B6F4E"/>';
+  // Table de chevet gauche
+  h+='<rect x="80" y="270" width="130" height="170" fill="#C8A890" stroke="#8B6F4E" stroke-width="2" rx="3"/>';
+  h+='<line x1="80" y1="320" x2="210" y2="320" stroke="#8B6F4E" stroke-width="1.5"/>';
+  h+='<line x1="80" y1="370" x2="210" y2="370" stroke="#8B6F4E" stroke-width="1.5"/>';
+  h+='<circle cx="145" cy="295" r="3" fill="#6B4F38"/>';
+  h+='<circle cx="145" cy="345" r="3" fill="#6B4F38"/>';
+  h+='<circle cx="145" cy="395" r="3" fill="#6B4F38"/>';
+  // Lampe de chevet
+  h+='<rect x="125" y="225" width="40" height="10" fill="#8B6F4E"/>';
+  h+='<path d="M 120 225 L 170 225 L 180 195 L 110 195 Z" fill="#FFEBB8" stroke="#C8B89A" stroke-width="1.5"/>';
+  // Prise électrique
+  h+='<rect x="95" y="155" width="30" height="30" fill="#FFFDF8" stroke="#C8B89A" stroke-width="1.5" rx="3"/>';
+  h+='<circle cx="105" cy="168" r="2.5" fill="#555"/>';
+  h+='<circle cx="115" cy="168" r="2.5" fill="#555"/>';
+  h+='<rect x="102" y="175" width="16" height="4" fill="#555" rx="1"/>';
+  // Tapis sous lit
+  h+='<ellipse cx="450" cy="470" rx="280" ry="12" fill="#D5C2AF" opacity="0.8"/>';
+  // Fauteuil à droite (coin)
+  h+='<rect x="780" y="380" width="70" height="65" fill="#E8B8B0" stroke="#C09890" stroke-width="2" rx="8"/>';
+  h+='<rect x="780" y="370" width="70" height="20" fill="#E8B8B0" stroke="#C09890" stroke-width="2" rx="6"/>';
+  h+='<text x="770" y="500" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">FAUTEUIL</text>';
+  // Valise
+  h+='<rect x="120" y="448" width="70" height="40" fill="#8B6F4E" stroke="#5A4430" stroke-width="2" rx="4"/>';
+  h+='<rect x="120" y="460" width="70" height="4" fill="#5A4430"/>';
+  h+='<rect x="148" y="440" width="14" height="12" fill="#5A4430" rx="2"/>';
+  h+='<text x="105" y="505" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">VALISE</text>';
+  // Labels
+  h+='<text x="380" y="200" font-size="11" fill="#8B4A4A" font-weight="700" font-family="monospace" letter-spacing="1">TÊTE DE LIT</text>';
+  h+='<text x="105" y="260" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">CHEVET</text>';
+  h+='<text x="400" y="365" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">COUETTE</text>';
+  h+='<text x="405" y="425" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">SOMMIER À LATTES</text>';
+  // Hotspots
+  DATA.houseZones.forEach(function(z,i){
+    h+='<g class="house-hotspot" data-zone="'+i+'" tabindex="0" role="button" aria-label="'+z.label+'">';
+    h+='<circle cx="'+z.x+'" cy="'+z.y+'" r="9" fill="#D63447" opacity="0.85" style="animation:hotspot-pulse 2s infinite '+(i*0.16)+'s"/>';
+    h+='<circle cx="'+z.x+'" cy="'+z.y+'" r="4" fill="#fff"/>';
+    h+='</g>';
+  });
+  svg.innerHTML=h;
+  var tt=document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(function(g){
+    g.addEventListener('mouseenter',function(){
+      var z=DATA.houseZones[g.dataset.zone];
+      tt.innerHTML='<h4>'+z.label+'</h4><p>'+z.desc+'</p>';
+      tt.classList.add('active');
+      var r=svg.getBoundingClientRect();
+      tt.style.left=Math.min(z.x/900*r.width+20,r.width-280)+'px';
+      tt.style.top=(z.y/550*r.height-40)+'px';
+    });
+    g.addEventListener('mouseleave',function(){tt.classList.remove('active');});
+  });
+}
 
 function initStepNav(){var nav=document.getElementById('stepNav');if(!nav)return;var links=nav.querySelectorAll('[data-nav]'),sections=[];links.forEach(function(l){var el=document.getElementById(l.getAttribute('href').slice(1));if(el)sections.push({el:el,link:l})});window.addEventListener('scroll',function(){var sy=window.scrollY,vh=window.innerHeight;sections.forEach(function(s){var t=s.el.getBoundingClientRect().top+sy,b=t+s.el.offsetHeight;if(sy+vh*0.3>=t&&sy+vh*0.3<b){links.forEach(function(l){l.classList.remove('active')});s.link.classList.add('active')}})},{passive:true});links.forEach(function(l){l.addEventListener('click',function(e){e.preventDefault();document.getElementById(l.getAttribute('href').slice(1)).scrollIntoView({behavior:'smooth',block:'start'})})});}
 

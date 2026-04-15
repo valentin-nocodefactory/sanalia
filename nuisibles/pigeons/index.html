@@ -320,6 +320,15 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
 .step-bc { font-size: 12px; color: var(--color-text-muted); text-decoration: none; padding: 0 2px; }
 .step-bc:hover { color: var(--color-primary-900); }
 .step-bc-sep { font-size: 10px; color: #ccc; padding: 0 4px; }
+/* ── House zones (façade & toit focus) ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; color: var(--color-primary-900); }
+.house-tooltip p { margin: 0; color: var(--color-text-muted); line-height: 1.5; }
+.house-hotspot { cursor: pointer; }
+@keyframes hotspot-pulse { 0%,100% { opacity: 0.6; r: 6; } 50% { opacity: 1; r: 9; } }
 </style>
 </head>
 <body>
@@ -493,6 +502,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
     <a href="#identification" data-nav>Identification</a>
     <a href="#dangers" data-nav>Risques</a>
     <a href="#anatomie" data-nav>Anatomie</a>
+    <a href="#zones" data-nav>Emplacements</a>
     <a href="#evaluation" data-nav>Votre risque</a>
     <a href="#calendrier" data-nav>Saisons</a>
     <a href="#methodes" data-nav>Méthodes</a>
@@ -635,6 +645,14 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
           <div class="damage-item"><span class="damage-icon">💰</span><div><strong>2 000 à 15 000 €</strong><span>Le coût moyen de restauration d'une façade souillée par les pigeons. Les dégâts s'aggravent chaque année.</span></div></div>
         </div>
       </div>
+    </section>
+
+    <section id="zones">
+      <span class="section-label fade-up">Étape 4 — Votre bâtiment</span>
+      <h2>Où s'installent les pigeons chez vous ?</h2>
+      <p>Les pigeons exploitent <strong>l'architecture extérieure</strong> : toitures, corniches, rebords, balcons, climatiseurs. Ils recherchent une surface plane, abritée du vent et surélevée. Voici les points d'ancrage typiques à protéger.</p>
+      <div class="house-wrap" id="houseWrap"><svg viewBox="0 0 900 550" id="houseSvg" aria-label="Façade d'immeuble — points d'installation des pigeons"></svg><div class="house-tooltip" id="houseTooltip"></div></div>
+      <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Les fientes de pigeon sont corrosives : le <strong>pH de 3-4</strong> dissout la pierre, la peinture et le métal. Sur une façade, l'accumulation peut provoquer des <strong>dégâts structurels</strong> en moins de 5 ans — d'où l'importance de traiter rapidement.</p></div>
     </section>
 
     <!-- ═══ Score de risque ═══ -->
@@ -944,6 +962,21 @@ const DATA = {
     {q:'Y a-t-il des restaurants, marchés ou poubelles à proximité ?',opts:['Oui','Non'],scores:[3,0]},
     {q:'Avez-vous des ouvertures non grillagées sous la toiture ?',opts:['Oui','Non'],scores:[3,0]},
     {q:'Avez-vous constaté des dégradations sur la façade (traces blanches) ?',opts:['Oui','Non'],scores:[3,0]}
+  ],
+  houseZones: [
+    {x:450,y:70,label:'Faîtière / point culminant',desc:'Pose de guet n°1. Les pigeons observent le territoire depuis le point le plus haut. Installation de dispositifs anti-pose (piques, tension filaire) recommandée.'},
+    {x:290,y:135,label:'Sous les tuiles (rives)',desc:'Rives de toiture mal jointes = accès direct aux combles pour nidifier. Les pigeons s\'installent à l\'intérieur de la toiture, invisible depuis la rue.'},
+    {x:620,y:130,label:'Tuiles descellées',desc:'Tuiles déplacées ou cassées offrent une ouverture de quelques centimètres. Les pigeons s\'infiltrent et pondent sur la laine de verre.'},
+    {x:415,y:100,label:'Cheminée — souche',desc:'La souche de cheminée offre chaleur et abri. Sans chapeau ou grillage, le conduit devient un site de nidification. Oiseaux parfois coincés à l\'intérieur.'},
+    {x:155,y:195,label:'Gouttière (horizontale)',desc:'La gouttière sert de mangeoire improvisée et de site de pose. Les fientes la bouchent progressivement, l\'eau stagne puis déborde sur la façade.'},
+    {x:760,y:175,label:'Avant-toit / sous-pente',desc:'Zone abritée de la pluie. Les pigeons y construisent des nids rudimentaires (quelques brindilles). Couples en reproduction toute l\'année.'},
+    {x:220,y:270,label:'Appui de fenêtre',desc:'Rebord plat = piste d\'atterrissage parfaite. Les pigeons s\'y posent, roucoulent au lever du jour et finissent par nidifier dans le coin extérieur.'},
+    {x:465,y:275,label:'Climatiseur extérieur',desc:'Le dessus plat du climatiseur et la cavité du boîtier sont très prisés. Chaleur dégagée en hiver = confort maximal. Risques sanitaires via la ventilation.'},
+    {x:720,y:285,label:'Balcon / garde-corps',desc:'Rebord de balcon, angle, pot de fleur abandonné, table extérieure : zones de repos favorites en pleine journée. Fientes concentrées.'},
+    {x:600,y:360,label:'Corniche / moulure',desc:'Corniches en pierre ou moulures ouvragées (immeubles haussmanniens) : sites historiques de nidification. Dégradations acides sur la pierre.'},
+    {x:355,y:415,label:'Appuis niveaux bas',desc:'Fenêtres des étages bas moins défendues. Les pigeons s\'y habituent si personne ne les effraie. Prévoir dispositifs dès le 1er étage.'},
+    {x:805,y:430,label:'Cour intérieure / lucarne',desc:'Cour intérieure d\'immeuble = zone calme et abritée. Les pigeons y vivent en colonie, hors de portée des interventions depuis la rue.'},
+    {x:125,y:400,label:'Climatiseur / extraction façade',desc:'Sortie d\'extraction, bouche de VMC, climatiseur encastré : ouverture + chaleur = nid fréquent, avec risques de colmatage et incendie.'}
   ]
 };
 
@@ -960,6 +993,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initStepNav();
   initAnatomy();
+  initHouseZones();
   var crumb = document.querySelector('.step-crumb-current');
   if (crumb) crumb.addEventListener('click', function() {
     var dd = document.querySelector('.step-crumb-dropdown');
@@ -1183,6 +1217,117 @@ function filterMethods(level) {
   document.querySelectorAll('.method-card').forEach(card => {
     if (level === 'all') { card.classList.remove('dimmed'); }
     else { card.classList.toggle('dimmed', card.dataset.level !== level); }
+  });
+}
+
+function initHouseZones() {
+  var svg = document.getElementById('houseSvg'); if (!svg) return;
+  var h = '';
+  // Ciel
+  h += '<rect x="0" y="0" width="900" height="520" fill="#E6F0F5" rx="12"/>';
+  // Sol / trottoir
+  h += '<rect x="0" y="510" width="900" height="40" fill="#C8C0B5"/>';
+  // ── FAÇADE IMMEUBLE (vue frontale) ──
+  // Corps immeuble
+  h += '<rect x="110" y="80" width="680" height="430" fill="#F0E8D8" stroke="#B89878" stroke-width="2"/>';
+  // Pierre — bandeaux horizontaux
+  h += '<line x1="110" y1="200" x2="790" y2="200" stroke="#C8B89A" stroke-width="1"/>';
+  h += '<line x1="110" y1="320" x2="790" y2="320" stroke="#C8B89A" stroke-width="1"/>';
+  h += '<line x1="110" y1="440" x2="790" y2="440" stroke="#C8B89A" stroke-width="1"/>';
+  // ── TOIT (zinc en pente) ──
+  h += '<polygon points="100,80 450,30 800,80" fill="#9AA5B0" stroke="#6B7A88" stroke-width="2"/>';
+  // Tuiles pointillés
+  h += '<defs><pattern id="zinc" width="30" height="12" patternUnits="userSpaceOnUse"><line x1="0" y1="6" x2="30" y2="6" stroke="#6B7A88" stroke-width="0.5"/></pattern></defs>';
+  h += '<polygon points="100,80 450,30 800,80" fill="url(#zinc)" opacity="0.6"/>';
+  // Faîtière
+  h += '<rect x="440" y="26" width="20" height="10" fill="#5A6A78"/>';
+  // Cheminée / souche
+  h += '<rect x="400" y="45" width="32" height="50" fill="#A8896B" stroke="#6B5535" stroke-width="2"/>';
+  h += '<rect x="395" y="40" width="42" height="10" fill="#6B5535"/>';
+  // Tuiles descellées visibles (petit gap)
+  h += '<rect x="610" y="65" width="12" height="8" fill="#3B2810" opacity="0.8"/>';
+  // Rives du toit
+  h += '<line x1="100" y1="80" x2="450" y2="30" stroke="#6B7A88" stroke-width="2"/>';
+  h += '<line x1="450" y1="30" x2="800" y2="80" stroke="#6B7A88" stroke-width="2"/>';
+  // Avant-toit / sous-pente
+  h += '<rect x="100" y="78" width="700" height="8" fill="#8B6F4E"/>';
+  // Gouttière horizontale
+  h += '<rect x="100" y="86" width="700" height="10" fill="#8B8B8B"/>';
+  // Corniche / moulure (bandeau décoratif)
+  h += '<rect x="100" y="350" width="700" height="16" fill="#E8DEC8" stroke="#B89878" stroke-width="1"/>';
+  h += '<line x1="100" y1="358" x2="800" y2="358" stroke="#B89878" stroke-width="0.5"/>';
+  // Descente de gouttière (gauche)
+  h += '<rect x="140" y="96" width="7" height="414" fill="#7A7A7A"/>';
+  // ── FENÊTRES (3 étages x 4 fenêtres) ──
+  var floors = [130, 250, 370];
+  var wx = [195, 335, 475, 615];
+  floors.forEach(function(y){
+    wx.forEach(function(x){
+      // Encadrement
+      h += '<rect x="'+x+'" y="'+y+'" width="85" height="65" fill="#B8D0E0" stroke="#6B7A88" stroke-width="2"/>';
+      h += '<line x1="'+(x+42)+'" y1="'+y+'" x2="'+(x+42)+'" y2="'+(y+65)+'" stroke="#6B7A88" stroke-width="1.5"/>';
+      h += '<line x1="'+x+'" y1="'+(y+32)+'" x2="'+(x+85)+'" y2="'+(y+32)+'" stroke="#6B7A88" stroke-width="1.5"/>';
+      // Appui de fenêtre (saillie)
+      h += '<rect x="'+(x-5)+'" y="'+(y+65)+'" width="95" height="6" fill="#D8CEBA" stroke="#8B7555" stroke-width="1"/>';
+      // Garde-corps balconnet
+      h += '<line x1="'+(x-5)+'" y1="'+(y+72)+'" x2="'+(x+90)+'" y2="'+(y+72)+'" stroke="#555" stroke-width="1"/>';
+      for(var b=0;b<7;b++){h+='<line x1="'+(x-5+b*14)+'" y1="'+(y+72)+'" x2="'+(x-5+b*14)+'" y2="'+(y+82)+'" stroke="#555" stroke-width="1"/>';}
+    });
+  });
+  // Balcon filant (étage intermédiaire, à droite)
+  h += '<rect x="470" y="315" width="320" height="8" fill="#D8CEBA" stroke="#8B7555" stroke-width="1"/>';
+  h += '<line x1="470" y1="323" x2="790" y2="323" stroke="#555" stroke-width="1"/>';
+  for(var bb=0;bb<20;bb++){h+='<line x1="'+(470+bb*17)+'" y1="'+"323"+'" x2="'+(470+bb*17)+'" y2="345" stroke="#555" stroke-width="1"/>';}
+  // Climatiseur mural (sur façade, près fenêtre)
+  h += '<rect x="440" y="265" width="55" height="24" fill="#E0E0E0" stroke="#999" stroke-width="1.5" rx="3"/>';
+  h += '<rect x="446" y="287" width="44" height="4" fill="#BBB"/>';
+  // Climatiseur extraction rez-de-chaussée
+  h += '<rect x="110" y="395" width="42" height="20" fill="#D5D5D5" stroke="#888" stroke-width="1.5" rx="2"/>';
+  // Lucarne / cour intérieure (coin bas droit — schématique)
+  h += '<rect x="790" y="390" width="55" height="115" fill="#6B7A88" opacity="0.6"/>';
+  h += '<rect x="795" y="400" width="45" height="40" fill="#4A5A68" stroke="#2A3A48" stroke-width="1.5"/>';
+  h += '<text x="788" y="530" font-size="9" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">COUR INTÉRIEURE</text>';
+  // Porte rez-de-chaussée
+  h += '<rect x="335" y="430" width="55" height="80" fill="#8B6F4E" stroke="#5A4430" stroke-width="2"/>';
+  h += '<circle cx="380" cy="470" r="2" fill="#D4B87A"/>';
+  // Quelques silhouettes de pigeons sur le toit (décoratif)
+  function pigeon(x,y){
+    var s = '';
+    s += '<ellipse cx="'+x+'" cy="'+y+'" rx="9" ry="5" fill="#7A90B0"/>';
+    s += '<circle cx="'+(x-8)+'" cy="'+(y-2)+'" r="4" fill="#6B7F9F"/>';
+    s += '<line x1="'+(x+3)+'" y1="'+(y+5)+'" x2="'+(x+3)+'" y2="'+(y+9)+'" stroke="#555" stroke-width="1"/>';
+    s += '<line x1="'+(x-2)+'" y1="'+(y+5)+'" x2="'+(x-2)+'" y2="'+(y+9)+'" stroke="#555" stroke-width="1"/>';
+    return s;
+  }
+  h += pigeon(260, 75);
+  h += pigeon(505, 60);
+  h += pigeon(680, 72);
+  // Traces de fientes sur façade (taches blanches discrètes)
+  h += '<ellipse cx="143" cy="230" rx="4" ry="10" fill="#F5F5F5" opacity="0.7"/>';
+  h += '<ellipse cx="440" cy="380" rx="3" ry="8" fill="#F5F5F5" opacity="0.7"/>';
+  h += '<ellipse cx="670" cy="360" rx="3" ry="7" fill="#F5F5F5" opacity="0.7"/>';
+  // Labels
+  h += '<text x="430" y="70" font-size="10" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">TOITURE</text>';
+  h += '<text x="440" y="395" font-size="10" fill="#8B7555" font-weight="700" font-family="monospace" letter-spacing="1">CORNICHE</text>';
+  // Hotspots
+  DATA.houseZones.forEach(function(z,i){
+    h += '<g class="house-hotspot" data-zone="'+i+'" tabindex="0" role="button" aria-label="'+z.label+'">';
+    h += '<circle cx="'+z.x+'" cy="'+z.y+'" r="10" fill="#5B7BA8" opacity="0.9" style="animation:hotspot-pulse 2s infinite '+(i*0.16)+'s"/>';
+    h += '<circle cx="'+z.x+'" cy="'+z.y+'" r="5" fill="#fff"/>';
+    h += '</g>';
+  });
+  svg.innerHTML = h;
+  var tt = document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(function(gg){
+    gg.addEventListener('mouseenter', function(){
+      var z = DATA.houseZones[gg.dataset.zone];
+      tt.innerHTML = '<h4>'+z.label+'</h4><p>'+z.desc+'</p>';
+      tt.classList.add('active');
+      var r = svg.getBoundingClientRect();
+      tt.style.left = Math.min(z.x/900*r.width+20, r.width-280)+'px';
+      tt.style.top = (z.y/550*r.height-40)+'px';
+    });
+    gg.addEventListener('mouseleave', function(){ tt.classList.remove('active'); });
   });
 }
 

@@ -352,6 +352,15 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 .step-bc { font-size: 12px; color: var(--color-text-muted); text-decoration: none; padding: 0 2px; }
 .step-bc:hover { color: var(--color-primary-900); }
 .step-bc-sep { font-size: 10px; color: #ccc; padding: 0 4px; }
+/* ── House zones (cuisine focus) ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; color: var(--color-primary-900); }
+.house-tooltip p { margin: 0; color: var(--color-text-muted); line-height: 1.5; }
+.house-hotspot { cursor: pointer; }
+@keyframes hotspot-pulse { 0%,100% { opacity: 0.6; r: 6; } 50% { opacity: 1; r: 9; } }
 </style>
 </head>
 <body>
@@ -525,6 +534,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     <a href="#dangers" data-nav>Risques</a>
     <a href="#anatomie" data-nav>Anatomie</a>
     <a href="#simulateur" data-nav>Prolifération</a>
+    <a href="#zones" data-nav>Cachettes</a>
     <a href="#evaluation" data-nav>Votre risque</a>
     <a href="#calendrier" data-nav>Saisons</a>
     <a href="#methodes" data-nav>Méthodes</a>
@@ -689,6 +699,14 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       <div class="prolif-cta" id="prolifCta" style="display:none;"><a href="/devis/?nuisible=cafards" class="btn btn-primary" style="width:100%;">Intervenir maintenant <span class="btn-arrow"></span></a></div>
     </div>
   </div>
+</section>
+
+<section id="zones">
+  <span class="section-label fade-up">Étape 4 — Votre cuisine</span>
+  <h2>Où se cachent les cafards chez vous ?</h2>
+  <p>Le cafard germanique privilégie <strong>la cuisine</strong> : chaleur, humidité, miettes, fissures. 80 % des foyers d'infestation se concentrent dans un rayon de 3 mètres autour du plan de travail. Voici les cachettes à inspecter en priorité.</p>
+  <div class="house-wrap" id="houseWrap"><svg viewBox="0 0 900 550" id="houseSvg" aria-label="Cuisine zoomée — zones d'infestation cafards"></svg><div class="house-tooltip" id="houseTooltip"></div></div>
+  <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Les cafards sortent uniquement la nuit. Si vous en voyez un en plein jour, c'est que la population est <strong>si dense</strong> qu'il n'y a plus de place dans les cachettes. Signal d'infestation sévère.</p></div>
 </section>
 
 <section id="evaluation">
@@ -938,8 +956,115 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 <script src="/js/app.js"></script>
 <script>
 function updateSliderFill(el){var p=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right,#C8B99A 0%,#C8B99A '+p+'%,#E5E5E5 '+p+'%,#E5E5E5 100%)';}
-var DATA={calendar:[{month:'Jan',activity:3,reproduction:2,intrusion:2,treatment:'Bon'},{month:'Fév',activity:3,reproduction:2,intrusion:2,treatment:'Bon'},{month:'Mar',activity:4,reproduction:3,intrusion:3,treatment:'Optimal'},{month:'Avr',activity:4,reproduction:4,intrusion:3,treatment:'Optimal'},{month:'Mai',activity:5,reproduction:4,intrusion:3,treatment:'Bon'},{month:'Jun',activity:5,reproduction:5,intrusion:4,treatment:'Optimal'},{month:'Jul',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},{month:'Aoû',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},{month:'Sep',activity:5,reproduction:4,intrusion:4,treatment:'Bon'},{month:'Oct',activity:4,reproduction:3,intrusion:3,treatment:'Bon'},{month:'Nov',activity:3,reproduction:2,intrusion:2,treatment:'Moyen'},{month:'Déc',activity:3,reproduction:2,intrusion:2,treatment:'Moyen'}],quiz:[{q:'Avez-vous vu un insecte plat et brun fuir quand vous allumez la lumière la nuit ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},{q:'Avez-vous trouvé de petits excréments noirs (grains de café) dans la cuisine ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},{q:'Y a-t-il une odeur âcre et musquée dans votre cuisine ou salle de bain ?',opts:['Oui','Non'],scores:[3,0]},{q:'Avez-vous trouvé des poches d\'œufs brunes (oothèques) derrière des meubles ?',opts:['Oui','Non'],scores:[3,0]},{q:'Votre cuisine ou salle de bain présente-t-elle des fuites d\'eau ?',opts:['Oui','Non'],scores:[3,0]},{q:'Avez-vous vu un cafard en plein jour ?',opts:['Oui','Non'],scores:[3,0]},{q:'Un voisin vous a-t-il signalé une infestation de cafards ?',opts:['Oui','Non'],scores:[3,0]},{q:'Y a-t-il des fissures autour de vos plinthes, éviers ou canalisations ?',opts:['Oui','Non'],scores:[3,0]}]};
-document.addEventListener('DOMContentLoaded',function(){initScrollAnimations();initSimulator();initAnatomy();initRiskGauges();initCalendar();initQuiz();initCostChart();initCostSlider();initProtocol();initAccordions();initRiskTabs();initBackToTop();initStepNav();if(typeof initFicheRadar==="function")initFicheRadar();initHeroCounters();var crumb=document.querySelector('.step-crumb-current');if(crumb)crumb.addEventListener('click',function(){var dd=document.querySelector('.step-crumb-dropdown');dd.style.display=dd.style.display==='block'?'none':'block';});});
+var DATA={calendar:[{month:'Jan',activity:3,reproduction:2,intrusion:2,treatment:'Bon'},{month:'Fév',activity:3,reproduction:2,intrusion:2,treatment:'Bon'},{month:'Mar',activity:4,reproduction:3,intrusion:3,treatment:'Optimal'},{month:'Avr',activity:4,reproduction:4,intrusion:3,treatment:'Optimal'},{month:'Mai',activity:5,reproduction:4,intrusion:3,treatment:'Bon'},{month:'Jun',activity:5,reproduction:5,intrusion:4,treatment:'Optimal'},{month:'Jul',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},{month:'Aoû',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},{month:'Sep',activity:5,reproduction:4,intrusion:4,treatment:'Bon'},{month:'Oct',activity:4,reproduction:3,intrusion:3,treatment:'Bon'},{month:'Nov',activity:3,reproduction:2,intrusion:2,treatment:'Moyen'},{month:'Déc',activity:3,reproduction:2,intrusion:2,treatment:'Moyen'}],quiz:[{q:'Avez-vous vu un insecte plat et brun fuir quand vous allumez la lumière la nuit ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},{q:'Avez-vous trouvé de petits excréments noirs (grains de café) dans la cuisine ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},{q:'Y a-t-il une odeur âcre et musquée dans votre cuisine ou salle de bain ?',opts:['Oui','Non'],scores:[3,0]},{q:'Avez-vous trouvé des poches d\'œufs brunes (oothèques) derrière des meubles ?',opts:['Oui','Non'],scores:[3,0]},{q:'Votre cuisine ou salle de bain présente-t-elle des fuites d\'eau ?',opts:['Oui','Non'],scores:[3,0]},{q:'Avez-vous vu un cafard en plein jour ?',opts:['Oui','Non'],scores:[3,0]},{q:'Un voisin vous a-t-il signalé une infestation de cafards ?',opts:['Oui','Non'],scores:[3,0]},{q:'Y a-t-il des fissures autour de vos plinthes, éviers ou canalisations ?',opts:['Oui','Non'],scores:[3,0]}],houseZones:[
+{x:140,y:300,label:'Derrière le réfrigérateur',desc:'Chaleur du compresseur (35-40°C) + condensation = paradis du cafard. Zone n°1 à inspecter, c\'est souvent là que se trouve le foyer principal.'},
+{x:230,y:370,label:'Sous l\'évier — siphon',desc:'Humidité permanente, fuite discrète, résidus alimentaires. Les cafards remontent par le siphon la nuit et s\'y cachent dans la journée.'},
+{x:340,y:335,label:'Plinthes de cuisine',desc:'Fissure de 1,5 mm suffit. Les cafards longent les plinthes en file entre les placards et le mur. Passage invisible et protégé.'},
+{x:440,y:300,label:'Tiroirs à couverts',desc:'Miettes accumulées au fond des tiroirs. Les cafards mangent les restes, pondent leurs oothèques dans les rails de glissière.'},
+{x:530,y:270,label:'Placards hauts',desc:'Entre les étagères et le plafond, derrière les boîtes. Les oothèques (capsules brunes de 8 mm) sont collées sous les étagères.'},
+{x:560,y:380,label:'Four / micro-ondes',desc:'Chaleur résiduelle + graisses + miettes derrière et sous l\'appareil. L\'arrière du four n\'est quasiment jamais nettoyé.'},
+{x:640,y:340,label:'Lave-vaisselle',desc:'Joints, évacuation, chaleur : environnement idéal. Les cafards circulent entre le lave-vaisselle et le mur via les gaines d\'arrivée d\'eau.'},
+{x:720,y:300,label:'Gaines électroménager',desc:'Les gaines et câbles traversant le mur sont des autoroutes. Une ouverture de 2 mm autour d\'un tuyau suffit à laisser passer une colonie.'},
+{x:800,y:370,label:'Évacuation SDB',desc:'Siphon de douche, trop-plein de lavabo : les cafards remontent depuis les canalisations communes, surtout en immeuble.'},
+{x:420,y:470,label:'Fissures cave / tuyauterie',desc:'Colonnes de canalisation collectives en immeuble : les cafards circulent entre appartements via les gaines techniques verticales.'},
+{x:200,y:140,label:'Plafond cuisine — suspension',desc:'Point chaud sous le luminaire. Les cafards peuvent s\'abriter dans le boîtier de la suspension et derrière les moulures.'}
+]};
+document.addEventListener('DOMContentLoaded',function(){initScrollAnimations();initSimulator();initAnatomy();initRiskGauges();initCalendar();initQuiz();initCostChart();initCostSlider();initProtocol();initAccordions();initRiskTabs();initBackToTop();initStepNav();initHouseZones();if(typeof initFicheRadar==="function")initFicheRadar();initHeroCounters();var crumb=document.querySelector('.step-crumb-current');if(crumb)crumb.addEventListener('click',function(){var dd=document.querySelector('.step-crumb-dropdown');dd.style.display=dd.style.display==='block'?'none':'block';});});
+function initHouseZones(){
+  var svg=document.getElementById('houseSvg');if(!svg)return;
+  var h='';
+  // Fond cuisine — warm pastel peach
+  h+='<rect x="0" y="0" width="900" height="550" fill="#FFF3E7" rx="12"/>';
+  // Mur du fond (mosaïque)
+  h+='<rect x="40" y="60" width="820" height="360" fill="#FFE5CF"/>';
+  // Sol (carrelage)
+  h+='<rect x="40" y="420" width="820" height="90" fill="#F0D9BE"/>';
+  for(var i=0;i<17;i++){h+='<line x1="'+(40+i*50)+'" y1="420" x2="'+(40+i*50)+'" y2="510" stroke="#E3C29F" stroke-width="1"/>';}
+  h+='<line x1="40" y1="465" x2="860" y2="465" stroke="#E3C29F" stroke-width="1"/>';
+  // Plafond
+  h+='<rect x="40" y="40" width="820" height="30" fill="#FFFDF8"/>';
+  // Suspension luminaire
+  h+='<line x1="220" y1="70" x2="220" y2="120" stroke="#B8A590" stroke-width="2"/>';
+  h+='<ellipse cx="220" cy="140" rx="35" ry="20" fill="#F0D9BE" stroke="#B8A590" stroke-width="1.5"/>';
+  h+='<ellipse cx="220" cy="145" rx="25" ry="8" fill="#FFEBB8" opacity="0.7"/>';
+  // Placards hauts
+  h+='<rect x="400" y="90" width="440" height="130" fill="#E8D4BC" stroke="#B89878" stroke-width="1.5" rx="3"/>';
+  h+='<line x1="510" y1="90" x2="510" y2="220" stroke="#B89878" stroke-width="1"/>';
+  h+='<line x1="620" y1="90" x2="620" y2="220" stroke="#B89878" stroke-width="1"/>';
+  h+='<line x1="730" y1="90" x2="730" y2="220" stroke="#B89878" stroke-width="1"/>';
+  h+='<circle cx="505" cy="155" r="2" fill="#8B6F4E"/><circle cx="515" cy="155" r="2" fill="#8B6F4E"/>';
+  h+='<circle cx="615" cy="155" r="2" fill="#8B6F4E"/><circle cx="625" cy="155" r="2" fill="#8B6F4E"/>';
+  h+='<circle cx="725" cy="155" r="2" fill="#8B6F4E"/><circle cx="735" cy="155" r="2" fill="#8B6F4E"/>';
+  h+='<text x="545" y="250" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">PLACARDS HAUTS</text>';
+  // Plan de travail + credence
+  h+='<rect x="70" y="320" width="790" height="14" fill="#D4B895" rx="2"/>';
+  h+='<rect x="70" y="260" width="790" height="60" fill="#FFEEDB"/>';
+  // Réfrigérateur (gauche)
+  h+='<rect x="90" y="150" width="110" height="265" fill="#F5F2EA" stroke="#C8BDAA" stroke-width="2" rx="4"/>';
+  h+='<line x1="90" y1="260" x2="200" y2="260" stroke="#C8BDAA" stroke-width="1.5"/>';
+  h+='<rect x="180" y="200" width="6" height="30" fill="#C8BDAA" rx="2"/>';
+  h+='<rect x="180" y="290" width="6" height="30" fill="#C8BDAA" rx="2"/>';
+  h+='<text x="115" y="430" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">FRIGO</text>';
+  // Évier
+  h+='<rect x="215" y="335" width="80" height="45" rx="4" fill="#C0CFDC" stroke="#9AAEBF" stroke-width="1.5"/>';
+  h+='<circle cx="255" cy="357" r="5" fill="#7F92A4"/>';
+  h+='<line x1="255" y1="335" x2="255" y2="310" stroke="#B0A090" stroke-width="3" stroke-linecap="round"/>';
+  h+='<line x1="255" y1="310" x2="270" y2="310" stroke="#B0A090" stroke-width="3" stroke-linecap="round"/>';
+  // Tuyauterie sous évier (siphon)
+  h+='<path d="M 255 380 Q 255 400 235 400 Q 215 400 215 420" stroke="#8A7A68" stroke-width="4" fill="none" stroke-linecap="round"/>';
+  // Tiroirs sous plan
+  h+='<rect x="305" y="340" width="120" height="70" fill="#E8D4BC" stroke="#B89878" stroke-width="1.5" rx="2"/>';
+  h+='<line x1="305" y1="365" x2="425" y2="365" stroke="#B89878" stroke-width="1"/>';
+  h+='<line x1="305" y1="390" x2="425" y2="390" stroke="#B89878" stroke-width="1"/>';
+  h+='<circle cx="365" cy="352" r="2" fill="#8B6F4E"/>';
+  h+='<circle cx="365" cy="377" r="2" fill="#8B6F4E"/>';
+  h+='<circle cx="365" cy="402" r="2" fill="#8B6F4E"/>';
+  h+='<text x="325" y="430" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">TIROIRS</text>';
+  // Four encastré
+  h+='<rect x="530" y="340" width="75" height="75" fill="#2A2A2A" stroke="#555" stroke-width="2" rx="3"/>';
+  h+='<rect x="540" y="355" width="55" height="40" fill="#1A1A1A" stroke="#F0D988" stroke-width="0.5" rx="2"/>';
+  h+='<circle cx="545" cy="345" r="3" fill="#F0D988"/>';
+  h+='<circle cx="555" cy="345" r="3" fill="#F0D988"/>';
+  h+='<text x="540" y="432" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">FOUR</text>';
+  // Lave-vaisselle
+  h+='<rect x="615" y="340" width="75" height="75" fill="#E8E8E8" stroke="#B0B0B0" stroke-width="1.5" rx="3"/>';
+  h+='<rect x="625" y="350" width="55" height="5" fill="#C0C0C0" rx="1"/>';
+  h+='<text x="625" y="432" font-size="10" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">LAVE-VAISSELLE</text>';
+  // Micro-ondes (sur plan)
+  h+='<rect x="705" y="275" width="80" height="45" fill="#333" stroke="#555" stroke-width="1.5" rx="3"/>';
+  h+='<rect x="712" y="282" width="50" height="30" fill="#1A1A1A" rx="1"/>';
+  // Évacuation SDB (angle)
+  h+='<line x1="790" y1="340" x2="790" y2="460" stroke="#8A7A68" stroke-width="5" stroke-linecap="round"/>';
+  h+='<line x1="790" y1="460" x2="840" y2="460" stroke="#8A7A68" stroke-width="5" stroke-linecap="round"/>';
+  h+='<circle cx="800" cy="370" r="5" fill="#6B5A48" opacity="0.5"/>';
+  // Gaine murale électroménager
+  h+='<line x1="720" y1="300" x2="720" y2="340" stroke="#FFB300" stroke-width="3" stroke-dasharray="6,4" opacity="0.6"/>';
+  // Plinthes
+  h+='<rect x="40" y="410" width="820" height="12" fill="#C8A680" opacity="0.6"/>';
+  // Sol — jointures vers canalisations collectives (coin bas gauche)
+  h+='<line x1="40" y1="470" x2="420" y2="470" stroke="#B89878" stroke-width="0.5" stroke-dasharray="4,2" opacity="0.4"/>';
+  h+='<text x="50" y="500" font-size="10" fill="#B89878" font-weight="700" font-family="monospace" letter-spacing="1">CANALISATIONS COLLECTIVES</text>';
+  // Hotspots
+  DATA.houseZones.forEach(function(z,i){
+    h+='<g class="house-hotspot" data-zone="'+i+'" tabindex="0" role="button" aria-label="'+z.label+'">';
+    h+='<circle cx="'+z.x+'" cy="'+z.y+'" r="9" fill="#F66C24" opacity="0.85" style="animation:hotspot-pulse 2s infinite '+(i*0.18)+'s"/>';
+    h+='<circle cx="'+z.x+'" cy="'+z.y+'" r="4" fill="#fff"/>';
+    h+='</g>';
+  });
+  svg.innerHTML=h;
+  var tt=document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(function(g){
+    g.addEventListener('mouseenter',function(){
+      var z=DATA.houseZones[g.dataset.zone];
+      tt.innerHTML='<h4>'+z.label+'</h4><p>'+z.desc+'</p>';
+      tt.classList.add('active');
+      var r=svg.getBoundingClientRect();
+      tt.style.left=Math.min(z.x/900*r.width+20,r.width-280)+'px';
+      tt.style.top=(z.y/550*r.height-40)+'px';
+    });
+    g.addEventListener('mouseleave',function(){tt.classList.remove('active');});
+  });
+}
 function initSimulator(){var slider=document.getElementById('prolifSlider');if(!slider)return;var cfg={logement:'appart',humidity:'normal',food:'moyen',initial:1};document.querySelectorAll('.prolif-pills').forEach(function(group){group.querySelectorAll('.prolif-pill').forEach(function(pill){pill.addEventListener('click',function(){group.querySelectorAll('.prolif-pill').forEach(function(p){p.classList.remove('active')});pill.classList.add('active');var id=group.id;if(id==='cfgLogement')cfg.logement=pill.dataset.val;if(id==='cfgHumidity')cfg.humidity=pill.dataset.val;if(id==='cfgFood')cfg.food=pill.dataset.val;if(id==='cfgInitial')cfg.initial=+pill.dataset.val;recompute();});});});var population=[];function recompute(){var foodMult={peu:0.4,moyen:0.7,beaucoup:1.0}[cfg.food];var humidMult={sec:0.5,normal:0.8,humide:1.0}[cfg.humidity];var logMult=cfg.logement==='appart'?1.1:0.8;var baseMult=foodMult*humidMult*logMult;var realInitial=cfg.initial*200;population=[realInitial];for(var m=1;m<12;m++){var prev=population[m-1];var females=prev*0.5;var newborn=females*0.15*baseMult*35*0.6;var deaths=prev*0.05;population.push(Math.max(realInitial,Math.round(prev+newborn-deaths)));}update(+slider.value);}function update(month){var pop=population[month]||200;document.getElementById('prolifMonth').textContent='Mois '+(month+1);var countEl=document.getElementById('prolifCount');countEl.textContent=pop.toLocaleString('fr-FR')+' cafard'+(pop>1?'s':'');countEl.classList.toggle('danger',pop>500);var maxIcons=300,n=Math.min(maxIcons,pop),html='';for(var i=0;i<n;i++){html+='<span class="rat-icon" style="animation-delay:'+(i*0.003)+'s">\uD83E\uDEB3</span>';}if(pop>maxIcons){html+='<span class="rat-overflow">+'+(pop-maxIcons).toLocaleString('fr-FR')+'</span>';}document.getElementById('prolifRats').innerHTML=html;var resBox=document.getElementById('prolifResultsBox');if(resBox)resBox.classList.toggle('critical',pop>500);var ootheques=Math.round(pop*0.5*0.15);document.getElementById('pImpactOotheques').textContent=ootheques.toLocaleString('fr-FR');document.getElementById('pImpactAllergen').textContent=pop<300?'faible':pop<1000?'modéré':pop<5000?'élevé':'critique';document.getElementById('pImpactSurface').textContent=Math.min(100,Math.round(pop*0.02))+' m²';var a=document.getElementById('prolifAlert'),icon=a.querySelector('.prolif-alert-icon'),text=a.querySelector('.prolif-alert-text'),cta=document.getElementById('prolifCta');if(pop<=200){a.className='prolif-alert level-ok';icon.textContent='\u2713';text.textContent='Encore temps d\'agir. Mais les 200 cafards cachés se reproduisent déjà.';cta.style.display='none';}else if(pop<=1000){a.className='prolif-alert level-warn';icon.textContent='\u26A0\uFE0F';text.textContent=pop.toLocaleString('fr-FR')+' cafards vivent dans vos murs. Ils contaminent vos surfaces chaque nuit.';cta.style.display='none';}else if(pop<=5000){a.className='prolif-alert level-danger';icon.textContent='\uD83D\uDEA8';text.textContent=pop.toLocaleString('fr-FR')+' cafards. Risque allergique élevé pour vos enfants. Contamination alimentaire quotidienne.';cta.style.display='block';}else{a.className='prolif-alert level-critical';icon.textContent='\u2620\uFE0F';text.textContent=pop.toLocaleString('fr-FR')+' cafards. Infestation massive. Risque sanitaire majeur.';cta.style.display='block';}updateSliderFill(slider);}slider.addEventListener('input',function(){update(+slider.value);});updateSliderFill(slider);recompute();}
 function initRiskGauges(){var list=document.getElementById('riskChecklist');if(!list)return;function updateRiskScore(){var score=0;list.querySelectorAll('input:checked').forEach(function(cb){score+=+cb.dataset.score;});score=Math.min(100,score);document.getElementById('riskScoreText').textContent=score;var arc=document.getElementById('riskArc');arc.style.strokeDashoffset=314-(score/100*314);arc.style.stroke=score<25?'#4CAF50':score<50?'#FF9800':'#F44336';var titles=['Faible','Modéré','Élevé','Critique'];var descs=['Peu de facteurs favorables.','Quelques mesures préventives suffiraient.','Votre logement est vulnérable aux cafards.','Infestation probable — agissez immédiatement.'];var lvl=score<25?0:score<50?1:score<75?2:3;document.getElementById('riskVerdictTitle').textContent=titles[lvl];document.getElementById('riskVerdictDesc').textContent=descs[lvl];var cta=document.getElementById('riskCta');if(cta)cta.style.display=score>=50?'block':'none';}list.addEventListener('change',updateRiskScore);updateRiskScore();}
 function initCalendar(){var grid=document.getElementById('calendarGrid');if(!grid)return;var colors=['','#E8F5E9','#FFF9C4','#FFE0B2','#FFCCBC','#FFAB91'];var now=new Date().getMonth();var rows=['Activité','Reproduction','Intrusion','Traitement'];var keys=['activity','reproduction','intrusion','treatment'];var html='<div class="cal-cell cal-header"></div>';DATA.calendar.forEach(function(m,i){html+='<div class="cal-cell cal-header'+(i===now?' cal-current':'')+'">'+m.month+'</div>';});var tips=['Hiver — activité réduite mais cafards actifs en logements chauffés','Fin d\'hiver — reproduction ralentie, bon moment pour traiter','Printemps — la reproduction reprend avec la chaleur','Les colonies s\'agrandissent rapidement','Activité croissante — les oothèques éclosent plus vite','Été — pic de reproduction, chaleur + humidité idéales','Pic absolu — reproduction à vitesse maximale','Conditions optimales — traitez maintenant','Début d\'automne — colonies encore très actives','L\'activité ralentit légèrement','Les cafards se concentrent dans les zones chaudes','Hiver — activité réduite mais la colonie persiste'];rows.forEach(function(r,ri){html+='<div class="cal-cell cal-label">'+r+'</div>';DATA.calendar.forEach(function(m,i){var v=ri<3?m[keys[ri]]:({'Optimal':4,'Bon':3,'Moyen':2}[m.treatment]||1);var tip=ri===0?'<span class="cal-tip">'+tips[i]+'</span>':'';html+='<div class="cal-cell'+(i===now?' cal-current':'')+'" style="background:'+colors[v]+'">'+tip+'</div>';});});grid.innerHTML=html;}

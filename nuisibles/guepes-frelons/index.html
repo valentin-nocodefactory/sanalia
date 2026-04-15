@@ -358,6 +358,15 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 /* ── Scroll Animations ── */
 .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
+/* ── House zones (exterior focus) ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; color: var(--color-primary-900); }
+.house-tooltip p { margin: 0; color: var(--color-text-muted); line-height: 1.5; }
+.house-hotspot { cursor: pointer; }
+@keyframes hotspot-pulse { 0%,100% { opacity: 0.6; r: 6; } 50% { opacity: 1; r: 9; } }
 </style>
 </head>
 <body>
@@ -530,6 +539,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     <a href="#identification" data-nav>Identification</a>
     <a href="#dangers" data-nav>Risques</a>
     <a href="#simulateur" data-nav>Évolution nid</a>
+    <a href="#zones" data-nav>Emplacements</a>
     <a href="#evaluation" data-nav>Votre risque</a>
     <a href="#calendrier" data-nav>Saisons</a>
     <a href="#methodes" data-nav>Méthodes</a>
@@ -683,6 +693,14 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
           <div class="prolif-cta" id="prolifCta" style="display:none;"><a href="/devis/?nuisible=guepes" class="btn btn-primary" style="width:100%;">Intervenir maintenant <span class="btn-arrow"></span></a></div>
         </div>
       </div>
+    </section>
+
+    <section id="zones">
+      <span class="section-label fade-up">Étape 4 — Votre habitation</span>
+      <h2>Où se cachent les nids de guêpes et frelons ?</h2>
+      <p>Guêpes et frelons construisent leurs nids <strong>à l'extérieur</strong> ou dans des espaces peu fréquentés — combles, volets, sous-toiture, haies, abri de jardin. Le frelon asiatique privilégie la cime des arbres. Voici les emplacements typiques à inspecter.</p>
+      <div class="house-wrap" id="houseWrap"><svg viewBox="0 0 900 550" id="houseSvg" aria-label="Maison vue extérieure — emplacements des nids de guêpes et frelons"></svg><div class="house-tooltip" id="houseTooltip"></div></div>
+      <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Un nid de frelons asiatiques peut abriter <strong>jusqu'à 2 000 individus</strong> en fin de saison. Il est souvent <strong>invisible en été</strong> car caché par le feuillage, et ne se découvre qu'à l'automne quand les feuilles tombent — trop tard pour une intervention facile.</p></div>
     </section>
 
     <section id="evaluation">
@@ -948,6 +966,21 @@ const DATA = {
     {q:'Quelqu\'un au foyer est-il allergique aux piqûres ?',opts:['Oui','Non'],scores:[3,0]},
     {q:'Avez-vous été piqué récemment près de votre domicile ?',opts:['Oui','Non'],scores:[3,0]},
     {q:'Les guêpes entrent-elles dans votre maison par les fenêtres ?',opts:['Oui','Non'],scores:[3,0]}
+  ],
+  houseZones: [
+    {x:465,y:70,label:'Cheminée — conduit',desc:'Conduit désaffecté ou sans chapeau : emplacement favori des guêpes communes. Le nid pend à l\'intérieur du conduit, invisible depuis l\'extérieur.'},
+    {x:340,y:105,label:'Sous les tuiles (faîtière)',desc:'Interstices entre tuiles et faîtière : accès direct aux combles. Les frelons européens y construisent des nids de 30 à 60 cm.'},
+    {x:585,y:135,label:'Avant-toit / sous-pente',desc:'Emplacement n°1 des guêpes communes. Nid suspendu à la charpente, abrité de la pluie, orienté au sud. Vérifiez à la jumelle.'},
+    {x:185,y:180,label:'Gouttière / descente',desc:'La descente de gouttière bouchée par des feuilles offre un abri. Les guêpes s\'y installent, le bourdonnement devient audible de la rue.'},
+    {x:700,y:195,label:'Volets roulants — caisson',desc:'Caisson de volet roulant rarement ouvert = emplacement courant. Nid de taille moyenne, souvent découvert quand le volet se bloque.'},
+    {x:380,y:250,label:'Combles / charpente',desc:'Nid de frelons européens dans la charpente des combles. Accès par ouverture de toit. Bourdonnement audible dans les étages sous les combles.'},
+    {x:270,y:300,label:'Rebord de fenêtre / linteau',desc:'Au-dessus des fenêtres, sous le linteau en pierre : emplacement abrité, chaud, peu visible. Attention à l\'ouverture des volets.'},
+    {x:830,y:325,label:'Auvent / terrasse couverte',desc:'Sous l\'auvent, poutre de terrasse, parasol non replié : nids à hauteur d\'homme, très dangereux car proches des usagers.'},
+    {x:105,y:280,label:'Haie / buisson dense',desc:'Nids de guêpes aériennes dans les haies de thuyas, lauriers ou cyprès. Invisibles depuis l\'extérieur, découverts lors de la taille.'},
+    {x:60,y:150,label:'Haut d\'arbre (frelon asiatique)',desc:'Nid globulaire de 30 à 80 cm à 8-15 m de hauteur dans les grands arbres (chêne, platane, pin). Signature du frelon asiatique. Visible à l\'automne.'},
+    {x:760,y:440,label:'Abri de jardin / cabanon',desc:'Sous le toit de l\'abri, dans une caisse, derrière un panneau. Emplacement discret — ne pas ouvrir un abri resté fermé sans observer.'},
+    {x:160,y:440,label:'Trou dans le sol / talus',desc:'Guêpes germaniques : nid souterrain dans un terrier abandonné de rongeur. Détection par ballet incessant à l\'entrée du trou. Très dangereux à la tonte.'},
+    {x:460,y:420,label:'Compost / tas de bois',desc:'Le compost attire frelons européens et guêpes par sa chaleur. Tas de bois = bois tendre idéal pour fabriquer le nid en papier mâché.'}
   ]
 };
 
@@ -965,6 +998,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRiskTabs();
   initBackToTop();
   initStepNav();
+  initHouseZones();
   var crumb = document.querySelector('.step-crumb-current');
   if (crumb) crumb.addEventListener('click', function() { var dd = document.querySelector('.step-crumb-dropdown'); dd.style.display = dd.style.display === 'block' ? 'none' : 'block'; });
   if(typeof initFicheRadar==="function")initFicheRadar();
@@ -1167,6 +1201,120 @@ function initBackToTop() {
   const btn = document.getElementById('backToTop');
   window.addEventListener('scroll', () => { btn.style.display = window.scrollY > 600 ? 'flex' : 'none'; }, {passive:true});
   btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+}
+
+function initHouseZones() {
+  var svg = document.getElementById('houseSvg'); if (!svg) return;
+  var h = '';
+  // Ciel
+  h += '<rect x="0" y="0" width="900" height="420" fill="#E6F0F5" rx="12"/>';
+  // Sol / pelouse
+  h += '<rect x="0" y="420" width="900" height="130" fill="#C8D9A8"/>';
+  // Texture herbe
+  for (var g=0; g<60; g++){ h += '<line x1="'+(g*15)+'" y1="420" x2="'+(g*15+3)+'" y2="430" stroke="#A8C088" stroke-width="1"/>'; }
+  // Grand arbre à gauche (avec nid frelon asiatique en haut)
+  h += '<rect x="40" y="200" width="20" height="230" fill="#8B6F4E"/>';
+  h += '<circle cx="50" cy="180" r="55" fill="#7BA86B"/>';
+  h += '<circle cx="85" cy="200" r="45" fill="#6B9858"/>';
+  h += '<circle cx="20" cy="220" r="45" fill="#7BA86B"/>';
+  h += '<circle cx="65" cy="155" r="38" fill="#8BB878"/>';
+  // Nid frelon asiatique (globulaire, dans l'arbre)
+  h += '<ellipse cx="60" cy="150" rx="18" ry="22" fill="#D8C8A8" stroke="#8B7555" stroke-width="1.5"/>';
+  h += '<path d="M 55 170 Q 60 175 65 170" stroke="#6B5535" stroke-width="1.5" fill="none"/>';
+  // Haie dense sous l'arbre
+  h += '<ellipse cx="110" cy="400" rx="80" ry="30" fill="#6B8A55"/>';
+  h += '<ellipse cx="130" cy="380" rx="60" ry="25" fill="#7BA866"/>';
+  // ── MAISON ──
+  // Corps principal (façade)
+  h += '<rect x="230" y="250" width="420" height="180" fill="#F5EFE3" stroke="#C8B89A" stroke-width="2"/>';
+  // Pignon / extension droite (plus basse)
+  h += '<rect x="650" y="310" width="140" height="120" fill="#F0E8D8" stroke="#C8B89A" stroke-width="2"/>';
+  // Toiture principale (tuiles en biais)
+  h += '<polygon points="210,250 440,100 670,250" fill="#C87050" stroke="#8B4A30" stroke-width="2"/>';
+  // Toiture extension
+  h += '<polygon points="640,310 720,240 800,310" fill="#C87050" stroke="#8B4A30" stroke-width="2"/>';
+  // Trame tuiles
+  h += '<defs><pattern id="tiles" width="20" height="14" patternUnits="userSpaceOnUse"><path d="M0 14 Q10 8 20 14" fill="none" stroke="#8B4A30" stroke-width="0.5"/></pattern></defs>';
+  h += '<polygon points="210,250 440,100 670,250" fill="url(#tiles)" opacity="0.5"/>';
+  // Faîtière
+  h += '<line x1="210" y1="250" x2="670" y2="250" stroke="#6B3020" stroke-width="0" opacity="0"/>';
+  h += '<path d="M 210 250 L 440 100 L 670 250" fill="none" stroke="#6B3020" stroke-width="1"/>';
+  // Cheminée
+  h += '<rect x="450" y="85" width="35" height="65" fill="#B89878" stroke="#6B5535" stroke-width="2"/>';
+  h += '<rect x="446" y="78" width="43" height="10" fill="#6B5535"/>';
+  // Fenêtres (façade)
+  h += '<rect x="270" y="290" width="60" height="70" fill="#A8C8D8" stroke="#6B7A88" stroke-width="2"/>';
+  h += '<line x1="300" y1="290" x2="300" y2="360" stroke="#6B7A88" stroke-width="1.5"/>';
+  h += '<line x1="270" y1="325" x2="330" y2="325" stroke="#6B7A88" stroke-width="1.5"/>';
+  // Volets ouverts
+  h += '<rect x="248" y="290" width="18" height="70" fill="#7BA86B" stroke="#5A7A50" stroke-width="1"/>';
+  h += '<rect x="334" y="290" width="18" height="70" fill="#7BA86B" stroke="#5A7A50" stroke-width="1"/>';
+  // Fenêtre 2
+  h += '<rect x="400" y="290" width="60" height="70" fill="#A8C8D8" stroke="#6B7A88" stroke-width="2"/>';
+  h += '<line x1="430" y1="290" x2="430" y2="360" stroke="#6B7A88" stroke-width="1.5"/>';
+  h += '<line x1="400" y1="325" x2="460" y2="325" stroke="#6B7A88" stroke-width="1.5"/>';
+  // Volets roulants (caisson au-dessus)
+  h += '<rect x="400" y="278" width="60" height="14" fill="#D8CEBA" stroke="#8B7555" stroke-width="1"/>';
+  // Fenêtre 3
+  h += '<rect x="530" y="290" width="60" height="70" fill="#A8C8D8" stroke="#6B7A88" stroke-width="2"/>';
+  h += '<line x1="560" y1="290" x2="560" y2="360" stroke="#6B7A88" stroke-width="1.5"/>';
+  h += '<line x1="530" y1="325" x2="590" y2="325" stroke="#6B7A88" stroke-width="1.5"/>';
+  h += '<rect x="512" y="290" width="16" height="70" fill="#7BA86B" stroke="#5A7A50" stroke-width="1"/>';
+  h += '<rect x="592" y="290" width="16" height="70" fill="#7BA86B" stroke="#5A7A50" stroke-width="1"/>';
+  // Porte
+  h += '<rect x="330" y="380" width="50" height="50" fill="#8B6F4E" stroke="#5A4430" stroke-width="2"/>';
+  h += '<circle cx="370" cy="405" r="2" fill="#D4B87A"/>';
+  // Gouttière + descente
+  h += '<rect x="210" y="248" width="460" height="6" fill="#8B8B8B"/>';
+  h += '<rect x="205" y="254" width="8" height="175" fill="#8B8B8B"/>';
+  // Avant-toit / débord
+  h += '<line x1="210" y1="250" x2="205" y2="255" stroke="#8B4A30" stroke-width="3"/>';
+  h += '<line x1="670" y1="250" x2="675" y2="255" stroke="#8B4A30" stroke-width="3"/>';
+  // Auvent terrasse à droite (sur extension)
+  h += '<rect x="760" y="350" width="90" height="6" fill="#8B6F4E"/>';
+  h += '<rect x="758" y="356" width="4" height="74" fill="#8B6F4E"/>';
+  h += '<rect x="846" y="356" width="4" height="74" fill="#8B6F4E"/>';
+  // Petit nid sous auvent (visuel)
+  h += '<ellipse cx="800" cy="365" rx="10" ry="8" fill="#E8D8B8" stroke="#8B7555" stroke-width="1"/>';
+  // Abri de jardin (coin droit)
+  h += '<rect x="720" y="450" width="100" height="60" fill="#A8896B" stroke="#6B5535" stroke-width="2"/>';
+  h += '<polygon points="715,450 770,415 825,450" fill="#8B6A4A" stroke="#5A4430" stroke-width="2"/>';
+  h += '<rect x="750" y="475" width="20" height="35" fill="#6B5535"/>';
+  h += '<text x="722" y="525" font-size="10" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">ABRI JARDIN</text>';
+  // Compost (petit, au sol au milieu)
+  h += '<rect x="440" y="460" width="50" height="40" fill="#6B5535" stroke="#3B2810" stroke-width="1.5"/>';
+  h += '<rect x="438" y="455" width="54" height="8" fill="#4B3515"/>';
+  h += '<text x="432" y="520" font-size="9" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">COMPOST</text>';
+  // Trou dans le sol (nid souterrain)
+  h += '<ellipse cx="160" cy="445" rx="12" ry="5" fill="#3B2810"/>';
+  h += '<ellipse cx="160" cy="445" rx="7" ry="3" fill="#000"/>';
+  h += '<text x="130" y="470" font-size="9" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">TERRIER</text>';
+  // Nid visible sous avant-toit (illustratif)
+  h += '<ellipse cx="580" cy="138" rx="14" ry="12" fill="#E8D8B8" stroke="#8B7555" stroke-width="1.5"/>';
+  h += '<path d="M 578 148 Q 580 152 582 148" stroke="#8B7555" stroke-width="1" fill="none"/>';
+  // Labels doux
+  h += '<text x="345" y="140" font-size="11" fill="#6B3020" font-weight="700" font-family="monospace" letter-spacing="1" opacity="0.6">TOITURE</text>';
+  h += '<text x="440" y="175" font-size="10" fill="#8B7555" font-weight="700" font-family="monospace" letter-spacing="1" opacity="0.7">COMBLES</text>';
+  // Hotspots
+  DATA.houseZones.forEach(function(z,i){
+    h += '<g class="house-hotspot" data-zone="'+i+'" tabindex="0" role="button" aria-label="'+z.label+'">';
+    h += '<circle cx="'+z.x+'" cy="'+z.y+'" r="10" fill="#E8A317" opacity="0.85" style="animation:hotspot-pulse 2s infinite '+(i*0.17)+'s"/>';
+    h += '<circle cx="'+z.x+'" cy="'+z.y+'" r="5" fill="#fff"/>';
+    h += '</g>';
+  });
+  svg.innerHTML = h;
+  var tt = document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(function(gg){
+    gg.addEventListener('mouseenter', function(){
+      var z = DATA.houseZones[gg.dataset.zone];
+      tt.innerHTML = '<h4>'+z.label+'</h4><p>'+z.desc+'</p>';
+      tt.classList.add('active');
+      var r = svg.getBoundingClientRect();
+      tt.style.left = Math.min(z.x/900*r.width+20, r.width-280)+'px';
+      tt.style.top = (z.y/550*r.height-40)+'px';
+    });
+    gg.addEventListener('mouseleave', function(){ tt.classList.remove('active'); });
+  });
 }
 
 function initStepNav() {

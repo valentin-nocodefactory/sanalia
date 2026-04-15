@@ -312,6 +312,15 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 .step-bc:hover { color: var(--color-primary-900); }
 .step-bc-sep { font-size: 10px; color: #ccc; padding: 0 4px; }
 @media (max-width: 600px) { .prolif-config-inner { gap: var(--space-xs); } .prolif-config-item { flex-wrap: wrap; } }
+/* ── House zones (jardin focus) ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; color: var(--color-primary-900); }
+.house-tooltip p { margin: 0; color: var(--color-text-muted); line-height: 1.5; }
+.house-hotspot { cursor: pointer; }
+@keyframes hotspot-pulse { 0%,100% { opacity: 0.6; r: 6; } 50% { opacity: 1; r: 9; } }
 </style>
 </head>
 <body>
@@ -484,6 +493,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     <a href="#identification" data-nav>Identification</a>
     <a href="#dangers" data-nav>Risques</a>
     <a href="#simulateur" data-nav>Prolifération</a>
+    <a href="#zones" data-nav>Gîtes larvaires</a>
     <a href="#evaluation" data-nav>Votre risque</a>
     <a href="#calendrier" data-nav>Saisons</a>
     <a href="#methodes" data-nav>Méthodes</a>
@@ -653,6 +663,14 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       <div class="prolif-cta" id="prolifCta" style="display:none;"><a href="/devis/?nuisible=moustiques" class="btn btn-primary" style="width:100%;">Intervenir maintenant <span class="btn-arrow"></span></a></div>
     </div>
   </div>
+</section>
+
+<section id="zones">
+  <span class="section-label fade-up">Étape 4 — Votre extérieur</span>
+  <h2>Où se reproduisent les moustiques chez vous ?</h2>
+  <p>Les moustiques se reproduisent exclusivement dans <strong>l'eau stagnante</strong>. Un bouchon rempli d'eau suffit à une femelle pour pondre 200 œufs. Voici tous les <strong>gîtes larvaires</strong> à éliminer autour et dans votre logement.</p>
+  <div class="house-wrap" id="houseWrap"><svg viewBox="0 0 900 550" id="houseSvg" aria-label="Extérieur et intérieur — gîtes larvaires des moustiques"></svg><div class="house-tooltip" id="houseTooltip"></div></div>
+  <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Le moustique tigre ne vole qu'à <strong>150 mètres</strong> de son lieu de naissance durant toute sa vie. S'il vous pique, c'est qu'il est né chez vous ou chez votre voisin immédiat. Supprimer les gîtes locaux = éradiquer le problème.</p></div>
 </section>
 
 <!-- ═══ SCORE DE RISQUE ═══ -->
@@ -918,8 +936,136 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 <script src="/js/app.js"></script>
 <script>
 function updateSliderFill(el){var p=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right,#C8B99A 0%,#C8B99A '+p+'%,#E5E5E5 '+p+'%,#E5E5E5 100%)';}
-var DATA={calendar:[{month:'Jan',activity:0,reproduction:0,moustiqueTigre:0,treatment:'Hors saison'},{month:'Fév',activity:0,reproduction:0,moustiqueTigre:0,treatment:'Hors saison'},{month:'Mar',activity:1,reproduction:1,moustiqueTigre:0,treatment:'Prévention'},{month:'Avr',activity:2,reproduction:2,moustiqueTigre:2,treatment:'Optimal'},{month:'Mai',activity:4,reproduction:4,moustiqueTigre:3,treatment:'Optimal'},{month:'Jun',activity:5,reproduction:5,moustiqueTigre:4,treatment:'Bon'},{month:'Jul',activity:5,reproduction:5,moustiqueTigre:5,treatment:'Bon'},{month:'Aoû',activity:5,reproduction:5,moustiqueTigre:5,treatment:'Moyen'},{month:'Sep',activity:4,reproduction:4,moustiqueTigre:4,treatment:'Bon'},{month:'Oct',activity:2,reproduction:2,moustiqueTigre:2,treatment:'Optimal'},{month:'Nov',activity:1,reproduction:0,moustiqueTigre:1,treatment:'Prévention'},{month:'Déc',activity:0,reproduction:0,moustiqueTigre:0,treatment:'Hors saison'}],quiz:[{q:'Avez-vous de l\'eau stagnante dans votre jardin ou balcon ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},{q:'Êtes-vous piqué(e) régulièrement chez vous ?',opts:['Oui','Non','Parfois'],scores:[3,0,1]},{q:'Vivez-vous dans un département colonisé par le moustique tigre ?',opts:['Oui','Non','Je ne sais pas'],scores:[3,0,1]},{q:'Avez-vous des coupelles sous vos pots de fleurs ?',opts:['Oui','Non'],scores:[3,0]},{q:'Votre terrasse ou jardin est-il ombragé et humide ?',opts:['Oui','Non'],scores:[3,0]},{q:'Avez-vous des moustiquaires aux fenêtres ?',opts:['Non','Oui'],scores:[3,0]},{q:'Y a-t-il un plan d\'eau à proximité ?',opts:['Oui','Non'],scores:[3,0]},{q:'Êtes-vous piqué(e) en journée (signe du moustique tigre) ?',opts:['Oui','Non'],scores:[3,0]}]};
-document.addEventListener('DOMContentLoaded',function(){initScrollAnimations();initSimulator();initAnatomy();initRiskGauges();initCalendar();initQuiz();initCostChart();initCostSlider();initProtocol();initAccordions();initRiskTabs();initBackToTop();initStepNav();var c=document.querySelector('.step-crumb-current');if(c)c.addEventListener('click',function(){var d=document.querySelector('.step-crumb-dropdown');d.style.display=d.style.display==='block'?'none':'block';});if(typeof initFicheRadar==='function')initFicheRadar();initHeroCounters();});
+var DATA={calendar:[{month:'Jan',activity:0,reproduction:0,moustiqueTigre:0,treatment:'Hors saison'},{month:'Fév',activity:0,reproduction:0,moustiqueTigre:0,treatment:'Hors saison'},{month:'Mar',activity:1,reproduction:1,moustiqueTigre:0,treatment:'Prévention'},{month:'Avr',activity:2,reproduction:2,moustiqueTigre:2,treatment:'Optimal'},{month:'Mai',activity:4,reproduction:4,moustiqueTigre:3,treatment:'Optimal'},{month:'Jun',activity:5,reproduction:5,moustiqueTigre:4,treatment:'Bon'},{month:'Jul',activity:5,reproduction:5,moustiqueTigre:5,treatment:'Bon'},{month:'Aoû',activity:5,reproduction:5,moustiqueTigre:5,treatment:'Moyen'},{month:'Sep',activity:4,reproduction:4,moustiqueTigre:4,treatment:'Bon'},{month:'Oct',activity:2,reproduction:2,moustiqueTigre:2,treatment:'Optimal'},{month:'Nov',activity:1,reproduction:0,moustiqueTigre:1,treatment:'Prévention'},{month:'Déc',activity:0,reproduction:0,moustiqueTigre:0,treatment:'Hors saison'}],quiz:[{q:'Avez-vous de l\'eau stagnante dans votre jardin ou balcon ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},{q:'Êtes-vous piqué(e) régulièrement chez vous ?',opts:['Oui','Non','Parfois'],scores:[3,0,1]},{q:'Vivez-vous dans un département colonisé par le moustique tigre ?',opts:['Oui','Non','Je ne sais pas'],scores:[3,0,1]},{q:'Avez-vous des coupelles sous vos pots de fleurs ?',opts:['Oui','Non'],scores:[3,0]},{q:'Votre terrasse ou jardin est-il ombragé et humide ?',opts:['Oui','Non'],scores:[3,0]},{q:'Avez-vous des moustiquaires aux fenêtres ?',opts:['Non','Oui'],scores:[3,0]},{q:'Y a-t-il un plan d\'eau à proximité ?',opts:['Oui','Non'],scores:[3,0]},{q:'Êtes-vous piqué(e) en journée (signe du moustique tigre) ?',opts:['Oui','Non'],scores:[3,0]}],houseZones:[
+{x:140,y:360,label:'Coupelles sous pots de fleurs',desc:'Gîte larvaire n°1. Une simple coupelle remplie d\'eau de pluie = 200 larves en 7 jours. À supprimer ou vider 2 fois par semaine.'},
+{x:240,y:300,label:'Gouttière bouchée',desc:'Feuilles + eau de pluie = bouillon de culture permanent. Les larves se développent à l\'abri des regards. Nettoyer au printemps et à l\'automne.'},
+{x:330,y:415,label:'Bassin / mare décorative',desc:'Sans poissons rouges ni pompe, l\'eau stagnante devient un foyer massif. Installer des gambusies ou une fontaine pour oxygéner.'},
+{x:450,y:465,label:'Piscine couverte / hors-service',desc:'Bâche plissée retenant de l\'eau, piscine non chlorée hors saison : ponte assurée. Traiter au chlore même en hiver ou bâche tendue.'},
+{x:570,y:440,label:'Arrosoirs / seaux au jardin',desc:'Tout récipient oublié (seau, arrosoir, brouette) se remplit d\'eau de pluie. Les stocker à l\'envers ou à l\'abri.'},
+{x:680,y:375,label:'Récupérateur d\'eau de pluie',desc:'Cuve sans couvercle étanche ou moustiquaire : accès direct à la ponte. Ajouter un filet à maille fine sur l\'entrée.'},
+{x:780,y:420,label:'Pneus usagés / stockage',desc:'Gîte préféré du moustique tigre. L\'intérieur reste humide des semaines. À percer ou ranger sous abri hermétique.'},
+{x:220,y:155,label:'Plantes d\'intérieur (soucoupes)',desc:'Soucoupes de plantes en intérieur = mini-gîtes domestiques. Vider et nettoyer chaque semaine. Ne jamais sur-arroser.'},
+{x:340,y:175,label:'Vase de fleurs coupées',desc:'Un vase d\'eau croupie près de la fenêtre suffit. Changer l\'eau tous les 2 jours, rincer le vase complètement.'},
+{x:470,y:190,label:'Fenêtre sans moustiquaire',desc:'Même sans gîte chez vous, les moustiques entrent depuis l\'extérieur. Installer des moustiquaires fines (mailles < 1,2 mm) sur toutes les ouvertures.'},
+{x:610,y:150,label:'Climatiseur — bac de condensation',desc:'Le bac de condensation extérieur reste humide en été. Le moustique tigre y pond. Vérifier et vider chaque semaine.'},
+{x:820,y:310,label:'Flaque humidité / cave',desc:'Fuite d\'eau au sous-sol, flaque permanente sur sol en terre battue : gîte intérieur discret. Traiter l\'origine de la fuite.'},
+{x:60,y:420,label:'Récipients oubliés — jouets',desc:'Jouets d\'enfants, soucoupes, bouchons, jerricans : 1 bouchon d\'eau = 200 œufs. Inspection systématique du jardin après la pluie.'}
+]};
+document.addEventListener('DOMContentLoaded',function(){initScrollAnimations();initSimulator();initAnatomy();initRiskGauges();initCalendar();initQuiz();initCostChart();initCostSlider();initProtocol();initAccordions();initRiskTabs();initBackToTop();initStepNav();initHouseZones();var c=document.querySelector('.step-crumb-current');if(c)c.addEventListener('click',function(){var d=document.querySelector('.step-crumb-dropdown');d.style.display=d.style.display==='block'?'none':'block';});if(typeof initFicheRadar==='function')initFicheRadar();initHeroCounters();});
+function initHouseZones(){
+  var svg=document.getElementById('houseSvg');if(!svg)return;
+  var h='';
+  // Ciel
+  h+='<rect x="0" y="0" width="900" height="260" fill="#E8F4E8" rx="12"/>';
+  // Maison (droite, moitié visible — l\'intérieur)
+  h+='<rect x="440" y="80" width="460" height="380" fill="#F5EFE3" stroke="#C8B89A" stroke-width="2"/>';
+  // Toit visible à gauche de la maison (coupe)
+  h+='<polygon points="440,80 520,40 600,80" fill="#C87050" stroke="#8B4A30" stroke-width="2"/>';
+  // Séparation ext/int — ligne verticale
+  h+='<line x1="440" y1="80" x2="440" y2="460" stroke="#8B6F4E" stroke-width="3"/>';
+  // Intérieur salon
+  h+='<rect x="455" y="100" width="435" height="340" fill="#FFFDF8"/>';
+  // Fenêtre de maison (grande baie)
+  h+='<rect x="470" y="140" width="120" height="100" fill="#D8EEF8" stroke="#6B7A88" stroke-width="2"/>';
+  h+='<line x1="530" y1="140" x2="530" y2="240" stroke="#6B7A88" stroke-width="1.5"/>';
+  h+='<line x1="470" y1="190" x2="590" y2="190" stroke="#6B7A88" stroke-width="1.5"/>';
+  // Plante intérieur sur meuble
+  h+='<rect x="200" y="195" width="60" height="10" fill="#8B6F4E" opacity="0"/>'; // placeholder
+  // Table d\'intérieur
+  h+='<rect x="620" y="280" width="140" height="8" fill="#C8A890"/>';
+  h+='<rect x="635" y="288" width="6" height="60" fill="#8B6F4E"/>';
+  h+='<rect x="740" y="288" width="6" height="60" fill="#8B6F4E"/>';
+  // Vase avec fleurs
+  h+='<rect x="655" y="250" width="22" height="30" fill="#A8C8D8" stroke="#6B7A88" stroke-width="1.5" rx="3"/>';
+  h+='<circle cx="666" cy="245" r="6" fill="#F66C24"/>';
+  h+='<circle cx="660" cy="238" r="4" fill="#F59E0B"/>';
+  h+='<circle cx="672" cy="240" r="4" fill="#E8A317"/>';
+  // Plante d\'intérieur sur table basse
+  h+='<rect x="710" y="240" width="30" height="10" fill="#6B5535"/>';
+  h+='<rect x="712" y="200" width="26" height="40" fill="#8B6F4E"/>';
+  h+='<ellipse cx="725" cy="180" rx="22" ry="18" fill="#7BA866"/>';
+  h+='<ellipse cx="735" cy="170" rx="12" ry="10" fill="#8BB878"/>';
+  // Soucoupe sous la plante (gîte)
+  h+='<ellipse cx="725" cy="250" rx="20" ry="3" fill="#A8C8D8"/>';
+  // Climatiseur mural
+  h+='<rect x="460" y="105" width="80" height="25" fill="#F0F0F0" stroke="#B0B0B0" stroke-width="1.5" rx="3"/>';
+  h+='<rect x="467" y="128" width="66" height="4" fill="#D5D5D5"/>';
+  // Bac condensation extérieur (gauche du mur)
+  h+='<rect x="415" y="135" width="20" height="12" fill="#C8C8C8" stroke="#888" stroke-width="1"/>';
+  // ── JARDIN GAUCHE ──
+  // Sol herbe
+  h+='<rect x="0" y="260" width="900" height="290" fill="#C8D9A8"/>';
+  // Bande herbeuse
+  for(var g=0;g<45;g++){h+='<line x1="'+(g*20)+'" y1="260" x2="'+(g*20+3)+'" y2="268" stroke="#A8C088" stroke-width="1"/>';}
+  // Terrasse pavée
+  h+='<rect x="0" y="410" width="440" height="40" fill="#D8CEBA"/>';
+  for(var p=0;p<11;p++){h+='<line x1="'+(p*40)+'" y1="410" x2="'+(p*40)+'" y2="450" stroke="#B8A680" stroke-width="1"/>';}
+  // Pot de fleurs + coupelle (gauche, sur terrasse)
+  h+='<path d="M 115 350 L 175 350 L 165 395 L 125 395 Z" fill="#C87050" stroke="#8B4A30" stroke-width="1.5"/>';
+  h+='<ellipse cx="145" cy="348" rx="30" ry="6" fill="#8B4A30"/>';
+  h+='<ellipse cx="145" cy="340" rx="26" ry="10" fill="#7BA866"/>';
+  h+='<ellipse cx="145" cy="330" rx="18" ry="14" fill="#8BB878"/>';
+  // Coupelle avec eau
+  h+='<ellipse cx="145" cy="400" rx="35" ry="5" fill="#6B8CB5"/>';
+  h+='<ellipse cx="145" cy="398" rx="30" ry="3" fill="#A8C8D8" opacity="0.9"/>';
+  // Gouttière (descente sur façade extension gauche)
+  h+='<rect x="435" y="80" width="6" height="250" fill="#8B8B8B"/>';
+  h+='<path d="M 415 85 L 441 85 L 441 95 L 415 95 Z" fill="#8B8B8B"/>';
+  // Feuilles dans gouttière (haut)
+  h+='<ellipse cx="225" cy="295" rx="20" ry="5" fill="#8B6F4E"/>';
+  h+='<rect x="210" y="290" width="40" height="10" fill="#A8896B" stroke="#6B5535" stroke-width="1" rx="2"/>';
+  // Bassin décoratif (arrière jardin)
+  h+='<ellipse cx="330" cy="420" rx="55" ry="15" fill="#3B6A9B"/>';
+  h+='<ellipse cx="330" cy="418" rx="48" ry="10" fill="#6B8CB5"/>';
+  h+='<path d="M 290 415 Q 330 410 370 415" stroke="#A8C8D8" stroke-width="1" fill="none"/>';
+  h+='<text x="305" y="445" font-size="9" fill="#2A4A6A" font-weight="700" font-family="monospace" letter-spacing="1">BASSIN</text>';
+  // Piscine couverte (milieu bas — bâche)
+  h+='<rect x="390" y="460" width="130" height="30" fill="#4A6A8B" stroke="#2A3A4A" stroke-width="1.5" rx="4"/>';
+  h+='<ellipse cx="455" cy="467" rx="50" ry="4" fill="#6B8CB5"/>';
+  h+='<text x="420" y="510" font-size="9" fill="#2A4A6A" font-weight="700" font-family="monospace" letter-spacing="1">PISCINE BÂCHÉE</text>';
+  // Seau / arrosoir
+  h+='<rect x="555" y="410" width="35" height="40" fill="#7B9FB5" stroke="#4A6A8B" stroke-width="1.5" rx="2"/>';
+  h+='<rect x="550" y="408" width="45" height="6" fill="#4A6A8B"/>';
+  h+='<ellipse cx="572" cy="420" rx="15" ry="2" fill="#A8C8D8" opacity="0.9"/>';
+  h+='<text x="550" y="475" font-size="9" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">ARROSOIR</text>';
+  // Récupérateur eau de pluie (cuve sur côté maison)
+  h+='<rect x="655" y="345" width="55" height="95" fill="#4A5F4A" stroke="#2A3A2A" stroke-width="2" rx="3"/>';
+  h+='<ellipse cx="682" cy="347" rx="27" ry="6" fill="#6B7F6B"/>';
+  h+='<text x="640" y="460" font-size="9" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">CUVE PLUIE</text>';
+  // Pile de pneus
+  h+='<ellipse cx="790" cy="430" rx="35" ry="8" fill="#333"/>';
+  h+='<ellipse cx="790" cy="420" rx="33" ry="7" fill="#222"/>';
+  h+='<ellipse cx="790" cy="410" rx="31" ry="7" fill="#2A2A2A"/>';
+  h+='<ellipse cx="790" cy="400" rx="29" ry="6" fill="#1A1A1A"/>';
+  h+='<text x="767" y="460" font-size="9" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">PNEUS</text>';
+  // Petits récipients oubliés (coin bas gauche)
+  h+='<rect x="40" y="415" width="25" height="22" fill="#F59E0B" stroke="#B87510" stroke-width="1"/>'; // jouet seau
+  h+='<rect x="75" y="425" width="15" height="12" fill="#D63447" stroke="#8B2030" stroke-width="1"/>';
+  h+='<ellipse cx="55" cy="415" rx="12" ry="2" fill="#A8C8D8" opacity="0.9"/>';
+  // Labels
+  h+='<text x="460" y="480" font-size="10" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">INTÉRIEUR</text>';
+  h+='<text x="180" y="480" font-size="10" fill="#555" font-weight="700" font-family="monospace" letter-spacing="1">JARDIN EXTÉRIEUR</text>';
+  // Hotspots
+  DATA.houseZones.forEach(function(z,i){
+    h+='<g class="house-hotspot" data-zone="'+i+'" tabindex="0" role="button" aria-label="'+z.label+'">';
+    h+='<circle cx="'+z.x+'" cy="'+z.y+'" r="9" fill="#4CAF50" opacity="0.85" style="animation:hotspot-pulse 2s infinite '+(i*0.17)+'s"/>';
+    h+='<circle cx="'+z.x+'" cy="'+z.y+'" r="4" fill="#fff"/>';
+    h+='</g>';
+  });
+  svg.innerHTML=h;
+  var tt=document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(function(gg){
+    gg.addEventListener('mouseenter',function(){
+      var z=DATA.houseZones[gg.dataset.zone];
+      tt.innerHTML='<h4>'+z.label+'</h4><p>'+z.desc+'</p>';
+      tt.classList.add('active');
+      var r=svg.getBoundingClientRect();
+      tt.style.left=Math.min(z.x/900*r.width+20,r.width-280)+'px';
+      tt.style.top=(z.y/550*r.height-40)+'px';
+    });
+    gg.addEventListener('mouseleave',function(){tt.classList.remove('active');});
+  });
+}
 function initSimulator(){var slider=document.getElementById('prolifSlider');if(!slider)return;var cfg={logement:'appart',secteur:'ville',food:'moyen',initial:5};document.querySelectorAll('.prolif-pills').forEach(function(g){g.querySelectorAll('.prolif-pill').forEach(function(p){p.addEventListener('click',function(){g.querySelectorAll('.prolif-pill').forEach(function(x){x.classList.remove('active')});p.classList.add('active');var id=g.id;if(id==='cfgLogement')cfg.logement=p.dataset.val;if(id==='cfgSecteur')cfg.secteur=p.dataset.val;if(id==='cfgFood')cfg.food=p.dataset.val;if(id==='cfgInitial')cfg.initial=+p.dataset.val;recompute();});});});var population=[];function recompute(){var wm={peu:0.3,moyen:0.7,beaucoup:1.0}[cfg.food],sm={ville:0.7,periurbain:1.0,campagne:1.3}[cfg.secteur],lm=cfg.logement==='maison'?1.4:0.6,bm=wm*sm*lm;population=[cfg.initial];for(var w=1;w<12;w++){var prev=population[w-1],f=prev*0.5,nb=f*bm*200*0.1,d=prev*0.3;population.push(Math.max(1,Math.round(prev+nb-d)));}update(+slider.value);}function update(week){var pop=population[week]||1;document.getElementById('prolifMonth').textContent='Semaine '+(week+1);var ce=document.getElementById('prolifCount');ce.textContent=pop.toLocaleString('fr-FR')+' moustique'+(pop>1?'s':'');ce.classList.toggle('danger',pop>100);var mx=300,n=Math.min(mx,pop),h='';for(var i=0;i<n;i++)h+='<span class="rat-icon" style="animation-delay:'+(i*0.003)+'s">\uD83E\uDDB7</span>';if(pop>mx)h+='<span class="rat-overflow">+'+(pop-mx).toLocaleString('fr-FR')+'</span>';document.getElementById('prolifRats').innerHTML=h;var rb=document.getElementById('prolifResultsBox');if(rb)rb.classList.toggle('critical',pop>100);document.getElementById('pImpactCrottes').textContent=Math.min(50,Math.round(pop*0.5)).toLocaleString('fr-FR');document.getElementById('pImpactCost').textContent=Math.round(pop*50).toLocaleString('fr-FR');document.getElementById('pImpactFood').textContent=Math.round(pop*0.02)||1;var a=document.getElementById('prolifAlert'),ic=a.querySelector('.prolif-alert-icon'),tx=a.querySelector('.prolif-alert-text'),ct=document.getElementById('prolifCta');if(pop<=10){a.className='prolif-alert level-ok';ic.textContent='\u2713';tx.textContent='Population faible. La prévention suffit encore.';ct.style.display='none';}else if(pop<=50){a.className='prolif-alert level-warn';ic.textContent='\u26a0\ufe0f';tx.textContent=pop+' moustiques. Les piqûres deviennent quotidiennes.';ct.style.display='none';}else if(pop<=200){a.className='prolif-alert level-danger';ic.textContent='\ud83d\udea8';tx.textContent=pop+' moustiques. Risque de transmission de maladies.';ct.style.display='block';}else{a.className='prolif-alert level-critical';ic.textContent='\u2620\ufe0f';tx.textContent=pop.toLocaleString('fr-FR')+' moustiques. Infestation massive. Démoustication professionnelle indispensable.';ct.style.display='block';}updateSliderFill(slider);}slider.addEventListener('input',function(){update(+slider.value)});updateSliderFill(slider);recompute();}
 function initRiskGauges(){var cl=document.getElementById('riskChecklist');if(!cl)return;function compute(){var s=0;cl.querySelectorAll('input[type="checkbox"]').forEach(function(cb){if(cb.checked)s+=+(cb.dataset.score||0)});s=Math.min(100,s);document.getElementById('riskScoreText').textContent=s;var arc=document.getElementById('riskArc'),p=s/100;arc.style.strokeDashoffset=314-(314*p);if(s<30){arc.style.stroke='#4CAF50';document.getElementById('riskVerdictTitle').textContent='Risque faible';document.getElementById('riskVerdictDesc').textContent='Votre environnement est peu favorable aux moustiques.';document.getElementById('riskCta').style.display='none';}else if(s<60){arc.style.stroke='#FF9800';document.getElementById('riskVerdictTitle').textContent='Risque modéré';document.getElementById('riskVerdictDesc').textContent='Plusieurs facteurs favorisent les moustiques. Des actions préventives sont recommandées.';document.getElementById('riskCta').style.display='block';}else{arc.style.stroke='#F44336';document.getElementById('riskVerdictTitle').textContent='Risque élevé';document.getElementById('riskVerdictDesc').textContent='Votre logement cumule des facteurs à risque. Intervention professionnelle conseillée.';document.getElementById('riskCta').style.display='block';}}cl.querySelectorAll('input').forEach(function(cb){cb.addEventListener('change',compute)});compute();}
 function initCalendar(){var g=document.getElementById('calendarGrid');if(!g)return;var colors=['#F3F3F3','#E8F5E9','#C8E6C9','#A5D6A7','#66BB6A','#388E3C'],ms=DATA.calendar,cm=new Date().getMonth(),h='<div class="cal-cell cal-header"></div>';ms.forEach(function(m,i){h+='<div class="cal-cell cal-header'+(i===cm?' cal-current':'')+'">'+m.month+'</div>'});var rows=[{label:'Culex',key:'activity'},{label:'Tigre',key:'moustiqueTigre'},{label:'Reproduction',key:'reproduction'},{label:'Traitement',key:'treatment'}];rows.forEach(function(row){h+='<div class="cal-cell cal-label">'+row.label+'</div>';ms.forEach(function(m,i){if(row.key==='treatment'){var tc={'Hors saison':'#F3F3F3','Prévention':'#E8F5E9','Optimal':'#66BB6A','Bon':'#A5D6A7','Moyen':'#FFF3E0'};h+='<div class="cal-cell'+(i===cm?' cal-current':'')+'" style="background:'+(tc[m[row.key]]||'#F3F3F3')+';font-size:9px;color:#333;">'+m[row.key]+'<span class="cal-tip">'+row.label+' : '+m[row.key]+'</span></div>';}else{var v=m[row.key];h+='<div class="cal-cell'+(i===cm?' cal-current':'')+'" style="background:'+colors[v]+';">'+(v>0?'\u25cf'.repeat(Math.min(v,5)):'\u2014')+'<span class="cal-tip">'+row.label+' : '+v+'/5</span></div>';}});});g.innerHTML=h;}
