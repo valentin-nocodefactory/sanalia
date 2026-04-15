@@ -65,39 +65,221 @@
   min-height: calc(100vh - 140px);
 }
 
-/* ─── Split layout ─── */
+/* ─── Split layout: copy col (left) + form card (right, highlighted) ─── */
 .devis-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  gap: 0;
-  background: var(--color-surface);
-  border-radius: 24px;
-  box-shadow: var(--shadow-float);
-  overflow: hidden;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 48px;
+  align-items: start;
   min-height: 640px;
-  border: 1px solid rgba(14,5,42,0.04);
 }
 @media (max-width: 1024px) {
-  .devis-layout {
-    grid-template-columns: 1fr;
-    border-radius: 20px;
-  }
+  .devis-layout { grid-template-columns: 1fr; gap: 32px; }
 }
 
-/* ─── Form panel (left) ─── */
-.devis-form-panel {
-  padding: 40px 48px;
+/* ═══ LEFT : Copy + Trust column ═══ */
+.devis-copy-col {
+  padding: 16px 0;
   display: flex; flex-direction: column;
+  gap: 28px;
   min-width: 0;
 }
-@media (max-width: 768px) { .devis-form-panel { padding: 28px 24px; } }
+.copy-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: #666; text-transform: uppercase; letter-spacing: 0.12em;
+  align-self: flex-start;
+}
+.copy-eyebrow .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.15);
+  animation: softPulse 2.4s infinite;
+}
+@keyframes softPulse {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+.copy-title {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: clamp(2.25rem, 3.8vw, 3.25rem);
+  line-height: 1.02; letter-spacing: -0.025em;
+  color: var(--color-primary-900);
+  margin: 0;
+}
+.copy-title em {
+  font-style: normal; color: var(--color-primary-600);
+  position: relative; white-space: nowrap;
+}
+.copy-title em::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 2px;
+  height: 10px; background: var(--color-pastel-gold);
+  z-index: -1; border-radius: 4px;
+}
+.copy-subtitle {
+  font-family: 'Uxum', sans-serif; font-weight: 400;
+  font-size: 1.0625rem; line-height: 1.5;
+  color: var(--color-primary-800);
+  margin: 0; max-width: 500px;
+}
 
-/* Top row: minimal breadcrumb + type toggle */
+/* Reassurance list */
+.copy-reassurance {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.copy-reassurance li {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-family: 'Uxum', sans-serif;
+}
+.copy-reassurance .rea-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+}
+.copy-reassurance .rea-icon.gold {
+  background: var(--color-pastel-gold-light);
+  color: var(--color-accent-500);
+}
+.copy-reassurance .rea-icon svg { width: 18px; height: 18px; }
+.copy-reassurance strong {
+  display: block; font-weight: 700;
+  font-size: 0.95rem; color: var(--color-primary-900);
+  margin-bottom: 2px;
+}
+.copy-reassurance span {
+  font-size: 0.85rem; color: var(--color-primary-800);
+  line-height: 1.4;
+}
+
+/* Reviews card (left col) */
+.copy-reviews {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  background: var(--color-surface);
+  border: 1px solid rgba(14,5,42,0.06);
+  border-radius: 14px;
+  box-shadow: var(--shadow-hairline);
+}
+.copy-reviews-score {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.85rem; color: var(--color-primary-900);
+  line-height: 1;
+}
+.copy-reviews-body { flex: 1; min-width: 0; }
+.copy-reviews-stars {
+  color: #FFB800; font-size: 0.875rem; letter-spacing: 2px; line-height: 1;
+}
+.copy-reviews-meta {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: #666; margin-top: 4px;
+}
+
+/* Certifications row (left col) */
+.copy-certs {
+  display: flex; flex-direction: column; gap: 10px;
+}
+.copy-certs-label {
+  font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  color: #888; text-transform: uppercase; letter-spacing: 0.1em;
+}
+.copy-certs-logos {
+  display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+}
+.copy-certs-logos img {
+  height: 28px; max-width: 92px; object-fit: contain;
+  opacity: 0.7; filter: grayscale(0.25);
+  transition: opacity 0.2s, filter 0.2s;
+}
+.copy-certs-logos img:hover { opacity: 1; filter: none; }
+
+/* Phone card (left col) */
+.copy-phone {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px;
+  background: var(--color-primary-900);
+  border-radius: 14px;
+  color: #fff;
+  margin-top: auto;
+  background-image: radial-gradient(circle at 100% 0%, rgba(99,93,221,0.35), transparent 60%);
+}
+.copy-phone-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+}
+.copy-phone-body { flex: 1; min-width: 0; }
+.copy-phone-label {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.copy-phone a {
+  display: block;
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.125rem; color: #fff;
+  text-decoration: none; line-height: 1.1;
+  margin-top: 2px;
+}
+.copy-phone-hours {
+  font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  color: rgba(255,255,255,0.55);
+  margin-top: 2px;
+}
+
+/* ═══ RIGHT : Form card (the star) ═══ */
+.devis-form-panel {
+  position: relative;
+  padding: 48px 40px 36px;
+  display: flex; flex-direction: column;
+  min-width: 0;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: var(--shadow-float);
+  border: 1px solid rgba(14,5,42,0.04);
+}
+@media (max-width: 768px) { .devis-form-panel { padding: 40px 24px 28px; } }
+
+/* Ribbon : 1ère intervention offerte */
+.form-ribbon {
+  position: absolute;
+  top: -14px; left: 24px; right: 24px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, var(--color-accent-500), #F4B05C);
+  color: #fff;
+  border-radius: 999px;
+  font-family: 'Uxum', sans-serif; font-weight: 700; font-size: 0.82rem;
+  box-shadow: 0 8px 20px -4px rgba(246,108,36,0.45);
+  letter-spacing: 0.01em;
+  justify-content: center;
+}
+.form-ribbon-dot {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.form-ribbon-dot svg { width: 11px; height: 11px; }
+.form-ribbon small {
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.68rem; opacity: 0.9;
+  margin-left: auto; letter-spacing: 0.06em; text-transform: uppercase;
+}
+@media (max-width: 480px) {
+  .form-ribbon small { display: none; }
+  .form-ribbon { font-size: 0.75rem; }
+}
+
+/* Top row: type toggle aligned right */
 .devis-top-row {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(14,5,42,0.06);
+  display: flex; justify-content: flex-end; align-items: center;
+  margin-bottom: 24px;
 }
 .devis-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
@@ -518,225 +700,6 @@
 }
 .devis-trust-item svg { width: 13px; height: 13px; color: #22c55e; }
 
-/* ═══════════════════════════════════════════════════
-   CONCIERGE PANEL (right side)
-   ═══════════════════════════════════════════════════ */
-.devis-concierge {
-  position: relative;
-  background: linear-gradient(165deg, #1B0F42 0%, #0E052A 60%, #0A0320 100%);
-  color: #fff;
-  padding: 40px 40px 36px;
-  display: flex; flex-direction: column;
-  overflow: hidden;
-}
-@media (max-width: 1024px) {
-  .devis-concierge { padding: 32px 24px; }
-}
-.devis-concierge::before {
-  content: '';
-  position: absolute; top: -40%; right: -20%;
-  width: 400px; height: 400px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(99,93,221,0.35), transparent 70%);
-  pointer-events: none;
-}
-.devis-concierge::after {
-  content: '';
-  position: absolute; bottom: -30%; left: -20%;
-  width: 320px; height: 320px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(246,108,36,0.18), transparent 70%);
-  pointer-events: none;
-}
-.conc-inner { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
-
-/* Concierge head */
-.conc-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'Space Mono', monospace; font-size: 0.7rem;
-  color: rgba(255,255,255,0.55);
-  text-transform: uppercase; letter-spacing: 0.12em;
-  margin-bottom: 20px;
-}
-.conc-tag .dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 4px rgba(34,197,94,0.2);
-  animation: softPulse 2.4s infinite;
-}
-.conc-person {
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 28px;
-}
-.conc-avatar {
-  width: 54px; height: 54px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-pastel-lavender), var(--color-pastel-peach));
-  overflow: hidden; flex-shrink: 0;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.35), inset 0 0 0 2px rgba(255,255,255,0.1);
-  position: relative;
-}
-.conc-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
-.conc-person-name {
-  font-family: 'Uxum', sans-serif; font-weight: 700; font-size: 1rem;
-  color: #fff; line-height: 1.2;
-}
-.conc-person-role {
-  font-family: 'Space Mono', monospace; font-size: 0.72rem;
-  color: rgba(255,255,255,0.5);
-  margin-top: 3px; letter-spacing: 0.04em;
-}
-
-/* Live status message */
-.conc-status {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 16px 18px;
-  margin-bottom: 20px;
-  position: relative;
-}
-.conc-status::before {
-  content: ''; position: absolute; left: 24px; top: -8px;
-  width: 14px; height: 14px; transform: rotate(45deg);
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  border-left: 1px solid rgba(255,255,255,0.08);
-}
-.conc-status-label {
-  font-family: 'Space Mono', monospace; font-size: 0.65rem;
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase; letter-spacing: 0.1em;
-  margin-bottom: 6px;
-}
-.conc-status-text {
-  font-family: 'Uxum', sans-serif; font-size: 0.95rem;
-  color: #fff; line-height: 1.45;
-}
-.conc-status-text strong {
-  color: var(--color-pastel-gold);
-  font-weight: 700;
-}
-
-/* Live estimate */
-.conc-estimate {
-  background: linear-gradient(135deg, rgba(99,93,221,0.18), rgba(99,93,221,0.05));
-  border: 1px solid rgba(135,129,243,0.25);
-  border-radius: 16px;
-  padding: 18px 20px;
-  margin-bottom: 20px;
-  position: relative;
-  overflow: hidden;
-}
-.conc-estimate::before {
-  content: ''; position: absolute;
-  top: -50%; right: -20%; width: 200px; height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(135,129,243,0.2), transparent 70%);
-}
-.conc-estimate-head {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 4px;
-  position: relative;
-}
-.conc-estimate-label {
-  font-family: 'Space Mono', monospace; font-size: 0.65rem;
-  color: rgba(255,255,255,0.55);
-  text-transform: uppercase; letter-spacing: 0.1em;
-}
-.conc-estimate-chip {
-  font-family: 'Space Mono', monospace; font-size: 0.62rem;
-  padding: 3px 8px; border-radius: 999px;
-  background: rgba(135,129,243,0.18);
-  color: var(--color-pastel-lavender);
-  text-transform: uppercase; letter-spacing: 0.08em;
-}
-.conc-estimate-value {
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1.75rem; color: #fff;
-  line-height: 1.1; letter-spacing: -0.02em;
-  position: relative;
-  transition: opacity 0.3s;
-}
-.conc-estimate-note {
-  font-family: 'Uxum', sans-serif; font-size: 0.78rem;
-  color: rgba(255,255,255,0.55); margin-top: 6px;
-  position: relative;
-}
-
-/* Concierge testimonial */
-.conc-testi {
-  margin-bottom: auto;
-  padding: 16px 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-.conc-testi-stars {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 8px;
-}
-.conc-testi-stars span { color: #FFB800; font-size: 0.9rem; letter-spacing: 1.5px; }
-.conc-testi-stars strong {
-  font-family: 'Uxum', sans-serif; font-weight: 700; font-size: 0.85rem;
-  color: #fff;
-}
-.conc-testi-google {
-  margin-left: auto;
-  font-family: 'Space Mono', monospace; font-size: 0.65rem;
-  color: rgba(255,255,255,0.45);
-}
-.conc-testi-quote {
-  font-family: 'Uxum', sans-serif; font-size: 0.875rem;
-  color: rgba(255,255,255,0.8); line-height: 1.5;
-  font-weight: 400;
-}
-.conc-testi-author {
-  font-family: 'Space Mono', monospace; font-size: 0.65rem;
-  color: rgba(255,255,255,0.45);
-  margin-top: 8px; letter-spacing: 0.04em;
-}
-
-/* Concierge trust row (certifs) */
-.conc-trust {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  padding: 14px 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  align-items: center;
-}
-.conc-trust-label {
-  font-family: 'Space Mono', monospace; font-size: 0.62rem;
-  color: rgba(255,255,255,0.4);
-  text-transform: uppercase; letter-spacing: 0.1em;
-  width: 100%;
-}
-.conc-trust img {
-  height: 20px; max-width: 60px; object-fit: contain;
-  opacity: 0.55; filter: brightness(0) invert(1);
-  transition: opacity 0.2s;
-}
-.conc-trust img:hover { opacity: 0.9; }
-
-/* Concierge CTA call */
-.conc-call {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  display: flex; align-items: center; gap: 14px;
-}
-.conc-call-text {
-  flex: 1;
-  font-family: 'Uxum', sans-serif; font-size: 0.78rem;
-  color: rgba(255,255,255,0.6); line-height: 1.3;
-}
-.conc-call-text strong { color: #fff; font-weight: 700; font-size: 0.82rem; }
-.conc-call a {
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 0.9rem; color: #fff; text-decoration: none;
-  padding: 9px 14px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 999px;
-  transition: all 0.2s var(--ease-out);
-  display: inline-flex; align-items: center; gap: 7px;
-  white-space: nowrap;
-}
-.conc-call a:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
 
 </style>
 </head>
@@ -890,19 +853,110 @@
   </div>
 </header>
 </div>
-<!-- ════════ DEVIS — Concierge Experience ════════ -->
+<!-- ════════ DEVIS — Trust column + Form card ════════ -->
 <section class="devis-section">
   <div class="container">
     <div class="devis-layout">
 
-      <!-- ═══ LEFT : FORM PANEL ═══ -->
+      <!-- ═══ LEFT : COPY + TRUST ═══ -->
+      <aside class="devis-copy-col">
+
+        <span class="copy-eyebrow">
+          <span class="dot"></span>
+          <span id="liveCount">12 demandes traitées aujourd'hui</span>
+        </span>
+
+        <h1 class="copy-title" id="devisTitle">
+          Votre devis gratuit,<br>en <em>60 secondes</em>.
+        </h1>
+        <p class="copy-subtitle">
+          Décrivez votre situation, un technicien certifié vous rappelle sous 2h avec un devis ferme. Sans engagement, sans robot.
+        </p>
+
+        <ul class="copy-reassurance">
+          <li>
+            <span class="rea-icon gold">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+            <div>
+              <strong>1<sup>ère</sup> intervention offerte</strong>
+              <span>Diagnostic + premier traitement inclus, 0&nbsp;€ à l'engagement.</span>
+            </div>
+          </li>
+          <li>
+            <span class="rea-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </span>
+            <div>
+              <strong>Réponse sous 2h</strong>
+              <span>Rappel par un technicien, pas par un commercial.</span>
+            </div>
+          </li>
+          <li>
+            <span class="rea-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            </span>
+            <div>
+              <strong>Résultat garanti</strong>
+              <span>Nouvelle intervention offerte en cas de retour du nuisible.</span>
+            </div>
+          </li>
+          <li>
+            <span class="rea-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M7 12l3 3 7-7"/><circle cx="12" cy="12" r="10"/></svg>
+            </span>
+            <div>
+              <strong>Certibiocide &amp; CS3D</strong>
+              <span>Techniciens agréés, RC Pro AXA, 100% conforme.</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="copy-reviews">
+          <div class="copy-reviews-score">4,9</div>
+          <div class="copy-reviews-body">
+            <div class="copy-reviews-stars">★★★★★</div>
+            <div class="copy-reviews-meta">380+ avis Google · Lyon &amp; Paris</div>
+          </div>
+          <svg viewBox="0 0 48 48" width="26" height="26"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        </div>
+
+        <div class="copy-certs">
+          <span class="copy-certs-label">Certifications officielles</span>
+          <div class="copy-certs-logos">
+            <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide" title="Certibiocide — Agrément obligatoire">
+            <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D" title="Chambre syndicale 3D">
+            <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro 3D" title="QualiPro 3D">
+            <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA" title="RC Professionnelle AXA">
+          </div>
+        </div>
+
+        <div class="copy-phone">
+          <span class="copy-phone-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <div class="copy-phone-body">
+            <div class="copy-phone-label">Préférez parler ?</div>
+            <a href="tel:0667464897">06 67 46 48 97</a>
+            <div class="copy-phone-hours">8h – 20h, 7j/7</div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ═══ RIGHT : FORM CARD ═══ -->
       <div class="devis-form-panel">
 
-        <div class="devis-top-row">
-          <span class="devis-eyebrow">
-            <span class="dot"></span>
-            <span id="liveCount">12 demandes traitées aujourd'hui</span>
+        <!-- Ribbon : 1ère intervention offerte -->
+        <div class="form-ribbon">
+          <span class="form-ribbon-dot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
           </span>
+          <span>1<sup>ère</sup> intervention offerte</span>
+          <small>Inclus</small>
+        </div>
+
+        <div class="devis-top-row">
           <div class="devis-type-toggle" role="tablist" aria-label="Type de client">
             <button type="button" class="active" data-client="particulier">Particulier</button>
             <button type="button" data-client="pro">Pro</button>
@@ -929,9 +983,9 @@
 
         <form action="#" method="POST" id="devisForm" novalidate>
 
-          <!-- ─── Step 1 : Nuisible ─── -->
+          <!-- ─── Step 1 ─── -->
           <fieldset class="devis-fieldset active" data-step="1">
-            <h1 class="devis-headline" id="devisTitle">De quoi souhaitez-vous <em>vous débarrasser</em>&nbsp;?</h1>
+            <h2 class="devis-headline">De quoi souhaitez-vous <em>vous débarrasser</em>&nbsp;?</h2>
             <p class="devis-headline-hint">Sélectionnez votre nuisible — nous adaptons protocole et estimation.</p>
 
             <input type="hidden" name="nuisible" id="nuisibleInput" required>
@@ -987,9 +1041,9 @@
             </div>
           </fieldset>
 
-          <!-- ─── Step 2 : Situation ─── -->
+          <!-- ─── Step 2 ─── -->
           <fieldset class="devis-fieldset" data-step="2">
-            <h1 class="devis-headline">Racontez-nous <em>votre situation</em></h1>
+            <h2 class="devis-headline">Racontez-nous <em>votre situation</em></h2>
             <p class="devis-headline-hint">3 infos rapides pour ajuster votre estimation.</p>
 
             <div class="field-block">
@@ -1034,9 +1088,9 @@
             </div>
           </fieldset>
 
-          <!-- ─── Step 3 : Coordonnées ─── -->
+          <!-- ─── Step 3 ─── -->
           <fieldset class="devis-fieldset" data-step="3">
-            <h1 class="devis-headline">Où envoyer votre <em>devis&nbsp;?</em></h1>
+            <h2 class="devis-headline">Où envoyer votre <em>devis&nbsp;?</em></h2>
             <p class="devis-headline-hint">Infos strictement confidentielles — zéro spam, zéro partage.</p>
 
             <div class="devis-field-row">
@@ -1150,79 +1204,10 @@
         </form>
       </div><!-- /.devis-form-panel -->
 
-      <!-- ═══ RIGHT : CONCIERGE PANEL ═══ -->
-      <aside class="devis-concierge">
-        <div class="conc-inner">
-
-          <span class="conc-tag">
-            <span class="dot"></span>
-            Votre conseiller en ligne
-          </span>
-
-          <div class="conc-person">
-            <div class="conc-avatar">
-              <img src="/assets/hero_technicienne.png" alt="Claire, conseillère Sanalia">
-            </div>
-            <div>
-              <div class="conc-person-name">Claire Moreau</div>
-              <div class="conc-person-role">Conseillère Sanalia · Certibiocide</div>
-            </div>
-          </div>
-
-          <div class="conc-status">
-            <div class="conc-status-label">En ce moment</div>
-            <div class="conc-status-text" id="concStatus">
-              Je vous prépare un devis <strong>sur-mesure</strong>. Commencez par sélectionner votre nuisible&nbsp;→
-            </div>
-          </div>
-
-          <div class="conc-estimate">
-            <div class="conc-estimate-head">
-              <span class="conc-estimate-label">Estimation</span>
-              <span class="conc-estimate-chip" id="concEstimateChip">en construction</span>
-            </div>
-            <div class="conc-estimate-value" id="concEstimate">—&nbsp;€</div>
-            <div class="conc-estimate-note" id="concEstimateNote">Fourchette indicative TTC · devis final remis par le technicien.</div>
-          </div>
-
-          <div class="conc-testi" id="concTesti">
-            <div class="conc-testi-stars">
-              <span>★★★★★</span>
-              <strong>4,9 / 5</strong>
-              <span class="conc-testi-google">380+ avis Google</span>
-            </div>
-            <p class="conc-testi-quote" id="concTestiQuote">« Rappel en moins d'une heure, devis clair, problème réglé en une visite. Bluffant. »</p>
-            <div class="conc-testi-author" id="concTestiAuthor">— Sophie M., Lyon 3 · il y a 2 semaines</div>
-          </div>
-
-          <div class="conc-trust">
-            <div class="conc-trust-label">Certifications</div>
-            <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide">
-            <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D">
-            <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro 3D">
-            <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA">
-          </div>
-
-          <div class="conc-call">
-            <div class="conc-call-text">
-              Préférez-vous parler ?<br>
-              <strong>Claire répond, 8h&#8239;–&#8239;20h, 7j/7.</strong>
-            </div>
-            <a href="tel:0667464897">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              06 67 46 48 97
-            </a>
-          </div>
-
-        </div>
-      </aside>
-
     </div><!-- /.devis-layout -->
   </div>
 </section>
 
-
-</section>
 
 <div data-component="footer">
 <footer class="footer">
