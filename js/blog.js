@@ -104,78 +104,74 @@
       });
     });
 
-    // Highlight section active via IntersectionObserver
-    if ('IntersectionObserver' in window) {
-      var links = {};
-      $$('a[data-toc-target]', toc).forEach(function (a) {
-        links[a.getAttribute('data-toc-target')] = a;
-      });
+    // Highlight section active via scroll position (pas IntersectionObserver :
+    // plus stable, pas de "trou" entre deux sections, l'état reste défini)
+    var links = {};
+    $$('a[data-toc-target]', toc).forEach(function (a) {
+      links[a.getAttribute('data-toc-target')] = a;
+    });
 
-      // Accordéon : afficher uniquement les h3 du h2 actif
-      function updateTocH3Visibility() {
-        var items = Array.prototype.slice.call(toc.querySelectorAll('.toc-h2, .toc-h3'));
-        // Trouver l'index du h2 actif (le dernier h2 actif OU le h2 parent d'un h3 actif)
-        var activeH2Index = -1;
-        for (var i = 0; i < items.length; i++) {
-          var li = items[i];
-          var link = li.querySelector('a');
-          if (!link) continue;
-          if (li.classList.contains('toc-h2') && link.classList.contains('is-active')) {
-            activeH2Index = i;
-          }
-          if (li.classList.contains('toc-h3') && link.classList.contains('is-active')) {
-            // remonter vers le dernier h2 avant ce h3
-            for (var j = i - 1; j >= 0; j--) {
-              if (items[j].classList.contains('toc-h2')) {
-                if (activeH2Index === -1 || j > activeH2Index) activeH2Index = j;
-                break;
-              }
-            }
-          }
+    // Accordéon : afficher uniquement les h3 du h2 actif
+    function updateTocH3Visibility() {
+      var items = Array.prototype.slice.call(toc.querySelectorAll('.toc-h2, .toc-h3'));
+      var activeH2Index = -1;
+      for (var i = 0; i < items.length; i++) {
+        var li = items[i];
+        var link = li.querySelector('a');
+        if (!link) continue;
+        if (li.classList.contains('toc-h2') && link.classList.contains('is-active')) {
+          activeH2Index = i;
         }
-        // Toggle h3 visibility
-        for (var k = 0; k < items.length; k++) {
-          var item = items[k];
-          if (!item.classList.contains('toc-h3')) continue;
-          var belongs = false;
-          if (activeH2Index !== -1 && k > activeH2Index) {
-            var hasH2Between = false;
-            for (var m = activeH2Index + 1; m < k; m++) {
-              if (items[m].classList.contains('toc-h2')) { hasH2Between = true; break; }
+        if (li.classList.contains('toc-h3') && link.classList.contains('is-active')) {
+          for (var j = i - 1; j >= 0; j--) {
+            if (items[j].classList.contains('toc-h2')) {
+              if (activeH2Index === -1 || j > activeH2Index) activeH2Index = j;
+              break;
             }
-            if (!hasH2Between) belongs = true;
           }
-          item.classList.toggle('toc-visible', belongs);
         }
       }
-
-      var visibleIds = new Set();
-
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          var id = entry.target.id;
-          if (entry.isIntersecting) visibleIds.add(id);
-          else visibleIds.delete(id);
-        });
-
-        // Premier id visible dans l'ordre du DOM
-        var activeId = null;
-        for (var i = 0; i < headings.length; i++) {
-          if (visibleIds.has(headings[i].id)) { activeId = headings[i].id; break; }
+      for (var k = 0; k < items.length; k++) {
+        var item = items[k];
+        if (!item.classList.contains('toc-h3')) continue;
+        var belongs = false;
+        if (activeH2Index !== -1 && k > activeH2Index) {
+          var hasH2Between = false;
+          for (var m = activeH2Index + 1; m < k; m++) {
+            if (items[m].classList.contains('toc-h2')) { hasH2Between = true; break; }
+          }
+          if (!hasH2Between) belongs = true;
         }
+        item.classList.toggle('toc-visible', belongs);
+      }
+    }
 
-        Object.keys(links).forEach(function (id) {
-          links[id].classList.toggle('is-active', id === activeId);
-        });
-        updateTocH3Visibility();
-      }, {
-        rootMargin: '-130px 0px -70% 0px',
-        threshold: 0
+    // Trigger line : 160px depuis le haut du viewport (sous le header sticky)
+    // La section active est la DERNIÈRE dont le top a franchi cette ligne.
+    // Si on est au-dessus de la 1re section, on active la 1re.
+    var lastActiveId = null;
+    function updateActiveSection() {
+      var triggerY = 160;
+      var currentId = headings[0] ? headings[0].id : null;
+      for (var i = 0; i < headings.length; i++) {
+        var top = headings[i].getBoundingClientRect().top;
+        if (top <= triggerY) {
+          currentId = headings[i].id;
+        } else {
+          break;
+        }
+      }
+      if (currentId === lastActiveId) return;
+      lastActiveId = currentId;
+      Object.keys(links).forEach(function (id) {
+        links[id].classList.toggle('is-active', id === currentId);
       });
-
-      headings.forEach(function (h) { observer.observe(h); });
       updateTocH3Visibility();
     }
+
+    window.addEventListener('scroll', throttle(updateActiveSection, 80), { passive: true });
+    window.addEventListener('resize', throttle(updateActiveSection, 150), { passive: true });
+    updateActiveSection();
   }
 
   // ------------------------------------------------------------
