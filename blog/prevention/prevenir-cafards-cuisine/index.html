@@ -282,14 +282,15 @@
 
 <main>
 
-<div class="container">
-  <nav class="blog-breadcrumb" aria-label="Fil d'Ariane">
-    <a href="/">Accueil</a><span class="sep">›</span>
-    <a href="/blog/">Blog</a><span class="sep">›</span>
-    <a href="/blog/prevention/">Prévention</a><span class="sep">›</span>
-    <span class="current">Prévenir les cafards dans la cuisine</span>
-  </nav>
-</div>
+<nav class="blog-breadcrumb container" aria-label="Fil d'Ariane">
+  <a href="/" class="bc-home">Accueil</a>
+  <span class="bc-sep">›</span>
+  <a href="/blog/">Blog</a>
+  <span class="bc-sep">›</span>
+  <a href="/blog/prevention-reglementation/">Prévention &amp; Réglementation</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-current">Prévenir les cafards dans la cuisine</span>
+</nav>
 
 <section class="blog-hero">
   <div class="container">
@@ -305,9 +306,19 @@
 </section>
 
 <div class="container">
-<div class="blog-layout">
+<div class="blog-layout blog-layout--3col">
 
-<article class="blog-content">
+<aside class="blog-share-col" aria-label="Partager cet article">
+  <div class="share-bar-vertical-sticky">
+    <span class="share-bar-vertical-label">Partager</span>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.sanalia.fr/blog/prevention/prevenir-cafards-cuisine/" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn">in</a>
+    <a href="https://twitter.com/intent/tweet?url=https://www.sanalia.fr/blog/prevention/prevenir-cafards-cuisine/" target="_blank" rel="noopener" aria-label="Partager sur X">X</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.sanalia.fr/blog/prevention/prevenir-cafards-cuisine/" target="_blank" rel="noopener" aria-label="Partager sur Facebook">f</a>
+    <a href="#" class="share-bar-copy" aria-label="Copier le lien">⧉</a>
+  </div>
+</aside>
+
+<article class="blog-content blog-body" data-article>
 
 <p>Une cuisine qui attire les cafards coche en général trois cases : de la chaleur, de l'humidité, et des miettes accessibles. Retirez-en une seule, et votre logement devient beaucoup moins intéressant pour les blattes germaniques, orientales et américaines qui représentent 95 % des infestations urbaines en France. La bonne nouvelle : aucun de ces 12 gestes ne demande de matériel coûteux, et la plupart prennent moins de 5 minutes à mettre en place.</p>
 
@@ -444,31 +455,43 @@
 
 <h2 id="faq">Questions fréquentes</h2>
 
-<div class="blog-faq">
-  <details>
-    <summary>Les cafards viennent-ils forcément d'un manque d'hygiène ?</summary>
-    <div class="faq-answer">Non. Les cafards peuvent s'introduire dans un logement parfaitement propre, via les gaines techniques, les cartons de livraison, les sacs de courses ou en provenance d'un voisin. L'hygiène joue sur leur installation durable, pas sur leur arrivée initiale.</div>
-  </details>
-  <details>
-    <summary>Quelle est la durée de vie d'un cafard ?</summary>
-    <div class="faq-answer">Une blatte germanique vit 4 à 6 mois. Durant sa vie, une femelle produit 4 à 8 oothèques contenant chacune 30 à 40 œufs, soit jusqu'à 300 descendants par femelle. C'est ce qui explique la rapidité de prolifération.</div>
-  </details>
-  <details>
-    <summary>Les cafards transmettent-ils des maladies ?</summary>
-    <div class="faq-answer">Oui. Les blattes sont vecteurs passifs de salmonelles, E. coli, staphylocoques et Helicobacter pylori. Leurs déjections et mues sont également un allergène reconnu par l'OMS comme déclencheur d'asthme, particulièrement chez l'enfant.</div>
-  </details>
-  <details>
-    <summary>Le vinaigre blanc repousse-t-il vraiment les cafards ?</summary>
-    <div class="faq-answer">Partiellement. Le vinaigre blanc nettoie les phéromones de piste laissées par les blattes, ce qui perturbe leurs trajets. Il ne tue pas les cafards et ne les empêche pas de revenir. C'est un complément utile, pas une solution.</div>
-  </details>
-  <details>
-    <summary>Que faire si je vois un cafard isolé ?</summary>
-    <div class="faq-answer">Agissez immédiatement, même pour un seul spécimen. Les cafards sont nocturnes et fuient la lumière : en voir un en journée signifie que la cachette est pleine. La règle retenue par les entomologistes : 1 cafard visible = environ 200 cachés.</div>
-  </details>
-  <details>
-    <summary>Combien de temps avant une invasion si je ne fais rien ?</summary>
-    <div class="faq-answer">Dans des conditions favorables (chaleur, humidité, nourriture), une colonie peut passer de 2 individus à plus de 1 000 en 6 mois. C'est pourquoi la prévention est toujours plus rentable que le traitement curatif.</div>
-  </details>
+<div class="accordion-list" id="faqAccordion">
+  <div class="accordion-item">
+    <button class="accordion-header">Les cafards viennent-ils forcément d'un manque d'hygiène ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Non. Les cafards peuvent s'introduire dans un logement parfaitement propre, via les gaines techniques, les cartons de livraison, les sacs de courses ou en provenance d'un voisin. L'hygiène joue sur leur installation durable, pas sur leur arrivée initiale.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Quelle est la durée de vie d'un cafard ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Une blatte germanique vit 4 à 6 mois. Durant sa vie, une femelle produit 4 à 8 oothèques contenant chacune 30 à 40 œufs, soit jusqu'à 300 descendants par femelle. C'est ce qui explique la rapidité de prolifération.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Les cafards transmettent-ils des maladies ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Oui. Les blattes sont vecteurs passifs de salmonelles, E. coli, staphylocoques et Helicobacter pylori. Leurs déjections et mues sont également un allergène reconnu par l'OMS comme déclencheur d'asthme, particulièrement chez l'enfant.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Le vinaigre blanc repousse-t-il vraiment les cafards ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Partiellement. Le vinaigre blanc nettoie les phéromones de piste laissées par les blattes, ce qui perturbe leurs trajets. Il ne tue pas les cafards et ne les empêche pas de revenir. C'est un complément utile, pas une solution.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Que faire si je vois un cafard isolé ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Agissez immédiatement, même pour un seul spécimen. Les cafards sont nocturnes et fuient la lumière : en voir un en journée signifie que la cachette est pleine. La règle retenue par les entomologistes : 1 cafard visible = environ 200 cachés.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Combien de temps avant une invasion si je ne fais rien ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Dans des conditions favorables (chaleur, humidité, nourriture), une colonie peut passer de 2 individus à plus de 1 000 en 6 mois. C'est pourquoi la prévention est toujours plus rentable que le traitement curatif.</div>
+    </div>
+  </div>
 </div>
 
 <div class="cta-inline-blog" data-variant="guide">

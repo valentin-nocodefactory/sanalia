@@ -60,7 +60,8 @@
 }
 
 /* ============================================================
-   Breadcrumb sémantique
+   Breadcrumb sémantique — harmonisé sur tout le blog
+   Structure cible : <a class="bc-home"> › <a> › <span class="bc-current">
    ============================================================ */
 .blog-breadcrumb {
   font-family: 'Space Mono', monospace;
@@ -72,7 +73,7 @@
   padding: 24px 0 16px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
 }
 .blog-breadcrumb a {
@@ -81,8 +82,12 @@
   transition: var(--blog-transition);
 }
 .blog-breadcrumb a:hover { color: var(--color-primary-600, #635DDD); }
-.blog-breadcrumb .sep { color: #CCC; user-select: none; }
+.blog-breadcrumb .bc-sep,
+.blog-breadcrumb .sep { color: #CCC; user-select: none; padding: 0 2px; }
+.blog-breadcrumb .bc-current,
+.blog-breadcrumb .current,
 .blog-breadcrumb [aria-current="page"] { color: var(--color-primary-900, #0E052A); }
+.blog-breadcrumb .bc-home { color: #666; }
 
 /* ============================================================
    Reading progress bar
@@ -596,42 +601,15 @@
 }
 
 /* ============================================================
-   FAQ accordion blog (éditorial)
+   FAQ accordion blog — utilise le composant partagé
+   .accordion-list / .accordion-item / .accordion-header / .accordion-body
+   défini dans css/components.css et piloté par js/app.js (initAccordions).
+   Ajustements spécifiques blog (espacement + typo éditoriale) :
    ============================================================ */
-.faq-accordion-blog {
-  margin: 2.5em 0;
-  border-top: 1px solid var(--blog-border);
-}
-.faq-accordion-blog details { border-bottom: 1px solid var(--blog-border); }
-.faq-accordion-blog summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 20px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  font-family: 'Uxum', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 1.3;
-  color: var(--color-primary-900, #0E052A);
-  transition: var(--blog-transition);
-}
-.faq-accordion-blog summary::-webkit-details-marker { display: none; }
-.faq-accordion-blog summary:hover { color: var(--color-primary-600, #635DDD); }
-.faq-accordion-blog summary::after {
-  content: "+";
-  font-family: 'Uxum', sans-serif;
-  font-size: 28px;
-  color: var(--color-primary-600, #635DDD);
-  font-weight: 400;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-.faq-accordion-blog details[open] summary::after { transform: rotate(45deg); }
-.faq-accordion-blog details > div {
-  padding: 0 0 24px;
+.blog-body .accordion-list,
+.blog-content .accordion-list { margin: 2.5em 0; }
+.blog-body .accordion-item .accordion-body-inner,
+.blog-content .accordion-item .accordion-body-inner {
   font-family: var(--font-editorial);
   font-size: 17px;
   line-height: 1.7;
@@ -1204,9 +1182,7 @@
 .pill-green     { background: var(--color-pastel-green-light, #EAF9E0); color: #2F5A1F; }
 .pill-neutral   { background: var(--color-bg-sand, #F1ECDF); color: #34285A; }
 
-/* ── Breadcrumb (variante bc-sep / bc-current) ── */
-.blog-breadcrumb .bc-sep { color: #CCC; user-select: none; padding: 0 2px; }
-.blog-breadcrumb .bc-current { color: var(--color-primary-900, #0E052A); }
+/* ── Breadcrumb styles consolidés en début de fichier ── */
 
 /* ── Section head ── */
 .blog-section-head {
@@ -2164,9 +2140,6 @@
   margin: 0 0 12px;
 }
 
-/* ── Current state (breadcrumb article) ── */
-.blog-breadcrumb .current { color: var(--color-primary-900, #0E052A); }
-
 /* ============================================================
    ARTICLE PAGE FIXES — Magazine layout (Stripe / Linear style)
    ─ Corrige les classes utilisées dans les fiches articles
@@ -2190,6 +2163,63 @@ html { scroll-padding-top: 120px; }
     gap: 32px;
   }
   .blog-layout > .blog-sidebar { display: none; }
+}
+
+/* ── Layout article 3 colonnes (share rail + content + sidebar) ── */
+.blog-layout--3col {
+  grid-template-columns: minmax(0, var(--blog-content-width)) 300px;
+  max-width: 1140px;
+}
+.blog-layout--3col > .blog-share-col { display: none; }
+@media (min-width: 1280px) {
+  .blog-layout--3col {
+    grid-template-columns: 72px minmax(0, var(--blog-content-width)) 300px;
+    max-width: 1240px;
+    gap: 40px 56px;
+  }
+  .blog-layout--3col > .blog-share-col { display: block; }
+}
+.blog-share-col { position: relative; }
+.share-bar-vertical-sticky {
+  position: sticky;
+  top: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-top: 4px;
+}
+.share-bar-vertical-label {
+  font-family: 'Space Mono', monospace;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #999;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  margin-bottom: 8px;
+}
+.share-bar-vertical-sticky a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--blog-border);
+  background: #FFF;
+  color: var(--color-primary-800, #34285A);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  transition: var(--blog-transition);
+}
+.share-bar-vertical-sticky a:hover {
+  background: var(--color-primary-100, #E9E8FF);
+  color: var(--color-primary-600, #635DDD);
+  transform: translateY(-2px);
 }
 
 /* ── Hero éditorial amélioré ── */

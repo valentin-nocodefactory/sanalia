@@ -295,14 +295,15 @@
 
 <main>
 
-<div class="container">
-  <nav class="blog-breadcrumb" aria-label="Fil d'Ariane">
-    <a href="/">Accueil</a><span class="sep">›</span>
-    <a href="/blog/">Blog</a><span class="sep">›</span>
-    <a href="/blog/rats-souris/">Rats &amp; Souris</a><span class="sep">›</span>
-    <span class="current">Se débarrasser des rats dans un appartement</span>
-  </nav>
-</div>
+<nav class="blog-breadcrumb container" aria-label="Fil d'Ariane">
+  <a href="/" class="bc-home">Accueil</a>
+  <span class="bc-sep">›</span>
+  <a href="/blog/">Blog</a>
+  <span class="bc-sep">›</span>
+  <a href="/blog/rats-souris/">Rats &amp; Souris</a>
+  <span class="bc-sep">›</span>
+  <span class="bc-current">Se débarrasser des rats dans un appartement</span>
+</nav>
 
 <section class="blog-hero">
   <div class="container">
@@ -319,7 +320,17 @@
 </section>
 
 <div class="container">
-<div class="blog-layout">
+<div class="blog-layout blog-layout--3col">
+
+<aside class="blog-share-col" aria-label="Partager cet article">
+  <div class="share-bar-vertical-sticky">
+    <span class="share-bar-vertical-label">Partager</span>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.sanalia.fr/blog/rats-souris/comment-se-debarrasser-rats-appartement/" target="_blank" rel="noopener" aria-label="Partager sur LinkedIn">in</a>
+    <a href="https://twitter.com/intent/tweet?url=https://www.sanalia.fr/blog/rats-souris/comment-se-debarrasser-rats-appartement/" target="_blank" rel="noopener" aria-label="Partager sur X">X</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.sanalia.fr/blog/rats-souris/comment-se-debarrasser-rats-appartement/" target="_blank" rel="noopener" aria-label="Partager sur Facebook">f</a>
+    <a href="#" class="share-bar-copy" aria-label="Copier le lien">⧉</a>
+  </div>
+</aside>
 
 <article class="blog-content blog-body" data-article>
 
@@ -521,35 +532,49 @@
 
 <h2 id="faq">8. Questions fréquentes</h2>
 
-<div class="blog-faq">
-  <details>
-    <summary>Combien de temps faut-il pour se débarrasser des rats ?</summary>
-    <div class="faq-answer">Une intervention professionnelle donne des résultats visibles en 3 à 7 jours. L'éradication complète d'une colonie établie demande généralement 2 à 4 semaines, avec un suivi à 15 jours pour vérifier l'absence de nouvelle activité.</div>
-  </details>
-  <details>
-    <summary>Quels sont les signes certains d'une infestation de rats ?</summary>
-    <div class="faq-answer">Crottes sombres de 1 à 2 cm en groupes, traces de rongement sur bois et plastique, bruits dans les cloisons la nuit, odeur âcre d'ammoniaque, traces de gras le long des plinthes et emballages alimentaires percés sont les signes principaux.</div>
-  </details>
-  <details>
-    <summary>Les raticides sont-ils dangereux pour les enfants et animaux ?</summary>
-    <div class="faq-answer">Oui. Les raticides anticoagulants sont toxiques par ingestion et contact. En présence d'enfants ou d'animaux, privilégiez les pièges mécaniques en boîtiers sécurisés ou faites appel à un professionnel Certibiocide qui utilisera des postes d'appâtage verrouillés conformes à la réglementation.</div>
-  </details>
-  <details>
-    <summary>Mon propriétaire doit-il prendre en charge la dératisation ?</summary>
-    <div class="faq-answer">Oui, dans la majorité des cas. Le décret du 30 janvier 2002 impose au propriétaire de délivrer un logement exempt de nuisibles. Si l'infestation est structurelle (parties communes, isolation défectueuse, égouts), c'est au bailleur de financer l'intervention. Seul un manque d'hygiène avéré du locataire peut transférer la charge.</div>
-  </details>
-  <details>
-    <summary>Les ultrasons anti-rats fonctionnent-ils vraiment ?</summary>
-    <div class="faq-answer">Non, ou très peu. Plusieurs études, dont une menée par l'Université du Nebraska, montrent que les rats s'habituent aux ultrasons en moins de 72 heures. Les rongeurs continuent ensuite à circuler normalement. Ces dispositifs ne peuvent pas constituer un traitement à eux seuls.</div>
-  </details>
-  <details>
-    <summary>Comment empêcher les rats de revenir après traitement ?</summary>
-    <div class="faq-answer">Bouchez toutes les ouvertures de plus de 6 mm avec laine d'acier et mortier, stockez les aliments en contenants hermétiques, sortez les poubelles chaque jour, réparez toute fuite d'eau et supprimez les encombrements qui servent d'abris. Un contrôle annuel préventif est recommandé en immeuble.</div>
-  </details>
-  <details>
-    <summary>Quel est le coût d'une dératisation en appartement ?</summary>
-    <div class="faq-answer">Le tarif moyen pour un appartement se situe entre 150 et 350 euros pour une intervention complète incluant diagnostic, pose d'appâts sécurisés et suivi. Le prix varie selon la surface, le niveau d'infestation et le nombre de visites nécessaires. Un devis gratuit permet d'obtenir un chiffrage précis.</div>
-  </details>
+<div class="accordion-list" id="faqAccordion">
+  <div class="accordion-item">
+    <button class="accordion-header">Combien de temps faut-il pour se débarrasser des rats ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Une intervention professionnelle donne des résultats visibles en 3 à 7 jours. L'éradication complète d'une colonie établie demande généralement 2 à 4 semaines, avec un suivi à 15 jours pour vérifier l'absence de nouvelle activité.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Quels sont les signes certains d'une infestation de rats ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Crottes sombres de 1 à 2 cm en groupes, traces de rongement sur bois et plastique, bruits dans les cloisons la nuit, odeur âcre d'ammoniaque, traces de gras le long des plinthes et emballages alimentaires percés sont les signes principaux.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Les raticides sont-ils dangereux pour les enfants et animaux ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Oui. Les raticides anticoagulants sont toxiques par ingestion et contact. En présence d'enfants ou d'animaux, privilégiez les pièges mécaniques en boîtiers sécurisés ou faites appel à un professionnel Certibiocide qui utilisera des postes d'appâtage verrouillés conformes à la réglementation.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Mon propriétaire doit-il prendre en charge la dératisation ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Oui, dans la majorité des cas. Le décret du 30 janvier 2002 impose au propriétaire de délivrer un logement exempt de nuisibles. Si l'infestation est structurelle (parties communes, isolation défectueuse, égouts), c'est au bailleur de financer l'intervention. Seul un manque d'hygiène avéré du locataire peut transférer la charge.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Les ultrasons anti-rats fonctionnent-ils vraiment ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Non, ou très peu. Plusieurs études, dont une menée par l'Université du Nebraska, montrent que les rats s'habituent aux ultrasons en moins de 72 heures. Les rongeurs continuent ensuite à circuler normalement. Ces dispositifs ne peuvent pas constituer un traitement à eux seuls.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Comment empêcher les rats de revenir après traitement ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Bouchez toutes les ouvertures de plus de 6 mm avec laine d'acier et mortier, stockez les aliments en contenants hermétiques, sortez les poubelles chaque jour, réparez toute fuite d'eau et supprimez les encombrements qui servent d'abris. Un contrôle annuel préventif est recommandé en immeuble.</div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">Quel est le coût d'une dératisation en appartement ? <span class="icon-toggle">+</span></button>
+    <div class="accordion-body">
+      <div class="accordion-body-inner">Le tarif moyen pour un appartement se situe entre 150 et 350 euros pour une intervention complète incluant diagnostic, pose d'appâts sécurisés et suivi. Le prix varie selon la surface, le niveau d'infestation et le nombre de visites nécessaires. Un devis gratuit permet d'obtenir un chiffrage précis.</div>
+    </div>
+  </div>
 </div>
 
 <div class="cta-inline-blog" data-variant="devis">

@@ -43,313 +43,334 @@
 <link rel="stylesheet" href="/css/components.css">
 <style>
 /* ═══════════════════════════════════════════════════
-   DEVIS PAGE — Conversion-optimized redesign
+   DEVIS — Premium concierge-grade redesign
    ═══════════════════════════════════════════════════ */
 
-/* ─── Hero ─── */
-.devis-hero {
-  background: linear-gradient(180deg, var(--color-primary-100) 0%, var(--color-bg) 100%);
-  padding: var(--space-2xl) 0 var(--space-lg);
-  position: relative;
-  overflow: hidden;
-}
-.devis-hero-inner { text-align: center; max-width: 760px; margin: 0 auto; }
-.devis-hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-primary-200);
-  border-radius: var(--radius-full);
-  padding: 6px 14px;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.75rem; color: #666;
-  margin-bottom: var(--space-md);
-  box-shadow: 0 2px 8px rgba(14,5,42,0.04);
-}
-.devis-hero-badge .pulse {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 0 rgba(34,197,94,0.7);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
-  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
-}
-.devis-title {
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1.1; color: var(--color-primary-900);
-  margin-bottom: var(--space-sm);
-  letter-spacing: -0.02em;
-}
-.devis-title em {
-  font-style: normal; color: var(--color-primary-600);
-  position: relative;
-}
-.devis-title em::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 2px;
-  height: 8px; background: var(--color-pastel-gold);
-  z-index: -1; border-radius: 4px;
-}
-.devis-subtitle {
-  font-family: 'Uxum', sans-serif; font-weight: 400;
-  font-size: 1.125rem; color: var(--color-primary-800);
-  margin-bottom: var(--space-lg);
+:root {
+  --shadow-hairline: 0 0 0 1px rgba(14,5,42,0.05), 0 1px 2px rgba(14,5,42,0.04);
+  --shadow-lift: 0 1px 2px rgba(14,5,42,0.04), 0 8px 24px rgba(14,5,42,0.06);
+  --shadow-float: 0 1px 2px rgba(14,5,42,0.04), 0 20px 40px -12px rgba(14,5,42,0.15);
+  --shadow-glow: 0 0 0 4px rgba(99,93,221,0.08), 0 16px 40px -8px rgba(99,93,221,0.35);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snap: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Social proof row */
-.devis-proof {
-  display: flex; justify-content: center; flex-wrap: wrap;
-  gap: var(--space-lg); margin-top: var(--space-md);
-  padding-top: var(--space-md);
-  border-top: 1px dashed var(--color-primary-200);
-}
-.devis-proof-item {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Uxum', sans-serif; font-size: 0.875rem;
-  color: var(--color-primary-800);
-}
-.devis-proof-item strong {
-  font-weight: 700; color: var(--color-primary-900);
-  font-size: 1rem;
-}
-.devis-proof-stars { color: #FFB800; letter-spacing: 1px; }
-
-/* ─── Main layout ─── */
+/* ─── Section container ─── */
 .devis-section {
-  padding: var(--space-md) 0 var(--space-lg);
+  padding: var(--space-lg) 0 var(--space-3xl);
   background: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 85% 0%, rgba(206,204,252,0.35), transparent 40%),
+    radial-gradient(circle at 10% 90%, rgba(244,233,193,0.3), transparent 40%);
+  min-height: calc(100vh - 140px);
 }
-.devis-form-card { padding: var(--space-lg) !important; }
-.devis-fieldset legend { font-size: 1.125rem !important; margin-bottom: 2px !important; }
-.devis-fieldset-hint { margin-bottom: var(--space-md) !important; font-size: 0.8125rem !important; }
-.devis-progress { margin-bottom: var(--space-md) !important; }
-.nuisible-grid { gap: 10px !important; }
-.nuisible-card { padding: 10px 8px 8px !important; }
-.nuisible-card-img { width: 44px !important; height: 44px !important; margin-bottom: 4px !important; }
-.nuisible-card-img img { width: 34px !important; height: 34px !important; }
-.nuisible-card-name { font-size: 0.8125rem !important; }
-.devis-field { margin-bottom: var(--space-sm) !important; }
-.devis-nav { margin-top: var(--space-md) !important; }
-.side-card { padding: var(--space-md) !important; }
-.devis-sidebar { gap: var(--space-sm) !important; }
+
+/* ─── Split layout ─── */
 .devis-layout {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: var(--space-xl);
-  align-items: start;
-}
-@media (max-width: 1024px) {
-  .devis-layout { grid-template-columns: 1fr; }
-}
-
-/* ─── Form card ─── */
-.devis-form-card {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 0;
   background: var(--color-surface);
-  border-radius: var(--radius-xl);
-  padding: var(--space-xl);
-  box-shadow: 0 8px 32px rgba(14,5,42,0.08);
+  border-radius: 24px;
+  box-shadow: var(--shadow-float);
+  overflow: hidden;
+  min-height: 640px;
   border: 1px solid rgba(14,5,42,0.04);
 }
-@media (max-width: 480px) {
-  .devis-form-card { padding: var(--space-lg) var(--space-md); }
+@media (max-width: 1024px) {
+  .devis-layout {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+  }
 }
 
-/* Progress bar */
-.devis-progress {
-  margin-bottom: var(--space-xl);
+/* ─── Form panel (left) ─── */
+.devis-form-panel {
+  padding: 40px 48px;
+  display: flex; flex-direction: column;
+  min-width: 0;
 }
-.devis-progress-head {
-  display: flex; justify-content: space-between; align-items: baseline;
-  margin-bottom: 10px;
+@media (max-width: 768px) { .devis-form-panel { padding: 28px 24px; } }
+
+/* Top row: minimal breadcrumb + type toggle */
+.devis-top-row {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(14,5,42,0.06);
 }
-.devis-progress-label {
-  font-family: 'Space Mono', monospace; font-size: 0.75rem;
-  color: #666; text-transform: uppercase; letter-spacing: 0.08em;
-}
-.devis-progress-pct {
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1rem; color: var(--color-primary-600);
-}
-.devis-progress-track {
-  height: 6px; background: var(--color-primary-100);
-  border-radius: var(--radius-full); overflow: hidden;
-  position: relative;
-}
-.devis-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-primary-400), var(--color-primary-600));
-  border-radius: var(--radius-full);
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  width: 33%;
-}
-.devis-progress-steps {
-  display: flex; justify-content: space-between;
-  margin-top: 12px;
-}
-.devis-progress-step {
+.devis-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
   font-family: 'Space Mono', monospace; font-size: 0.7rem;
-  color: #999; text-transform: uppercase; letter-spacing: 0.05em;
-  transition: color 0.3s;
+  color: #888; text-transform: uppercase; letter-spacing: 0.12em;
 }
-.devis-progress-step.active { color: var(--color-primary-900); font-weight: 700; }
-.devis-progress-step.done { color: var(--color-primary-600); }
+.devis-eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.7);
+  animation: softPulse 2.4s infinite;
+}
+@keyframes softPulse {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+.devis-type-toggle {
+  display: inline-flex; background: transparent;
+  border: 1px solid rgba(14,5,42,0.1);
+  border-radius: 999px; padding: 3px;
+  font-size: 0;
+}
+.devis-type-toggle button {
+  border: none; background: transparent;
+  padding: 6px 14px; border-radius: 999px;
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.72rem; color: #888;
+  cursor: pointer; transition: all 0.25s var(--ease-out);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.devis-type-toggle button:hover { color: var(--color-primary-900); }
+.devis-type-toggle button.active {
+  background: var(--color-primary-900); color: #fff;
+  box-shadow: 0 2px 6px rgba(14,5,42,0.15);
+}
 
-/* Fieldsets */
+/* ─── Progress: dot nav (not bar) ─── */
+.devis-progress {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 32px;
+}
+.devis-progress-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: #bbb; text-transform: uppercase; letter-spacing: 0.08em;
+  transition: color 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.devis-progress-item .pd {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid #ddd;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 0.65rem;
+  transition: all 0.4s var(--ease-out);
+}
+.devis-progress-item.active .pd {
+  background: var(--color-primary-900); color: #fff; border-color: var(--color-primary-900);
+  box-shadow: 0 0 0 5px rgba(14,5,42,0.06);
+}
+.devis-progress-item.active { color: var(--color-primary-900); font-weight: 700; }
+.devis-progress-item.done .pd {
+  background: var(--color-primary-600); color: #fff; border-color: var(--color-primary-600);
+}
+.devis-progress-item.done { color: var(--color-primary-600); }
+.devis-progress-item.done .pd::before {
+  content: ''; width: 8px; height: 4px;
+  border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+.devis-progress-item.done .pd span { display: none; }
+.devis-progress-sep {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, #ddd 50%, transparent 50%);
+  background-size: 6px 1px;
+  opacity: 0.6;
+  min-width: 20px;
+}
+@media (max-width: 640px) {
+  .devis-progress-item span:last-child { display: none; }
+  .devis-progress-sep { min-width: 10px; }
+}
+
+/* ─── Fieldsets (one at a time) ─── */
 .devis-fieldset {
   display: none; border: none; padding: 0; margin: 0;
-  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideIn 0.5s var(--ease-out);
+  flex: 1;
 }
-.devis-fieldset.active { display: block; }
+.devis-fieldset.active { display: flex; flex-direction: column; }
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.devis-fieldset legend {
+
+/* Headline — the question gets the spotlight */
+.devis-headline {
   font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1.5rem; color: var(--color-primary-900);
-  margin-bottom: 6px; padding: 0;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.625rem, 2.4vw, 2.125rem);
+  color: var(--color-primary-900);
+  line-height: 1.1; letter-spacing: -0.02em;
+  margin: 0 0 8px; padding: 0;
 }
-.devis-fieldset-hint {
-  font-family: 'Uxum', sans-serif; font-size: 0.9375rem;
-  color: var(--color-primary-800); margin-bottom: var(--space-lg);
+.devis-headline em {
+  font-style: normal; color: var(--color-primary-600);
+}
+.devis-headline-hint {
+  font-family: 'Uxum', sans-serif; font-size: 0.95rem;
+  color: #666; margin-bottom: 28px;
+  max-width: 520px;
 }
 
-/* ─── Visual nuisible picker ─── */
+/* ─── Nuisible visual picker — larger, premium ─── */
 .nuisible-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 10px;
   margin-bottom: var(--space-md);
 }
-@media (max-width: 640px) { .nuisible-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .nuisible-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 420px) { .nuisible-grid { grid-template-columns: repeat(2, 1fr); } }
 .nuisible-card {
   position: relative;
-  background: var(--color-bg-offwhite);
-  border: 2px solid transparent;
-  border-radius: var(--radius-lg);
+  background: #fff;
+  border: 1.5px solid rgba(14,5,42,0.08);
+  border-radius: 16px;
   padding: 14px 10px 12px;
   cursor: pointer;
   text-align: center;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s var(--ease-out);
   font-family: 'Uxum', sans-serif;
+  overflow: hidden;
+}
+.nuisible-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 100%, var(--glow, rgba(99,93,221,0.12)), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+  pointer-events: none;
 }
 .nuisible-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(14,5,42,0.08);
+  border-color: rgba(99,93,221,0.3);
+  box-shadow: var(--shadow-lift);
 }
+.nuisible-card:hover::before { opacity: 1; }
 .nuisible-card.selected {
   border-color: var(--color-primary-600);
-  background: var(--color-primary-100);
-  box-shadow: 0 4px 16px rgba(99,93,221,0.18);
+  background: linear-gradient(180deg, #fff, var(--color-primary-100));
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
 }
+.nuisible-card.selected::before { opacity: 1; }
 .nuisible-card.selected::after {
-  content: '✓'; position: absolute; top: 8px; right: 8px;
+  content: ''; position: absolute; top: 10px; right: 10px;
   width: 22px; height: 22px; border-radius: 50%;
-  background: var(--color-primary-600); color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.75rem; font-weight: 700;
+  background: var(--color-primary-600);
+  box-shadow: 0 4px 12px rgba(99,93,221,0.4);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-repeat: no-repeat; background-position: center; background-size: 14px;
 }
 .nuisible-card-img {
-  width: 56px; height: 56px; margin: 0 auto 8px;
-  border-radius: var(--radius-md);
+  width: 52px; height: 52px; margin: 0 auto 10px;
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
+  position: relative; z-index: 1;
 }
-.nuisible-card-img img { width: 44px; height: 44px; object-fit: contain; }
+.nuisible-card-img img {
+  width: 40px; height: 40px; object-fit: contain;
+  transition: transform 0.4s var(--ease-out);
+}
+.nuisible-card:hover .nuisible-card-img img { transform: scale(1.1); }
 .nuisible-card-name {
   font-weight: 700; font-size: 0.875rem;
   color: var(--color-primary-900);
+  position: relative; z-index: 1;
 }
 .nuisible-card-hint {
   font-family: 'Space Mono', monospace;
-  font-size: 0.65rem; color: #999;
-  margin-top: 2px;
+  font-size: 0.62rem; color: #999;
+  margin-top: 3px; letter-spacing: 0.04em;
+  position: relative; z-index: 1;
 }
 
-/* Pill selector (surface, urgence, depuis) */
+/* ─── Pill groups (step 2) ─── */
 .pill-group {
   display: flex; flex-wrap: wrap; gap: 8px;
-  margin-bottom: var(--space-md);
+  margin-bottom: 0;
 }
 .pill-group label {
-  display: flex; align-items: center; gap: 6px;
-  font-family: 'Uxum', sans-serif; font-weight: 400;
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: 'Uxum', sans-serif; font-weight: 500;
   font-size: 0.9375rem; color: var(--color-primary-900);
   cursor: pointer;
-  padding: 10px 18px;
-  border: 2px solid var(--color-gray-light);
-  border-radius: var(--radius-full);
-  background: var(--color-bg-offwhite);
-  transition: all 0.2s;
+  padding: 11px 20px;
+  border: 1.5px solid rgba(14,5,42,0.08);
+  border-radius: 999px;
+  background: #fff;
+  transition: all 0.2s var(--ease-out);
   user-select: none;
 }
 .pill-group label:hover {
   border-color: var(--color-primary-400);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-lift);
 }
 .pill-group label:has(input:checked) {
-  border-color: var(--color-primary-600);
-  background: var(--color-primary-600);
+  border-color: var(--color-primary-900);
+  background: var(--color-primary-900);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(99,93,221,0.25);
+  box-shadow: 0 6px 20px -6px rgba(14,5,42,0.45);
 }
 .pill-group input[type="radio"] { display: none; }
 .pill-group.urgency label[data-urgent="true"]:has(input:checked) {
-  border-color: var(--color-accent-500);
   background: var(--color-accent-500);
+  border-color: var(--color-accent-500);
+  box-shadow: 0 6px 20px -6px rgba(246,108,36,0.5);
 }
 
-/* Field labels */
-.devis-field { margin-bottom: var(--space-md); }
+.field-block { margin-bottom: 28px; }
+.field-block:last-child { margin-bottom: 0; }
+.field-label {
+  display: block;
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.7rem; color: #888;
+  margin-bottom: 10px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* ─── Inputs (step 3) ─── */
+.devis-field { margin-bottom: 16px; }
 .devis-field-label {
   display: block;
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 0.8125rem;
-  color: var(--color-primary-900);
-  margin-bottom: 6px;
-  text-transform: uppercase; letter-spacing: 0.03em;
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.7rem; color: #888;
+  margin-bottom: 8px;
+  text-transform: uppercase; letter-spacing: 0.08em;
 }
 .devis-field-label .req { color: var(--color-accent-500); }
-.devis-field-label .opt {
-  font-family: 'Space Mono', monospace; font-weight: 400;
-  font-size: 0.7rem; color: #999; text-transform: none;
-  letter-spacing: 0; margin-left: 6px;
-}
+.devis-field-label .opt { color: #bbb; margin-left: 6px; text-transform: none; }
 
-/* Input with icon */
 .input-wrap { position: relative; }
 .input-wrap svg {
-  position: absolute; left: 14px; top: 50%;
+  position: absolute; left: 16px; top: 50%;
   transform: translateY(-50%);
-  width: 18px; height: 18px;
-  color: #999; pointer-events: none;
-  transition: color 0.2s;
+  width: 18px; height: 18px; color: #bbb;
+  pointer-events: none;
+  transition: color 0.2s var(--ease-out);
 }
 .devis-field input,
 .devis-field select,
 .devis-field textarea {
   width: 100%; box-sizing: border-box;
-  padding: 14px 16px;
-  border: 2px solid var(--color-gray-light);
-  border-radius: var(--radius-md);
+  padding: 13px 16px;
+  border: 1.5px solid rgba(14,5,42,0.1);
+  border-radius: 12px;
   font-family: 'Uxum', sans-serif; font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: var(--color-primary-900);
-  background: var(--color-surface);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
-.input-wrap input { padding-left: 44px; }
+.input-wrap input { padding-left: 46px; }
 .devis-field input:focus,
 .devis-field select:focus,
 .devis-field textarea:focus {
   outline: none;
   border-color: var(--color-primary-600);
-  box-shadow: 0 0 0 4px rgba(99,93,221,0.12);
+  box-shadow: 0 0 0 4px rgba(99,93,221,0.08);
 }
-.input-wrap input:focus + svg,
+.input-wrap input:focus ~ svg,
 .input-wrap:focus-within svg { color: var(--color-primary-600); }
 .devis-field input.valid {
   border-color: #22c55e;
@@ -359,41 +380,36 @@
   background-size: 16px;
   padding-right: 40px;
 }
-.devis-field input.error {
-  border-color: #ef4444;
-}
+.devis-field input.error { border-color: #ef4444; }
 .devis-field-error {
   display: none;
-  font-family: 'Space Mono', monospace; font-size: 0.75rem;
-  color: #ef4444; margin-top: 4px;
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: #ef4444; margin-top: 6px;
 }
 .devis-field input.error ~ .devis-field-error { display: block; }
-.devis-field textarea { resize: vertical; min-height: 90px; }
-.devis-field-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-}
-.devis-field-row.thirds { grid-template-columns: 120px 1fr; }
-@media (max-width: 480px) {
+.devis-field textarea { resize: vertical; min-height: 84px; }
+.devis-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.devis-field-row.thirds { grid-template-columns: 140px 1fr; }
+@media (max-width: 520px) {
   .devis-field-row, .devis-field-row.thirds { grid-template-columns: 1fr; }
 }
 
-/* Autocomplete (React) */
+/* ─── Address autocomplete ─── */
 .addr-autocomplete { position: relative; }
 .addr-suggestions {
-  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0;
   background: var(--color-surface);
-  border: 1px solid var(--color-gray-light);
-  border-radius: var(--radius-md);
-  box-shadow: 0 12px 32px rgba(14,5,42,0.12);
+  border: 1px solid rgba(14,5,42,0.08);
+  border-radius: 14px;
+  box-shadow: var(--shadow-float);
   max-height: 280px; overflow-y: auto;
   z-index: 50;
 }
 .addr-suggestion {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 14px;
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
   cursor: pointer;
-  border-bottom: 1px solid rgba(14,5,42,0.05);
+  border-bottom: 1px solid rgba(14,5,42,0.04);
   font-family: 'Uxum', sans-serif;
   transition: background 0.15s;
 }
@@ -408,7 +424,7 @@
   color: var(--color-primary-600);
 }
 .addr-suggestion-main {
-  font-weight: 700; font-size: 0.9375rem;
+  font-weight: 700; font-size: 0.9rem;
   color: var(--color-primary-900);
 }
 .addr-suggestion-sub {
@@ -417,272 +433,311 @@
 }
 .addr-loading {
   padding: 14px; text-align: center;
-  font-family: 'Space Mono', monospace; font-size: 0.8rem;
-  color: #999;
+  font-family: 'Space Mono', monospace; font-size: 0.75rem;
+  color: #bbb;
 }
 .addr-powered {
   display: block;
   font-family: 'Space Mono', monospace; font-size: 0.65rem;
-  color: #999; margin-top: 4px;
-}
-
-/* Estimate teaser after step 2 */
-.estimate-teaser {
-  background: linear-gradient(135deg, var(--color-pastel-mint-light), var(--color-pastel-gold-light));
-  border: 1px solid var(--color-pastel-mint);
-  border-radius: var(--radius-lg);
-  padding: var(--space-md);
-  margin-bottom: var(--space-md);
-  display: flex; align-items: center; gap: var(--space-md);
-}
-.estimate-teaser-icon {
-  width: 44px; height: 44px; border-radius: 50%;
-  background: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; flex-shrink: 0;
-}
-.estimate-teaser-label {
-  font-family: 'Space Mono', monospace; font-size: 0.7rem;
-  color: #666; text-transform: uppercase; letter-spacing: 0.06em;
-}
-.estimate-teaser-value {
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1.25rem; color: var(--color-primary-900);
-}
-.estimate-teaser-note {
-  font-family: 'Uxum', sans-serif; font-size: 0.8125rem;
-  color: var(--color-primary-800); margin-top: 2px;
+  color: #bbb; margin-top: 6px; letter-spacing: 0.04em;
 }
 
 /* Pro fields */
 .devis-pro-only { display: none; }
-.devis-pro-only.show { display: block; }
+.devis-pro-only.show { display: block; animation: slideIn 0.4s var(--ease-out); }
 
-/* Compact card head: title + discreet toggle */
-.devis-card-head {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  gap: var(--space-md); margin-bottom: var(--space-md);
-}
-.devis-title-compact {
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1.5rem; line-height: 1.15;
-  color: var(--color-primary-900);
-  margin: 0 0 2px; letter-spacing: -0.01em;
-}
-.devis-title-compact em {
-  font-style: normal; color: var(--color-primary-600);
-}
-.devis-subtitle-compact {
-  font-family: 'Uxum', sans-serif; font-size: 0.8125rem;
-  color: var(--color-primary-800); margin: 0;
-}
-.devis-type-toggle {
-  display: inline-flex; background: transparent;
-  border: 1px solid var(--color-gray-light);
-  border-radius: var(--radius-full); padding: 2px; gap: 0;
-  flex-shrink: 0;
-}
-.devis-type-toggle button {
-  border: none; background: transparent;
-  padding: 4px 12px; border-radius: var(--radius-full);
-  font-family: 'Space Mono', monospace; font-weight: 400;
-  font-size: 0.72rem; color: #666;
-  cursor: pointer; transition: all 0.2s;
-  text-transform: uppercase; letter-spacing: 0.04em;
-}
-.devis-type-toggle button.active {
-  background: var(--color-primary-900); color: #fff;
-}
-
-/* Proof bar below the form card */
-.devis-proof-bar {
-  display: flex; flex-wrap: wrap; justify-content: center;
-  gap: var(--space-lg); margin-top: var(--space-md);
-  padding: var(--space-md) var(--space-lg);
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 16px rgba(14,5,42,0.05);
-  border: 1px solid rgba(14,5,42,0.04);
-}
-.devis-proof-bar-item {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Uxum', sans-serif; font-size: 0.8125rem;
-  color: var(--color-primary-800);
-}
-.devis-proof-bar-item strong {
-  font-weight: 700; color: var(--color-primary-900);
-}
-.devis-proof-bar-stars {
-  color: #FFB800; letter-spacing: 1px; font-size: 0.9rem;
-}
-.devis-proof-bar-sep {
-  width: 1px; height: 24px; background: var(--color-gray-light);
-}
-@media (max-width: 640px) {
-  .devis-proof-bar { gap: var(--space-md); padding: var(--space-sm) var(--space-md); }
-  .devis-proof-bar-sep { display: none; }
-}
-
-/* Nav */
+/* ─── Nav ─── */
 .devis-nav {
-  display: flex; justify-content: space-between;
-  margin-top: var(--space-xl); gap: var(--space-md);
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: auto; padding-top: 28px; gap: 12px;
 }
-.devis-nav .btn { flex: 0 0 auto; }
-.devis-nav .btn-submit {
+.devis-nav-kbd {
+  font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  color: #bbb; letter-spacing: 0.04em;
+}
+.devis-nav-kbd kbd {
+  font-family: inherit;
+  background: rgba(14,5,42,0.06);
+  padding: 3px 8px; border-radius: 5px;
+  color: var(--color-primary-900); font-weight: 700;
+  border: 1px solid rgba(14,5,42,0.08);
+  border-bottom-width: 2px;
+}
+.btn-ghost {
+  background: transparent; border: none;
+  padding: 12px 8px;
+  font-family: 'Uxum', sans-serif; font-weight: 500;
+  font-size: 0.9rem; color: #666; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.btn-ghost:hover { color: var(--color-primary-900); }
+.btn-next {
+  border: none;
+  background: var(--color-primary-900); color: #fff;
+  padding: 14px 24px; font-size: 0.9375rem; font-weight: 700;
+  border-radius: 12px; cursor: pointer;
+  font-family: 'Uxum', sans-serif;
+  display: inline-flex; align-items: center; gap: 10px;
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+  box-shadow: 0 6px 20px -6px rgba(14,5,42,0.35);
+}
+.btn-next:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -8px rgba(14,5,42,0.45); }
+.btn-submit {
   flex: 1;
   background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-900));
   border: none; color: #fff;
   padding: 16px 24px; font-size: 1rem; font-weight: 700;
-  border-radius: var(--radius-md); cursor: pointer;
+  border-radius: 14px; cursor: pointer;
   font-family: 'Uxum', sans-serif;
-  box-shadow: 0 8px 24px rgba(99,93,221,0.35);
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 10px 28px -8px rgba(99,93,221,0.55);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  position: relative; overflow: hidden;
 }
-.devis-nav .btn-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(99,93,221,0.45);
+.btn-submit::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.8s var(--ease-out);
 }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 36px -8px rgba(99,93,221,0.65); }
+.btn-submit:hover::before { transform: translateX(100%); }
 
-/* Trust row below form */
+/* Trust row */
 .devis-trust-row {
-  display: flex; flex-wrap: wrap; justify-content: center;
-  gap: var(--space-md); margin-top: var(--space-lg);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--color-gray-light);
+  display: flex; flex-wrap: wrap; gap: 18px;
+  margin-top: 16px; padding-top: 16px;
+  border-top: 1px dashed rgba(14,5,42,0.08);
+  justify-content: center;
 }
 .devis-trust-item {
   display: flex; align-items: center; gap: 6px;
-  font-family: 'Space Mono', monospace; font-size: 0.72rem;
-  color: #666;
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: #888;
 }
-.devis-trust-item svg { width: 14px; height: 14px; color: #22c55e; }
+.devis-trust-item svg { width: 13px; height: 13px; color: #22c55e; }
 
-/* ─── Sidebar ─── */
-.devis-sidebar {
-  position: sticky; top: var(--space-lg);
-  display: flex; flex-direction: column; gap: var(--space-md);
+/* ═══════════════════════════════════════════════════
+   CONCIERGE PANEL (right side)
+   ═══════════════════════════════════════════════════ */
+.devis-concierge {
+  position: relative;
+  background: linear-gradient(165deg, #1B0F42 0%, #0E052A 60%, #0A0320 100%);
+  color: #fff;
+  padding: 40px 40px 36px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
 }
 @media (max-width: 1024px) {
-  .devis-sidebar { position: static; }
+  .devis-concierge { padding: 32px 24px; }
 }
-.side-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  box-shadow: 0 4px 16px rgba(14,5,42,0.06);
+.devis-concierge::before {
+  content: '';
+  position: absolute; top: -40%; right: -20%;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,93,221,0.35), transparent 70%);
+  pointer-events: none;
 }
-.side-card h3 {
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1rem; color: var(--color-primary-900);
-  margin-bottom: var(--space-md);
-  display: flex; align-items: center; gap: 8px;
+.devis-concierge::after {
+  content: '';
+  position: absolute; bottom: -30%; left: -20%;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(246,108,36,0.18), transparent 70%);
+  pointer-events: none;
+}
+.conc-inner { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
+
+/* Concierge head */
+.conc-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase; letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+.conc-tag .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.2);
+  animation: softPulse 2.4s infinite;
+}
+.conc-person {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 28px;
+}
+.conc-avatar {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-pastel-lavender), var(--color-pastel-peach));
+  overflow: hidden; flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35), inset 0 0 0 2px rgba(255,255,255,0.1);
+  position: relative;
+}
+.conc-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.conc-person-name {
+  font-family: 'Uxum', sans-serif; font-weight: 700; font-size: 1rem;
+  color: #fff; line-height: 1.2;
+}
+.conc-person-role {
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 3px; letter-spacing: 0.04em;
 }
 
-/* Reviews card */
-.reviews-head {
-  display: flex; align-items: center; gap: 10px;
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--color-gray-light);
-  margin-bottom: var(--space-md);
+/* Live status message */
+.conc-status {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  position: relative;
 }
-.reviews-score {
+.conc-status::before {
+  content: ''; position: absolute; left: 24px; top: -8px;
+  width: 14px; height: 14px; transform: rotate(45deg);
+  background: rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-left: 1px solid rgba(255,255,255,0.08);
+}
+.conc-status-label {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+.conc-status-text {
+  font-family: 'Uxum', sans-serif; font-size: 0.95rem;
+  color: #fff; line-height: 1.45;
+}
+.conc-status-text strong {
+  color: var(--color-pastel-gold);
+  font-weight: 700;
+}
+
+/* Live estimate */
+.conc-estimate {
+  background: linear-gradient(135deg, rgba(99,93,221,0.18), rgba(99,93,221,0.05));
+  border: 1px solid rgba(135,129,243,0.25);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.conc-estimate::before {
+  content: ''; position: absolute;
+  top: -50%; right: -20%; width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(135,129,243,0.2), transparent 70%);
+}
+.conc-estimate-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 4px;
+  position: relative;
+}
+.conc-estimate-label {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.conc-estimate-chip {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem;
+  padding: 3px 8px; border-radius: 999px;
+  background: rgba(135,129,243,0.18);
+  color: var(--color-pastel-lavender);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.conc-estimate-value {
   font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 2rem; color: var(--color-primary-900);
-  line-height: 1;
+  font-size: 1.75rem; color: #fff;
+  line-height: 1.1; letter-spacing: -0.02em;
+  position: relative;
+  transition: opacity 0.3s;
 }
-.reviews-meta-stars { color: #FFB800; font-size: 0.875rem; letter-spacing: 2px; }
-.reviews-meta-count {
-  font-family: 'Space Mono', monospace; font-size: 0.72rem;
-  color: #666; margin-top: 2px;
+.conc-estimate-note {
+  font-family: 'Uxum', sans-serif; font-size: 0.78rem;
+  color: rgba(255,255,255,0.55); margin-top: 6px;
+  position: relative;
 }
-.testimonial {
-  font-family: 'Uxum', sans-serif; font-size: 0.875rem;
-  color: var(--color-primary-800); line-height: 1.5;
+
+/* Concierge testimonial */
+.conc-testi {
+  margin-bottom: auto;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.conc-testi-stars {
+  display: flex; align-items: center; gap: 8px;
   margin-bottom: 8px;
 }
-.testimonial-author {
-  font-family: 'Space Mono', monospace; font-size: 0.72rem;
-  color: #999;
+.conc-testi-stars span { color: #FFB800; font-size: 0.9rem; letter-spacing: 1.5px; }
+.conc-testi-stars strong {
+  font-family: 'Uxum', sans-serif; font-weight: 700; font-size: 0.85rem;
+  color: #fff;
 }
-.testimonial-dots {
-  display: flex; gap: 6px; justify-content: center;
-  margin-top: var(--space-md);
+.conc-testi-google {
+  margin-left: auto;
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
+  color: rgba(255,255,255,0.45);
 }
-.testimonial-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--color-gray-light); cursor: pointer;
-  transition: background 0.2s;
-}
-.testimonial-dot.active { background: var(--color-primary-600); }
-
-/* Benefit list */
-.benefit-list { list-style: none; padding: 0; margin: 0; }
-.benefit-list li {
-  display: flex; align-items: flex-start; gap: 10px;
+.conc-testi-quote {
   font-family: 'Uxum', sans-serif; font-size: 0.875rem;
-  color: var(--color-primary-800);
-  padding: 8px 0;
+  color: rgba(255,255,255,0.8); line-height: 1.5;
+  font-weight: 400;
 }
-.benefit-list li strong {
-  display: block; color: var(--color-primary-900);
-  margin-bottom: 2px;
-}
-.benefit-list .bi {
-  width: 28px; height: 28px; flex-shrink: 0;
-  background: var(--color-primary-100);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.9rem;
+.conc-testi-author {
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 8px; letter-spacing: 0.04em;
 }
 
-/* Phone card */
-.phone-card {
-  background: var(--color-primary-900);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  color: #fff; text-align: center;
-  background-image: radial-gradient(circle at 100% 0%, rgba(99,93,221,0.3), transparent 60%);
+/* Concierge trust row (certifs) */
+.conc-trust {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  align-items: center;
 }
-.phone-card-label {
-  font-family: 'Space Mono', monospace; font-size: 0.7rem;
-  color: rgba(255,255,255,0.6); text-transform: uppercase;
-  letter-spacing: 0.08em; margin-bottom: 8px;
+.conc-trust-label {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  width: 100%;
 }
-.phone-card-title {
+.conc-trust img {
+  height: 20px; max-width: 60px; object-fit: contain;
+  opacity: 0.55; filter: brightness(0) invert(1);
+  transition: opacity 0.2s;
+}
+.conc-trust img:hover { opacity: 0.9; }
+
+/* Concierge CTA call */
+.conc-call {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 14px;
+}
+.conc-call-text {
+  flex: 1;
+  font-family: 'Uxum', sans-serif; font-size: 0.78rem;
+  color: rgba(255,255,255,0.6); line-height: 1.3;
+}
+.conc-call-text strong { color: #fff; font-weight: 700; font-size: 0.82rem; }
+.conc-call a {
   font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1rem; margin-bottom: var(--space-md);
-}
-.phone-card a {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1.375rem; color: #fff; text-decoration: none;
-  padding: 12px 20px;
+  font-size: 0.9rem; color: #fff; text-decoration: none;
+  padding: 9px 14px;
   background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: var(--radius-full);
-  transition: background 0.2s;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+  transition: all 0.2s var(--ease-out);
+  display: inline-flex; align-items: center; gap: 7px;
+  white-space: nowrap;
 }
-.phone-card a:hover { background: rgba(255,255,255,0.2); }
-.phone-card-hours {
-  display: block; margin-top: var(--space-sm);
-  font-family: 'Space Mono', monospace; font-size: 0.72rem;
-  color: rgba(255,255,255,0.6);
-}
+.conc-call a:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
 
-/* Coverage card */
-.coverage-card h3 { margin-bottom: var(--space-sm); }
-.coverage-cities {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  margin-top: var(--space-sm);
-}
-.coverage-city {
-  font-family: 'Space Mono', monospace; font-size: 0.7rem;
-  padding: 4px 10px; border-radius: var(--radius-full);
-  background: var(--color-primary-100);
-  color: var(--color-primary-900);
-}
 </style>
 </head>
 <body>
@@ -835,105 +890,110 @@
   </div>
 </header>
 </div>
-<!-- ════════ DEVIS FORM (compact — no hero) ════════ -->
+<!-- ════════ DEVIS — Concierge Experience ════════ -->
 <section class="devis-section">
   <div class="container">
     <div class="devis-layout">
-      <!-- Form -->
-      <div class="devis-form-card">
 
-        <!-- Header row: compact title + discreet type toggle -->
-        <div class="devis-card-head">
-          <div>
-            <h1 class="devis-title-compact" id="devisTitle">Votre devis gratuit <em>en 60s</em></h1>
-            <p class="devis-subtitle-compact">Rappel par un technicien certifié, sans engagement.</p>
-          </div>
+      <!-- ═══ LEFT : FORM PANEL ═══ -->
+      <div class="devis-form-panel">
+
+        <div class="devis-top-row">
+          <span class="devis-eyebrow">
+            <span class="dot"></span>
+            <span id="liveCount">12 demandes traitées aujourd'hui</span>
+          </span>
           <div class="devis-type-toggle" role="tablist" aria-label="Type de client">
             <button type="button" class="active" data-client="particulier">Particulier</button>
             <button type="button" data-client="pro">Pro</button>
           </div>
         </div>
 
-        <!-- Progress -->
-        <div class="devis-progress">
-          <div class="devis-progress-head">
-            <span class="devis-progress-label">Étape <span id="stepCurrent">1</span> sur 3</span>
-            <span class="devis-progress-pct" id="progressPct">33%</span>
+        <!-- Progress dots -->
+        <div class="devis-progress" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
+          <div class="devis-progress-item active" data-step="1">
+            <span class="pd"><span>1</span></span>
+            <span>Nuisible</span>
           </div>
-          <div class="devis-progress-track">
-            <div class="devis-progress-fill" id="progressFill"></div>
+          <span class="devis-progress-sep"></span>
+          <div class="devis-progress-item" data-step="2">
+            <span class="pd"><span>2</span></span>
+            <span>Situation</span>
           </div>
-          <div class="devis-progress-steps">
-            <span class="devis-progress-step active" data-step="1">Nuisible</span>
-            <span class="devis-progress-step" data-step="2">Situation</span>
-            <span class="devis-progress-step" data-step="3">Coordonnées</span>
+          <span class="devis-progress-sep"></span>
+          <div class="devis-progress-item" data-step="3">
+            <span class="pd"><span>3</span></span>
+            <span>Coordonnées</span>
           </div>
         </div>
 
         <form action="#" method="POST" id="devisForm" novalidate>
 
-          <!-- ─── Step 1 : Nuisible (visual picker) ─── -->
+          <!-- ─── Step 1 : Nuisible ─── -->
           <fieldset class="devis-fieldset active" data-step="1">
-            <legend>Quel nuisible vous pose problème&nbsp;?</legend>
-            <p class="devis-fieldset-hint">Sélectionnez la catégorie concernée pour accéder à un devis adapté.</p>
+            <h1 class="devis-headline" id="devisTitle">De quoi souhaitez-vous <em>vous débarrasser</em>&nbsp;?</h1>
+            <p class="devis-headline-hint">Sélectionnez votre nuisible — nous adaptons protocole et estimation.</p>
 
             <input type="hidden" name="nuisible" id="nuisibleInput" required>
             <div class="nuisible-grid" role="radiogroup" aria-label="Type de nuisible">
-              <div class="nuisible-card" data-value="rats-souris" tabindex="0" role="radio" aria-checked="false">
+              <div class="nuisible-card" data-value="rats-souris" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(244,233,193,0.5);">
                 <div class="nuisible-card-img" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt=""></div>
                 <div class="nuisible-card-name">Rats / Souris</div>
                 <div class="nuisible-card-hint">RONGEURS</div>
               </div>
-              <div class="nuisible-card" data-value="punaises-de-lit" tabindex="0" role="radio" aria-checked="false">
+              <div class="nuisible-card" data-value="punaises-de-lit" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(255,212,207,0.5);">
                 <div class="nuisible-card-img" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt=""></div>
                 <div class="nuisible-card-name">Punaises de lit</div>
                 <div class="nuisible-card-hint">URGENT</div>
               </div>
-              <div class="nuisible-card" data-value="cafards-blattes" tabindex="0" role="radio" aria-checked="false">
+              <div class="nuisible-card" data-value="cafards-blattes" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(171,224,209,0.5);">
                 <div class="nuisible-card-img" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt=""></div>
                 <div class="nuisible-card-name">Cafards</div>
                 <div class="nuisible-card-hint">BLATTES</div>
               </div>
-              <div class="nuisible-card" data-value="guepes-frelons" tabindex="0" role="radio" aria-checked="false">
+              <div class="nuisible-card" data-value="guepes-frelons" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(244,233,193,0.5);">
                 <div class="nuisible-card-img" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt=""></div>
                 <div class="nuisible-card-name">Guêpes / Frelons</div>
                 <div class="nuisible-card-hint">NIDS</div>
               </div>
-              <div class="nuisible-card" data-value="fourmis" tabindex="0" role="radio" aria-checked="false">
+              <div class="nuisible-card" data-value="fourmis" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(255,212,207,0.4);">
                 <div class="nuisible-card-img" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt=""></div>
                 <div class="nuisible-card-name">Fourmis</div>
                 <div class="nuisible-card-hint">COLONIES</div>
               </div>
-              <div class="nuisible-card" data-value="moustiques" tabindex="0" role="radio" aria-checked="false">
+              <div class="nuisible-card" data-value="moustiques" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(176,213,245,0.5);">
                 <div class="nuisible-card-img" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt=""></div>
                 <div class="nuisible-card-name">Moustiques</div>
                 <div class="nuisible-card-hint">TIGRES</div>
               </div>
-              <div class="nuisible-card" data-value="pigeons" tabindex="0" role="radio" aria-checked="false">
-                <div class="nuisible-card-img" style="background:var(--color-pastel-lavender-light);">🕊️</div>
+              <div class="nuisible-card" data-value="pigeons" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(239,223,246,0.5);">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-lavender-light);font-size:1.75rem;">🕊️</div>
                 <div class="nuisible-card-name">Pigeons</div>
                 <div class="nuisible-card-hint">DÉPIGEONNAGE</div>
               </div>
-              <div class="nuisible-card" data-value="autre" tabindex="0" role="radio" aria-checked="false">
-                <div class="nuisible-card-img" style="background:var(--color-primary-100);">❓</div>
+              <div class="nuisible-card" data-value="autre" tabindex="0" role="radio" aria-checked="false" style="--glow:rgba(206,204,252,0.5);">
+                <div class="nuisible-card-img" style="background:var(--color-primary-100);font-size:1.4rem;color:var(--color-primary-600);">?</div>
                 <div class="nuisible-card-name">Autre</div>
                 <div class="nuisible-card-hint">À PRÉCISER</div>
               </div>
             </div>
 
             <div class="devis-nav">
-              <span></span>
-              <button type="button" class="btn btn-primary" onclick="goToStep(2)">Continuer →</button>
+              <span class="devis-nav-kbd"><kbd>↵</kbd> ou clic pour continuer</span>
+              <button type="button" class="btn-next" onclick="goToStep(2)">
+                Continuer
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
             </div>
           </fieldset>
 
           <!-- ─── Step 2 : Situation ─── -->
           <fieldset class="devis-fieldset" data-step="2">
-            <legend>Décrivez brièvement votre situation</legend>
-            <p class="devis-fieldset-hint">Ces 3 infos nous permettent d'estimer précisément votre devis.</p>
+            <h1 class="devis-headline">Racontez-nous <em>votre situation</em></h1>
+            <p class="devis-headline-hint">3 infos rapides pour ajuster votre estimation.</p>
 
-            <div class="devis-field">
-              <span class="devis-field-label">Surface concernée</span>
+            <div class="field-block">
+              <span class="field-label">Surface concernée</span>
               <div class="pill-group" data-name="surface">
                 <label><input type="radio" name="surface" value="moins-30"> &lt; 30 m²</label>
                 <label><input type="radio" name="surface" value="30-60"> 30–60 m²</label>
@@ -943,46 +1003,41 @@
               </div>
             </div>
 
-            <div class="devis-field">
-              <span class="devis-field-label">Depuis quand ?</span>
+            <div class="field-block">
+              <span class="field-label">Depuis quand ?</span>
               <div class="pill-group" data-name="depuis">
                 <label><input type="radio" name="depuis" value="quelques-jours"> Quelques jours</label>
                 <label><input type="radio" name="depuis" value="1-2-semaines"> 1 à 2 semaines</label>
                 <label><input type="radio" name="depuis" value="1-mois"> ≈ 1 mois</label>
                 <label><input type="radio" name="depuis" value="plusieurs-mois"> Plusieurs mois</label>
-                <label><input type="radio" name="depuis" value="ne-sais-pas"> Je ne sais pas</label>
               </div>
             </div>
 
-            <div class="devis-field">
-              <span class="devis-field-label">Degré d'urgence</span>
+            <div class="field-block">
+              <span class="field-label">Niveau d'urgence</span>
               <div class="pill-group urgency" data-name="urgence">
-                <label><input type="radio" name="urgence" value="normale"> 🟢 Normale</label>
-                <label><input type="radio" name="urgence" value="rapide"> 🟡 Rapide (48h)</label>
-                <label data-urgent="true"><input type="radio" name="urgence" value="urgente"> 🔴 Urgente (24h)</label>
+                <label><input type="radio" name="urgence" value="normale"> Normale</label>
+                <label><input type="radio" name="urgence" value="rapide"> Rapide — sous 48h</label>
+                <label data-urgent="true"><input type="radio" name="urgence" value="urgente"> Urgente — sous 24h</label>
               </div>
             </div>
 
             <div class="devis-nav">
-              <button type="button" class="btn btn-outline" onclick="goToStep(1)">← Retour</button>
-              <button type="button" class="btn btn-primary" onclick="goToStep(3)">Continuer →</button>
+              <button type="button" class="btn-ghost" onclick="goToStep(1)">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Retour
+              </button>
+              <button type="button" class="btn-next" onclick="goToStep(3)">
+                Continuer
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
             </div>
           </fieldset>
 
           <!-- ─── Step 3 : Coordonnées ─── -->
           <fieldset class="devis-fieldset" data-step="3">
-            <legend>Où envoyer votre devis ?</legend>
-            <p class="devis-fieldset-hint">Vos infos restent confidentielles — zéro spam, zéro partage.</p>
-
-            <!-- Price estimate teaser -->
-            <div class="estimate-teaser" id="estimateTeaser">
-              <div class="estimate-teaser-icon">💡</div>
-              <div>
-                <div class="estimate-teaser-label">Estimation moyenne</div>
-                <div class="estimate-teaser-value" id="estimateRange">150 € – 290 €</div>
-                <div class="estimate-teaser-note">Votre devis définitif sera précisé par le technicien.</div>
-              </div>
-            </div>
+            <h1 class="devis-headline">Où envoyer votre <em>devis&nbsp;?</em></h1>
+            <p class="devis-headline-hint">Infos strictement confidentielles — zéro spam, zéro partage.</p>
 
             <div class="devis-field-row">
               <div class="devis-field">
@@ -991,7 +1046,7 @@
                   <input type="text" id="nom" name="nom" required placeholder="Marie Dupont" autocomplete="name">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </div>
-                <div class="devis-field-error">Veuillez renseigner votre nom.</div>
+                <div class="devis-field-error">Renseignez votre nom.</div>
               </div>
               <div class="devis-field">
                 <label class="devis-field-label" for="tel">Téléphone <span class="req">*</span></label>
@@ -999,7 +1054,7 @@
                   <input type="tel" id="tel" name="tel" required placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                 </div>
-                <div class="devis-field-error">Numéro de téléphone invalide.</div>
+                <div class="devis-field-error">Numéro invalide.</div>
               </div>
             </div>
 
@@ -1012,9 +1067,8 @@
               <div class="devis-field-error">Email invalide.</div>
             </div>
 
-            <!-- ═══ React Address Autocomplete mount point ═══ -->
+            <!-- React Address Autocomplete mount -->
             <div id="addressAutocomplete"></div>
-            <!-- Hidden fallback inputs synced by React component -->
             <input type="hidden" id="adresse" name="adresse">
             <input type="hidden" id="cp" name="cp">
             <input type="hidden" id="ville" name="ville">
@@ -1022,11 +1076,11 @@
             <!-- Pro fields -->
             <div class="devis-pro-only" id="proFields">
               <div class="devis-field">
-                <label class="devis-field-label" for="siret">Numéro SIRET <span class="opt">optionnel</span></label>
+                <label class="devis-field-label" for="siret">SIRET <span class="opt">optionnel</span></label>
                 <input type="text" id="siret" name="siret" placeholder="123 456 789 00012" inputmode="numeric">
               </div>
               <div class="devis-field">
-                <label class="devis-field-label" for="secteur">Secteur d'activité</label>
+                <label class="devis-field-label" for="secteur">Secteur</label>
                 <select id="secteur" name="secteur">
                   <option value="">-- Sélectionnez --</option>
                   <option value="restauration">Restauration</option>
@@ -1045,7 +1099,7 @@
                   <input type="number" id="nb-sites" name="nb-sites" min="1" placeholder="1">
                 </div>
                 <div class="devis-field">
-                  <label class="devis-field-label" for="contrat">Type de contrat</label>
+                  <label class="devis-field-label" for="contrat">Contrat</label>
                   <select id="contrat" name="contrat">
                     <option value="">-- Sélectionnez --</option>
                     <option value="ponctuel">Intervention ponctuelle</option>
@@ -1059,11 +1113,14 @@
 
             <div class="devis-field">
               <label class="devis-field-label" for="message">Message <span class="opt">optionnel</span></label>
-              <textarea id="message" name="message" placeholder="Décrivez votre situation en quelques mots..."></textarea>
+              <textarea id="message" name="message" placeholder="Quelque chose à nous préciser ?"></textarea>
             </div>
 
             <div class="devis-nav">
-              <button type="button" class="btn btn-outline" onclick="goToStep(2)">← Retour</button>
+              <button type="button" class="btn-ghost" onclick="goToStep(2)">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Retour
+              </button>
               <button type="submit" class="btn-submit">
                 Recevoir mon devis gratuit
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -1073,11 +1130,11 @@
             <div class="devis-trust-row">
               <span class="devis-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                Données chiffrées SSL
+                SSL chiffré
               </span>
               <span class="devis-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                Conforme RGPD
+                RGPD
               </span>
               <span class="devis-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1091,66 +1148,80 @@
           </fieldset>
 
         </form>
-      </div>
+      </div><!-- /.devis-form-panel -->
 
-      <!-- Proof bar: toujours visible, sous le form -->
-      <div class="devis-proof-bar" style="grid-column:1 / 2;">
-        <div class="devis-proof-bar-item">
-          <span class="devis-proof-bar-stars">★★★★★</span>
-          <span><strong>4,9/5</strong> · 380+ avis Google</span>
-        </div>
-        <div class="devis-proof-bar-sep"></div>
-        <div class="devis-proof-bar-item">
-          <span style="color:var(--color-accent-500);font-size:1rem;">🎁</span>
-          <span><strong>1<sup>ère</sup> intervention offerte</strong></span>
-        </div>
-        <div class="devis-proof-bar-sep"></div>
-        <div class="devis-proof-bar-item">
-          <span style="color:var(--color-primary-600);font-size:1rem;">⚡</span>
-          <span><strong>Réponse en 2h</strong> en moyenne</span>
-        </div>
-      </div>
+      <!-- ═══ RIGHT : CONCIERGE PANEL ═══ -->
+      <aside class="devis-concierge">
+        <div class="conc-inner">
 
-      <!-- ─── Sidebar (compacte) ─── -->
-      <aside class="devis-sidebar">
+          <span class="conc-tag">
+            <span class="dot"></span>
+            Votre conseiller en ligne
+          </span>
 
-        <!-- 1ère intervention offerte -->
-        <div class="side-card" style="background:linear-gradient(135deg,var(--color-pastel-gold-light),var(--color-pastel-peach-light));border:1px solid var(--color-pastel-gold);padding:12px 14px !important;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:36px;height:36px;border-radius:10px;background:var(--color-accent-500);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:1.1rem;">🎁</div>
-            <div style="min-width:0;">
-              <strong style="font-family:'Uxum',sans-serif;font-weight:700;font-size:0.95rem;color:var(--color-primary-900);display:block;line-height:1.2;">1<sup>ère</sup> intervention offerte</strong>
-              <span style="font-family:'Uxum',sans-serif;font-size:0.75rem;color:var(--color-primary-800);">Diagnostic + 1<sup>er</sup> traitement inclus</span>
+          <div class="conc-person">
+            <div class="conc-avatar">
+              <img src="/assets/hero_technicienne.png" alt="Claire, conseillère Sanalia">
+            </div>
+            <div>
+              <div class="conc-person-name">Claire Moreau</div>
+              <div class="conc-person-role">Conseillère Sanalia · Certibiocide</div>
             </div>
           </div>
-        </div>
 
-        <!-- Google reviews (compact) -->
-        <div class="side-card" style="padding:12px 14px !important;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="font-family:'Uxum',sans-serif;font-weight:700;font-size:1.5rem;color:var(--color-primary-900);line-height:1;">4,9</div>
-            <div style="flex:1;min-width:0;">
-              <div style="color:#FFB800;font-size:0.8rem;letter-spacing:1.5px;line-height:1;">★★★★★</div>
-              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;margin-top:2px;">380+ avis Google</div>
+          <div class="conc-status">
+            <div class="conc-status-label">En ce moment</div>
+            <div class="conc-status-text" id="concStatus">
+              Je vous prépare un devis <strong>sur-mesure</strong>. Commencez par sélectionner votre nuisible&nbsp;→
             </div>
-            <svg viewBox="0 0 48 48" width="22" height="22"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
           </div>
-        </div>
 
-        <!-- Certifications compactes -->
-        <div class="side-card" style="padding:12px 14px !important;">
-          <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Certifications</div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;align-items:center;">
-            <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide" title="Certibiocide" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
-            <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D" title="CS3D" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
-            <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro3D" title="QualiPro 3D" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
-            <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA" title="RC Pro AXA" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
+          <div class="conc-estimate">
+            <div class="conc-estimate-head">
+              <span class="conc-estimate-label">Estimation</span>
+              <span class="conc-estimate-chip" id="concEstimateChip">en construction</span>
+            </div>
+            <div class="conc-estimate-value" id="concEstimate">—&nbsp;€</div>
+            <div class="conc-estimate-note" id="concEstimateNote">Fourchette indicative TTC · devis final remis par le technicien.</div>
           </div>
-        </div>
 
+          <div class="conc-testi" id="concTesti">
+            <div class="conc-testi-stars">
+              <span>★★★★★</span>
+              <strong>4,9 / 5</strong>
+              <span class="conc-testi-google">380+ avis Google</span>
+            </div>
+            <p class="conc-testi-quote" id="concTestiQuote">« Rappel en moins d'une heure, devis clair, problème réglé en une visite. Bluffant. »</p>
+            <div class="conc-testi-author" id="concTestiAuthor">— Sophie M., Lyon 3 · il y a 2 semaines</div>
+          </div>
+
+          <div class="conc-trust">
+            <div class="conc-trust-label">Certifications</div>
+            <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide">
+            <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D">
+            <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro 3D">
+            <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA">
+          </div>
+
+          <div class="conc-call">
+            <div class="conc-call-text">
+              Préférez-vous parler ?<br>
+              <strong>Claire répond, 8h&#8239;–&#8239;20h, 7j/7.</strong>
+            </div>
+            <a href="tel:0667464897">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              06 67 46 48 97
+            </a>
+          </div>
+
+        </div>
       </aside>
-    </div>
+
+    </div><!-- /.devis-layout -->
   </div>
+</section>
+
+
 </section>
 
 <div data-component="footer">
@@ -1222,11 +1293,7 @@ let currentStep = 1;
 
 function updateProgress(step) {
   currentStep = step;
-  const pct = Math.round((step / 3) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
-  document.getElementById('progressPct').textContent = pct + '%';
-  document.getElementById('stepCurrent').textContent = step;
-  document.querySelectorAll('.devis-progress-step').forEach(el => {
+  document.querySelectorAll('.devis-progress-item').forEach(el => {
     const s = parseInt(el.dataset.step);
     el.classList.remove('active', 'done');
     if (s === step) el.classList.add('active');
@@ -1235,7 +1302,6 @@ function updateProgress(step) {
 }
 
 function goToStep(step) {
-  // Validation on forward
   if (step > currentStep) {
     if (currentStep === 1 && !document.getElementById('nuisibleInput').value) {
       flashNuisibleGrid();
@@ -1245,10 +1311,10 @@ function goToStep(step) {
   document.querySelectorAll('.devis-fieldset').forEach(fs => fs.classList.remove('active'));
   document.querySelector('.devis-fieldset[data-step="' + step + '"]').classList.add('active');
   updateProgress(step);
-  if (step === 3) updateEstimate();
-  // Scroll to top of form card
-  const card = document.querySelector('.devis-form-card');
-  const y = card.getBoundingClientRect().top + window.pageYOffset - 100;
+  updateEstimate();
+  updateConciergeStatus(step);
+  const panel = document.querySelector('.devis-form-panel');
+  const y = panel.getBoundingClientRect().top + window.pageYOffset - 80;
   window.scrollTo({ top: y, behavior: 'smooth' });
 }
 
@@ -1271,9 +1337,12 @@ document.querySelectorAll('.nuisible-card').forEach(card => {
     });
     card.classList.add('selected');
     card.setAttribute('aria-checked', 'true');
-    document.getElementById('nuisibleInput').value = card.dataset.value;
+    const val = card.dataset.value;
+    document.getElementById('nuisibleInput').value = val;
+    updateTestimonial(val);
+    updateEstimate();
     // Auto-advance after short delay for satisfying UX
-    setTimeout(() => { if (currentStep === 1) goToStep(2); }, 400);
+    setTimeout(() => { if (currentStep === 1) goToStep(2); }, 450);
   };
   card.addEventListener('click', select);
   card.addEventListener('keydown', (e) => {
@@ -1288,30 +1357,78 @@ document.querySelectorAll('.devis-type-toggle button').forEach(btn => {
     btn.classList.add('active');
     const isPro = btn.dataset.client === 'pro';
     document.getElementById('proFields').classList.toggle('show', isPro);
-    document.getElementById('devisTitle').innerHTML = isPro
-      ? 'Votre devis professionnel<br><em>sur-mesure</em>'
-      : 'Votre devis gratuit<br><em>en 60 secondes</em>';
   });
 });
 
-/* ─── Testimonials carousel ─── */
-let tIdx = 0;
-const tSlides = document.querySelectorAll('.testimonial-slide');
-const tDots = document.querySelectorAll('.testimonial-dot');
-function showTestimonial(i) {
-  tIdx = i;
-  tSlides.forEach((s, idx) => s.style.display = idx === i ? 'block' : 'none');
-  tDots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+/* ─── Testimonials (contextual per nuisible) ─── */
+const testimonials = {
+  'rats-souris':    { q: '« Rats dans le grenier en 24h, plus rien en 72h. Discret et efficace. »', a: '— Thomas R., Paris 11 · il y a 3 semaines' },
+  'punaises-de-lit':{ q: '« Enfin débarrassés après 2 mois d\'enfer. Équipe humaine et pro. »',       a: '— Julie D., Villeurbanne · il y a 1 mois' },
+  'cafards-blattes':{ q: '« Cafards en cuisine traités en une visite. Aucune trace depuis 6 mois. »', a: '— Marc L., Lyon 7 · il y a 2 mois' },
+  'guepes-frelons': { q: '« Nid de frelons dans les combles retiré le jour même. Soulagés ! »',       a: '— Aline K., Oullins · il y a 2 semaines' },
+  'fourmis':        { q: '« Invasion de fourmis stoppée nette. Conseils prévention au top. »',       a: '— Nicolas B., Lyon 2 · il y a 1 mois' },
+  'moustiques':     { q: '« Plus un moustique tigre dans le jardin cet été. Merci Sanalia. »',       a: '— Camille P., Paris 15 · il y a 3 mois' },
+  'pigeons':        { q: '« Pose de filets impeccable, fini les nuisances sur la terrasse. »',        a: '— SCI Voltaire, Lyon · il y a 1 mois' },
+  'autre':          { q: '« Rappel en moins d\'une heure, devis clair, problème réglé. Bluffant. »', a: '— Sophie M., Lyon 3 · il y a 2 semaines' },
+  'default':        { q: '« Rappel en moins d\'une heure, devis clair, problème réglé en une visite. Bluffant. »', a: '— Sophie M., Lyon 3 · il y a 2 semaines' },
+};
+function updateTestimonial(key) {
+  const t = testimonials[key] || testimonials.default;
+  const q = document.getElementById('concTestiQuote');
+  const a = document.getElementById('concTestiAuthor');
+  if (!q) return;
+  q.style.opacity = '0';
+  a.style.opacity = '0';
+  setTimeout(() => {
+    q.textContent = t.q;
+    a.textContent = t.a;
+    q.style.transition = 'opacity 0.4s';
+    a.style.transition = 'opacity 0.4s';
+    q.style.opacity = '1';
+    a.style.opacity = '1';
+  }, 200);
 }
-tDots.forEach(d => d.addEventListener('click', () => showTestimonial(parseInt(d.dataset.slide))));
-showTestimonial(0);
-setInterval(() => showTestimonial((tIdx + 1) % tSlides.length), 6000);
 
-/* ─── Estimate calculator ─── */
+/* ─── Concierge status messages ─── */
+const nuisibleLabels = {
+  'rats-souris': 'Rats / Souris',
+  'punaises-de-lit': 'Punaises de lit',
+  'cafards-blattes': 'Cafards',
+  'guepes-frelons': 'Guêpes / Frelons',
+  'fourmis': 'Fourmis',
+  'moustiques': 'Moustiques',
+  'pigeons': 'Pigeons',
+  'autre': 'votre demande',
+};
+function updateConciergeStatus(step) {
+  const el = document.getElementById('concStatus');
+  if (!el) return;
+  const nuisible = document.getElementById('nuisibleInput').value;
+  const label = nuisibleLabels[nuisible] || 'votre nuisible';
+  if (step === 1) {
+    el.innerHTML = 'Je vous prépare un devis <strong>sur-mesure</strong>. Commencez par sélectionner votre nuisible&nbsp;→';
+  } else if (step === 2) {
+    el.innerHTML = 'Parfait, <strong>' + label + '</strong>. Précisez la situation, je peaufine l\'estimation en direct.';
+  } else {
+    el.innerHTML = 'Dernière étape — je vous rappelle <strong>sous 2h</strong> avec votre devis finalisé.';
+  }
+}
+
+/* ─── Estimate calculator (updates concierge panel live) ─── */
 function updateEstimate() {
   const nuisible = document.getElementById('nuisibleInput').value;
   const surface = document.querySelector('[name="surface"]:checked')?.value;
   const urgence = document.querySelector('[name="urgence"]:checked')?.value;
+  const elVal = document.getElementById('concEstimate');
+  const elChip = document.getElementById('concEstimateChip');
+  const elNote = document.getElementById('concEstimateNote');
+  if (!elVal) return;
+  if (!nuisible) {
+    elVal.textContent = '—\u00a0€';
+    elChip.textContent = 'en construction';
+    elNote.textContent = 'Sélectionnez votre nuisible pour démarrer.';
+    return;
+  }
   const ranges = {
     'rats-souris': [120, 250],
     'punaises-de-lit': [280, 650],
@@ -1327,8 +1444,24 @@ function updateEstimate() {
   const urgMult = urgence === 'urgente' ? 1.3 : urgence === 'rapide' ? 1.1 : 1;
   lo = Math.round(lo * surfMult * urgMult / 10) * 10;
   hi = Math.round(hi * surfMult * urgMult / 10) * 10;
-  document.getElementById('estimateRange').textContent = lo + ' € – ' + hi + ' €';
+  // Animate value morph
+  elVal.style.opacity = '0.3';
+  setTimeout(() => {
+    elVal.textContent = lo + ' – ' + hi + '\u00a0€';
+    elVal.style.transition = 'opacity 0.3s';
+    elVal.style.opacity = '1';
+  }, 120);
+  const detailed = surface && urgence;
+  elChip.textContent = detailed ? 'affinée' : (surface || urgence ? 'en cours' : 'indicative');
+  elNote.textContent = detailed
+    ? 'Estimation précisée selon surface + urgence · devis final par le technicien.'
+    : 'Fourchette indicative TTC · devis final remis par le technicien.';
 }
+
+/* Update concierge on pill selection */
+document.querySelectorAll('.pill-group input[type="radio"]').forEach(r => {
+  r.addEventListener('change', updateEstimate);
+});
 
 /* ─── Inline validation ─── */
 function validate(field, test) {
