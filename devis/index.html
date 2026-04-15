@@ -385,7 +385,8 @@
 @media (max-width: 768px) { .devis-form-panel { padding: 24px 20px 0; height: auto; min-height: 560px; } }
 
 /* The <form> is the scroll container — progress + fieldset inside */
-.devis-form-panel > form {
+.devis-form-panel > form,
+.devis-form-panel > #particulierForm > form {
   flex: 1; min-height: 0;
   display: flex; flex-direction: column;
   overflow: hidden;
@@ -980,6 +981,388 @@
 .devis-trust-item svg { width: 13px; height: 13px; color: #22c55e; }
 
 
+/* ═══════════════════════════════════════════════════
+   B2B PRO FORM — multi-step lead gen
+   ═══════════════════════════════════════════════════ */
+#particulierForm.hidden, #proForm.hidden { display: none !important; }
+#particulierForm { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+#particulierForm > form { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+#proForm {
+  flex: 1; min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14,5,42,0.15) transparent;
+}
+#proForm::-webkit-scrollbar { width: 6px; }
+#proForm::-webkit-scrollbar-thumb { background: rgba(14,5,42,0.15); border-radius: 3px; }
+
+.pro-progress {
+  display: flex; gap: 8px; margin-bottom: 40px;
+  position: relative;
+}
+.pro-progress-step {
+  flex: 1; position: relative;
+  padding-bottom: 26px;
+}
+.pro-progress-step .bar {
+  height: 4px; border-radius: 2px;
+  background: var(--color-gray-light);
+  transition: background 0.3s var(--ease-out);
+}
+.pro-progress-step.active .bar { background: var(--color-primary-600); }
+.pro-progress-step.completed .bar { background: var(--color-primary-400); }
+.pro-progress-step .pro-progress-label {
+  position: absolute; top: 10px; left: 0;
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #999;
+  white-space: nowrap;
+}
+.pro-progress-step.active .pro-progress-label { color: var(--color-primary-900); }
+@media (max-width: 640px) {
+  .pro-progress-step .pro-progress-label { font-size: 9px; }
+  .pro-progress-step .pro-progress-label .lbl-long { display: none; }
+}
+
+.pro-step { display: none; }
+.pro-step.active { display: block; animation: proFadeSlide 0.35s var(--ease-out); }
+@keyframes proFadeSlide {
+  from { opacity: 0; transform: translateX(14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.pro-step-title {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.55rem; line-height: 1.2;
+  margin: 0 0 6px; color: var(--color-primary-900);
+}
+.pro-step-title em {
+  font-style: normal; color: var(--color-primary-600);
+}
+.pro-step-subtitle {
+  color: var(--color-text-muted);
+  margin: 0 0 22px; font-size: 0.88rem;
+}
+
+/* Fields */
+.pro-field { margin-bottom: 16px; }
+.pro-field-row-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  margin-bottom: 16px;
+}
+@media (max-width: 540px) { .pro-field-row-2 { grid-template-columns: 1fr; } }
+.pro-field label, .pro-field-lbl {
+  display: block;
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.68rem; color: #777;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.pro-field input[type="text"],
+.pro-field input[type="email"],
+.pro-field input[type="tel"],
+.pro-field input[type="number"],
+.pro-field select,
+.pro-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: 'Uxum', sans-serif; font-size: 0.95rem;
+  background: #fff;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 10px;
+  color: var(--color-primary-900);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.pro-field input:focus,
+.pro-field select:focus,
+.pro-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
+}
+.pro-field textarea { resize: vertical; min-height: 90px; }
+
+/* Radio cards (secteur, contrat) */
+.pro-radio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+.pro-radio-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (max-width: 540px) { .pro-radio-grid.cols-2 { grid-template-columns: 1fr; } }
+.pro-radio-card {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 14px;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 12px; cursor: pointer;
+  transition: all 0.2s var(--ease-out);
+  background: #fff;
+  position: relative;
+}
+.pro-radio-card:hover {
+  border-color: var(--color-primary-400);
+  transform: translateY(-1px);
+}
+.pro-radio-card input { position: absolute; opacity: 0; pointer-events: none; }
+.pro-radio-card:has(input:checked) {
+  border-color: var(--color-primary-600);
+  background: var(--color-pastel-lavender-light);
+  box-shadow: 0 4px 14px -6px rgba(99,93,221,0.3);
+}
+.pro-radio-card:has(input:checked) .pro-radio-label { font-weight: 700; color: var(--color-primary-900); }
+.pro-radio-icon { font-size: 1.35rem; flex-shrink: 0; }
+.pro-radio-label {
+  font-family: 'Uxum', sans-serif; font-weight: 400;
+  font-size: 0.85rem; color: var(--color-primary-800);
+  line-height: 1.25;
+}
+.pro-radio-desc {
+  display: block;
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.64rem; color: #999;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+/* Checkbox cards (nuisibles) */
+.pro-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+.pro-checkbox-card {
+  display: flex; align-items: center; gap: 9px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 10px; cursor: pointer;
+  font-family: 'Uxum', sans-serif; font-size: 0.85rem;
+  color: var(--color-primary-800);
+  background: #fff;
+  transition: all 0.2s;
+}
+.pro-checkbox-card:hover { border-color: var(--color-primary-400); }
+.pro-checkbox-card:has(input:checked) {
+  border-color: var(--color-primary-600);
+  background: var(--color-pastel-lavender-light);
+  color: var(--color-primary-900);
+  font-weight: 700;
+}
+.pro-checkbox-card input { accent-color: var(--color-primary-600); flex-shrink: 0; }
+
+/* Autocomplete */
+.pro-autocomplete { position: relative; }
+.pro-autocomplete-dropdown {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+  max-height: 360px; overflow-y: auto;
+  z-index: 20; display: none;
+  border: 1px solid var(--color-gray-light);
+}
+.autocomplete-item {
+  display: flex; flex-direction: column; gap: 3px;
+  padding: 11px 14px;
+  width: 100%; text-align: left;
+  border: none; background: none; cursor: pointer;
+  border-bottom: 1px solid var(--color-gray-light);
+  font-family: 'Uxum', sans-serif;
+  transition: background 0.15s;
+}
+.autocomplete-item:hover,
+.autocomplete-item:focus {
+  background: var(--color-pastel-lavender-light); outline: none;
+}
+.autocomplete-item:last-child { border-bottom: none; }
+.autocomplete-name {
+  font-weight: 700; color: var(--color-primary-900);
+  font-size: 0.9rem;
+}
+.autocomplete-meta {
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.68rem; color: #999;
+  letter-spacing: 0.02em;
+}
+.autocomplete-empty {
+  padding: 18px 14px; text-align: center;
+  color: var(--color-text-muted); font-size: 0.85rem;
+  font-family: 'Uxum', sans-serif;
+}
+.autocomplete-footer {
+  padding: 10px 14px;
+  border-top: 1px solid var(--color-gray-light);
+  text-align: center;
+  background: #fafafa;
+}
+.link-btn {
+  background: none; border: none;
+  color: var(--color-primary-600);
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  cursor: pointer; font-size: 0.82rem;
+  padding: 4px 6px;
+}
+.link-btn:hover { text-decoration: underline; }
+.pro-autocomplete-loader {
+  position: absolute; right: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 16px; height: 16px;
+  border: 2px solid var(--color-gray-light);
+  border-top-color: var(--color-primary-600);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+.pro-autocomplete-loader.show { display: block; }
+@keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+.pro-custom-toggle {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 10px;
+  font-family: 'Uxum', sans-serif; font-size: 0.82rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.pro-custom-toggle input { accent-color: var(--color-primary-600); }
+.pro-custom-fields { display: none; margin-top: 14px; }
+.pro-custom-fields.show { display: block; }
+
+.pro-selected-company {
+  display: none;
+  padding: 12px 14px;
+  background: var(--color-pastel-lavender-light);
+  border: 1.5px solid var(--color-primary-400);
+  border-radius: 10px;
+  margin-top: 10px;
+}
+.pro-selected-company.show { display: block; }
+.pro-selected-company .lbl {
+  font-family: 'Space Mono', monospace; font-size: 0.62rem;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--color-primary-600); margin-bottom: 4px;
+}
+.pro-selected-company .name {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  color: var(--color-primary-900); font-size: 0.95rem;
+}
+.pro-selected-company .meta {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: #777; margin-top: 2px;
+}
+.pro-selected-company .clear-btn {
+  background: none; border: none;
+  color: var(--color-primary-600);
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 0.75rem; cursor: pointer;
+  margin-top: 8px; padding: 0;
+}
+
+/* Slider */
+.slider-wrap {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 4px 2px;
+}
+.slider-wrap input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary-600);
+}
+.slider-value {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--color-primary-900);
+  text-align: center;
+}
+.slider-value span.unit {
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.7rem; color: #888;
+  margin-left: 4px;
+}
+
+/* Pill urgency */
+.pro-pill-group {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.pro-pill-group label {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 14px;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 999px;
+  font-family: 'Uxum', sans-serif; font-size: 0.82rem;
+  color: var(--color-primary-800);
+  cursor: pointer; background: #fff;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin: 0;
+}
+.pro-pill-group label:has(input:checked) {
+  border-color: var(--color-primary-600);
+  background: var(--color-pastel-lavender-light);
+  color: var(--color-primary-900);
+  font-weight: 700;
+}
+.pro-pill-group input { display: none; }
+
+/* Consent */
+.pro-consent {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin: 18px 0 8px;
+  font-family: 'Uxum', sans-serif; font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+.pro-consent input { accent-color: var(--color-primary-600); margin-top: 3px; flex-shrink: 0; }
+.pro-consent a { color: var(--color-primary-600); text-decoration: underline; }
+
+/* Step nav */
+.pro-step-nav {
+  display: flex; justify-content: space-between;
+  margin-top: 28px; gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(14,5,42,0.06);
+}
+.pro-step-nav .pro-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px;
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 0.92rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out);
+  border: none;
+}
+.pro-btn-back {
+  background: transparent;
+  color: var(--color-primary-600);
+}
+.pro-btn-back:hover { background: var(--color-pastel-lavender-light); }
+.pro-btn-next {
+  background: var(--color-primary-900);
+  color: #fff;
+  margin-left: auto;
+}
+.pro-btn-next:hover { background: var(--color-primary-600); transform: translateY(-1px); }
+.pro-btn-submit {
+  background: var(--color-primary-600);
+  color: #fff;
+  margin-left: auto;
+}
+.pro-btn-submit:hover { background: var(--color-primary-900); transform: translateY(-1px); }
+.pro-btn-next svg, .pro-btn-submit svg, .pro-btn-back svg { width: 15px; height: 15px; }
+
+.pro-field-error {
+  display: none;
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: #dc2626; margin-top: 5px;
+  letter-spacing: 0.02em;
+}
+.pro-field.error .pro-field-error { display: block; }
+.pro-field.error input,
+.pro-field.error select,
+.pro-field.error textarea { border-color: #dc2626; }
+
 </style>
 </head>
 <body>
@@ -1221,6 +1604,9 @@
         </div>
 
         <div class="devis-form-panel">
+
+        <!-- ═══ PARTICULIER FORM ═══ -->
+        <div id="particulierForm">
 
         <!-- Progress dots -->
         <div class="devis-progress" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
@@ -1464,6 +1850,285 @@
           </fieldset>
 
         </form>
+        </div><!-- /#particulierForm -->
+
+        <!-- ═══ PROFESSIONNEL FORM — multi-step B2B lead gen ═══ -->
+        <div id="proForm" class="hidden">
+
+          <!-- Progress bar -->
+          <div class="pro-progress" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" id="proProgress">
+            <div class="pro-progress-step active" data-step="1">
+              <div class="bar"></div>
+              <span class="pro-progress-label">01 · <span class="lbl-long">Entreprise</span></span>
+            </div>
+            <div class="pro-progress-step" data-step="2">
+              <div class="bar"></div>
+              <span class="pro-progress-label">02 · <span class="lbl-long">Activité</span></span>
+            </div>
+            <div class="pro-progress-step" data-step="3">
+              <div class="bar"></div>
+              <span class="pro-progress-label">03 · <span class="lbl-long">Besoin</span></span>
+            </div>
+            <div class="pro-progress-step" data-step="4">
+              <div class="bar"></div>
+              <span class="pro-progress-label">04 · <span class="lbl-long">Contact</span></span>
+            </div>
+          </div>
+
+          <form id="proLeadForm" novalidate>
+
+            <!-- ─── Étape 1 : Entreprise ─── -->
+            <div class="pro-step active" data-pro-step="1">
+              <h2 class="pro-step-title">Votre <em>entreprise</em></h2>
+              <p class="pro-step-subtitle">Nous récupérons automatiquement votre SIRET depuis l'annuaire des entreprises.</p>
+
+              <div class="pro-field pro-autocomplete">
+                <label for="proCompany">Raison sociale</label>
+                <input type="text" id="proCompany" name="company" placeholder="Tapez le nom de votre entreprise..." autocomplete="organization">
+                <div class="pro-autocomplete-loader" id="proCompanyLoader"></div>
+                <div class="pro-autocomplete-dropdown" id="proCompanyDropdown" role="listbox"></div>
+                <div class="pro-field-error">Veuillez renseigner votre entreprise.</div>
+              </div>
+
+              <!-- Selected company card -->
+              <div class="pro-selected-company" id="proSelectedCompany">
+                <div class="lbl">Entreprise sélectionnée</div>
+                <div class="name" id="proSelectedName"></div>
+                <div class="meta" id="proSelectedMeta"></div>
+                <button type="button" class="clear-btn" onclick="clearSelectedCompany()">Modifier</button>
+              </div>
+
+              <label class="pro-custom-toggle">
+                <input type="checkbox" id="proCustomToggle" onchange="toggleCustomCompany(this.checked)">
+                Société non immatriculée / en cours de création
+              </label>
+
+              <!-- Custom (manual) fields -->
+              <div class="pro-custom-fields" id="proCustomFields">
+                <div class="pro-field">
+                  <label for="proCustomName">Nom de la structure</label>
+                  <input type="text" id="proCustomName" name="custom-name" placeholder="Restaurant Le Gourmet">
+                </div>
+                <div class="pro-field">
+                  <label for="proCustomActivity">Activité principale</label>
+                  <input type="text" id="proCustomActivity" name="custom-activity" placeholder="Restauration traditionnelle">
+                </div>
+                <div class="pro-field">
+                  <label for="proCustomAddress">Adresse</label>
+                  <input type="text" id="proCustomAddress" name="custom-address" placeholder="12 rue de la République">
+                </div>
+                <div class="pro-field-row-2">
+                  <div class="pro-field">
+                    <label for="proCustomCP">Code postal</label>
+                    <input type="text" id="proCustomCP" name="custom-cp" placeholder="69002" inputmode="numeric">
+                  </div>
+                  <div class="pro-field">
+                    <label for="proCustomCity">Ville</label>
+                    <input type="text" id="proCustomCity" name="custom-city" placeholder="Lyon">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Auto-filled (read-only display) -->
+              <div class="pro-field-row-2" id="proAutoFilled" style="display:none;">
+                <div class="pro-field">
+                  <label for="proSiret">SIRET</label>
+                  <input type="text" id="proSiret" name="siret" readonly>
+                </div>
+                <div class="pro-field">
+                  <label for="proActivity">Activité principale</label>
+                  <input type="text" id="proActivity" name="activity" readonly>
+                </div>
+              </div>
+
+              <div class="pro-step-nav">
+                <span></span>
+                <button type="button" class="pro-btn pro-btn-next" onclick="goToProStep(2)">
+                  Continuer
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ─── Étape 2 : Activité ─── -->
+            <div class="pro-step" data-pro-step="2">
+              <h2 class="pro-step-title">Votre <em>activité</em></h2>
+              <p class="pro-step-subtitle">Pour adapter notre protocole à vos contraintes métier (HACCP, ISO, etc.).</p>
+
+              <div class="pro-field">
+                <span class="pro-field-lbl">Secteur d'activité</span>
+                <div class="pro-radio-grid">
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="restauration"><span class="pro-radio-icon">🍽️</span><span class="pro-radio-label">Restauration / CHR</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="hotellerie"><span class="pro-radio-icon">🏨</span><span class="pro-radio-label">Hôtellerie</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="agroalimentaire"><span class="pro-radio-icon">🥫</span><span class="pro-radio-label">Agroalimentaire / IAA</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="bureaux"><span class="pro-radio-icon">🏢</span><span class="pro-radio-label">Bureaux / Tertiaire</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="sante"><span class="pro-radio-icon">🏥</span><span class="pro-radio-label">Santé / EHPAD</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="education"><span class="pro-radio-icon">🎓</span><span class="pro-radio-label">Éducation</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="industrie"><span class="pro-radio-icon">🏭</span><span class="pro-radio-label">Industrie / Entrepôt</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="commerce"><span class="pro-radio-icon">🛒</span><span class="pro-radio-label">Commerce / Retail</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="copropriete"><span class="pro-radio-icon">🏘️</span><span class="pro-radio-label">Copropriété / Bailleur</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="agriculture"><span class="pro-radio-icon">🌾</span><span class="pro-radio-label">Agriculture</span></label>
+                  <label class="pro-radio-card"><input type="radio" name="secteur" value="autre"><span class="pro-radio-icon">🔧</span><span class="pro-radio-label">Autre</span></label>
+                </div>
+                <div class="pro-field-error" id="proSecteurError" style="display:none;">Sélectionnez un secteur.</div>
+              </div>
+
+              <div class="pro-field" id="proSecteurAutreWrap" style="display:none;">
+                <label for="proSecteurAutre">Précisez votre secteur</label>
+                <input type="text" id="proSecteurAutre" name="secteur-autre" placeholder="Ex. Logistique pharmaceutique">
+              </div>
+
+              <div class="pro-field">
+                <span class="pro-field-lbl">Surface totale</span>
+                <div class="slider-wrap">
+                  <input type="range" id="proSurface" name="surface" min="0" max="10000" step="50" value="200">
+                  <div class="slider-value"><span id="proSurfaceValue">200</span> <span class="unit">m²</span></div>
+                </div>
+              </div>
+
+              <div class="pro-field">
+                <label for="proNbSites">Nombre d'établissements</label>
+                <input type="number" id="proNbSites" name="nb-sites" min="1" value="1">
+              </div>
+
+              <div class="pro-step-nav">
+                <button type="button" class="pro-btn pro-btn-back" onclick="goToProStep(1)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  Retour
+                </button>
+                <button type="button" class="pro-btn pro-btn-next" onclick="goToProStep(3)">
+                  Continuer
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ─── Étape 3 : Besoin ─── -->
+            <div class="pro-step" data-pro-step="3">
+              <h2 class="pro-step-title">Votre <em>besoin</em></h2>
+              <p class="pro-step-subtitle">Précisez votre situation pour que notre équipe pro vous rappelle avec une proposition adaptée.</p>
+
+              <div class="pro-field">
+                <span class="pro-field-lbl">Type de prestation recherchée</span>
+                <div class="pro-radio-grid cols-2">
+                  <label class="pro-radio-card"><input type="radio" name="contrat-type" value="urgence"><span class="pro-radio-icon">🔥</span><span class="pro-radio-label">Intervention urgente<span class="pro-radio-desc">Infestation active</span></span></label>
+                  <label class="pro-radio-card"><input type="radio" name="contrat-type" value="annuel"><span class="pro-radio-icon">📋</span><span class="pro-radio-label">Contrat annuel<span class="pro-radio-desc">Plan HACCP / prévention</span></span></label>
+                  <label class="pro-radio-card"><input type="radio" name="contrat-type" value="ponctuel"><span class="pro-radio-icon">📅</span><span class="pro-radio-label">Visite ponctuelle<span class="pro-radio-desc">Audit / diagnostic</span></span></label>
+                  <label class="pro-radio-card"><input type="radio" name="contrat-type" value="appel-offres"><span class="pro-radio-icon">💼</span><span class="pro-radio-label">Appel d'offres<span class="pro-radio-desc">Grandes structures</span></span></label>
+                </div>
+                <div class="pro-field-error" id="proContratError" style="display:none;">Sélectionnez un type de prestation.</div>
+              </div>
+
+              <div class="pro-field">
+                <span class="pro-field-lbl">Nuisibles concernés (plusieurs possibles)</span>
+                <div class="pro-checkbox-grid">
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="rats-souris"> Rats / Souris</label>
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="punaises"> Punaises de lit</label>
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="cafards"> Cafards</label>
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="fourmis"> Fourmis</label>
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="guepes"> Guêpes / Frelons</label>
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="pigeons"> Pigeons</label>
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="mouches"> Mouches</label>
+                  <label class="pro-checkbox-card"><input type="checkbox" name="nuisibles-pro" value="autre"> Autre</label>
+                </div>
+              </div>
+
+              <div class="pro-field">
+                <span class="pro-field-lbl">Niveau d'urgence</span>
+                <div class="pro-pill-group">
+                  <label><input type="radio" name="urgence-pro" value="jour"> Dans la journée</label>
+                  <label><input type="radio" name="urgence-pro" value="semaine"> Cette semaine</label>
+                  <label><input type="radio" name="urgence-pro" value="mois"> Ce mois</label>
+                  <label><input type="radio" name="urgence-pro" value="planifier"> À planifier</label>
+                </div>
+              </div>
+
+              <div class="pro-field">
+                <label for="proMessage">Message (optionnel)</label>
+                <textarea id="proMessage" name="message-pro" placeholder="Contexte, historique, contraintes d'accès, plages horaires..."></textarea>
+              </div>
+
+              <div class="pro-step-nav">
+                <button type="button" class="pro-btn pro-btn-back" onclick="goToProStep(2)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  Retour
+                </button>
+                <button type="button" class="pro-btn pro-btn-next" onclick="goToProStep(4)">
+                  Continuer
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- ─── Étape 4 : Coordonnées ─── -->
+            <div class="pro-step" data-pro-step="4">
+              <h2 class="pro-step-title">Vos <em>coordonnées</em></h2>
+              <p class="pro-step-subtitle">Un expert B2B vous rappelle sous 2h ouvrées avec une proposition chiffrée.</p>
+
+              <div class="pro-field-row-2">
+                <div class="pro-field">
+                  <label for="proPrenom">Prénom</label>
+                  <input type="text" id="proPrenom" name="prenom-pro" autocomplete="given-name" required>
+                  <div class="pro-field-error">Renseignez votre prénom.</div>
+                </div>
+                <div class="pro-field">
+                  <label for="proNom">Nom</label>
+                  <input type="text" id="proNom" name="nom-pro" autocomplete="family-name" required>
+                  <div class="pro-field-error">Renseignez votre nom.</div>
+                </div>
+              </div>
+
+              <div class="pro-field">
+                <label for="proFonction">Fonction dans l'entreprise</label>
+                <select id="proFonction" name="fonction" required>
+                  <option value="">-- Sélectionnez --</option>
+                  <option value="dirigeant">Dirigeant / Gérant</option>
+                  <option value="responsable-maintenance">Responsable maintenance / technique</option>
+                  <option value="responsable-qualite">Responsable qualité / HACCP</option>
+                  <option value="responsable-hygiene">Responsable hygiène / HSE</option>
+                  <option value="syndic">Syndic de copropriété</option>
+                  <option value="gestionnaire">Gestionnaire / Property manager</option>
+                  <option value="franchise">Franchisé / Responsable de site</option>
+                  <option value="acheteur">Acheteur / Services généraux</option>
+                  <option value="autre">Autre</option>
+                </select>
+                <div class="pro-field-error">Renseignez votre fonction.</div>
+              </div>
+
+              <div class="pro-field-row-2">
+                <div class="pro-field">
+                  <label for="proEmail">Email professionnel</label>
+                  <input type="email" id="proEmail" name="email-pro" autocomplete="email" inputmode="email" required>
+                  <div class="pro-field-error">Email invalide.</div>
+                </div>
+                <div class="pro-field">
+                  <label for="proTel">Téléphone</label>
+                  <input type="tel" id="proTel" name="tel-pro" autocomplete="tel" inputmode="tel" placeholder="06 00 00 00 00" required>
+                  <div class="pro-field-error">Numéro invalide.</div>
+                </div>
+              </div>
+
+              <label class="pro-consent">
+                <input type="checkbox" id="proConsent" required>
+                <span>J'accepte que Sanalia traite mes données pour me recontacter au sujet de ma demande. Voir notre <a href="/mentions-legales/" target="_blank">politique de confidentialité</a>.</span>
+              </label>
+              <div class="pro-field-error" id="proConsentError" style="display:none;">Merci de valider le consentement.</div>
+
+              <div class="pro-step-nav">
+                <button type="button" class="pro-btn pro-btn-back" onclick="goToProStep(3)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  Retour
+                </button>
+                <button type="submit" class="pro-btn pro-btn-submit">
+                  Envoyer la demande
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
+
+          </form>
+        </div><!-- /#proForm -->
+
         </div><!-- /.devis-form-panel -->
       </div><!-- /.devis-form-wrap -->
 
@@ -1595,15 +2260,320 @@ document.querySelectorAll('.nuisible-card').forEach(card => {
   });
 });
 
-/* ─── Type toggle ─── */
+/* ─── Type toggle (particulier ↔ pro) ─── */
 document.querySelectorAll('.devis-type-toggle button').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.devis-type-toggle button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const isPro = btn.dataset.client === 'pro';
-    document.getElementById('proFields').classList.toggle('show', isPro);
+    const particulierForm = document.getElementById('particulierForm');
+    const proForm = document.getElementById('proForm');
+    if (isPro) {
+      particulierForm.classList.add('hidden');
+      proForm.classList.remove('hidden');
+      resetProForm();
+    } else {
+      particulierForm.classList.remove('hidden');
+      proForm.classList.add('hidden');
+    }
   });
 });
+
+/* ═══════════════════════════════════════════════════
+   PRO FORM — multi-step B2B logic
+   ═══════════════════════════════════════════════════ */
+let currentProStep = 1;
+
+function resetProForm() {
+  currentProStep = 1;
+  updateProProgress(1);
+  document.querySelectorAll('.pro-step').forEach(s => s.classList.remove('active'));
+  const first = document.querySelector('.pro-step[data-pro-step="1"]');
+  if (first) first.classList.add('active');
+}
+
+function updateProProgress(step) {
+  document.querySelectorAll('.pro-progress-step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.remove('active', 'completed');
+    if (s === step) el.classList.add('active');
+    else if (s < step) el.classList.add('completed');
+  });
+  const pb = document.getElementById('proProgress');
+  if (pb) pb.setAttribute('aria-valuenow', step);
+}
+
+function validateProStep(step) {
+  if (step === 1) {
+    const customChecked = document.getElementById('proCustomToggle').checked;
+    const siret = document.getElementById('proSiret').value;
+    const customName = document.getElementById('proCustomName').value.trim();
+    const companyInput = document.getElementById('proCompany');
+    if (customChecked) {
+      if (!customName) {
+        companyInput.closest('.pro-field').classList.add('error');
+        return false;
+      }
+    } else if (!siret && !companyInput.value.trim()) {
+      companyInput.closest('.pro-field').classList.add('error');
+      return false;
+    }
+    return true;
+  }
+  if (step === 2) {
+    const secteur = document.querySelector('input[name="secteur"]:checked');
+    const err = document.getElementById('proSecteurError');
+    if (!secteur) { err.style.display = 'block'; return false; }
+    err.style.display = 'none';
+    return true;
+  }
+  if (step === 3) {
+    const contrat = document.querySelector('input[name="contrat-type"]:checked');
+    const err = document.getElementById('proContratError');
+    if (!contrat) { err.style.display = 'block'; return false; }
+    err.style.display = 'none';
+    return true;
+  }
+  return true;
+}
+
+function goToProStep(step) {
+  if (step > currentProStep) {
+    if (!validateProStep(currentProStep)) return;
+  }
+  document.querySelectorAll('.pro-step').forEach(s => s.classList.remove('active'));
+  const target = document.querySelector('.pro-step[data-pro-step="' + step + '"]');
+  if (target) target.classList.add('active');
+  currentProStep = step;
+  updateProProgress(step);
+  // Scroll form into view on mobile
+  const panel = document.querySelector('.devis-form-panel');
+  if (panel && window.innerWidth < 1024) panel.scrollTop = 0;
+}
+
+/* ─── SIRENE autocomplete (recherche-entreprises.api.gouv.fr) ─── */
+const proCompanyInput = document.getElementById('proCompany');
+const proCompanyDropdown = document.getElementById('proCompanyDropdown');
+const proCompanyLoader = document.getElementById('proCompanyLoader');
+let proDebounceTimer;
+let proLastQuery = '';
+
+if (proCompanyInput) {
+  proCompanyInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim();
+    if (q.length < 3) {
+      proCompanyDropdown.innerHTML = '';
+      proCompanyDropdown.style.display = 'none';
+      proCompanyLoader.classList.remove('show');
+      return;
+    }
+    clearTimeout(proDebounceTimer);
+    proLastQuery = q;
+    proCompanyLoader.classList.add('show');
+    proDebounceTimer = setTimeout(async () => {
+      try {
+        const res = await fetch(`https://recherche-entreprises.api.gouv.fr/search?q=${encodeURIComponent(q)}&per_page=8`);
+        const data = await res.json();
+        if (q !== proLastQuery) return; // stale
+        renderProCompanyResults(data.results || []);
+      } catch (err) {
+        proCompanyDropdown.innerHTML = `<div class="autocomplete-empty">Erreur de recherche. <button type="button" class="link-btn" onclick="enableCustomCompany()">Saisir manuellement →</button></div>`;
+        proCompanyDropdown.style.display = 'block';
+      } finally {
+        proCompanyLoader.classList.remove('show');
+      }
+    }, 280);
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.pro-autocomplete')) {
+      proCompanyDropdown.style.display = 'none';
+    }
+  });
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderProCompanyResults(results) {
+  if (!results.length) {
+    proCompanyDropdown.innerHTML = `<div class="autocomplete-empty">Aucune entreprise trouvée.<br><button type="button" class="link-btn" onclick="enableCustomCompany()">Saisir manuellement →</button></div>`;
+  } else {
+    proCompanyDropdown.innerHTML = results.map((r, i) => {
+      const name = r.nom_complet || r.nom_raison_sociale || 'Entreprise';
+      const siret = (r.siege && r.siege.siret) || r.siren || '';
+      const activity = r.activite_principale || '';
+      const city = (r.siege && (r.siege.libelle_commune || r.siege.commune)) || '';
+      const cp = (r.siege && r.siege.code_postal) || '';
+      return `<button type="button" class="autocomplete-item" data-idx="${i}"
+          data-siret="${escapeHtml(siret)}"
+          data-name="${escapeHtml(name)}"
+          data-activity="${escapeHtml(activity)}"
+          data-city="${escapeHtml(city)}"
+          data-cp="${escapeHtml(cp)}">
+          <span class="autocomplete-name">${escapeHtml(name)}</span>
+          <span class="autocomplete-meta">SIRET ${escapeHtml(siret)}${city ? ' · ' + escapeHtml(cp) + ' ' + escapeHtml(city) : ''}</span>
+        </button>`;
+    }).join('') + `<div class="autocomplete-footer"><button type="button" class="link-btn" onclick="enableCustomCompany()">Mon entreprise n'est pas dans la liste →</button></div>`;
+
+    // Attach click handlers
+    proCompanyDropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+      item.addEventListener('click', () => {
+        selectCompany({
+          siret: item.dataset.siret,
+          name: item.dataset.name,
+          activity: item.dataset.activity,
+          city: item.dataset.city,
+          cp: item.dataset.cp
+        });
+      });
+    });
+  }
+  proCompanyDropdown.style.display = 'block';
+}
+
+function selectCompany(c) {
+  proCompanyInput.value = c.name;
+  document.getElementById('proSiret').value = c.siret || '';
+  document.getElementById('proActivity').value = c.activity || '';
+  document.getElementById('proSelectedName').textContent = c.name;
+  document.getElementById('proSelectedMeta').textContent =
+    (c.siret ? 'SIRET ' + c.siret : '') + (c.city ? ' · ' + (c.cp || '') + ' ' + c.city : '');
+  document.getElementById('proSelectedCompany').classList.add('show');
+  document.getElementById('proAutoFilled').style.display = 'grid';
+  proCompanyInput.closest('.pro-field').style.display = 'none';
+  proCompanyInput.closest('.pro-field').classList.remove('error');
+  proCompanyDropdown.style.display = 'none';
+  document.getElementById('proCustomToggle').closest('.pro-custom-toggle').style.display = 'none';
+}
+
+function clearSelectedCompany() {
+  proCompanyInput.value = '';
+  document.getElementById('proSiret').value = '';
+  document.getElementById('proActivity').value = '';
+  document.getElementById('proSelectedCompany').classList.remove('show');
+  document.getElementById('proAutoFilled').style.display = 'none';
+  proCompanyInput.closest('.pro-field').style.display = 'block';
+  document.getElementById('proCustomToggle').closest('.pro-custom-toggle').style.display = 'flex';
+  proCompanyInput.focus();
+}
+
+function enableCustomCompany() {
+  const cb = document.getElementById('proCustomToggle');
+  cb.checked = true;
+  toggleCustomCompany(true);
+  proCompanyDropdown.style.display = 'none';
+  proCompanyInput.value = '';
+  setTimeout(() => { document.getElementById('proCustomName').focus(); }, 50);
+}
+
+function toggleCustomCompany(show) {
+  document.getElementById('proCustomFields').classList.toggle('show', show);
+  const companyField = proCompanyInput.closest('.pro-field');
+  companyField.style.display = show ? 'none' : 'block';
+  document.getElementById('proSelectedCompany').classList.remove('show');
+  document.getElementById('proAutoFilled').style.display = 'none';
+  if (show) companyField.classList.remove('error');
+}
+
+/* ─── Secteur "autre" → champ libre ─── */
+document.querySelectorAll('input[name="secteur"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.getElementById('proSecteurAutreWrap').style.display = r.value === 'autre' && r.checked ? 'block' : 'none';
+    document.getElementById('proSecteurError').style.display = 'none';
+  });
+});
+document.querySelectorAll('input[name="contrat-type"]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.getElementById('proContratError').style.display = 'none';
+  });
+});
+
+/* ─── Surface slider live value ─── */
+const proSurface = document.getElementById('proSurface');
+const proSurfaceValue = document.getElementById('proSurfaceValue');
+if (proSurface) {
+  proSurface.addEventListener('input', () => {
+    const v = parseInt(proSurface.value);
+    proSurfaceValue.textContent = v >= 10000 ? '10 000+' : v.toLocaleString('fr-FR');
+  });
+}
+
+/* ─── Live validation errors clear ─── */
+document.querySelectorAll('#proForm .pro-field input, #proForm .pro-field select').forEach(el => {
+  el.addEventListener('input', () => el.closest('.pro-field').classList.remove('error'));
+  el.addEventListener('change', () => el.closest('.pro-field').classList.remove('error'));
+});
+
+/* ─── Pro form submit ─── */
+const proLeadForm = document.getElementById('proLeadForm');
+if (proLeadForm) {
+  proLeadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let valid = true;
+    const required = [
+      { id: 'proPrenom', test: v => v.trim().length >= 2 },
+      { id: 'proNom',    test: v => v.trim().length >= 2 },
+      { id: 'proFonction', test: v => v !== '' },
+      { id: 'proEmail',  test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+      { id: 'proTel',    test: v => /^[+\d\s().-]{8,}$/.test(v.trim()) },
+    ];
+    required.forEach(f => {
+      const el = document.getElementById(f.id);
+      const ok = f.test(el.value);
+      el.closest('.pro-field').classList.toggle('error', !ok);
+      if (!ok) valid = false;
+    });
+    const consent = document.getElementById('proConsent');
+    const consentErr = document.getElementById('proConsentError');
+    if (!consent.checked) { consentErr.style.display = 'block'; valid = false; }
+    else consentErr.style.display = 'none';
+
+    if (!valid) return;
+
+    // Collect payload
+    const payload = {
+      type: 'pro',
+      company: {
+        siret: document.getElementById('proSiret').value,
+        name: document.getElementById('proCompany').value || document.getElementById('proSelectedName').textContent,
+        activity: document.getElementById('proActivity').value,
+        custom: document.getElementById('proCustomToggle').checked ? {
+          name: document.getElementById('proCustomName').value,
+          activity: document.getElementById('proCustomActivity').value,
+          address: document.getElementById('proCustomAddress').value,
+          cp: document.getElementById('proCustomCP').value,
+          city: document.getElementById('proCustomCity').value,
+        } : null,
+      },
+      activity: {
+        secteur: (document.querySelector('input[name="secteur"]:checked') || {}).value,
+        secteurAutre: document.getElementById('proSecteurAutre').value,
+        surface: parseInt(document.getElementById('proSurface').value),
+        nbSites: parseInt(document.getElementById('proNbSites').value) || 1,
+      },
+      needs: {
+        contratType: (document.querySelector('input[name="contrat-type"]:checked') || {}).value,
+        nuisibles: Array.from(document.querySelectorAll('input[name="nuisibles-pro"]:checked')).map(i => i.value),
+        urgence: (document.querySelector('input[name="urgence-pro"]:checked') || {}).value,
+        message: document.getElementById('proMessage').value,
+      },
+      contact: {
+        prenom: document.getElementById('proPrenom').value,
+        nom: document.getElementById('proNom').value,
+        fonction: document.getElementById('proFonction').value,
+        email: document.getElementById('proEmail').value,
+        tel: document.getElementById('proTel').value,
+      },
+      consent: true,
+      submittedAt: new Date().toISOString(),
+    };
+    console.log('[Sanalia Pro Lead]', payload);
+    window.location.href = '/merci/';
+  });
+}
 
 /* ─── Testimonials (contextual per nuisible) ─── */
 const testimonials = {
