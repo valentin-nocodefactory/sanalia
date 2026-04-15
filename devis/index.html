@@ -1548,9 +1548,6 @@ function goToStep(step) {
   updateProgress(step);
   updateEstimate();
   updateConciergeStatus(step);
-  const panel = document.querySelector('.devis-form-panel');
-  const y = panel.getBoundingClientRect().top + window.pageYOffset - 80;
-  window.scrollTo({ top: y, behavior: 'smooth' });
 }
 
 function flashNuisibleGrid() {
