@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /merci/
 
-Sitemap: https://www.sanalia.fr/sitemap.xml
+Sitemap: https://www.sanalia.fr/sitemap-index.xml

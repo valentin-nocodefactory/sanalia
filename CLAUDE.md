@@ -206,6 +206,79 @@ html              → scroll-padding-top: 130px
 16. **Performance** : images optimisees, CSS/JS minifies, pas de ressources bloquantes inutiles
 17. **Mobile** : toutes les pages sont responsive et passent le test Mobile-Friendly
 
+## Blog Sanalia — Architecture et conventions
+
+### Structure URL
+```
+/blog/                                                  → Hub (index)
+/blog/[categorie-pillar]/                               → Pillar page (2000+ mots)
+/blog/[categorie-pillar]/[slug-article]/                → Article
+/blog/feed.xml                                          → RSS feed
+/sitemap-blog.xml                                       → Sitemap blog
+```
+
+Le sitemap racine est désormais `/sitemap-index.xml` qui agrège `/sitemap.xml` (pages non-blog) et `/sitemap-blog.xml` (blog). Le `robots.txt` pointe sur l'index.
+
+### Catégories (pillar clusters)
+- **rats-souris** : rongeurs (rats, souris, mulots)
+- **punaises-de-lit** : punaises de lit
+- **cafards-insectes** : cafards et autres insectes rampants
+- **guepes-frelons** : hyménoptères (guêpes, frelons, abeilles)
+- **prevention-reglementation** : prévention, hygiène et obligations légales
+
+### Data model article (à respecter même sans CMS)
+Chaque article doit porter les champs suivants (dans le `<head>` + JSON-LD + front visible) :
+- **title** (H1 unique)
+- **metaTitle** (< 60 caractères)
+- **metaDescription** (120-155 caractères)
+- **category** (une des 5 catégories)
+- **tags** (3 à 6 tags)
+- **publishedAt**, **updatedAt** (ISO 8601)
+- **readingTime** : calculé automatiquement (nombre de mots / 250, arrondi à la minute)
+- **intentType** : `informational` | `transactional` | `urgency` | `prevention` | `regulatory`
+- **primaryCTA** : adapté à l'intent (voir règles conversion)
+- **author** : toujours `Organization Sanalia` (E-E-A-T : entité morale certifiée Certibiocide)
+- **publisher** : Sanalia avec logo SVG
+- **Hero image** : 1200x630 minimum (format OG/Twitter)
+- **JSON-LD** : `Article` + `BreadcrumbList` + `FAQPage` (si FAQ présente)
+
+### Règles conversion
+- **CTA inline** déclenchés à **25%**, **50%** et **80%** du scroll (3 insertions dans l'article)
+- **3 variantes CTA** contrôlées par `data-variant` :
+  - `data-variant="devis"` → informational / prevention → "Obtenir un devis gratuit"
+  - `data-variant="urgence"` → urgency / transactional → "Intervention sous 4h - Appeler maintenant"
+  - `data-variant="guide"` → regulatory → "Télécharger le guide PDF"
+- Le CTA principal de l'article doit correspondre à son `intentType`
+- **Floating CTA mobile** : affiché après 30% de scroll, masquable
+- **Sidebar widget desktop** : sticky avec mini-formulaire (nom, téléphone, code postal)
+- **Newsletter CTA** : bloc en fin d'article, avant le footer
+
+### Tracking (dataLayer events)
+Tous les articles doivent pousser ces events dans `window.dataLayer` :
+- `blog_article_view` — au chargement de la page (payload : slug, category, intentType)
+- `blog_scroll_depth` — paliers `25`, `50`, `75`, `100` (une seule fois par palier)
+- `blog_cta_view` — quand un CTA entre dans le viewport (payload : variant, position)
+- `blog_cta_click` — au clic sur un CTA (payload : variant, position, destination)
+- `blog_internal_link_click` — clic sur un lien interne dans le corps de l'article
+- `blog_share_click` — clic sur un bouton de partage (payload : network)
+- `blog_newsletter_signup` — soumission formulaire newsletter
+- `blog_phone_click` — clic sur un lien `tel:`
+- `blog_form_start` — premier focus dans le formulaire sidebar ou inline
+
+### Fichiers CSS/JS blog
+- `/css/blog.css` — design system spécifique blog (typo long-form, sidebar, TOC, reading progress, cards articles)
+- `/js/blog.js` — logique partagée : table des matières (TOC) auto-générée, barre de progression de lecture, boutons de partage, affichage conditionnel des CTAs selon scroll, push des events dataLayer
+
+### Comment ajouter un article
+1. **Créer le dossier** `/blog/[categorie]/[slug]/` (slug kebab-case, sans accents ni stopwords inutiles)
+2. **Créer `index.html`** en copiant la structure d'un article existant (ex : `/blog/rats-souris/comment-se-debarrasser-rats-appartement/index.html`)
+3. **Adapter** : `title`, `meta`, `H1`, contenu, FAQ, CTAs selon l'`intentType`, JSON-LD, dates `publishedAt` / `updatedAt`
+4. **Ajouter l'URL** dans `/sitemap-blog.xml` (priority 0.7, changefreq monthly)
+5. **Ajouter l'item** dans `/blog/feed.xml` (mettre à jour `lastBuildDate` du channel)
+6. **Linker l'article** depuis `/blog/` (hub) et depuis la pillar page de sa catégorie
+7. **Vérifier** : accents français (règle d'or), liens internes (≥ 3), alt sur images, canonical, OG/Twitter
+8. **Commit + push** (Cloudflare Pages déploie automatiquement via `build.sh`)
+
 ## Sync Figma ↔ Code
 1. User dit "update from Figma" → `get_variable_defs` / `get_design_context`
 2. Comparer avec `tokens.css`
