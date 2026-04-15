@@ -155,27 +155,49 @@
   line-height: 1.4;
 }
 
-/* Reviews card (left col) */
-.copy-reviews {
-  display: flex; align-items: center; gap: 14px;
-  padding: 16px 18px;
-  background: var(--color-surface);
-  border: 1px solid rgba(14,5,42,0.06);
-  border-radius: 14px;
-  box-shadow: var(--shadow-hairline);
+/* Reviews row (Google + Trustpilot, no card frame) */
+.copy-reviews-row {
+  display: flex; align-items: center; gap: 24px;
+  padding: 4px 0;
 }
-.copy-reviews-score {
+.copy-review-brand { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.copy-review-platform {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Space Mono', monospace; font-size: 0.68rem;
+  color: #666; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.copy-review-stars {
+  color: #FFB800; font-size: 0.95rem; letter-spacing: 2px; line-height: 1;
+}
+.copy-review-meta {
+  font-family: 'Uxum', sans-serif; font-size: 0.82rem;
+  color: var(--color-primary-800);
+}
+.copy-review-meta strong { font-weight: 700; color: var(--color-primary-900); }
+.copy-review-sep {
+  width: 1px; align-self: stretch;
+  background: rgba(14,5,42,0.08);
+}
+
+/* Green offer badge under Continue button */
+.devis-offer-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  align-self: flex-end;
+  margin-top: 12px;
+  padding: 7px 14px;
+  background: #E8F8EE;
+  border: 1px solid #22c55e33;
+  border-radius: 999px;
   font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 1.85rem; color: var(--color-primary-900);
-  line-height: 1;
+  font-size: 0.78rem;
+  color: #15803d;
+  letter-spacing: 0.005em;
 }
-.copy-reviews-body { flex: 1; min-width: 0; }
-.copy-reviews-stars {
-  color: #FFB800; font-size: 0.875rem; letter-spacing: 2px; line-height: 1;
-}
-.copy-reviews-meta {
-  font-family: 'Space Mono', monospace; font-size: 0.7rem;
-  color: #666; margin-top: 4px;
+.devis-offer-badge svg { width: 13px; height: 13px; color: #22c55e; }
+.devis-offer-badge small {
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.65rem; color: #16a34a; opacity: 0.75;
+  margin-left: 4px; letter-spacing: 0.06em; text-transform: uppercase;
 }
 
 /* Certifications row (left col) */
@@ -893,32 +915,43 @@
             </div>
           </li>
           <li>
-            <span class="rea-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <span class="rea-icon" style="background:#E1F7F1;color:#25D366;">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
             </span>
             <div>
-              <strong>Résultat garanti</strong>
-              <span>Nouvelle intervention offerte en cas de retour du nuisible.</span>
+              <strong>Suivi par WhatsApp</strong>
+              <span>Photos, questions, rapports — tout directement sur votre mobile.</span>
             </div>
           </li>
           <li>
             <span class="rea-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M7 12l3 3 7-7"/><circle cx="12" cy="12" r="10"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
             </span>
             <div>
-              <strong>Certibiocide &amp; CS3D</strong>
-              <span>Techniciens agréés, RC Pro AXA, 100% conforme.</span>
+              <strong>Intervention en toute discrétion</strong>
+              <span>Véhicules et tenues neutres, zéro logo visible chez vous.</span>
             </div>
           </li>
         </ul>
 
-        <div class="copy-reviews">
-          <div class="copy-reviews-score">4,9</div>
-          <div class="copy-reviews-body">
-            <div class="copy-reviews-stars">★★★★★</div>
-            <div class="copy-reviews-meta">380+ avis Google · Lyon &amp; Paris</div>
+        <div class="copy-reviews-row">
+          <div class="copy-review-brand">
+            <div class="copy-review-platform">
+              <svg viewBox="0 0 48 48" width="18" height="18"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+              <span>Google</span>
+            </div>
+            <div class="copy-review-stars">★★★★★</div>
+            <div class="copy-review-meta"><strong>4,9</strong> · 380+ avis</div>
           </div>
-          <svg viewBox="0 0 48 48" width="26" height="26"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          <div class="copy-review-sep"></div>
+          <div class="copy-review-brand">
+            <div class="copy-review-platform">
+              <svg viewBox="0 0 24 24" width="16" height="16"><path fill="#00B67A" d="M12 18.26l-7.053 4.26 1.87-8.028L.587 9.046l8.18-.696L12 .8l3.233 7.55 8.18.696-6.23 5.446 1.87 8.028z"/></svg>
+              <span>Trustpilot</span>
+            </div>
+            <div class="copy-review-stars" style="color:#00B67A;">★★★★★</div>
+            <div class="copy-review-meta"><strong>4,8</strong> · 210+ avis</div>
+          </div>
         </div>
 
         <div class="copy-certs">
@@ -931,30 +964,11 @@
           </div>
         </div>
 
-        <div class="copy-phone">
-          <span class="copy-phone-icon">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </span>
-          <div class="copy-phone-body">
-            <div class="copy-phone-label">Préférez parler ?</div>
-            <a href="tel:0667464897">06 67 46 48 97</a>
-            <div class="copy-phone-hours">8h – 20h, 7j/7</div>
-          </div>
-        </div>
 
       </aside>
 
       <!-- ═══ RIGHT : FORM CARD ═══ -->
       <div class="devis-form-panel">
-
-        <!-- Ribbon : 1ère intervention offerte -->
-        <div class="form-ribbon">
-          <span class="form-ribbon-dot">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-          <span>1<sup>ère</sup> intervention offerte</span>
-          <small>Inclus</small>
-        </div>
 
         <div class="devis-top-row">
           <div class="devis-type-toggle" role="tablist" aria-label="Type de client">
@@ -1039,6 +1053,11 @@
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
             </div>
+            <span class="devis-offer-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              1<sup>ère</sup> intervention offerte
+              <small>Inclus</small>
+            </span>
           </fieldset>
 
           <!-- ─── Step 2 ─── -->
@@ -1086,6 +1105,11 @@
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
             </div>
+            <span class="devis-offer-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              1<sup>ère</sup> intervention offerte
+              <small>Inclus</small>
+            </span>
           </fieldset>
 
           <!-- ─── Step 3 ─── -->
@@ -1180,6 +1204,11 @@
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
             </div>
+            <span class="devis-offer-badge" style="align-self:center;margin-top:14px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              1<sup>ère</sup> intervention offerte
+              <small>Inclus dans votre devis</small>
+            </span>
 
             <div class="devis-trust-row">
               <span class="devis-trust-item">

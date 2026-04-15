@@ -190,10 +190,30 @@
   position: relative;
   padding: var(--space-sm);
 }
+.card-nuisible {
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
 .card-nuisible:hover {
   box-shadow: 0 12px 40px rgba(14, 5, 42, 0.1);
   transform: translateY(-4px);
 }
+/* On hover, the whole card takes the pastel tone + the inner visual bumps to the full pastel */
+.card-nuisible.pastel-blue:hover { background: var(--color-pastel-blue-light); border-color: var(--color-pastel-blue); }
+.card-nuisible.pastel-blue:hover .card-nuisible-visual { background: var(--color-pastel-blue); }
+.card-nuisible.pastel-lavender:hover { background: var(--color-pastel-lavender-light); border-color: var(--color-pastel-lavender); }
+.card-nuisible.pastel-lavender:hover .card-nuisible-visual { background: var(--color-pastel-lavender); }
+.card-nuisible.pastel-rose:hover { background: var(--color-pastel-rose-light); border-color: var(--color-pastel-rose); }
+.card-nuisible.pastel-rose:hover .card-nuisible-visual { background: var(--color-pastel-rose); }
+.card-nuisible.pastel-peach:hover { background: var(--color-pastel-peach-light); border-color: var(--color-pastel-peach); }
+.card-nuisible.pastel-peach:hover .card-nuisible-visual { background: var(--color-pastel-peach); }
+.card-nuisible.pastel-gold:hover { background: var(--color-pastel-gold-light); border-color: var(--color-pastel-gold); }
+.card-nuisible.pastel-gold:hover .card-nuisible-visual { background: var(--color-pastel-gold); }
+.card-nuisible.pastel-mint:hover { background: var(--color-pastel-mint-light); border-color: var(--color-pastel-mint); }
+.card-nuisible.pastel-mint:hover .card-nuisible-visual { background: var(--color-pastel-mint); }
+.card-nuisible.pastel-green:hover { background: var(--color-pastel-green-light); border-color: var(--color-pastel-green); }
+.card-nuisible.pastel-green:hover .card-nuisible-visual { background: var(--color-pastel-green); }
+/* smooth visual bg transition */
+.card-nuisible .card-nuisible-visual { transition: background-color 0.3s ease; }
 .card-nuisible .card-nuisible-visual {
   width: 100%;
   border-radius: var(--radius-lg);
