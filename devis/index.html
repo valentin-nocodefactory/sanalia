@@ -124,34 +124,84 @@
   margin: 0; max-width: 500px;
 }
 
-/* Reassurance list */
+/* Hero offer — the conversion-critical block */
+.copy-offer {
+  position: relative;
+  padding: 18px 22px 20px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(246,108,36,0.15), transparent 55%),
+    linear-gradient(135deg, var(--color-pastel-gold-light) 0%, var(--color-pastel-peach-light) 100%);
+  border: 1.5px solid var(--color-pastel-gold);
+  border-radius: 16px;
+  overflow: hidden;
+  font-family: 'Uxum', sans-serif;
+  box-shadow: 0 4px 24px -8px rgba(246,108,36,0.25);
+}
+.copy-offer::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, var(--color-accent-500), #F4B05C);
+}
+.copy-offer-pill {
+  display: inline-block;
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--color-accent-500);
+  padding: 3px 10px; border-radius: 999px;
+  background: rgba(246,108,36,0.12);
+  margin-bottom: 8px;
+}
+.copy-offer-title {
+  display: flex; align-items: baseline; gap: 10px;
+  flex-wrap: wrap;
+}
+.copy-offer-title strong {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.45rem; color: var(--color-primary-900);
+  letter-spacing: -0.015em; line-height: 1.1;
+}
+.copy-offer-strike {
+  font-family: 'Uxum', sans-serif; font-weight: 400;
+  font-size: 1rem; color: #999;
+  text-decoration: line-through;
+  text-decoration-color: var(--color-accent-500);
+  text-decoration-thickness: 2px;
+}
+.copy-offer-desc {
+  margin-top: 8px;
+  font-size: 0.9rem; color: var(--color-primary-800);
+  line-height: 1.45;
+}
+.copy-offer-desc strong { font-weight: 700; color: var(--color-primary-900); }
+
+/* Reassurance list : no icons, clean typographic bullets */
 .copy-reassurance {
   list-style: none; padding: 0; margin: 0;
-  display: flex; flex-direction: column; gap: 14px;
+  display: flex; flex-direction: column;
 }
 .copy-reassurance li {
-  display: flex; align-items: flex-start; gap: 14px;
+  position: relative;
+  padding: 14px 0 14px 28px;
   font-family: 'Uxum', sans-serif;
+  border-bottom: 1px solid rgba(14,5,42,0.06);
 }
-.copy-reassurance .rea-icon {
-  width: 36px; height: 36px; flex-shrink: 0;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--color-primary-100);
-  color: var(--color-primary-600);
+.copy-reassurance li:last-child { border-bottom: none; }
+.copy-reassurance li::before {
+  content: ''; position: absolute; left: 0; top: 20px;
+  width: 14px; height: 9px;
+  border-left: 2px solid var(--color-primary-600);
+  border-bottom: 2px solid var(--color-primary-600);
+  transform: rotate(-45deg);
+  transform-origin: left center;
+  border-radius: 1px;
 }
-.copy-reassurance .rea-icon.gold {
-  background: var(--color-pastel-gold-light);
-  color: var(--color-accent-500);
-}
-.copy-reassurance .rea-icon svg { width: 18px; height: 18px; }
 .copy-reassurance strong {
   display: block; font-weight: 700;
-  font-size: 0.95rem; color: var(--color-primary-900);
+  font-size: 0.98rem; color: var(--color-primary-900);
   margin-bottom: 2px;
+  letter-spacing: -0.005em;
 }
 .copy-reassurance span {
-  font-size: 0.85rem; color: var(--color-primary-800);
+  font-size: 0.86rem; color: var(--color-primary-800);
   line-height: 1.4;
 }
 
@@ -200,23 +250,62 @@
   margin-left: 4px; letter-spacing: 0.06em; text-transform: uppercase;
 }
 
-/* Certifications row (left col) */
+/* Certifications — card format with tiles */
 .copy-certs {
-  display: flex; flex-direction: column; gap: 10px;
+  padding: 14px 16px;
+  background: var(--color-surface);
+  border: 1px solid rgba(14,5,42,0.06);
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(14,5,42,0.03);
 }
+.copy-certs-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 12px;
+}
+.copy-certs-head svg { width: 16px; height: 16px; color: var(--color-primary-600); flex-shrink: 0; }
 .copy-certs-label {
   font-family: 'Space Mono', monospace; font-size: 0.68rem;
-  color: #888; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--color-primary-800); text-transform: uppercase; letter-spacing: 0.1em;
+  font-weight: 400;
+}
+.copy-certs-verified {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: 'Space Mono', monospace; font-size: 0.62rem;
+  color: #15803d; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.copy-certs-verified::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: #22c55e;
 }
 .copy-certs-logos {
-  display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
 }
-.copy-certs-logos img {
-  height: 28px; max-width: 92px; object-fit: contain;
-  opacity: 0.7; filter: grayscale(0.25);
-  transition: opacity 0.2s, filter 0.2s;
+.copy-certs-tile {
+  display: flex; align-items: center; justify-content: center;
+  padding: 10px 6px;
+  background: var(--color-bg);
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.2s;
+  position: relative;
 }
-.copy-certs-logos img:hover { opacity: 1; filter: none; }
+.copy-certs-tile:hover { background: var(--color-primary-100); transform: translateY(-1px); }
+.copy-certs-tile img {
+  max-height: 26px; max-width: 100%; object-fit: contain;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.copy-certs-tile:hover img { opacity: 1; }
+.copy-certs-tile-label {
+  position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
+  font-family: 'Space Mono', monospace; font-size: 0.58rem;
+  color: #888; white-space: nowrap;
+  opacity: 0; transition: opacity 0.2s; pointer-events: none;
+}
+.copy-certs-tile:hover .copy-certs-tile-label { opacity: 1; }
+@media (max-width: 520px) {
+  .copy-certs-logos { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* Phone card (left col) */
 .copy-phone {
@@ -254,10 +343,14 @@
   margin-top: 2px;
 }
 
-/* ═══ RIGHT : Form card (the star) ═══ */
+/* ═══ RIGHT : Form wrap + form card ═══ */
+.devis-form-wrap {
+  display: flex; flex-direction: column; gap: 14px;
+  min-width: 0;
+}
 .devis-form-panel {
   position: relative;
-  padding: 48px 40px 36px;
+  padding: 28px 36px 28px;
   display: flex; flex-direction: column;
   min-width: 0;
   background: #fff;
@@ -265,7 +358,26 @@
   box-shadow: var(--shadow-float);
   border: 1px solid rgba(14,5,42,0.04);
 }
-@media (max-width: 768px) { .devis-form-panel { padding: 40px 24px 28px; } }
+@media (max-width: 768px) { .devis-form-panel { padding: 24px 20px; } }
+
+/* External toggle (above the form card) */
+.devis-type-toggle--ext {
+  align-self: flex-start;
+  background: rgba(14,5,42,0.04);
+  border: 1px solid rgba(14,5,42,0.06);
+  padding: 3px;
+}
+.devis-type-toggle--ext button {
+  padding: 7px 18px; font-size: 0.8rem;
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-primary-800);
+}
+.devis-type-toggle--ext button.active {
+  background: #fff; color: var(--color-primary-900);
+  box-shadow: 0 2px 8px rgba(14,5,42,0.1);
+}
 
 /* Ribbon : 1ère intervention offerte */
 .form-ribbon {
@@ -895,42 +1007,28 @@
           Décrivez votre situation, un technicien certifié vous rappelle sous 2h avec un devis ferme. Sans engagement, sans robot.
         </p>
 
+        <!-- Hero offer : 1ère intervention offerte (gold, très visible) -->
+        <div class="copy-offer">
+          <span class="copy-offer-pill">Offre découverte</span>
+          <div class="copy-offer-title">
+            <span class="copy-offer-strike">290&nbsp;€</span>
+            <strong>1<sup>re</sup> intervention offerte</strong>
+          </div>
+          <div class="copy-offer-desc">Diagnostic + premier traitement inclus — <strong>0&nbsp;€ à l'engagement</strong>.</div>
+        </div>
+
         <ul class="copy-reassurance">
           <li>
-            <span class="rea-icon gold">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            </span>
-            <div>
-              <strong>1<sup>ère</sup> intervention offerte</strong>
-              <span>Diagnostic + premier traitement inclus, 0&nbsp;€ à l'engagement.</span>
-            </div>
+            <strong>Réponse sous 2h</strong>
+            <span>Rappel par un technicien, pas par un commercial.</span>
           </li>
           <li>
-            <span class="rea-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </span>
-            <div>
-              <strong>Réponse sous 2h</strong>
-              <span>Rappel par un technicien, pas par un commercial.</span>
-            </div>
+            <strong>Suivi par WhatsApp</strong>
+            <span>Photos, questions, rapports — directement sur votre mobile.</span>
           </li>
           <li>
-            <span class="rea-icon" style="background:#E1F7F1;color:#25D366;">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            </span>
-            <div>
-              <strong>Suivi par WhatsApp</strong>
-              <span>Photos, questions, rapports — tout directement sur votre mobile.</span>
-            </div>
-          </li>
-          <li>
-            <span class="rea-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-            </span>
-            <div>
-              <strong>Intervention en toute discrétion</strong>
-              <span>Véhicules et tenues neutres, zéro logo visible chez vous.</span>
-            </div>
+            <strong>Intervention en toute discrétion</strong>
+            <span>Véhicules et tenues neutres, zéro logo visible chez vous.</span>
           </li>
         </ul>
 
@@ -955,27 +1053,44 @@
         </div>
 
         <div class="copy-certs">
-          <span class="copy-certs-label">Certifications officielles</span>
+          <div class="copy-certs-head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+            <span class="copy-certs-label">Certifications officielles</span>
+            <span class="copy-certs-verified">Vérifiées</span>
+          </div>
           <div class="copy-certs-logos">
-            <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide" title="Certibiocide — Agrément obligatoire">
-            <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D" title="Chambre syndicale 3D">
-            <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro 3D" title="QualiPro 3D">
-            <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA" title="RC Professionnelle AXA">
+            <div class="copy-certs-tile">
+              <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide">
+              <span class="copy-certs-tile-label">Certibiocide</span>
+            </div>
+            <div class="copy-certs-tile">
+              <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D">
+              <span class="copy-certs-tile-label">CS3D</span>
+            </div>
+            <div class="copy-certs-tile">
+              <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro 3D">
+              <span class="copy-certs-tile-label">QualiPro 3D</span>
+            </div>
+            <div class="copy-certs-tile">
+              <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA">
+              <span class="copy-certs-tile-label">RC Pro AXA</span>
+            </div>
           </div>
         </div>
 
 
       </aside>
 
-      <!-- ═══ RIGHT : FORM CARD ═══ -->
-      <div class="devis-form-panel">
+      <!-- ═══ RIGHT : FORM + external toggle ═══ -->
+      <div class="devis-form-wrap">
 
-        <div class="devis-top-row">
-          <div class="devis-type-toggle" role="tablist" aria-label="Type de client">
-            <button type="button" class="active" data-client="particulier">Particulier</button>
-            <button type="button" data-client="pro">Pro</button>
-          </div>
+        <!-- Toggle pro/particulier outside the card (above it) -->
+        <div class="devis-type-toggle devis-type-toggle--ext" role="tablist" aria-label="Type de client">
+          <button type="button" class="active" data-client="particulier">Particulier</button>
+          <button type="button" data-client="pro">Professionnel</button>
         </div>
+
+        <div class="devis-form-panel">
 
         <!-- Progress dots -->
         <div class="devis-progress" role="progressbar" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1">
@@ -1231,7 +1346,8 @@
           </fieldset>
 
         </form>
-      </div><!-- /.devis-form-panel -->
+        </div><!-- /.devis-form-panel -->
+      </div><!-- /.devis-form-wrap -->
 
     </div><!-- /.devis-layout -->
   </div>
