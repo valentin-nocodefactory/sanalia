@@ -4,15 +4,13 @@
    Dépend de : tokens.css, base.css, components.css
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
-
 /* ============================================================
    Variables spécifiques blog
    ============================================================ */
 :root {
   --blog-content-width: 720px;
   --blog-text-color: #2A2539;
-  --font-editorial: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-editorial: 'Uxum', sans-serif;
   --blog-leading: 1.75;
   --blog-meta-color: #6B6478;
   --blog-border: #E8E4DA;
