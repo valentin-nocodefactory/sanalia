@@ -372,15 +372,46 @@
 }
 .devis-form-panel {
   position: relative;
-  padding: 28px 36px 28px;
+  padding: 28px 36px 0;
   display: flex; flex-direction: column;
   min-width: 0;
+  height: 640px;
   background: #fff;
   border-radius: 22px;
   box-shadow: var(--shadow-float);
   border: 1px solid rgba(14,5,42,0.04);
+  overflow: hidden;
 }
-@media (max-width: 768px) { .devis-form-panel { padding: 24px 20px; } }
+@media (max-width: 768px) { .devis-form-panel { padding: 24px 20px 0; height: auto; min-height: 560px; } }
+
+/* The <form> is the scroll container — progress + fieldset inside */
+.devis-form-panel > form {
+  flex: 1; min-height: 0;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.devis-fieldset { flex: 1; min-height: 0; overflow: hidden; }
+.devis-fieldset.active {
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 4px;
+  margin-right: -4px;
+  /* subtle scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14,5,42,0.15) transparent;
+}
+.devis-fieldset.active::-webkit-scrollbar { width: 6px; }
+.devis-fieldset.active::-webkit-scrollbar-thumb { background: rgba(14,5,42,0.15); border-radius: 3px; }
+
+/* Nav becomes sticky at the bottom of the scroll area */
+.devis-nav {
+  position: sticky; bottom: 0;
+  margin-top: auto;
+  padding: 16px 0 24px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, #fff 24%);
+  z-index: 5;
+}
 
 /* External toggle (above the form card) */
 .devis-type-toggle--ext {
