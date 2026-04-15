@@ -111,6 +111,12 @@ html { scroll-padding-top: 130px; }
 .spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
 .species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
+.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
+.sign-card { text-align: center; }
+.sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
 
 /* ── Dangers ── */
 .danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
@@ -653,6 +659,16 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
         </div>
       </div>
       <div class="did-you-know"><span class="did-you-know-icon">&#128161;</span><p><strong>Le saviez-vous ?</strong> Une punaise de lit adulte peut survivre <strong>jusqu'à 1 an sans se nourrir</strong> dans des conditions optimales. C'est pourquoi laisser un logement vide ne suffit pas à les éliminer.</p></div>
+      <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Les indices concrets d'une infestation de punaises de lit. Reconnaissez-les avant qu'il ne soit trop tard.</p>
+      <div class="signs-grid">
+        <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-rose-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🩸</div><h4>Taches de sang</h4><p>Petites taches rougeâtres sur les draps, écrasées pendant la nuit.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-rose-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">⚫</div><h4>Déjections</h4><p>Petits points noirs en grappes sur les coutures du matelas et du sommier.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-rose-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🥚</div><h4>Œufs</h4><p>Minuscules œufs blancs (1 mm) dans les coutures, cadres de lit, plinthes.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-rose-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🔴</div><h4>Piqûres alignées</h4><p>Piqûres en ligne ou zigzag, généralement 3 piqûres dites « petit-déjeuner, déjeuner, dîner ».</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-rose-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🪳</div><h4>Insectes vivants</h4><p>Corps plat brunâtre de 4-7 mm, visibles dans les coutures du matelas avec une lampe torche.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-rose-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🏠</div><h4>Odeur</h4><p>Odeur sucrée, type coriandre ou amande, en cas d'infestation massive.</p></div>
+      </div>
     </section>
 
     <!-- ═══ Risques ═══ -->
@@ -991,6 +1007,8 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
   <a href="tel:0667464897" class="btn btn-outline"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler</a>
 </div>
 </div>
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">↑</button>
 <script src="/js/app.js"></script>
 <script>
 function updateSliderFill(el){var p=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right,#C8B99A 0%,#C8B99A '+p+'%,#E5E5E5 '+p+'%,#E5E5E5 100%)';}
@@ -1059,7 +1077,7 @@ function initCostSlider(){var slider=document.getElementById('costMonthSlider');
 
 function initProtocol(){var saved=JSON.parse(localStorage.getItem('punaiseProtocol')||'{}');document.querySelectorAll('.protocol-check input').forEach(function(cb,i){if(saved[i]){cb.checked=true;cb.parentElement.classList.add('checked')}cb.addEventListener('change',function(){cb.parentElement.classList.toggle('checked',cb.checked);var state={};document.querySelectorAll('.protocol-check input').forEach(function(c,j){if(c.checked)state[j]=true});localStorage.setItem('punaiseProtocol',JSON.stringify(state))})});}
 
-function initLightbox(){var lb=document.getElementById('lightbox'),lbImg=lb.querySelector('img');document.querySelectorAll('.sign-img').forEach(function(img){img.addEventListener('click',function(){lbImg.src=img.src;lbImg.alt=img.alt;lb.classList.add('active')})});lb.addEventListener('click',function(){lb.classList.remove('active')});}
+function initLightbox(){var lb=document.getElementById('lightbox');if(!lb)return;var lbImg=lb.querySelector('img');document.querySelectorAll('.sign-img').forEach(function(img){img.addEventListener('click',function(){lbImg.src=img.src;lbImg.alt=img.alt;lb.classList.add('active')})});lb.addEventListener('click',function(){lb.classList.remove('active')});}
 
 function initAccordions(){document.querySelectorAll('.accordion-header').forEach(function(btn){btn.addEventListener('click',function(){var item=btn.parentElement,wasOpen=item.classList.contains('open');item.parentElement.querySelectorAll('.accordion-item').forEach(function(i){i.classList.remove('open')});if(!wasOpen)item.classList.add('open');btn.querySelector('.icon-toggle').textContent=item.classList.contains('open')?'\u2212':'+'})});}
 
@@ -1073,7 +1091,7 @@ function initHeroCounters(){var heroStats=document.querySelectorAll('.hero-stat-
 
 function filterMethods(level){document.querySelectorAll('.method-filter').forEach(function(f){f.classList.toggle('active',f.dataset.level===level)});document.querySelectorAll('.method-card').forEach(function(card){if(level==='all')card.classList.remove('dimmed');else card.classList.toggle('dimmed',card.dataset.level!==level)});}
 
-function initBackToTop(){var btn=document.getElementById('backToTop');window.addEventListener('scroll',function(){btn.style.display=window.scrollY>600?'flex':'none'},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});}
+function initBackToTop(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.style.display=window.scrollY>600?'flex':'none'},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});}
 
 function initHouseZones(){
   var svg=document.getElementById('houseSvg');if(!svg)return;

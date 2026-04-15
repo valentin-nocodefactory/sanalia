@@ -121,6 +121,12 @@ html { scroll-padding-top: 130px; }
 .spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
 .species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
+.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
+.sign-card { text-align: center; }
+.sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
 
 /* ── Dangers ── */
 .danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
@@ -611,6 +617,16 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
         </div>
       </div>
       <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Un pigeon biset peut retrouver son nid à <strong>1 800 km de distance</strong>. C'est cette capacité de navigation extraordinaire qui rend le dépigeonnage si difficile — les pigeons reviennent toujours au même endroit.</p></div>
+      <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Les indices concrets d'une infestation de pigeons. Reconnaissez-les avant qu'il ne soit trop tard.</p>
+      <div class="signs-grid">
+        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">💩</div><h4>Fientes</h4><p>Fientes blanches et vertes sur façade, balcons, appuis de fenêtre — corrosives.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🪺</div><h4>Nids</h4><p>Branchages et débris dans les gouttières, sous les toits, balcons inutilisés.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🔊</div><h4>Roucoulements</h4><p>Roucoulements matinaux persistants sur le toit ou les rebords.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🪶</div><h4>Plumes</h4><p>Plumes grises ou blanches au sol ou sur le balcon — zone de perchage.</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🦠</div><h4>Parasites</h4><p>Présence de punaises, tiques ou puces (les pigeons en sont porteurs).</p></div>
+        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🏢</div><h4>Marques de façade</h4><p>Coulures noires ou blanches permanentes sur la pierre ou le crépi.</p></div>
+      </div>
     </section>
 
     <!-- ═══ Risques sanitaires ═══ -->
@@ -934,6 +950,8 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
 </div>
 </div>
 
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">↑</button>
 <script src="/js/app.js"></script>
 <script>
 /* ══════════════════════════════════════════════
@@ -1208,6 +1226,7 @@ function initHeroCounters() {
 
 function initBackToTop() {
   const btn = document.getElementById('backToTop');
+  if (!btn) return;
   window.addEventListener('scroll', () => { btn.style.display = window.scrollY > 600 ? 'flex' : 'none'; }, {passive:true});
   btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
 }

@@ -111,6 +111,12 @@ html { scroll-padding-top: 130px; }
 .spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
 .species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
+.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
+.sign-card { text-align: center; }
+.sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
 
 /* ── Dangers ── */
 .danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
@@ -641,6 +647,16 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     </div>
   </div>
   <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Un cafard peut se faufiler dans une fissure de <strong>1,5 mm d'épaisseur</strong> en aplatissant son exosquelette. Il peut aussi retenir sa respiration pendant <strong>40 minutes</strong> et survivre immergé 30 minutes.</p></div>
+  <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
+  <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Les indices concrets d'une infestation de cafards. Reconnaissez-les avant qu'il ne soit trop tard.</p>
+  <div class="signs-grid">
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🟤</div><h4>Crottes</h4><p>Petites taches noires comme de la poudre de café moulu dans les tiroirs de cuisine.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🥚</div><h4>Oothèques</h4><p>Capsules brunes de 5-8 mm contenant 30-40 œufs, collées sous les meubles.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">👁️</div><h4>Cafard vu de jour</h4><p>Signe d'infestation sévère — ils ne sortent que la nuit normalement.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🕳️</div><h4>Exuvies</h4><p>Mues translucides, peaux abandonnées lors des mues successives.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🦨</div><h4>Odeur douce</h4><p>Odeur caractéristique sucrée-musquée en cas d'infestation importante.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🌡️</div><h4>Chaleur</h4><p>Présence derrière les appareils chauds : frigo, four, grille-pain.</p></div>
+  </div>
 </section>
 
 <section id="dangers">
@@ -953,6 +969,8 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
   <a href="tel:0667464897" class="btn btn-outline"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler</a>
 </div>
 </div>
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">↑</button>
 <script src="/js/app.js"></script>
 <script>
 function updateSliderFill(el){var p=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right,#C8B99A 0%,#C8B99A '+p+'%,#E5E5E5 '+p+'%,#E5E5E5 100%)';}
@@ -1078,7 +1096,7 @@ function filterMethods(level){document.querySelectorAll('.method-filter').forEac
 function initScrollAnimations(){var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el);});}
 function initHeroCounters(){var heroStats=document.querySelectorAll('.hero-stat-value[data-count]');var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var el=e.target;var target=parseInt(el.dataset.count);var suffix=el.dataset.suffix||'';if(!target)return;var current=0;var step=Math.max(1,Math.floor(target/40));var timer=setInterval(function(){current+=step;if(current>=target){current=target;clearInterval(timer);}el.textContent=current.toLocaleString('fr-FR')+suffix;},30);obs.unobserve(el);}});},{threshold:0.5});heroStats.forEach(function(s){obs.observe(s);});}
 function initCostSlider(){var slider=document.getElementById('costMonthSlider');if(!slider)return;var monthVal=document.getElementById('costMonthVal'),roi=document.getElementById('costRoi'),savings=document.getElementById('costSavings');function update(){var month=+slider.value;monthVal.textContent=month;var damageAtMonth=Math.round(30*Math.pow(1.35,month));var damageAt12=Math.round(30*Math.pow(1.35,12));var saved=damageAt12-damageAtMonth;var ratio=Math.max(1,Math.round(saved/200));roi.textContent=ratio+':1';savings.textContent='Vous économisez ~'+saved.toLocaleString('fr-FR')+' \u20AC';updateSliderFill(slider);}slider.addEventListener('input',update);update();}
-function initBackToTop(){var btn=document.getElementById('backToTop');window.addEventListener('scroll',function(){btn.style.display=window.scrollY>600?'flex':'none';},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
+function initBackToTop(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.style.display=window.scrollY>600?'flex':'none';},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});}
 function initStepNav(){var nav=document.getElementById('stepNav');if(!nav)return;var links=nav.querySelectorAll('[data-nav]'),sections=[];links.forEach(function(l){var el=document.getElementById(l.getAttribute('href').slice(1));if(el)sections.push({el:el,link:l});});window.addEventListener('scroll',function(){var sy=window.scrollY,vh=window.innerHeight;sections.forEach(function(s){var t=s.el.getBoundingClientRect().top+sy,b=t+s.el.offsetHeight;if(sy+vh*0.3>=t&&sy+vh*0.3<b){links.forEach(function(l){l.classList.remove('active');});s.link.classList.add('active');}});},{passive:true});links.forEach(function(l){l.addEventListener('click',function(e){e.preventDefault();document.getElementById(l.getAttribute('href').slice(1)).scrollIntoView({behavior:'smooth',block:'start'});});});}
 function initFicheRadar(){var ctx=document.getElementById('ficheRadar');if(!ctx)return;new Chart(ctx,{type:'radar',data:{labels:['Dangerosité','Reproduction','Résistance','Discrétion','Agilité','Intelligence'],datasets:[{data:[70,95,90,85,80,40],backgroundColor:'rgba(200,185,154,0.2)',borderColor:'#C8B99A',borderWidth:2,pointBackgroundColor:'#C8B99A',pointBorderColor:'#fff',pointBorderWidth:1,pointRadius:4,pointHoverRadius:6}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1,plugins:{legend:{display:false}},scales:{r:{beginAtZero:true,max:100,ticks:{display:false,stepSize:25},grid:{color:'rgba(0,0,0,0.06)'},angleLines:{color:'rgba(0,0,0,0.06)'},pointLabels:{font:{family:"'Uxum', sans-serif",size:11,weight:'700'},color:'#0E052A'}}}}});}
 </script>

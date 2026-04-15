@@ -3,52 +3,359 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fourmis — Identification, Dangers & Solutions | Sanalia</title>
-<meta name="description" content="Comment identifier les fourmis envahissantes, les risques pour votre habitation et les traitements professionnels efficaces. Guide Sanalia.">
-<link rel="canonical" href="https://www.sanalia.fr/nuisibles/fourmis/">
-<meta property="og:title" content="Fourmis — Identification, Dangers & Solutions | Sanalia">
-<meta property="og:description" content="Comment identifier les fourmis envahissantes, les risques pour votre habitation et les traitements professionnels efficaces. Guide Sanalia.">
+<title>Fourmis : Identification, Nuisances &amp; Solutions Efficaces | Sanalia</title>
+<meta name="description" content="Guide complet sur les fourmis : identification des espèces, nuisances, simulateur de colonies, méthodes de traitement et protocole d'action. Par Sanalia, expert désinsectisation.">
+<meta property="og:title" content="Fourmis — Guide Complet d'Identification &amp; Solutions | Sanalia">
+<meta property="og:description" content="Tout savoir sur les fourmis : identification, risques, prolifération des colonies, zones d'invasion et méthodes de traitement professionnel.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.sanalia.fr/nuisibles/fourmis/">
-<meta property="og:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Fourmis — Identification, Dangers & Solutions | Sanalia">
-<meta name="twitter:description" content="Comment identifier les fourmis envahissantes, les risques pour votre habitation et les traitements professionnels efficaces. Guide Sanalia.">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "headline": "Fourmis — Identification, Dangers \u0026 Solutions",
-      "description": "Comment identifier les fourmis envahissantes, les risques pour votre habitation et les traitements professionnels efficaces. Guide Sanalia.",
-      "author": {"@type": "Organization", "name": "Sanalia"},
-      "publisher": {
-        "@type": "Organization",
-        "name": "Sanalia",
-        "logo": {"@type": "ImageObject", "url": "https://www.sanalia.fr/logo-sanalia.svg"}
-      },
-      "datePublished": "2026-04-14",
-      "dateModified": "2026-04-14",
-      "mainEntityOfPage": "https://www.sanalia.fr/nuisibles/fourmis/"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
-        {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
-        {"@type": "ListItem", "position": 3, "name": "Fourmis — Identification, Dangers \u0026 Solutions"}
-      ]
-    }
-  ]
-}
-</script>
+<meta name="twitter:title" content="Fourmis : Identification, Nuisances &amp; Solutions Efficaces | Sanalia">
+<meta name="twitter:description" content="Guide complet sur les fourmis. Identification, nuisances, colonies et solutions professionnelles.">
+<link rel="canonical" href="https://www.sanalia.fr/nuisibles/fourmis/">
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Fourmis : Identification, Nuisances & Solutions Efficaces",
+  "description": "Guide complet sur les fourmis : identification, nuisances, colonies et protocole d'action professionnel.",
+  "author": {"@type": "Organization", "name": "Sanalia"},
+  "publisher": {"@type": "Organization", "name": "Sanalia", "url": "https://www.sanalia.fr"},
+  "mainEntityOfPage": "https://www.sanalia.fr/nuisibles/fourmis/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Comment identifier une fourmi charpentière ?", "acceptedAnswer": {"@type": "Answer", "text": "La fourmi charpentière (Camponotus) mesure 6 à 15 mm, elle est noire ou brun foncé avec un abdomen plus large. Elle creuse galeries et tunnels dans le bois humide ou abîmé (charpentes, poutres) et laisse des petits tas de sciure très fine au pied des structures attaquées."}},
+    {"@type": "Question", "name": "Les traitements ménagers (vinaigre, bicarbonate) marchent-ils contre les fourmis ?", "acceptedAnswer": {"@type": "Answer", "text": "Ces astuces masquent les pistes de phéromones sur quelques heures mais ne tuent pas la reine ni la colonie. Les fourmis contournent simplement et reviennent en 24 à 48h. Efficacité réelle : moins de 10 % sur le long terme."}},
+    {"@type": "Question", "name": "Pourquoi les fourmis reviennent-elles toujours ?", "acceptedAnswer": {"@type": "Answer", "text": "Parce que la reine n'a pas été éliminée. Écraser les ouvrières visibles ne touche pas la colonie : la reine peut pondre jusqu'à 1 500 œufs par jour. Tant que le nid et la reine sont intacts, les fourmis reviennent par milliers."}},
+    {"@type": "Question", "name": "Les fourmis peuvent-elles s'installer dans les murs ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Les fourmis charpentières creusent des galeries dans le bois des murs et planchers. Les fourmis pharaons et les fourmis noires exploitent les cavités murales, gaines électriques et isolants pour y établir des nids satellites."}},
+    {"@type": "Question", "name": "Combien coûte un traitement professionnel fourmis ?", "acceptedAnswer": {"@type": "Answer", "text": "Entre 120 € et 350 € selon l'ampleur de l'infestation, la taille du logement et la présence de nids multiples. Les traitements par appâts gel à transfert ciblent directement la reine et garantissent une éradication durable."}},
+    {"@type": "Question", "name": "Les appâts gel sont-ils dangereux pour les animaux domestiques ?", "acceptedAnswer": {"@type": "Answer", "text": "Les appâts gel professionnels sont placés dans des zones inaccessibles aux animaux (derrière plinthes, sous meubles) et contiennent des principes actifs à très faible toxicité aiguë. Avec les précautions standards d'un technicien certifié Certibiocide, le risque pour les animaux domestiques est minime."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
+    {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
+    {"@type": "ListItem", "position": 3, "name": "Fourmis"}
+  ]
+}
+</script>
 <style>
-.nuisible-hero{display:flex;gap:var(--space-2xl);align-items:center;flex-wrap:wrap}.nuisible-hero-img{width:400px;max-width:100%;border-radius:var(--radius-lg)}.nuisible-hero-text{flex:1;min-width:280px}.nuisible-section{max-width:800px;margin:0 auto}.nuisible-section h2{margin-top:var(--space-2xl);margin-bottom:var(--space-md)}.nuisible-section ul{padding-left:var(--space-lg);margin:var(--space-md) 0}.nuisible-section li{margin-bottom:var(--space-sm);line-height:var(--leading-normal)}.checklist{list-style:none;padding:0}.checklist li::before{content:"✓ ";color:var(--color-primary-600);font-weight:700}.cta-double{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-lg)}.related-links{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-md)}.related-links a{background:var(--color-primary-100);color:var(--color-primary-600);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-full);text-decoration:none;font-size:var(--text-small);font-family:var(--font-primary);font-weight:var(--font-weight-bold)}
+/* ══════════════════════════════════════════════
+   FOURMIS — Page Premium
+   ══════════════════════════════════════════════ */
+html { scroll-padding-top: 130px; }
+[data-component="header"] { position: sticky; top: -45px; z-index: 100; background: var(--color-surface); }
+
+.page-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-2xl); max-width: 1200px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); align-items: start; }
+.page-content { min-width: 0; }
+.page-content section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.page-content section:last-child { border-bottom: none; }
+@media (max-width: 1024px) { .page-layout { grid-template-columns: 1fr; } }
+
+.sidebar-wrap { position: sticky; top: 130px; display: flex; flex-direction: column; gap: var(--space-md); }
+.sidebar-card { background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); overflow: hidden; padding: var(--space-xs); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.sidebar-visual { display: flex; align-items: center; justify-content: center; padding: var(--space-xl) var(--space-lg); border-radius: var(--radius-lg); background: var(--color-pastel-mint-light); min-height: 160px; }
+.sidebar-visual img { width: 120px; height: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08)); }
+.sidebar-body { padding: var(--space-md) var(--space-sm) var(--space-sm); text-align: center; }
+.sidebar-body h3 { font-size: 20px; margin: 0; display: inline; }
+.sidebar-badge { font-size: 10px; color: #2E7D32; font-weight: 700; background: #E8F5E9; padding: 2px 8px; border-radius: var(--radius-full); margin-left: 8px; vertical-align: middle; }
+.sidebar-latin { font-family: var(--font-secondary); font-weight: 400; color: #999; font-size: 11px; font-style: italic; display: block; margin: 4px 0 var(--space-md); }
+.sidebar-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; text-align: left; padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-light); }
+.sidebar-stat-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.sidebar-stat-label { font-size: 10px; color: var(--color-text-muted); }
+.sidebar-cta { margin-top: var(--space-md); }
+.sidebar-cta .btn { width: 100%; text-align: center; }
+.sidebar-offer { display: flex; align-items: center; justify-content: center; font-size: 12px; color: #22C55E; font-weight: 700; margin-top: 8px; }
+.pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22C55E; margin-right: 6px; animation: pulseDot 1.5s infinite; }
+@keyframes pulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+.sidebar-quiz { display: block; padding: var(--space-sm) var(--space-md); border: 1.5px dashed #C8B99A; border-radius: var(--radius-lg); text-align: center; font-size: 11px; color: #999; text-decoration: none; transition: all 0.2s; }
+.sidebar-quiz:hover { color: var(--color-primary-900); border-color: var(--color-primary-900); }
+@media (max-width: 1024px) { .sidebar-wrap { position: static; max-width: 380px; margin: 0 auto var(--space-xl); } }
+
+.section-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: var(--color-primary-600); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: var(--space-sm); }
+.page-content h2 { margin-top: 0; margin-bottom: var(--space-sm); font-size: 28px; }
+.page-content h2 + p { color: var(--color-text-muted); margin-bottom: var(--space-xl); font-size: 15px; line-height: 1.6; }
+
+.did-you-know { display: flex; gap: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--color-bg-sand); border-radius: var(--radius-md); margin: var(--space-xl) 0; align-items: flex-start; border-left: 3px solid #C8B99A; }
+.did-you-know-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
+
+.species-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+.species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
+.species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
+.species-card-v2.active { border-color: var(--color-gray-light); box-shadow: 0 16px 48px rgba(14,5,42,0.1); }
+.species-card-visual { padding: var(--space-xl) var(--space-lg); text-align: center; position: relative; min-height: 140px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); margin: var(--space-xs); }
+.species-card-visual img { width: 110px; height: auto; mix-blend-mode: multiply; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); filter: drop-shadow(0 8px 20px rgba(0,0,0,0.06)); }
+.species-card-v2:hover .species-card-visual img { transform: scale(1.05) translateY(-4px); }
+.species-card-visual .badge { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 700; background: var(--color-primary-900); color: #fff; padding: 4px 12px; border-radius: var(--radius-full); }
+.species-card-body { padding: var(--space-md) var(--space-lg) var(--space-lg); }
+.species-card-body h3 { font-size: 18px; margin: 0 0 4px; }
+.species-card-body .latin { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; font-style: italic; }
+.species-card-body .stars { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.species-card-body .stars-label { font-size: 11px; color: var(--color-text-muted); }
+.species-specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--color-gray-light); margin-top: var(--space-lg); }
+.spec { padding: 14px 8px; text-align: center; border-right: 1px solid var(--color-gray-light); }
+.spec:last-child { border-right: none; }
+.spec-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
+.species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
+
+.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); }
+.sign-card { cursor: pointer; text-align: center; }
+.sign-card:hover .sign-img { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-xl); transition: all 0.3s; cursor: zoom-in; }
+.sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } .species-compare { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
+
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; border-radius: var(--radius-lg); }
+
+.danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
+.danger-fact { padding: var(--space-xl); text-align: center; border-right: 1px solid var(--color-gray-light); }
+.danger-fact:last-child { border-right: none; }
+.danger-fact-num { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 36px; color: #C62828; line-height: 1; display: block; margin-bottom: var(--space-sm); }
+.danger-fact-text strong { font-size: 14px; display: block; color: var(--color-primary-900); margin-bottom: 6px; }
+.danger-fact-text span { font-size: 12px; color: var(--color-text-muted); line-height: 1.5; }
+@media (max-width: 600px) { .danger-facts { grid-template-columns: 1fr; } .danger-fact { border-right: none; border-bottom: 1px solid var(--color-gray-light); } .danger-fact:last-child { border-bottom: none; } }
+
+.risk-tabs { display: flex; gap: 4px; margin-bottom: var(--space-lg); border-bottom: 1px solid var(--color-gray-light); }
+.risk-tab { padding: 10px 16px; font-family: var(--font-primary); font-size: 13px; font-weight: 500; color: var(--color-text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.risk-tab:hover { color: var(--color-primary-900); }
+.risk-tab.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); font-weight: 700; }
+.risk-tab-content { display: none; }
+.risk-tab-content.active { display: block; }
+@media (max-width: 600px) { .risk-tabs { overflow-x: auto; } .risk-tab { font-size: 12px; padding: 8px 12px; } }
+
+.disease-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-top: var(--space-md); }
+.disease-card { padding: var(--space-lg); border-radius: var(--radius-xl); transition: all 0.3s; }
+.disease-card.critical { background: #FFF5F5; border: 1px solid #FFCDD2; }
+.disease-card.high { background: #FFF8E1; border: 1px solid #FFE0B2; }
+.disease-card.moderate { background: #F3F3F3; border: 1px solid var(--color-gray-light); }
+.disease-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+.disease-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.disease-severity { font-size: 10px; letter-spacing: 2px; }
+.disease-card.critical .disease-severity { color: #C62828; }
+.disease-card.high .disease-severity { color: #E65100; }
+.disease-card.moderate .disease-severity { color: #999; }
+.disease-header strong { font-size: 16px; flex: 1; }
+.disease-tag { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: var(--radius-full); letter-spacing: 0.3px; flex-shrink: 0; }
+.disease-tag.critical { background: #FFCDD2; color: #B71C1C; }
+.disease-tag.high { background: #FFE0B2; color: #E65100; }
+.disease-tag.moderate { background: #E0E0E0; color: #616161; }
+.disease-card p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; margin: 0 0 var(--space-sm); }
+.disease-stat { font-size: 12px; font-weight: 600; color: var(--color-primary-900); padding: 4px 10px; background: rgba(0,0,0,0.04); border-radius: var(--radius-md); display: inline-block; }
+.damage-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-top: var(--space-md); }
+.damage-item { display: flex; align-items: flex-start; gap: var(--space-sm); padding: var(--space-lg); background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); }
+.damage-icon { font-size: 24px; flex-shrink: 0; }
+.damage-item strong { font-size: 14px; display: block; margin-bottom: 4px; }
+.damage-item span { font-size: 12px; color: var(--color-text-muted); line-height: 1.4; }
+@media (max-width: 600px) { .disease-grid, .damage-row { grid-template-columns: 1fr; } }
+
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: #E5E5E5; outline: none; cursor: pointer; margin: 8px 0; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-top: -7px; cursor: grab; }
+input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: transparent; }
+input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; cursor: grab; }
+input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: #E5E5E5; }
+
+.prolif-config-item { display: flex; align-items: center; gap: 8px; }
+.prolif-config-label { font-family: var(--font-secondary); font-weight: 400; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.prolif-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+.prolif-pill { padding: 4px 10px; border: 1.5px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); white-space: nowrap; }
+.prolif-pill:hover { border-color: #C8B99A; }
+.prolif-pill.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+.prolif-2col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); align-items: stretch; }
+.prolif-box-inputs { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); }
+.prolif-config-inner { display: flex; flex-direction: column; gap: var(--space-sm); }
+.prolif-box-results { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); transition: border-color 0.4s, background 0.4s; }
+.prolif-box-results.critical { border-color: #E8C4C4; background: #FEFAFA; }
+.prolif-result-header { display: flex; align-items: baseline; gap: var(--space-sm); }
+.prolif-stats-compact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.prolif-stats-compact > div { padding: 8px; background: var(--color-bg); border-radius: var(--radius-md); }
+.prolif-stats-compact strong { font-size: 16px; color: var(--color-primary-900); display: block; }
+.prolif-stats-compact span { font-size: 9px; color: var(--color-text-muted); }
+@media (max-width: 768px) { .prolif-2col { grid-template-columns: 1fr; } }
+.prolif-month-label { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+.prolif-pop-count { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 32px; color: var(--color-primary-900); transition: color 0.3s; line-height: 1; }
+.prolif-pop-count.danger { color: #C62828; }
+.prolif-months-bar { display: flex; justify-content: space-between; font-size: 10px; color: #999; font-family: var(--font-secondary); margin-top: 4px; }
+.prolif-visual { background: var(--color-bg); border-radius: var(--radius-lg); padding: var(--space-sm) var(--space-md); min-height: 60px; overflow: hidden; }
+.prolif-rats { display: flex; flex-wrap: wrap; gap: 1px; font-size: 13px; line-height: 1.1; }
+.rat-icon { display: inline-block; animation: ratAppear 0.15s ease; }
+.rat-overflow { font-size: 11px; color: #C62828; font-weight: 700; display: inline-block; margin-left: 4px; vertical-align: middle; }
+@keyframes ratAppear { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+.prolif-alert { display: flex; align-items: center; gap: var(--space-sm); padding: 10px 16px; border-radius: var(--radius-lg); transition: all 0.4s; font-size: 13px; }
+.prolif-alert.level-ok { background: #E8F5E9; color: #2E7D32; }
+.prolif-alert.level-warn { background: #FFF3E0; color: #E65100; }
+.prolif-alert.level-danger { background: #FFEBEE; color: #C62828; }
+.prolif-alert.level-critical { background: #C62828; color: #fff; }
+.prolif-alert-icon { font-size: 14px; flex-shrink: 0; }
+.prolif-alert-text { font-size: 13px; font-weight: 500; }
+.prolif-cta { text-align: center; margin-top: var(--space-lg); }
+
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; }
+
+.risk-check-layout { display: grid; grid-template-columns: 1fr 240px; gap: var(--space-xl); align-items: start; }
+.risk-checklist { display: flex; flex-direction: column; gap: 8px; }
+.risk-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-lg); border: 1px solid var(--color-gray-light); cursor: pointer; font-size: 13px; transition: all 0.2s; background: var(--color-surface); }
+.risk-check-item:hover { border-color: #C8B99A; }
+.risk-check-item input { accent-color: #F44336; width: 16px; height: 16px; cursor: pointer; }
+.risk-result-box { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); text-align: center; position: sticky; top: 140px; }
+.risk-score-svg { width: 200px; height: 120px; }
+.risk-verdict h3 { margin: var(--space-sm) 0 4px; }
+.risk-verdict p { font-size: 13px; color: var(--color-text-muted); }
+@media (max-width: 700px) { .risk-check-layout { grid-template-columns: 1fr; } }
+
+.calendar-grid { display: grid; grid-template-columns: auto repeat(12, 1fr); gap: 2px; font-size: 11px; }
+.cal-cell { padding: 8px 4px; text-align: center; border-radius: var(--radius-xs); position: relative; }
+.cal-header { font-family: var(--font-primary); font-weight: 700; background: var(--color-primary-900); color: #fff; }
+.cal-label { font-family: var(--font-primary); font-weight: 700; font-size: 10px; text-align: right; padding-right: 8px; background: var(--color-bg); display: flex; align-items: center; justify-content: flex-end; }
+.cal-current { outline: 2px solid var(--color-primary-600); outline-offset: -1px; }
+.cal-tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--color-primary-900); color: #fff; padding: 6px 12px; border-radius: var(--radius-md); font-size: 11px; white-space: nowrap; z-index: 10; pointer-events: none; }
+.cal-cell:hover .cal-tip { display: block; }
+
+.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+.method-card { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); transition: all 0.3s; }
+.method-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.method-card.recommended { border-color: #22C55E; position: relative; box-shadow: 0 0 0 1px #22C55E; }
+.method-card.recommended::before { content: '✓ Recommandé'; position: absolute; top: -12px; right: 16px; background: #22C55E; color: #fff; font-size: 10px; font-weight: 700; padding: 4px 14px; border-radius: var(--radius-full); }
+.method-card h4 { margin: 0 0 var(--space-sm); font-size: 16px; }
+.method-meter { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.method-meter-label { font-size: 11px; color: var(--color-text-muted); width: 70px; flex-shrink: 0; }
+.method-meter-bar { flex: 1; height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.method-meter-fill { height: 100%; border-radius: 3px; }
+.method-card.dimmed { opacity: 0.3; transform: scale(0.97); }
+.method-filter { padding: 6px 16px; border: 2px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); }
+.method-filter:hover { border-color: #C8B99A; }
+.method-filter.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+@media (max-width: 768px) { .methods-grid { grid-template-columns: 1fr; } }
+
+.protocol-steps { counter-reset: step; }
+.protocol-step { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); margin-bottom: var(--space-md); transition: box-shadow 0.3s; }
+.protocol-step:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+.protocol-step h4 { display: flex; align-items: center; gap: var(--space-sm); font-size: 16px; margin: 0 0 var(--space-sm); }
+.protocol-step h4::before { counter-increment: step; content: counter(step); width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary-900); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.protocol-check { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--color-text-muted); cursor: pointer; }
+.protocol-check input { accent-color: var(--color-primary-600); }
+.protocol-check.checked { text-decoration: line-through; opacity: 0.5; }
+
+.cost-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.cost-highlight { text-align: center; padding: var(--space-2xl); background: linear-gradient(135deg, var(--color-primary-100) 0%, #F8F6FF 100%); border-radius: var(--radius-xl); }
+.cost-highlight .big { font-size: 56px; font-weight: var(--font-weight-bold); color: var(--color-primary-600); line-height: 1; }
+.cost-highlight .label { font-size: 14px; color: var(--color-text-muted); margin-top: 4px; }
+.cost-slider-wrap { margin-top: var(--space-lg); text-align: center; }
+.cost-slider-wrap label { font-size: 13px; font-weight: 500; display: block; margin-bottom: var(--space-sm); }
+.cost-savings { font-size: 16px; font-weight: 700; color: #22C55E; margin-top: var(--space-sm); }
+@media (max-width: 700px) { .cost-layout { grid-template-columns: 1fr; } }
+
+.final-cta { background: var(--color-primary-900); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-2xl); text-align: center; color: #fff; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(99,93,221,0.15) 0%, transparent 60%); pointer-events: none; }
+.final-cta h2 { color: #fff; margin: 0 0 var(--space-sm); font-size: 28px; position: relative; }
+.final-cta p { color: rgba(255,255,255,0.6); margin-bottom: var(--space-xl); position: relative; }
+.final-cta .btn-primary { background: #fff; color: var(--color-primary-900); font-size: 16px; padding: 16px 32px; position: relative; }
+.final-cta .btn-primary:hover { background: var(--color-primary-100); }
+.trust-badges { display: flex; gap: var(--space-xl); justify-content: center; margin-top: var(--space-xl); font-size: 13px; color: rgba(255,255,255,0.5); position: relative; }
+
+.quiz-container { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); }
+.quiz-progress { display: flex; gap: var(--space-xs); margin-bottom: var(--space-xl); }
+.quiz-progress .step { flex: 1; height: 4px; border-radius: var(--radius-full); background: var(--color-gray-light); }
+.quiz-progress .step.done { background: var(--color-primary-600); }
+.quiz-progress .step.current { background: var(--color-primary-400); }
+.quiz-question { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 20px; margin-bottom: var(--space-lg); }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+.quiz-option { padding: var(--space-md) var(--space-lg); border: 2px solid var(--color-gray-light); border-radius: var(--radius-xl); cursor: pointer; font-family: var(--font-primary); font-size: 15px; transition: all 0.25s; background: var(--color-surface); text-align: center; }
+.quiz-option:hover { border-color: var(--color-primary-600); background: var(--color-primary-100); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.quiz-result { text-align: center; display: none; }
+.quiz-result.active { display: block; }
+.quiz-result .score-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-lg); font-size: 32px; font-weight: var(--font-weight-bold); color: #fff; }
+
+.anatomy-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+.anatomy-visual { position: relative; display: flex; justify-content: center; }
+.anatomy-points { position: absolute; inset: 0; }
+.anat-point { position: absolute; width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--color-primary-900); background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: all 0.25s; transform: translate(-50%, -50%); z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.anat-point:not(.active) { animation: anat-pulse 2s ease-in-out infinite; }
+@keyframes anat-pulse { 0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 0 rgba(99,93,221,0.4); } 50% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 8px rgba(99,93,221,0); } }
+.anat-point:hover, .anat-point.active { background: var(--color-primary-900); transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 6px 20px rgba(14,5,42,0.2); animation: none; }
+.anatomy-detail { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); min-height: 240px; display: flex; flex-direction: column; justify-content: center; }
+.anatomy-detail h3 { margin: 0 0 var(--space-sm); }
+.anatomy-detail p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+@media (max-width: 700px) { .anatomy-layout { grid-template-columns: 1fr; } }
+
+.house-wrap.night-mode svg { filter: brightness(0.3) contrast(1.2); }
+.night-trail { stroke: #FFD54F; stroke-width: 3; fill: none; opacity: 0; stroke-dasharray: 8 6; animation: trailGlow 3s ease-in-out infinite; }
+.house-wrap.night-mode .night-trail { opacity: 0.7; }
+@keyframes trailGlow { 0%,100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+.step-nav { position: sticky; top: 72px; z-index: 90; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-gray-light); display: flex; align-items: center; overflow: visible; width: 100%; padding: 0 calc((100% - 1200px) / 2 + var(--space-lg)); }
+@media (max-width: 768px) { .step-nav-crumb { display: none; } .step-nav-divider { display: none; } }
+.step-nav-links { display: flex; align-items: center; overflow-x: auto; overflow-y: visible; flex: 1; scrollbar-width: none; }
+.step-nav-links::-webkit-scrollbar { display: none; }
+.step-nav-links a { flex-shrink: 0; padding: 12px 16px; font-size: 12px; font-family: var(--font-primary); font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.step-nav-links a.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); }
+.step-nav-divider { width: 1px; height: 24px; background: var(--color-gray-light); flex-shrink: 0; margin: 0 4px; }
+.step-nav-crumb { position: relative; flex-shrink: 0; }
+.step-crumb-current { display: flex; align-items: center; gap: 6px; padding: 10px 0; font-size: 13px; font-weight: 700; color: var(--color-primary-900); cursor: pointer; white-space: nowrap; }
+.step-crumb-current::after { content: '▾'; font-size: 10px; color: #999; margin-left: 4px; }
+.step-crumb-dropdown { display: none; position: absolute; top: 100%; left: 0; background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-lg); box-shadow: 0 8px 24px rgba(0,0,0,0.1); min-width: 200px; z-index: 100; overflow: hidden; padding: 4px; }
+.step-nav-crumb:hover .step-crumb-dropdown { display: block; }
+.step-crumb-nuisible { display: flex; align-items: center; gap: 8px; padding: 6px 10px; font-size: 13px; color: var(--color-text-muted); text-decoration: none; border-radius: var(--radius-md); transition: background 0.15s; }
+.step-crumb-nuisible:hover { background: var(--hover-bg, var(--color-bg)); }
+.step-crumb-nuisible.active { color: var(--color-primary-900); font-weight: 600; }
+.step-crumb-icon { width: 28px; height: 28px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-crumb-icon img { width: 22px; height: 22px; object-fit: contain; }
+.step-nav-current-icon { width: 24px; height: 24px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-nav-current-icon img { width: 18px; height: 18px; object-fit: contain; }
+
+.hero-stats { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl); }
+.hero-stat { display: flex; align-items: center; gap: var(--space-sm); }
+.hero-stat-icon { width: 24px; height: 24px; flex-shrink: 0; color: var(--color-pastel-mint); opacity: 0.8; }
+.hero-stat-icon svg { width: 100%; height: 100%; }
+.hero-stat-text { display: flex; align-items: baseline; gap: 6px; }
+.hero-stat-value { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 15px; color: var(--color-primary-900); }
+.hero-stat-label { font-size: 12px; color: var(--color-text-muted); }
+.nuisible-hero { display: flex; gap: var(--space-2xl); align-items: center; flex-wrap: wrap; }
+.nuisible-hero-img { width: 400px; max-width: 100%; border-radius: var(--radius-lg); }
+.nuisible-hero-text { flex: 1; min-width: 280px; }
+
+.section-inner { padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.intro-profile { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.intro-radar-wrap { display: flex; justify-content: center; }
+.intro-radar-wrap canvas { max-width: 220px; max-height: 220px; }
+.intro-gauges { display: flex; flex-direction: column; gap: 10px; }
+.gauge-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.gauge-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; }
+.gauge-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 12px; color: var(--color-primary-900); }
+.gauge-bar { height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.gauge-fill { height: 100%; border-radius: 3px; }
+@media (max-width: 700px) { .intro-profile { grid-template-columns: 1fr; } }
+
+.step-bc { font-size: 12px; color: var(--color-text-muted); text-decoration: none; padding: 0 2px; }
+.step-bc:hover { color: var(--color-primary-900); }
+.step-bc-sep { font-size: 10px; color: #ccc; padding: 0 4px; }
 </style>
 </head>
 <body>
@@ -195,76 +502,191 @@
   </div>
 </header>
 </div>
-<section class="section" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-primary-100) 100%); padding-top: var(--space-3xl);">
-  <div class="container">
-    <nav class="breadcrumb" aria-label="breadcrumb">
-  <a href="/" class="bc-home"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg></a>
-  <span class="bc-sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></span>
-  <a href="/nuisibles/">Nuisibles</a>
-  <span class="bc-sep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></span>
-  <span class="bc-current">Fourmis</span>
+
+<nav class="step-nav" id="stepNav">
+  <div class="step-nav-crumb">
+    <div class="step-crumb-current">
+      <a href="/" class="step-bc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg></a>
+      <span class="step-bc-sep">›</span><a href="/nuisibles/" class="step-bc">Nuisibles</a><span class="step-bc-sep">›</span>
+      <span class="step-nav-current-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="18" height="18"></span>
+      <span style="font-weight:700;color:var(--color-primary-900);">Fourmis</span>
+    </div>
+    <div class="step-crumb-dropdown">
+      <a href="/nuisibles/rats/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-blue-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="22" height="22"></span>Rats</a>
+      <a href="/nuisibles/souris/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-lavender-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-lavender-light);"><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="" width="22" height="22"></span>Souris</a>
+      <a href="/nuisibles/punaises-de-lit/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-rose-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="22" height="22"></span>Punaises de lit</a>
+      <a href="/nuisibles/cafards/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-peach-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="22" height="22"></span>Cafards</a>
+      <a href="/nuisibles/guepes-frelons/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-gold-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="22" height="22"></span>Guêpes &amp; Frelons</a>
+      <a href="/nuisibles/fourmis/" class="step-crumb-nuisible active" style="--hover-bg:var(--color-pastel-mint-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="22" height="22"></span>Fourmis</a>
+      <a href="/nuisibles/moustiques/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-green-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-green-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="22" height="22"></span>Moustiques</a>
+    </div>
+  </div>
+  <div class="step-nav-divider"></div>
+  <div class="step-nav-links">
+    <a href="#identification" data-nav>Identification</a><a href="#dangers" data-nav>Risques</a><a href="#simulateur" data-nav>Colonie</a><a href="#zones" data-nav>Cachettes</a><a href="#evaluation" data-nav>Votre risque</a><a href="#calendrier" data-nav>Saisons</a><a href="#methodes" data-nav>Méthodes</a><a href="#protocole" data-nav>Protocole</a><a href="#quiz" data-nav>Quiz</a><a href="#cout" data-nav>Coûts</a><a href="#faq" data-nav>FAQ</a><a href="#action" data-nav>Agir</a>
+  </div>
 </nav>
+
+<section class="section" id="hero" style="padding-top: var(--space-2xl);">
+  <div class="container">
+    <div class="hero-box" style="background: var(--color-pastel-mint-light); border-radius: var(--radius-xl); padding: var(--space-2xl); overflow: hidden; max-width: none; margin: 0 -24px;">
     <div class="nuisible-hero">
       <div class="nuisible-hero-text">
-        <span class="mono" style="color: #999;">Guide d'identification</span>
-        <h1>Fourmis — Identification, Dangers & Solutions</h1>
-        <p style="color: var(--color-text-muted); margin-top: var(--space-md);">Les fourmis envahissent les habitations en colonies organisees de milliers d'individus. La fourmi noire des jardins (Lasius niger) est la plus courante, mais d'autres especes comme la fourmi charpentiere peuvent causer des degats structurels importants.</p>
+        <span class="mono" style="color: #999;">GUIDE EXPERT</span>
+        <h1>Fourmis : Identification, Nuisances &amp; Solutions Efficaces</h1>
+        <p style="color: var(--color-text-muted); margin-top: var(--space-md);">La fourmi noire des jardins (<em>Lasius niger</em>) est l'insecte le plus fréquemment rencontré dans les foyers français. Hyper-organisée et infatigable, elle colonise cuisines, terrasses et jardins dès les beaux jours. Apprenez à identifier les espèces, comprendre leur organisation et agir durablement à la source — la reine.</p>
+        <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg);"><a href="/devis/?nuisible=fourmis" class="btn btn-primary btn-lg">Diagnostic gratuit <span class="btn-arrow"></span></a><a href="#identification" class="btn btn-outline btn-lg">Identifier l'espèce</a></div>
       </div>
-      <img src="../../assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi noire" class="nuisible-hero-img">
+      <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi noire des jardins (Lasius niger)" class="nuisible-hero-img">
+    </div>
+    <div class="hero-stats animate-in">
+      <div class="hero-stat"><span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></span><div class="hero-stat-text"><span class="hero-stat-value" data-count="10000" data-suffix="">0</span><span class="hero-stat-label">individus par colonie</span></div></div>
+      <div class="hero-stat"><span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg></span><div class="hero-stat-text"><span class="hero-stat-value" data-count="5" data-suffix=" ans">0</span><span class="hero-stat-label">durée de vie d'une reine</span></div></div>
+      <div class="hero-stat"><span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20V8h4v12m4 0V4h4v16"/></svg></span><div class="hero-stat-text"><span class="hero-stat-value" data-count="20" data-suffix="">0</span><span class="hero-stat-label">espèces présentes en France</span></div></div>
+      <div class="hero-stat"><span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m18-9L21 12m0 0-4.5-4.5M21 12v-1.5M3 16.5 7.5 21m0 0L12 16.5M7.5 21V16m13.5.5L16.5 21m0 0L12 16.5M16.5 21V7.5"/></svg></span><div class="hero-stat-text"><span class="hero-stat-value" data-count="3" data-suffix=" mm">0</span><span class="hero-stat-label">taille fourmi des jardins</span></div></div>
+    </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container nuisible-section">
-    <h2>Comment reconnaitre les fourmis ?</h2>
-    <p>Plusieurs especes de fourmis peuvent envahir votre habitation. L'identification est importante pour adapter le traitement.</p>
-    <ul>
-      <li><strong>Fourmi noire des jardins :</strong> 3-5 mm, noire ou brun fonce. C'est l'espece la plus courante en France. Elle entre dans les maisons a la recherche de sucre.</li>
-      <li><strong>Fourmi charpentiere :</strong> 6-13 mm, noire ou brun-rouge. Elle creuse des galeries dans le bois (sans le manger) et peut fragiliser les structures.</li>
-      <li><strong>Fourmi pharaon :</strong> 1,5-2 mm, jaune-brun. Tres petite, elle affectionne les environnements chauffes et humides (hopitaux, immeubles).</li>
-      <li><strong>Comportement :</strong> les fourmis suivent des pistes chimiques (pheromones) entre le nid et la source de nourriture. C'est pourquoi vous les voyez en file indienne.</li>
-    </ul>
+<div class="page-layout">
+  <div class="page-content">
 
-    <h2>Dangers et nuisances</h2>
-    <ul>
-      <li><strong>Contamination alimentaire :</strong> les fourmis parcourent des zones insalubres avant de marcher sur vos aliments, transportant des bacteries.</li>
-      <li><strong>Degats structurels :</strong> la fourmi charpentiere creuse des galeries dans le bois de charpente, les poutres et les cadres de fenetre, fragilisant la structure.</li>
-      <li><strong>Colonies massives :</strong> un nid peut contenir des dizaines de milliers d'individus. L'invasion est rarement limitee a quelques fourmis.</li>
-      <li><strong>Persistance :</strong> tant que la reine est vivante dans le nid, la colonie se regenere. Les methodes superficielles (spray, vinaigre) ne font que deplacer le probleme.</li>
-    </ul>
-
-    <h2>Signes de presence</h2>
-    <ul class="checklist">
-      <li>Files de fourmis visibles entre une source de nourriture et un point d'entree (fissure, plinthe, fenetre)</li>
-      <li>Petits tas de sciure fine pres des boiseries (signe de fourmi charpentiere)</li>
-      <li>Fourmis dans les placards de cuisine, autour des poubelles ou pres des gamelles d'animaux</li>
-      <li>Fourmis ailees a l'interieur (signe d'un nid mature pret a essaimer)</li>
-    </ul>
-
-    <h2>Solutions</h2>
-    <ul>
-      <li><strong>Mesures immediates :</strong> nettoyez les surfaces, rangez les aliments dans des boites hermetiques, colmatez les points d'entree visibles.</li>
-      <li><strong>Traitement professionnel :</strong> nous utilisons des appats gel que les ouvrieres rapportent au nid, empoisonnant la reine et toute la colonie. Cette methode est la seule qui elimine le probleme a la source.</li>
-      <li><strong>Resultat :</strong> l'elimination complete prend 1 a 3 semaines apres la pose des appats. Un seul passage suffit dans la plupart des cas.</li>
-    </ul>
-
-    <div style="background: var(--color-primary-100); border-radius: var(--radius-lg); padding: var(--space-2xl); margin-top: var(--space-2xl); text-align: center;">
-      <h2 style="margin-top: 0;">Invasion de fourmis ?</h2>
-      <p style="color: var(--color-text-muted);">Nos techniciens identifient l'espece et eliminent la colonie a la source. Resultat garanti.</p>
-      <div class="cta-double" style="justify-content: center;">
-        <a href="/devis/?nuisible=fourmis" class="btn btn-accent btn-lg">Intervention particulier →</a>
-        <a href="/devis/?nuisible=fourmis&type=pro" class="btn btn-primary btn-lg">Contrat pro →</a>
-      </div>
-    </div>
-
-    <h2>Liens utiles</h2>
-    <div class="related-links">
-      <a href="/nuisibles/termites/">Fiche Termites</a>
-      <a href="/nuisibles/">Tous les nuisibles</a>
+<section class="section-inner" id="intro-seo">
+  <h2 style="margin-top:0;">Les fourmis en France : petites mais organisées</h2>
+  <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">Avec plus de 20 espèces sur le territoire, les fourmis sont rarement dangereuses mais très envahissantes. Leur intelligence collective et leur reproduction explosive les rendent difficiles à éliminer sans traitement ciblé.</p>
+  <div class="intro-profile">
+    <div class="intro-radar-wrap"><canvas id="ficheRadar" width="220" height="220"></canvas></div>
+    <div class="intro-gauges">
+      <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Intelligence collective</span><span class="gauge-val">95/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:95%;background:#C62828;"></div></div></div>
+      <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Reproduction</span><span class="gauge-val">85/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:85%;background:#E65100;"></div></div></div>
+      <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Agilité</span><span class="gauge-val">80/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:80%;background:#F9A825;"></div></div></div>
+      <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Résistance</span><span class="gauge-val">70/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:70%;background:#C8B99A;"></div></div></div>
+      <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Discrétion</span><span class="gauge-val">60/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:60%;background:#C8B99A;"></div></div></div>
+      <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Dangerosité</span><span class="gauge-val">30/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:30%;background:#E5DED2;"></div></div></div>
     </div>
   </div>
+  <p style="color:var(--color-text-muted);font-size:14px;line-height:1.7;margin-top:var(--space-lg);">Une colonie de fourmis des jardins compte en moyenne <strong>5 000 à 15 000 individus</strong> autour d'une reine unique capable de vivre jusqu'à <strong>15 ans</strong>. La fourmi pharaon, elle, forme des super-colonies à reines multiples et peut se propager d'appartement en appartement dans un immeuble entier. Contrairement aux autres nuisibles, les fourmis <strong>ne transmettent pas de maladies graves</strong>, mais elles contaminent les aliments, creusent le bois (espèces charpentières) et s'avèrent très difficiles à éradiquer sans attaquer la reine.</p>
 </section>
+
+<section id="anatomie"><span class="section-label fade-up">Ce qui les rend imbattables</span><h2>Ce que cache leur anatomie</h2><p>La fourmi est un bijou d'évolution : communication chimique, force démultipliée, orientation infaillible. Comprendre son anatomie, c'est comprendre pourquoi les solutions grand public échouent.</p>
+  <div class="anatomy-layout"><div class="anatomy-visual"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Anatomie de la fourmi noire des jardins" style="width:100%;max-width:360px;mix-blend-mode:multiply;"><div class="anatomy-points"><button class="anat-point" data-anat="antennes" style="top:22%;left:20%;" title="Antennes">📡</button><button class="anat-point" data-anat="mandibules" style="top:35%;left:12%;" title="Mandibules">✂️</button><button class="anat-point" data-anat="tete" style="top:30%;left:25%;" title="Tête">🧠</button><button class="anat-point" data-anat="ocelles" style="top:25%;left:30%;" title="Vision">👁️</button><button class="anat-point" data-anat="pattes" style="top:72%;left:40%;" title="Pattes">🐾</button><button class="anat-point" data-anat="glandes" style="top:55%;left:55%;" title="Phéromones">🧪</button><button class="anat-point" data-anat="abdomen" style="top:48%;left:75%;" title="Abdomen">💧</button><button class="anat-point" data-anat="dard" style="top:58%;left:88%;" title="Dard">🔻</button></div></div><div class="anatomy-detail" id="anatomyDetail"><p style="color:#999;text-align:center;padding:var(--space-lg) 0;">Cliquez sur un point pour en savoir plus.</p></div></div>
+</section>
+
+<section id="identification"><span class="section-label fade-up">Étape 1 — Identification</span><h2>Quelle fourmi avez-vous ?</h2><p>Fourmi noire des jardins ou fourmi pharaon ? L'identification change tout : la noire attaque la cuisine, la pharaon envahit les immeubles entiers par les gaines électriques. Dans 70 % des cas, il s'agit de <em>Lasius niger</em>.</p>
+  <div class="species-compare">
+    <div class="species-card-v2 active" data-species="noire"><div class="species-card-visual" style="background: var(--color-pastel-mint-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi noire des jardins"><span class="badge">70% des cas</span></div><div class="species-card-body"><h3>Fourmi noire des jardins</h3><span class="latin">Lasius niger</span><div class="stars"><span class="stars-label">Nuisance</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div><div class="species-specs"><div class="spec"><span class="spec-val">3-5 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Noir brillant</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">15 ans</span><span class="spec-key">Reine</span></div><div class="spec"><span class="spec-val">5-15k</span><span class="spec-key">Colonie</span></div></div><p class="desc">Espèce dominante en France. Nids sous les pavés, dans la pelouse et le long des fondations. Pistes visibles sur murs et plans de travail. Attirée par le sucre, le miel et les restes alimentaires.</p></div></div>
+    <div class="species-card-v2" data-species="pharaon"><div class="species-card-visual" style="background: #FFF3E7;"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi pharaon" style="filter: sepia(0.6) hue-rotate(-10deg) saturate(1.4);"><span class="badge">15% des cas</span></div><div class="species-card-body"><h3>Fourmi pharaon</h3><span class="latin">Monomorium pharaonis</span><div class="stars"><span class="stars-label">Nuisance</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div><div class="species-specs"><div class="spec"><span class="spec-val">1,5-2 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Jaune/brun</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">1 an</span><span class="spec-key">Reine</span></div><div class="spec"><span class="spec-val">300k+</span><span class="spec-key">Super-colonie</span></div></div><p class="desc">Super-colonies à reines multiples (jusqu'à 200 reines !). Envahit immeubles, hôpitaux, cuisines collectives via gaines électriques et plomberie. Très difficile à éradiquer : un traitement mal ciblé la fait « bourgeonner » en plusieurs colonies filles.</p></div></div>
+  </div>
+  <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Une fourmi peut porter <strong>50 fois son poids</strong> et parcourir jusqu'à <strong>200 mètres</strong> de son nid pour chercher de la nourriture. Si vous voyez une seule fourmi en cuisine, il y en a déjà des milliers à moins de 10 mètres.</p></div>
+  <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3><p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Comparez avec ce que vous observez chez vous.</p>
+  <div class="signs-grid">
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/rat-traces-graisseuses-photo.jpg" alt="Piste de fourmis — file indienne" loading="lazy"><h4>Pistes (files)</h4><p>File indienne continue, du nid à la source de nourriture.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/rat-nid-photo.jpg" alt="Monticule de terre — fourmilière" loading="lazy"><h4>Monticules de terre</h4><p>Petits tas fins, entre pavés, dans la pelouse, sur la terrasse.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/rat-crottes-photo.jpg" alt="Corps de fourmis mortes" loading="lazy"><h4>Corps de fourmis</h4><p>Ouvrières mortes accumulées près d'une fenêtre ou plinthe.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/rat-cable-ronge-photo.jpg" alt="Bois grignoté par fourmi charpentière" loading="lazy"><h4>Bois grignoté</h4><p>Sciure très fine au pied d'une poutre — fourmi charpentière.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/rat-empreintes-photo.jpg" alt="Ailes de fourmis — essaimage" loading="lazy"><h4>Ailes au sol</h4><p>Essaimage de juin-juillet : les reines arrivent et s'installent.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/rat-odeur-photo.jpg" alt="Odeur sucrée — miellat de pucerons" loading="lazy"><h4>Odeur sucrée</h4><p>Miellat de pucerons sur les plantes : les fourmis « élèvent » les pucerons.</p></div>
+  </div>
+</section>
+
+<section id="dangers"><span class="section-label fade-up">Étape 2 — Risques &amp; nuisances</span><h2>Ce que les fourmis font vraiment chez vous</h2><p>Contrairement aux rats ou cafards, les fourmis ne transmettent pas de maladies graves. Leur nuisance est ailleurs : contamination alimentaire, dégâts structurels pour les charpentières, et incapacité à les éliminer durablement sans traitement pro.</p>
+  <div class="risk-tabs"><button class="risk-tab active" data-tab="nocturne">🐜 Ce qu'elles font au quotidien</button><button class="risk-tab" data-tab="maladies">🦠 Risques sanitaires</button><button class="risk-tab" data-tab="degats">🔧 Dégâts matériels</button></div>
+  <div class="risk-tab-content active" id="tab-nocturne"><div class="danger-facts"><div class="danger-fact"><div class="danger-fact-num">1 500</div><div class="danger-fact-text"><strong>œufs pondus par jour par une reine</strong><span>Une fourmi pharaon peut pondre 3 500 œufs/jour. Éliminer les ouvrières ne sert à rien : la reine repeuple en quelques heures.</span></div></div><div class="danger-fact"><div class="danger-fact-num">200 m</div><div class="danger-fact-text"><strong>de rayon d'exploration</strong><span>Une fourmi marque des pistes de phéromones à 200 m de son nid. Elle ramène tout ce qui se mange à la colonie.</span></div></div><div class="danger-fact"><div class="danger-fact-num">∞</div><div class="danger-fact-text"><strong>Apprentissage collectif</strong><span>Les fourmis se passent l'info. Un appât mal dosé ? La colonie l'évite en 24h. Un passage bouché ? Elles en créent un autre.</span></div></div></div></div>
+  <div class="risk-tab-content" id="tab-maladies"><div class="disease-grid"><div class="disease-card moderate"><div class="disease-header"><span class="disease-severity">●○○</span><strong>Contamination alimentaire</strong><span class="disease-tag moderate">Risque modéré</span></div><p>Les fourmis transportent poussières, bactéries et résidus depuis les poubelles, canalisations ou cadavres d'insectes jusqu'à vos plans de travail et aliments.</p><span class="disease-stat">Salmonelles, E. coli — rarement graves</span></div><div class="disease-card moderate"><div class="disease-header"><span class="disease-severity">●○○</span><strong>Réactions allergiques</strong><span class="disease-tag moderate">Risque modéré</span></div><p>Certaines espèces (fourmi rouge, fourmi de feu) injectent de l'acide formique. Piqûres douloureuses, rougeurs, rarement chocs allergiques chez les personnes sensibles.</p><span class="disease-stat">&lt; 1 % de réactions sévères</span></div><div class="disease-card moderate"><div class="disease-header"><span class="disease-severity">●○○</span><strong>Vecteurs mécaniques de bactéries</strong><span class="disease-tag moderate">Risque modéré</span></div><p>En milieu hospitalier, la fourmi pharaon est un vecteur avéré de bactéries nosocomiales (staphylocoque, pseudomonas) entre chambres et équipements.</p><span class="disease-stat">Problème majeur en collectivités</span></div><div class="disease-card moderate"><div class="disease-header"><span class="disease-severity">●○○</span><strong>Pas de risque majeur</strong><span class="disease-tag moderate">Risque modéré</span></div><p>Contrairement aux rats, souris ou cafards, les fourmis ne transmettent pas de maladies graves aux humains. La nuisance est surtout alimentaire, matérielle et psychologique.</p><span class="disease-stat">Risque sanitaire faible en habitation</span></div></div></div>
+  <div class="risk-tab-content" id="tab-degats"><div class="damage-row"><div class="damage-item"><span class="damage-icon">⚡</span><div><strong>Courts-circuits</strong><span>Les fourmis s'installent dans les prises, disjoncteurs, climatiseurs. Cadavres accumulés + humidité = panne électrique.</span></div></div><div class="damage-item"><span class="damage-icon">🪵</span><div><strong>Bois creusé</strong><span>La fourmi charpentière creuse galeries et tunnels dans les charpentes, poutres et ossatures bois humides. Dégâts structurels possibles.</span></div></div><div class="damage-item"><span class="damage-icon">🧱</span><div><strong>Terrasses affaissées</strong><span>Les colonies sous pavés évacuent la terre et créent des vides : pavés qui s'enfoncent, dalles qui basculent, bordures déchaussées.</span></div></div></div></div>
+</section>
+
+<section id="simulateur"><span class="section-label fade-up">Étape 3 — Prolifération</span><h2>Comment grandit une colonie ?</h2><p>Une reine seule fonde une colonie en 2-3 ans. Avec un environnement favorable (chaleur, nourriture, humidité), la croissance devient exponentielle.</p>
+  <div class="prolif-2col">
+    <div class="prolif-box-inputs"><h4 style="margin:0 0 var(--space-md);font-size:15px;">Votre situation</h4><div class="prolif-config-inner"><div class="prolif-config-item"><span class="prolif-config-label">Logement</span><div class="prolif-pills" id="cfgLogement"><button class="prolif-pill active" data-val="appart">🏢 Appartement</button><button class="prolif-pill" data-val="maison">🏠 Maison + jardin</button></div></div><div class="prolif-config-item"><span class="prolif-config-label">Exposition</span><div class="prolif-pills" id="cfgSecteur"><button class="prolif-pill" data-val="ombre">🌑 Ombragée</button><button class="prolif-pill active" data-val="mixte">🌤️ Mixte</button><button class="prolif-pill" data-val="soleil">☀️ Ensoleillée</button></div></div><div class="prolif-config-item"><span class="prolif-config-label">Nourriture accessible</span><div class="prolif-pills" id="cfgFood"><button class="prolif-pill" data-val="peu">Peu</button><button class="prolif-pill active" data-val="moyen">Moyen</button><button class="prolif-pill" data-val="beaucoup">Beaucoup</button></div></div><div class="prolif-config-item"><span class="prolif-config-label">Ouvrières visibles</span><div class="prolif-pills" id="cfgInitial"><button class="prolif-pill active" data-val="10">10</button><button class="prolif-pill" data-val="50">50</button><button class="prolif-pill" data-val="200">200</button><button class="prolif-pill" data-val="500">500+</button></div></div></div><div style="margin-top:var(--space-lg);"><span class="prolif-config-label">Projection dans le temps</span><input type="range" id="prolifSlider" min="0" max="11" value="0" style="width:100%;margin-top:6px;"><div class="prolif-months-bar"><span>M1</span><span>M3</span><span>M6</span><span>M9</span><span>M12</span></div></div></div>
+    <div class="prolif-box-results" id="prolifResultsBox"><div class="prolif-result-header"><span class="prolif-month-label" id="prolifMonth">MOIS 1</span><span class="prolif-pop-count" id="prolifCount">10 fourmis</span></div><div class="prolif-visual" id="prolifVisual"><div class="prolif-rats" id="prolifRats"></div></div><div class="prolif-stats-compact"><div><strong id="pImpactCrottes">10</strong><span>ouvrières actives</span></div><div><strong id="pImpactCost">0 €</strong><span>dégâts estimés</span></div><div><strong id="pImpactFood">0 g</strong><span>nourriture pillée/j</span></div></div><div class="prolif-alert" id="prolifAlert"><span class="prolif-alert-icon">✓</span><span class="prolif-alert-text">Situation maîtrisable.</span></div><div class="prolif-cta" id="prolifCta" style="display:none;"><a href="/devis/?nuisible=fourmis" class="btn btn-primary" style="width:100%;">Intervenir maintenant <span class="btn-arrow"></span></a></div></div>
+  </div>
+</section>
+
+<section id="zones"><span class="section-label fade-up">Étape 4 — Votre maison</span><h2>Où s'installent les fourmis chez vous ?</h2><p>Les fourmis exploitent deux zones principales : la <strong>cuisine</strong> (sucre, miettes, arrivée d'eau) et le <strong>jardin</strong> (pelouse, pavés, plantes à pucerons). Entre les deux, elles tracent des autoroutes de phéromones le long des plinthes, joints de carrelage et fissures de façade.</p>
+  <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-md);"><button class="btn btn-outline" id="houseDayBtn" style="font-size:12px;padding:6px 16px;" onclick="setHouseMode('day')">☀️ Jour</button><button class="btn btn-outline" id="houseNightBtn" style="font-size:12px;padding:6px 16px;" onclick="setHouseMode('night')">🐜 Voir les pistes</button></div>
+  <div class="house-wrap" id="houseWrap"><svg viewBox="0 0 900 550" id="houseSvg" aria-label="Coupe de maison — zones d'invasion fourmis"></svg><div class="house-tooltip" id="houseTooltip"></div></div>
+  <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Les fourmis suivent des pistes chimiques. Si vous nettoyez au vinaigre une seule piste visible, elles en créent une nouvelle en <strong>moins d'une heure</strong>. Seul un traitement à la source (reine et couvain) stoppe les va-et-vient.</p></div>
+</section>
+
+<section id="evaluation"><span class="section-label fade-up">Votre situation</span><h2>Votre score de risque personnel</h2><p>Évaluez la vulnérabilité de votre logement face aux invasions de fourmis en 8 points.</p>
+  <div class="risk-check-layout">
+    <div class="risk-checklist" id="riskChecklist">
+      <label class="risk-check-item"><input type="checkbox" data-score="15" checked> Fourmis vues en cuisine</label>
+      <label class="risk-check-item"><input type="checkbox" data-score="15" checked> Pistes visibles sur le sol ou les murs</label>
+      <label class="risk-check-item"><input type="checkbox" data-score="12"> Trous ou fissures dans la façade</label>
+      <label class="risk-check-item"><input type="checkbox" data-score="10"> Pelouse ou terrasse avec monticules de terre</label>
+      <label class="risk-check-item"><input type="checkbox" data-score="10"> Jardin avec plantes infestées de pucerons</label>
+      <label class="risk-check-item"><input type="checkbox" data-score="12" checked> Restes de nourriture ou sucre accessibles</label>
+      <label class="risk-check-item"><input type="checkbox" data-score="13"> Humidité persistante dans la maison (charpentières)</label>
+      <label class="risk-check-item"><input type="checkbox" data-score="13"> Invasions déjà traitées sans succès</label>
+    </div>
+    <div class="risk-result-box"><svg class="risk-score-svg" viewBox="0 0 240 140"><path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#E5E5E5" stroke-width="14" stroke-linecap="round"/><path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#4CAF50" stroke-width="14" stroke-linecap="round" id="riskArc" stroke-dasharray="314" stroke-dashoffset="314"/><text x="120" y="105" text-anchor="middle" font-size="36" font-weight="700" fill="var(--color-primary-900)" id="riskScoreText">0</text><text x="120" y="125" text-anchor="middle" font-size="12" fill="#999">/100</text></svg><div class="risk-verdict"><h3 id="riskVerdictTitle">Faible</h3><p id="riskVerdictDesc">Cochez les cases pour évaluer votre risque.</p></div><div id="riskCta" style="display:none;margin-top:var(--space-md);"><a href="/devis/?nuisible=fourmis" class="btn btn-primary" style="width:100%;font-size:14px;">Demander un diagnostic gratuit <span class="btn-arrow"></span></a></div></div>
+  </div>
+</section>
+
+<section id="calendrier"><span class="section-label fade-up">Saisonnalité</span><h2>Quand agir ? Le calendrier des fourmis</h2><p>Les fourmis sont dormantes l'hiver et explosent d'activité d'avril à septembre. Le printemps (mars-mai) est le moment idéal pour traiter : la colonie sort d'hibernation et les appâts sont ramenés intensivement à la reine.</p><div class="calendar-grid" id="calendarGrid"></div></section>
+
+<section id="methodes"><span class="section-label fade-up">Solutions</span><h2>Quelle méthode choisir ?</h2><p>Appâts gel, pulvérisations, barrières répulsives ou intervention professionnelle : comparaison objective.</p>
+  <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-lg);"><button class="method-filter active" data-level="all" onclick="filterMethods('all')">Toutes</button><button class="method-filter" data-level="light" onclick="filterMethods('light')">Quelques fourmis</button><button class="method-filter" data-level="medium" onclick="filterMethods('medium')">Invasion moyenne</button><button class="method-filter" data-level="severe" onclick="filterMethods('severe')">Colonie importante</button></div>
+  <div class="methods-grid">
+    <div class="method-card" data-level="light"><h4>🧴 Répulsifs naturels</h4><div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:30%;background:#F44336;"></div></div></div><div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:50%;background:#FF9800;"></div></div></div><div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div><p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Vinaigre blanc, citron, marc de café, craie. Bons pour brouiller les pistes temporairement. N'éliminent jamais la colonie ni la reine.</p></div>
+    <div class="method-card" data-level="medium"><h4>💧 Appâts gel grand public</h4><div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:65%;background:#FF9800;"></div></div></div><div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:60%;background:#FF9800;"></div></div></div><div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:70%;background:#4CAF50;"></div></div></div><p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Appâts à transfert (spinosad, imidaclopride). Efficaces si bien placés près des pistes actives. Attention aux animaux domestiques et enfants.</p></div>
+    <div class="method-card recommended" data-level="severe"><h4>🛡️ Intervention professionnelle</h4><div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div><div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:85%;background:#4CAF50;"></div></div></div><div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div><p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Identification de l'espèce, repérage des nids, appâts gel pros à transfert ciblés reine, colmatage des accès. Seule solution durable pour les super-colonies.</p></div>
+  </div>
+</section>
+
+<section id="protocole"><span class="section-label fade-up">Plan d'action</span><h2>Le protocole étape par étape</h2><p>5 étapes pour éliminer durablement les fourmis de votre logement.</p>
+  <div class="protocol-steps" id="protocolSteps">
+    <div class="protocol-step"><h4>Diagnostiquer</h4><label class="protocol-check"><input type="checkbox"> Identifier l'espèce (noire, pharaon, charpentière)</label><label class="protocol-check"><input type="checkbox"> Localiser les pistes et points d'entrée</label><label class="protocol-check"><input type="checkbox"> Repérer les nids (intérieur ou extérieur)</label></div>
+    <div class="protocol-step"><h4>Sécuriser</h4><label class="protocol-check"><input type="checkbox"> Stocker sucre, miel, fruits dans contenants hermétiques</label><label class="protocol-check"><input type="checkbox"> Nettoyer miettes, restes et plans de travail chaque soir</label><label class="protocol-check"><input type="checkbox"> Vérifier gamelles d'animaux et poubelles</label></div>
+    <div class="protocol-step"><h4>Traiter à la source</h4><label class="protocol-check"><input type="checkbox"> Placer des appâts gel sur les pistes actives</label><label class="protocol-check"><input type="checkbox"> Ne surtout pas écraser les ouvrières (elles doivent ramener l'appât)</label><label class="protocol-check"><input type="checkbox"> Contacter un professionnel si la reine n'est pas atteinte sous 7 jours</label></div>
+    <div class="protocol-step"><h4>Surveiller</h4><label class="protocol-check"><input type="checkbox"> Compter les ouvrières sur les pistes chaque jour</label><label class="protocol-check"><input type="checkbox"> Renouveler les appâts toutes les 2 semaines</label></div>
+    <div class="protocol-step"><h4>Prévenir</h4><label class="protocol-check"><input type="checkbox"> Colmater fissures de façade et joints de fenêtres</label><label class="protocol-check"><input type="checkbox"> Traiter les pucerons du jardin (source de miellat)</label><label class="protocol-check"><input type="checkbox"> Maintenir un périmètre sec autour des fondations</label></div>
+  </div>
+</section>
+
+<section id="quiz"><span class="section-label fade-up">Auto-diagnostic</span><h2>Votre invasion est-elle sérieuse ?</h2><p>8 questions pour un diagnostic personnalisé.</p>
+  <div class="quiz-container" id="quizContainer"><div class="quiz-progress" id="quizProgress"></div><div id="quizBody"><p class="quiz-question" id="quizQuestion"></p><div class="quiz-options" id="quizOptions"></div></div><div class="quiz-result" id="quizResult"><div class="score-circle" id="quizScoreCircle"></div><h3 id="quizVerdictTitle"></h3><p id="quizVerdictDesc"></p><div style="display:flex;gap:var(--space-md);justify-content:center;margin-top:var(--space-xl);flex-wrap:wrap;"><button class="btn btn-outline" id="quizRestart">Recommencer</button><a href="/devis/?nuisible=fourmis" class="btn btn-primary">Diagnostic gratuit <span class="btn-arrow"></span></a></div></div></div>
+</section>
+
+<section id="cout"><span class="section-label fade-up">L'enjeu financier</span><h2>Ce que coûte une invasion négligée</h2><p>Les fourmis ne coûtent pas cher au départ. Mais une fourmi charpentière négligée peut endommager durablement une charpente, et une super-colonie de pharaons peut faire fuir vos clients si vous êtes restaurateur.</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-sm);margin-bottom:var(--space-xl);"><div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;"><div style="font-size:20px;margin-bottom:4px;">🍯</div><div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">50 – 200 €</div><div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Aliments contaminés</div></div><div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;"><div style="font-size:20px;margin-bottom:4px;">⚡</div><div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">100 – 600 €</div><div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Électroménager en panne</div></div><div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;"><div style="font-size:20px;margin-bottom:4px;">🪵</div><div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">800 – 5 000 €</div><div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Charpente attaquée</div></div><div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;"><div style="font-size:20px;margin-bottom:4px;">🧱</div><div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">300 – 1 500 €</div><div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Terrasse à refaire</div></div></div>
+  <div class="cost-layout"><div><canvas id="costChart" height="200"></canvas></div><div class="cost-highlight"><div class="big" id="costRoi">15:1</div><div class="label">Retour sur investissement</div><div class="cost-slider-wrap"><label>Mois d'intervention : <strong id="costMonthVal">3</strong></label><input type="range" id="costMonthSlider" min="1" max="12" value="3" style="max-width:200px;"><div class="cost-savings" id="costSavings">Vous économisez ~600 €</div></div></div></div>
+</section>
+
+<section id="faq"><span class="section-label fade-up">Questions fréquentes</span><h2>Les vraies réponses, sans détour</h2><p>Les questions les plus posées sur les fourmis.</p>
+  <div class="accordion-list" id="faqAccordion">
+    <div class="accordion-item"><button class="accordion-header">Comment identifier une fourmi charpentière ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">La fourmi charpentière (<em>Camponotus</em>) mesure 6 à 15 mm — bien plus grande que la fourmi des jardins. Elle est noire ou brun foncé avec un abdomen plus large. Indice clé : de petits tas de sciure très fine au pied d'une poutre, d'un encadrement de fenêtre ou d'un plancher humide.</div></div></div>
+    <div class="accordion-item"><button class="accordion-header">Les traitements ménagers (vinaigre, bicarbonate) marchent-ils ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Ces astuces masquent les pistes de phéromones quelques heures mais ne tuent pas la reine. Les fourmis contournent et reviennent en 24 à 48h. Efficacité réelle sur le long terme : moins de 10 %.</div></div></div>
+    <div class="accordion-item"><button class="accordion-header">Pourquoi les fourmis reviennent-elles toujours ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Parce que la reine n'a pas été touchée. Les ouvrières visibles ne représentent que 10 à 20 % de la colonie. Tant que la reine pond (1 500 œufs/jour), les effectifs se reconstituent en quelques jours. Seul un appât à transfert ramené au nid élimine la colonie.</div></div></div>
+    <div class="accordion-item"><button class="accordion-header">Les fourmis peuvent-elles s'installer dans les murs ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Oui. Les charpentières creusent le bois humide des cloisons. Les pharaons exploitent les gaines électriques, les cavités des cloisons sèches et la plomberie. Les noires peuvent s'infiltrer dans l'isolant, surtout si un pont thermique leur apporte de la chaleur.</div></div></div>
+    <div class="accordion-item"><button class="accordion-header">Combien coûte un traitement professionnel fourmis ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Entre 120 € et 350 € pour un logement standard. La fourchette haute concerne les super-colonies de pharaons en immeuble ou les charpentières avec intervention sur charpente. Ce coût reste très inférieur aux dégâts structurels d'une infestation ignorée.</div></div></div>
+    <div class="accordion-item"><button class="accordion-header">Les appâts gel sont-ils dangereux pour les animaux domestiques ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Les appâts gel professionnels sont placés dans des zones inaccessibles (derrière plinthes, sous meubles, boîtiers protégés) et contiennent des principes actifs à faible toxicité aiguë. Un technicien Certibiocide connaît les précautions spécifiques aux foyers avec animaux ou jeunes enfants.</div></div></div>
+  </div>
+</section>
+
+<section id="action" style="border-bottom:none;">
+  <div class="final-cta"><h2>Vous savez maintenant. Il est temps d'agir.</h2><p>Diagnostic gratuit en 2 minutes. Réponse sous 2h. Intervention sous 48h.</p><a href="/devis/?nuisible=fourmis" class="btn btn-primary btn-lg">Obtenir mon diagnostic gratuit <span class="btn-arrow"></span></a><div class="trust-badges"><span>✓ Sans engagement</span><span>✓ Techniciens certifiés</span><span>✓ Intervention sous 48h</span></div></div>
+</section>
+
+  </div>
+
+  <div class="sidebar-wrap">
+    <div class="sidebar-card"><div class="sidebar-visual"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi noire des jardins"></div><div class="sidebar-body"><h3>Fourmi noire</h3><span class="sidebar-badge">70% des cas</span><span class="sidebar-latin">Lasius niger</span><div class="sidebar-stats"><div><span class="sidebar-stat-val">10 000</span><span class="sidebar-stat-label">individus/colonie</span></div><div><span class="sidebar-stat-val">1 500/j</span><span class="sidebar-stat-label">œufs pondus</span></div><div><span class="sidebar-stat-val">15 ans</span><span class="sidebar-stat-label">vie d'une reine</span></div><div><span class="sidebar-stat-val">200 m</span><span class="sidebar-stat-label">rayon exploration</span></div></div><div class="sidebar-cta"><a href="/devis/?nuisible=fourmis" class="btn btn-primary">Devis désinsectisation <span class="btn-arrow"></span></a><span class="sidebar-offer"><span class="pulse-dot"></span> 1ère intervention offerte</span></div></div></div>
+    <a href="#quiz" class="sidebar-quiz">Avez-vous une invasion sérieuse ? Faites le test →</a>
+  </div>
+</div>
+
+<section class="section" id="cohabitants"><div class="container"><h2>Les nuisibles qui cohabitent souvent avec les fourmis</h2><p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">Un logement accueillant pour les fourmis l'est souvent aussi pour d'autres insectes opportunistes.</p>
+  <div class="nuisibles-grid">
+    <a href="/nuisibles/cafards/" class="card-nuisible pastel-peach"><div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cafard"></div><div class="card-nuisible-info"><h3>Cafards</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+    <a href="/nuisibles/mites-alimentaires/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><img src="/assets/nuisibles/pantry-moth--realistic-body-shape.png" alt="Mite alimentaire" onerror="this.style.display='none';"></div><div class="card-nuisible-info"><h3>Mites alimentaires</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+    <a href="/nuisibles/guepes-frelons/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="Guêpe"></div><div class="card-nuisible-info"><h3>Guêpes &amp; Frelons</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+    <a href="/nuisibles/moustiques/" class="card-nuisible pastel-green"><div class="card-nuisible-visual"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="Moustique"></div><div class="card-nuisible-info"><h3>Moustiques</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+  </div>
+</div></section>
 
 <div data-component="certifications">
 <div class="container" style="margin-top:var(--space-2xl);margin-bottom:var(--space-2xl);">
@@ -370,6 +792,77 @@
   <a href="tel:0667464897" class="btn btn-outline"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler</a>
 </div>
 </div>
+
+<div class="lightbox" id="lightbox"><img alt=""></div>
+<button id="backToTop" class="back-to-top" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">↑</button>
+
 <script src="/js/app.js"></script>
+<script>
+function updateSliderFill(el){const p=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right,#C8B99A 0%,#C8B99A '+p+'%,#E5E5E5 '+p+'%,#E5E5E5 100%)';}
+const DATA={
+  calendar:[
+    {month:'Jan',activity:1,reproduction:1,intrusion:1,treatment:'Moyen'},
+    {month:'Fév',activity:1,reproduction:1,intrusion:1,treatment:'Moyen'},
+    {month:'Mar',activity:3,reproduction:3,intrusion:2,treatment:'Optimal'},
+    {month:'Avr',activity:4,reproduction:4,intrusion:4,treatment:'Optimal'},
+    {month:'Mai',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},
+    {month:'Jun',activity:5,reproduction:5,intrusion:5,treatment:'Bon'},
+    {month:'Jul',activity:5,reproduction:4,intrusion:5,treatment:'Bon'},
+    {month:'Aoû',activity:5,reproduction:3,intrusion:5,treatment:'Bon'},
+    {month:'Sep',activity:4,reproduction:2,intrusion:4,treatment:'Optimal'},
+    {month:'Oct',activity:3,reproduction:1,intrusion:2,treatment:'Bon'},
+    {month:'Nov',activity:2,reproduction:1,intrusion:1,treatment:'Moyen'},
+    {month:'Déc',activity:1,reproduction:1,intrusion:1,treatment:'Moyen'}
+  ],
+  quiz:[
+    {q:'Voyez-vous des fourmis en cuisine chaque jour ?',opts:['Oui','Non','Parfois'],scores:[3,0,1]},
+    {q:'Y a-t-il des pistes (files indiennes) le long des murs ou plinthes ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Avez-vous repéré un ou plusieurs monticules de terre dehors ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},
+    {q:'Des fourmis apparaissent-elles aussi la nuit ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Voyez-vous de la sciure très fine près d\'une poutre ou plinthe ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Avez-vous des plantes infestées de pucerons au jardin ?',opts:['Oui','Non'],scores:[2,0]},
+    {q:'Avez-vous déjà traité sans résultat durable ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Sentez-vous une odeur sucrée ou acide inhabituelle ?',opts:['Oui','Non'],scores:[2,0]}
+  ],
+  houseZones:[
+    {x:160,y:260,label:'Plinthes cuisine',desc:'Autoroute principale. Les fourmis longent les plinthes en file indienne depuis une fissure extérieure jusqu\'au sucrier.'},
+    {x:240,y:240,label:'Sucrier / pot de miel',desc:'Point d\'arrivée des pistes. Sucre, miel, fruits ouverts, bonbons : tout ce qui est sucré les attire en quelques heures.'},
+    {x:300,y:370,label:'Miettes au sol',desc:'Sous la table, autour de la gamelle du chien : sources d\'attraction n°1 pour une colonie en quête de protéines et glucides.'},
+    {x:420,y:320,label:'Arrivée d\'eau évier',desc:'Fuites et condensation sous l\'évier attirent les fourmis. Elles installent parfois un nid satellite dans l\'isolation humide.'},
+    {x:560,y:350,label:'Fissure de façade',desc:'Porte d\'entrée n°1. La moindre fissure (1 mm suffit !) est exploitée. Les fourmis s\'orientent via les phéromones des éclaireuses.'},
+    {x:690,y:385,label:'Pavés de terrasse',desc:'Nid typique de la fourmi noire : sable fin évacué entre les joints, colonie de 5 000 à 15 000 individus sous une dalle.'},
+    {x:760,y:460,label:'Pelouse — monticules',desc:'Petits tas de terre fine, ronds, au milieu de la pelouse. Fourmilière active — reine installée à 20-40 cm de profondeur.'},
+    {x:200,y:450,label:'Écorce d\'arbre',desc:'Les fourmis charpentières creusent le bois mort. Cherchez les petits tas de sciure fine au pied du tronc ou dans les cavités.'},
+    {x:550,y:460,label:'Bac à compost',desc:'Décomposition + humidité = paradis des fourmis. Un compost à 5 m de la maison devient une base arrière pour les invasions.'},
+    {x:130,y:200,label:'Plantes d\'intérieur',desc:'Une plante avec cochenilles ou pucerons héberge des fourmis qui « élèvent » ces insectes pour leur miellat sucré.'},
+    {x:470,y:220,label:'Boîtier électrique',desc:'Fourmi pharaon : niche dans les gaines et disjoncteurs. Chaleur + circuits = environnement parfait, risque de court-circuit.'},
+    {x:620,y:270,label:'Encadrement fenêtre',desc:'Bois humide autour des fenêtres : cible des fourmis charpentières. Peinture écaillée + condensation = alerte.'},
+    {x:350,y:140,label:'Combles — poutres',desc:'Poutres humides suite à fuite de toiture : terrain idéal pour les charpentières. Inspection annuelle recommandée.'},
+    {x:740,y:180,label:'Tuiles — mousse',desc:'Sous les tuiles, la mousse retient l\'humidité. Les fourmis créent des galeries dans la laine de verre des combles.'}
+  ]
+};
+document.addEventListener('DOMContentLoaded',()=>{initScrollAnimations();initSimulator();initHouseZones();initAnatomy();initRiskGauges();initCalendar();initQuiz();initCostChart();initCostSlider();initProtocol();initLightbox();initAccordions();initRiskTabs();initBackToTop();initStepNav();var c=document.querySelector('.step-crumb-current');if(c)c.addEventListener('click',function(){var d=document.querySelector('.step-crumb-dropdown');if(d)d.style.display=d.style.display==='block'?'none':'block';});if(typeof initFicheRadar==="function")initFicheRadar();initHeroCounters();});
+function initSimulator(){const s=document.getElementById('prolifSlider');if(!s)return;const cfg={logement:'appart',secteur:'mixte',food:'moyen',initial:10};document.querySelectorAll('.prolif-pills').forEach(g=>{g.querySelectorAll('.prolif-pill').forEach(p=>{p.addEventListener('click',()=>{g.querySelectorAll('.prolif-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');const id=g.id;if(id==='cfgLogement')cfg.logement=p.dataset.val;if(id==='cfgSecteur')cfg.secteur=p.dataset.val;if(id==='cfgFood')cfg.food=p.dataset.val;if(id==='cfgInitial')cfg.initial=+p.dataset.val;recompute();});});});let pop=[];function recompute(){const fm={peu:0.5,moyen:0.9,beaucoup:1.3}[cfg.food];const sm={ombre:0.8,mixte:1.0,soleil:1.2}[cfg.secteur];const lm=cfg.logement==='maison'?1.3:0.85;const bm=fm*sm*lm;pop=[cfg.initial];for(let m=1;m<12;m++){const p=pop[m-1];const seasonal=[0.6,0.6,1.0,1.2,1.4,1.5,1.5,1.4,1.2,0.9,0.7,0.6][m];const growth=0.22*bm*seasonal;const d=p*0.02;pop.push(Math.max(cfg.initial,Math.round(p*(1+growth)-d)));}update(+s.value);}function update(m){const p=pop[m]||cfg.initial;document.getElementById('prolifMonth').textContent='Mois '+(m+1);const c=document.getElementById('prolifCount');c.textContent=p.toLocaleString('fr-FR')+' fourmis';c.classList.toggle('danger',p>1000);const mx=400;const visPop=Math.min(mx,Math.round(p/10));let h='';for(let i=0;i<visPop;i++)h+='<span class="rat-icon" style="animation-delay:'+(i*0.003)+'s">🐜</span>';if(p>mx*10)h+='<span class="rat-overflow">+'+(p-mx*10).toLocaleString('fr-FR')+'</span>';document.getElementById('prolifRats').innerHTML=h;const rb=document.getElementById('prolifResultsBox');if(rb)rb.classList.toggle('critical',p>2000);document.getElementById('pImpactCrottes').textContent=Math.round(p*0.2).toLocaleString('fr-FR');document.getElementById('pImpactCost').textContent=Math.round(p*0.05).toLocaleString('fr-FR')+' €';document.getElementById('pImpactFood').textContent=Math.round(p*0.02)+' g';const a=document.getElementById('prolifAlert');const ic=a.querySelector('.prolif-alert-icon');const tx=a.querySelector('.prolif-alert-text');const ct=document.getElementById('prolifCta');const l=cfg.logement==='maison'?'votre maison et jardin':'votre appartement';if(p<=50){a.className='prolif-alert level-ok';ic.textContent='✓';tx.textContent='Situation maîtrisable. Colmatez les accès et placez des appâts à transfert.';ct.style.display='none';}else if(p<=500){a.className='prolif-alert level-warn';ic.textContent='⚠️';tx.textContent=p+' fourmis dans '+l+'. Les pistes s\'installent, la colonie se structure.';ct.style.display='none';}else if(p<=3000){a.className='prolif-alert level-danger';ic.textContent='🚨';tx.textContent=p.toLocaleString('fr-FR')+' fourmis. Colonie bien établie — appâts grand public insuffisants.';ct.style.display='block';}else{a.className='prolif-alert level-critical';ic.textContent='☠️';tx.textContent=p.toLocaleString('fr-FR')+' fourmis. Super-colonie. Intervention professionnelle indispensable pour atteindre la reine.';ct.style.display='block';}updateSliderFill(s);}s.addEventListener('input',()=>update(+s.value));updateSliderFill(s);recompute();}
+function initHouseZones(){const svg=document.getElementById('houseSvg');if(!svg)return;let h='<rect x="0" y="0" width="900" height="550" fill="#F0F4F8" rx="12"/><rect x="0" y="510" width="900" height="40" fill="#C5B9A8"/><rect x="70" y="395" width="760" height="115" fill="#DDD5C5"/><rect x="70" y="395" width="20" height="115" fill="#B8AD9A"/><rect x="810" y="395" width="20" height="115" fill="#B8AD9A"/><rect x="660" y="395" width="180" height="30" fill="#B8A888" opacity="0.5"/><text x="85" y="418" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">TERRASSE &amp; JARDIN</text><rect x="670" y="395" width="20" height="10" fill="#9A8870"/><rect x="695" y="395" width="20" height="10" fill="#9A8870"/><rect x="720" y="395" width="20" height="10" fill="#9A8870"/><rect x="745" y="395" width="20" height="10" fill="#9A8870"/><rect x="770" y="395" width="20" height="10" fill="#9A8870"/><circle cx="760" cy="480" r="18" fill="#8B6F3A" opacity="0.5"/><circle cx="760" cy="475" r="10" fill="#A88855"/><rect x="150" y="420" width="80" height="50" fill="#6B4A2A" rx="4" opacity="0.8"/><ellipse cx="190" cy="415" rx="40" ry="18" fill="#4CAF50"/><path d="M 185 400 Q 180 380 190 370 Q 200 380 195 400 Z" fill="#2E7D32"/><rect x="520" y="430" width="70" height="40" fill="#8B6F3A" rx="3"/><rect x="525" y="425" width="60" height="10" fill="#A88855" rx="2"/><rect x="50" y="385" width="800" height="10" fill="#A09080"/><rect x="70" y="210" width="760" height="175" fill="#F5EFE3"/><rect x="70" y="210" width="20" height="175" fill="#D5CFC0"/><rect x="810" y="210" width="20" height="175" fill="#D5CFC0"/><rect x="340" y="210" width="8" height="175" fill="#D5CFC0"/><rect x="620" y="210" width="8" height="175" fill="#D5CFC0"/><text x="160" y="235" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">CUISINE</text><rect x="100" y="300" width="150" height="60" fill="#E8E0D0" rx="3"/><rect x="100" y="295" width="150" height="8" fill="#C0B8A0" rx="2"/><rect x="210" y="300" width="40" height="60" fill="#D4C8A8" stroke="#B0A08A" stroke-width="1" rx="2"/><rect x="225" y="225" width="20" height="20" fill="#F4E9C1" rx="3"/><rect x="270" y="340" width="80" height="35" fill="#C0D4E8" rx="3"/><ellipse cx="310" cy="358" rx="25" ry="8" fill="#7BA7D4"/><text x="420" y="235" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">SALON</text><rect x="400" y="340" width="120" height="35" fill="#CEC9C0" rx="6"/><rect x="540" y="310" width="60" height="55" fill="#EFDFF6" rx="4"/><rect x="460" y="215" width="30" height="55" fill="#D0E8F8" rx="2" stroke="#B0B0B0" stroke-width="1"/><text x="680" y="235" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">SDB / CHAMBRE</text><rect x="660" y="290" width="80" height="45" rx="8" fill="#D8E8F0" stroke="#B0C8D8" stroke-width="1.5"/><rect x="770" y="280" width="25" height="35" rx="2" fill="#EEE" stroke="#CCC" stroke-width="1"/><text x="85" y="228" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">RDC</text><rect x="50" y="200" width="800" height="10" fill="#A09080"/><polygon points="450,30 60,200 840,200" fill="#E8E0D0" stroke="#B0A890" stroke-width="2"/><line x1="450" y1="40" x2="200" y2="190" stroke="#8B7355" stroke-width="6" stroke-linecap="round"/><line x1="450" y1="40" x2="700" y2="190" stroke="#8B7355" stroke-width="6" stroke-linecap="round"/><line x1="250" y1="175" x2="650" y2="175" stroke="#8B7355" stroke-width="5" stroke-linecap="round"/><text x="400" y="165" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">COMBLES</text><circle cx="720" cy="180" r="16" fill="#9ACD9A" opacity="0.6"/><line x1="555" y1="200" x2="555" y2="390" stroke="#8B4513" stroke-width="2" stroke-dasharray="4,3" opacity="0.5"/>';DATA.houseZones.forEach((z,i)=>{h+='<g class="house-hotspot" data-zone="'+i+'" tabindex="0" role="button" aria-label="'+z.label+'"><circle cx="'+z.x+'" cy="'+z.y+'" r="8" fill="#2E7D32" opacity="0.85" style="animation:hotspot-pulse 2s infinite '+(i*0.2)+'s"/><circle cx="'+z.x+'" cy="'+z.y+'" r="4" fill="#fff"/></g>';});svg.innerHTML=h;const tt=document.getElementById('houseTooltip');svg.querySelectorAll('.house-hotspot').forEach(g=>{g.addEventListener('mouseenter',()=>{const z=DATA.houseZones[g.dataset.zone];tt.innerHTML='<h4>'+z.label+'</h4><p>'+z.desc+'</p>';tt.classList.add('active');const r=svg.getBoundingClientRect();tt.style.left=Math.min(z.x/900*r.width+20,r.width-300)+'px';tt.style.top=(z.y/550*r.height-40)+'px';});g.addEventListener('mouseleave',()=>tt.classList.remove('active'));});}
+if(!document.getElementById('hotspotStyle')){const s=document.createElement('style');s.id='hotspotStyle';s.textContent='@keyframes hotspot-pulse{0%,100%{opacity:0.6;r:6}50%{opacity:1;r:9}}';document.head.appendChild(s);}
+function initRiskGauges(){var l=document.getElementById('riskChecklist');if(!l)return;function u(){var s=0;l.querySelectorAll('input:checked').forEach(function(c){s+=+c.dataset.score;});s=Math.min(100,s);document.getElementById('riskScoreText').textContent=s;var a=document.getElementById('riskArc');a.style.strokeDashoffset=314-(s/100*314);a.style.stroke=s<25?'#4CAF50':s<50?'#FF9800':'#F44336';var t=['Faible','Modéré','Élevé','Critique'];var d=['Peu de facteurs favorables.','Quelques mesures préventives suffiraient.','Votre logement est vulnérable aux invasions.','Colonie probablement installée — agissez vite.'];var v=s<25?0:s<50?1:s<75?2:3;document.getElementById('riskVerdictTitle').textContent=t[v];document.getElementById('riskVerdictDesc').textContent=d[v];var c=document.getElementById('riskCta');if(c)c.style.display=s>=50?'block':'none';}l.addEventListener('change',u);u();}
+function initCalendar(){const g=document.getElementById('calendarGrid');if(!g)return;const c=['','#E8F5E9','#FFF9C4','#FFE0B2','#FFCCBC','#FFAB91'];const n=new Date().getMonth();const r=['Activité','Reproduction','Intrusion','Traitement'];const k=['activity','reproduction','intrusion','treatment'];let h='<div class="cal-cell cal-header"></div>';DATA.calendar.forEach((m,i)=>h+='<div class="cal-cell cal-header'+(i===n?' cal-current':'')+'">'+m.month+'</div>');const tips=['Colonie dormante — invisibles mais présentes','Fin d\'hiver — premiers signes si chauffage élevé','Printemps — réveil des ouvrières, moment idéal pour traiter','Pic de reproduction — la reine accélère la ponte','Explosion d\'activité — pistes massives','Essaimage — les reines volantes fondent de nouvelles colonies','Été — pics d\'invasion en cuisine','Été — activité maximale, pistes omniprésentes','Fin d\'été — colonie à son apogée','Automne — préparation à l\'hibernation','Ralentissement — dernières opportunités de traitement','Hibernation — fourmis invisibles mais colonie intacte'];r.forEach((rw,ri)=>{h+='<div class="cal-cell cal-label">'+rw+'</div>';DATA.calendar.forEach((m,i)=>{const v=ri<3?m[k[ri]]:({'Optimal':4,'Bon':3,'Moyen':2}[m.treatment]||1);const tip=ri===0?'<span class="cal-tip">'+tips[i]+'</span>':'';h+='<div class="cal-cell'+(i===n?' cal-current':'')+'" style="background:'+c[v]+'">'+tip+'</div>';});});g.innerHTML=h;}
+function initQuiz(){const c=document.getElementById('quizContainer');if(!c)return;let cur=0,sc=0;const pr=document.getElementById('quizProgress'),bd=document.getElementById('quizBody'),rs=document.getElementById('quizResult');function rp(){pr.innerHTML=DATA.quiz.map((_,i)=>'<div class="step'+(i<cur?' done':'')+(i===cur?' current':'')+'"></div>').join('');}function rq(){if(cur>=DATA.quiz.length)return sr();const q=DATA.quiz[cur];document.getElementById('quizQuestion').textContent=q.q;document.getElementById('quizOptions').innerHTML=q.opts.map((o,i)=>'<div class="quiz-option" data-score="'+q.scores[i]+'">'+o+'</div>').join('');document.querySelectorAll('.quiz-option').forEach(o=>{o.addEventListener('click',()=>{sc+=+o.dataset.score;cur++;rp();rq();});});rp();}function sr(){bd.style.display='none';const p=Math.round(sc/(DATA.quiz.length*3)*100);const ci=document.getElementById('quizScoreCircle');ci.textContent=p+'%';ci.style.background=p<30?'#4CAF50':p<60?'#FF9800':'#F44336';document.getElementById('quizVerdictTitle').textContent=p<30?'Peu probable':p<60?'Invasion modérée':'Invasion sérieuse';document.getElementById('quizVerdictDesc').textContent=p<30?'Les signes sont faibles. Quelques mesures préventives suffiront.':p<60?'Une colonie est probablement installée. Un traitement à la source s\'impose.':'Invasion bien installée. Appâts grand public insuffisants — intervention pro recommandée pour atteindre la reine.';rs.classList.add('active');rp();}document.getElementById('quizRestart').addEventListener('click',()=>{cur=0;sc=0;bd.style.display='block';rs.classList.remove('active');rq();});rq();}
+function initCostChart(){const c=document.getElementById('costChart');if(!c||typeof Chart==='undefined')return;const m=Array.from({length:12},(_,i)=>'Mois '+(i+1));const d=m.map((_,i)=>Math.round(20*Math.pow(1.28,i)));const t=m.map(()=>180);new Chart(c,{type:'line',data:{labels:m,datasets:[{label:'Dégâts cumulés (sans action)',data:d,borderColor:'#F44336',backgroundColor:'rgba(244,67,54,0.1)',fill:true,tension:0.3},{label:'Coût traitement professionnel',data:t,borderColor:'#4CAF50',backgroundColor:'rgba(76,175,80,0.05)',fill:true,borderDash:[6,4]}]},options:{responsive:true,plugins:{legend:{labels:{font:{size:11}}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'€'}}}}});}
+function initProtocol(){const s=JSON.parse(localStorage.getItem('fourmisProtocol')||'{}');document.querySelectorAll('.protocol-check input').forEach((c,i)=>{if(s[i]){c.checked=true;c.parentElement.classList.add('checked');}c.addEventListener('change',()=>{c.parentElement.classList.toggle('checked',c.checked);const st={};document.querySelectorAll('.protocol-check input').forEach((x,j)=>{if(x.checked)st[j]=true;});localStorage.setItem('fourmisProtocol',JSON.stringify(st));});});}
+function initLightbox(){const l=document.getElementById('lightbox');if(!l)return;const i=l.querySelector('img');if(!i)return;document.querySelectorAll('.sign-img').forEach(s=>{s.addEventListener('click',()=>{i.src=s.src;i.alt=s.alt;l.classList.add('active');});});l.addEventListener('click',()=>l.classList.remove('active'));}
+function initAccordions(){document.querySelectorAll('.accordion-header').forEach(b=>{b.addEventListener('click',()=>{const i=b.parentElement;const w=i.classList.contains('open');i.parentElement.querySelectorAll('.accordion-item').forEach(x=>x.classList.remove('open'));if(!w)i.classList.add('open');b.querySelector('.icon-toggle').textContent=i.classList.contains('open')?'−':'+';});});}
+function initRiskTabs(){document.querySelectorAll('.risk-tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.risk-tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.risk-tab-content').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('tab-'+t.dataset.tab).classList.add('active');});});}
+function initAnatomy(){const d=document.getElementById('anatomyDetail');if(!d)return;const data={antennes:{title:'Antennes — capteurs de phéromones',text:'Les antennes détectent les phéromones laissées par les éclaireuses. C\'est la boussole de la fourmi : elle suit une piste chimique déposée par ses congénères sans jamais se perdre, même dans le noir complet.'},mandibules:{title:'Mandibules — pince découpante',text:'Les mandibules servent à découper la nourriture, transporter le couvain, creuser les galeries et défendre la colonie. Une fourmi charpentière peut ronger le bois tendre avec une précision chirurgicale.'},tete:{title:'Tête — cerveau d\'ouvrière',text:'Cerveau petit mais hyper-spécialisé. Mémoire spatiale remarquable : une fourmi retrouve son nid après 200 m d\'exploration. L\'intelligence est <strong>collective</strong>, pas individuelle.'},ocelles:{title:'Vision composée &amp; ocelles',text:'Trois ocelles sur le sommet du crâne détectent lumière et polarisation UV. La fourmi s\'oriente au soleil même quand il est caché. Vision latérale médiocre — elle se fie surtout à l\'odorat et au toucher.'},pattes:{title:'Pattes — 6 pattes adhésives',text:'Coussinets adhésifs au bout de chaque patte. La fourmi grimpe à la verticale (murs, vitres) et peut porter <strong>50 fois son poids</strong>. Elle marche sans effort sur les plafonds.'},glandes:{title:'Glandes à phéromones',text:'La fourmi sécrète différentes phéromones : <strong>piste</strong> (pour guider les autres vers la nourriture), <strong>alarme</strong> (défense collective), <strong>reine</strong> (cohésion de la colonie). C\'est le langage invisible des fourmis.'},abdomen:{title:'Abdomen — stockage &amp; transport',text:'Certaines fourmis stockent la nourriture liquide dans leur jabot social pour la régurgiter à la reine ou aux larves (trophallaxie). C\'est ce mécanisme qui rend les appâts gel à transfert si efficaces.'},dard:{title:'Dard — défense acide',text:'Certaines espèces (fourmi rouge, fourmi de feu) injectent de l\'acide formique par un dard. Piqûre douloureuse, rougeur locale, rarement grave sauf allergie. La fourmi noire des jardins, elle, n\'a pas de dard fonctionnel.'}};document.querySelectorAll('.anat-point').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.anat-point').forEach(x=>x.classList.remove('active'));b.classList.add('active');const a=data[b.dataset.anat];if(a)d.innerHTML='<h3>'+a.title+'</h3><p>'+a.text+'</p>';});});const df=document.querySelector('.anat-point[data-anat="antennes"]');if(df)df.click();}
+function setHouseMode(m){const w=document.getElementById('houseWrap');const s=document.getElementById('houseSvg');if(!w||!s)return;if(m==='night'){w.classList.add('night-mode');document.getElementById('houseNightBtn').classList.add('btn-primary');document.getElementById('houseNightBtn').classList.remove('btn-outline');document.getElementById('houseDayBtn').classList.add('btn-outline');document.getElementById('houseDayBtn').classList.remove('btn-primary');if(!s.querySelector('.night-trail')){['M 560 350 Q 400 340 240 260 Q 200 250 160 260','M 690 385 Q 600 380 560 350','M 760 460 Q 700 440 690 385','M 200 450 Q 160 420 160 380','M 550 460 Q 500 430 470 400'].forEach(d=>{const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d',d);p.setAttribute('class','night-trail');s.appendChild(p);});}}else{w.classList.remove('night-mode');document.getElementById('houseDayBtn').classList.add('btn-primary');document.getElementById('houseDayBtn').classList.remove('btn-outline');document.getElementById('houseNightBtn').classList.add('btn-outline');document.getElementById('houseNightBtn').classList.remove('btn-primary');}}
+function filterMethods(l){document.querySelectorAll('.method-filter').forEach(f=>f.classList.toggle('active',f.dataset.level===l));document.querySelectorAll('.method-card').forEach(c=>{if(l==='all')c.classList.remove('dimmed');else c.classList.toggle('dimmed',c.dataset.level!==l);});}
+function initScrollAnimations(){const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');o.unobserve(x.target);}});},{threshold:0.1});document.querySelectorAll('.fade-up').forEach(el=>o.observe(el));}
+function initHeroCounters(){const h=document.querySelectorAll('.hero-stat-value[data-count]');const o=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){const el=x.target;const t=parseInt(el.dataset.count);const sf=el.dataset.suffix||'';if(!t)return;let c=0;const st=Math.max(1,Math.floor(t/40));const ti=setInterval(()=>{c+=st;if(c>=t){c=t;clearInterval(ti);}el.textContent=c.toLocaleString('fr-FR')+sf;},30);o.unobserve(el);}});},{threshold:0.5});h.forEach(s=>o.observe(s));}
+function initCostSlider(){const s=document.getElementById('costMonthSlider');if(!s)return;const mv=document.getElementById('costMonthVal');const r=document.getElementById('costRoi');const sv=document.getElementById('costSavings');function u(){const m=+s.value;mv.textContent=m;const dm=Math.round(20*Math.pow(1.28,m));const d12=Math.round(20*Math.pow(1.28,12));const sd=d12-dm;const rt=Math.max(1,Math.round(sd/180));r.textContent=rt+':1';sv.textContent='Vous économisez ~'+sd.toLocaleString('fr-FR')+' €';updateSliderFill(s);}s.addEventListener('input',u);u();}
+function initStepNav(){var n=document.getElementById('stepNav');if(!n)return;var l=n.querySelectorAll('[data-nav]'),s=[];l.forEach(function(a){var e=document.getElementById(a.getAttribute('href').slice(1));if(e)s.push({el:e,link:a});});window.addEventListener('scroll',function(){var sy=window.scrollY,vh=window.innerHeight;s.forEach(function(x){var t=x.el.getBoundingClientRect().top+sy,b=t+x.el.offsetHeight;if(sy+vh*0.3>=t&&sy+vh*0.3<b){l.forEach(function(a){a.classList.remove('active')});x.link.classList.add('active');}});},{passive:true});l.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var el=document.getElementById(a.getAttribute('href').slice(1));if(el)el.scrollIntoView({behavior:'smooth',block:'start'});});});}
+function initFicheRadar(){const c=document.getElementById('ficheRadar');if(!c||typeof Chart==='undefined')return;new Chart(c,{type:'radar',data:{labels:['Dangerosité','Reproduction','Résistance','Discrétion','Agilité','Intelligence'],datasets:[{data:[30,85,70,60,80,95],backgroundColor:'rgba(171,224,209,0.3)',borderColor:'#4DB6A3',borderWidth:2,pointBackgroundColor:'#4DB6A3',pointBorderColor:'#fff',pointBorderWidth:1,pointRadius:4,pointHoverRadius:6}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1,plugins:{legend:{display:false}},scales:{r:{beginAtZero:true,max:100,ticks:{display:false,stepSize:25},grid:{color:'rgba(0,0,0,0.06)'},angleLines:{color:'rgba(0,0,0,0.06)'},pointLabels:{font:{family:"'Uxum', sans-serif",size:11,weight:'700'},color:'#0E052A'}}}}});}
+function initBackToTop(){const b=document.getElementById('backToTop');if(!b)return;window.addEventListener('scroll',()=>{b.style.display=window.scrollY>600?'flex':'none';},{passive:true});b.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));}
+(function(){const n=document.getElementById('stepNav');if(!n)return;const l=n.querySelectorAll('.step-nav-links a[data-nav]');const s=Array.from(l).map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);l.forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t){const o=n.offsetHeight+10;const top=t.getBoundingClientRect().top+window.scrollY-o;window.scrollTo({top,behavior:'smooth'});}});});let tk=false;window.addEventListener('scroll',()=>{if(!tk){requestAnimationFrame(()=>{const sy=window.scrollY+n.offsetHeight+40;let c=null;s.forEach(x=>{if(x.offsetTop<=sy)c=x;});l.forEach(a=>{const h=a.getAttribute('href').slice(1);a.classList.toggle('active',c&&c.id===h);});tk=false;});tk=true;}},{passive:true});})();
+</script>
 </body>
 </html>

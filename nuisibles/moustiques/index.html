@@ -96,6 +96,12 @@ html { scroll-padding-top: 130px; }
 .spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
 .species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
+.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
+.sign-card { text-align: center; }
+.sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 480px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
 .danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
 .danger-fact { padding: var(--space-xl); text-align: center; border-right: 1px solid var(--color-gray-light); }
 .danger-fact:last-child { border-right: none; }
@@ -603,6 +609,16 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     </div>
   </div>
   <div class="did-you-know"><span class="did-you-know-icon">&#128161;</span><p><strong>Le saviez-vous ?</strong> Seules les femelles moustiques piquent. Elles ont besoin des protéines du sang pour la maturation de leurs œufs. Un moustique tigre femelle peut pondre <strong>200 œufs</strong> dans un simple bouchon de bouteille rempli d'eau.</p></div>
+  <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
+  <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Les indices concrets d'une infestation de moustiques. Reconnaissez-les avant qu'il ne soit trop tard.</p>
+  <div class="signs-grid">
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🦟</div><h4>Piqûres multiples</h4><p>Piqûres rouges qui démangent, surtout sur les chevilles, mains et cou.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">💧</div><h4>Eau stagnante</h4><p>Larves visibles dans les coupelles, seaux, gouttières bouchées.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🌙</div><h4>Bourdonnement nocturne</h4><p>Sifflement aigu près des oreilles pendant la nuit.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🏷️</div><h4>Moustique tigre</h4><p>Petit (5 mm), rayures blanches et noires, diurne.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🚪</div><h4>Entrées</h4><p>Par les portes ouvertes le soir, fenêtres sans moustiquaire.</p></div>
+    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🌿</div><h4>Jardin envahi</h4><p>Impossible d'être dehors le soir sans se faire piquer.</p></div>
+  </div>
 </section>
 
 <!-- ═══ DANGERS ═══ -->
@@ -933,6 +949,8 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
   <a href="tel:0667464897" class="btn btn-outline"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler</a>
 </div>
 </div>
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">↑</button>
 <script src="/js/app.js"></script>
 <script>
 function updateSliderFill(el){var p=(el.value-el.min)/(el.max-el.min)*100;el.style.background='linear-gradient(to right,#C8B99A 0%,#C8B99A '+p+'%,#E5E5E5 '+p+'%,#E5E5E5 100%)';}
@@ -1081,7 +1099,7 @@ function initHeroCounters(){var hs=document.querySelectorAll('.hero-stat-value[d
 function initCostSlider(){var slider=document.getElementById('costMonthSlider');if(!slider)return;var mv=document.getElementById('costMonthVal'),roi=document.getElementById('costRoi'),sav=document.getElementById('costSavings');function update(){var w=+slider.value;mv.textContent=w;var nw=Math.round(20*Math.pow(1.3,w)),n12=Math.round(20*Math.pow(1.3,12)),saved=n12-nw,r=Math.max(1,Math.round(saved/250));roi.textContent=r+':1';sav.textContent='Vous économisez ~'+saved.toLocaleString('fr-FR')+' \u20ac en nuisance évitée';updateSliderFill(slider);}slider.addEventListener('input',update);update();}
 function initStepNav(){var nav=document.getElementById('stepNav');if(!nav)return;var links=nav.querySelectorAll('[data-nav]'),sections=[];links.forEach(function(l){var el=document.getElementById(l.getAttribute('href').slice(1));if(el)sections.push({el:el,link:l});});window.addEventListener('scroll',function(){var sy=window.scrollY,vh=window.innerHeight;sections.forEach(function(s){var t=s.el.getBoundingClientRect().top+sy,b=t+s.el.offsetHeight;if(sy+vh*0.3>=t&&sy+vh*0.3<b){links.forEach(function(l){l.classList.remove('active')});s.link.classList.add('active');}});},{passive:true});links.forEach(function(l){l.addEventListener('click',function(e){e.preventDefault();document.getElementById(l.getAttribute('href').slice(1)).scrollIntoView({behavior:'smooth',block:'start'});});});}
 function initFicheRadar(){var ctx=document.getElementById('ficheRadar');if(!ctx)return;new Chart(ctx,{type:'radar',data:{labels:['Dangerosité','Reproduction','Résistance','Discrétion','Agilité','Intelligence'],datasets:[{data:[80,95,60,70,90,30],backgroundColor:'rgba(200,185,154,0.2)',borderColor:'#C8B99A',borderWidth:2,pointBackgroundColor:'#C8B99A',pointBorderColor:'#fff',pointBorderWidth:1,pointRadius:4,pointHoverRadius:6}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1,plugins:{legend:{display:false}},scales:{r:{beginAtZero:true,max:100,ticks:{display:false,stepSize:25},grid:{color:'rgba(0,0,0,0.06)'},angleLines:{color:'rgba(0,0,0,0.06)'},pointLabels:{font:{family:"'Uxum', sans-serif",size:11,weight:'700'},color:'#0E052A'}}}}});}
-function initBackToTop(){var btn=document.getElementById('backToTop');window.addEventListener('scroll',function(){btn.style.display=window.scrollY>600?'flex':'none';},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});}
+function initBackToTop(){var btn=document.getElementById('backToTop');if(!btn)return;window.addEventListener('scroll',function(){btn.style.display=window.scrollY>600?'flex':'none';},{passive:true});btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});}
 </script>
 </body>
 </html>
