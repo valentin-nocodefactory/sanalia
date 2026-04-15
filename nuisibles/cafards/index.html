@@ -62,7 +62,7 @@ html { scroll-padding-top: 130px; }
 /* ── Sticky Sidebar ── */
 .sidebar-wrap { position: sticky; top: 130px; display: flex; flex-direction: column; gap: var(--space-md); }
 .sidebar-card { background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); overflow: hidden; padding: var(--space-xs); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
-.sidebar-visual { display: flex; align-items: center; justify-content: center; padding: var(--space-xl) var(--space-lg); border-radius: var(--radius-lg); background: var(--color-pastel-peach-light); min-height: 160px; }
+.sidebar-visual { display: flex; align-items: center; justify-content: center; padding: var(--space-xl) var(--space-lg); border-radius: var(--radius-lg); background: var(--color-pastel-mint-light); min-height: 160px; }
 .sidebar-visual img { width: 120px; height: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08)); }
 .sidebar-body { padding: var(--space-md) var(--space-sm) var(--space-sm); text-align: center; }
 .sidebar-body h3 { font-size: 20px; margin: 0; display: inline; }
@@ -111,14 +111,15 @@ html { scroll-padding-top: 130px; }
 .spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
 .species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
-.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
-.sign-card { text-align: center; }
-.sign-card img.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-md); cursor: zoom-in; display: block; transition: transform 0.3s; }
-.sign-card img.sign-img:hover { transform: scale(1.03); }
-.sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
-.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
-@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 480px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
+.signs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
+.sign-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-sm); border: 1px solid var(--color-gray-light); transition: transform 0.2s, box-shadow 0.2s; }
+.sign-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.sign-card:hover .sign-img { transform: scale(1.03); }
+.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-sm); transition: transform 0.3s; cursor: zoom-in; margin-bottom: var(--space-sm); }
+.sign-card h4 { font-size: 13px; margin: 0 0 4px; min-height: 2.6em; display: flex; align-items: center; justify-content: center; line-height: 1.3; }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; flex: 1; }
+@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .signs-grid { grid-template-columns: 1fr 1fr; } .sign-card p { display: none; } .sign-card h4 { min-height: auto; } }
 
 /* ── Dangers ── */
 .danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
@@ -324,7 +325,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 /* ── Hero stats ── */
 .hero-stats { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl); }
 .hero-stat { display: flex; align-items: center; gap: var(--space-sm); }
-.hero-stat-icon { width: 24px; height: 24px; flex-shrink: 0; color: var(--color-pastel-peach); opacity: 0.8; }
+.hero-stat-icon { width: 24px; height: 24px; flex-shrink: 0; color: var(--color-pastel-mint); opacity: 0.8; }
 .hero-stat-icon svg { width: 100%; height: 100%; }
 .hero-stat-text { display: flex; align-items: baseline; gap: 6px; }
 .hero-stat-value { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 15px; color: var(--color-primary-900); }
@@ -429,7 +430,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
             <span class="mega-menu-label">Rongeurs</span>
             <div class="mega-menu-grid" style="grid-template-columns: repeat(3, 1fr);">
               <a href="/nuisibles/rats/" class="mega-menu-item hover-blue">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="48" height="48"></div>
                 <div><h4>Rats</h4><p>Rats bruns et noirs</p></div>
               </a>
               <a href="/nuisibles/souris/" class="mega-menu-item hover-lavender">
@@ -444,7 +445,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
                 <div><h4>Punaises de lit</h4><p>Détection et traitement</p></div>
               </a>
               <a href="/nuisibles/cafards/" class="mega-menu-item hover-peach">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="48" height="48"></div>
                 <div><h4>Cafards</h4><p>Blattes et cafards</p></div>
               </a>
               <a href="/nuisibles/guepes-frelons/" class="mega-menu-item hover-gold">
@@ -452,11 +453,11 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
                 <div><h4>Guêpes & Frelons</h4><p>Nids et essaims</p></div>
               </a>
               <a href="/nuisibles/fourmis/" class="mega-menu-item hover-mint">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="48" height="48"></div>
                 <div><h4>Fourmis</h4><p>Colonies et invasions</p></div>
               </a>
               <a href="/nuisibles/moustiques/" class="mega-menu-item hover-green">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-green-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="48" height="48"></div>
                 <div><h4>Moustiques</h4><p>Moustiques tigres</p></div>
               </a>
             </div>
@@ -523,17 +524,17 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       <span class="step-bc-sep">›</span>
       <a href="/nuisibles/" class="step-bc">Nuisibles</a>
       <span class="step-bc-sep">›</span>
-      <span class="step-nav-current-icon" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="18" height="18"></span>
+      <span class="step-nav-current-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="18" height="18"></span>
       <span style="font-weight:700;color:var(--color-primary-900);">Cafards</span>
     </div>
     <div class="step-crumb-dropdown">
-      <a href="/nuisibles/rats/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-blue-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="22" height="22"></span>Rats</a>
+      <a href="/nuisibles/rats/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-gold-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="22" height="22"></span>Rats</a>
       <a href="/nuisibles/souris/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-lavender-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-lavender-light);"><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="" width="22" height="22"></span>Souris</a>
       <a href="/nuisibles/punaises-de-lit/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-rose-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="22" height="22"></span>Punaises de lit</a>
-      <a href="/nuisibles/cafards/" class="step-crumb-nuisible active" style="--hover-bg:var(--color-pastel-peach-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="22" height="22"></span>Cafards</a>
+      <a href="/nuisibles/cafards/" class="step-crumb-nuisible active" style="--hover-bg:var(--color-pastel-mint-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="22" height="22"></span>Cafards</a>
       <a href="/nuisibles/guepes-frelons/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-gold-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="22" height="22"></span>Guêpes & Frelons</a>
-      <a href="/nuisibles/fourmis/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-mint-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="22" height="22"></span>Fourmis</a>
-      <a href="/nuisibles/moustiques/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-green-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-green-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="22" height="22"></span>Moustiques</a>
+      <a href="/nuisibles/fourmis/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-rose-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="22" height="22"></span>Fourmis</a>
+      <a href="/nuisibles/moustiques/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-blue-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="22" height="22"></span>Moustiques</a>
     </div>
   </div>
   <div class="step-nav-divider"></div>
@@ -557,7 +558,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 <!-- ════════ HERO ════════ -->
 <section class="section" id="hero" style="padding-top:var(--space-2xl);">
   <div class="container">
-    <div class="hero-box" style="background:var(--color-pastel-peach-light);border-radius:var(--radius-xl);padding:var(--space-2xl);overflow:hidden;max-width:none;margin:0 -24px;">
+    <div class="hero-box" style="background:var(--color-pastel-mint-light);border-radius:var(--radius-xl);padding:var(--space-2xl);overflow:hidden;max-width:none;margin:0 -24px;">
     <div class="nuisible-hero">
       <div class="nuisible-hero-text">
         <span class="mono" style="color:#999;">GUIDE EXPERT</span>
@@ -630,7 +631,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
   <p>Blatte germanique, orientale, américaine ou rayée ? L'identification de l'espèce conditionne le choix du traitement. En France, la blatte germanique (<em>Blattella germanica</em>) est responsable de 90 % des infestations domestiques.</p>
   <div class="species-compare">
     <div class="species-card-v2 active" data-species="germanique">
-      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-germanique.png" alt="Blatte germanique — Blattella germanica"><span class="badge">90% des cas</span></div>
+      <div class="species-card-visual" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/species/cafard-germanique.png" alt="Blatte germanique — Blattella germanica"><span class="badge">90% des cas</span></div>
       <div class="species-card-body">
         <h3>Blatte germanique</h3><span class="latin">Blattella germanica</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
@@ -639,7 +640,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       </div>
     </div>
     <div class="species-card-v2" data-species="orientale">
-      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-oriental.png" alt="Blatte orientale — Blatta orientalis"><span class="badge">10% des cas</span></div>
+      <div class="species-card-visual" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/species/cafard-oriental.png" alt="Blatte orientale — Blatta orientalis"><span class="badge">10% des cas</span></div>
       <div class="species-card-body">
         <h3>Blatte orientale</h3><span class="latin">Blatta orientalis</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
@@ -648,7 +649,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       </div>
     </div>
     <div class="species-card-v2" data-species="americaine">
-      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-americain.png" alt="Blatte américaine — Periplaneta americana"><span class="badge">Grande taille</span></div>
+      <div class="species-card-visual" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/species/cafard-americain.png" alt="Blatte américaine — Periplaneta americana"><span class="badge">Grande taille</span></div>
       <div class="species-card-body">
         <h3>Blatte américaine</h3><span class="latin">Periplaneta americana</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
@@ -657,7 +658,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       </div>
     </div>
     <div class="species-card-v2" data-species="rayee">
-      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-raye.png" alt="Blatte rayée — Supella longipalpa"><span class="badge">Zones sèches</span></div>
+      <div class="species-card-visual" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/species/cafard-raye.png" alt="Blatte rayée — Supella longipalpa"><span class="badge">Zones sèches</span></div>
       <div class="species-card-body">
         <h3>Blatte rayée</h3><span class="latin">Supella longipalpa</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
@@ -880,7 +881,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">La présence de cafards accompagne souvent d'autres nuisibles dans les mêmes conditions d'humidité et de nourriture.</p>
     <div class="nuisibles-grid">
       <a href="/nuisibles/souris/" class="card-nuisible pastel-lavender"><div class="card-nuisible-visual"><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="Souris"></div><div class="card-nuisible-info"><h3>Souris</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
-      <a href="/nuisibles/fourmis/" class="card-nuisible pastel-mint"><div class="card-nuisible-visual"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi"></div><div class="card-nuisible-info"><h3>Fourmis</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/fourmis/" class="card-nuisible pastel-rose"><div class="card-nuisible-visual"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi"></div><div class="card-nuisible-info"><h3>Fourmis</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
       <a href="/nuisibles/mites-alimentaires/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><img src="/assets/nuisibles/pantry-moth--realistic-body-shape.png" alt="Mite alimentaire" onerror="this.style.display='none';"></div><div class="card-nuisible-info"><h3>Mites alimentaires</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
       <a href="/nuisibles/puces/" class="card-nuisible pastel-rose"><div class="card-nuisible-visual"><img src="/assets/nuisibles/flea--realistic-body-shape.png" alt="Puce" onerror="this.style.display='none';"></div><div class="card-nuisible-info"><h3>Puces</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
     </div>

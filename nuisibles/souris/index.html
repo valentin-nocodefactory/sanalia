@@ -115,14 +115,15 @@ html { scroll-padding-top: 130px; }
 .spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
 .species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
 
-.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); }
-.sign-card { cursor: pointer; text-align: center; }
-.sign-card:hover .sign-img { transform: scale(1.05); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-xl); transition: all 0.3s; cursor: zoom-in; }
-.sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
-.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
-@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } .species-compare { grid-template-columns: 1fr; } }
-@media (max-width: 480px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
+.signs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
+.sign-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-sm); border: 1px solid var(--color-gray-light); transition: transform 0.2s, box-shadow 0.2s; }
+.sign-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.sign-card:hover .sign-img { transform: scale(1.03); }
+.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-sm); transition: transform 0.3s; cursor: zoom-in; margin-bottom: var(--space-sm); }
+.sign-card h4 { font-size: 13px; margin: 0 0 4px; min-height: 2.6em; display: flex; align-items: center; justify-content: center; line-height: 1.3; }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; flex: 1; }
+@media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .species-compare { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .signs-grid { grid-template-columns: 1fr 1fr; } .sign-card p { display: none; } .sign-card h4 { min-height: auto; } }
 
 .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
 .lightbox.active { display: flex; }
@@ -416,7 +417,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
             <span class="mega-menu-label">Rongeurs</span>
             <div class="mega-menu-grid" style="grid-template-columns: repeat(3, 1fr);">
               <a href="/nuisibles/rats/" class="mega-menu-item hover-blue">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="48" height="48"></div>
                 <div><h4>Rats</h4><p>Rats bruns et noirs</p></div>
               </a>
               <a href="/nuisibles/souris/" class="mega-menu-item hover-lavender">
@@ -431,7 +432,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
                 <div><h4>Punaises de lit</h4><p>Détection et traitement</p></div>
               </a>
               <a href="/nuisibles/cafards/" class="mega-menu-item hover-peach">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="48" height="48"></div>
                 <div><h4>Cafards</h4><p>Blattes et cafards</p></div>
               </a>
               <a href="/nuisibles/guepes-frelons/" class="mega-menu-item hover-gold">
@@ -439,11 +440,11 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
                 <div><h4>Guêpes & Frelons</h4><p>Nids et essaims</p></div>
               </a>
               <a href="/nuisibles/fourmis/" class="mega-menu-item hover-mint">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="48" height="48"></div>
                 <div><h4>Fourmis</h4><p>Colonies et invasions</p></div>
               </a>
               <a href="/nuisibles/moustiques/" class="mega-menu-item hover-green">
-                <div class="mega-nuisible-icon" style="background:var(--color-pastel-green-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="48" height="48"></div>
+                <div class="mega-nuisible-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="48" height="48"></div>
                 <div><h4>Moustiques</h4><p>Moustiques tigres</p></div>
               </a>
             </div>
@@ -511,13 +512,13 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       <span style="font-weight:700;color:var(--color-primary-900);">Souris</span>
     </div>
     <div class="step-crumb-dropdown">
-      <a href="/nuisibles/rats/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-blue-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="22" height="22"></span>Rats</a>
+      <a href="/nuisibles/rats/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-gold-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="22" height="22"></span>Rats</a>
       <a href="/nuisibles/souris/" class="step-crumb-nuisible active" style="--hover-bg:var(--color-pastel-lavender-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-lavender-light);"><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="" width="22" height="22"></span>Souris</a>
       <a href="/nuisibles/punaises-de-lit/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-rose-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="22" height="22"></span>Punaises de lit</a>
-      <a href="/nuisibles/cafards/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-peach-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="22" height="22"></span>Cafards</a>
+      <a href="/nuisibles/cafards/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-mint-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="22" height="22"></span>Cafards</a>
       <a href="/nuisibles/guepes-frelons/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-gold-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="22" height="22"></span>Guêpes &amp; Frelons</a>
-      <a href="/nuisibles/fourmis/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-mint-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="22" height="22"></span>Fourmis</a>
-      <a href="/nuisibles/moustiques/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-green-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-green-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="22" height="22"></span>Moustiques</a>
+      <a href="/nuisibles/fourmis/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-rose-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="22" height="22"></span>Fourmis</a>
+      <a href="/nuisibles/moustiques/" class="step-crumb-nuisible" style="--hover-bg:var(--color-pastel-blue-light);"><span class="step-crumb-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="22" height="22"></span>Moustiques</a>
     </div>
   </div>
   <div class="step-nav-divider"></div>
@@ -683,9 +684,9 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 
 <section class="section" id="cohabitants"><div class="container"><h2>Les nuisibles qui cohabitent souvent avec les souris</h2><p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">La présence de souris attire ou accompagne souvent d'autres nuisibles.</p>
   <div class="nuisibles-grid">
-    <a href="/nuisibles/rats/" class="card-nuisible pastel-blue"><div class="card-nuisible-visual"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="Rat"></div><div class="card-nuisible-info"><h3>Rats</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+    <a href="/nuisibles/rats/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="Rat"></div><div class="card-nuisible-info"><h3>Rats</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
     <a href="/nuisibles/puces/" class="card-nuisible pastel-rose"><div class="card-nuisible-visual"><img src="/assets/nuisibles/flea--realistic-body-shape.png" alt="Puce" onerror="this.style.display='none';"></div><div class="card-nuisible-info"><h3>Puces</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
-    <a href="/nuisibles/cafards/" class="card-nuisible pastel-peach"><div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cafard"></div><div class="card-nuisible-info"><h3>Cafards</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+    <a href="/nuisibles/cafards/" class="card-nuisible pastel-mint"><div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cafard"></div><div class="card-nuisible-info"><h3>Cafards</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
     <a href="/nuisibles/mites-alimentaires/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><img src="/assets/nuisibles/pantry-moth--realistic-body-shape.png" alt="Mite" onerror="this.style.display='none';"></div><div class="card-nuisible-info"><h3>Mites alimentaires</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
   </div>
 </div></section>
