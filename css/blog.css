@@ -3034,3 +3034,16 @@ html { scroll-padding-top: 120px; }
   .blog-search-dropdown { left: -8px; right: -8px; }
 }
 
+
+
+/* ── FIX sticky layout 3-col article (share col + sidebar) ── */
+.blog-layout--3col { align-items: start; }
+.blog-layout--3col > .blog-share-col,
+.blog-layout--3col > .blog-sidebar { align-self: start; position: sticky; top: 120px; }
+.blog-layout--3col > .blog-share-col { top: 140px; }
+.blog-layout--3col > .blog-sidebar { max-height: calc(100vh - 140px); overflow-y: auto; padding-right: 4px; }
+.blog-layout--3col > .blog-sidebar::-webkit-scrollbar { width: 6px; }
+.blog-layout--3col > .blog-sidebar::-webkit-scrollbar-thumb { background: var(--color-gray-light, #E5E5E5); border-radius: 3px; }
+/* Le TOC interne ne doit plus être sticky (la colonne entière l'est) */
+.blog-layout--3col > .blog-sidebar .blog-toc,
+.blog-layout--3col > .blog-sidebar .sidebar-sticky { position: static; top: auto; }
