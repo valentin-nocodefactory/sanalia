@@ -22,17 +22,41 @@ function initMobileMenu() {
   });
 }
 
-/* ── Accordions ── */
+/* ── Accordions (event delegation — works regardless of page-level init order or errors) ──
+   Uses delegation on document so it survives any DOMContentLoaded handler that throws
+   before reaching initAccordions(). Also stops other handlers (e.g. duplicate page-level
+   initAccordions) from racing the toggle and immediately closing the item. */
 function initAccordions() {
-  document.querySelectorAll('.accordion-header').forEach(header => {
-    header.addEventListener('click', () => {
-      const item = header.closest('.accordion-item');
-      item.classList.toggle('open');
-      const toggle = header.querySelector('.icon-toggle');
-      if (toggle) toggle.textContent = item.classList.contains('open') ? '−' : '+';
+  if (window.__accordionDelegationAttached) return;
+  window.__accordionDelegationAttached = true;
+  document.addEventListener('click', (e) => {
+    const header = e.target.closest('.accordion-header');
+    if (!header) return;
+    e.stopImmediatePropagation();
+    e.preventDefault();
+    const item = header.closest('.accordion-item');
+    if (!item) return;
+    const list = item.parentElement;
+    const wasOpen = item.classList.contains('open');
+    // Close siblings within the same accordion list (exclusive open)
+    if (list) list.querySelectorAll(':scope > .accordion-item.open').forEach(i => {
+      if (i !== item) {
+        i.classList.remove('open');
+        const t = i.querySelector('.icon-toggle');
+        if (t) t.textContent = '+';
+      }
     });
-  });
+    if (wasOpen) {
+      item.classList.remove('open');
+    } else {
+      item.classList.add('open');
+    }
+    const toggle = header.querySelector('.icon-toggle');
+    if (toggle) toggle.textContent = item.classList.contains('open') ? '−' : '+';
+  }, true); // capture phase — runs before any handler that page-level scripts attached on the button
 }
+// Attach immediately — independent of any other DOMContentLoaded handler that may throw
+initAccordions();
 
 /* ── Form Prefill from URL params ── */
 function initFormPrefill() {

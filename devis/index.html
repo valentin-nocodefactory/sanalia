@@ -42,265 +42,584 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
 <style>
-/* ═══ DEVIS PAGE STYLES ═══ */
-.devis-section {
-  padding: var(--space-3xl) 0;
-  background: var(--color-bg);
-  min-height: 60vh;
+/* ═══════════════════════════════════════════════════
+   DEVIS PAGE — Conversion-optimized redesign
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Hero ─── */
+.devis-hero {
+  background: linear-gradient(180deg, var(--color-primary-100) 0%, var(--color-bg) 100%);
+  padding: var(--space-2xl) 0 var(--space-lg);
+  position: relative;
+  overflow: hidden;
 }
-.devis-header {
-  text-align: center;
-  margin-bottom: var(--space-2xl);
+.devis-hero-inner { text-align: center; max-width: 760px; margin: 0 auto; }
+.devis-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-primary-200);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem; color: #666;
+  margin-bottom: var(--space-md);
+  box-shadow: 0 2px 8px rgba(14,5,42,0.04);
+}
+.devis-hero-badge .pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34,197,94,0.7);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+  100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
 }
 .devis-title {
-  font-family: 'Uxum', sans-serif;
-  font-weight: 700;
-  font-size: 2.5rem;
-  color: var(--color-primary-900);
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1; color: var(--color-primary-900);
   margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
+}
+.devis-title em {
+  font-style: normal; color: var(--color-primary-600);
+  position: relative;
+}
+.devis-title em::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 2px;
+  height: 8px; background: var(--color-pastel-gold);
+  z-index: -1; border-radius: 4px;
 }
 .devis-subtitle {
-  font-family: 'Uxum', sans-serif;
-  font-weight: 400;
-  font-size: 1.125rem;
-  color: var(--color-primary-800);
-}
-.devis-layout {
-  display: grid;
-  grid-template-columns: 1fr 320px;
-  gap: var(--space-xl);
-  align-items: start;
-}
-@media (max-width: 768px) {
-  .devis-layout {
-    grid-template-columns: 1fr;
-  }
-  .devis-title {
-    font-size: 1.75rem;
-  }
-}
-
-/* Form card */
-.devis-form-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  box-shadow: 0 2px 12px rgba(14,5,42,0.06);
-}
-
-/* Steps */
-.devis-steps {
-  display: flex;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-xl);
-}
-.devis-step-indicator {
-  flex: 1;
-  text-align: center;
-  padding: var(--space-sm) var(--space-xs);
-  border-radius: var(--radius-md);
-  background: var(--color-gray-light);
-  font-family: 'Space Mono', monospace;
-  font-weight: 400;
-  font-size: 0.8125rem;
-  color: #999;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.devis-step-indicator.active {
-  background: var(--color-primary-900);
-  color: #fff;
-}
-.devis-step-indicator.completed {
-  background: var(--color-primary-200);
-  color: var(--color-primary-900);
-}
-
-/* Fieldsets */
-.devis-fieldset {
-  display: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-.devis-fieldset.active {
-  display: block;
-}
-.devis-fieldset legend {
-  font-family: 'Uxum', sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--color-primary-900);
+  font-family: 'Uxum', sans-serif; font-weight: 400;
+  font-size: 1.125rem; color: var(--color-primary-800);
   margin-bottom: var(--space-lg);
 }
 
-/* Form fields */
-.devis-field {
+/* Social proof row */
+.devis-proof {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: var(--space-lg); margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px dashed var(--color-primary-200);
+}
+.devis-proof-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Uxum', sans-serif; font-size: 0.875rem;
+  color: var(--color-primary-800);
+}
+.devis-proof-item strong {
+  font-weight: 700; color: var(--color-primary-900);
+  font-size: 1rem;
+}
+.devis-proof-stars { color: #FFB800; letter-spacing: 1px; }
+
+/* ─── Main layout ─── */
+.devis-section {
+  padding: var(--space-xl) 0 var(--space-3xl);
+  background: var(--color-bg);
+}
+.devis-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+@media (max-width: 1024px) {
+  .devis-layout { grid-template-columns: 1fr; }
+}
+
+/* ─── Form card ─── */
+.devis-form-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: 0 8px 32px rgba(14,5,42,0.08);
+  border: 1px solid rgba(14,5,42,0.04);
+}
+@media (max-width: 480px) {
+  .devis-form-card { padding: var(--space-lg) var(--space-md); }
+}
+
+/* Progress bar */
+.devis-progress {
+  margin-bottom: var(--space-xl);
+}
+.devis-progress-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 10px;
+}
+.devis-progress-label {
+  font-family: 'Space Mono', monospace; font-size: 0.75rem;
+  color: #666; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.devis-progress-pct {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1rem; color: var(--color-primary-600);
+}
+.devis-progress-track {
+  height: 6px; background: var(--color-primary-100);
+  border-radius: var(--radius-full); overflow: hidden;
+  position: relative;
+}
+.devis-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary-400), var(--color-primary-600));
+  border-radius: var(--radius-full);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 33%;
+}
+.devis-progress-steps {
+  display: flex; justify-content: space-between;
+  margin-top: 12px;
+}
+.devis-progress-step {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: #999; text-transform: uppercase; letter-spacing: 0.05em;
+  transition: color 0.3s;
+}
+.devis-progress-step.active { color: var(--color-primary-900); font-weight: 700; }
+.devis-progress-step.done { color: var(--color-primary-600); }
+
+/* Fieldsets */
+.devis-fieldset {
+  display: none; border: none; padding: 0; margin: 0;
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.devis-fieldset.active { display: block; }
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.devis-fieldset legend {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.5rem; color: var(--color-primary-900);
+  margin-bottom: 6px; padding: 0;
+  letter-spacing: -0.01em;
+}
+.devis-fieldset-hint {
+  font-family: 'Uxum', sans-serif; font-size: 0.9375rem;
+  color: var(--color-primary-800); margin-bottom: var(--space-lg);
+}
+
+/* ─── Visual nuisible picker ─── */
+.nuisible-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
   margin-bottom: var(--space-md);
 }
-.devis-field label {
-  display: block;
+@media (max-width: 640px) { .nuisible-grid { grid-template-columns: repeat(2, 1fr); } }
+.nuisible-card {
+  position: relative;
+  background: var(--color-bg-offwhite);
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  padding: 14px 10px 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: 'Uxum', sans-serif;
-  font-weight: 700;
-  font-size: 0.875rem;
+}
+.nuisible-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(14,5,42,0.08);
+}
+.nuisible-card.selected {
+  border-color: var(--color-primary-600);
+  background: var(--color-primary-100);
+  box-shadow: 0 4px 16px rgba(99,93,221,0.18);
+}
+.nuisible-card.selected::after {
+  content: '✓'; position: absolute; top: 8px; right: 8px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--color-primary-600); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 700;
+}
+.nuisible-card-img {
+  width: 56px; height: 56px; margin: 0 auto 8px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+}
+.nuisible-card-img img { width: 44px; height: 44px; object-fit: contain; }
+.nuisible-card-name {
+  font-weight: 700; font-size: 0.875rem;
   color: var(--color-primary-900);
-  margin-bottom: var(--space-xs);
+}
+.nuisible-card-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem; color: #999;
+  margin-top: 2px;
+}
+
+/* Pill selector (surface, urgence, depuis) */
+.pill-group {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: var(--space-md);
+}
+.pill-group label {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Uxum', sans-serif; font-weight: 400;
+  font-size: 0.9375rem; color: var(--color-primary-900);
+  cursor: pointer;
+  padding: 10px 18px;
+  border: 2px solid var(--color-gray-light);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-offwhite);
+  transition: all 0.2s;
+  user-select: none;
+}
+.pill-group label:hover {
+  border-color: var(--color-primary-400);
+  transform: translateY(-1px);
+}
+.pill-group label:has(input:checked) {
+  border-color: var(--color-primary-600);
+  background: var(--color-primary-600);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(99,93,221,0.25);
+}
+.pill-group input[type="radio"] { display: none; }
+.pill-group.urgency label[data-urgent="true"]:has(input:checked) {
+  border-color: var(--color-accent-500);
+  background: var(--color-accent-500);
+}
+
+/* Field labels */
+.devis-field { margin-bottom: var(--space-md); }
+.devis-field-label {
+  display: block;
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--color-primary-900);
+  margin-bottom: 6px;
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+.devis-field-label .req { color: var(--color-accent-500); }
+.devis-field-label .opt {
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.7rem; color: #999; text-transform: none;
+  letter-spacing: 0; margin-left: 6px;
+}
+
+/* Input with icon */
+.input-wrap { position: relative; }
+.input-wrap svg {
+  position: absolute; left: 14px; top: 50%;
+  transform: translateY(-50%);
+  width: 18px; height: 18px;
+  color: #999; pointer-events: none;
+  transition: color 0.2s;
 }
 .devis-field input,
 .devis-field select,
 .devis-field textarea {
-  width: 100%;
-  padding: 12px 16px;
+  width: 100%; box-sizing: border-box;
+  padding: 14px 16px;
   border: 2px solid var(--color-gray-light);
   border-radius: var(--radius-md);
-  font-family: 'Uxum', sans-serif;
-  font-weight: 400;
+  font-family: 'Uxum', sans-serif; font-weight: 400;
   font-size: 1rem;
   color: var(--color-primary-900);
   background: var(--color-surface);
-  transition: border-color 0.2s;
-  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
+.input-wrap input { padding-left: 44px; }
 .devis-field input:focus,
 .devis-field select:focus,
 .devis-field textarea:focus {
   outline: none;
   border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 4px rgba(99,93,221,0.12);
 }
-.devis-field textarea {
-  resize: vertical;
-  min-height: 100px;
+.input-wrap input:focus + svg,
+.input-wrap:focus-within svg { color: var(--color-primary-600); }
+.devis-field input.valid {
+  border-color: #22c55e;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322c55e' stroke-width='3'><polyline points='20 6 9 17 4 12'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px;
 }
+.devis-field input.error {
+  border-color: #ef4444;
+}
+.devis-field-error {
+  display: none;
+  font-family: 'Space Mono', monospace; font-size: 0.75rem;
+  color: #ef4444; margin-top: 4px;
+}
+.devis-field input.error ~ .devis-field-error { display: block; }
+.devis-field textarea { resize: vertical; min-height: 90px; }
 .devis-field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: grid; grid-template-columns: 1fr 1fr;
   gap: var(--space-md);
 }
+.devis-field-row.thirds { grid-template-columns: 120px 1fr; }
 @media (max-width: 480px) {
-  .devis-field-row {
-    grid-template-columns: 1fr;
-  }
+  .devis-field-row, .devis-field-row.thirds { grid-template-columns: 1fr; }
 }
 
-/* Radio group */
-.devis-radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-sm);
+/* Autocomplete (React) */
+.addr-autocomplete { position: relative; }
+.addr-suggestions {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 32px rgba(14,5,42,0.12);
+  max-height: 280px; overflow-y: auto;
+  z-index: 50;
 }
-.devis-radio-group label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-weight: 400;
-  font-size: 0.9375rem;
+.addr-suggestion {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
   cursor: pointer;
-  padding: 8px 16px;
-  border: 2px solid var(--color-gray-light);
-  border-radius: var(--radius-full);
-  transition: border-color 0.2s, background 0.2s;
+  border-bottom: 1px solid rgba(14,5,42,0.05);
+  font-family: 'Uxum', sans-serif;
+  transition: background 0.15s;
 }
-.devis-radio-group label:has(input:checked) {
-  border-color: var(--color-primary-600);
+.addr-suggestion:last-child { border-bottom: none; }
+.addr-suggestion:hover,
+.addr-suggestion.active { background: var(--color-primary-100); }
+.addr-suggestion-pin {
+  width: 28px; height: 28px; flex-shrink: 0;
   background: var(--color-primary-100);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-primary-600);
 }
-.devis-radio-group input[type="radio"] {
-  width: auto;
-  margin: 0;
+.addr-suggestion-main {
+  font-weight: 700; font-size: 0.9375rem;
+  color: var(--color-primary-900);
+}
+.addr-suggestion-sub {
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: #999;
+}
+.addr-loading {
+  padding: 14px; text-align: center;
+  font-family: 'Space Mono', monospace; font-size: 0.8rem;
+  color: #999;
+}
+.addr-powered {
+  display: block;
+  font-family: 'Space Mono', monospace; font-size: 0.65rem;
+  color: #999; margin-top: 4px;
+}
+
+/* Estimate teaser after step 2 */
+.estimate-teaser {
+  background: linear-gradient(135deg, var(--color-pastel-mint-light), var(--color-pastel-gold-light));
+  border: 1px solid var(--color-pastel-mint);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+  display: flex; align-items: center; gap: var(--space-md);
+}
+.estimate-teaser-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; flex-shrink: 0;
+}
+.estimate-teaser-label {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: #666; text-transform: uppercase; letter-spacing: 0.06em;
+}
+.estimate-teaser-value {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.25rem; color: var(--color-primary-900);
+}
+.estimate-teaser-note {
+  font-family: 'Uxum', sans-serif; font-size: 0.8125rem;
+  color: var(--color-primary-800); margin-top: 2px;
 }
 
 /* Pro fields */
-.devis-pro-only {
-  display: none;
+.devis-pro-only { display: none; }
+.devis-pro-only.show { display: block; }
+.devis-type-toggle {
+  display: inline-flex; background: var(--color-primary-100);
+  border-radius: var(--radius-full); padding: 4px;
+  margin-bottom: var(--space-lg); gap: 2px;
+}
+.devis-type-toggle button {
+  border: none; background: transparent;
+  padding: 8px 16px; border-radius: var(--radius-full);
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 0.875rem; color: var(--color-primary-800);
+  cursor: pointer; transition: all 0.2s;
+}
+.devis-type-toggle button.active {
+  background: var(--color-primary-900); color: #fff;
+  box-shadow: 0 2px 8px rgba(14,5,42,0.15);
 }
 
-/* Nav buttons */
+/* Nav */
 .devis-nav {
-  display: flex;
-  justify-content: space-between;
-  margin-top: var(--space-lg);
-  gap: var(--space-md);
+  display: flex; justify-content: space-between;
+  margin-top: var(--space-xl); gap: var(--space-md);
 }
-.devis-nav .btn {
-  flex: 0 0 auto;
+.devis-nav .btn { flex: 0 0 auto; }
+.devis-nav .btn-submit {
+  flex: 1;
+  background: linear-gradient(135deg, var(--color-primary-600), var(--color-primary-900));
+  border: none; color: #fff;
+  padding: 16px 24px; font-size: 1rem; font-weight: 700;
+  border-radius: var(--radius-md); cursor: pointer;
+  font-family: 'Uxum', sans-serif;
+  box-shadow: 0 8px 24px rgba(99,93,221,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.devis-nav .btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(99,93,221,0.45);
 }
 
-/* Sidebar */
-.devis-sidebar {
-  position: sticky;
-  top: var(--space-lg);
+/* Trust row below form */
+.devis-trust-row {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: var(--space-md); margin-top: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-gray-light);
 }
-.devis-reassurance-card {
+.devis-trust-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: #666;
+}
+.devis-trust-item svg { width: 14px; height: 14px; color: #22c55e; }
+
+/* ─── Sidebar ─── */
+.devis-sidebar {
+  position: sticky; top: var(--space-lg);
+  display: flex; flex-direction: column; gap: var(--space-md);
+}
+@media (max-width: 1024px) {
+  .devis-sidebar { position: static; }
+}
+.side-card {
   background: var(--color-surface);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  box-shadow: 0 2px 12px rgba(14,5,42,0.06);
+  box-shadow: 0 4px 16px rgba(14,5,42,0.06);
 }
-.devis-reassurance-card h3 {
-  font-family: 'Uxum', sans-serif;
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: var(--color-primary-900);
+.side-card h3 {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1rem; color: var(--color-primary-900);
+  margin-bottom: var(--space-md);
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Reviews card */
+.reviews-head {
+  display: flex; align-items: center; gap: 10px;
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-gray-light);
   margin-bottom: var(--space-md);
 }
-.devis-reassurance-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
-  font-family: 'Uxum', sans-serif;
-  font-weight: 400;
-  font-size: 0.9375rem;
+.reviews-score {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 2rem; color: var(--color-primary-900);
+  line-height: 1;
+}
+.reviews-meta-stars { color: #FFB800; font-size: 0.875rem; letter-spacing: 2px; }
+.reviews-meta-count {
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: #666; margin-top: 2px;
+}
+.testimonial {
+  font-family: 'Uxum', sans-serif; font-size: 0.875rem;
+  color: var(--color-primary-800); line-height: 1.5;
+  margin-bottom: 8px;
+}
+.testimonial-author {
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: #999;
+}
+.testimonial-dots {
+  display: flex; gap: 6px; justify-content: center;
+  margin-top: var(--space-md);
+}
+.testimonial-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-gray-light); cursor: pointer;
+  transition: background 0.2s;
+}
+.testimonial-dot.active { background: var(--color-primary-600); }
+
+/* Benefit list */
+.benefit-list { list-style: none; padding: 0; margin: 0; }
+.benefit-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-family: 'Uxum', sans-serif; font-size: 0.875rem;
   color: var(--color-primary-800);
+  padding: 8px 0;
 }
-.devis-reassurance-item:last-child {
-  margin-bottom: 0;
-}
-.devis-reassurance-icon {
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-md);
-  background: var(--color-primary-100);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-}
-.devis-reassurance-item strong {
-  display: block;
-  color: var(--color-primary-900);
+.benefit-list li strong {
+  display: block; color: var(--color-primary-900);
   margin-bottom: 2px;
 }
-.devis-contact-card {
+.benefit-list .bi {
+  width: 28px; height: 28px; flex-shrink: 0;
+  background: var(--color-primary-100);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* Phone card */
+.phone-card {
   background: var(--color-primary-900);
   border-radius: var(--radius-lg);
   padding: var(--space-lg);
-  margin-top: var(--space-md);
-  color: #fff;
-  text-align: center;
+  color: #fff; text-align: center;
+  background-image: radial-gradient(circle at 100% 0%, rgba(99,93,221,0.3), transparent 60%);
 }
-.devis-contact-card p {
-  font-family: 'Uxum', sans-serif;
-  font-weight: 400;
-  font-size: 0.875rem;
-  margin-bottom: var(--space-sm);
-  opacity: 0.8;
+.phone-card-label {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  color: rgba(255,255,255,0.6); text-transform: uppercase;
+  letter-spacing: 0.08em; margin-bottom: 8px;
 }
-.devis-contact-card a {
-  display: block;
-  font-family: 'Uxum', sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: #fff;
-  text-decoration: none;
-  margin-bottom: var(--space-xs);
+.phone-card-title {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1rem; margin-bottom: var(--space-md);
 }
-.devis-contact-card .devis-hours {
-  font-family: 'Space Mono', monospace;
-  font-weight: 400;
-  font-size: 0.75rem;
-  color: #999;
+.phone-card a {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.375rem; color: #fff; text-decoration: none;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-full);
+  transition: background 0.2s;
+}
+.phone-card a:hover { background: rgba(255,255,255,0.2); }
+.phone-card-hours {
+  display: block; margin-top: var(--space-sm);
+  font-family: 'Space Mono', monospace; font-size: 0.72rem;
+  color: rgba(255,255,255,0.6);
+}
+
+/* Coverage card */
+.coverage-card h3 { margin-bottom: var(--space-sm); }
+.coverage-cities {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: var(--space-sm);
+}
+.coverage-city {
+  font-family: 'Space Mono', monospace; font-size: 0.7rem;
+  padding: 4px 10px; border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  color: var(--color-primary-900);
 }
 </style>
 </head>
@@ -448,141 +767,221 @@
   </div>
 </header>
 </div>
+<!-- ════════ HERO ════════ -->
+<section class="devis-hero">
+  <div class="container">
+    <div class="devis-hero-inner">
+      <span class="devis-hero-badge">
+        <span class="pulse"></span>
+        <span id="liveCount">12 demandes traitées aujourd'hui</span>
+      </span>
+      <h1 class="devis-title" id="devisTitle">Votre devis gratuit<br><em>en 60 secondes</em></h1>
+      <p class="devis-subtitle">Un technicien certifié vous rappelle sous 2h — pas de robot, pas d'engagement.</p>
+
+      <div class="devis-proof">
+        <div class="devis-proof-item">
+          <span class="devis-proof-stars">★★★★★</span>
+          <span><strong>4,9/5</strong> sur 380+ avis Google</span>
+        </div>
+        <div class="devis-proof-item">
+          <span>✓</span>
+          <span><strong>1<sup>ère</sup> intervention offerte</strong></span>
+        </div>
+        <div class="devis-proof-item">
+          <span>⚡</span>
+          <span><strong>Réponse en 2h</strong> en moyenne</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ════════ DEVIS FORM ════════ -->
 <section class="devis-section">
   <div class="container">
-    <div class="devis-header">
-      <h1 class="devis-title" id="devisTitle">Demandez votre devis gratuit</h1>
-      <p class="devis-subtitle">Réponse sous 2h, sans engagement</p>
-    </div>
-
     <div class="devis-layout">
       <!-- Form -->
       <div class="devis-form-card">
-        <div class="devis-steps">
-          <div class="devis-step-indicator active" data-step="1">1. Nuisible</div>
-          <div class="devis-step-indicator" data-step="2">2. Situation</div>
-          <div class="devis-step-indicator" data-step="3">3. Coordonnées</div>
+
+        <!-- Type toggle (particulier/pro) -->
+        <div class="devis-type-toggle" role="tablist" aria-label="Type de client">
+          <button type="button" class="active" data-client="particulier">Particulier</button>
+          <button type="button" data-client="pro">Professionnel</button>
         </div>
 
-        <form action="#" method="POST" id="devisForm">
+        <!-- Progress -->
+        <div class="devis-progress">
+          <div class="devis-progress-head">
+            <span class="devis-progress-label">Étape <span id="stepCurrent">1</span> sur 3</span>
+            <span class="devis-progress-pct" id="progressPct">33%</span>
+          </div>
+          <div class="devis-progress-track">
+            <div class="devis-progress-fill" id="progressFill"></div>
+          </div>
+          <div class="devis-progress-steps">
+            <span class="devis-progress-step active" data-step="1">Nuisible</span>
+            <span class="devis-progress-step" data-step="2">Situation</span>
+            <span class="devis-progress-step" data-step="3">Coordonnées</span>
+          </div>
+        </div>
 
-          <!-- Step 1: Type de nuisible -->
+        <form action="#" method="POST" id="devisForm" novalidate>
+
+          <!-- ─── Step 1 : Nuisible (visual picker) ─── -->
           <fieldset class="devis-fieldset active" data-step="1">
-            <legend>Quel nuisible vous pose problème ?</legend>
+            <legend>Quel nuisible vous pose problème&nbsp;?</legend>
+            <p class="devis-fieldset-hint">Sélectionnez la catégorie concernée pour accéder à un devis adapté.</p>
 
-            <div class="devis-field">
-              <label for="nuisible">Type de nuisible</label>
-              <select id="nuisible" name="nuisible" required>
-                <option value="">-- Sélectionnez --</option>
-                <option value="rats-souris">Rats / Souris</option>
-                <option value="cafards-blattes">Cafards / Blattes</option>
-                <option value="punaises-de-lit">Punaises de lit</option>
-                <option value="guepes-frelons">Guêpes / Frelons</option>
-                <option value="pigeons">Pigeons</option>
-                <option value="fourmis">Fourmis</option>
-                <option value="moustiques">Moustiques</option>
-                <option value="autre">Autre</option>
-              </select>
+            <input type="hidden" name="nuisible" id="nuisibleInput" required>
+            <div class="nuisible-grid" role="radiogroup" aria-label="Type de nuisible">
+              <div class="nuisible-card" data-value="rats-souris" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt=""></div>
+                <div class="nuisible-card-name">Rats / Souris</div>
+                <div class="nuisible-card-hint">RONGEURS</div>
+              </div>
+              <div class="nuisible-card" data-value="punaises-de-lit" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt=""></div>
+                <div class="nuisible-card-name">Punaises de lit</div>
+                <div class="nuisible-card-hint">URGENT</div>
+              </div>
+              <div class="nuisible-card" data-value="cafards-blattes" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt=""></div>
+                <div class="nuisible-card-name">Cafards</div>
+                <div class="nuisible-card-hint">BLATTES</div>
+              </div>
+              <div class="nuisible-card" data-value="guepes-frelons" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt=""></div>
+                <div class="nuisible-card-name">Guêpes / Frelons</div>
+                <div class="nuisible-card-hint">NIDS</div>
+              </div>
+              <div class="nuisible-card" data-value="fourmis" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt=""></div>
+                <div class="nuisible-card-name">Fourmis</div>
+                <div class="nuisible-card-hint">COLONIES</div>
+              </div>
+              <div class="nuisible-card" data-value="moustiques" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt=""></div>
+                <div class="nuisible-card-name">Moustiques</div>
+                <div class="nuisible-card-hint">TIGRES</div>
+              </div>
+              <div class="nuisible-card" data-value="pigeons" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-pastel-lavender-light);">🕊️</div>
+                <div class="nuisible-card-name">Pigeons</div>
+                <div class="nuisible-card-hint">DÉPIGEONNAGE</div>
+              </div>
+              <div class="nuisible-card" data-value="autre" tabindex="0" role="radio" aria-checked="false">
+                <div class="nuisible-card-img" style="background:var(--color-primary-100);">❓</div>
+                <div class="nuisible-card-name">Autre</div>
+                <div class="nuisible-card-hint">À PRÉCISER</div>
+              </div>
             </div>
 
             <div class="devis-nav">
               <span></span>
-              <button type="button" class="btn btn-primary" onclick="goToStep(2)">Suivant →</button>
+              <button type="button" class="btn btn-primary" onclick="goToStep(2)">Continuer →</button>
             </div>
           </fieldset>
 
-          <!-- Step 2: Votre situation -->
+          <!-- ─── Step 2 : Situation ─── -->
           <fieldset class="devis-fieldset" data-step="2">
-            <legend>Décrivez votre situation</legend>
+            <legend>Décrivez brièvement votre situation</legend>
+            <p class="devis-fieldset-hint">Ces 3 infos nous permettent d'estimer précisément votre devis.</p>
 
             <div class="devis-field">
-              <label for="surface">Surface approximative</label>
-              <select id="surface" name="surface">
-                <option value="">-- Sélectionnez --</option>
-                <option value="moins-30">Moins de 30 m²</option>
-                <option value="30-60">30 à 60 m²</option>
-                <option value="60-100">60 à 100 m²</option>
-                <option value="100-200">100 à 200 m²</option>
-                <option value="plus-200">Plus de 200 m²</option>
-              </select>
+              <span class="devis-field-label">Surface concernée</span>
+              <div class="pill-group" data-name="surface">
+                <label><input type="radio" name="surface" value="moins-30"> &lt; 30 m²</label>
+                <label><input type="radio" name="surface" value="30-60"> 30–60 m²</label>
+                <label><input type="radio" name="surface" value="60-100"> 60–100 m²</label>
+                <label><input type="radio" name="surface" value="100-200"> 100–200 m²</label>
+                <label><input type="radio" name="surface" value="plus-200"> &gt; 200 m²</label>
+              </div>
             </div>
 
             <div class="devis-field">
-              <label for="depuis">Depuis quand ?</label>
-              <select id="depuis" name="depuis">
-                <option value="">-- Sélectionnez --</option>
-                <option value="quelques-jours">Quelques jours</option>
-                <option value="1-2-semaines">1 à 2 semaines</option>
-                <option value="1-mois">Environ 1 mois</option>
-                <option value="plusieurs-mois">Plusieurs mois</option>
-                <option value="ne-sais-pas">Je ne sais pas</option>
-              </select>
+              <span class="devis-field-label">Depuis quand ?</span>
+              <div class="pill-group" data-name="depuis">
+                <label><input type="radio" name="depuis" value="quelques-jours"> Quelques jours</label>
+                <label><input type="radio" name="depuis" value="1-2-semaines"> 1 à 2 semaines</label>
+                <label><input type="radio" name="depuis" value="1-mois"> ≈ 1 mois</label>
+                <label><input type="radio" name="depuis" value="plusieurs-mois"> Plusieurs mois</label>
+                <label><input type="radio" name="depuis" value="ne-sais-pas"> Je ne sais pas</label>
+              </div>
             </div>
 
             <div class="devis-field">
-              <label>Degré d'urgence</label>
-              <div class="devis-radio-group">
-                <label><input type="radio" name="urgence" value="normale"> Normale</label>
-                <label><input type="radio" name="urgence" value="rapide"> Rapide (sous 48h)</label>
-                <label><input type="radio" name="urgence" value="urgente"> Urgente (sous 24h)</label>
+              <span class="devis-field-label">Degré d'urgence</span>
+              <div class="pill-group urgency" data-name="urgence">
+                <label><input type="radio" name="urgence" value="normale"> 🟢 Normale</label>
+                <label><input type="radio" name="urgence" value="rapide"> 🟡 Rapide (48h)</label>
+                <label data-urgent="true"><input type="radio" name="urgence" value="urgente"> 🔴 Urgente (24h)</label>
               </div>
             </div>
 
             <div class="devis-nav">
               <button type="button" class="btn btn-outline" onclick="goToStep(1)">← Retour</button>
-              <button type="button" class="btn btn-primary" onclick="goToStep(3)">Suivant →</button>
+              <button type="button" class="btn btn-primary" onclick="goToStep(3)">Continuer →</button>
             </div>
           </fieldset>
 
-          <!-- Step 3: Coordonnées -->
+          <!-- ─── Step 3 : Coordonnées ─── -->
           <fieldset class="devis-fieldset" data-step="3">
-            <legend>Vos coordonnées</legend>
+            <legend>Où envoyer votre devis ?</legend>
+            <p class="devis-fieldset-hint">Vos infos restent confidentielles — zéro spam, zéro partage.</p>
 
-            <div class="devis-field-row">
-              <div class="devis-field">
-                <label for="nom">Nom complet *</label>
-                <input type="text" id="nom" name="nom" required placeholder="Votre nom et prénom">
+            <!-- Price estimate teaser -->
+            <div class="estimate-teaser" id="estimateTeaser">
+              <div class="estimate-teaser-icon">💡</div>
+              <div>
+                <div class="estimate-teaser-label">Estimation moyenne</div>
+                <div class="estimate-teaser-value" id="estimateRange">150 € – 290 €</div>
+                <div class="estimate-teaser-note">Votre devis définitif sera précisé par le technicien.</div>
               </div>
-              <div class="devis-field">
-                <label for="tel">Téléphone *</label>
-                <input type="tel" id="tel" name="tel" required placeholder="06 00 00 00 00">
-              </div>
-            </div>
-
-            <div class="devis-field">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" required placeholder="votre@email.com">
-            </div>
-
-            <div class="devis-field">
-              <label for="adresse">Adresse</label>
-              <input type="text" id="adresse" name="adresse" placeholder="Numéro et nom de rue">
             </div>
 
             <div class="devis-field-row">
               <div class="devis-field">
-                <label for="cp">Code postal</label>
-                <input type="text" id="cp" name="cp" placeholder="69003">
+                <label class="devis-field-label" for="nom">Nom complet <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <input type="text" id="nom" name="nom" required placeholder="Marie Dupont" autocomplete="name">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <div class="devis-field-error">Veuillez renseigner votre nom.</div>
               </div>
               <div class="devis-field">
-                <label for="ville">Ville *</label>
-                <select id="ville" name="ville" required>
-                  <option value="">-- Sélectionnez --</option>
-                  <option value="Lyon">Lyon</option>
-                  <option value="Paris">Paris</option>
-                </select>
+                <label class="devis-field-label" for="tel">Téléphone <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <input type="tel" id="tel" name="tel" required placeholder="06 00 00 00 00" autocomplete="tel" inputmode="tel">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div class="devis-field-error">Numéro de téléphone invalide.</div>
               </div>
             </div>
+
+            <div class="devis-field">
+              <label class="devis-field-label" for="email">Email <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="email" id="email" name="email" required placeholder="marie@email.com" autocomplete="email" inputmode="email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div class="devis-field-error">Email invalide.</div>
+            </div>
+
+            <!-- ═══ React Address Autocomplete mount point ═══ -->
+            <div id="addressAutocomplete"></div>
+            <!-- Hidden fallback inputs synced by React component -->
+            <input type="hidden" id="adresse" name="adresse">
+            <input type="hidden" id="cp" name="cp">
+            <input type="hidden" id="ville" name="ville">
 
             <!-- Pro fields -->
             <div class="devis-pro-only" id="proFields">
               <div class="devis-field">
-                <label for="siret">Numéro SIRET</label>
-                <input type="text" id="siret" name="siret" placeholder="123 456 789 00012">
+                <label class="devis-field-label" for="siret">Numéro SIRET <span class="opt">optionnel</span></label>
+                <input type="text" id="siret" name="siret" placeholder="123 456 789 00012" inputmode="numeric">
               </div>
               <div class="devis-field">
-                <label for="secteur">Secteur d'activité</label>
+                <label class="devis-field-label" for="secteur">Secteur d'activité</label>
                 <select id="secteur" name="secteur">
                   <option value="">-- Sélectionnez --</option>
                   <option value="restauration">Restauration</option>
@@ -597,11 +996,11 @@
               </div>
               <div class="devis-field-row">
                 <div class="devis-field">
-                  <label for="nb-sites">Nombre de sites</label>
+                  <label class="devis-field-label" for="nb-sites">Nombre de sites</label>
                   <input type="number" id="nb-sites" name="nb-sites" min="1" placeholder="1">
                 </div>
                 <div class="devis-field">
-                  <label for="contrat">Type de contrat souhaité</label>
+                  <label class="devis-field-label" for="contrat">Type de contrat</label>
                   <select id="contrat" name="contrat">
                     <option value="">-- Sélectionnez --</option>
                     <option value="ponctuel">Intervention ponctuelle</option>
@@ -614,62 +1013,139 @@
             </div>
 
             <div class="devis-field">
-              <label for="message">Message (optionnel)</label>
+              <label class="devis-field-label" for="message">Message <span class="opt">optionnel</span></label>
               <textarea id="message" name="message" placeholder="Décrivez votre situation en quelques mots..."></textarea>
             </div>
 
             <div class="devis-nav">
               <button type="button" class="btn btn-outline" onclick="goToStep(2)">← Retour</button>
-              <button type="submit" class="btn btn-accent btn-lg" style="flex:1;">Envoyer ma demande</button>
+              <button type="submit" class="btn-submit">
+                Recevoir mon devis gratuit
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <div class="devis-trust-row">
+              <span class="devis-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Données chiffrées SSL
+              </span>
+              <span class="devis-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Conforme RGPD
+              </span>
+              <span class="devis-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Sans engagement
+              </span>
+              <span class="devis-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                0 spam
+              </span>
             </div>
           </fieldset>
 
         </form>
       </div>
 
-      <!-- Sidebar -->
+      <!-- ─── Sidebar ─── -->
       <aside class="devis-sidebar">
-        <div class="devis-reassurance-card">
-          <h3>Pourquoi choisir Sanalia ?</h3>
 
-          <div class="devis-reassurance-item">
-            <div class="devis-reassurance-icon">💰</div>
+        <!-- 1ère intervention offerte -->
+        <div class="side-card" style="background:linear-gradient(135deg,var(--color-pastel-gold-light),var(--color-pastel-peach-light));border:1px solid var(--color-pastel-gold);">
+          <div style="display:flex;align-items:center;gap:var(--space-sm);">
+            <div style="width:48px;height:48px;border-radius:12px;background:var(--color-accent-500);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:1.5rem;">🎁</div>
             <div>
-              <strong>Devis 100% gratuit</strong>
-              Aucun frais, aucune obligation.
-            </div>
-          </div>
-
-          <div class="devis-reassurance-item">
-            <div class="devis-reassurance-icon">⚡</div>
-            <div>
-              <strong>Réponse sous 2h</strong>
-              Un technicien vous rappelle rapidement.
-            </div>
-          </div>
-
-          <div class="devis-reassurance-item">
-            <div class="devis-reassurance-icon">🤝</div>
-            <div>
-              <strong>Sans engagement</strong>
-              Vous décidez en toute liberté.
-            </div>
-          </div>
-
-          <div class="devis-reassurance-item">
-            <div class="devis-reassurance-icon">✅</div>
-            <div>
-              <strong>Résultat garanti</strong>
-              Nous revenons gratuitement si besoin.
+              <div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:0.08em;">Offre découverte</div>
+              <strong style="font-family:'Uxum',sans-serif;font-weight:700;font-size:1.0625rem;color:var(--color-primary-900);display:block;">1<sup>ère</sup> intervention offerte</strong>
+              <span style="font-family:'Uxum',sans-serif;font-size:0.8125rem;color:var(--color-primary-800);">Diagnostic & 1<sup>er</sup> traitement inclus.</span>
             </div>
           </div>
         </div>
 
-        <div class="devis-contact-card">
-          <p>Vous préférez nous appeler ?</p>
-          <a href="tel:0667464897">📞 06 67 46 48 97</a>
-          <span class="devis-hours">8h - 20h, 7j/7</span>
+        <!-- Réponse dans les 2h -->
+        <div class="side-card" style="display:flex;align-items:center;gap:var(--space-sm);">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--color-primary-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--color-primary-600);">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:0.08em;">Engagement</div>
+            <strong style="font-family:'Uxum',sans-serif;font-weight:700;font-size:1.0625rem;color:var(--color-primary-900);display:block;">Réponse dans les 2h</strong>
+            <span style="font-family:'Uxum',sans-serif;font-size:0.8125rem;color:var(--color-primary-800);">Rappel par un technicien certifié.</span>
+          </div>
         </div>
+
+        <!-- Google reviews -->
+        <div class="side-card">
+          <div class="reviews-head">
+            <div class="reviews-score">4,9</div>
+            <div>
+              <div class="reviews-meta-stars">★★★★★</div>
+              <div class="reviews-meta-count">380+ avis Google</div>
+            </div>
+            <div style="margin-left:auto;">
+              <!-- Google G logo -->
+              <svg viewBox="0 0 48 48" width="28" height="28"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+            </div>
+          </div>
+          <div class="testimonial-slider" id="testimonialSlider">
+            <div class="testimonial-slide active">
+              <p class="testimonial">« Intervention rapide et efficace. Rappel en moins d'une heure, devis clair, problème réglé. »</p>
+              <div class="testimonial-author">— Sophie M., Lyon 3</div>
+            </div>
+            <div class="testimonial-slide">
+              <p class="testimonial">« Équipe professionnelle, discrète, et résultat garanti. Je recommande les yeux fermés. »</p>
+              <div class="testimonial-author">— Thomas R., Paris 11</div>
+            </div>
+            <div class="testimonial-slide">
+              <p class="testimonial">« Enfin débarrassés des punaises après 2 mois d'enfer. Merci Sanalia ! »</p>
+              <div class="testimonial-author">— Julie D., Villeurbanne</div>
+            </div>
+          </div>
+          <div class="testimonial-dots">
+            <span class="testimonial-dot active" data-slide="0"></span>
+            <span class="testimonial-dot" data-slide="1"></span>
+            <span class="testimonial-dot" data-slide="2"></span>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="side-card">
+          <h3>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--color-primary-600)" stroke-width="2.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            Certifications officielles
+          </h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
+              <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
+              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">Certibiocide</div>
+            </div>
+            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
+              <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
+              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">CS3D</div>
+            </div>
+            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
+              <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro3D" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
+              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">QualiPro 3D</div>
+            </div>
+            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
+              <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
+              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">RC Pro AXA</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone fallback -->
+        <div class="phone-card">
+          <div class="phone-card-label">Préférez-vous appeler ?</div>
+          <div class="phone-card-title">Ligne directe, sans serveur vocal</div>
+          <a href="tel:0667464897">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            06 67 46 48 97
+          </a>
+          <span class="phone-card-hours">8h – 20h, 7j/7</span>
+        </div>
+
       </aside>
     </div>
   </div>
@@ -781,71 +1257,324 @@
 </div>
 <script src="/js/app.js"></script>
 <script>
-// ═══ Multi-step form navigation ═══
-function goToStep(step) {
-  // Hide all fieldsets
-  document.querySelectorAll('.devis-fieldset').forEach(fs => fs.classList.remove('active'));
-  // Show target
-  document.querySelector('.devis-fieldset[data-step="' + step + '"]').classList.add('active');
-  // Update indicators
-  document.querySelectorAll('.devis-step-indicator').forEach(ind => {
-    const s = parseInt(ind.dataset.step);
-    ind.classList.remove('active', 'completed');
-    if (s === step) ind.classList.add('active');
-    else if (s < step) ind.classList.add('completed');
+/* ═══════════════════════════════════════════════════
+   DEVIS — form logic (vanilla)
+   ═══════════════════════════════════════════════════ */
+
+let currentStep = 1;
+
+function updateProgress(step) {
+  currentStep = step;
+  const pct = Math.round((step / 3) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('stepCurrent').textContent = step;
+  document.querySelectorAll('.devis-progress-step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.remove('active', 'done');
+    if (s === step) el.classList.add('active');
+    else if (s < step) el.classList.add('done');
   });
-  // Scroll to top of form
-  document.querySelector('.devis-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ═══ URL params prefill ═══
+function goToStep(step) {
+  // Validation on forward
+  if (step > currentStep) {
+    if (currentStep === 1 && !document.getElementById('nuisibleInput').value) {
+      flashNuisibleGrid();
+      return;
+    }
+  }
+  document.querySelectorAll('.devis-fieldset').forEach(fs => fs.classList.remove('active'));
+  document.querySelector('.devis-fieldset[data-step="' + step + '"]').classList.add('active');
+  updateProgress(step);
+  if (step === 3) updateEstimate();
+  // Scroll to top of form card
+  const card = document.querySelector('.devis-form-card');
+  const y = card.getBoundingClientRect().top + window.pageYOffset - 100;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+
+function flashNuisibleGrid() {
+  const grid = document.querySelector('.nuisible-grid');
+  grid.style.animation = 'none';
+  void grid.offsetWidth;
+  grid.style.animation = 'shake 0.4s';
+}
+/* inject shake keyframes */
+const __sheet = document.styleSheets[document.styleSheets.length - 1];
+try { __sheet.insertRule('@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }', __sheet.cssRules.length); } catch(e) {}
+
+/* ─── Nuisible picker ─── */
+document.querySelectorAll('.nuisible-card').forEach(card => {
+  const select = () => {
+    document.querySelectorAll('.nuisible-card').forEach(c => {
+      c.classList.remove('selected');
+      c.setAttribute('aria-checked', 'false');
+    });
+    card.classList.add('selected');
+    card.setAttribute('aria-checked', 'true');
+    document.getElementById('nuisibleInput').value = card.dataset.value;
+    // Auto-advance after short delay for satisfying UX
+    setTimeout(() => { if (currentStep === 1) goToStep(2); }, 400);
+  };
+  card.addEventListener('click', select);
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(); }
+  });
+});
+
+/* ─── Type toggle ─── */
+document.querySelectorAll('.devis-type-toggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.devis-type-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const isPro = btn.dataset.client === 'pro';
+    document.getElementById('proFields').classList.toggle('show', isPro);
+    document.getElementById('devisTitle').innerHTML = isPro
+      ? 'Votre devis professionnel<br><em>sur-mesure</em>'
+      : 'Votre devis gratuit<br><em>en 60 secondes</em>';
+  });
+});
+
+/* ─── Testimonials carousel ─── */
+let tIdx = 0;
+const tSlides = document.querySelectorAll('.testimonial-slide');
+const tDots = document.querySelectorAll('.testimonial-dot');
+function showTestimonial(i) {
+  tIdx = i;
+  tSlides.forEach((s, idx) => s.style.display = idx === i ? 'block' : 'none');
+  tDots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+}
+tDots.forEach(d => d.addEventListener('click', () => showTestimonial(parseInt(d.dataset.slide))));
+showTestimonial(0);
+setInterval(() => showTestimonial((tIdx + 1) % tSlides.length), 6000);
+
+/* ─── Estimate calculator ─── */
+function updateEstimate() {
+  const nuisible = document.getElementById('nuisibleInput').value;
+  const surface = document.querySelector('[name="surface"]:checked')?.value;
+  const urgence = document.querySelector('[name="urgence"]:checked')?.value;
+  const ranges = {
+    'rats-souris': [120, 250],
+    'punaises-de-lit': [280, 650],
+    'cafards-blattes': [150, 320],
+    'guepes-frelons': [90, 180],
+    'fourmis': [90, 200],
+    'moustiques': [120, 240],
+    'pigeons': [250, 800],
+    'autre': [100, 400]
+  };
+  let [lo, hi] = ranges[nuisible] || [150, 290];
+  const surfMult = { 'moins-30': 0.9, '30-60': 1.0, '60-100': 1.15, '100-200': 1.4, 'plus-200': 1.8 }[surface] || 1;
+  const urgMult = urgence === 'urgente' ? 1.3 : urgence === 'rapide' ? 1.1 : 1;
+  lo = Math.round(lo * surfMult * urgMult / 10) * 10;
+  hi = Math.round(hi * surfMult * urgMult / 10) * 10;
+  document.getElementById('estimateRange').textContent = lo + ' € – ' + hi + ' €';
+}
+
+/* ─── Inline validation ─── */
+function validate(field, test) {
+  const ok = test(field.value);
+  field.classList.toggle('valid', ok && field.value.length > 0);
+  field.classList.toggle('error', !ok && field.value.length > 0);
+  return ok;
+}
+const nomF = document.getElementById('nom');
+const telF = document.getElementById('tel');
+const emailF = document.getElementById('email');
+nomF?.addEventListener('blur', () => validate(nomF, v => v.trim().length >= 2));
+telF?.addEventListener('blur', () => validate(telF, v => /^[+\d\s().-]{8,}$/.test(v.trim())));
+emailF?.addEventListener('blur', () => validate(emailF, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())));
+
+/* ─── URL params prefill ─── */
 document.addEventListener('DOMContentLoaded', function() {
   const params = new URLSearchParams(window.location.search);
-
-  // Prefill nuisible
   const nuisible = params.get('nuisible');
   if (nuisible) {
-    const sel = document.getElementById('nuisible');
-    for (let i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].value === nuisible) {
-        sel.selectedIndex = i;
-        break;
-      }
+    const card = document.querySelector('.nuisible-card[data-value="' + nuisible + '"]');
+    if (card) {
+      card.classList.add('selected');
+      card.setAttribute('aria-checked', 'true');
+      document.getElementById('nuisibleInput').value = nuisible;
     }
   }
-
-  // Prefill ville
   const ville = params.get('ville');
-  if (ville) {
-    const sel = document.getElementById('ville');
-    for (let i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].value.toLowerCase() === ville.toLowerCase()) {
-        sel.selectedIndex = i;
-        break;
-      }
-    }
+  if (ville) document.getElementById('ville').value = ville;
+  if (params.get('type') === 'pro') {
+    document.querySelector('[data-client="pro"]').click();
   }
 
-  // Pro mode
-  const type = params.get('type');
-  if (type === 'pro') {
-    document.getElementById('proFields').style.display = 'block';
-    document.getElementById('devisTitle').textContent = 'Demandez votre devis professionnel';
-  }
+  /* Live demand count */
+  const base = 8 + Math.floor((new Date().getHours() / 24) * 18);
+  const el = document.getElementById('liveCount');
+  if (el) el.textContent = base + ' demandes traitées aujourd\'hui';
 
-  // Step indicator click
-  document.querySelectorAll('.devis-step-indicator').forEach(ind => {
-    ind.addEventListener('click', function() {
-      goToStep(parseInt(this.dataset.step));
-    });
-  });
-
-  // Form submit -> redirect to merci
+  /* Form submit */
   document.getElementById('devisForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    const ok = validate(nomF, v => v.trim().length >= 2)
+             & validate(telF, v => /^[+\d\s().-]{8,}$/.test(v.trim()))
+             & validate(emailF, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()));
+    if (!ok) return;
     window.location.href = '/merci/';
   });
 });
+</script>
+
+<!-- ═══ React Address Autocomplete (BAN — adresse.data.gouv.fr) ═══ -->
+<script type="module">
+import React, { useState, useEffect, useRef, useCallback } from 'https://esm.sh/react@18.3.1';
+import { createRoot } from 'https://esm.sh/react-dom@18.3.1/client';
+import htm from 'https://esm.sh/htm@3.1.1';
+const html = htm.bind(React.createElement);
+
+// Debounce helper
+function useDebounce(value, delay) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(t);
+  }, [value, delay]);
+  return debounced;
+}
+
+function AddressAutocomplete() {
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [activeIdx, setActiveIdx] = useState(-1);
+  const [selected, setSelected] = useState(null);
+  const [manualCp, setManualCp] = useState('');
+  const [manualCity, setManualCity] = useState('');
+  const wrapRef = useRef(null);
+  const debounced = useDebounce(query, 250);
+
+  // Fetch suggestions from BAN
+  useEffect(() => {
+    if (!debounced || debounced.length < 3 || selected) {
+      setSuggestions([]);
+      return;
+    }
+    setLoading(true);
+    const ctrl = new AbortController();
+    fetch(`https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(debounced)}&limit=6&autocomplete=1`, { signal: ctrl.signal })
+      .then(r => r.json())
+      .then(data => {
+        setSuggestions(data.features || []);
+        setLoading(false);
+        setOpen(true);
+      })
+      .catch(err => { if (err.name !== 'AbortError') setLoading(false); });
+    return () => ctrl.abort();
+  }, [debounced, selected]);
+
+  // Close on click outside
+  useEffect(() => {
+    const onClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    };
+    document.addEventListener('mousedown', onClick);
+    return () => document.removeEventListener('mousedown', onClick);
+  }, []);
+
+  const selectFeature = useCallback((feature) => {
+    const p = feature.properties;
+    const display = p.name + ', ' + p.postcode + ' ' + p.city;
+    setQuery(display);
+    setSelected(feature);
+    setManualCp(p.postcode || '');
+    setManualCity(p.city || '');
+    setOpen(false);
+    // Sync hidden inputs
+    document.getElementById('adresse').value = p.name || '';
+    document.getElementById('cp').value = p.postcode || '';
+    document.getElementById('ville').value = p.city || '';
+  }, []);
+
+  const onChange = (e) => {
+    setQuery(e.target.value);
+    setSelected(null);
+    setActiveIdx(-1);
+    document.getElementById('adresse').value = e.target.value;
+  };
+
+  const onKey = (e) => {
+    if (!open || suggestions.length === 0) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActiveIdx(i => Math.min(i + 1, suggestions.length - 1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActiveIdx(i => Math.max(i - 1, -1)); }
+    else if (e.key === 'Enter' && activeIdx >= 0) { e.preventDefault(); selectFeature(suggestions[activeIdx]); }
+    else if (e.key === 'Escape') setOpen(false);
+  };
+
+  const onCpChange = (e) => {
+    setManualCp(e.target.value);
+    document.getElementById('cp').value = e.target.value;
+  };
+  const onCityChange = (e) => {
+    setManualCity(e.target.value);
+    document.getElementById('ville').value = e.target.value;
+  };
+
+  return html`
+    <div class="devis-field" ref=${wrapRef}>
+      <label class="devis-field-label" htmlFor="adresseInput">Adresse <span class="req">*</span></label>
+      <div class="addr-autocomplete">
+        <div class="input-wrap">
+          <input
+            id="adresseInput"
+            type="text"
+            value=${query}
+            onChange=${onChange}
+            onKeyDown=${onKey}
+            onFocus=${() => suggestions.length > 0 && setOpen(true)}
+            placeholder="Commencez à taper — ex. 53 rue Villeroy"
+            autoComplete="off"
+            required
+          />
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        ${open && (loading || suggestions.length > 0) && html`
+          <div class="addr-suggestions" role="listbox">
+            ${loading && html`<div class="addr-loading">Recherche...</div>`}
+            ${!loading && suggestions.map((f, i) => html`
+              <div
+                key=${f.properties.id}
+                class=${'addr-suggestion' + (i === activeIdx ? ' active' : '')}
+                role="option"
+                onMouseDown=${(e) => { e.preventDefault(); selectFeature(f); }}
+              >
+                <div class="addr-suggestion-pin">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div style=${{flex: 1, minWidth: 0}}>
+                  <div class="addr-suggestion-main">${f.properties.name}</div>
+                  <div class="addr-suggestion-sub">${f.properties.postcode} ${f.properties.city}</div>
+                </div>
+              </div>
+            `)}
+          </div>
+        `}
+      </div>
+      <span class="addr-powered">Données : Base Adresse Nationale (data.gouv.fr)</span>
+    </div>
+
+    <div class="devis-field-row thirds">
+      <div class="devis-field">
+        <label class="devis-field-label" htmlFor="cpInput">Code postal <span class="req">*</span></label>
+        <input id="cpInput" type="text" inputMode="numeric" maxLength="5" value=${manualCp} onChange=${onCpChange} placeholder="69003" required />
+      </div>
+      <div class="devis-field">
+        <label class="devis-field-label" htmlFor="villeInput">Ville <span class="req">*</span></label>
+        <input id="villeInput" type="text" value=${manualCity} onChange=${onCityChange} placeholder="Lyon" required />
+      </div>
+    </div>
+  `;
+}
+
+const mount = document.getElementById('addressAutocomplete');
+if (mount) createRoot(mount).render(html`<${AddressAutocomplete}/>`);
 </script>
 </body>
 </html>
