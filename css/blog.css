@@ -2787,19 +2787,24 @@ html { scroll-padding-top: 120px; }
   border-left-color: var(--color-primary-600, #635DDD);
   font-weight: 700;
 }
-/* h3 dans la sidebar TOC : indentation forte à droite + plus petit */
+/* h3 dans la sidebar TOC : indentation forte à droite + plus petit + opacité */
 .blog-sidebar .blog-toc .toc-h3 a {
   padding: 4px 0 4px 32px;
   font-size: 11px;
   color: #999;
   border-left: none;
   margin-left: 0;
+  opacity: 0.8;
 }
-.blog-sidebar .blog-toc .toc-h3 a:hover { color: var(--color-primary-600, #635DDD); }
+.blog-sidebar .blog-toc .toc-h3 a:hover {
+  color: var(--color-primary-600, #635DDD);
+  opacity: 1;
+}
 .blog-sidebar .blog-toc .toc-h3 a.is-active {
   color: var(--color-primary-900, #0E052A);
   font-weight: 600;
   border-left: none;
+  opacity: 1;
 }
 
 /* ── CTA sidebar widget (fond sombre, sticky dedans) ── */
