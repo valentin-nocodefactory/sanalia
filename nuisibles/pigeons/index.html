@@ -123,6 +123,8 @@ html { scroll-padding-top: 130px; }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
 .signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
 .sign-card { text-align: center; }
+.sign-card img.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-md); cursor: zoom-in; display: block; transition: transform 0.3s; }
+.sign-card img.sign-img:hover { transform: scale(1.03); }
 .sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
 .sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
 @media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -620,12 +622,12 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
       <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
       <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Les indices concrets d'une infestation de pigeons. Reconnaissez-les avant qu'il ne soit trop tard.</p>
       <div class="signs-grid">
-        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">💩</div><h4>Fientes</h4><p>Fientes blanches et vertes sur façade, balcons, appuis de fenêtre — corrosives.</p></div>
-        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🪺</div><h4>Nids</h4><p>Branchages et débris dans les gouttières, sous les toits, balcons inutilisés.</p></div>
-        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🔊</div><h4>Roucoulements</h4><p>Roucoulements matinaux persistants sur le toit ou les rebords.</p></div>
-        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🪶</div><h4>Plumes</h4><p>Plumes grises ou blanches au sol ou sur le balcon — zone de perchage.</p></div>
-        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🦠</div><h4>Parasites</h4><p>Présence de punaises, tiques ou puces (les pigeons en sont porteurs).</p></div>
-        <div class="sign-card"><div class="sign-placeholder" style="background:#E6F3FF;display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🏢</div><h4>Marques de façade</h4><p>Coulures noires ou blanches permanentes sur la pierre ou le crépi.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/pigeon-fientes-facade.jpg" alt="Fientes de pigeons sur façade" loading="lazy"><h4>Fientes</h4><p>Fientes blanches et vertes sur façade, balcons, appuis de fenêtre — corrosives.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/pigeon-nid.jpg" alt="Nid de pigeon sur un rebord" loading="lazy"><h4>Nids</h4><p>Branchages et débris dans les gouttières, sous les toits, balcons inutilisés.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/pigeon-perchage.jpg" alt="Pigeons perchés sur une toiture" loading="lazy"><h4>Roucoulements</h4><p>Roucoulements matinaux persistants sur le toit ou les rebords.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/pigeon-plumes.jpg" alt="Plumes de pigeons retrouvées au sol" loading="lazy"><h4>Plumes</h4><p>Plumes grises ou blanches au sol ou sur le balcon — zone de perchage.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/pigeon-parasites.jpg" alt="Tique du pigeon Argas reflexus" loading="lazy"><h4>Parasites</h4><p>Présence de punaises, tiques ou puces (les pigeons en sont porteurs).</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/pigeon-degats-facade.jpg" alt="Façade dégradée par les fientes de pigeons" loading="lazy"><h4>Marques de façade</h4><p>Coulures noires ou blanches permanentes sur la pierre ou le crépi.</p></div>
       </div>
     </section>
 

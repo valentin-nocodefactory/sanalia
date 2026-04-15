@@ -98,6 +98,8 @@ html { scroll-padding-top: 130px; }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
 .signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
 .sign-card { text-align: center; }
+.sign-card img.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-md); cursor: zoom-in; display: block; transition: transform 0.3s; }
+.sign-card img.sign-img:hover { transform: scale(1.03); }
 .sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
 .sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
 @media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -612,12 +614,12 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
   <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
   <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Les indices concrets d'une infestation de moustiques. Reconnaissez-les avant qu'il ne soit trop tard.</p>
   <div class="signs-grid">
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🦟</div><h4>Piqûres multiples</h4><p>Piqûres rouges qui démangent, surtout sur les chevilles, mains et cou.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">💧</div><h4>Eau stagnante</h4><p>Larves visibles dans les coupelles, seaux, gouttières bouchées.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🌙</div><h4>Bourdonnement nocturne</h4><p>Sifflement aigu près des oreilles pendant la nuit.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🏷️</div><h4>Moustique tigre</h4><p>Petit (5 mm), rayures blanches et noires, diurne.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🚪</div><h4>Entrées</h4><p>Par les portes ouvertes le soir, fenêtres sans moustiquaire.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-green-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🌿</div><h4>Jardin envahi</h4><p>Impossible d'être dehors le soir sans se faire piquer.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/moustique-piqures.jpg" alt="Piqûres de moustiques rouges sur la peau" loading="lazy"><h4>Piqûres multiples</h4><p>Piqûres rouges qui démangent, surtout sur les chevilles, mains et cou.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/moustique-eau-stagnante.jpg" alt="Larves de moustiques dans une eau stagnante" loading="lazy"><h4>Eau stagnante</h4><p>Larves visibles dans les coupelles, seaux, gouttières bouchées.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/moustique-commun.jpg" alt="Moustique commun Culex en gros plan" loading="lazy"><h4>Bourdonnement nocturne</h4><p>Sifflement aigu près des oreilles pendant la nuit.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/moustique-tigre.jpg" alt="Moustique tigre Aedes albopictus" loading="lazy"><h4>Moustique tigre</h4><p>Petit (5 mm), rayures blanches et noires, diurne.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/moustique-larves-eau.jpg" alt="Larves de moustiques dans l'eau" loading="lazy"><h4>Entrées</h4><p>Par les portes ouvertes le soir, fenêtres sans moustiquaire.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/moustique-gite-larvaire.jpg" alt="Gîte larvaire avec larves de moustiques" loading="lazy"><h4>Jardin envahi</h4><p>Impossible d'être dehors le soir sans se faire piquer.</p></div>
   </div>
 </section>
 

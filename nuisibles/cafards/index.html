@@ -113,6 +113,8 @@ html { scroll-padding-top: 130px; }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
 .signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
 .sign-card { text-align: center; }
+.sign-card img.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-md); cursor: zoom-in; display: block; transition: transform 0.3s; }
+.sign-card img.sign-img:hover { transform: scale(1.03); }
 .sign-card h4 { font-size: 13px; margin: var(--space-sm) 0 2px; }
 .sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
 @media (max-width: 768px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -650,12 +652,12 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
   <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
   <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Les indices concrets d'une infestation de cafards. Reconnaissez-les avant qu'il ne soit trop tard.</p>
   <div class="signs-grid">
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🟤</div><h4>Crottes</h4><p>Petites taches noires comme de la poudre de café moulu dans les tiroirs de cuisine.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🥚</div><h4>Oothèques</h4><p>Capsules brunes de 5-8 mm contenant 30-40 œufs, collées sous les meubles.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">👁️</div><h4>Cafard vu de jour</h4><p>Signe d'infestation sévère — ils ne sortent que la nuit normalement.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🕳️</div><h4>Exuvies</h4><p>Mues translucides, peaux abandonnées lors des mues successives.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🦨</div><h4>Odeur douce</h4><p>Odeur caractéristique sucrée-musquée en cas d'infestation importante.</p></div>
-    <div class="sign-card"><div class="sign-placeholder" style="background:var(--color-pastel-peach-light);display:flex;align-items:center;justify-content:center;aspect-ratio:1;border-radius:var(--radius-md);font-size:48px;">🌡️</div><h4>Chaleur</h4><p>Présence derrière les appareils chauds : frigo, four, grille-pain.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/cafard-crottes.jpg" alt="Déjections de cafards : petits points noirs sur surface" loading="lazy"><h4>Crottes</h4><p>Petites taches noires comme de la poudre de café moulu dans les tiroirs de cuisine.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/cafard-ootheque.jpg" alt="Oothèque de cafard : capsule brune contenant les œufs" loading="lazy"><h4>Oothèques</h4><p>Capsules brunes de 5-8 mm contenant 30-40 œufs, collées sous les meubles.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/cafard-vu.jpg" alt="Cafard vivant vu de jour sur une surface" loading="lazy"><h4>Cafard vu de jour</h4><p>Signe d'infestation sévère — ils ne sortent que la nuit normalement.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/cafard-mue.jpg" alt="Exuvie de cafard : mue translucide abandonnée" loading="lazy"><h4>Exuvies</h4><p>Mues translucides, peaux abandonnées lors des mues successives.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/cafard-nid.jpg" alt="Zone infestée par les cafards" loading="lazy"><h4>Odeur douce</h4><p>Odeur caractéristique sucrée-musquée en cas d'infestation importante.</p></div>
+    <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/cafard-degats.jpg" alt="Emballages attaqués par les cafards" loading="lazy"><h4>Chaleur</h4><p>Présence derrière les appareils chauds : frigo, four, grille-pain.</p></div>
   </div>
 </section>
 
