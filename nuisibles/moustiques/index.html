@@ -76,7 +76,7 @@ html { scroll-padding-top: 130px; }
 .did-you-know { display: flex; gap: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--color-bg-sand); border-radius: var(--radius-md); margin: var(--space-xl) 0; align-items: flex-start; border-left: 3px solid #C8B99A; }
 .did-you-know-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
 .did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
-.species-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+.species-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
 .species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
 .species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
 .species-card-v2.active { border-color: var(--color-gray-light); box-shadow: 0 16px 48px rgba(14,5,42,0.1); }
@@ -588,11 +588,11 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 <!-- ═══ IDENTIFICATION ═══ -->
 <section id="identification">
   <span class="section-label fade-up">Étape 1 — Identification</span>
-  <h2>Quel moustique vous pique ?</h2>
-  <p>Moustique commun ou moustique tigre ? L'identification de l'espèce est cruciale car le moustique tigre (<em>Aedes albopictus</em>) est vecteur de maladies graves. Voici comment les différencier.</p>
+  <h2>Les 3 moustiques que vous pouvez rencontrer</h2>
+  <p>Moustique commun, moustique tigre ou anophèle ? L'identification de l'espèce est cruciale car le moustique tigre (<em>Aedes albopictus</em>) est vecteur de maladies graves. Voici comment les différencier.</p>
   <div class="species-compare">
     <div class="species-card-v2 active" data-species="culex">
-      <div class="species-card-visual" style="background: var(--color-pastel-green-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="Moustique commun (Culex pipiens)"><span class="badge">70% des cas</span></div>
+      <div class="species-card-visual" style="background: var(--color-pastel-green-light);"><img src="/assets/nuisibles/species/moustique-culex.png" alt="Moustique commun — Culex pipiens"><span class="badge">70% des cas</span></div>
       <div class="species-card-body">
         <h3>Moustique commun</h3><span class="latin">Culex pipiens</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
@@ -601,12 +601,21 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       </div>
     </div>
     <div class="species-card-v2" data-species="tigre">
-      <div class="species-card-visual" style="background: #F0ECE4;"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="Moustique tigre (Aedes albopictus)"><span class="badge">Vecteur de maladies</span></div>
+      <div class="species-card-visual" style="background: var(--color-pastel-green-light);"><img src="/assets/nuisibles/species/moustique-tigre.png" alt="Moustique tigre — Aedes albopictus"><span class="badge">Vecteur de maladies</span></div>
       <div class="species-card-body">
         <h3>Moustique tigre</h3><span class="latin">Aedes albopictus</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
         <div class="species-specs"><div class="spec"><span class="spec-val">5-10 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Noir rayé</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">1-2 mois</span><span class="spec-key">Vie</span></div><div class="spec"><span class="spec-val">Jour</span><span class="spec-key">Activité</span></div></div>
         <p class="desc">Reconnaissable à ses rayures blanches sur pattes et corps noirs. Pique en journée, surtout le matin et en fin d'après-midi. Rayon d'action de 150 m. Vecteur de la dengue, du chikungunya et du Zika.</p>
+      </div>
+    </div>
+    <div class="species-card-v2" data-species="anopheles">
+      <div class="species-card-visual" style="background: var(--color-pastel-green-light);"><img src="/assets/nuisibles/species/moustique-anopheles.png" alt="Anophèle — Anopheles"><span class="badge">Repos à 45°</span></div>
+      <div class="species-card-body">
+        <h3>Anophèle</h3><span class="latin">Anopheles</span>
+        <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+        <div class="species-specs"><div class="spec"><span class="spec-val">6-9 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Ailes tachetées</span><span class="spec-key">Reconnaissance</span></div><div class="spec"><span class="spec-val">Crépuscule</span><span class="spec-key">Activité</span></div><div class="spec"><span class="spec-val">45°</span><span class="spec-key">Repos</span></div></div>
+        <p class="desc">Vecteur historique du paludisme. Présent en France mais sans transmission locale. Reconnaissable à sa position de repos inclinée.</p>
       </div>
     </div>
   </div>

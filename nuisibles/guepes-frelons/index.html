@@ -103,7 +103,7 @@ html { scroll-padding-top: 130px; }
 .did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
 
 /* ── Species cards ── */
-.species-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+.species-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
 .species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
 .species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
 .species-card-v2.active { border-color: var(--color-gray-light); box-shadow: 0 16px 48px rgba(14,5,42,0.1); }
@@ -631,16 +631,28 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 
     <section id="identification">
       <span class="section-label fade-up">Étape 1 — Identification</span>
-      <h2>Guêpe commune ou frelon asiatique ?</h2>
+      <h2>Les 5 guêpes et frelons courants</h2>
       <p>L'identification de l'espèce est cruciale pour adapter la réponse. Le frelon asiatique (<em>Vespa velutina</em>) est plus agressif et représente une menace écologique majeure. Voici comment les différencier.</p>
       <div class="species-compare">
         <div class="species-card-v2 active" data-species="guepe">
-          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="Guêpe commune"><span class="badge">80% des cas</span></div>
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);"><img src="/assets/nuisibles/species/guepe-commune.png" alt="Guêpe commune — Vespula vulgaris"><span class="badge">80% des cas</span></div>
           <div class="species-card-body"><h3>Guêpe commune</h3><span class="latin">Vespula vulgaris</span><div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div><div class="species-specs"><div class="spec"><span class="spec-val">10-20 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Jaune vif</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">1 an</span><span class="spec-key">Colonie</span></div><div class="spec"><span class="spec-val">~5 000</span><span class="spec-key">Individus</span></div></div><p class="desc">Espèce la plus courante en France. Nids en papier mâché sous les toits, dans les haies ou les cavités. Attirée par la nourriture sucrée et la viande. Taille de guêpe fine, rayures jaune vif et noir.</p></div>
         </div>
         <div class="species-card-v2" data-species="frelon">
-          <div class="species-card-visual" style="background: #F0ECE4;"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="Frelon asiatique"><span class="badge">Espèce invasive</span></div>
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);"><img src="/assets/nuisibles/species/frelon-asiatique.png" alt="Frelon asiatique — Vespa velutina"><span class="badge">Espèce invasive</span></div>
           <div class="species-card-body"><h3>Frelon asiatique</h3><span class="latin">Vespa velutina</span><div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div><div class="species-specs"><div class="spec"><span class="spec-val">25-32 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Brun-noir</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">1 an</span><span class="spec-key">Colonie</span></div><div class="spec"><span class="spec-val">~2 000</span><span class="spec-key">Individus</span></div></div><p class="desc">Arrivé en France en 2004 via un chargement de poteries chinoises. Corps sombre avec une bande orange sur l'abdomen, pattes jaunes. Nids sphériques en hauteur (arbres, toitures). Prédateur d'abeilles.</p></div>
+        </div>
+        <div class="species-card-v2" data-species="germanique">
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);"><img src="/assets/nuisibles/species/guepe-germanique.png" alt="Guêpe germanique — Vespula germanica"><span class="badge">Souterraine</span></div>
+          <div class="species-card-body"><h3>Guêpe germanique</h3><span class="latin">Vespula germanica</span><div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div><div class="species-specs"><div class="spec"><span class="spec-val">12-17 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">3 points noirs</span><span class="spec-key">Face</span></div><div class="spec"><span class="spec-val">Avril-oct.</span><span class="spec-key">Saison</span></div><div class="spec"><span class="spec-val">3-5 000</span><span class="spec-key">Individus</span></div></div><p class="desc">Très proche de la guêpe commune, agressive, nids souvent souterrains ou dans les cavités des bâtiments.</p></div>
+        </div>
+        <div class="species-card-v2" data-species="frelon-europeen">
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);"><img src="/assets/nuisibles/species/frelon-europeen.png" alt="Frelon européen — Vespa crabro"><span class="badge">Grand mais doux</span></div>
+          <div class="species-card-body"><h3>Frelon européen</h3><span class="latin">Vespa crabro</span><div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div><div class="species-specs"><div class="spec"><span class="spec-val">25-35 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Jaune/marron</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">Mai-oct.</span><span class="spec-key">Saison</span></div><div class="spec"><span class="spec-val">100-400</span><span class="spec-key">Individus</span></div></div><p class="desc">Grand mais peu agressif. Nid dans les arbres creux, charpentes. Utile pour l'écosystème mais dangereux près des habitations.</p></div>
+        </div>
+        <div class="species-card-v2" data-species="poliste">
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);"><img src="/assets/nuisibles/species/poliste.png" alt="Poliste — Polistes dominula"><span class="badge">Nid parapluie</span></div>
+          <div class="species-card-body"><h3>Poliste</h3><span class="latin">Polistes dominula</span><div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9734;&#9734;&#9734;</span></div><div class="species-specs"><div class="spec"><span class="spec-val">10-18 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Corps fin</span><span class="spec-key">Silhouette</span></div><div class="spec"><span class="spec-val">Printemps-été</span><span class="spec-key">Saison</span></div><div class="spec"><span class="spec-val">30-50</span><span class="spec-key">Individus</span></div></div><p class="desc">Guêpe maçonne, construit de petits nids en parapluie sous les abris. Peu agressive sauf si dérangée.</p></div>
         </div>
       </div>
       <div class="did-you-know"><span class="did-you-know-icon">💡</span><p><strong>Le saviez-vous ?</strong> Contrairement aux abeilles, les guêpes et frelons ont un <strong>dard lisse</strong> : ils peuvent piquer plusieurs fois sans mourir. Une abeille, elle, perd son dard et meurt après la première piqûre.</p></div>

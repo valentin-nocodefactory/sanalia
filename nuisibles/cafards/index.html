@@ -91,7 +91,7 @@ html { scroll-padding-top: 130px; }
 .did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
 
 /* ── Species cards ── */
-.species-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+.species-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
 .species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
 .species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
 .species-card-v2.active { border-color: var(--color-gray-light); box-shadow: 0 16px 48px rgba(14,5,42,0.1); }
@@ -626,11 +626,11 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 
 <section id="identification">
   <span class="section-label fade-up">Étape 1 — Identification</span>
-  <h2>Quelle blatte avez-vous ?</h2>
-  <p>Blatte germanique ou blatte orientale ? L'identification de l'espèce conditionne le choix du traitement. En France, la blatte germanique (<em>Blattella germanica</em>) est responsable de 90 % des infestations domestiques.</p>
+  <h2>Les 4 cafards que vous pourriez avoir</h2>
+  <p>Blatte germanique, orientale, américaine ou rayée ? L'identification de l'espèce conditionne le choix du traitement. En France, la blatte germanique (<em>Blattella germanica</em>) est responsable de 90 % des infestations domestiques.</p>
   <div class="species-compare">
     <div class="species-card-v2 active" data-species="germanique">
-      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Blatte germanique"><span class="badge">90% des cas</span></div>
+      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-germanique.png" alt="Blatte germanique — Blattella germanica"><span class="badge">90% des cas</span></div>
       <div class="species-card-body">
         <h3>Blatte germanique</h3><span class="latin">Blattella germanica</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
@@ -639,12 +639,30 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       </div>
     </div>
     <div class="species-card-v2" data-species="orientale">
-      <div class="species-card-visual" style="background:#F0ECE4;"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Blatte orientale" style="filter:brightness(0.6) drop-shadow(0 8px 20px rgba(0,0,0,0.06));"><span class="badge">10% des cas</span></div>
+      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-oriental.png" alt="Blatte orientale — Blatta orientalis"><span class="badge">10% des cas</span></div>
       <div class="species-card-body">
         <h3>Blatte orientale</h3><span class="latin">Blatta orientalis</span>
         <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
         <div class="species-specs"><div class="spec"><span class="spec-val">20-27 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">5-8 g</span><span class="spec-key">Poids</span></div><div class="spec"><span class="spec-val">1-2 ans</span><span class="spec-key">Vie</span></div><div class="spec"><span class="spec-val">8/vie</span><span class="spec-key">Oothèques</span></div></div>
         <p class="desc">Plus grande et plus foncée, presque noire. Préfère les endroits frais et humides : caves, canalisations, vide-ordures. Ne grimpe pas sur les surfaces lisses.</p>
+      </div>
+    </div>
+    <div class="species-card-v2" data-species="americaine">
+      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-americain.png" alt="Blatte américaine — Periplaneta americana"><span class="badge">Grande taille</span></div>
+      <div class="species-card-body">
+        <h3>Blatte américaine</h3><span class="latin">Periplaneta americana</span>
+        <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
+        <div class="species-specs"><div class="spec"><span class="spec-val">35-50 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Brun-rouge</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">6 mois-2 ans</span><span class="spec-key">Vie</span></div><div class="spec"><span class="spec-val">10/vie</span><span class="spec-key">Oothèques</span></div></div>
+        <p class="desc">Plus grande espèce, présente dans collectivités, égouts, vide-ordures. Vole sur de courtes distances.</p>
+      </div>
+    </div>
+    <div class="species-card-v2" data-species="rayee">
+      <div class="species-card-visual" style="background:var(--color-pastel-peach-light);"><img src="/assets/nuisibles/species/cafard-raye.png" alt="Blatte rayée — Supella longipalpa"><span class="badge">Zones sèches</span></div>
+      <div class="species-card-body">
+        <h3>Blatte rayée</h3><span class="latin">Supella longipalpa</span>
+        <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+        <div class="species-specs"><div class="spec"><span class="spec-val">10-14 mm</span><span class="spec-key">Taille</span></div><div class="spec"><span class="spec-val">Bandes claires</span><span class="spec-key">Couleur</span></div><div class="spec"><span class="spec-val">3-11 mois</span><span class="spec-key">Vie</span></div><div class="spec"><span class="spec-val">14/vie</span><span class="spec-key">Oothèques</span></div></div>
+        <p class="desc">Plus petite, préfère les zones chaudes et sèches (chambres, bureaux, électronique). Pas liée à l'humidité.</p>
       </div>
     </div>
   </div>

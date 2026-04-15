@@ -102,7 +102,7 @@ html { scroll-padding-top: 130px; }
 .did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
 
 /* ── Identification (species cards — premium) ── */
-.species-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+.species-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
 .species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
 .species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
 .species-card-v2.active { border-color: var(--color-gray-light); box-shadow: 0 16px 48px rgba(14,5,42,0.1); }
@@ -806,13 +806,13 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     <!-- ═══ SECTION 1 — Identification ═══ -->
     <section id="identification">
       <span class="section-label fade-up">Étape 1 — Identification</span>
-      <h2>Quel rat avez-vous ?</h2>
-      <p>Rat brun ou rat noir ? L'identification de l'espèce conditionne le choix du traitement. En France, le rat brun (<em>Rattus norvegicus</em>) est responsable de 90 % des infestations domestiques. Voici comment les différencier.</p>
+      <h2>Les 3 rats les plus présents</h2>
+      <p>Rat brun, rat noir ou rat musqué ? L'identification de l'espèce conditionne le choix du traitement. En France, le rat brun (<em>Rattus norvegicus</em>) est responsable de 90 % des infestations domestiques. Voici comment les différencier.</p>
 
       <div class="species-compare">
         <div class="species-card-v2 active" data-species="brun">
           <div class="species-card-visual" style="background: var(--color-pastel-blue-light);">
-            <img src="/assets/nuisibles/rat-schema-crayon.png" alt="Rat brun">
+            <img src="/assets/nuisibles/species/rat-brun.png" alt="Rat brun — Rattus norvegicus">
             <span class="badge">90% des cas</span>
           </div>
           <div class="species-card-body">
@@ -829,9 +829,9 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
           </div>
         </div>
 
-        <div class="species-card-v2" data-species="souris">
-          <div class="species-card-visual" style="background: #F0ECE4;">
-            <img src="/assets/nuisibles/rat-noir-schema-crayon.png" alt="Rat noir">
+        <div class="species-card-v2" data-species="noir">
+          <div class="species-card-visual" style="background: var(--color-pastel-blue-light);">
+            <img src="/assets/nuisibles/species/rat-noir.png" alt="Rat noir — Rattus rattus">
             <span class="badge">10% des cas</span>
           </div>
           <div class="species-card-body">
@@ -845,6 +845,25 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
               <div class="spec"><span class="spec-val">3-5/an</span><span class="spec-key">Portées</span></div>
             </div>
             <p class="desc">Plus rare, surtout dans le sud. Agile grimpeur qui préfère les greniers et combles. Queue plus longue que le corps, museau pointu, grandes oreilles.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="musque">
+          <div class="species-card-visual" style="background: var(--color-pastel-blue-light);">
+            <img src="/assets/nuisibles/species/rat-musque.png" alt="Rat musqué — Ondatra zibethicus">
+            <span class="badge">Rare en France</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Rat musqué</h3>
+            <span class="latin">Ondatra zibethicus</span>
+            <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">45-60 cm</span><span class="spec-key">Taille</span></div>
+              <div class="spec"><span class="spec-val">800-1500 g</span><span class="spec-key">Poids</span></div>
+              <div class="spec"><span class="spec-val">3-4 ans</span><span class="spec-key">Vie</span></div>
+              <div class="spec"><span class="spec-val">2-3/an</span><span class="spec-key">Portées</span></div>
+            </div>
+            <p class="desc">Rongeur semi-aquatique, présent près des rivières et étangs. Rarement en zones urbaines. Nage parfaitement grâce à sa queue-rame et ses pattes palmées.</p>
           </div>
         </div>
       </div>
