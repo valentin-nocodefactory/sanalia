@@ -1586,8 +1586,8 @@ document.querySelectorAll('.nuisible-card').forEach(card => {
     document.getElementById('nuisibleInput').value = val;
     updateTestimonial(val);
     updateEstimate();
-    // Auto-advance after short delay for satisfying UX
-    setTimeout(() => { if (currentStep === 1) goToStep(2); }, 450);
+    // Auto-advance (snappy)
+    setTimeout(() => { if (currentStep === 1) goToStep(2); }, 120);
   };
   card.addEventListener('click', select);
   card.addEventListener('keydown', (e) => {
