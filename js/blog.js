@@ -54,7 +54,7 @@
   // ------------------------------------------------------------
   function initTOC() {
     var toc = $('.toc-sticky') || $('.blog-toc');
-    var article = $('.blog-body') || $('.blog-content') || $('[data-article]');
+    var article = $('.blog-body') || $('.blog-content') || $('.blog-article-content') || $('.blog-prose') || $('[data-article]');
     if (!toc || !article) return;
 
     var headings = $$('h2, h3', article);

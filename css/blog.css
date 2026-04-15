@@ -1836,9 +1836,10 @@
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  position: absolute;
-  left: -72px;
-  top: 0;
+  position: sticky;
+  top: 140px;
+  align-self: start;
+  margin-right: 16px;
 }
 .share-bar-vertical a {
   width: 36px;
