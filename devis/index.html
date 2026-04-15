@@ -654,14 +654,44 @@
   box-shadow: 0 6px 20px -6px rgba(246,108,36,0.5);
 }
 
-.field-block { margin-bottom: 28px; }
+.field-block { margin-bottom: 18px; }
 .field-block:last-child { margin-bottom: 0; }
 .field-label {
   display: block;
   font-family: 'Space Mono', monospace; font-weight: 400;
   font-size: 0.7rem; color: #888;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   text-transform: uppercase; letter-spacing: 0.08em;
+}
+.field-row-2 {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+@media (max-width: 520px) {
+  .field-row-2 { grid-template-columns: 1fr; }
+}
+.devis-select {
+  width: 100%; box-sizing: border-box;
+  padding: 12px 40px 12px 16px;
+  border: 1.5px solid rgba(14,5,42,0.1);
+  border-radius: 12px;
+  font-family: 'Uxum', sans-serif; font-weight: 500;
+  font-size: 0.9375rem;
+  color: var(--color-primary-900);
+  background: #fff;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.2' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.devis-select:focus {
+  outline: none;
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 4px rgba(99,93,221,0.08);
 }
 
 /* ─── Inputs (step 3) ─── */
@@ -1190,24 +1220,28 @@
             <h2 class="devis-headline">Racontez-nous <em>votre situation</em></h2>
             <p class="devis-headline-hint">3 infos rapides pour ajuster votre estimation.</p>
 
-            <div class="field-block">
-              <span class="field-label">Surface concernée</span>
-              <div class="pill-group" data-name="surface">
-                <label><input type="radio" name="surface" value="moins-30"> &lt; 30 m²</label>
-                <label><input type="radio" name="surface" value="30-60"> 30–60 m²</label>
-                <label><input type="radio" name="surface" value="60-100"> 60–100 m²</label>
-                <label><input type="radio" name="surface" value="100-200"> 100–200 m²</label>
-                <label><input type="radio" name="surface" value="plus-200"> &gt; 200 m²</label>
+            <div class="field-row-2">
+              <div class="field-block">
+                <span class="field-label">Surface concernée</span>
+                <select name="surface" class="devis-select">
+                  <option value="">— Sélectionnez —</option>
+                  <option value="moins-30">&lt; 30 m²</option>
+                  <option value="30-60">30 – 60 m²</option>
+                  <option value="60-100">60 – 100 m²</option>
+                  <option value="100-200">100 – 200 m²</option>
+                  <option value="plus-200">&gt; 200 m²</option>
+                </select>
               </div>
-            </div>
 
-            <div class="field-block">
-              <span class="field-label">Depuis quand ?</span>
-              <div class="pill-group" data-name="depuis">
-                <label><input type="radio" name="depuis" value="quelques-jours"> Quelques jours</label>
-                <label><input type="radio" name="depuis" value="1-2-semaines"> 1 à 2 semaines</label>
-                <label><input type="radio" name="depuis" value="1-mois"> ≈ 1 mois</label>
-                <label><input type="radio" name="depuis" value="plusieurs-mois"> Plusieurs mois</label>
+              <div class="field-block">
+                <span class="field-label">Depuis quand&nbsp;?</span>
+                <select name="depuis" class="devis-select">
+                  <option value="">— Sélectionnez —</option>
+                  <option value="quelques-jours">Quelques jours</option>
+                  <option value="1-2-semaines">1 à 2 semaines</option>
+                  <option value="1-mois">≈ 1 mois</option>
+                  <option value="plusieurs-mois">Plusieurs mois</option>
+                </select>
               </div>
             </div>
 
@@ -1215,8 +1249,8 @@
               <span class="field-label">Niveau d'urgence</span>
               <div class="pill-group urgency" data-name="urgence">
                 <label><input type="radio" name="urgence" value="normale"> Normale</label>
-                <label><input type="radio" name="urgence" value="rapide"> Rapide — sous 48h</label>
-                <label data-urgent="true"><input type="radio" name="urgence" value="urgente"> Urgente — sous 24h</label>
+                <label><input type="radio" name="urgence" value="rapide"> Rapide — 48h</label>
+                <label data-urgent="true"><input type="radio" name="urgence" value="urgente"> Urgente — 24h</label>
               </div>
             </div>
 
