@@ -1741,14 +1741,64 @@ telF?.addEventListener('blur', () => validate(telF, v => /^[+\d\s().-]{8,}$/.tes
 emailF?.addEventListener('blur', () => validate(emailF, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())));
 
 /* ─── URL params prefill ─── */
-/* ─── Tel country selector ─── */
+/* ─── Tel country selector + input mask ─── */
 (function initTelCountry() {
   const btn = document.getElementById('telCountryBtn');
   const menu = document.getElementById('telCountryMenu');
   const flag = document.getElementById('telCountryFlag');
   const code = document.getElementById('telCountryCode');
   const hidden = document.getElementById('telCountry');
-  if (!btn || !menu) return;
+  const input = document.getElementById('tel');
+  if (!btn || !menu || !input) return;
+
+  // Format patterns per country. '#' = digit placeholder.
+  // maxDigits = max digits allowed (excluding country code)
+  const FORMATS = {
+    FR: { mask: '# ## ## ## ##', max: 9, placeholder: '6 12 34 56 78' },
+    BE: { mask: '### ## ## ##',  max: 9, placeholder: '470 12 34 56' },
+    CH: { mask: '## ### ## ##',  max: 9, placeholder: '79 123 45 67' },
+    LU: { mask: '### ### ###',   max: 9, placeholder: '621 123 456' },
+    MC: { mask: '## ## ## ##',   max: 8, placeholder: '06 12 34 56' },
+    GB: { mask: '#### ### ####', max: 10, placeholder: '7700 900 123' },
+    ES: { mask: '### ### ###',   max: 9, placeholder: '612 345 678' },
+    IT: { mask: '### ### ####',  max: 10, placeholder: '312 345 6789' },
+    DE: { mask: '### ### ####',  max: 11, placeholder: '151 234 5678' },
+    PT: { mask: '### ### ###',   max: 9, placeholder: '912 345 678' },
+  };
+
+  function applyMask(value, mask, max) {
+    const digits = value.replace(/\D/g, '').slice(0, max);
+    let out = '';
+    let i = 0;
+    for (const ch of mask) {
+      if (i >= digits.length) break;
+      if (ch === '#') { out += digits[i]; i++; }
+      else out += ch;
+    }
+    return out;
+  }
+
+  let currentIso = 'FR';
+  function setCountry(iso) {
+    currentIso = iso;
+    const fmt = FORMATS[iso] || FORMATS.FR;
+    input.placeholder = fmt.placeholder;
+    // re-mask existing value
+    input.value = applyMask(input.value, fmt.mask, fmt.max);
+    hidden.value = iso;
+  }
+
+  input.addEventListener('input', () => {
+    const fmt = FORMATS[currentIso] || FORMATS.FR;
+    const before = input.value;
+    const caret = input.selectionStart;
+    const masked = applyMask(before, fmt.mask, fmt.max);
+    input.value = masked;
+    // try to preserve caret roughly
+    const newPos = Math.min(masked.length, caret + (masked.length - before.length));
+    try { input.setSelectionRange(newPos, newPos); } catch(e) {}
+  });
+
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
     const open = menu.classList.toggle('open');
@@ -1758,7 +1808,7 @@ emailF?.addEventListener('blur', () => validate(emailF, v => /^[^\s@]+@[^\s@]+\.
     li.addEventListener('click', () => {
       flag.textContent = li.querySelector('span').textContent;
       code.textContent = li.dataset.code;
-      hidden.value = li.dataset.iso;
+      setCountry(li.dataset.iso);
       menu.classList.remove('open');
       btn.setAttribute('aria-expanded', 'false');
     });
@@ -1769,6 +1819,8 @@ emailF?.addEventListener('blur', () => validate(emailF, v => /^[^\s@]+@[^\s@]+\.
       btn.setAttribute('aria-expanded', 'false');
     }
   });
+
+  setCountry('FR');
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
