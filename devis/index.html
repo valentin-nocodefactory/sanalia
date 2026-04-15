@@ -118,9 +118,22 @@
 
 /* ─── Main layout ─── */
 .devis-section {
-  padding: var(--space-xl) 0 var(--space-3xl);
+  padding: var(--space-md) 0 var(--space-lg);
   background: var(--color-bg);
 }
+.devis-form-card { padding: var(--space-lg) !important; }
+.devis-fieldset legend { font-size: 1.125rem !important; margin-bottom: 2px !important; }
+.devis-fieldset-hint { margin-bottom: var(--space-md) !important; font-size: 0.8125rem !important; }
+.devis-progress { margin-bottom: var(--space-md) !important; }
+.nuisible-grid { gap: 10px !important; }
+.nuisible-card { padding: 10px 8px 8px !important; }
+.nuisible-card-img { width: 44px !important; height: 44px !important; margin-bottom: 4px !important; }
+.nuisible-card-img img { width: 34px !important; height: 34px !important; }
+.nuisible-card-name { font-size: 0.8125rem !important; }
+.devis-field { margin-bottom: var(--space-sm) !important; }
+.devis-nav { margin-top: var(--space-md) !important; }
+.side-card { padding: var(--space-md) !important; }
+.devis-sidebar { gap: var(--space-sm) !important; }
 .devis-layout {
   display: grid;
   grid-template-columns: 1fr 340px;
@@ -444,21 +457,70 @@
 /* Pro fields */
 .devis-pro-only { display: none; }
 .devis-pro-only.show { display: block; }
+
+/* Compact card head: title + discreet toggle */
+.devis-card-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: var(--space-md); margin-bottom: var(--space-md);
+}
+.devis-title-compact {
+  font-family: 'Uxum', sans-serif; font-weight: 700;
+  font-size: 1.5rem; line-height: 1.15;
+  color: var(--color-primary-900);
+  margin: 0 0 2px; letter-spacing: -0.01em;
+}
+.devis-title-compact em {
+  font-style: normal; color: var(--color-primary-600);
+}
+.devis-subtitle-compact {
+  font-family: 'Uxum', sans-serif; font-size: 0.8125rem;
+  color: var(--color-primary-800); margin: 0;
+}
 .devis-type-toggle {
-  display: inline-flex; background: var(--color-primary-100);
-  border-radius: var(--radius-full); padding: 4px;
-  margin-bottom: var(--space-lg); gap: 2px;
+  display: inline-flex; background: transparent;
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-full); padding: 2px; gap: 0;
+  flex-shrink: 0;
 }
 .devis-type-toggle button {
   border: none; background: transparent;
-  padding: 8px 16px; border-radius: var(--radius-full);
-  font-family: 'Uxum', sans-serif; font-weight: 700;
-  font-size: 0.875rem; color: var(--color-primary-800);
+  padding: 4px 12px; border-radius: var(--radius-full);
+  font-family: 'Space Mono', monospace; font-weight: 400;
+  font-size: 0.72rem; color: #666;
   cursor: pointer; transition: all 0.2s;
+  text-transform: uppercase; letter-spacing: 0.04em;
 }
 .devis-type-toggle button.active {
   background: var(--color-primary-900); color: #fff;
-  box-shadow: 0 2px 8px rgba(14,5,42,0.15);
+}
+
+/* Proof bar below the form card */
+.devis-proof-bar {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: var(--space-lg); margin-top: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 16px rgba(14,5,42,0.05);
+  border: 1px solid rgba(14,5,42,0.04);
+}
+.devis-proof-bar-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Uxum', sans-serif; font-size: 0.8125rem;
+  color: var(--color-primary-800);
+}
+.devis-proof-bar-item strong {
+  font-weight: 700; color: var(--color-primary-900);
+}
+.devis-proof-bar-stars {
+  color: #FFB800; letter-spacing: 1px; font-size: 0.9rem;
+}
+.devis-proof-bar-sep {
+  width: 1px; height: 24px; background: var(--color-gray-light);
+}
+@media (max-width: 640px) {
+  .devis-proof-bar { gap: var(--space-md); padding: var(--space-sm) var(--space-md); }
+  .devis-proof-bar-sep { display: none; }
 }
 
 /* Nav */
@@ -767,46 +829,23 @@
   </div>
 </header>
 </div>
-<!-- ════════ HERO ════════ -->
-<section class="devis-hero">
-  <div class="container">
-    <div class="devis-hero-inner">
-      <span class="devis-hero-badge">
-        <span class="pulse"></span>
-        <span id="liveCount">12 demandes traitées aujourd'hui</span>
-      </span>
-      <h1 class="devis-title" id="devisTitle">Votre devis gratuit<br><em>en 60 secondes</em></h1>
-      <p class="devis-subtitle">Un technicien certifié vous rappelle sous 2h — pas de robot, pas d'engagement.</p>
-
-      <div class="devis-proof">
-        <div class="devis-proof-item">
-          <span class="devis-proof-stars">★★★★★</span>
-          <span><strong>4,9/5</strong> sur 380+ avis Google</span>
-        </div>
-        <div class="devis-proof-item">
-          <span>✓</span>
-          <span><strong>1<sup>ère</sup> intervention offerte</strong></span>
-        </div>
-        <div class="devis-proof-item">
-          <span>⚡</span>
-          <span><strong>Réponse en 2h</strong> en moyenne</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════ DEVIS FORM ════════ -->
+<!-- ════════ DEVIS FORM (compact — no hero) ════════ -->
 <section class="devis-section">
   <div class="container">
     <div class="devis-layout">
       <!-- Form -->
       <div class="devis-form-card">
 
-        <!-- Type toggle (particulier/pro) -->
-        <div class="devis-type-toggle" role="tablist" aria-label="Type de client">
-          <button type="button" class="active" data-client="particulier">Particulier</button>
-          <button type="button" data-client="pro">Professionnel</button>
+        <!-- Header row: compact title + discreet type toggle -->
+        <div class="devis-card-head">
+          <div>
+            <h1 class="devis-title-compact" id="devisTitle">Votre devis gratuit <em>en 60s</em></h1>
+            <p class="devis-subtitle-compact">Rappel par un technicien certifié, sans engagement.</p>
+          </div>
+          <div class="devis-type-toggle" role="tablist" aria-label="Type de client">
+            <button type="button" class="active" data-client="particulier">Particulier</button>
+            <button type="button" data-client="pro">Pro</button>
+          </div>
         </div>
 
         <!-- Progress -->
@@ -1048,102 +1087,59 @@
         </form>
       </div>
 
-      <!-- ─── Sidebar ─── -->
+      <!-- Proof bar: toujours visible, sous le form -->
+      <div class="devis-proof-bar" style="grid-column:1 / 2;">
+        <div class="devis-proof-bar-item">
+          <span class="devis-proof-bar-stars">★★★★★</span>
+          <span><strong>4,9/5</strong> · 380+ avis Google</span>
+        </div>
+        <div class="devis-proof-bar-sep"></div>
+        <div class="devis-proof-bar-item">
+          <span style="color:var(--color-accent-500);font-size:1rem;">🎁</span>
+          <span><strong>1<sup>ère</sup> intervention offerte</strong></span>
+        </div>
+        <div class="devis-proof-bar-sep"></div>
+        <div class="devis-proof-bar-item">
+          <span style="color:var(--color-primary-600);font-size:1rem;">⚡</span>
+          <span><strong>Réponse en 2h</strong> en moyenne</span>
+        </div>
+      </div>
+
+      <!-- ─── Sidebar (compacte) ─── -->
       <aside class="devis-sidebar">
 
         <!-- 1ère intervention offerte -->
-        <div class="side-card" style="background:linear-gradient(135deg,var(--color-pastel-gold-light),var(--color-pastel-peach-light));border:1px solid var(--color-pastel-gold);">
-          <div style="display:flex;align-items:center;gap:var(--space-sm);">
-            <div style="width:48px;height:48px;border-radius:12px;background:var(--color-accent-500);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:1.5rem;">🎁</div>
-            <div>
-              <div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:0.08em;">Offre découverte</div>
-              <strong style="font-family:'Uxum',sans-serif;font-weight:700;font-size:1.0625rem;color:var(--color-primary-900);display:block;">1<sup>ère</sup> intervention offerte</strong>
-              <span style="font-family:'Uxum',sans-serif;font-size:0.8125rem;color:var(--color-primary-800);">Diagnostic & 1<sup>er</sup> traitement inclus.</span>
+        <div class="side-card" style="background:linear-gradient(135deg,var(--color-pastel-gold-light),var(--color-pastel-peach-light));border:1px solid var(--color-pastel-gold);padding:12px 14px !important;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:36px;height:36px;border-radius:10px;background:var(--color-accent-500);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:1.1rem;">🎁</div>
+            <div style="min-width:0;">
+              <strong style="font-family:'Uxum',sans-serif;font-weight:700;font-size:0.95rem;color:var(--color-primary-900);display:block;line-height:1.2;">1<sup>ère</sup> intervention offerte</strong>
+              <span style="font-family:'Uxum',sans-serif;font-size:0.75rem;color:var(--color-primary-800);">Diagnostic + 1<sup>er</sup> traitement inclus</span>
             </div>
           </div>
         </div>
 
-        <!-- Réponse dans les 2h -->
-        <div class="side-card" style="display:flex;align-items:center;gap:var(--space-sm);">
-          <div style="width:48px;height:48px;border-radius:12px;background:var(--color-primary-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--color-primary-600);">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div>
-            <div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:0.08em;">Engagement</div>
-            <strong style="font-family:'Uxum',sans-serif;font-weight:700;font-size:1.0625rem;color:var(--color-primary-900);display:block;">Réponse dans les 2h</strong>
-            <span style="font-family:'Uxum',sans-serif;font-size:0.8125rem;color:var(--color-primary-800);">Rappel par un technicien certifié.</span>
-          </div>
-        </div>
-
-        <!-- Google reviews -->
-        <div class="side-card">
-          <div class="reviews-head">
-            <div class="reviews-score">4,9</div>
-            <div>
-              <div class="reviews-meta-stars">★★★★★</div>
-              <div class="reviews-meta-count">380+ avis Google</div>
+        <!-- Google reviews (compact) -->
+        <div class="side-card" style="padding:12px 14px !important;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="font-family:'Uxum',sans-serif;font-weight:700;font-size:1.5rem;color:var(--color-primary-900);line-height:1;">4,9</div>
+            <div style="flex:1;min-width:0;">
+              <div style="color:#FFB800;font-size:0.8rem;letter-spacing:1.5px;line-height:1;">★★★★★</div>
+              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;margin-top:2px;">380+ avis Google</div>
             </div>
-            <div style="margin-left:auto;">
-              <!-- Google G logo -->
-              <svg viewBox="0 0 48 48" width="28" height="28"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-            </div>
-          </div>
-          <div class="testimonial-slider" id="testimonialSlider">
-            <div class="testimonial-slide active">
-              <p class="testimonial">« Intervention rapide et efficace. Rappel en moins d'une heure, devis clair, problème réglé. »</p>
-              <div class="testimonial-author">— Sophie M., Lyon 3</div>
-            </div>
-            <div class="testimonial-slide">
-              <p class="testimonial">« Équipe professionnelle, discrète, et résultat garanti. Je recommande les yeux fermés. »</p>
-              <div class="testimonial-author">— Thomas R., Paris 11</div>
-            </div>
-            <div class="testimonial-slide">
-              <p class="testimonial">« Enfin débarrassés des punaises après 2 mois d'enfer. Merci Sanalia ! »</p>
-              <div class="testimonial-author">— Julie D., Villeurbanne</div>
-            </div>
-          </div>
-          <div class="testimonial-dots">
-            <span class="testimonial-dot active" data-slide="0"></span>
-            <span class="testimonial-dot" data-slide="1"></span>
-            <span class="testimonial-dot" data-slide="2"></span>
+            <svg viewBox="0 0 48 48" width="22" height="22"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
           </div>
         </div>
 
-        <!-- Certifications -->
-        <div class="side-card">
-          <h3>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--color-primary-600)" stroke-width="2.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            Certifications officielles
-          </h3>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
-              <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
-              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">Certibiocide</div>
-            </div>
-            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
-              <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
-              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">CS3D</div>
-            </div>
-            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
-              <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro3D" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
-              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">QualiPro 3D</div>
-            </div>
-            <div style="background:var(--color-bg);border-radius:10px;padding:10px;text-align:center;">
-              <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA" style="height:28px;max-width:100%;object-fit:contain;margin-bottom:4px;">
-              <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;">RC Pro AXA</div>
-            </div>
+        <!-- Certifications compactes -->
+        <div class="side-card" style="padding:12px 14px !important;">
+          <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:#666;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Certifications</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;align-items:center;">
+            <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide" title="Certibiocide" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
+            <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D" title="CS3D" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
+            <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro3D" title="QualiPro 3D" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
+            <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro AXA" title="RC Pro AXA" style="height:22px;max-width:100%;object-fit:contain;opacity:0.85;">
           </div>
-        </div>
-
-        <!-- Phone fallback -->
-        <div class="phone-card">
-          <div class="phone-card-label">Préférez-vous appeler ?</div>
-          <div class="phone-card-title">Ligne directe, sans serveur vocal</div>
-          <a href="tel:0667464897">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            06 67 46 48 97
-          </a>
-          <span class="phone-card-hours">8h – 20h, 7j/7</span>
         </div>
 
       </aside>
@@ -1151,51 +1147,6 @@
   </div>
 </section>
 
-<div data-component="certifications">
-<div class="container" style="margin-top:var(--space-2xl);margin-bottom:var(--space-2xl);">
-  <div class="logo-cloud-box">
-    <p class="logo-cloud-label">Nos certifications & agréments</p>
-    <div class="logo-cloud-grid">
-      <div class="logo-cloud-card">
-        <div class="logo-cloud-card-content">
-          <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide">
-          <div>
-            <span class="logo-cloud-name">Certibiocide</span>
-            <span class="logo-cloud-desc">Agrément obligatoire</span>
-          </div>
-        </div>
-      </div>
-      <div class="logo-cloud-card">
-        <div class="logo-cloud-card-content">
-          <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D">
-          <div>
-            <span class="logo-cloud-name">CS3D</span>
-            <span class="logo-cloud-desc">Chambre syndicale 3D</span>
-          </div>
-        </div>
-      </div>
-      <div class="logo-cloud-card">
-        <div class="logo-cloud-card-content">
-          <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro3D">
-          <div>
-            <span class="logo-cloud-name">QualiPro 3D</span>
-            <span class="logo-cloud-desc">Qualification professionnelle</span>
-          </div>
-        </div>
-      </div>
-      <div class="logo-cloud-card">
-        <div class="logo-cloud-card-content">
-          <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro">
-          <div>
-            <span class="logo-cloud-name">RC Pro</span>
-            <span class="logo-cloud-desc">Responsabilité civile</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 <div data-component="footer">
 <footer class="footer">
   <div class="container">

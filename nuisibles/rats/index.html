@@ -123,15 +123,14 @@ html { scroll-padding-top: 130px; }
 .species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
 
 /* ── Signs of presence (rounded thumbnails + text) ── */
-.signs-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-md); margin-top: var(--space-lg); }
+.signs-grid { display: grid; grid-template-columns: repeat(auto-fill, 112px); gap: var(--space-md); margin-top: var(--space-lg); justify-content: start; }
 .sign-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; background: transparent; border: none; padding: 0; transition: transform 0.2s; }
 .sign-card:hover { transform: translateY(-2px); }
 .sign-card:hover .sign-img { opacity: 0.9; }
-.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-md); transition: opacity 0.3s; cursor: zoom-in; margin-bottom: var(--space-sm); }
+.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-xl); transition: opacity 0.3s; cursor: zoom-in; margin-bottom: var(--space-sm); }
 .sign-card h4 { font-size: 12px; margin: 0 0 4px; font-weight: 700; line-height: 1.3; color: var(--color-primary-900); }
 .sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
-@media (max-width: 1024px) { .signs-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 600px) { .signs-grid { grid-template-columns: repeat(2, 1fr); } .sign-card p { display: none; } }
+@media (max-width: 600px) { .sign-card p { display: none; } }
 @media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
 
 /* ── Lightbox ── */
@@ -456,7 +455,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 [data-component="header"] { position: sticky; top: -45px; z-index: 100; background: var(--color-surface); }
 .hero-stats { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl); }
 .hero-stat { display: flex; align-items: center; gap: var(--space-sm); }
-.hero-stat-icon { width: 44px; height: 44px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--color-primary-900); color: var(--color-pastel-gold); border-radius: 12px; padding: 10px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(14,5,42,0.15); }
+.hero-stat-icon { width: 18px; height: 18px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; color: var(--color-primary-800); opacity: 0.45; padding: 0; box-sizing: border-box; }
 .hero-stat-icon svg { width: 100%; height: 100%; }
 .hero-stat-text { display: flex; align-items: baseline; gap: 6px; }
 .hero-stat-value { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 15px; color: var(--color-primary-900); }
@@ -720,28 +719,28 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 
     <div class="hero-stats animate-in">
       <div class="hero-stat">
-        <span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 0V3m-5 9H1m6.34-4.66L4.93 4.93m9.73 2.41L17.07 4.93M7.34 16.66l-2.41 2.41M12 17v4m4.66-4.34 2.41 2.41M17 12h6"/></svg></span>
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span>
         <div class="hero-stat-text">
           <span class="hero-stat-value" data-count="80" data-suffix="%">0</span>
           <span class="hero-stat-label">non détectées avant 3 mois</span>
         </div>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg></span>
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
         <div class="hero-stat-text">
           <span class="hero-stat-value" data-count="1500" data-suffix="">0</span>
           <span class="hero-stat-label">descendants en 1 an</span>
         </div>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2v2.4A3.6 3.6 0 0 1 14.4 8H9.6A3.6 3.6 0 0 1 6 4.4V2m6 6v7m-3 0h6m-7.5 3.5L5 21m13.5-2.5L19 21M8 22l1-3m6 3 1-3"/></svg></span>
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
         <div class="hero-stat-text">
           <span class="hero-stat-value" data-count="23" data-suffix="">0</span>
           <span class="hero-stat-label">maladies transmissibles</span>
         </div>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m18-9L21 12m0 0-4.5-4.5M21 12v-1.5M3 16.5 7.5 21m0 0L12 16.5M7.5 21V16m13.5.5L16.5 21m0 0L12 16.5M16.5 21V7.5"/></svg></span>
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M4 14h9M18 6c1.5 0 3 1 3 4s-1.5 4-3 4h-2v4h-4V4h6c1.5 0 3 1 3 2"/></svg></span>
         <div class="hero-stat-text">
           <span class="hero-stat-value" data-count="3" data-suffix=",2 Md€">0</span>
           <span class="hero-stat-label">de dégâts / an en France</span>
