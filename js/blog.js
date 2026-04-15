@@ -111,6 +111,44 @@
         links[a.getAttribute('data-toc-target')] = a;
       });
 
+      // Accordéon : afficher uniquement les h3 du h2 actif
+      function updateTocH3Visibility() {
+        var items = Array.prototype.slice.call(toc.querySelectorAll('.toc-h2, .toc-h3'));
+        // Trouver l'index du h2 actif (le dernier h2 actif OU le h2 parent d'un h3 actif)
+        var activeH2Index = -1;
+        for (var i = 0; i < items.length; i++) {
+          var li = items[i];
+          var link = li.querySelector('a');
+          if (!link) continue;
+          if (li.classList.contains('toc-h2') && link.classList.contains('is-active')) {
+            activeH2Index = i;
+          }
+          if (li.classList.contains('toc-h3') && link.classList.contains('is-active')) {
+            // remonter vers le dernier h2 avant ce h3
+            for (var j = i - 1; j >= 0; j--) {
+              if (items[j].classList.contains('toc-h2')) {
+                if (activeH2Index === -1 || j > activeH2Index) activeH2Index = j;
+                break;
+              }
+            }
+          }
+        }
+        // Toggle h3 visibility
+        for (var k = 0; k < items.length; k++) {
+          var item = items[k];
+          if (!item.classList.contains('toc-h3')) continue;
+          var belongs = false;
+          if (activeH2Index !== -1 && k > activeH2Index) {
+            var hasH2Between = false;
+            for (var m = activeH2Index + 1; m < k; m++) {
+              if (items[m].classList.contains('toc-h2')) { hasH2Between = true; break; }
+            }
+            if (!hasH2Between) belongs = true;
+          }
+          item.classList.toggle('toc-visible', belongs);
+        }
+      }
+
       var visibleIds = new Set();
 
       var observer = new IntersectionObserver(function (entries) {
@@ -129,12 +167,14 @@
         Object.keys(links).forEach(function (id) {
           links[id].classList.toggle('is-active', id === activeId);
         });
+        updateTocH3Visibility();
       }, {
         rootMargin: '-130px 0px -70% 0px',
         threshold: 0
       });
 
       headings.forEach(function (h) { observer.observe(h); });
+      updateTocH3Visibility();
     }
   }
 

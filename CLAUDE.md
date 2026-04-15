@@ -265,6 +265,30 @@ Tous les articles doivent pousser ces events dans `window.dataLayer` :
 - `blog_phone_click` — clic sur un lien `tel:`
 - `blog_form_start` — premier focus dans le formulaire sidebar ou inline
 
+### Convention tag thématique blog
+
+Pour tout tag thématique (catégorie nuisible dans un article ou liste), utiliser cette structure :
+
+```html
+<span class="blog-hero-category tag-[nuisible]">
+  <img src="/assets/nuisibles/[picto].png" class="pill-icon" alt="">
+  [Nom de la catégorie]
+</span>
+```
+
+Mapping nuisible → classe + picto :
+- Rats → `tag-rats` + `brown-rat--realistic-body-shape--long-tail--pointe.png` (bg pastel gold)
+- Souris → `tag-souris` + `house-mouse--mus-musculus--realistic-body-shape--l.png` (bg pastel lavender)
+- Punaises → `tag-punaises` + `bed-bug--cimex-lectularius--realistic-body-shape--.png` (bg pastel rose)
+- Cafards → `tag-cafards` + `cockroach--realistic-body-shape--flat-oval-body--l.png` (bg pastel mint)
+- Guêpes → `tag-guepes` + `european-wasp--vespula-vulgaris--realistic-body-sh.png` (bg pastel gold)
+- Fourmis → `tag-fourmis` + `black-garden-ant--lasius-niger--realistic-body-sha.png` (bg pastel rose)
+- Moustiques → `tag-moustiques` + `common-mosquito--culex-pipiens--realistic-body-sha.png` (bg pastel blue)
+- Pigeons → `tag-pigeons` + `feral-pigeon--columba-livia--realistic-body-shape-.png` (bg pastel mint)
+- Prévention/Réglementation → `tag-prevention` + 🛡️ (emoji) (bg pastel lavender)
+
+Le CSS de ces tags est défini dans `/css/blog.css` (section `.blog-hero-category.tag-*`). Couleur pastel alignée sur la couleur du thumbnail nuisible.
+
 ### Fichiers CSS/JS blog
 - `/css/blog.css` — design system spécifique blog (typo long-form, sidebar, TOC, reading progress, cards articles)
 - `/js/blog.js` — logique partagée : table des matières (TOC) auto-générée, barre de progression de lecture, boutons de partage, affichage conditionnel des CTAs selon scroll, push des events dataLayer
