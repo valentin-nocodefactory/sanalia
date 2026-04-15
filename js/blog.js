@@ -492,11 +492,11 @@
     {type:'article', title:'Fourmis dans la maison : remonter à la colonie', url:'/blog/cafards-insectes/fourmis-maison-colonies/', tag:'Fourmis', category:'fourmis'},
     {type:'article', title:'Moustique tigre : 12 gestes pour protéger votre jardin', url:'/blog/cafards-insectes/moustique-tigre-jardin/', tag:'Moustiques', category:'moustiques'},
     // Pillars
-    {type:'pillar', title:'Rats & Souris : Guide complet 2026', url:'/blog/rats-souris/', tag:'Dossier', category:'rats'},
-    {type:'pillar', title:'Punaises de lit : Guide complet', url:'/blog/punaises-de-lit/', tag:'Dossier', category:'punaises'},
-    {type:'pillar', title:'Cafards & Insectes : Guide complet', url:'/blog/cafards-insectes/', tag:'Dossier', category:'cafards'},
-    {type:'pillar', title:'Guêpes & Frelons : Guide complet', url:'/blog/guepes-frelons/', tag:'Dossier', category:'guepes'},
-    {type:'pillar', title:'Prévention & Réglementation', url:'/blog/prevention-reglementation/', tag:'Dossier', category:'prevention'},
+    {type:'pillar', title:'Rats & Souris : Guide complet 2026', url:'/nuisibles/rats/', tag:'Dossier', category:'rats'},
+    {type:'pillar', title:'Punaises de lit : Guide complet', url:'/nuisibles/punaises-de-lit/', tag:'Dossier', category:'punaises'},
+    {type:'pillar', title:'Cafards & Insectes : Guide complet', url:'/nuisibles/cafards/', tag:'Dossier', category:'cafards'},
+    {type:'pillar', title:'Guêpes & Frelons : Guide complet', url:'/nuisibles/guepes-frelons/', tag:'Dossier', category:'guepes'},
+    {type:'pillar', title:'Prévention & Réglementation', url:'/reglementation/', tag:'Dossier', category:'prevention'},
     // Fiches nuisibles
     {type:'nuisible', title:'Rats — Fiche complète', url:'/nuisibles/rats/', tag:'Fiche nuisible', category:'rats'},
     {type:'nuisible', title:'Souris — Fiche complète', url:'/nuisibles/souris/', tag:'Fiche nuisible', category:'souris'},
@@ -507,8 +507,8 @@
     {type:'nuisible', title:'Moustiques — Fiche complète', url:'/nuisibles/moustiques/', tag:'Fiche nuisible', category:'moustiques'},
     {type:'nuisible', title:'Pigeons — Fiche complète', url:'/nuisibles/pigeons/', tag:'Fiche nuisible', category:'pigeons'},
     // Réglementation
-    {type:'reglementation', title:'Obligations du locataire face aux nuisibles', url:'/blog/prevention-reglementation/', tag:'Réglementation', category:'prevention'},
-    {type:'reglementation', title:'Réglementation copropriété et dératisation', url:'/blog/prevention-reglementation/', tag:'Réglementation', category:'prevention'},
+    {type:'reglementation', title:'Obligations du locataire face aux nuisibles', url:'/reglementation/', tag:'Réglementation', category:'prevention'},
+    {type:'reglementation', title:'Réglementation copropriété et dératisation', url:'/reglementation/', tag:'Réglementation', category:'prevention'},
     {type:'reglementation', title:'Punaises de lit : qui paie, locataire ou propriétaire', url:'/blog/prevention-reglementation/loi-punaises-locataires/', tag:'Réglementation', category:'prevention'},
     {type:'reglementation', title:'Certibiocide : que vérifier avant de choisir', url:'/blog/prevention-reglementation/certibiocide-artisans/', tag:'Réglementation', category:'prevention'},
     {type:'reglementation', title:'Calendrier 2026 des nuisibles en France', url:'/blog/prevention-reglementation/calendrier-nuisibles-france/', tag:'Saisonnalité', category:'prevention'},

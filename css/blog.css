@@ -228,14 +228,15 @@
   color: var(--color-primary-800, #34285A);
   margin: 1.6em 0 0.5em;
 }
-.blog-body a {
+/* Underlined links ONLY inside flowing text (paragraphs, list items, quotes). Card-style links and CTAs stay clean. */
+.blog-body :is(p, li, blockquote) > a {
   color: var(--color-primary-600, #635DDD);
   text-decoration: underline;
   text-decoration-color: rgba(99, 93, 221, 0.35);
   text-underline-offset: 3px;
   transition: var(--blog-transition);
 }
-.blog-body a:hover { text-decoration-color: var(--color-primary-600, #635DDD); }
+.blog-body :is(p, li, blockquote) > a:hover { text-decoration-color: var(--color-primary-600, #635DDD); }
 
 .blog-body ul,
 .blog-body ol { margin: 0 0 1.4em; padding-left: 1.4em; }
@@ -2172,6 +2173,14 @@ html { scroll-padding-top: 120px; }
   max-width: 1140px;
 }
 .blog-layout--3col > .blog-share-col { display: none; }
+@media (max-width: 1024px) {
+  .blog-layout--3col {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .blog-layout--3col > .blog-sidebar,
+  .blog-layout--3col > .blog-share-col { display: none; }
+}
 @media (min-width: 1280px) {
   .blog-layout--3col {
     grid-template-columns: 72px minmax(0, var(--blog-content-width)) 300px;
@@ -2285,14 +2294,15 @@ html { scroll-padding-top: 120px; }
   margin: 2em 0 0.5em;
   scroll-margin-top: 140px;
 }
-.blog-content a {
+/* Same rule for .blog-content : only inline text-links underlined. */
+.blog-content :is(p, li, blockquote) > a {
   color: var(--color-primary-600, #635DDD);
   text-decoration: underline;
   text-decoration-color: rgba(99, 93, 221, 0.35);
   text-underline-offset: 3px;
   transition: var(--blog-transition);
 }
-.blog-content a:hover { text-decoration-color: var(--color-primary-600, #635DDD); }
+.blog-content :is(p, li, blockquote) > a:hover { text-decoration-color: var(--color-primary-600, #635DDD); }
 .blog-content strong { color: var(--color-primary-900, #0E052A); font-weight: 600; }
 .blog-content em { font-style: italic; }
 .blog-content ul,

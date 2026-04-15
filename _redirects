@@ -1,0 +1,11 @@
+# Redirections 301 des anciennes pillar pages blog vers les fiches nuisibles
+/blog/rats-souris  /nuisibles/rats/  301
+/blog/rats-souris/  /nuisibles/rats/  301
+/blog/punaises-de-lit  /nuisibles/punaises-de-lit/  301
+/blog/punaises-de-lit/  /nuisibles/punaises-de-lit/  301
+/blog/cafards-insectes  /nuisibles/cafards/  301
+/blog/cafards-insectes/  /nuisibles/cafards/  301
+/blog/guepes-frelons  /nuisibles/guepes-frelons/  301
+/blog/guepes-frelons/  /nuisibles/guepes-frelons/  301
+/blog/prevention-reglementation  /reglementation/  301
+/blog/prevention-reglementation/  /reglementation/  301

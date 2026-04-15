@@ -9,38 +9,6 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Pillar pages -->
-  <url>
-    <loc>https://www.sanalia.fr/blog/rats-souris/</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.sanalia.fr/blog/punaises-de-lit/</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.sanalia.fr/blog/cafards-insectes/</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.sanalia.fr/blog/guepes-frelons/</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.sanalia.fr/blog/prevention-reglementation/</loc>
-    <lastmod>2026-04-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
   <!-- Articles -->
   <url>
     <loc>https://www.sanalia.fr/blog/rats-souris/comment-se-debarrasser-rats-appartement/</loc>

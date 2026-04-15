@@ -348,6 +348,16 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 .house-tooltip p { margin: 0; color: var(--color-text-muted); line-height: 1.5; }
 .house-hotspot { cursor: pointer; }
 @keyframes hotspot-pulse { 0%,100% { opacity: 0.6; r: 6; } 50% { opacity: 1; r: 9; } }
+
+#articles-blog{padding:var(--space-3xl) 0;border-bottom:1px solid var(--color-gray-light);}
+.blog-articles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin-top:var(--space-lg);}
+.blog-article-card{display:flex;flex-direction:column;padding:var(--space-lg);background:var(--color-surface);border-radius:var(--radius-lg);border:1px solid var(--color-gray-light);text-decoration:none;color:inherit;transition:all 0.2s;}
+.blog-article-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.06);border-color:var(--color-primary-600);}
+.blog-article-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--color-primary-600);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:var(--space-sm);}
+.blog-article-card h3{font-size:16px;margin:0 0 var(--space-sm);line-height:1.3;color:var(--color-primary-900);}
+.blog-article-excerpt{font-size:13px;color:#666;line-height:1.5;margin:0 0 var(--space-md);flex:1;}
+.blog-article-meta{font-family:'Space Mono',monospace;font-size:11px;color:#999;}
+.blog-articles-more{display:inline-block;margin-top:var(--space-lg);color:var(--color-primary-600);font-weight:700;text-decoration:none;}
 </style>
 </head>
 <body>
@@ -455,13 +465,13 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
               <a href="/blog/" class="mega-menu-item">
                 <div><h4>Tous les articles</h4><p>Guides d'experts, actualités, conseils</p></div>
               </a>
-              <a href="/blog/rats-souris/" class="mega-menu-item">
-                <div><h4>Rats &amp; Souris</h4><p>Guide complet rongeurs</p></div>
+              <a href="/nuisibles/rats/" class="mega-menu-item">
+                <div><h4>Rats &amp; Souris</h4><p>Dossier complet rongeurs</p></div>
               </a>
-              <a href="/blog/punaises-de-lit/" class="mega-menu-item">
+              <a href="/nuisibles/punaises-de-lit/" class="mega-menu-item">
                 <div><h4>Punaises de lit</h4><p>Identification &amp; traitements</p></div>
               </a>
-              <a href="/blog/prevention-reglementation/" class="mega-menu-item">
+              <a href="/reglementation/" class="mega-menu-item">
                 <div><h4>Prévention &amp; Réglementation</h4><p>Obligations et conseils</p></div>
               </a>
             </div>
@@ -870,6 +880,23 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
 </section>
 
 <!-- ═══ FAQ ═══ -->
+
+<!-- ═══ SECTION — Articles blog du cluster ═══ -->
+<section id="articles-blog">
+  <span class="section-label fade-up">Lecture recommandée</span>
+  <h2>Articles du blog sur les moustiques</h2>
+  <p>Des guides concrets pour aller plus loin et répondre aux questions pratiques que nos clients nous posent le plus.</p>
+  <div class="blog-articles-grid">
+    <a href="/blog/" class="blog-article-card">
+      <span class="blog-article-tag">Blog Sanalia</span>
+      <h3>Tous nos guides et actualités</h3>
+      <p class="blog-article-excerpt">Retrouvez l'ensemble de nos articles d'experts : guides pratiques, actualités réglementaires et conseils de prévention.</p>
+      <span class="blog-article-meta">Découvrir le blog →</span>
+    </a>
+  </div>
+  <a href="/blog/" class="blog-articles-more">Voir tous les articles →</a>
+</section>
+
 <section id="faq">
   <span class="section-label fade-up">Questions fréquentes</span>
   <h2>Les vraies réponses sur les moustiques</h2>
