@@ -53,32 +53,42 @@
   // 1. Table of Contents : génération auto + highlight scroll
   // ------------------------------------------------------------
   function initTOC() {
-    var toc = $('.toc-sticky');
-    var article = $('.blog-body');
+    var toc = $('.toc-sticky') || $('.blog-toc');
+    var article = $('.blog-body') || $('.blog-content') || $('[data-article]');
     if (!toc || !article) return;
 
     var headings = $$('h2, h3', article);
     if (!headings.length) { toc.style.display = 'none'; return; }
 
-    var list = toc.querySelector('.toc-sticky__list');
-    if (!list) {
-      list = document.createElement('ul');
-      list.className = 'toc-sticky__list';
-      toc.appendChild(list);
-    }
-    list.innerHTML = '';
+    var preExisting = toc.querySelectorAll('a[href^="#"]');
+    var useExisting = preExisting.length >= Math.max(headings.length - 2, 1);
 
-    headings.forEach(function (h) {
-      if (!h.id) h.id = slugify(h.textContent);
-      var li = document.createElement('li');
-      li.className = h.tagName.toLowerCase() === 'h3' ? 'toc-h3' : 'toc-h2';
-      var a = document.createElement('a');
-      a.href = '#' + h.id;
-      a.textContent = h.textContent;
-      a.setAttribute('data-toc-target', h.id);
-      li.appendChild(a);
-      list.appendChild(li);
-    });
+    if (!useExisting) {
+      var list = toc.querySelector('.toc-sticky__list') || toc.querySelector('ul');
+      if (!list) {
+        list = document.createElement('ul');
+        list.className = 'toc-sticky__list';
+        toc.appendChild(list);
+      }
+      list.innerHTML = '';
+
+      headings.forEach(function (h) {
+        if (!h.id) h.id = slugify(h.textContent);
+        var li = document.createElement('li');
+        li.className = h.tagName.toLowerCase() === 'h3' ? 'toc-h3' : 'toc-h2';
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.setAttribute('data-toc-target', h.id);
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    } else {
+      preExisting.forEach(function (a) {
+        var id = (a.getAttribute('href') || '').replace(/^#/, '');
+        if (id) a.setAttribute('data-toc-target', id);
+      });
+    }
 
     // Smooth scroll au clic
     $$('a[data-toc-target]', toc).forEach(function (link) {
@@ -133,7 +143,7 @@
   // ------------------------------------------------------------
   function initReadingProgress() {
     var bar = $('.reading-progress');
-    var article = $('.blog-body') || $('.blog-article');
+    var article = $('.blog-body') || $('.blog-content') || $('[data-article]') || $('.blog-article');
     if (!article) return;
 
     // Auto-création de la barre si absente
@@ -325,7 +335,7 @@
   // 6. Newsletter form (validation email + fake submit)
   // ------------------------------------------------------------
   function initNewsletter() {
-    $$('.newsletter-cta__form').forEach(function (form) {
+    $$('.newsletter-cta__form, .newsletter-cta .newsletter-form').forEach(function (form) {
       var input = form.querySelector('input[type="email"]');
       var parent = form.parentNode;
       var feedback = parent.querySelector('.newsletter-cta__feedback');
@@ -438,7 +448,7 @@
         var location = 'other';
         if (a.closest('.cta-sidebar-widget')) location = 'sidebar';
         else if (a.closest('.cta-floating-mobile')) location = 'floating';
-        else if (a.closest('.blog-body')) location = 'body';
+        else if (a.closest('.blog-body') || a.closest('.blog-content')) location = 'body';
         push('blog_phone_click', {
           phone: a.getAttribute('href').replace('tel:', ''),
           location: location
@@ -451,13 +461,129 @@
   // 10. Article view (fire au load)
   // ------------------------------------------------------------
   function trackArticleView() {
-    var article = $('.blog-article') || $('.blog-body');
+    var article = $('.blog-article') || $('.blog-body') || $('.blog-content') || $('[data-article]');
     if (!article) return;
     var category = (document.querySelector('meta[name="article:section"]') || {}).content || '';
     push('blog_article_view', {
       title: document.title,
       category: category,
       slug: location.pathname
+    });
+  }
+
+  // ------------------------------------------------------------
+  // 11. Blog search autocomplete (hub)
+  // ------------------------------------------------------------
+  var searchSuggestions = [
+    // Articles blog
+    {type:'article', title:'Comment se débarrasser des rats dans un appartement', url:'/blog/rats-souris/comment-se-debarrasser-rats-appartement/', tag:'Rats & Souris', category:'rats'},
+    {type:'article', title:'Les 7 signes précoces d\'une infestation de punaises de lit', url:'/blog/punaises-de-lit/detecter-precocement/', tag:'Punaises', category:'punaises'},
+    {type:'article', title:'Cycle de vie du cafard : pourquoi ils reviennent', url:'/blog/cafards-insectes/cycle-vie-cafard/', tag:'Cafards', category:'cafards'},
+    {type:'article', title:'Rat ou souris ? 9 différences pour les reconnaître', url:'/blog/rats-souris/difference-rat-souris/', tag:'Rats & Souris', category:'rats'},
+    {type:'article', title:'Comment boucher durablement les entrées des rongeurs', url:'/blog/rats-souris/boucher-entrees-rongeurs/', tag:'Prévention', category:'prevention'},
+    {type:'article', title:'Maladies transmises par les rats : leptospirose, hantavirus', url:'/blog/rats-souris/maladies-transmises-rats/', tag:'Santé', category:'rats'},
+    {type:'article', title:'Thermique ou chimique ? Traitements des punaises de lit', url:'/blog/punaises-de-lit/traitement-thermique-vs-chimique/', tag:'Traitement', category:'punaises'},
+    {type:'article', title:'Voyage et hôtel : ne pas ramener de punaises de lit', url:'/blog/punaises-de-lit/punaises-voyage-hotel/', tag:'Prévention', category:'punaises'},
+    {type:'article', title:'Piqûres de punaises de lit : les identifier', url:'/blog/punaises-de-lit/piqures-identifier/', tag:'Punaises', category:'punaises'},
+    {type:'article', title:'Frelon asiatique ou européen : 5 critères', url:'/blog/guepes-frelons/frelon-asiatique-reconnaitre/', tag:'Guêpes', category:'guepes'},
+    {type:'article', title:'Nid de guêpes dans la toiture : ne pas le déloger soi-même', url:'/blog/guepes-frelons/nid-guepes-toiture/', tag:'Guêpes', category:'guepes'},
+    {type:'article', title:'Piqûre de guêpe et allergie : réagir dans les 15 minutes', url:'/blog/guepes-frelons/piqure-allergie-reagir/', tag:'Santé', category:'guepes'},
+    {type:'article', title:'Cafards en cuisine professionnelle : risques HACCP', url:'/blog/cafards-insectes/cafards-cuisine-restaurant/', tag:'Pro', category:'cafards'},
+    {type:'article', title:'Fourmis dans la maison : remonter à la colonie', url:'/blog/cafards-insectes/fourmis-maison-colonies/', tag:'Fourmis', category:'fourmis'},
+    {type:'article', title:'Moustique tigre : 12 gestes pour protéger votre jardin', url:'/blog/cafards-insectes/moustique-tigre-jardin/', tag:'Moustiques', category:'moustiques'},
+    // Pillars
+    {type:'pillar', title:'Rats & Souris : Guide complet 2026', url:'/blog/rats-souris/', tag:'Dossier', category:'rats'},
+    {type:'pillar', title:'Punaises de lit : Guide complet', url:'/blog/punaises-de-lit/', tag:'Dossier', category:'punaises'},
+    {type:'pillar', title:'Cafards & Insectes : Guide complet', url:'/blog/cafards-insectes/', tag:'Dossier', category:'cafards'},
+    {type:'pillar', title:'Guêpes & Frelons : Guide complet', url:'/blog/guepes-frelons/', tag:'Dossier', category:'guepes'},
+    {type:'pillar', title:'Prévention & Réglementation', url:'/blog/prevention-reglementation/', tag:'Dossier', category:'prevention'},
+    // Fiches nuisibles
+    {type:'nuisible', title:'Rats — Fiche complète', url:'/nuisibles/rats/', tag:'Fiche nuisible', category:'rats'},
+    {type:'nuisible', title:'Souris — Fiche complète', url:'/nuisibles/souris/', tag:'Fiche nuisible', category:'souris'},
+    {type:'nuisible', title:'Punaises de lit — Fiche complète', url:'/nuisibles/punaises-de-lit/', tag:'Fiche nuisible', category:'punaises'},
+    {type:'nuisible', title:'Cafards — Fiche complète', url:'/nuisibles/cafards/', tag:'Fiche nuisible', category:'cafards'},
+    {type:'nuisible', title:'Guêpes & Frelons — Fiche complète', url:'/nuisibles/guepes-frelons/', tag:'Fiche nuisible', category:'guepes'},
+    {type:'nuisible', title:'Fourmis — Fiche complète', url:'/nuisibles/fourmis/', tag:'Fiche nuisible', category:'fourmis'},
+    {type:'nuisible', title:'Moustiques — Fiche complète', url:'/nuisibles/moustiques/', tag:'Fiche nuisible', category:'moustiques'},
+    {type:'nuisible', title:'Pigeons — Fiche complète', url:'/nuisibles/pigeons/', tag:'Fiche nuisible', category:'pigeons'},
+    // Réglementation
+    {type:'reglementation', title:'Obligations du locataire face aux nuisibles', url:'/blog/prevention-reglementation/', tag:'Réglementation', category:'prevention'},
+    {type:'reglementation', title:'Réglementation copropriété et dératisation', url:'/blog/prevention-reglementation/', tag:'Réglementation', category:'prevention'},
+    {type:'reglementation', title:'Punaises de lit : qui paie, locataire ou propriétaire', url:'/blog/prevention-reglementation/loi-punaises-locataires/', tag:'Réglementation', category:'prevention'},
+    {type:'reglementation', title:'Certibiocide : que vérifier avant de choisir', url:'/blog/prevention-reglementation/certibiocide-artisans/', tag:'Réglementation', category:'prevention'},
+    {type:'reglementation', title:'Calendrier 2026 des nuisibles en France', url:'/blog/prevention-reglementation/calendrier-nuisibles-france/', tag:'Saisonnalité', category:'prevention'},
+    // Services
+    {type:'service', title:'Dératisation à Lyon', url:'/deratisation/lyon/', tag:'Service', category:'rats'},
+    {type:'service', title:'Dératisation à Paris', url:'/deratisation/paris/', tag:'Service', category:'rats'},
+    {type:'service', title:'Traitement punaises de lit', url:'/desinsectisation/punaises-de-lit/', tag:'Service', category:'punaises'},
+    {type:'service', title:'Traitement des cafards', url:'/desinsectisation/cafards/', tag:'Service', category:'cafards'},
+    {type:'service', title:'Dépigeonnage', url:'/depigeonnage/', tag:'Service', category:'pigeons'},
+    {type:'service', title:'Devis gratuit', url:'/devis/', tag:'Service', category:'general'}
+  ];
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  }
+
+  function initBlogSearch() {
+    var input = document.querySelector('.blog-search input');
+    if (!input) return;
+    var form = input.closest('.blog-search');
+    if (!form) return;
+
+    var dropdown = document.createElement('div');
+    dropdown.className = 'blog-search-dropdown';
+    dropdown.setAttribute('role', 'listbox');
+    form.appendChild(dropdown);
+
+    function render(q) {
+      var query = q.trim().toLowerCase();
+      if (query.length < 2) {
+        dropdown.innerHTML = '';
+        dropdown.style.display = 'none';
+        return;
+      }
+      var normalized = query.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      var results = searchSuggestions.filter(function (s) {
+        var hay = (s.title + ' ' + s.tag + ' ' + s.category).toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        return hay.indexOf(normalized) !== -1;
+      }).slice(0, 8);
+
+      if (results.length === 0) {
+        dropdown.innerHTML = '<div class="blog-search-empty">Aucun résultat pour « ' + escapeHtml(q) + ' »</div>';
+      } else {
+        dropdown.innerHTML = results.map(function (r) {
+          return '<a href="' + r.url + '" class="blog-search-result" data-type="' + r.type + '" role="option">' +
+            '<span class="blog-search-tag tag-' + r.category + '">' + escapeHtml(r.tag) + '</span>' +
+            '<span class="blog-search-title">' + escapeHtml(r.title) + '</span>' +
+          '</a>';
+        }).join('');
+      }
+      dropdown.style.display = 'block';
+    }
+
+    input.addEventListener('input', function (e) { render(e.target.value); });
+    input.addEventListener('focus', function () {
+      if (input.value.length >= 2) render(input.value);
+    });
+    document.addEventListener('click', function (e) {
+      if (!form.contains(e.target)) dropdown.style.display = 'none';
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { dropdown.style.display = 'none'; input.blur(); }
+    });
+    dropdown.addEventListener('click', function (e) {
+      var result = e.target.closest('.blog-search-result');
+      if (result) {
+        push('blog_search_click', {
+          query: input.value,
+          destination: result.getAttribute('href'),
+          type: result.getAttribute('data-type')
+        });
+      }
     });
   }
 
@@ -475,6 +601,7 @@
     initCtaTracking();
     initInternalLinks();
     initPhoneTracking();
+    initBlogSearch();
   }
 
   if (document.readyState === 'loading') {
