@@ -1589,9 +1589,9 @@ img, video, svg {
   }
 }
 
-/* ══════════════════════════════════════════
+/* ==========================================
    SECTION ARTICLES BLOG (fiches nuisibles)
-   ══════════════════════════════════════════ */
+   ========================================== */
 #articles-blog { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--color-gray-light); }
 .articles-featured-row { margin-bottom: var(--space-xl); }
 .article-card-featured { display: grid; grid-template-columns: 45% 55%; background: var(--color-surface); border-radius: var(--radius-xl); overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.2s, box-shadow 0.2s; border: 1px solid var(--color-gray-light); }
@@ -1636,10 +1636,10 @@ img, video, svg {
 @media (max-width: 900px) { .article-card-featured { grid-template-columns: 1fr; } .articles-grid-3 { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .articles-grid-3 { grid-template-columns: 1fr; } }
 
-/* ══════════════════════════════════════════
+/* ==========================================
    BREADCRUMB UNIFIÉ — Style shadcn
    Utilisé sur TOUTES les pages (nuisibles, blog, services, etc.)
-   ══════════════════════════════════════════ */
+   ========================================== */
 .breadcrumb-bar {
   background: rgba(255,255,255,0.8);
   backdrop-filter: blur(8px);
