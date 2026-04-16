@@ -238,6 +238,309 @@
   50% { box-shadow: 0 0 0 8px rgba(34,197,94,0.08); }
 }
 
+/* Trust items — home style */
+.trust-items-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+.trust-item-home {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-primary-900);
+}
+.trust-stars {
+  display: flex;
+  gap: 1px;
+}
+.trust-stars svg {
+  width: 16px; height: 16px;
+}
+.trust-item-home strong {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--color-primary-900);
+}
+
+/* Process "Comment ça marche" */
+.process-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-surface);
+}
+.process-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+  position: relative;
+}
+.process-step-v2 {
+  background: var(--color-bg);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.process-step-v2:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14,5,42,0.06);
+}
+.process-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--color-primary-900);
+  color: #fff;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: var(--space-md);
+}
+.process-step-v2 h3 {
+  font-size: 17px;
+  margin: 0 0 8px;
+  color: var(--color-primary-900);
+}
+.process-step-v2 p {
+  font-size: 14px;
+  color: var(--color-primary-800);
+  line-height: 1.6;
+  margin: 0;
+}
+.process-step-tag {
+  display: inline-block;
+  margin-top: var(--space-md);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Regions grid */
+.regions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+  max-width: 1000px;
+  margin: var(--space-2xl) auto 0;
+}
+.region-col h3 {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary-600);
+  margin: 0 0 var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--color-primary-200);
+}
+.region-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.region-col li {
+  padding: 6px 0;
+}
+.region-col a {
+  color: var(--color-primary-900);
+  text-decoration: none;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.region-col a:hover { color: var(--color-primary-600); }
+.region-col a::before {
+  content: '→';
+  color: var(--color-primary-400);
+  transition: transform 0.2s;
+}
+.region-col a:hover::before { transform: translateX(3px); }
+
+/* Lead gen block */
+.leadgen-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-pastel-lavender-light) 100%);
+}
+.leadgen-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.leadgen-content h2 {
+  font-size: clamp(26px, 3.5vw, 36px);
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+  color: var(--color-primary-900);
+}
+.leadgen-content h2 .accent { color: var(--color-primary-600); }
+.leadgen-content p {
+  font-size: 16px;
+  color: var(--color-primary-800);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+.leadgen-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.leadgen-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--color-primary-900);
+}
+.leadgen-bullets li svg {
+  width: 20px; height: 20px;
+  color: #22C55E;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.leadgen-form {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: 0 20px 60px rgba(14,5,42,0.1);
+}
+.leadgen-form h3 {
+  font-size: 20px;
+  margin: 0 0 4px;
+  color: var(--color-primary-900);
+}
+.leadgen-form .form-subtitle {
+  font-size: 14px;
+  color: var(--color-primary-800);
+  margin: 0 0 var(--space-lg);
+}
+.leadgen-form label {
+  display: block;
+  font-size: 13px;
+  color: var(--color-primary-900);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.leadgen-form input,
+.leadgen-form select,
+.leadgen-form textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-size: 15px;
+  color: var(--color-primary-900);
+  background: var(--color-surface);
+  margin-bottom: var(--space-md);
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.leadgen-form input:focus,
+.leadgen-form select:focus,
+.leadgen-form textarea:focus {
+  border-color: var(--color-primary-600);
+}
+.leadgen-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+.leadgen-form .form-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--color-primary-900);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 6px;
+}
+.leadgen-form .form-submit:hover { background: var(--color-primary-600); }
+.leadgen-form .form-legal {
+  font-size: 11px;
+  color: var(--color-primary-800);
+  text-align: center;
+  margin: var(--space-sm) 0 0;
+}
+
+/* CTA banner premium (home-style) */
+.cta-banner-city {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner-city::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-banner-city-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+.cta-banner-city-text h2 {
+  color: #fff;
+  font-size: clamp(26px, 3.5vw, 36px);
+  line-height: 1.2;
+  margin: 0 0 var(--space-md);
+}
+.cta-banner-city-text p {
+  color: rgba(255,255,255,0.85);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 var(--space-lg);
+}
+.cta-banner-city-actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+.cta-banner-city-reassurance {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+.cta-banner-city-reassurance span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.8);
+}
+
 /* Trust bar */
 .trust-bar {
   background: var(--color-surface);
@@ -297,6 +600,12 @@
   .services-grid-3 { grid-template-columns: 1fr; }
   .zones-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-trust-micro { flex-wrap: wrap; gap: var(--space-sm); }
+  .process-grid-4 { grid-template-columns: 1fr; }
+  .regions-grid { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .leadgen-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .cta-banner-city-inner { grid-template-columns: 1fr; text-align: center; }
+  .cta-banner-city-actions { justify-content: center; }
+  .cta-banner-city-reassurance { justify-content: center; }
 }
 @media (max-width: 560px) {
   .reassurance-row { gap: 6px; }
@@ -361,65 +670,117 @@
           </div>
         </div>
 
-        <!-- ═══ NOS RESSOURCES ═══ -->
+        <!-- ═══ GUIDES ═══ -->
         <div class="nav-item">
           <a href="/nuisibles/">Guides <span class="nav-chevron">&#9662;</span></a>
-          <div class="mega-menu" style="min-width:760px;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);">
-              <!-- Colonne gauche : Guides nuisibles -->
-              <div>
-                <span class="mega-menu-label">Guides nuisibles</span>
-                <div class="mega-menu-grid" style="grid-template-columns:1fr 1fr;gap:6px;">
-                  <a href="/nuisibles/rats/" class="mega-menu-item hover-gold">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="36" height="36"></div>
-                    <div><h4>Rats</h4></div>
+          <div class="mega-menu mega-menu-guides" style="min-width:920px;padding:0;overflow:hidden;">
+            <div class="mega-guides-grid">
+              <!-- Colonne 1 : Les plus demandés -->
+              <div class="mega-guides-featured">
+                <span class="mega-menu-label">Les plus demandés</span>
+                <div class="mega-guides-cards">
+                  <a href="/nuisibles/rats/" class="mega-guide-card">
+                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-gold-light);">
+                      <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="48" height="48">
+                    </div>
+                    <div class="mega-guide-card-body">
+                      <h4>Rats</h4>
+                      <p>Identification, dangers, traitement</p>
+                    </div>
                   </a>
-                  <a href="/nuisibles/souris/" class="mega-menu-item hover-lavender">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-lavender-light);"><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="" width="36" height="36"></div>
-                    <div><h4>Souris</h4></div>
+                  <a href="/nuisibles/punaises-de-lit/" class="mega-guide-card">
+                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-rose-light);">
+                      <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="48" height="48">
+                    </div>
+                    <div class="mega-guide-card-body">
+                      <h4>Punaises de lit</h4>
+                      <p>Piqûres, infestations, traitement</p>
+                    </div>
                   </a>
-                  <a href="/nuisibles/punaises-de-lit/" class="mega-menu-item hover-rose">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="36" height="36"></div>
-                    <div><h4>Punaises de lit</h4></div>
+                  <a href="/nuisibles/cafards/" class="mega-guide-card">
+                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-mint-light);">
+                      <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="48" height="48">
+                    </div>
+                    <div class="mega-guide-card-body">
+                      <h4>Cafards & blattes</h4>
+                      <p>Espèces, dangers, éradication</p>
+                    </div>
                   </a>
-                  <a href="/nuisibles/cafards/" class="mega-menu-item hover-mint">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="36" height="36"></div>
-                    <div><h4>Cafards</h4></div>
+                  <a href="/nuisibles/guepes-frelons/" class="mega-guide-card">
+                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-gold-light);">
+                      <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="48" height="48">
+                    </div>
+                    <div class="mega-guide-card-body">
+                      <h4>Guêpes & Frelons</h4>
+                      <p>Nids, urgence, destruction</p>
+                    </div>
                   </a>
-                  <a href="/nuisibles/guepes-frelons/" class="mega-menu-item hover-gold">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-gold-light);"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="36" height="36"></div>
-                    <div><h4>Guêpes &amp; Frelons</h4></div>
-                  </a>
-                  <a href="/nuisibles/fourmis/" class="mega-menu-item hover-rose">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-rose-light);"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="36" height="36"></div>
-                    <div><h4>Fourmis</h4></div>
-                  </a>
-                  <a href="/nuisibles/moustiques/" class="mega-menu-item hover-blue">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-blue-light);"><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="36" height="36"></div>
-                    <div><h4>Moustiques</h4></div>
-                  </a>
-                  <a href="/nuisibles/pigeons/" class="mega-menu-item hover-mint">
-                    <div class="mega-nuisible-icon" style="background:var(--color-pastel-mint-light);"><img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" alt="" width="36" height="36"></div>
-                    <div><h4>Pigeons</h4></div>
-                  </a>
-                </div>
-                <div style="margin-top:var(--space-sm);padding-top:var(--space-sm);border-top:1px solid var(--color-gray-light);">
-                  <a href="/nuisibles/" style="font-size:13px;color:var(--color-primary-600);font-weight:700;text-decoration:none;">Voir les 13 fiches →</a>
                 </div>
               </div>
-              <!-- Colonne droite : Autres ressources -->
-              <div>
-                <span class="mega-menu-label">Contenus</span>
-                <div class="mega-menu-grid" style="grid-template-columns:1fr;gap:4px;">
-                  <a href="/blog/" class="mega-menu-item">
-                    <div><h4>Blog</h4><p>Articles d'experts, actualités</p></div>
-                  </a>
-                  <a href="/reglementation/" class="mega-menu-item">
-                    <div><h4>Études &amp; Réglementation</h4><p>Obligations légales, HACCP</p></div>
-                  </a>
-                  <a href="/nuisibles/rats/#faq" class="mega-menu-item">
-                    <div><h4>FAQ</h4><p>Questions fréquentes</p></div>
-                  </a>
+
+              <!-- Colonne 2 : Toutes les catégories -->
+              <div class="mega-guides-categories">
+                <span class="mega-menu-label">Par catégorie</span>
+                <div class="mega-guide-cat-group">
+                  <h5 class="mega-guide-cat-title">Rongeurs</h5>
+                  <a href="/nuisibles/rats/" class="mega-guide-link">Rats</a>
+                  <a href="/nuisibles/souris/" class="mega-guide-link">Souris</a>
+                  <a href="/nuisibles/taupes/" class="mega-guide-link">Taupes</a>
+                </div>
+                <div class="mega-guide-cat-group">
+                  <h5 class="mega-guide-cat-title">Insectes rampants</h5>
+                  <a href="/nuisibles/cafards/" class="mega-guide-link">Cafards</a>
+                  <a href="/nuisibles/punaises-de-lit/" class="mega-guide-link">Punaises de lit</a>
+                  <a href="/nuisibles/fourmis/" class="mega-guide-link">Fourmis</a>
+                  <a href="/nuisibles/puces/" class="mega-guide-link">Puces</a>
+                </div>
+                <div class="mega-guide-cat-group">
+                  <h5 class="mega-guide-cat-title">Insectes volants</h5>
+                  <a href="/nuisibles/guepes-frelons/" class="mega-guide-link">Guêpes & Frelons</a>
+                  <a href="/nuisibles/moustiques/" class="mega-guide-link">Moustiques</a>
+                  <a href="/nuisibles/mites-alimentaires/" class="mega-guide-link">Mites</a>
+                </div>
+                <div class="mega-guide-cat-group">
+                  <h5 class="mega-guide-cat-title">Autres nuisibles</h5>
+                  <a href="/nuisibles/pigeons/" class="mega-guide-link">Pigeons</a>
+                  <a href="/nuisibles/termites/" class="mega-guide-link">Termites</a>
+                  <a href="/nuisibles/chenilles-processionnaires/" class="mega-guide-link">Chenilles</a>
+                </div>
+              </div>
+
+              <!-- Colonne 3 : Contenus & ressources -->
+              <div class="mega-guides-resources">
+                <span class="mega-menu-label">Ressources</span>
+                <a href="/blog/" class="mega-resource-item">
+                  <div class="mega-resource-icon" style="background:var(--color-primary-100);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  </div>
+                  <div>
+                    <h4>Blog Sanalia</h4>
+                    <p>Articles d'experts, actualités</p>
+                  </div>
+                </a>
+                <a href="/reglementation/" class="mega-resource-item">
+                  <div class="mega-resource-icon" style="background:var(--color-pastel-gold-light);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                  </div>
+                  <div>
+                    <h4>Réglementation</h4>
+                    <p>HACCP, obligations légales</p>
+                  </div>
+                </a>
+                <a href="/nuisibles/" class="mega-resource-item">
+                  <div class="mega-resource-icon" style="background:var(--color-pastel-mint-light);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </div>
+                  <div>
+                    <h4>Tous les nuisibles</h4>
+                    <p>13 guides complets</p>
+                  </div>
+                </a>
+                <div class="mega-guides-cta">
+                  <p>Un problème urgent ?</p>
+                  <a href="/devis/" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Devis gratuit en 2 min</a>
                 </div>
               </div>
             </div>
@@ -496,20 +857,32 @@
       <div>
         <div class="reassurance-row">
           <span class="reassurance-pill pill-highlight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 1ère intervention offerte</span>
-          <span class="reassurance-pill"><span class="pill-star">★</span> 4.8/5 Google · 4.9/5 Trustpilot</span>
           <span class="reassurance-pill pill-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Devis en 2h · Intervention 7j/7</span>
         </div>
         <h1>Dératisation à <span class="accent">Paris</span></h1>
+        <div class="trust-items-row">
+          <div class="trust-item-home">
+            <div class="trust-stars">
+              <svg viewBox="0 0 24 24" fill="#00B67A"><path d="M12 2l2.4 7.2H22l-6 4.5 2.4 7.3L12 16.5 5.6 21l2.4-7.3-6-4.5h7.6z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#00B67A"><path d="M12 2l2.4 7.2H22l-6 4.5 2.4 7.3L12 16.5 5.6 21l2.4-7.3-6-4.5h7.6z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#00B67A"><path d="M12 2l2.4 7.2H22l-6 4.5 2.4 7.3L12 16.5 5.6 21l2.4-7.3-6-4.5h7.6z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#00B67A"><path d="M12 2l2.4 7.2H22l-6 4.5 2.4 7.3L12 16.5 5.6 21l2.4-7.3-6-4.5h7.6z"/></svg>
+              <svg viewBox="0 0 24 24" fill="#00B67A"><path d="M12 2l2.4 7.2H22l-6 4.5 2.4 7.3L12 16.5 5.6 21l2.4-7.3-6-4.5h7.6z"/></svg>
+            </div>
+            <span><strong>4.9/5</strong> Trustpilot</span>
+          </div>
+          <div class="trust-item-home">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#FBBC04"/></svg>
+            <span><strong>4.8/5</strong> Google Avis</span>
+          </div>
+          <div class="trust-item-home">
+            <span><strong>+2 000</strong> interventions</span>
+          </div>
+        </div>
         <p class="hero-subtitle">Rats, punaises de lit, cafards, guêpes : nos techniciens certifiés Certibiocide interviennent dans les 20 arrondissements de Paris et en Île-de-France. Sous 24h, 7j/7. Suivi WhatsApp jusqu'à éradication complète.</p>
         <div class="hero-cta-group">
-          <a href="/devis/" class="hero-cta-primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            Devis gratuit sous 2h
-          </a>
-          <a href="tel:0667464897" class="hero-cta-phone">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            06 67 46 48 97
-          </a>
+          <a href="/devis/" class="btn btn-primary btn-lg">Devis gratuit en 2 min <span class="btn-arrow"></span></a>
+          <a href="tel:0667464897" class="btn btn-outline btn-lg"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler maintenant</a>
         </div>
         <div class="hero-trust-micro">
           <span><img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide"> Certibiocide</span>
@@ -524,6 +897,43 @@
           <span class="mob-dot"></span>
           <span><strong>Techniciens disponibles</strong> à Paris</span>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ COMMENT ÇA MARCHE ════════ -->
+<section class="process-section">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <span class="mono" style="color:#999;">Comment ça marche</span>
+      <h2>4 étapes, zéro stress</h2>
+      <p>De votre appel à l'éradication complète, voici comment se déroule votre dératisation à Paris.</p>
+    </div>
+    <div class="process-grid-4">
+      <div class="process-step-v2">
+        <div class="process-step-num">1</div>
+        <h3>Diagnostic & devis</h3>
+        <p>Appel ou formulaire en 2 min. Notre expert vous rappelle, identifie le nuisible et vous envoie un devis détaillé.</p>
+        <span class="process-step-tag">Sous 2h</span>
+      </div>
+      <div class="process-step-v2">
+        <div class="process-step-num">2</div>
+        <h3>1ère intervention</h3>
+        <p>Dans les jours qui suivent votre accord. Le technicien installe les pièges et met en place le traitement adapté à votre logement.</p>
+        <span class="process-step-tag">Sous 24–72h</span>
+      </div>
+      <div class="process-step-v2">
+        <div class="process-step-num">3</div>
+        <h3>Suivi WhatsApp</h3>
+        <p>Votre technicien vous envoie des photos, surveille les pièges à distance et répond à vos questions. Vous n'êtes jamais seul.</p>
+        <span class="process-step-tag">En temps réel</span>
+      </div>
+      <div class="process-step-v2">
+        <div class="process-step-num">4</div>
+        <h3>Contrôle final</h3>
+        <p>Deuxième intervention de suivi quelques semaines plus tard. Vérification complète et attestation de traitement.</p>
+        <span class="process-step-tag">Éradication garantie</span>
       </div>
     </div>
   </div>
@@ -659,34 +1069,110 @@
 </section>
 
 <!-- ════════ CTA ════════ -->
-<section class="cta-city">
-  <div class="container" style="position:relative;z-index:1;">
-    <h2>Un problème de nuisibles à Paris ?</h2>
-    <p>Nos techniciens certifiés interviennent sous 24h dans tout Paris et l'Île-de-France.</p>
-    <div class="flex-center gap-md" style="flex-wrap:wrap;">
-      <a href="/devis/" class="btn btn-lg" style="background:#fff;color:var(--color-primary-900);">Recevoir un devis personnalisé</a>
-      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.4);">📞 06 67 46 48 97</a>
+<!-- ════════ LEAD GEN FORM ════════ -->
+<section class="leadgen-section">
+  <div class="container">
+    <div class="leadgen-grid">
+      <div class="leadgen-content">
+        <span class="mono" style="color:#999;">Devis gratuit sous 2h</span>
+        <h2>Décrivez-nous votre problème à <span class="accent">Paris</span></h2>
+        <p>Remplissez ce formulaire en 30 secondes. Notre expert parisien vous rappelle sous 2h avec un devis précis et un créneau d'intervention.</p>
+        <ul class="leadgen-bullets">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Réponse par un expert local, pas une plateforme</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Devis détaillé, sans engagement</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 1ère intervention offerte</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi WhatsApp jusqu'à éradication</li>
+        </ul>
+      </div>
+      <form class="leadgen-form" action="/merci/" method="POST" data-city="paris">
+        <h3>Obtenir mon devis</h3>
+        <p class="form-subtitle">Rappel sous 2h · Sans engagement</p>
+        <div class="form-row">
+          <div>
+            <label for="lg-firstname">Prénom</label>
+            <input type="text" id="lg-firstname" name="firstname" required autocomplete="given-name">
+          </div>
+          <div>
+            <label for="lg-lastname">Nom</label>
+            <input type="text" id="lg-lastname" name="lastname" required autocomplete="family-name">
+          </div>
+        </div>
+        <label for="lg-phone">Téléphone</label>
+        <input type="tel" id="lg-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78">
+        <label for="lg-email">Email</label>
+        <input type="email" id="lg-email" name="email" required autocomplete="email" placeholder="votre@email.fr">
+        <label for="lg-nuisible">Type de nuisible</label>
+        <select id="lg-nuisible" name="nuisible" required>
+          <option value="">Sélectionnez…</option>
+          <option value="rats">Rats / Souris</option>
+          <option value="punaises">Punaises de lit</option>
+          <option value="cafards">Cafards / Blattes</option>
+          <option value="guepes">Guêpes / Frelons</option>
+          <option value="fourmis">Fourmis</option>
+          <option value="puces">Puces</option>
+          <option value="autre">Autre / Je ne sais pas</option>
+        </select>
+        <label for="lg-cp">Code postal (Paris / IDF)</label>
+        <input type="text" id="lg-cp" name="postalcode" required autocomplete="postal-code" placeholder="75011" pattern="[0-9]{5}">
+        <button type="submit" class="form-submit">Recevoir mon devis sous 2h</button>
+        <p class="form-legal">En soumettant, vous acceptez d'être rappelé. Vos données restent confidentielles.</p>
+      </form>
     </div>
   </div>
 </section>
 
-<!-- ════════ AUTRES VILLES ════════ -->
+<section class="cta-banner-city">
+  <div class="cta-banner-city-inner">
+    <div class="cta-banner-city-text">
+      <h2>Un nuisible chez vous à Paris ?<br>Agissez maintenant.</h2>
+      <p>Chaque jour d'attente aggrave l'infestation. Obtenez un devis gratuit en 2 minutes, intervention sous 24h dans les 20 arrondissements et l'Île-de-France.</p>
+      <div class="cta-banner-city-actions">
+        <a href="/devis/" class="btn btn-white btn-lg">Devis gratuit en 2 min <span class="btn-arrow"></span></a>
+        <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff;opacity:0.8;"><span class="btn-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> 06 67 46 48 97</a>
+      </div>
+      <div class="cta-banner-city-reassurance">
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Devis sans engagement</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> 1ère intervention offerte</span>
+        <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg> Intervention sous 24h</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ AUTRES VILLES — PAR RÉGIONS ════════ -->
 <section class="section-premium bg-cream">
   <div class="container">
     <div class="section-header" style="text-align:center;">
-      <span class="mono" style="color:#999;">Autres implantations</span>
-      <h2>Sanalia intervient aussi dans ces villes</h2>
+      <span class="mono" style="color:#999;">Nos implantations</span>
+      <h2>Sanalia intervient dans toute la France</h2>
+      <p>Nos techniciens certifiés couvrent les principales métropoles.</p>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:var(--space-md);justify-content:center;">
-      <a href="/deratisation/lyon/" class="btn btn-ghost btn-sm">Lyon</a>
-      <a href="/deratisation/marseille/" class="btn btn-ghost btn-sm">Marseille</a>
-      <a href="/deratisation/bordeaux/" class="btn btn-ghost btn-sm">Bordeaux</a>
-      <a href="/deratisation/toulouse/" class="btn btn-ghost btn-sm">Toulouse</a>
-      <a href="/deratisation/nantes/" class="btn btn-ghost btn-sm">Nantes</a>
-      <a href="/deratisation/lille/" class="btn btn-ghost btn-sm">Lille</a>
-      <a href="/deratisation/nice/" class="btn btn-ghost btn-sm">Nice</a>
-      <a href="/deratisation/montpellier/" class="btn btn-ghost btn-sm">Montpellier</a>
-      <a href="/deratisation/strasbourg/" class="btn btn-ghost btn-sm">Strasbourg</a>
+    <div class="regions-grid">
+      <div class="region-col">
+        <h3>Île-de-France & Nord</h3>
+        <ul>
+          <li><a href="/deratisation/paris/">Paris</a></li>
+          <li><a href="/deratisation/lille/">Lille</a></li>
+          <li><a href="/deratisation/strasbourg/">Strasbourg</a></li>
+        </ul>
+      </div>
+      <div class="region-col">
+        <h3>Centre, Ouest & Sud-Ouest</h3>
+        <ul>
+          <li><a href="/deratisation/lyon/">Lyon</a></li>
+          <li><a href="/deratisation/nantes/">Nantes</a></li>
+          <li><a href="/deratisation/bordeaux/">Bordeaux</a></li>
+          <li><a href="/deratisation/toulouse/">Toulouse</a></li>
+        </ul>
+      </div>
+      <div class="region-col">
+        <h3>Sud & Méditerranée</h3>
+        <ul>
+          <li><a href="/deratisation/marseille/">Marseille</a></li>
+          <li><a href="/deratisation/nice/">Nice</a></li>
+          <li><a href="/deratisation/montpellier/">Montpellier</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -754,13 +1240,23 @@
         <p style="margin-top: var(--space-md);">53 Rue Villeroy, Lyon 3<br><a href="tel:0667464897">06 67 46 48 97</a><br>8h - 20h, 7j/7</p>
       </div>
       <div class="footer-col">
-        <h4>Services</h4>
+        <h4>Services particuliers</h4>
         <ul>
           <li><a href="/deratisation/">Dératisation</a></li>
-          <li><a href="/desinsectisation/punaises-de-lit/">Punaises de lit</a></li>
-          <li><a href="/desinsectisation/cafards/">Cafards</a></li>
-          <li><a href="/desinsectisation/guepes/">Guêpes & Frelons</a></li>
+          <li><a href="/desinsectisation/">Désinsectisation</a></li>
+          <li><a href="/desinfection/">Désinfection</a></li>
           <li><a href="/depigeonnage/">Dépigeonnage</a></li>
+          <li><a href="/devis/">Demander un devis</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services professionnels</h4>
+        <ul>
+          <li><a href="/professionnel/">Sanalia Pro</a></li>
+          <li><a href="/professionnel/">Restauration & HACCP</a></li>
+          <li><a href="/professionnel/">Hôtellerie</a></li>
+          <li><a href="/professionnel/">Copropriétés & syndics</a></li>
+          <li><a href="/professionnel/">Agroalimentaire</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -768,20 +1264,17 @@
         <ul>
           <li><a href="/nuisibles/rats/">Rats</a></li>
           <li><a href="/nuisibles/souris/">Souris</a></li>
-          <li><a href="/nuisibles/cafards/">Cafards</a></li>
           <li><a href="/nuisibles/punaises-de-lit/">Punaises de lit</a></li>
-          <li><a href="/nuisibles/">Tous les nuisibles</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Informations</h4>
-        <ul>
-          <li><a href="/a-propos/">À propos</a></li>
-          <li><a href="/garantie/">Certifications</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="/reglementation/">Réglementation</a></li>
-          <li><a href="/professionnel/">Espace pro</a></li>
-          <li><a href="/devis/">Devis gratuit</a></li>
+          <li><a href="/nuisibles/cafards/">Cafards</a></li>
+          <li><a href="/nuisibles/guepes-frelons/">Guêpes & Frelons</a></li>
+          <li><a href="/nuisibles/fourmis/">Fourmis</a></li>
+          <li><a href="/nuisibles/moustiques/">Moustiques</a></li>
+          <li><a href="/nuisibles/pigeons/">Pigeons</a></li>
+          <li><a href="/nuisibles/puces/">Puces</a></li>
+          <li><a href="/nuisibles/termites/">Termites</a></li>
+          <li><a href="/nuisibles/chenilles-processionnaires/">Chenilles processionnaires</a></li>
+          <li><a href="/nuisibles/mites-alimentaires/">Mites alimentaires</a></li>
+          <li><a href="/nuisibles/taupes/">Taupes</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -791,12 +1284,23 @@
           <li><a href="/deratisation/lyon/">Lyon</a></li>
           <li><a href="/deratisation/marseille/">Marseille</a></li>
           <li><a href="/deratisation/bordeaux/">Bordeaux</a></li>
-          <li><a href="/deratisation/">Nantes</a></li>
-          <li><a href="/deratisation/">Lille</a></li>
-          <li><a href="/deratisation/">Toulouse</a></li>
-          <li><a href="/deratisation/">Nice</a></li>
-          <li><a href="/deratisation/">Montpellier</a></li>
-          <li><a href="/deratisation/">Strasbourg</a></li>
+          <li><a href="/deratisation/toulouse/">Toulouse</a></li>
+          <li><a href="/deratisation/nantes/">Nantes</a></li>
+          <li><a href="/deratisation/lille/">Lille</a></li>
+          <li><a href="/deratisation/nice/">Nice</a></li>
+          <li><a href="/deratisation/montpellier/">Montpellier</a></li>
+          <li><a href="/deratisation/strasbourg/">Strasbourg</a></li>
+          <li><a href="/implantations/" style="color:var(--color-primary-400);font-weight:700;">Voir la carte →</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>À propos</h4>
+        <ul>
+          <li><a href="/a-propos/">Notre mission</a></li>
+          <li><a href="/garantie/">Certifications</a></li>
+          <li><a href="/reglementation/">Réglementation</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/devis/">Devis gratuit</a></li>
         </ul>
       </div>
     </div>

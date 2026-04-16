@@ -1727,3 +1727,162 @@ img, video, svg {
 .mega-implant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
 .mega-implant-city { display: block; padding: 8px 14px; border-radius: var(--radius-md); font-size: 13px; color: var(--color-primary-900); text-decoration: none; transition: background 0.15s; }
 .mega-implant-city:hover { background: var(--color-bg); }
+
+/* ═══ MEGA-MENU GUIDES — Premium ═══ */
+.mega-menu-guides { padding: 0 !important; }
+.mega-guides-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  min-height: 400px;
+}
+.mega-guides-featured {
+  padding: var(--space-xl);
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-gray-light);
+}
+.mega-guides-categories {
+  padding: var(--space-xl);
+  border-right: 1px solid var(--color-gray-light);
+}
+.mega-guides-resources {
+  padding: var(--space-xl);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-primary-100) 100%);
+  display: flex;
+  flex-direction: column;
+}
+.mega-guides-featured .mega-menu-label,
+.mega-guides-categories .mega-menu-label,
+.mega-guides-resources .mega-menu-label {
+  display: block;
+  margin-bottom: var(--space-md);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary-800);
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+/* Featured cards */
+.mega-guides-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.mega-guide-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-primary-900);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.mega-guide-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(14,5,42,0.06);
+  border-color: var(--color-primary-200);
+}
+.mega-guide-card-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.mega-guide-card-icon img {
+  width: 40px; height: 40px;
+  object-fit: contain;
+}
+.mega-guide-card-body h4 {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--color-primary-900);
+}
+.mega-guide-card-body p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-primary-800);
+  line-height: 1.3;
+}
+
+/* Categories */
+.mega-guide-cat-group {
+  margin-bottom: var(--space-md);
+}
+.mega-guide-cat-title {
+  margin: 0 0 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary-600);
+  font-weight: 700;
+}
+.mega-guide-link {
+  display: block;
+  padding: 5px 0;
+  font-size: 13px;
+  color: var(--color-primary-900);
+  text-decoration: none;
+  transition: color 0.15s, padding 0.15s;
+}
+.mega-guide-link:hover {
+  color: var(--color-primary-600);
+  padding-left: 4px;
+}
+
+/* Resources */
+.mega-resource-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  margin: 0 -12px 6px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--color-primary-900);
+  transition: background 0.15s;
+}
+.mega-resource-item:hover {
+  background: rgba(255,255,255,0.7);
+}
+.mega-resource-icon {
+  width: 38px; height: 38px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-primary-600);
+}
+.mega-resource-icon svg { width: 18px; height: 18px; }
+.mega-resource-item h4 {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--color-primary-900);
+}
+.mega-resource-item p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-primary-800);
+  line-height: 1.3;
+}
+.mega-guides-cta {
+  margin-top: auto;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-gray-light);
+}
+.mega-guides-cta p {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--color-primary-900);
+  font-weight: 600;
+}
