@@ -63,52 +63,73 @@
 <link rel="stylesheet" href="/css/components.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-/* ═══ IMPLANTATIONS PAGE ═══ */
+/* ═══ IMPLANTATIONS PAGE — PREMIUM ═══ */
 
-/* Hero avec recherche */
+/* Hero */
 .hero-implantations {
-  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 60%, #4A45B5 100%);
-  padding: var(--space-3xl) 0 0;
+  background: var(--color-bg);
+  padding: var(--space-2xl) 0 0;
   position: relative;
-  overflow: hidden;
-  color: #fff;
-}
-.hero-implantations::before {
-  content: '';
-  position: absolute;
-  top: -100px; right: -100px;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
-  pointer-events: none;
 }
 .hero-implant-content {
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
 }
 .hero-implant-content h1 {
-  font-size: clamp(28px, 4vw, 42px);
-  line-height: 1.15;
+  font-size: clamp(30px, 4.5vw, 48px);
+  line-height: 1.1;
+  color: var(--color-primary-900);
   margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
 }
+.hero-implant-content h1 .accent { color: var(--color-primary-600); }
 .hero-implant-content p {
-  font-size: 18px;
-  color: rgba(255,255,255,0.8);
+  font-size: 17px;
+  color: var(--color-primary-800);
   line-height: 1.6;
   margin-bottom: var(--space-xl);
 }
+.hero-reassurance {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-lg);
+}
+.hero-reassurance .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--color-gray-light);
+  background: var(--color-surface);
+  color: var(--color-primary-900);
+  box-shadow: 0 1px 3px rgba(14,5,42,0.04);
+}
+.hero-reassurance .pill svg { width: 15px; height: 15px; flex-shrink: 0; }
+.hero-reassurance .pill-green svg { color: #22C55E; }
+.hero-reassurance .pill-star { color: #EAB308; font-size: 14px; }
+.hero-reassurance .pill-blue svg { color: #3B82F6; }
 
 /* Search bar */
 .search-bar {
   display: flex;
-  max-width: 560px;
+  max-width: 600px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--color-surface);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+  border: 2px solid var(--color-primary-200);
+  box-shadow: 0 8px 30px rgba(14,5,42,0.08);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-bar:focus-within {
+  border-color: var(--color-primary-600);
+  box-shadow: 0 8px 30px rgba(99,93,221,0.15);
 }
 .search-bar input {
   flex: 1;
@@ -120,12 +141,10 @@
   outline: none;
   background: transparent;
 }
-.search-bar input::placeholder {
-  color: #999;
-}
+.search-bar input::placeholder { color: #999; }
 .search-bar button {
   border: none;
-  background: var(--color-primary-600);
+  background: var(--color-primary-900);
   color: #fff;
   padding: 16px 28px;
   font-family: var(--font-primary);
@@ -135,48 +154,138 @@
   white-space: nowrap;
   transition: background 0.2s;
 }
-.search-bar button:hover {
-  background: var(--color-primary-800);
+.search-bar button:hover { background: var(--color-primary-600); }
+.search-hint {
+  margin-top: var(--space-md);
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
 }
+.search-hint a {
+  font-size: 13px;
+  color: var(--color-primary-600);
+  text-decoration: none;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  transition: background 0.2s;
+  font-weight: 500;
+}
+.search-hint a:hover { background: var(--color-primary-200); }
 
 /* Map container */
 .map-section {
   position: relative;
-  margin-top: -1px;
+  margin-top: var(--space-lg);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 20px 60px rgba(14,5,42,0.1), 0 0 0 1px rgba(14,5,42,0.05);
 }
 #map {
   width: 100%;
-  height: 520px;
+  height: 560px;
   z-index: 1;
 }
+.map-legend {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 500;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary-800);
+}
+.map-legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 @media (max-width: 900px) {
-  #map { height: 400px; }
+  #map { height: 420px; }
+  .map-legend { display: none; }
+  .map-section { border-radius: 0; margin-top: var(--space-md); }
 }
 
-/* City info popup on map */
+/* Animated marker */
+.sanalia-marker {
+  background: var(--color-primary-600);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+.sanalia-marker:hover { transform: scale(1.3); }
+.sanalia-marker-pulse {
+  position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: var(--color-primary-600);
+  opacity: 0;
+  animation: marker-pulse 2.5s infinite;
+  pointer-events: none;
+}
+@keyframes marker-pulse {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* City popup */
+.city-popup { min-width: 220px; }
 .city-popup h3 {
   font-family: var(--font-primary);
   font-weight: 700;
   font-size: 16px;
   color: var(--color-primary-900);
-  margin: 0 0 6px;
+  margin: 0 0 4px;
+}
+.city-popup .popup-services {
+  display: flex;
+  gap: 4px;
+  margin: 6px 0 10px;
+  flex-wrap: wrap;
+}
+.city-popup .popup-tag {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  color: var(--color-primary-800);
 }
 .city-popup p {
   font-size: 13px;
   color: var(--color-primary-800);
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   line-height: 1.5;
 }
 .city-popup a {
-  display: inline-block;
-  background: var(--color-primary-600);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-primary-900);
   color: #fff;
-  padding: 6px 14px;
-  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
+  transition: background 0.2s;
 }
+.city-popup a:hover { background: var(--color-primary-600); }
 
 /* City grid */
 .cities-section {
@@ -476,29 +585,38 @@
 <section class="hero-implantations">
   <div class="container">
     <div class="hero-implant-content">
-      <span class="mono" style="color:rgba(255,255,255,0.5);">Nos implantations</span>
-      <h1>Un technicien Sanalia <span style="color:var(--color-primary-200);">près de chez vous</span></h1>
-      <p>10 métropoles, 50+ techniciens certifiés Certibiocide. Saisissez votre adresse pour trouver l'agence la plus proche et obtenir une intervention sous 24h.</p>
-      <div class="search-bar" id="searchBar">
-        <input type="text" id="addressInput" placeholder="Saisissez votre adresse ou code postal..." autocomplete="off">
-        <button type="button" id="searchBtn">Trouver mon agence</button>
+      <div class="hero-reassurance">
+        <span class="pill pill-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 10 métropoles</span>
+        <span class="pill"><span class="pill-star">★</span> 4.8/5 Google</span>
+        <span class="pill pill-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Intervention sous 24h</span>
       </div>
-      <div style="margin-top:var(--space-md);display:flex;justify-content:center;gap:var(--space-lg);flex-wrap:wrap;">
-        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Paris</span>
-        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Lyon</span>
-        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Marseille</span>
-        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Bordeaux</span>
-        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Toulouse</span>
-        <span style="color:rgba(255,255,255,0.5);font-size:13px;">+ 5 villes</span>
+      <h1>Trouvez votre technicien <span class="accent">Sanalia</span></h1>
+      <p>50+ techniciens certifiés Certibiocide répartis dans toute la France. Saisissez votre adresse pour localiser l'agence la plus proche.</p>
+      <div class="search-bar" id="searchBar">
+        <input type="text" id="addressInput" placeholder="Votre adresse, ville ou code postal..." autocomplete="off">
+        <button type="button" id="searchBtn">Localiser</button>
+      </div>
+      <div class="search-hint">
+        <a href="#" data-city="Paris">Paris</a>
+        <a href="#" data-city="Lyon">Lyon</a>
+        <a href="#" data-city="Marseille">Marseille</a>
+        <a href="#" data-city="Bordeaux">Bordeaux</a>
+        <a href="#" data-city="Toulouse">Toulouse</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════════ MAP ════════ -->
-<section class="map-section">
-  <div id="map"></div>
-</section>
+<div class="container">
+  <section class="map-section">
+    <div id="map"></div>
+    <div class="map-legend">
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--color-primary-600);"></div> Agence Sanalia</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:var(--color-primary-200);"></div> Zone d'intervention</div>
+    </div>
+  </section>
+</div>
 
 <!-- ════════ VILLES ════════ -->
 <section class="cities-section">
@@ -758,10 +876,13 @@
     { name: 'Strasbourg', lat: 48.5734, lng: 7.7521, url: '/deratisation/strasbourg/', desc: 'Strasbourg et Bas-Rhin', dept: '67' }
   ];
 
-  // ═══ MAP INIT ═══
+  // ═══ MAP INIT — fully interactive ═══
   var map = L.map('map', {
-    scrollWheelZoom: false,
-    zoomControl: true
+    scrollWheelZoom: true,
+    zoomControl: true,
+    dragging: true,
+    doubleClickZoom: true,
+    zoomSnap: 0.5
   }).setView([46.6, 2.8], 6);
 
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -770,24 +891,42 @@
     maxZoom: 18
   }).addTo(map);
 
-  // ═══ CUSTOM MARKER ═══
-  var markerIcon = L.divIcon({
-    className: 'sanalia-marker',
-    iconSize: [16, 16],
-    iconAnchor: [8, 8],
-    popupAnchor: [0, -12]
-  });
+  // ═══ ANIMATED MARKERS with pulse ═══
+  function createMarkerIcon() {
+    return L.divIcon({
+      className: '',
+      html: '<div style="position:relative;"><div class="sanalia-marker" style="width:16px;height:16px;"></div><div class="sanalia-marker-pulse" style="position:absolute;top:0;left:0;width:16px;height:16px;border-radius:50%;background:#635DDD;opacity:0;animation:marker-pulse 2.5s infinite;pointer-events:none;"></div></div>',
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
+      popupAnchor: [0, -14]
+    });
+  }
 
-  // ═══ ADD MARKERS ═══
+  // ═══ COVERAGE CIRCLES + MARKERS ═══
+  var markers = {};
   cities.forEach(function(city) {
+    // Coverage circle
+    L.circle([city.lat, city.lng], {
+      radius: 25000,
+      color: '#635DDD',
+      fillColor: '#635DDD',
+      fillOpacity: 0.04,
+      weight: 1,
+      opacity: 0.3
+    }).addTo(map);
+
+    // Rich popup
     var popup = '<div class="city-popup">' +
-      '<h3>' + city.name + '</h3>' +
-      '<p>' + city.desc + ' (' + city.dept + ')<br>Intervention sous 24h, 7j/7</p>' +
-      '<a href="' + city.url + '">Voir l\'agence →</a>' +
+      '<h3>Sanalia ' + city.name + '</h3>' +
+      '<div class="popup-services"><span class="popup-tag">Dératisation</span><span class="popup-tag">Désinsectisation</span><span class="popup-tag">Désinfection</span></div>' +
+      '<p>' + city.desc + ' (' + city.dept + ')<br>Intervention sous 24h — 7j/7</p>' +
+      '<a href="' + city.url + '">Voir les détails →</a>' +
       '</div>';
-    L.marker([city.lat, city.lng], { icon: markerIcon })
+
+    var marker = L.marker([city.lat, city.lng], { icon: createMarkerIcon() })
       .addTo(map)
-      .bindPopup(popup);
+      .bindPopup(popup, { maxWidth: 280 });
+    markers[city.name] = { marker: marker, city: city };
   });
 
   // ═══ ADDRESS SEARCH (Nominatim geocoding) ═══
@@ -839,6 +978,34 @@
   addressInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') searchAddress();
   });
+
+  // ═══ QUICK CITY PILLS ═══
+  document.querySelectorAll('.search-hint a').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var cityName = this.getAttribute('data-city');
+      var cityData = markers[cityName];
+      if (cityData) {
+        addressInput.value = cityName;
+        map.flyTo([cityData.city.lat, cityData.city.lng], 12, { duration: 1.2 });
+        setTimeout(function() {
+          cityData.marker.openPopup();
+        }, 600);
+      }
+    });
+  });
+
+  // ═══ SCROLL INTO VIEW on search ═══
+  var mapEl = document.getElementById('map');
+  var origSearch = searchAddress;
+  searchAddress = function() {
+    origSearch();
+    setTimeout(function() {
+      mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+  };
+  searchBtn.removeEventListener('click', origSearch);
+  searchBtn.addEventListener('click', searchAddress);
 })();
 </script>
 </body>
