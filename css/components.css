@@ -1635,3 +1635,64 @@ img, video, svg {
 .article-card-tag.tag-pigeons, .articles-list-tag.tag-pigeons { background: var(--color-pastel-mint-light); }
 @media (max-width: 900px) { .article-card-featured { grid-template-columns: 1fr; } .articles-grid-3 { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 600px) { .articles-grid-3 { grid-template-columns: 1fr; } }
+
+/* ══════════════════════════════════════════
+   BREADCRUMB UNIFIÉ — Style shadcn
+   Utilisé sur TOUTES les pages (nuisibles, blog, services, etc.)
+   ══════════════════════════════════════════ */
+.breadcrumb-bar {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-gray-light);
+  padding: 10px 0;
+}
+.breadcrumb-bar .container { max-width: var(--container-max, 1200px); margin: 0 auto; padding: 0 var(--space-lg); }
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-secondary);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+.breadcrumb-nav a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.breadcrumb-nav a:hover { color: var(--color-primary-900); }
+.breadcrumb-sep {
+  color: #CCC;
+  font-size: 11px;
+  user-select: none;
+}
+.breadcrumb-current {
+  color: var(--color-primary-900);
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+/* Picto nuisible dans le breadcrumb */
+.breadcrumb-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: contain;
+  padding: 1px;
+  flex-shrink: 0;
+}
+.breadcrumb-icon.bg-gold { background: var(--color-pastel-gold-light); }
+.breadcrumb-icon.bg-lavender { background: var(--color-pastel-lavender-light); }
+.breadcrumb-icon.bg-rose { background: var(--color-pastel-rose-light); }
+.breadcrumb-icon.bg-mint { background: var(--color-pastel-mint-light); }
+.breadcrumb-icon.bg-blue { background: var(--color-pastel-blue-light); }
+/* Home icon SVG */
+.breadcrumb-home-icon { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; vertical-align: -2px; }
+@media (max-width: 600px) { .breadcrumb-nav { font-size: 11px; } .breadcrumb-icon { width: 16px; height: 16px; } }
