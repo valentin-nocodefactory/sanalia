@@ -1641,12 +1641,29 @@ img, video, svg {
    Utilisé sur TOUTES les pages (nuisibles, blog, services, etc.)
    ========================================== */
 .breadcrumb-bar {
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--color-bg-offwhite, #FFFDF8);
   border-bottom: 1px solid var(--color-gray-light);
   padding: 10px 0;
 }
+/* Dropdown switch nuisible */
+.breadcrumb-nuisible-wrap { position: relative; display: inline-flex; }
+.breadcrumb-nuisible-wrap > a::after,
+.breadcrumb-nuisible-wrap > .breadcrumb-current::after { content: ' \25BE'; font-size: 9px; color: #CCC; margin-left: 2px; }
+.breadcrumb-dropdown {
+  display: none; position: absolute; top: calc(100% + 6px); left: -8px;
+  background: var(--color-surface); border: 1px solid var(--color-gray-light);
+  border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  padding: 6px; z-index: 200; min-width: 210px;
+}
+.breadcrumb-nuisible-wrap:hover .breadcrumb-dropdown { display: block; }
+.breadcrumb-dropdown a {
+  display: flex; align-items: center; gap: 8px; padding: 7px 12px;
+  border-radius: 8px; font-size: 12px; color: var(--color-primary-900) !important;
+  text-decoration: none; transition: background 0.15s; white-space: nowrap;
+}
+.breadcrumb-dropdown a:hover { background: var(--color-bg); }
+.breadcrumb-dropdown a.active { font-weight: 700; }
+.breadcrumb-dropdown img { width: 20px; height: 20px; border-radius: 50%; object-fit: contain; padding: 1px; flex-shrink: 0; }
 .breadcrumb-bar .container { max-width: var(--container-max, 1200px); margin: 0 auto; padding: 0 var(--space-lg); }
 .breadcrumb-nav {
   display: flex;
