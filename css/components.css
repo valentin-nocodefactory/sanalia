@@ -1713,3 +1713,17 @@ img, video, svg {
 /* Home icon SVG */
 .breadcrumb-home-icon { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; vertical-align: -2px; }
 @media (max-width: 600px) { .breadcrumb-nav { font-size: 11px; } .breadcrumb-icon { width: 16px; height: 16px; } }
+
+/* == Mega menu services & implantations == */
+.mega-service-icon { width: 40px; height: 40px; border-radius: var(--radius-md); background: var(--color-bg); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.mega-menu-footer { display: flex; justify-content: space-between; align-items: center; padding-top: var(--space-md); margin-top: var(--space-md); border-top: 1px solid var(--color-gray-light); font-size: 13px; }
+.mega-menu-footer a { color: var(--color-primary-600); font-weight: 700; text-decoration: none; }
+.mega-menu-footer a:hover { text-decoration: underline; }
+.mega-menu-pro-link { color: var(--color-primary-800) !important; font-weight: 500 !important; }
+.mega-menu-implant-layout { display: grid; grid-template-columns: 180px 1fr; gap: var(--space-xl); }
+.mega-menu-implant-map { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+.mega-implant-all { font-size: 12px; color: var(--color-primary-600); font-weight: 700; text-decoration: none; }
+.mega-implant-all:hover { text-decoration: underline; }
+.mega-implant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.mega-implant-city { display: block; padding: 8px 14px; border-radius: var(--radius-md); font-size: 13px; color: var(--color-primary-900); text-decoration: none; transition: background 0.15s; }
+.mega-implant-city:hover { background: var(--color-bg); }
