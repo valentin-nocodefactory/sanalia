@@ -50,7 +50,7 @@
         {"@type":"Question","name":"Combien de temps durent les filets anti-pigeons ?","acceptedAnswer":{"@type":"Answer","text":"Un filet professionnel en polyéthylène traité UV dure 10 à 15 ans. Sanalia garantit ses installations 2 ans contre tout défaut de pose ou usure prématurée."}},
         {"@type":"Question","name":"Les pics anti-pigeons sont-ils cruels ?","acceptedAnswer":{"@type":"Answer","text":"Non. Les pics dissuadent les pigeons sans les blesser : ils empêchent simplement le posage. Nos dispositifs sont conformes à la réglementation et à l'éthique de la protection animale."}},
         {"@type":"Question","name":"Peut-on tuer les pigeons ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le pigeon biset des villes est protégé par la loi : seules les méthodes de dissuasion et d'exclusion (pics, filets, effaroucheurs) sont légales. L'abattage est strictement encadré et réservé à des opérations communales."}},
-        {"@type":"Question","name":"Combien coûte un dépigeonnage ?","acceptedAnswer":{"@type":"Answer","text":"Le prix dépend de la méthode et de la surface : 25€/ml pour les pics, 35 à 60€/m² pour les filets, 400 à 1500€ pour des répulsifs électriques. Devis gratuit après visite technique."}}
+        {"@type":"Question","name":"Combien coûte un dépigeonnage ?","acceptedAnswer":{"@type":"Answer","text":"Le prix dépend de la méthode choisie, de la surface à protéger et de l'accessibilité du bâtiment. Chaque situation étant unique, nous établissons un devis personnalisé gratuit après visite technique."}}
       ]
     }
   ]
@@ -60,9 +60,41 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
 <style>
-  .hero-pigeons{background:linear-gradient(135deg,var(--color-bg) 60%,var(--color-pastel-mint-light) 100%)}
-  .hero-media{display:flex;justify-content:center;align-items:center}
-  .hero-media img{max-width:280px;width:100%;height:auto}
+  /* Hero premium */
+  .hero-pigeons{background:linear-gradient(135deg,var(--color-bg) 0%,var(--color-pastel-mint-light) 50%,var(--color-pastel-blue-light) 100%);padding:var(--space-3xl) 0;position:relative;overflow:hidden}
+  .hero-pigeons::before{content:'';position:absolute;top:-60px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,var(--color-pastel-mint) 0%,transparent 70%);opacity:.3;pointer-events:none}
+  .hero-media{display:flex;justify-content:center;align-items:center;position:relative}
+  .hero-media img{max-width:320px;width:100%;height:auto;border-radius:var(--radius-xl)}
+  .hero-trust-row{display:flex;gap:var(--space-md);margin-top:var(--space-lg);flex-wrap:wrap}
+  .hero-trust-badge{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--color-primary-800);background:var(--color-surface);padding:6px 14px;border-radius:var(--radius-full);border:1px solid var(--color-primary-200);font-weight:500}
+  .hero-trust-badge svg{width:16px;height:16px;color:var(--color-primary-600);flex-shrink:0}
+  /* Stats premium */
+  .stats-premium{background:var(--color-surface);padding:var(--space-xl) 0;border-bottom:1px solid var(--color-gray-light)}
+  .stats-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg);text-align:center}
+  .stat-card{padding:var(--space-lg)}
+  .stat-icon{width:48px;height:48px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-sm);font-size:22px}
+  .stat-card .stat-number{font-family:var(--font-primary);font-weight:700;font-size:28px;color:var(--color-primary-900);line-height:1.2}
+  .stat-card .stat-label{font-size:14px;color:var(--color-primary-800);margin-top:4px}
+  /* Testimonials premium */
+  .testimonial-premium{background:var(--color-surface);border-radius:var(--radius-lg);padding:var(--space-xl);border:1px solid var(--color-gray-light);position:relative}
+  .testimonial-premium::before{content:'"';position:absolute;top:12px;left:20px;font-size:60px;font-family:serif;color:var(--color-primary-200);line-height:1}
+  .testimonial-premium blockquote{font-size:15px;line-height:1.7;color:var(--color-primary-900);margin:0;padding-left:var(--space-xl)}
+  .testimonial-premium .author-row{display:flex;align-items:center;gap:var(--space-sm);margin-top:var(--space-md);padding-left:var(--space-xl)}
+  .testimonial-premium .author-avatar{width:40px;height:40px;border-radius:50%;background:var(--color-primary-100);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--color-primary-600);font-size:16px;flex-shrink:0}
+  .testimonial-premium .author-info strong{display:block;font-size:15px;color:var(--color-primary-900)}
+  .testimonial-premium .author-info span{font-size:13px;color:var(--color-primary-800)}
+  .testimonial-premium .stars{color:#F5A623;font-size:14px;margin-bottom:var(--space-sm);padding-left:var(--space-xl)}
+  /* CTA banner premium */
+  .cta-banner-premium{background:linear-gradient(135deg,var(--color-primary-900) 0%,var(--color-primary-600) 100%);padding:var(--space-3xl) 0;text-align:center;position:relative;overflow:hidden}
+  .cta-banner-premium::before{content:'';position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(255,255,255,.08) 0%,transparent 70%);pointer-events:none}
+  .cta-banner-premium h2{color:#fff;font-size:32px;margin-bottom:var(--space-sm)}
+  .cta-banner-premium p{color:rgba(255,255,255,.85);font-size:18px;margin-bottom:var(--space-xl)}
+  /* Section spacing */
+  .section-premium{padding:var(--space-3xl) 0}
+  .section-premium.bg-cream{background:var(--color-bg)}
+  .section-premium.bg-white{background:var(--color-surface)}
+  @media(max-width:900px){.hero-pigeons .container{grid-template-columns:1fr !important}.hero-media{display:none}.stats-grid-4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.stats-grid-4{grid-template-columns:1fr}.hero-trust-row{flex-direction:column}}
   .solution-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-lg);margin-top:var(--space-xl)}
   @media(max-width:900px){.solution-grid{grid-template-columns:1fr}}
   .solution-card{background:var(--color-surface);border:1px solid var(--color-gray-light);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column}
@@ -241,29 +273,29 @@
 
         <!-- ═══ NOS IMPLANTATIONS ═══ -->
         <div class="nav-item">
-          <a href="/deratisation/lyon/">Implantations <span class="nav-chevron">&#9662;</span></a>
+          <a href="/implantations/">Implantations <span class="nav-chevron">&#9662;</span></a>
           <div class="mega-menu mega-menu-implantations" style="min-width:640px;">
             <div class="mega-menu-implant-layout">
               <div class="mega-menu-implant-map">
                 <span class="mega-menu-label">Nous intervenons partout en France</span>
-                <svg viewBox="0 0 200 220" width="160" height="176" style="margin:8px auto;display:block;opacity:0.6;">
-                  <path d="M100,10 L140,15 L160,35 L170,65 L155,80 L165,110 L150,140 L160,170 L140,195 L110,200 L80,195 L60,180 L40,155 L30,130 L35,100 L25,75 L40,50 L55,30 L75,15 Z" fill="var(--color-pastel-lavender-light)" stroke="var(--color-primary-200)" stroke-width="1.5"/>
-                </svg>
-                <a href="/deratisation/" class="mega-implant-all">Voir toutes les villes →</a>
+                <div style="text-align:center;padding:var(--space-md) 0;">
+                  <p style="font-size:13px;color:var(--color-primary-800);margin:0 0 var(--space-sm);">10 métropoles, 50+ techniciens</p>
+                  <a href="/implantations/" class="btn btn-primary btn-sm" style="font-size:13px;">Trouver mon agence →</a>
+                </div>
               </div>
               <div class="mega-menu-implant-cities">
                 <span class="mega-menu-label">Nos villes</span>
                 <div class="mega-implant-grid">
-                  <a href="/deratisation/paris/" class="mega-implant-city">Paris</a>
-                  <a href="/deratisation/lyon/" class="mega-implant-city">Lyon</a>
-                  <a href="/deratisation/marseille/" class="mega-implant-city">Marseille</a>
-                  <a href="/deratisation/" class="mega-implant-city">Nantes</a>
-                  <a href="/deratisation/" class="mega-implant-city">Lille</a>
-                  <a href="/deratisation/" class="mega-implant-city">Toulouse</a>
-                  <a href="/deratisation/" class="mega-implant-city">Nice</a>
-                  <a href="/deratisation/bordeaux/" class="mega-implant-city">Bordeaux</a>
-                  <a href="/deratisation/" class="mega-implant-city">Montpellier</a>
-                  <a href="/deratisation/" class="mega-implant-city">Strasbourg</a>
+                  <a href="/implantations/paris/" class="mega-implant-city">Paris</a>
+                  <a href="/implantations/lyon/" class="mega-implant-city">Lyon</a>
+                  <a href="/implantations/marseille/" class="mega-implant-city">Marseille</a>
+                  <a href="/implantations/nantes/" class="mega-implant-city">Nantes</a>
+                  <a href="/implantations/lille/" class="mega-implant-city">Lille</a>
+                  <a href="/implantations/toulouse/" class="mega-implant-city">Toulouse</a>
+                  <a href="/implantations/nice/" class="mega-implant-city">Nice</a>
+                  <a href="/implantations/bordeaux/" class="mega-implant-city">Bordeaux</a>
+                  <a href="/implantations/montpellier/" class="mega-implant-city">Montpellier</a>
+                  <a href="/implantations/strasbourg/" class="mega-implant-city">Strasbourg</a>
                 </div>
               </div>
             </div>
@@ -299,9 +331,14 @@
       <span class="mono">Solutions anti-pigeons</span>
       <h1>Dépigeonnage — Solutions <span class="accent">durables</span> anti-pigeons</h1>
       <p>Fientes sur le balcon, nids dans les corniches, nuisances sonores : nos dispositifs professionnels (pics, filets, répulsifs) éloignent les pigeons sans cruauté, pour 10 ans et plus. Garantie 2 ans.</p>
-      <div class="hero-actions">
-        <a href="/devis/?nuisible=pigeons" class="btn btn-primary btn-lg">Devis gratuit</a>
-        <a href="tel:0667464897" class="btn btn-outline btn-lg">📞 Appeler</a>
+      <div class="hero-actions" style="display:flex;gap:var(--space-md);margin-top:var(--space-lg);flex-wrap:wrap;">
+        <a href="/devis/?nuisible=pigeons" class="btn btn-primary btn-lg">Demander un devis gratuit</a>
+        <a href="tel:0667464897" class="btn btn-outline btn-lg">📞 06 67 46 48 97</a>
+      </div>
+      <div class="hero-trust-row">
+        <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Sans cruauté</span>
+        <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> 10+ ans de durée</span>
+        <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Garantie 2 ans</span>
       </div>
     </div>
     <div class="hero-media">
@@ -311,13 +348,29 @@
 </section>
 
 <!-- ════════ STATS ════════ -->
-<section style="background: var(--color-surface);">
+<section class="stats-premium">
   <div class="container">
-    <div class="stats-row">
-      <div class="stat-item"><div class="stat-number">10+ ans</div><div class="stat-label">Durée des solutions</div></div>
-      <div class="stat-item"><div class="stat-number">0</div><div class="stat-label">Cruauté — sans tuer</div></div>
-      <div class="stat-item"><div class="stat-number">2 ans</div><div class="stat-label">Garantie installation</div></div>
-      <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Conforme réglementation</div></div>
+    <div class="stats-grid-4">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-mint-light);">🕊️</div>
+        <div class="stat-number">10+ ans</div>
+        <div class="stat-label">Durée des solutions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-rose-light);">💚</div>
+        <div class="stat-number">0</div>
+        <div class="stat-label">Cruauté — sans tuer</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-lavender-light);">🛡️</div>
+        <div class="stat-number">2 ans</div>
+        <div class="stat-label">Garantie installation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-gold-light);">📋</div>
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Conforme réglementation</div>
+      </div>
     </div>
   </div>
 </section>
@@ -393,13 +446,13 @@
     <h3 style="margin-top:var(--space-2xl);font-family:var(--font-primary);">Tableau comparatif des solutions</h3>
     <table class="compare-table">
       <thead>
-        <tr><th>Solution</th><th>Efficacité</th><th>Durée</th><th>Prix indicatif</th><th>Idéal pour</th></tr>
+        <tr><th>Solution</th><th>Efficacité</th><th>Durée</th><th>Idéal pour</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Pics inox</strong></td><td>95%</td><td>10 à 15 ans</td><td>25 €/ml</td><td>Corniches, rebords</td></tr>
-        <tr><td><strong>Filets</strong></td><td>100%</td><td>10 à 15 ans</td><td>35 à 60 €/m²</td><td>Balcons, cours</td></tr>
-        <tr><td><strong>Répulsifs électriques</strong></td><td>90%</td><td>8 à 10 ans</td><td>60 à 90 €/ml</td><td>Patrimoine, façades</td></tr>
-        <tr><td><strong>Effaroucheurs</strong></td><td>70%</td><td>3 à 5 ans</td><td>80 à 400 €</td><td>Zones secondaires</td></tr>
+        <tr><td><strong>Pics inox</strong></td><td>95%</td><td>10 à 15 ans</td><td>Corniches, rebords</td></tr>
+        <tr><td><strong>Filets</strong></td><td>100%</td><td>10 à 15 ans</td><td>Balcons, cours</td></tr>
+        <tr><td><strong>Répulsifs électriques</strong></td><td>90%</td><td>8 à 10 ans</td><td>Patrimoine, façades</td></tr>
+        <tr><td><strong>Effaroucheurs</strong></td><td>70%</td><td>3 à 5 ans</td><td>Zones secondaires</td></tr>
       </tbody>
     </table>
   </div>
@@ -481,43 +534,50 @@
   </div>
 </section>
 
-<!-- ════════ TARIFS ════════ -->
-<section class="section">
-  <div class="container">
+<!-- ════════ DEVIS PERSONNALISÉ ════════ -->
+<section class="section" style="background:var(--color-bg);">
+  <div class="container" style="text-align:center;max-width:700px;">
     <div class="section-header">
-      <span class="mono">Tarifs indicatifs</span>
-      <h2>Prix dépigeonnage</h2>
-      <p>Tarifs indicatifs. Le prix exact dépend de la configuration, de l'accès (nacelle, cordiste) et de la surface. Devis gratuit après visite technique.</p>
+      <span class="mono" style="color:#999;">Votre devis</span>
+      <h2>Chaque bâtiment est unique</h2>
+      <p>Le prix d'un dépigeonnage dépend de la méthode choisie, de la surface à protéger et de l'accessibilité du bâtiment. Décrivez-nous votre situation et recevez un devis personnalisé après visite technique gratuite.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="price-card"><div class="p-type">Pics inox</div><div class="p-price">25 €/ml</div><p class="p-desc">Pose sur corniches, rebords, garde-corps</p></div>
-      <div class="price-card"><div class="p-type">Filet balcon</div><div class="p-price">35-60 €/m²</div><p class="p-desc">Filet polyéthylène UV, pose et finitions</p></div>
-      <div class="price-card"><div class="p-type">Répulsif électrique</div><div class="p-price">60-90 €/ml</div><p class="p-desc">Bandes électriques, alimentation incluse</p></div>
-      <div class="price-card"><div class="p-type">Nettoyage fientes</div><div class="p-price">sur devis</div><p class="p-desc">Décontamination + évacuation</p></div>
-    </div>
-    <div style="text-align:center;margin-top:var(--space-xl);">
-      <a href="/devis/?nuisible=pigeons" class="btn btn-primary">Demander un devis gratuit</a>
-    </div>
+    <a href="/devis/?nuisible=pigeons" class="btn btn-primary btn-lg">Recevoir un devis personnalisé</a>
   </div>
 </section>
 
 <!-- ════════ TESTIMONIALS ════════ -->
-<section class="section" style="background: var(--color-surface);">
+<section class="section-premium bg-white">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Témoignages</span>
+      <span class="mono" style="color:#999;">Témoignages</span>
       <h2>Ils ont fait appel à Sanalia</h2>
+      <p>Des solutions durables pour copropriétés, patrimoine et particuliers.</p>
     </div>
-    <div class="grid grid-2">
-      <div class="card card-testimonial">
+    <div class="grid grid-3" style="gap:var(--space-lg);">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« Les pigeons avaient envahi notre terrasse en toiture. Sanalia a posé un filet invisible en une journée. Trois mois plus tard, plus aucun pigeon, terrasse nickel. Merci ! »</blockquote>
-        <div class="author"><strong>Isabelle C.</strong> — Lyon 6</div>
+        <blockquote>Les pigeons avaient envahi notre terrasse en toiture. Sanalia a posé un filet invisible en une journée. Trois mois plus tard, plus aucun pigeon, terrasse nickel. Merci !</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">IC</div>
+          <div class="author-info"><strong>Isabelle C.</strong><span>Lyon 6 — Copropriété</span></div>
+        </div>
       </div>
-      <div class="card card-testimonial">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« Syndic en charge d'un immeuble haussmannien, nous ne pouvions pas poser de pics visibles. Sanalia a installé un répulsif électrique discret. Résultat parfait, Bâtiments de France satisfaits. »</blockquote>
-        <div class="author"><strong>François M.</strong> — Paris 8</div>
+        <blockquote>Syndic en charge d'un immeuble haussmannien, nous ne pouvions pas poser de pics visibles. Sanalia a installé un répulsif électrique discret. Bâtiments de France satisfaits.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">FM</div>
+          <div class="author-info"><strong>François M.</strong><span>Paris 8 — Syndic</span></div>
+        </div>
+      </div>
+      <div class="testimonial-premium">
+        <div class="stars">★★★★★</div>
+        <blockquote>Balcon envahi de fientes, impossible d'utiliser la terrasse. Pose de pics en 2 heures, nettoyage professionnel inclus. Solution propre et durable. Je recommande sans hésiter.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">NB</div>
+          <div class="author-info"><strong>Nathalie B.</strong><span>Lyon 3 — Appartement</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -552,7 +612,7 @@
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Combien coûte un dépigeonnage ? <span class="icon-toggle">+</span></button>
-      <div class="accordion-body"><div class="accordion-body-inner">Le prix dépend de la méthode et de la surface : environ 25€/ml pour les pics inox, 35 à 60€/m² pour les filets, 60 à 90€/ml pour les répulsifs électriques. Pour un balcon standard de 3 mètres, comptez 200 à 400€. Un devis gratuit est établi après visite technique.</div></div>
+      <div class="accordion-body"><div class="accordion-body-inner">Le prix dépend de la méthode choisie (pics, filets, répulsifs électriques), de la surface à protéger et de l'accessibilité du bâtiment. Chaque situation étant unique, nous établissons un devis personnalisé gratuit après visite technique. <a href="/devis/?nuisible=pigeons">Demandez votre devis</a>.</div></div>
     </div>
     <div style="margin-top:var(--space-xl);text-align:center;padding:var(--space-xl);background:var(--color-primary-100);border-radius:var(--radius-lg);">
       <p style="margin:0 0 var(--space-md);color:var(--color-primary-900);font-family:var(--font-primary);font-weight:700;font-size:18px;">Pour tout savoir sur les pigeons (biologie, dangers, maladies)</p>
@@ -562,13 +622,18 @@
 </section>
 
 <!-- ════════ CTA BANNER ════════ -->
-<section class="cta-banner">
-  <div class="container">
+<section class="cta-banner-premium">
+  <div class="container" style="position:relative;z-index:1;">
     <h2>Envahi par les pigeons ? Passez à l'action.</h2>
     <p>Fientes, bruits, maladies, dégâts : nos dispositifs durables règlent le problème pour 10 ans. Garantie 2 ans.</p>
-    <div class="flex-center gap-md" style="flex-wrap: wrap;">
-      <a href="/devis/?nuisible=pigeons" class="btn btn-primary btn-lg">Devis gratuit</a>
-      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff; border-color:#fff;">📞 06 67 46 48 97</a>
+    <div class="flex-center gap-md" style="flex-wrap:wrap;">
+      <a href="/devis/?nuisible=pigeons" class="btn btn-secondary btn-lg" style="background:#fff;color:var(--color-primary-900);">Demander un devis gratuit</a>
+      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.4);">📞 06 67 46 48 97</a>
+    </div>
+    <div style="margin-top:var(--space-lg);display:flex;justify-content:center;gap:var(--space-xl);flex-wrap:wrap;">
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Visite technique gratuite</span>
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Sans cruauté</span>
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Garantie 2 ans</span>
     </div>
   </div>
 </section>

@@ -54,6 +54,75 @@
           "name": "Dératisation"
         }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Combien de temps dure une intervention de dératisation ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La première intervention dure environ 1 à 2 heures selon la taille du logement. Le technicien inspecte l'ensemble des pièces, identifie les points d'entrée et installe les dispositifs de traitement. Un passage de contrôle est prévu 10 à 15 jours après."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Les produits sont-ils dangereux pour mes animaux de compagnie ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Non. Les appâts sont placés dans des postes d'appâtage verrouillés, spécialement conçus pour être inaccessibles aux animaux domestiques et aux enfants. Le technicien vous expliquera les précautions à prendre."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien de passages sont nécessaires ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En général, 1 à 2 passages suffisent pour une dératisation complète. Le premier passage permet d'installer les dispositifs, le second de vérifier l'efficacité et d'ajuster si nécessaire."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Proposez-vous une garantie ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui, nous garantissons le résultat de notre intervention. Si vous constatez un retour de rongeurs dans les 3 mois suivant le traitement, nous intervenons de nouveau gratuitement."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Que faire en attendant l'intervention ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ne déplacez pas les rongeurs et n'utilisez pas de produits du commerce qui pourraient les disperser. Rangez la nourriture dans des contenants hermétiques, bouchez les trous visibles avec de la laine d'acier et notez les endroits où vous avez observé des traces."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quel est le prix d'une dératisation ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le prix dépend de la surface du logement, du type de rongeur et du niveau d'infestation. Chaque situation étant unique, nous établissons un devis personnalisé gratuit et sans engagement après diagnostic."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Dois-je quitter mon logement pendant le traitement ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Non, dans la grande majorité des cas, il n'est pas nécessaire de quitter votre logement. Les postes d'appâtage sont sécurisés et les pièges mécaniques ne présentent aucun risque. Le technicien vous indiquera les éventuelles précautions à prendre."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment savoir si j'ai des rats ou des souris ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les signes les plus courants sont : des bruits de grattement la nuit dans les murs ou le plafond, des crottes noires de 1 à 2 cm (rats) ou 3 à 5 mm (souris), des traces de grignotage sur les câbles ou emballages, et des traces de passage graisseuses le long des murs."
+          }
+        }
+      ]
     }
   ]
 }
@@ -61,6 +130,526 @@
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
+<style>
+/* ═══ PAGE DÉRATISATION — PREMIUM STYLES ═══ */
+
+/* Hero enrichi */
+.hero-deratisation {
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-primary-100) 50%, var(--color-pastel-blue-light) 100%);
+  padding: var(--space-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero-deratisation::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--color-primary-200) 0%, transparent 70%);
+  opacity: 0.4;
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+.hero-trust-row {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
+}
+.hero-trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-primary-800);
+  background: var(--color-surface);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-primary-200);
+  font-weight: 500;
+}
+.hero-trust-badge svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-primary-600);
+  flex-shrink: 0;
+}
+.hero-image-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-image-wrap img {
+  width: 100%;
+  max-width: 440px;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 60px rgba(14, 5, 42, 0.12);
+}
+.hero-floating-stat {
+  position: absolute;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 12px 18px;
+  box-shadow: 0 8px 24px rgba(14, 5, 42, 0.1);
+  border: 1px solid var(--color-primary-100);
+}
+.hero-floating-stat .stat-val {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color-primary-600);
+  line-height: 1;
+}
+.hero-floating-stat .stat-lbl {
+  font-size: 12px;
+  color: var(--color-primary-800);
+  margin-top: 2px;
+}
+.hero-floating-stat.top-right { top: 10%; right: -10px; }
+.hero-floating-stat.bottom-left { bottom: 10%; left: -10px; }
+
+/* Stats animés */
+.stats-premium {
+  background: var(--color-surface);
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--color-gray-light);
+}
+.stats-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  text-align: center;
+}
+.stat-card {
+  padding: var(--space-lg);
+}
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-sm);
+  font-size: 22px;
+}
+.stat-card .stat-number {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-primary-900);
+  line-height: 1.2;
+}
+.stat-card .stat-label {
+  font-size: 14px;
+  color: var(--color-primary-800);
+  margin-top: 4px;
+}
+
+/* Nuisibles traités */
+.nuisible-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  max-width: 700px;
+  margin: 0 auto;
+}
+.nuisible-link-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-light);
+  text-decoration: none;
+  color: var(--color-primary-900);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.nuisible-link-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14, 5, 42, 0.08);
+  border-color: var(--color-primary-200);
+}
+.nuisible-link-card .nuisible-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.nuisible-link-card .nuisible-icon img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.nuisible-link-card h3 {
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+.nuisible-link-card p {
+  font-size: 14px;
+  color: var(--color-primary-800);
+  margin: 0;
+}
+.nuisible-link-card .card-arrow {
+  margin-left: auto;
+  color: var(--color-primary-600);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* Process timeline */
+.process-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.process-timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-primary-200), var(--color-primary-600), var(--color-primary-200));
+}
+.timeline-step {
+  display: flex;
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  position: relative;
+}
+.timeline-step:last-child { padding-bottom: 0; }
+.timeline-number {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-primary-600);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 20px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(99, 93, 221, 0.3);
+}
+.timeline-content {
+  flex: 1;
+  padding-top: 8px;
+}
+.timeline-content h3 {
+  font-size: 20px;
+  margin: 0 0 8px;
+  color: var(--color-primary-900);
+}
+.timeline-content p {
+  margin: 0;
+  color: var(--color-primary-800);
+  line-height: 1.6;
+}
+.timeline-content .timeline-detail {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--color-primary-600);
+  font-weight: 500;
+}
+
+/* Pourquoi Sanalia badges */
+.trust-badges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+.trust-badge-card {
+  text-align: center;
+  padding: var(--space-xl) var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-light);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.trust-badge-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(14, 5, 42, 0.06);
+}
+.trust-badge-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  font-size: 24px;
+}
+.trust-badge-card h4 {
+  font-size: 16px;
+  color: var(--color-primary-900);
+  margin: 0 0 6px;
+}
+.trust-badge-card p {
+  font-size: 14px;
+  color: var(--color-primary-800);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Pricing premium */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+.price-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-gray-light);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.price-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14, 5, 42, 0.08);
+}
+.price-card.popular {
+  border-color: var(--color-primary-600);
+  position: relative;
+}
+.price-card.popular::before {
+  content: 'Le plus demandé';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-primary-600);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+.price-card .price-type {
+  font-size: 14px;
+  color: var(--color-primary-800);
+  margin-bottom: var(--space-sm);
+}
+.price-card .price-range {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-primary-900);
+  margin-bottom: var(--space-md);
+}
+.price-card .price-includes {
+  text-align: left;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.price-card .price-includes li {
+  font-size: 14px;
+  color: var(--color-primary-800);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-primary-100);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.price-card .price-includes li::before {
+  content: '✓';
+  color: var(--color-primary-600);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Testimonials premium */
+.testimonial-premium {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-gray-light);
+  position: relative;
+}
+.testimonial-premium::before {
+  content: '"';
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  font-size: 60px;
+  font-family: serif;
+  color: var(--color-primary-200);
+  line-height: 1;
+}
+.testimonial-premium blockquote {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-primary-900);
+  margin: 0;
+  padding-left: var(--space-xl);
+}
+.testimonial-premium .author-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-left: var(--space-xl);
+}
+.testimonial-premium .author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-primary-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--color-primary-600);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.testimonial-premium .author-info strong {
+  display: block;
+  font-size: 15px;
+  color: var(--color-primary-900);
+}
+.testimonial-premium .author-info span {
+  font-size: 13px;
+  color: var(--color-primary-800);
+}
+.testimonial-premium .stars {
+  color: #F5A623;
+  font-size: 14px;
+  margin-bottom: var(--space-sm);
+  padding-left: var(--space-xl);
+}
+
+/* CTA banner premium */
+.cta-banner-premium {
+  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 100%);
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-banner-premium::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-banner-premium h2 {
+  color: #fff;
+  font-size: 32px;
+  margin-bottom: var(--space-sm);
+}
+.cta-banner-premium p {
+  color: rgba(255,255,255,0.85);
+  font-size: 18px;
+  margin-bottom: var(--space-xl);
+}
+
+/* Geo section */
+.geo-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+.geo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-xl);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-light);
+  text-decoration: none;
+  color: var(--color-primary-900);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.geo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14, 5, 42, 0.08);
+}
+.geo-card h3 { margin: 0 0 8px; font-size: 18px; }
+.geo-card p { margin: 0 0 var(--space-md); font-size: 14px; color: var(--color-primary-800); flex: 1; }
+
+/* Section spacing */
+.section-premium {
+  padding: var(--space-3xl) 0;
+}
+.section-premium.bg-cream {
+  background: var(--color-bg);
+}
+.section-premium.bg-white {
+  background: var(--color-surface);
+}
+
+/* Included list */
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.included-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--color-primary-800);
+  padding: 8px 12px;
+  background: var(--color-primary-100);
+  border-radius: var(--radius-sm);
+}
+.included-item::before {
+  content: '✓';
+  color: var(--color-primary-600);
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-image-wrap { display: none; }
+  .stats-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .nuisible-cards-grid { grid-template-columns: 1fr; }
+  .trust-badges-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .geo-grid-3 { grid-template-columns: 1fr; }
+  .included-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .stats-grid-4 { grid-template-columns: 1fr; }
+  .trust-badges-grid { grid-template-columns: 1fr; }
+  .hero-trust-row { flex-direction: column; }
+}
+</style>
 </head>
 <body>
 
@@ -207,29 +796,29 @@
 
         <!-- ═══ NOS IMPLANTATIONS ═══ -->
         <div class="nav-item">
-          <a href="/deratisation/lyon/">Implantations <span class="nav-chevron">&#9662;</span></a>
+          <a href="/implantations/">Implantations <span class="nav-chevron">&#9662;</span></a>
           <div class="mega-menu mega-menu-implantations" style="min-width:640px;">
             <div class="mega-menu-implant-layout">
               <div class="mega-menu-implant-map">
                 <span class="mega-menu-label">Nous intervenons partout en France</span>
-                <svg viewBox="0 0 200 220" width="160" height="176" style="margin:8px auto;display:block;opacity:0.6;">
-                  <path d="M100,10 L140,15 L160,35 L170,65 L155,80 L165,110 L150,140 L160,170 L140,195 L110,200 L80,195 L60,180 L40,155 L30,130 L35,100 L25,75 L40,50 L55,30 L75,15 Z" fill="var(--color-pastel-lavender-light)" stroke="var(--color-primary-200)" stroke-width="1.5"/>
-                </svg>
-                <a href="/deratisation/" class="mega-implant-all">Voir toutes les villes →</a>
+                <div style="text-align:center;padding:var(--space-md) 0;">
+                  <p style="font-size:13px;color:var(--color-primary-800);margin:0 0 var(--space-sm);">10 métropoles, 50+ techniciens</p>
+                  <a href="/implantations/" class="btn btn-primary btn-sm" style="font-size:13px;">Trouver mon agence →</a>
+                </div>
               </div>
               <div class="mega-menu-implant-cities">
                 <span class="mega-menu-label">Nos villes</span>
                 <div class="mega-implant-grid">
-                  <a href="/deratisation/paris/" class="mega-implant-city">Paris</a>
-                  <a href="/deratisation/lyon/" class="mega-implant-city">Lyon</a>
-                  <a href="/deratisation/marseille/" class="mega-implant-city">Marseille</a>
-                  <a href="/deratisation/" class="mega-implant-city">Nantes</a>
-                  <a href="/deratisation/" class="mega-implant-city">Lille</a>
-                  <a href="/deratisation/" class="mega-implant-city">Toulouse</a>
-                  <a href="/deratisation/" class="mega-implant-city">Nice</a>
-                  <a href="/deratisation/bordeaux/" class="mega-implant-city">Bordeaux</a>
-                  <a href="/deratisation/" class="mega-implant-city">Montpellier</a>
-                  <a href="/deratisation/" class="mega-implant-city">Strasbourg</a>
+                  <a href="/implantations/paris/" class="mega-implant-city">Paris</a>
+                  <a href="/implantations/lyon/" class="mega-implant-city">Lyon</a>
+                  <a href="/implantations/marseille/" class="mega-implant-city">Marseille</a>
+                  <a href="/implantations/nantes/" class="mega-implant-city">Nantes</a>
+                  <a href="/implantations/lille/" class="mega-implant-city">Lille</a>
+                  <a href="/implantations/toulouse/" class="mega-implant-city">Toulouse</a>
+                  <a href="/implantations/nice/" class="mega-implant-city">Nice</a>
+                  <a href="/implantations/bordeaux/" class="mega-implant-city">Bordeaux</a>
+                  <a href="/implantations/montpellier/" class="mega-implant-city">Montpellier</a>
+                  <a href="/implantations/strasbourg/" class="mega-implant-city">Strasbourg</a>
                 </div>
               </div>
             </div>
@@ -258,170 +847,309 @@
 </div>
 
 <!-- ════════ HERO ════════ -->
-<section class="hero" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-primary-100) 100%);">
+<section class="hero-deratisation">
   <div class="container">
-    <div class="hero-content">
-      <span class="mono">Service particulier</span>
-      <h1>Dératisation — Intervention Rapide, Résultat <span class="accent">Garanti</span></h1>
-      <p>Vous avez entendu des bruits dans les murs ? Vu des crottes ? Nos techniciens certifiés éliminent rats et souris avec des méthodes sécurisées pour votre famille.</p>
-      <div class="hero-actions">
-        <a href="/devis/?nuisible=rats" class="btn btn-accent btn-lg">Devis gratuit</a>
-        <a href="tel:0667464897" class="btn btn-outline btn-lg">📞 Appeler</a>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="mono" style="color:#999;">Service particulier</span>
+        <h1 style="font-size:clamp(28px,4vw,44px);line-height:1.15;margin:var(--space-sm) 0 var(--space-md);">Dératisation — Intervention Rapide, Résultat <span class="accent">Garanti</span></h1>
+        <p style="font-size:18px;line-height:1.7;color:var(--color-primary-800);max-width:520px;">Bruits de grattement la nuit, crottes dans la cuisine, câbles rongés ? Nos techniciens certifiés Certibiocide éliminent rats et souris avec des méthodes sécurisées pour votre famille et vos animaux.</p>
+        <div class="hero-actions" style="display:flex;gap:var(--space-md);margin-top:var(--space-lg);flex-wrap:wrap;">
+          <a href="/devis/?nuisible=rats" class="btn btn-primary btn-lg">Demander un devis gratuit</a>
+          <a href="tel:0667464897" class="btn btn-outline btn-lg">📞 06 67 46 48 97</a>
+        </div>
+        <div class="hero-trust-row">
+          <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Certifié Certibiocide</span>
+          <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Sous 24h</span>
+          <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Résultat garanti</span>
+        </div>
+        <div style="margin-top:var(--space-lg);padding:var(--space-sm) var(--space-md);background:var(--color-primary-100);border-radius:var(--radius-md);display:inline-flex;align-items:center;gap:var(--space-sm);font-size:14px;">
+          🏢 Vous êtes professionnel ? <a href="/professionnel/" style="color:var(--color-primary-600);font-weight:700;text-decoration:underline;">Découvrir l'offre pro →</a>
+        </div>
       </div>
-    </div>
-    <div style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--color-primary-100); border-radius: var(--radius-md); display: inline-flex; align-items: center; gap: var(--space-sm); font-size: 14px;">
-      🏢 Vous êtes professionnel ? <a href="/professionnel/deratisation/" style="color: var(--color-primary-600); font-weight: 700; text-decoration: underline;">Découvrir l'offre pro →</a>
+      <div class="hero-image-wrap">
+        <img src="/assets/hero_technicienne.png" alt="Technicienne Sanalia en intervention de dératisation" width="440" height="440" loading="eager">
+        <div class="hero-floating-stat top-right">
+          <div class="stat-val">2 000+</div>
+          <div class="stat-lbl">Interventions réalisées</div>
+        </div>
+        <div class="hero-floating-stat bottom-left">
+          <div class="stat-val">4.8/5</div>
+          <div class="stat-lbl">Avis clients Google</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════════ REASSURANCE ════════ -->
-<section style="background: var(--color-surface);">
+<section class="stats-premium">
   <div class="container">
-    <div class="stats-row">
-      <div class="stat-item">
+    <div class="stats-grid-4">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-blue-light);">⚡</div>
         <div class="stat-number">24h</div>
-        <div class="stat-label">Intervention rapide</div>
+        <div class="stat-label">Délai d'intervention</div>
       </div>
-      <div class="stat-item">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-mint-light);">🎯</div>
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Taux de réussite</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-lavender-light);">🛡️</div>
+        <div class="stat-number">3 mois</div>
+        <div class="stat-label">Garantie résultat</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-gold-light);">👨‍👩‍👧</div>
         <div class="stat-number">100%</div>
-        <div class="stat-label">Résultat garanti</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">✓</div>
-        <div class="stat-label">Sans danger enfants & animaux</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">Certibiocide</div>
-        <div class="stat-label">Techniciens certifiés</div>
+        <div class="stat-label">Sans danger famille & animaux</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════ PROCESS ════════ -->
-<section class="section">
+<!-- ════════ NUISIBLES TRAITÉS ════════ -->
+<section class="section-premium bg-cream">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Notre methode</span>
-      <h2>Comment se déroule une dératisation</h2>
-      <p>Un protocole rigoureux en 4 étapes pour éliminer rats et souris durablement.</p>
+      <span class="mono" style="color:#999;">Rongeurs concernés</span>
+      <h2>Nous éliminons rats et souris</h2>
+      <p>Chaque espèce nécessite une approche spécifique. Consultez nos guides pour mieux identifier le nuisible.</p>
     </div>
-    <div class="process-steps">
-      <div class="process-step">
-        <h3>Diagnostic</h3>
-        <p>Inspection complète de votre logement pour identifier les espèces, les points d'entrée et l'ampleur de l'infestation.</p>
+    <div class="nuisible-cards-grid">
+      <a href="/nuisibles/rats/" class="nuisible-link-card">
+        <div class="nuisible-icon" style="background:var(--color-pastel-gold-light);">
+          <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="Rat brun" width="48" height="48">
+        </div>
+        <div>
+          <h3>Rats</h3>
+          <p>Rat brun, rat noir — bruits nocturnes, dégâts matériels, risques sanitaires</p>
+        </div>
+        <span class="card-arrow">→</span>
+      </a>
+      <a href="/nuisibles/souris/" class="nuisible-link-card">
+        <div class="nuisible-icon" style="background:var(--color-pastel-lavender-light);">
+          <img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="Souris domestique" width="48" height="48">
+        </div>
+        <div>
+          <h3>Souris</h3>
+          <p>Souris domestique — reproduction rapide, contamination alimentaire</p>
+        </div>
+        <span class="card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PROCESS ════════ -->
+<section class="section-premium bg-white">
+  <div class="container">
+    <div class="section-header">
+      <span class="mono" style="color:#999;">Notre méthode</span>
+      <h2>Comment se déroule une dératisation</h2>
+      <p>Un protocole rigoureux en 4 étapes, mis au point par nos experts Certibiocide, pour éliminer rats et souris durablement.</p>
+    </div>
+    <div class="process-timeline">
+      <div class="timeline-step">
+        <div class="timeline-number">1</div>
+        <div class="timeline-content">
+          <h3>Diagnostic complet</h3>
+          <p>Inspection minutieuse de votre logement pour identifier les espèces présentes (rat brun, rat noir, souris), localiser les points d'entrée, les zones de nidification et évaluer l'ampleur de l'infestation.</p>
+          <div class="timeline-detail">Durée : 30 à 45 minutes</div>
+        </div>
       </div>
-      <div class="process-step">
-        <h3>Traitement</h3>
-        <p>Mise en place de dispositifs adaptés : appâts sécurisés, pièges mécaniques ou répulsifs selon la situation.</p>
+      <div class="timeline-step">
+        <div class="timeline-number">2</div>
+        <div class="timeline-content">
+          <h3>Traitement ciblé</h3>
+          <p>Mise en place de dispositifs adaptés à votre situation : appâts rodenticides dans des postes verrouillés, pièges mécaniques professionnels ou solutions répulsives. Chaque méthode est choisie en fonction de l'espèce, du lieu et de la présence d'enfants ou d'animaux.</p>
+          <div class="timeline-detail">Méthodes certifiées ANSES</div>
+        </div>
       </div>
-      <div class="process-step">
-        <h3>Sécurisation</h3>
-        <p>Rebouchage des points d'entrée et conseils de prévention pour éviter toute ré-infestation.</p>
+      <div class="timeline-step">
+        <div class="timeline-number">3</div>
+        <div class="timeline-content">
+          <h3>Sécurisation des accès</h3>
+          <p>Rebouchage des points d'entrée identifiés (trous, fissures, passages de câbles) avec des matériaux résistants aux rongeurs. Conseils personnalisés de prévention pour éliminer les sources de nourriture et d'eau accessibles.</p>
+          <div class="timeline-detail">Prévention long terme incluse</div>
+        </div>
       </div>
-      <div class="process-step">
-        <h3>Suivi</h3>
-        <p>Passage de contrôle inclus pour vérifier l'efficacité du traitement et garantir le résultat.</p>
+      <div class="timeline-step">
+        <div class="timeline-number">4</div>
+        <div class="timeline-content">
+          <h3>Contrôle et garantie</h3>
+          <p>Passage de contrôle 10 à 15 jours après le traitement initial pour vérifier l'efficacité, ajuster les dispositifs si nécessaire et confirmer l'éradication complète. En cas de retour dans les 3 mois, nous réintervenons gratuitement.</p>
+          <div class="timeline-detail">Garantie résultat 3 mois</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════════ METHODS ════════ -->
-<section class="section" style="background: var(--color-surface);">
+<section class="section-premium bg-cream">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Solutions</span>
-      <h2>Nos méthodes</h2>
-      <p>Nous adaptons la méthode à votre situation pour une efficacité maximale.</p>
+      <span class="mono" style="color:#999;">Solutions professionnelles</span>
+      <h2>Nos méthodes de dératisation</h2>
+      <p>Nous adaptons la méthode à votre situation, au type de rongeur et à la présence d'enfants ou d'animaux domestiques.</p>
     </div>
     <div class="grid grid-3">
-      <div class="card card-service">
+      <div class="card card-service" style="border:1px solid var(--color-gray-light);border-radius:var(--radius-lg);">
         <div class="card-icon" style="background: var(--color-pastel-blue-light);">🧪</div>
         <h3>Appâts sécurisés</h3>
-        <p>Rodenticides de dernière génération placés dans des postes d'appâtage verrouillés, inaccessibles aux enfants et animaux domestiques.</p>
+        <p>Rodenticides de dernière génération placés dans des postes d'appâtage verrouillés. Inaccessibles aux enfants et animaux domestiques. Efficacité prouvée en 5 à 10 jours.</p>
+        <div style="margin-top:var(--space-sm);font-size:13px;color:var(--color-primary-600);font-weight:500;">Efficacité : 95% — Adapté appartements</div>
       </div>
-      <div class="card card-service">
+      <div class="card card-service" style="border:1px solid var(--color-gray-light);border-radius:var(--radius-lg);">
         <div class="card-icon" style="background: var(--color-pastel-mint-light);">🪤</div>
         <h3>Pièges mécaniques</h3>
-        <p>Dispositifs de capture sans produit chimique. Idéal pour les environnements sensibles (cuisine, chambre d'enfant).</p>
+        <p>Dispositifs de capture professionnels sans produit chimique. Idéal pour les environnements sensibles : cuisine, chambre d'enfant, commerce alimentaire.</p>
+        <div style="margin-top:var(--space-sm);font-size:13px;color:var(--color-primary-600);font-weight:500;">Zéro chimique — Idéal familles</div>
       </div>
-      <div class="card card-service">
+      <div class="card card-service" style="border:1px solid var(--color-gray-light);border-radius:var(--radius-lg);">
         <div class="card-icon" style="background: var(--color-pastel-gold-light);">🛡️</div>
-        <h3>Répulsifs</h3>
-        <p>Solutions répulsives ultrasoniques et naturelles pour compléter le traitement et prévenir les retours.</p>
+        <h3>Proofing & prévention</h3>
+        <p>Rebouchage des points d'entrée avec des matériaux anti-rongeurs (grillage galvanisé, mousse expansive). Solutions répulsives en complément pour une protection durable.</p>
+        <div style="margin-top:var(--space-sm);font-size:13px;color:var(--color-primary-600);font-weight:500;">Protection long terme</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════ PRICING ════════ -->
-<section class="section">
+<!-- ════════ CONCRÈTEMENT, COMMENT ÇA SE PASSE ════════ -->
+<section class="section-premium bg-white">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Tarifs indicatifs</span>
-      <h2>Prix dératisation</h2>
-      <p>Tarifs à titre indicatif. Le prix exact dépend de la surface et du niveau d'infestation. Devis gratuit et sans engagement.</p>
+      <span class="mono" style="color:#999;">Concrètement</span>
+      <h2>Ce que Sanalia fait que les autres ne font pas</h2>
+      <p>Pas de discours marketing. Voici ce qui se passe réellement quand vous nous appelez.</p>
     </div>
-    <div style="max-width: 640px; margin: 0 auto;">
-      <table style="width: 100%; border-collapse: collapse;">
-        <thead>
-          <tr style="border-bottom: 2px solid var(--color-gray-light);">
-            <th style="text-align: left; padding: var(--space-md); font-family: var(--font-primary); font-weight: 700;">Type de logement</th>
-            <th style="text-align: right; padding: var(--space-md); font-family: var(--font-primary); font-weight: 700;">Prix indicatif</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="border-bottom: 1px solid var(--color-gray-light);">
-            <td style="padding: var(--space-md);">Studio / T1</td>
-            <td style="padding: var(--space-md); text-align: right; font-weight: 700;">150 — 250 €</td>
-          </tr>
-          <tr style="border-bottom: 1px solid var(--color-gray-light);">
-            <td style="padding: var(--space-md);">Appartement (T2-T4)</td>
-            <td style="padding: var(--space-md); text-align: right; font-weight: 700;">200 — 350 €</td>
-          </tr>
-          <tr>
-            <td style="padding: var(--space-md);">Maison</td>
-            <td style="padding: var(--space-md); text-align: right; font-weight: 700;">250 — 450 €</td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="text-align: center; margin-top: var(--space-xl);">
-        <a href="/devis/?nuisible=rats" class="btn btn-accent">Demander un devis gratuit</a>
+    <div class="trust-badges-grid">
+      <div class="trust-badge-card">
+        <div class="trust-badge-icon" style="background:var(--color-pastel-mint-light);">📱</div>
+        <h4>Suivi par WhatsApp</h4>
+        <p>Votre technicien vous envoie des photos des pièges, des points d'entrée rebouchés et de l'avancement du traitement. Vous savez exactement ce qui se passe chez vous.</p>
+      </div>
+      <div class="trust-badge-card">
+        <div class="trust-badge-icon" style="background:var(--color-pastel-blue-light);">📡</div>
+        <h4>Pièges connectés</h4>
+        <p>Nos postes d'appâtage sont équipés de capteurs. On sait à distance si un rongeur est passé, sans avoir à se déplacer inutilement. Vous êtes alerté en temps réel.</p>
+      </div>
+      <div class="trust-badge-card">
+        <div class="trust-badge-icon" style="background:var(--color-pastel-lavender-light);">👤</div>
+        <h4>Un expert dédié</h4>
+        <p>Pas de plateforme anonyme. Vous avez un technicien attitré qui connaît votre logement. C'est lui que vous appelez, c'est lui qui revient si besoin.</p>
+      </div>
+      <div class="trust-badge-card">
+        <div class="trust-badge-icon" style="background:var(--color-pastel-gold-light);">🔁</div>
+        <h4>Checks réguliers</h4>
+        <p>Après le traitement, votre technicien programme des contrôles à J+10, J+21 et J+60. Pas un simple passage : il vérifie chaque piège, chaque accès, chaque signe.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ════════ APRÈS L'INTERVENTION ════════ -->
+<section class="section-premium bg-cream">
+  <div class="container" style="max-width:900px;">
+    <div class="section-header">
+      <span class="mono" style="color:#999;">Après l'intervention</span>
+      <h2>Le traitement ne s'arrête pas à la première visite</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:start;">
+      <div>
+        <h3 style="font-size:18px;margin:0 0 var(--space-md);">Ce que vous recevez sur WhatsApp :</h3>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--space-sm);">
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.6;"><span style="color:var(--color-primary-600);font-weight:700;flex-shrink:0;">J+0</span> Photos des postes installés, plan de votre logement, consignes précises</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.6;"><span style="color:var(--color-primary-600);font-weight:700;flex-shrink:0;">J+3</span> Premier check à distance : état des capteurs, ajustements si nécessaire</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.6;"><span style="color:var(--color-primary-600);font-weight:700;flex-shrink:0;">J+10</span> Passage de contrôle physique, relevé des pièges, rebouchage complémentaire</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.6;"><span style="color:var(--color-primary-600);font-weight:700;flex-shrink:0;">J+21</span> Deuxième contrôle, vérification de l'éradication, retrait si terminé</li>
+          <li style="display:flex;align-items:flex-start;gap:8px;font-size:15px;line-height:1.6;"><span style="color:var(--color-primary-600);font-weight:700;flex-shrink:0;">J+60</span> Dernier check. Si tout est clair, vous recevez votre attestation de traitement</li>
+        </ul>
+      </div>
+      <div style="background:var(--color-surface);border-radius:var(--radius-lg);padding:var(--space-xl);border:1px solid var(--color-gray-light);">
+        <h3 style="font-size:18px;margin:0 0 var(--space-md);">Pourquoi ça change tout :</h3>
+        <p style="font-size:15px;line-height:1.7;margin:0 0 var(--space-md);color:var(--color-primary-800);">Chez la plupart des concurrents, le technicien pose des pièges et revient 15 jours plus tard. Entre-temps, vous ne savez pas si le traitement fonctionne. Vous restez dans l'angoisse.</p>
+        <p style="font-size:15px;line-height:1.7;margin:0;color:var(--color-primary-800);"><strong>Chez Sanalia</strong>, votre technicien surveille vos pièges à distance et vous tient informé par WhatsApp. Vous dormez tranquille dès le premier soir.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ DEVIS PERSONNALISÉ ════════ -->
+<section class="section-premium bg-cream">
+  <div class="container" style="text-align:center;max-width:700px;">
+    <div class="section-header">
+      <span class="mono" style="color:#999;">Votre devis</span>
+      <h2>Chaque situation est unique</h2>
+      <p>Le prix d'une dératisation dépend de la surface du logement, du type de rongeur et du niveau d'infestation. Décrivez-nous votre situation et recevez un devis personnalisé sous 2h.</p>
+    </div>
+    <div class="included-grid" style="margin-bottom:var(--space-xl);">
+      <span class="included-item">Diagnostic gratuit</span>
+      <span class="included-item">Devis sous 2h</span>
+      <span class="included-item">Sans engagement</span>
+      <span class="included-item">Paiement en 3x sans frais</span>
+    </div>
+    <a href="/devis/?nuisible=rats" class="btn btn-primary btn-lg">Recevoir un devis personnalisé</a>
   </div>
 </section>
 
 <!-- ════════ TESTIMONIALS ════════ -->
-<section class="section" style="background: var(--color-surface);">
+<section class="section-premium bg-white">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Temoignages</span>
+      <span class="mono" style="color:#999;">Témoignages</span>
       <h2>Ils nous ont fait confiance</h2>
+      <p>Plus de 2 000 interventions réalisées. Voici ce que nos clients en disent.</p>
     </div>
-    <div class="grid grid-2">
-      <div class="card card-testimonial">
+    <div class="grid grid-3">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« On entendait des grattements dans les murs depuis des semaines. Le technicien est intervenu le lendemain de notre appel. En deux passages, plus aucun bruit. Très professionnel et rassurant. »</blockquote>
-        <div class="author"><strong>Sophie M.</strong> — Lyon 3</div>
+        <blockquote>On entendait des grattements dans les murs depuis des semaines, impossible de dormir. Le technicien est intervenu le lendemain de notre appel. En deux passages, plus aucun bruit. Très professionnel et rassurant.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">SM</div>
+          <div class="author-info">
+            <strong>Sophie M.</strong>
+            <span>Lyon 3 — Appartement T3</span>
+          </div>
+        </div>
       </div>
-      <div class="card card-testimonial">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« Des rats dans notre cave, c'était un cauchemar. Sanalia a tout réglé en moins d'une semaine. Le technicien a même rebouché les points d'entrée. Je recommande vivement. »</blockquote>
-        <div class="author"><strong>Marc D.</strong> — Paris 11</div>
+        <blockquote>Des rats dans notre cave, c'était un cauchemar. Sanalia a tout réglé en moins d'une semaine. Le technicien a même rebouché les points d'entrée. Aucun retour depuis 6 mois. Je recommande vivement.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">MD</div>
+          <div class="author-info">
+            <strong>Marc D.</strong>
+            <span>Paris 11 — Maison</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-premium">
+        <div class="stars">★★★★★</div>
+        <blockquote>Intervention rapide et discrète pour notre restaurant. Le technicien a compris nos contraintes (pas d'interruption de service). Traitement efficace dès le premier passage. Nous avons signé un contrat annuel.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">LB</div>
+          <div class="author-info">
+            <strong>Laurent B.</strong>
+            <span>Lyon 7 — Restaurateur</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════════ FAQ ════════ -->
-<section class="section">
+<section class="section-premium bg-cream">
   <div class="container" style="max-width:800px;">
     <div class="section-header">
-      <span class="mono">Questions frequentes</span>
+      <span class="mono" style="color:#999;">Questions fréquentes</span>
       <h2>Vos questions sur la dératisation</h2>
+      <p>Les réponses à vos interrogations les plus courantes. Une question spécifique ? <a href="tel:0667464897" style="color:var(--color-primary-600);font-weight:700;">Appelez-nous</a>.</p>
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Combien de temps dure une intervention de dératisation ? <span class="icon-toggle">+</span></button>
@@ -429,7 +1157,7 @@
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Les produits sont-ils dangereux pour mes animaux de compagnie ? <span class="icon-toggle">+</span></button>
-      <div class="accordion-body"><div class="accordion-body-inner">Non. Les appâts sont placés dans des postes d'appâtage verrouillés, spécialement conçus pour être inaccessibles aux animaux domestiques et aux enfants. Le technicien vous expliquera les précautions à prendre.</div></div>
+      <div class="accordion-body"><div class="accordion-body-inner">Non. Les appâts sont placés dans des postes d'appâtage verrouillés, spécialement conçus pour être inaccessibles aux animaux domestiques et aux enfants. Le technicien vous expliquera les précautions spécifiques à prendre selon votre situation.</div></div>
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Combien de passages sont nécessaires ? <span class="icon-toggle">+</span></button>
@@ -437,48 +1165,74 @@
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Proposez-vous une garantie ? <span class="icon-toggle">+</span></button>
-      <div class="accordion-body"><div class="accordion-body-inner">Oui, nous garantissons le résultat de notre intervention. Si vous constatez un retour de rongeurs dans les 3 mois suivant le traitement, nous intervenons de nouveau gratuitement.</div></div>
+      <div class="accordion-body"><div class="accordion-body-inner">Oui, nous garantissons le résultat de notre intervention. Si vous constatez un retour de rongeurs dans les 3 mois suivant le traitement, nous intervenons de nouveau gratuitement et sans condition.</div></div>
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Que faire en attendant l'intervention ? <span class="icon-toggle">+</span></button>
       <div class="accordion-body"><div class="accordion-body-inner">Ne déplacez pas les rongeurs et n'utilisez pas de produits du commerce qui pourraient les disperser. Rangez la nourriture dans des contenants hermétiques, bouchez les trous visibles avec de la laine d'acier et notez les endroits où vous avez observé des traces.</div></div>
     </div>
+    <div class="accordion-item">
+      <button class="accordion-header">Quel est le prix d'une dératisation ? <span class="icon-toggle">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner">Le prix dépend de la surface du logement, du type de rongeur et du niveau d'infestation. Chaque situation étant unique, nous établissons un devis personnalisé gratuit et sans engagement après diagnostic. <a href="/devis/?nuisible=rats">Demandez votre devis</a>.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-header">Dois-je quitter mon logement pendant le traitement ? <span class="icon-toggle">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner">Non, dans la grande majorité des cas, il n'est pas nécessaire de quitter votre logement. Les postes d'appâtage sont sécurisés et les pièges mécaniques ne présentent aucun risque. Le technicien vous indiquera les éventuelles précautions à prendre.</div></div>
+    </div>
+    <div class="accordion-item">
+      <button class="accordion-header">Comment savoir si j'ai des rats ou des souris ? <span class="icon-toggle">+</span></button>
+      <div class="accordion-body"><div class="accordion-body-inner">Les signes les plus courants sont : des bruits de grattement la nuit dans les murs ou le plafond, des crottes noires de 1 à 2 cm (rats) ou 3 à 5 mm (souris), des traces de grignotage sur les câbles ou emballages, et des traces de passage graisseuses le long des murs. Consultez nos <a href="/nuisibles/rats/">guides d'identification</a> pour en savoir plus.</div></div>
+    </div>
   </div>
 </section>
 
 <!-- ════════ CTA BANNER ════════ -->
-<section class="cta-banner">
-  <div class="container">
-    <h2>Un problème de rats ou souris ?</h2>
-    <p>Nos techniciens certifiés interviennent sous 24h. Devis gratuit, résultat garanti.</p>
-    <div class="flex-center gap-md" style="flex-wrap: wrap;">
-      <a href="/devis/?nuisible=rats" class="btn btn-accent btn-lg">Devis gratuit</a>
-      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff; border-color:#fff;">📞 06 67 46 48 97</a>
+<section class="cta-banner-premium">
+  <div class="container" style="position:relative;z-index:1;">
+    <h2>Un problème de rats ou de souris ?</h2>
+    <p>Nos techniciens certifiés interviennent sous 24h. Devis gratuit en 2h, résultat garanti 3 mois.</p>
+    <div class="flex-center gap-md" style="flex-wrap:wrap;">
+      <a href="/devis/?nuisible=rats" class="btn btn-secondary btn-lg" style="background:#fff;color:var(--color-primary-900);">Demander un devis gratuit</a>
+      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.4);">📞 06 67 46 48 97</a>
+    </div>
+    <div style="margin-top:var(--space-lg);display:flex;justify-content:center;gap:var(--space-xl);flex-wrap:wrap;">
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Devis en 2h</span>
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Sans engagement</span>
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Paiement 3x</span>
     </div>
   </div>
 </section>
 
 <!-- ════════ GEO CARDS ════════ -->
-<section class="section">
+<section class="section-premium bg-cream">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Zones d'intervention</span>
-      <h2>Intervention à Lyon et Paris</h2>
-      <p>Nos techniciens interviennent dans toute la métropole de Lyon et en Ile-de-France.</p>
+      <span class="mono" style="color:#999;">Zones d'intervention</span>
+      <h2>Dératisation partout en France</h2>
+      <p>Nos techniciens certifiés interviennent dans les principales métropoles françaises.</p>
     </div>
-    <div class="grid grid-2">
-      <a href="/deratisation/lyon/" class="card card-service">
-        <div class="card-icon" style="background: var(--color-pastel-blue-light);">📍</div>
+    <div class="geo-grid-3">
+      <a href="/deratisation/lyon/" class="geo-card">
+        <div style="font-size:24px;margin-bottom:var(--space-sm);">📍</div>
         <h3>Dératisation à Lyon</h3>
-        <p>Intervention rapide dans tous les arrondissements de Lyon et la métropole. Techniciens basés sur place, intervention sous 24h.</p>
-        <span class="btn btn-ghost btn-sm" style="align-self:flex-start;">Voir les détails →</span>
+        <p>Tous les arrondissements de Lyon et la métropole. Techniciens basés sur place, intervention sous 24h.</p>
+        <span class="btn btn-ghost btn-sm">Voir les détails →</span>
       </a>
-      <a href="/deratisation/paris/" class="card card-service">
-        <div class="card-icon" style="background: var(--color-pastel-lavender-light);">📍</div>
+      <a href="/deratisation/paris/" class="geo-card">
+        <div style="font-size:24px;margin-bottom:var(--space-sm);">📍</div>
         <h3>Dératisation à Paris</h3>
-        <p>Couverture complète de Paris et petite couronne. Intervention rapide 7j/7, devis gratuit.</p>
-        <span class="btn btn-ghost btn-sm" style="align-self:flex-start;">Voir les détails →</span>
+        <p>Paris intra-muros et petite couronne (92, 93, 94). Intervention rapide 7j/7, devis gratuit.</p>
+        <span class="btn btn-ghost btn-sm">Voir les détails →</span>
       </a>
+      <a href="/deratisation/marseille/" class="geo-card">
+        <div style="font-size:24px;margin-bottom:var(--space-sm);">📍</div>
+        <h3>Dératisation à Marseille</h3>
+        <p>Marseille et agglomération. Rats bruns, rats noirs, souris : techniciens certifiés Certibiocide.</p>
+        <span class="btn btn-ghost btn-sm">Voir les détails →</span>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:var(--space-xl);">
+      <p style="font-size:15px;color:var(--color-primary-800);">Également présents à <a href="/deratisation/bordeaux/" style="color:var(--color-primary-600);font-weight:600;">Bordeaux</a>, Toulouse, Nantes, Lille, Nice, Montpellier et Strasbourg.</p>
     </div>
   </div>
 </section>

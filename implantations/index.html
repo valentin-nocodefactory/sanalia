@@ -6,51 +6,53 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guide des Nuisibles en France — Identification & Solutions | Sanalia</title>
-<meta name="description" content="Identifiez les nuisibles qui envahissent votre logement : rats, souris, cafards, punaises de lit, guêpes, fourmis et plus. Fiches complètes et solutions professionnelles.">
-<link rel="canonical" href="https://www.sanalia.fr/nuisibles/">
-<!-- Open Graph -->
-<meta property="og:title" content="Guide des Nuisibles en France — Identification & Solutions | Sanalia">
-<meta property="og:description" content="Identifiez les nuisibles qui envahissent votre logement : rats, souris, cafards, punaises de lit, guêpes, fourmis et plus. Fiches complètes et solutions professionnelles.">
+<title>Nos implantations — Dératisation & Désinsectisation partout en France | Sanalia</title>
+<meta name="description" content="Sanalia intervient dans toute la France : Paris, Lyon, Marseille, Bordeaux, Toulouse et 10 métropoles. Trouvez votre technicien certifié le plus proche. Intervention sous 24h.">
+<link rel="canonical" href="https://www.sanalia.fr/implantations/">
+<meta property="og:title" content="Nos implantations — Sanalia partout en France">
+<meta property="og:description" content="Trouvez votre technicien Sanalia le plus proche. Intervention sous 24h dans toute la France.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.sanalia.fr/nuisibles/">
+<meta property="og:url" content="https://www.sanalia.fr/implantations/">
 <meta property="og:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
 <meta property="og:locale" content="fr_FR">
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Guide des Nuisibles en France — Identification & Solutions | Sanalia">
-<meta name="twitter:description" content="Identifiez les nuisibles qui envahissent votre logement : rats, souris, cafards, punaises de lit, guêpes, fourmis et plus. Fiches complètes et solutions professionnelles.">
+<meta name="twitter:title" content="Nos implantations — Sanalia partout en France">
+<meta name="twitter:description" content="Trouvez votre technicien Sanalia le plus proche. Intervention sous 24h dans toute la France.">
 <meta name="twitter:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
-<!-- Schema.org JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "CollectionPage",
-      "name": "Guide des Nuisibles en France",
-      "url": "https://www.sanalia.fr/nuisibles/",
-      "description": "Identifiez les nuisibles qui envahissent votre logement : rats, souris, cafards, punaises de lit, guêpes, fourmis et plus.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Sanalia",
-        "url": "https://www.sanalia.fr"
-      }
+      "@type": "Organization",
+      "name": "Sanalia",
+      "url": "https://www.sanalia.fr",
+      "telephone": "+33667464897",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "53 Rue Villeroy",
+        "addressLocality": "Lyon",
+        "postalCode": "69003",
+        "addressCountry": "FR"
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Paris"},
+        {"@type": "City", "name": "Lyon"},
+        {"@type": "City", "name": "Marseille"},
+        {"@type": "City", "name": "Bordeaux"},
+        {"@type": "City", "name": "Toulouse"},
+        {"@type": "City", "name": "Nantes"},
+        {"@type": "City", "name": "Lille"},
+        {"@type": "City", "name": "Nice"},
+        {"@type": "City", "name": "Montpellier"},
+        {"@type": "City", "name": "Strasbourg"}
+      ]
     },
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Accueil",
-          "item": "https://www.sanalia.fr/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Nuisibles"
-        }
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
+        {"@type": "ListItem", "position": 2, "name": "Nos implantations"}
       ]
     }
   ]
@@ -59,64 +61,223 @@
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-.nuisibles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-lg);
-  margin-top: var(--space-2xl);
+/* ═══ IMPLANTATIONS PAGE ═══ */
+
+/* Hero avec recherche */
+.hero-implantations {
+  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 60%, #4A45B5 100%);
+  padding: var(--space-3xl) 0 0;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
 }
-.nuisible-card {
-  background: var(--color-surface);
+.hero-implantations::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-implant-content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.hero-implant-content h1 {
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+}
+.hero-implant-content p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+/* Search bar */
+.search-bar {
+  display: flex;
+  max-width: 560px;
+  margin: 0 auto;
+  background: #fff;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.2);
 }
-.nuisible-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(14,5,42,0.1);
-}
-.nuisible-card-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  background: var(--color-bg-sand);
-}
-.nuisible-card-body {
-  padding: var(--space-lg);
+.search-bar input {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.nuisible-card-body h3 {
+  border: none;
+  padding: 16px 20px;
+  font-size: 16px;
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-h3);
-  margin: 0 0 var(--space-sm);
   color: var(--color-primary-900);
+  outline: none;
+  background: transparent;
 }
-.nuisible-card-body p {
-  font-family: var(--font-primary);
-  font-weight: var(--font-weight-regular);
-  font-size: var(--text-body);
-  color: var(--color-text-muted);
-  line-height: var(--leading-normal);
-  margin: 0 0 var(--space-md);
-  flex: 1;
+.search-bar input::placeholder {
+  color: #999;
 }
-.nuisible-card-link {
+.search-bar button {
+  border: none;
+  background: var(--color-primary-600);
+  color: #fff;
+  padding: 16px 28px;
   font-family: var(--font-primary);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-body);
-  color: var(--color-primary-600);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.search-bar button:hover {
+  background: var(--color-primary-800);
+}
+
+/* Map container */
+.map-section {
+  position: relative;
+  margin-top: -1px;
+}
+#map {
+  width: 100%;
+  height: 520px;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  #map { height: 400px; }
+}
+
+/* City info popup on map */
+.city-popup h3 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-primary-900);
+  margin: 0 0 6px;
+}
+.city-popup p {
+  font-size: 13px;
+  color: var(--color-primary-800);
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+.city-popup a {
+  display: inline-block;
+  background: var(--color-primary-600);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
   text-decoration: none;
 }
-.nuisible-card-link:hover {
-  text-decoration: underline;
+
+/* City grid */
+.cities-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg);
+}
+.cities-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-lg);
+}
+@media (max-width: 900px) { .cities-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .cities-grid { grid-template-columns: 1fr; } }
+
+.city-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-decoration: none;
+  color: var(--color-primary-900);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-sm);
+}
+.city-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(14, 5, 42, 0.08);
+  border-color: var(--color-primary-200);
+}
+.city-card .city-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary-600);
+  box-shadow: 0 0 0 4px var(--color-primary-100);
+}
+.city-card h3 {
+  font-size: 18px;
+  margin: 0;
+}
+.city-card p {
+  font-size: 13px;
+  color: var(--color-primary-800);
+  margin: 0;
+}
+.city-card .city-link {
+  font-size: 14px;
+  color: var(--color-primary-600);
+  font-weight: 700;
+  margin-top: auto;
+}
+
+/* Services recap */
+.services-recap {
+  padding: var(--space-3xl) 0;
+  background: var(--color-surface);
+}
+.services-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+@media (max-width: 900px) { .services-grid-3 { grid-template-columns: 1fr; } }
+
+.service-recap-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  border: 1px solid var(--color-gray-light);
+}
+.service-recap-card .sr-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto var(--space-md);
+  font-size: 28px;
+}
+.service-recap-card h3 { font-size: 20px; margin: 0 0 8px; }
+.service-recap-card p { font-size: 14px; color: var(--color-primary-800); margin: 0 0 var(--space-md); line-height: 1.6; }
+
+/* CTA bottom */
+.cta-implant {
+  background: linear-gradient(135deg, var(--color-primary-900), var(--color-primary-600));
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  color: #fff;
+}
+.cta-implant h2 { color: #fff; font-size: 32px; margin-bottom: var(--space-sm); }
+.cta-implant p { color: rgba(255,255,255,0.8); font-size: 18px; margin-bottom: var(--space-xl); }
+
+/* Leaflet custom marker */
+.sanalia-marker {
+  background: var(--color-primary-600);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 </style>
 </head>
@@ -305,158 +466,157 @@
   </div>
 </header>
 </div>
+
 <div class="breadcrumb-bar">
   <div class="container">
     <nav class="breadcrumb-nav" aria-label="Fil d'Ariane">
       <a href="/"><svg class="breadcrumb-home-icon" width="14" height="14" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg></a>
       <span class="breadcrumb-sep">›</span>
-      <span class="breadcrumb-current">Nuisibles</span>
+      <span class="breadcrumb-current">Nos implantations</span>
     </nav>
   </div>
 </div>
-<!-- HERO -->
-<section class="section" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-primary-100) 100%); padding-top: var(--space-3xl); padding-bottom: var(--space-2xl);">
+
+<!-- ════════ HERO ════════ -->
+<section class="hero-implantations">
   <div class="container">
-    <span class="mono" style="color: #999;">Encyclopedie des nuisibles</span>
-    <h1 style="margin-top: var(--space-sm);">Guide des Nuisibles en France — Identification & Solutions</h1>
-    <p style="max-width: 700px; color: var(--color-text-muted); margin-top: var(--space-md);">Rats, cafards, punaises de lit, guepes... Apprenez a identifier chaque nuisible, comprendre ses dangers et decouvrir les solutions adaptees. Si vous etes deja envahi, contactez-nous pour une intervention rapide.</p>
-  </div>
-</section>
-
-<!-- GRID -->
-<section class="section">
-  <div class="container">
-    <div class="nuisibles-grid">
-
-      <a href="/nuisibles/rats/" class="nuisible-card">
-        <img src="../assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="Rat brun" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Rats</h3>
-          <p>Le rat brun (Rattus norvegicus) envahit caves, egouts et cuisines. Porteur de maladies, il cause aussi d'importants degats materiels.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/souris/" class="nuisible-card">
-        <img src="../assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="Souris domestique" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Souris</h3>
-          <p>La souris domestique se faufile partout grace a sa petite taille. Tres prolifique, une seule souris peut engendrer des dizaines de descendants en quelques mois.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/cafards/" class="nuisible-card">
-        <img src="../assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cafard" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Cafards</h3>
-          <p>Les blattes (cafards) proliferent dans les cuisines et salles de bain. Elles vehiculent des bacteries et allergenes dangereux pour la sante.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/punaises-de-lit/" class="nuisible-card">
-        <img src="../assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="Punaise de lit" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Punaises de lit</h3>
-          <p>La punaise de lit pique la nuit et provoque des demangeaisons intenses. En forte recrudescence en France, elle necessite un traitement professionnel.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/guepes-frelons/" class="nuisible-card">
-        <img src="../assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="Guepe" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Guepes & Frelons</h3>
-          <p>Guepes et frelons construisent leurs nids pres des habitations. Leurs piqures peuvent provoquer des reactions allergiques graves.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/fourmis/" class="nuisible-card">
-        <img src="../assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Fourmis</h3>
-          <p>Les fourmis envahissent les habitations en colonies organisees, a la recherche de nourriture. Certaines especes endommagent les structures en bois.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/moustiques/" class="nuisible-card">
-        <img src="../assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="Moustique" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Moustiques</h3>
-          <p>Le moustique tigre progresse en France et peut transmettre la dengue ou le chikungunya. La prevention passe par l'elimination des eaux stagnantes.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/pigeons/" class="nuisible-card">
-        <img src="../assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" alt="Pigeon" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Pigeons</h3>
-          <p>Les pigeons salissent les facades, obstruent les gouttieres et transmettent des maladies via leurs fientes. Le depigeonnage est souvent indispensable.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/chenilles-processionnaires/" class="nuisible-card">
-        <img src="../assets/nuisibles/bacteria-cell--realistic-microorganism-shape--rod-.png" alt="Chenille processionnaire" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Chenilles processionnaires</h3>
-          <p>Leurs poils urticants provoquent des reactions allergiques severes chez l'homme et les animaux. Elles menacent aussi la sante des arbres.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/puces/" class="nuisible-card">
-        <img src="../assets/nuisibles/bacteria-cell--realistic-microorganism-shape--rod-.png" alt="Puce" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Puces</h3>
-          <p>Les puces infestent les habitations via les animaux domestiques. Leurs piqures provoquent des demangeaisons et elles se reproduisent tres rapidement.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/taupes/" class="nuisible-card">
-        <img src="../assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Taupes</h3>
-          <p>Les taupes creusent des galeries souterraines qui defigurent les pelouses et jardins. Leurs taupinieres rendent l'entretien du terrain difficile.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/termites/" class="nuisible-card">
-        <img src="../assets/nuisibles/mold-spores--aspergillus--realistic-fungal-shape--.png" alt="Termite" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Termites</h3>
-          <p>Les termites degradent silencieusement les structures en bois de votre habitation. Quand les degats sont visibles, l'infestation est souvent avancee.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
-      <a href="/nuisibles/mites-alimentaires/" class="nuisible-card">
-        <img src="../assets/nuisibles/mold-spores--aspergillus--realistic-fungal-shape--.png" alt="Mite alimentaire" class="nuisible-card-img">
-        <div class="nuisible-card-body">
-          <h3>Mites alimentaires</h3>
-          <p>Les mites alimentaires (pyrales) infestent la farine, les cereales et les fruits secs. Elles contaminent vos reserves et se reproduisent tres vite.</p>
-          <span class="nuisible-card-link">En savoir plus →</span>
-        </div>
-      </a>
-
+    <div class="hero-implant-content">
+      <span class="mono" style="color:rgba(255,255,255,0.5);">Nos implantations</span>
+      <h1>Un technicien Sanalia <span style="color:var(--color-primary-200);">près de chez vous</span></h1>
+      <p>10 métropoles, 50+ techniciens certifiés Certibiocide. Saisissez votre adresse pour trouver l'agence la plus proche et obtenir une intervention sous 24h.</p>
+      <div class="search-bar" id="searchBar">
+        <input type="text" id="addressInput" placeholder="Saisissez votre adresse ou code postal..." autocomplete="off">
+        <button type="button" id="searchBtn">Trouver mon agence</button>
+      </div>
+      <div style="margin-top:var(--space-md);display:flex;justify-content:center;gap:var(--space-lg);flex-wrap:wrap;">
+        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Paris</span>
+        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Lyon</span>
+        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Marseille</span>
+        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Bordeaux</span>
+        <span style="color:rgba(255,255,255,0.5);font-size:13px;">Toulouse</span>
+        <span style="color:rgba(255,255,255,0.5);font-size:13px;">+ 5 villes</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="section" style="background: var(--color-primary-900); color: #fff; text-align: center;">
+<!-- ════════ MAP ════════ -->
+<section class="map-section">
+  <div id="map"></div>
+</section>
+
+<!-- ════════ VILLES ════════ -->
+<section class="cities-section">
   <div class="container">
-    <h2 style="color: #fff;">Vous avez identifie un nuisible ?</h2>
-    <p style="color: rgba(255,255,255,0.7); max-width: 500px; margin: var(--space-md) auto var(--space-lg);">Nos techniciens certifies interviennent rapidement pour eliminer le probleme. Devis gratuit et sans engagement.</p>
-    <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
-      <a href="/devis/" class="btn btn-accent btn-lg">Devis gratuit →</a>
-      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="border-color:#fff;color:#fff;">📞 06 67 46 48 97</a>
+    <div class="section-header" style="text-align:center;">
+      <span class="mono" style="color:#999;">Toutes nos agences</span>
+      <h2>Intervention dans 10 métropoles françaises</h2>
+      <p>Cliquez sur une ville pour découvrir nos services locaux, nos techniciens et les spécificités de votre région.</p>
+    </div>
+    <div class="cities-grid">
+      <a href="/implantations/paris/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Paris</h3>
+        <p>Paris et Île-de-France (75, 92, 93, 94)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/lyon/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Lyon</h3>
+        <p>Lyon et métropole (69)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/marseille/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Marseille</h3>
+        <p>Marseille et Bouches-du-Rhône (13)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/bordeaux/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Bordeaux</h3>
+        <p>Bordeaux et Gironde (33)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/toulouse/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Toulouse</h3>
+        <p>Toulouse et Haute-Garonne (31)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/nantes/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Nantes</h3>
+        <p>Nantes et Loire-Atlantique (44)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/lille/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Lille</h3>
+        <p>Lille et métropole (59)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/nice/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Nice</h3>
+        <p>Nice et Alpes-Maritimes (06)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/montpellier/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Montpellier</h3>
+        <p>Montpellier et Hérault (34)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+      <a href="/implantations/strasbourg/" class="city-card">
+        <span class="city-dot"></span>
+        <h3>Strasbourg</h3>
+        <p>Strasbourg et Bas-Rhin (67)</p>
+        <span class="city-link">Voir l'agence →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ SERVICES ════════ -->
+<section class="services-recap">
+  <div class="container">
+    <div class="section-header" style="text-align:center;">
+      <span class="mono" style="color:#999;">Nos services</span>
+      <h2>3 expertises, une seule équipe</h2>
+      <p>Tous nos techniciens sont formés aux 3 métiers. Un seul interlocuteur pour toutes vos problématiques de nuisibles.</p>
+    </div>
+    <div class="services-grid-3">
+      <div class="service-recap-card">
+        <div class="sr-icon" style="background:var(--color-pastel-gold-light);">🐀</div>
+        <h3>Dératisation</h3>
+        <p>Élimination de rats et souris. Appâts sécurisés, pièges connectés avec suivi à distance, rebouchage des accès.</p>
+        <a href="/deratisation/" class="btn btn-ghost btn-sm">En savoir plus →</a>
+      </div>
+      <div class="service-recap-card">
+        <div class="sr-icon" style="background:var(--color-pastel-mint-light);">🪳</div>
+        <h3>Désinsectisation</h3>
+        <p>Traitement de punaises, cafards, guêpes, fourmis, puces. Gel appât, thermique, nébulisation selon l'insecte.</p>
+        <a href="/desinsectisation/" class="btn btn-ghost btn-sm">En savoir plus →</a>
+      </div>
+      <div class="service-recap-card">
+        <div class="sr-icon" style="background:var(--color-pastel-lavender-light);">🧴</div>
+        <h3>Désinfection</h3>
+        <p>Désinfection de locaux après infestation, sinistre ou contamination. Traitement virucide et bactéricide certifié.</p>
+        <a href="/desinfection/" class="btn btn-ghost btn-sm">En savoir plus →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CTA ════════ -->
+<section class="cta-implant">
+  <div class="container">
+    <h2>Pas encore sûr de votre zone ?</h2>
+    <p>Appelez-nous, nous vous confirmons en 2 minutes si nous intervenons chez vous.</p>
+    <div class="flex-center gap-md" style="flex-wrap:wrap;">
+      <a href="tel:0667464897" class="btn btn-lg" style="background:#fff;color:var(--color-primary-900);">📞 06 67 46 48 97</a>
+      <a href="/devis/" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.4);">Demander un devis gratuit</a>
     </div>
   </div>
 </section>
@@ -506,6 +666,7 @@
   </div>
 </div>
 </div>
+
 <div data-component="footer">
 <footer class="footer">
   <div class="container">
@@ -576,12 +737,114 @@
   </div>
 </footer>
 </div>
+
 <div data-component="mobile-sticky-cta">
 <div class="mobile-sticky-cta">
   <a href="/devis/" class="btn btn-primary">Devis gratuit <span class="btn-arrow"></span></a>
   <a href="tel:0667464897" class="btn btn-outline"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler</a>
 </div>
 </div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="/js/app.js"></script>
+<script>
+(function() {
+  // ═══ CITIES DATA ═══
+  var cities = [
+    { name: 'Paris', lat: 48.8566, lng: 2.3522, url: '/implantations/paris/', desc: 'Paris et Île-de-France', dept: '75, 92, 93, 94' },
+    { name: 'Lyon', lat: 45.7640, lng: 4.8357, url: '/implantations/lyon/', desc: 'Lyon et métropole', dept: '69' },
+    { name: 'Marseille', lat: 43.2965, lng: 5.3698, url: '/implantations/marseille/', desc: 'Marseille et agglomération', dept: '13' },
+    { name: 'Bordeaux', lat: 44.8378, lng: -0.5792, url: '/implantations/bordeaux/', desc: 'Bordeaux et Gironde', dept: '33' },
+    { name: 'Toulouse', lat: 43.6047, lng: 1.4442, url: '/implantations/toulouse/', desc: 'Toulouse et Haute-Garonne', dept: '31' },
+    { name: 'Nantes', lat: 47.2184, lng: -1.5536, url: '/implantations/nantes/', desc: 'Nantes et Loire-Atlantique', dept: '44' },
+    { name: 'Lille', lat: 50.6292, lng: 3.0573, url: '/implantations/lille/', desc: 'Lille et métropole', dept: '59' },
+    { name: 'Nice', lat: 43.7102, lng: 7.2620, url: '/implantations/nice/', desc: 'Nice et Alpes-Maritimes', dept: '06' },
+    { name: 'Montpellier', lat: 43.6108, lng: 3.8767, url: '/implantations/montpellier/', desc: 'Montpellier et Hérault', dept: '34' },
+    { name: 'Strasbourg', lat: 48.5734, lng: 7.7521, url: '/implantations/strasbourg/', desc: 'Strasbourg et Bas-Rhin', dept: '67' }
+  ];
+
+  // ═══ MAP INIT ═══
+  var map = L.map('map', {
+    scrollWheelZoom: false,
+    zoomControl: true
+  }).setView([46.6, 2.8], 6);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 18
+  }).addTo(map);
+
+  // ═══ CUSTOM MARKER ═══
+  var markerIcon = L.divIcon({
+    className: 'sanalia-marker',
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+    popupAnchor: [0, -12]
+  });
+
+  // ═══ ADD MARKERS ═══
+  cities.forEach(function(city) {
+    var popup = '<div class="city-popup">' +
+      '<h3>' + city.name + '</h3>' +
+      '<p>' + city.desc + ' (' + city.dept + ')<br>Intervention sous 24h, 7j/7</p>' +
+      '<a href="' + city.url + '">Voir l\'agence →</a>' +
+      '</div>';
+    L.marker([city.lat, city.lng], { icon: markerIcon })
+      .addTo(map)
+      .bindPopup(popup);
+  });
+
+  // ═══ ADDRESS SEARCH (Nominatim geocoding) ═══
+  var searchBtn = document.getElementById('searchBtn');
+  var addressInput = document.getElementById('addressInput');
+
+  function searchAddress() {
+    var query = addressInput.value.trim();
+    if (!query) return;
+
+    fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query + ', France') + '&limit=1')
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.length > 0) {
+          var lat = parseFloat(data[0].lat);
+          var lng = parseFloat(data[0].lon);
+          map.flyTo([lat, lng], 12, { duration: 1.5 });
+
+          // Find nearest city
+          var nearest = null;
+          var minDist = Infinity;
+          cities.forEach(function(city) {
+            var d = Math.sqrt(Math.pow(city.lat - lat, 2) + Math.pow(city.lng - lng, 2));
+            if (d < minDist) { minDist = d; nearest = city; }
+          });
+
+          if (nearest) {
+            setTimeout(function() {
+              var popup = L.popup()
+                .setLatLng([lat, lng])
+                .setContent(
+                  '<div class="city-popup">' +
+                  '<h3>Votre zone : ' + nearest.name + '</h3>' +
+                  '<p>Agence la plus proche : ' + nearest.desc + '<br>Intervention sous 24h garantie</p>' +
+                  '<a href="' + nearest.url + '">Voir l\'agence ' + nearest.name + ' →</a>' +
+                  '</div>'
+                )
+                .openOn(map);
+            }, 800);
+          }
+        } else {
+          addressInput.value = '';
+          addressInput.placeholder = 'Adresse non trouvée, réessayez...';
+        }
+      });
+  }
+
+  searchBtn.addEventListener('click', searchAddress);
+  addressInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') searchAddress();
+  });
+})();
+</script>
 </body>
 </html>

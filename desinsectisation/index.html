@@ -50,7 +50,7 @@
       "@type": "FAQPage",
       "mainEntity": [
         {"@type":"Question","name":"Qu'est-ce que la désinsectisation ?","acceptedAnswer":{"@type":"Answer","text":"La désinsectisation est l'ensemble des opérations professionnelles qui visent à éliminer les insectes nuisibles (cafards, punaises de lit, fourmis, guêpes, puces, mouches) d'un logement ou d'un local professionnel."}},
-        {"@type":"Question","name":"Combien coûte une désinsectisation ?","acceptedAnswer":{"@type":"Answer","text":"Le prix d'une désinsectisation varie selon le nuisible et la surface : de 120€ pour un traitement ponctuel à 600€ pour un traitement complet de maison. Un devis gratuit est établi après diagnostic."}},
+        {"@type":"Question","name":"Combien coûte une désinsectisation ?","acceptedAnswer":{"@type":"Answer","text":"Le prix d'une désinsectisation varie selon le type d'insecte, la surface et le niveau d'infestation. Chaque situation étant unique, nous établissons un devis personnalisé gratuit après diagnostic."}},
         {"@type":"Question","name":"Les produits sont-ils dangereux ?","acceptedAnswer":{"@type":"Answer","text":"Nos produits sont autorisés par l'ANSES et certifiés Certibiocide. Appliqués par un professionnel, ils sont sans danger pour les enfants et animaux une fois secs."}},
         {"@type":"Question","name":"Quel délai d'intervention ?","acceptedAnswer":{"@type":"Answer","text":"Nos techniciens interviennent sous 48h en Île-de-France et dans la métropole lyonnaise. En cas d'urgence (guêpes, allergie), intervention possible sous 4h."}},
         {"@type":"Question","name":"La désinsectisation est-elle garantie ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Sanalia garantit un résultat durable. En cas de ré-infestation dans les 3 à 6 mois (selon le nuisible), nous intervenons à nouveau gratuitement."}},
@@ -64,22 +64,194 @@
 <link rel="stylesheet" href="/css/base.css">
 <link rel="stylesheet" href="/css/components.css">
 <style>
-  .nuisible-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-top:var(--space-xl)}
-  @media(max-width:900px){.nuisible-grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:560px){.nuisible-grid{grid-template-columns:1fr}}
-  .nuisible-card{background:var(--color-surface);border:1px solid var(--color-gray-light);border-radius:var(--radius-lg);padding:var(--space-xl);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-md);transition:transform .2s,box-shadow .2s}
-  .nuisible-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(14,5,42,.08);border-color:var(--color-primary-200)}
-  .nuisible-card .ni-icon{width:72px;height:72px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center}
-  .nuisible-card .ni-icon img{width:56px;height:56px;object-fit:contain}
-  .nuisible-card h3{margin:0;font-family:var(--font-primary);font-weight:700;font-size:20px;color:var(--color-primary-900)}
-  .nuisible-card p{margin:0;font-size:14px;color:var(--color-text-muted);line-height:1.5}
-  .nuisible-card .ni-cta{margin-top:auto;color:var(--color-primary-600);font-family:var(--font-primary);font-weight:700;font-size:14px}
-  .badges-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg);margin-top:var(--space-xl)}
-  @media(max-width:900px){.badges-grid{grid-template-columns:repeat(2,1fr)}}
-  .badge-card{background:var(--color-surface);border-radius:var(--radius-lg);padding:var(--space-xl);text-align:center;border:1px solid var(--color-gray-light)}
-  .badge-card .b-ico{width:56px;height:56px;margin:0 auto var(--space-md);border-radius:var(--radius-full);background:var(--color-primary-100);display:flex;align-items:center;justify-content:center;font-size:24px}
-  .badge-card h4{margin:0 0 var(--space-sm);font-family:var(--font-primary);font-weight:700;color:var(--color-primary-900);font-size:16px}
-  .badge-card p{margin:0;font-size:13px;color:var(--color-text-muted);line-height:1.5}
+/* ═══ PAGE DÉSINSECTISATION — PREMIUM STYLES ═══ */
+
+/* Nuisible grid */
+.nuisible-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg);margin-top:var(--space-xl)}
+@media(max-width:900px){.nuisible-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.nuisible-grid{grid-template-columns:1fr}}
+.nuisible-card{background:var(--color-surface);border:1px solid var(--color-gray-light);border-radius:var(--radius-lg);padding:var(--space-xl);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:var(--space-md);transition:transform .2s,box-shadow .2s}
+.nuisible-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(14,5,42,.08);border-color:var(--color-primary-200)}
+.nuisible-card .ni-icon{width:72px;height:72px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center}
+.nuisible-card .ni-icon img{width:56px;height:56px;object-fit:contain}
+.nuisible-card h3{margin:0;font-family:var(--font-primary);font-weight:700;font-size:20px;color:var(--color-primary-900)}
+.nuisible-card p{margin:0;font-size:14px;color:var(--color-text-muted);line-height:1.5}
+.nuisible-card .ni-cta{margin-top:auto;color:var(--color-primary-600);font-family:var(--font-primary);font-weight:700;font-size:14px}
+
+/* Hero enrichi */
+.hero-desinsectisation {
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-pastel-mint-light) 50%, var(--color-pastel-lavender-light) 100%);
+  padding: var(--space-3xl) 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero-desinsectisation::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--color-pastel-mint) 0%, transparent 70%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+.hero-trust-row {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  flex-wrap: wrap;
+}
+.hero-trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-primary-800);
+  background: var(--color-surface);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-primary-200);
+  font-weight: 500;
+}
+.hero-trust-badge svg { width: 16px; height: 16px; color: var(--color-primary-600); flex-shrink: 0; }
+.hero-image-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero-image-wrap img {
+  width: 100%;
+  max-width: 440px;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 60px rgba(14, 5, 42, 0.12);
+}
+.hero-floating-stat {
+  position: absolute;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 12px 18px;
+  box-shadow: 0 8px 24px rgba(14, 5, 42, 0.1);
+  border: 1px solid var(--color-primary-100);
+}
+.hero-floating-stat .stat-val {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color-primary-600);
+  line-height: 1;
+}
+.hero-floating-stat .stat-lbl { font-size: 12px; color: var(--color-primary-800); margin-top: 2px; }
+.hero-floating-stat.top-right { top: 10%; right: -10px; }
+.hero-floating-stat.bottom-left { bottom: 10%; left: -10px; }
+
+/* Stats premium */
+.stats-premium {
+  background: var(--color-surface);
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--color-gray-light);
+}
+.stats-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  text-align: center;
+}
+.stat-card { padding: var(--space-lg); }
+.stat-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto var(--space-sm); font-size: 22px;
+}
+.stat-card .stat-number { font-family: var(--font-primary); font-weight: 700; font-size: 28px; color: var(--color-primary-900); line-height: 1.2; }
+.stat-card .stat-label { font-size: 14px; color: var(--color-primary-800); margin-top: 4px; }
+
+/* Process timeline */
+.process-timeline { position: relative; max-width: 800px; margin: 0 auto; }
+.process-timeline::before {
+  content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--color-primary-200), var(--color-primary-600), var(--color-primary-200));
+}
+.timeline-step { display: flex; gap: var(--space-lg); padding: var(--space-lg) 0; position: relative; }
+.timeline-step:last-child { padding-bottom: 0; }
+.timeline-number {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--color-primary-600); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-primary); font-weight: 700; font-size: 20px;
+  flex-shrink: 0; position: relative; z-index: 1;
+  box-shadow: 0 4px 12px rgba(99, 93, 221, 0.3);
+}
+.timeline-content { flex: 1; padding-top: 8px; }
+.timeline-content h3 { font-size: 20px; margin: 0 0 8px; color: var(--color-primary-900); }
+.timeline-content p { margin: 0; color: var(--color-primary-800); line-height: 1.6; }
+.timeline-content .timeline-detail { margin-top: 8px; font-size: 14px; color: var(--color-primary-600); font-weight: 500; }
+
+/* Badges / Pourquoi Sanalia */
+.badges-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg);margin-top:var(--space-xl)}
+@media(max-width:900px){.badges-grid{grid-template-columns:repeat(2,1fr)}}
+.badge-card{background:var(--color-surface);border-radius:var(--radius-lg);padding:var(--space-xl);text-align:center;border:1px solid var(--color-gray-light);transition:transform .2s,box-shadow .2s}
+.badge-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(14,5,42,.06)}
+.badge-card .b-ico{width:56px;height:56px;margin:0 auto var(--space-md);border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font-size:24px}
+.badge-card h4{margin:0 0 var(--space-sm);font-family:var(--font-primary);font-weight:700;color:var(--color-primary-900);font-size:16px}
+.badge-card p{margin:0;font-size:13px;color:var(--color-text-muted);line-height:1.5}
+
+/* Testimonials premium */
+.testimonial-premium {
+  background: var(--color-surface); border-radius: var(--radius-lg);
+  padding: var(--space-xl); border: 1px solid var(--color-gray-light); position: relative;
+}
+.testimonial-premium::before {
+  content: '"'; position: absolute; top: 12px; left: 20px;
+  font-size: 60px; font-family: serif; color: var(--color-primary-200); line-height: 1;
+}
+.testimonial-premium blockquote { font-size: 15px; line-height: 1.7; color: var(--color-primary-900); margin: 0; padding-left: var(--space-xl); }
+.testimonial-premium .author-row { display: flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-md); padding-left: var(--space-xl); }
+.testimonial-premium .author-avatar {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--color-primary-100);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: var(--color-primary-600); font-size: 16px; flex-shrink: 0;
+}
+.testimonial-premium .author-info strong { display: block; font-size: 15px; color: var(--color-primary-900); }
+.testimonial-premium .author-info span { font-size: 13px; color: var(--color-primary-800); }
+.testimonial-premium .stars { color: #F5A623; font-size: 14px; margin-bottom: var(--space-sm); padding-left: var(--space-xl); }
+
+/* CTA banner premium */
+.cta-banner-premium {
+  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 100%);
+  padding: var(--space-3xl) 0; text-align: center; position: relative; overflow: hidden;
+}
+.cta-banner-premium::before {
+  content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); pointer-events: none;
+}
+.cta-banner-premium h2 { color: #fff; font-size: 32px; margin-bottom: var(--space-sm); }
+.cta-banner-premium p { color: rgba(255,255,255,0.85); font-size: 18px; margin-bottom: var(--space-xl); }
+
+/* Section spacing */
+.section-premium { padding: var(--space-3xl) 0; }
+.section-premium.bg-cream { background: var(--color-bg); }
+.section-premium.bg-white { background: var(--color-surface); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-image-wrap { display: none; }
+  .stats-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .badges-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .stats-grid-4 { grid-template-columns: 1fr; }
+  .hero-trust-row { flex-direction: column; }
+}
 </style>
 </head>
 <body>
@@ -227,29 +399,29 @@
 
         <!-- ═══ NOS IMPLANTATIONS ═══ -->
         <div class="nav-item">
-          <a href="/deratisation/lyon/">Implantations <span class="nav-chevron">&#9662;</span></a>
+          <a href="/implantations/">Implantations <span class="nav-chevron">&#9662;</span></a>
           <div class="mega-menu mega-menu-implantations" style="min-width:640px;">
             <div class="mega-menu-implant-layout">
               <div class="mega-menu-implant-map">
                 <span class="mega-menu-label">Nous intervenons partout en France</span>
-                <svg viewBox="0 0 200 220" width="160" height="176" style="margin:8px auto;display:block;opacity:0.6;">
-                  <path d="M100,10 L140,15 L160,35 L170,65 L155,80 L165,110 L150,140 L160,170 L140,195 L110,200 L80,195 L60,180 L40,155 L30,130 L35,100 L25,75 L40,50 L55,30 L75,15 Z" fill="var(--color-pastel-lavender-light)" stroke="var(--color-primary-200)" stroke-width="1.5"/>
-                </svg>
-                <a href="/deratisation/" class="mega-implant-all">Voir toutes les villes →</a>
+                <div style="text-align:center;padding:var(--space-md) 0;">
+                  <p style="font-size:13px;color:var(--color-primary-800);margin:0 0 var(--space-sm);">10 métropoles, 50+ techniciens</p>
+                  <a href="/implantations/" class="btn btn-primary btn-sm" style="font-size:13px;">Trouver mon agence →</a>
+                </div>
               </div>
               <div class="mega-menu-implant-cities">
                 <span class="mega-menu-label">Nos villes</span>
                 <div class="mega-implant-grid">
-                  <a href="/deratisation/paris/" class="mega-implant-city">Paris</a>
-                  <a href="/deratisation/lyon/" class="mega-implant-city">Lyon</a>
-                  <a href="/deratisation/marseille/" class="mega-implant-city">Marseille</a>
-                  <a href="/deratisation/" class="mega-implant-city">Nantes</a>
-                  <a href="/deratisation/" class="mega-implant-city">Lille</a>
-                  <a href="/deratisation/" class="mega-implant-city">Toulouse</a>
-                  <a href="/deratisation/" class="mega-implant-city">Nice</a>
-                  <a href="/deratisation/bordeaux/" class="mega-implant-city">Bordeaux</a>
-                  <a href="/deratisation/" class="mega-implant-city">Montpellier</a>
-                  <a href="/deratisation/" class="mega-implant-city">Strasbourg</a>
+                  <a href="/implantations/paris/" class="mega-implant-city">Paris</a>
+                  <a href="/implantations/lyon/" class="mega-implant-city">Lyon</a>
+                  <a href="/implantations/marseille/" class="mega-implant-city">Marseille</a>
+                  <a href="/implantations/nantes/" class="mega-implant-city">Nantes</a>
+                  <a href="/implantations/lille/" class="mega-implant-city">Lille</a>
+                  <a href="/implantations/toulouse/" class="mega-implant-city">Toulouse</a>
+                  <a href="/implantations/nice/" class="mega-implant-city">Nice</a>
+                  <a href="/implantations/bordeaux/" class="mega-implant-city">Bordeaux</a>
+                  <a href="/implantations/montpellier/" class="mega-implant-city">Montpellier</a>
+                  <a href="/implantations/strasbourg/" class="mega-implant-city">Strasbourg</a>
                 </div>
               </div>
             </div>
@@ -279,31 +451,65 @@
 </div>
 
 <!-- ════════ HERO ════════ -->
-<section class="hero" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-pastel-mint-light) 100%);">
+<section class="hero-desinsectisation">
   <div class="container">
-    <div class="hero-content">
-      <span class="mono">Service désinsectisation</span>
-      <h1>Désinsectisation — Intervention Rapide, Résultat <span class="accent">Garanti</span></h1>
-      <p>Punaises, cafards, guêpes, fourmis, mouches, puces. Nos techniciens certifiés Certibiocide éliminent durablement tous les insectes nuisibles, avec des produits sécurisés pour votre famille.</p>
-      <div class="hero-actions">
-        <a href="/devis/" class="btn btn-primary btn-lg">Devis gratuit</a>
-        <a href="tel:0667464897" class="btn btn-outline btn-lg">📞 Appeler</a>
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="mono" style="color:#999;">Service désinsectisation</span>
+        <h1 style="font-size:clamp(28px,4vw,44px);line-height:1.15;margin:var(--space-sm) 0 var(--space-md);">Désinsectisation — Intervention Rapide, Résultat <span class="accent">Garanti</span></h1>
+        <p style="font-size:18px;line-height:1.7;color:var(--color-primary-800);max-width:520px;">Punaises de lit, cafards, guêpes, fourmis, puces, moustiques. Nos techniciens certifiés Certibiocide éliminent durablement tous les insectes nuisibles, avec des produits sécurisés pour votre famille et vos animaux.</p>
+        <div class="hero-actions" style="display:flex;gap:var(--space-md);margin-top:var(--space-lg);flex-wrap:wrap;">
+          <a href="/devis/" class="btn btn-primary btn-lg">Demander un devis gratuit</a>
+          <a href="tel:0667464897" class="btn btn-outline btn-lg">📞 06 67 46 48 97</a>
+        </div>
+        <div class="hero-trust-row">
+          <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Certifié Certibiocide</span>
+          <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Sous 48h</span>
+          <span class="hero-trust-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> 6 types d'insectes</span>
+        </div>
+        <div style="margin-top:var(--space-lg);padding:var(--space-sm) var(--space-md);background:var(--color-primary-100);border-radius:var(--radius-md);display:inline-flex;align-items:center;gap:var(--space-sm);font-size:14px;">
+          🏢 Vous êtes professionnel ? <a href="/professionnel/" style="color:var(--color-primary-600);font-weight:700;text-decoration:underline;">Découvrir l'offre pro →</a>
+        </div>
       </div>
-    </div>
-    <div style="margin-top: var(--space-lg); padding: var(--space-md); background: var(--color-primary-100); border-radius: var(--radius-md); display: inline-flex; align-items: center; gap: var(--space-sm); font-size: 14px;">
-      🏢 Vous êtes professionnel ? <a href="/professionnel/" style="color: var(--color-primary-600); font-weight: 700; text-decoration: underline;">Découvrir l'offre pro →</a>
+      <div class="hero-image-wrap">
+        <img src="/assets/hero_technicienne.png" alt="Technicien Sanalia en intervention de désinsectisation" width="440" height="440" loading="eager">
+        <div class="hero-floating-stat top-right">
+          <div class="stat-val">2 000+</div>
+          <div class="stat-lbl">Interventions réalisées</div>
+        </div>
+        <div class="hero-floating-stat bottom-left">
+          <div class="stat-val">4.8/5</div>
+          <div class="stat-lbl">Avis clients Google</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════════ STATS ════════ -->
-<section style="background: var(--color-surface);">
+<section class="stats-premium">
   <div class="container">
-    <div class="stats-row">
-      <div class="stat-item"><div class="stat-number">+2000</div><div class="stat-label">Interventions réalisées</div></div>
-      <div class="stat-item"><div class="stat-number">4,8/5</div><div class="stat-label">Satisfaction clients</div></div>
-      <div class="stat-item"><div class="stat-number">48h</div><div class="stat-label">Délai d'intervention</div></div>
-      <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">Garantie résultat</div></div>
+    <div class="stats-grid-4">
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-mint-light);">⚡</div>
+        <div class="stat-number">48h</div>
+        <div class="stat-label">Délai d'intervention</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-rose-light);">🎯</div>
+        <div class="stat-number">97%</div>
+        <div class="stat-label">Taux de réussite</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-lavender-light);">🛡️</div>
+        <div class="stat-number">6 mois</div>
+        <div class="stat-label">Garantie résultat</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background:var(--color-pastel-gold-light);">👨‍👩‍👧</div>
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Sans danger famille & animaux</div>
+      </div>
     </div>
   </div>
 </section>
@@ -365,93 +571,123 @@
 </section>
 
 <!-- ════════ PROCESS ════════ -->
-<section class="section" style="background: var(--color-surface);">
+<section class="section-premium bg-white">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Notre méthode</span>
+      <span class="mono" style="color:#999;">Notre méthode</span>
       <h2>Une désinsectisation en 4 étapes</h2>
-      <p>Un protocole rigoureux pour identifier, éliminer et prévenir tout retour d'insectes.</p>
+      <p>Un protocole rigoureux mis au point par nos experts Certibiocide pour identifier, éliminer et prévenir tout retour d'insectes.</p>
     </div>
-    <div class="process-steps">
-      <div class="process-step">
-        <h3>Diagnostic gratuit</h3>
-        <p>Inspection complète pour identifier l'espèce, l'ampleur de l'infestation, les zones de nidification et les points d'entrée.</p>
+    <div class="process-timeline">
+      <div class="timeline-step">
+        <div class="timeline-number">1</div>
+        <div class="timeline-content">
+          <h3>Diagnostic gratuit</h3>
+          <p>Inspection complète pour identifier l'espèce, localiser les zones de nidification, évaluer l'ampleur de l'infestation et déterminer les facteurs favorisants (humidité, sources de nourriture, fissures).</p>
+          <div class="timeline-detail">Durée : 30 à 45 minutes</div>
+        </div>
       </div>
-      <div class="process-step">
-        <h3>Traitement adapté</h3>
-        <p>Application ciblée : gel appât, pulvérisation rémanente, nébulisation ou traitement thermique selon le nuisible.</p>
+      <div class="timeline-step">
+        <div class="timeline-number">2</div>
+        <div class="timeline-content">
+          <h3>Traitement ciblé</h3>
+          <p>Application de la méthode la plus adaptée au nuisible identifié : gel appât (cafards, fourmis), pulvérisation rémanente (puces, punaises), nébulisation (mouches) ou traitement thermique (punaises de lit).</p>
+          <div class="timeline-detail">Produits certifiés ANSES</div>
+        </div>
       </div>
-      <div class="process-step">
-        <h3>Suivi & contrôle</h3>
-        <p>Passage de contrôle 10 à 21 jours plus tard pour vérifier l'éradication et renforcer si besoin.</p>
+      <div class="timeline-step">
+        <div class="timeline-number">3</div>
+        <div class="timeline-content">
+          <h3>Suivi et contrôle</h3>
+          <p>Passage de contrôle 10 à 21 jours après le traitement pour vérifier l'éradication complète et renforcer le dispositif si nécessaire. Ajustement gratuit inclus.</p>
+          <div class="timeline-detail">Contrôle inclus dans le tarif</div>
+        </div>
       </div>
-      <div class="process-step">
-        <h3>Garantie résultat</h3>
-        <p>Nous garantissons l'efficacité de nos traitements. Aucun résultat ? Nous intervenons à nouveau gratuitement.</p>
+      <div class="timeline-step">
+        <div class="timeline-number">4</div>
+        <div class="timeline-content">
+          <h3>Garantie résultat</h3>
+          <p>Nous garantissons l'efficacité de nos traitements pendant 3 à 6 mois selon l'espèce. En cas de réapparition, nous réintervenons gratuitement et sans condition.</p>
+          <div class="timeline-detail">Garantie 3 à 6 mois selon l'espèce</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════ POURQUOI SANALIA ════════ -->
-<section class="section">
+<!-- ════════ CONCRÈTEMENT ════════ -->
+<section class="section-premium bg-cream">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Pourquoi Sanalia</span>
-      <h2>Une désinsectisation professionnelle, durable et sécurisée</h2>
+      <span class="mono" style="color:#999;">Concrètement</span>
+      <h2>Ce que Sanalia fait que les autres ne font pas</h2>
+      <p>Pas de discours marketing. Voici ce qui se passe réellement quand vous nous appelez.</p>
     </div>
     <div class="badges-grid">
       <div class="badge-card">
-        <div class="b-ico">✓</div>
-        <h4>Certibiocide</h4>
-        <p>Techniciens certifiés, produits homologués ANSES, traçabilité complète.</p>
+        <div class="b-ico" style="background:var(--color-pastel-mint-light);">📱</div>
+        <h4>Suivi par WhatsApp</h4>
+        <p>Votre technicien vous envoie des photos de l'avancement : zones traitées, pièges posés, résultats des contrôles. Vous suivez tout en temps réel.</p>
       </div>
       <div class="badge-card">
-        <div class="b-ico">🛡️</div>
-        <h4>Sans danger</h4>
-        <p>Produits sécurisés enfants et animaux domestiques une fois secs.</p>
+        <div class="b-ico" style="background:var(--color-pastel-lavender-light);">👤</div>
+        <h4>Un expert dédié</h4>
+        <p>Pas de plateforme anonyme. Un technicien attitré qui connaît votre logement. C'est lui que vous appelez, c'est lui qui revient.</p>
       </div>
       <div class="badge-card">
-        <div class="b-ico">⚡</div>
-        <h4>Intervention 48h</h4>
-        <p>Rapidité garantie à Lyon et Paris, 7j/7, urgences sous 4h.</p>
+        <div class="b-ico" style="background:var(--color-pastel-rose-light);">🔁</div>
+        <h4>Checks réguliers</h4>
+        <p>Contrôles programmés à J+10, J+21 et J+60. Pas un simple passage : vérification complète de chaque zone traitée.</p>
       </div>
       <div class="badge-card">
-        <div class="b-ico">🏆</div>
-        <h4>Garantie résultat</h4>
-        <p>Engagement écrit : si le problème persiste, nous revenons sans frais.</p>
+        <div class="b-ico" style="background:var(--color-pastel-gold-light);">📋</div>
+        <h4>Rapport détaillé</h4>
+        <p>À chaque visite, un rapport avec photos : espèce identifiée, traitement appliqué, zones à surveiller. Utile pour votre assurance ou votre bailleur.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════════ TESTIMONIALS ════════ -->
-<section class="section" style="background: var(--color-surface);">
+<section class="section-premium bg-white">
   <div class="container">
     <div class="section-header">
-      <span class="mono">Témoignages</span>
+      <span class="mono" style="color:#999;">Témoignages</span>
       <h2>Ils nous ont fait confiance</h2>
+      <p>Plus de 2 000 interventions réalisées. Voici ce que nos clients en disent.</p>
     </div>
-    <div class="grid grid-2">
-      <div class="card card-testimonial">
+    <div class="grid grid-2" style="gap:var(--space-lg);">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« Invasion de cafards dans la cuisine après notre retour de vacances. Sanalia est intervenu le lendemain. Plus un seul cafard depuis 4 mois. Je recommande à 100%. »</blockquote>
-        <div class="author"><strong>Amélie R.</strong> — Lyon 7</div>
+        <blockquote>Invasion de cafards dans la cuisine après notre retour de vacances. Sanalia est intervenu le lendemain. Plus un seul cafard depuis 4 mois. Je recommande à 100%.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">AR</div>
+          <div class="author-info"><strong>Amélie R.</strong><span>Lyon 7 — Appartement</span></div>
+        </div>
       </div>
-      <div class="card card-testimonial">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« Nid de guêpes sous le toit, nous avions peur pour les enfants. Technicien équipé, pro, rapide. Tout a été retiré en 30 minutes. Merci Sanalia. »</blockquote>
-        <div class="author"><strong>Julien P.</strong> — Villeurbanne</div>
+        <blockquote>Nid de guêpes sous le toit, nous avions peur pour les enfants. Technicien équipé, professionnel, rapide. Tout a été retiré en 30 minutes. Merci Sanalia.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">JP</div>
+          <div class="author-info"><strong>Julien P.</strong><span>Villeurbanne — Maison</span></div>
+        </div>
       </div>
-      <div class="card card-testimonial">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« Punaises de lit découvertes après un séjour à l'hôtel. Traitement en 2 passages, suivi sérieux, problème résolu. Équipe rassurante et discrète. »</blockquote>
-        <div class="author"><strong>Sarah L.</strong> — Paris 10</div>
+        <blockquote>Punaises de lit découvertes après un séjour à l'hôtel. Traitement en 2 passages, suivi sérieux, problème résolu. Équipe rassurante et discrète. Un vrai soulagement.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">SL</div>
+          <div class="author-info"><strong>Sarah L.</strong><span>Paris 10 — Appartement T2</span></div>
+        </div>
       </div>
-      <div class="card card-testimonial">
+      <div class="testimonial-premium">
         <div class="stars">★★★★★</div>
-        <blockquote>« Restaurant envahi de mouches et fourmis. Intervention de nuit pour ne pas perturber le service. Résultat impeccable et contrat d'entretien très rassurant. »</blockquote>
-        <div class="author"><strong>Thierry M.</strong> — Paris 15</div>
+        <blockquote>Restaurant envahi de mouches et fourmis. Intervention de nuit pour ne pas perturber le service. Résultat impeccable et contrat d'entretien annuel très rassurant.</blockquote>
+        <div class="author-row">
+          <div class="author-avatar">TM</div>
+          <div class="author-info"><strong>Thierry M.</strong><span>Paris 15 — Restaurateur</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -470,7 +706,7 @@
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Combien coûte une désinsectisation ? <span class="icon-toggle">+</span></button>
-      <div class="accordion-body"><div class="accordion-body-inner">Le prix varie selon le nuisible, la surface et le niveau d'infestation : de 120€ pour un traitement ponctuel (fourmis, guêpes) à 600€ pour un traitement complet de maison (punaises, cafards). Un devis gratuit et sans engagement est établi après diagnostic.</div></div>
+      <div class="accordion-body"><div class="accordion-body-inner">Le prix varie selon le type d'insecte, la surface du logement et le niveau d'infestation. Chaque situation étant unique, nous établissons un devis personnalisé gratuit et sans engagement après diagnostic. <a href="/devis/">Demandez votre devis</a>.</div></div>
     </div>
     <div class="accordion-item">
       <button class="accordion-header">Les produits utilisés sont-ils dangereux pour ma famille ? <span class="icon-toggle">+</span></button>
@@ -492,13 +728,18 @@
 </section>
 
 <!-- ════════ CTA BANNER ════════ -->
-<section class="cta-banner">
-  <div class="container">
-    <h2>Un problème d'insectes ?</h2>
-    <p>Nos techniciens certifiés interviennent sous 48h. Devis gratuit, résultat garanti.</p>
-    <div class="flex-center gap-md" style="flex-wrap: wrap;">
-      <a href="/devis/" class="btn btn-primary btn-lg">Devis gratuit</a>
-      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff; border-color:#fff;">📞 06 67 46 48 97</a>
+<section class="cta-banner-premium">
+  <div class="container" style="position:relative;z-index:1;">
+    <h2>Un problème d'insectes nuisibles ?</h2>
+    <p>Nos techniciens certifiés interviennent sous 48h. Devis gratuit en 2h, résultat garanti jusqu'à 6 mois.</p>
+    <div class="flex-center gap-md" style="flex-wrap:wrap;">
+      <a href="/devis/" class="btn btn-secondary btn-lg" style="background:#fff;color:var(--color-primary-900);">Demander un devis gratuit</a>
+      <a href="tel:0667464897" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.4);">📞 06 67 46 48 97</a>
+    </div>
+    <div style="margin-top:var(--space-lg);display:flex;justify-content:center;gap:var(--space-xl);flex-wrap:wrap;">
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Devis en 2h</span>
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Sans engagement</span>
+      <span style="color:rgba(255,255,255,0.7);font-size:14px;display:flex;align-items:center;gap:6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Urgences sous 4h</span>
     </div>
   </div>
 </section>
