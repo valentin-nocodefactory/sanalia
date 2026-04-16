@@ -3193,9 +3193,32 @@ html { scroll-padding-top: 120px; }
 .blog-layout--3col > .blog-share-col,
 .blog-layout--3col > .blog-sidebar { align-self: start; position: sticky; top: 120px; }
 .blog-layout--3col > .blog-share-col { top: 140px; }
-.blog-layout--3col > .blog-sidebar { max-height: calc(100vh - 140px); overflow-y: auto; padding-right: 4px; }
-.blog-layout--3col > .blog-sidebar::-webkit-scrollbar { width: 6px; }
-.blog-layout--3col > .blog-sidebar::-webkit-scrollbar-thumb { background: var(--color-gray-light, #E5E5E5); border-radius: 3px; }
-/* Le TOC interne ne doit plus être sticky (la colonne entière l'est) */
+.blog-layout--3col > .blog-sidebar {
+  max-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: visible;
+}
+/* TOC scrolle en interne si trop long, CTA devis toujours visible en bas */
 .blog-layout--3col > .blog-sidebar .blog-toc,
-.blog-layout--3col > .blog-sidebar .sidebar-sticky { position: static; top: auto; }
+.blog-layout--3col > .blog-sidebar .sidebar-sticky {
+  position: static;
+  top: auto;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gray-light, #E5E5E5) transparent;
+}
+.blog-layout--3col > .blog-sidebar .blog-toc::-webkit-scrollbar,
+.blog-layout--3col > .blog-sidebar .sidebar-sticky::-webkit-scrollbar { width: 4px; }
+.blog-layout--3col > .blog-sidebar .blog-toc::-webkit-scrollbar-thumb,
+.blog-layout--3col > .blog-sidebar .sidebar-sticky::-webkit-scrollbar-thumb { background: var(--color-gray-light, #E5E5E5); border-radius: 2px; }
+/* CTA widget toujours visible, ne scrolle pas */
+.blog-layout--3col > .blog-sidebar .cta-sidebar-widget {
+  flex-shrink: 0;
+  position: static;
+  top: auto;
+}
