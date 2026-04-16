@@ -1728,6 +1728,58 @@ img, video, svg {
 .mega-implant-city { display: block; padding: 8px 14px; border-radius: var(--radius-md); font-size: 13px; color: var(--color-primary-900); text-decoration: none; transition: background 0.15s; }
 .mega-implant-city:hover { background: var(--color-bg); }
 
+/* ═══ TRUST RATINGS WIDGET — Simple ═══ */
+.trust-ratings {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.trust-rating-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: var(--color-primary-900);
+  font-family: var(--font-primary);
+  line-height: 1;
+}
+.trust-rating-item .tr-star-green {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.trust-rating-item .tr-star-green svg {
+  width: 20px;
+  height: 20px;
+  fill: #22C55E;
+}
+.trust-rating-item .tr-google-logo {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.trust-rating-item .tr-google-logo svg {
+  width: 20px;
+  height: 20px;
+}
+.trust-rating-item strong {
+  font-weight: 700;
+  color: var(--color-primary-900);
+}
+.trust-rating-item .tr-score {
+  color: var(--color-primary-800);
+  font-weight: 500;
+}
+@media (max-width: 560px) {
+  .trust-ratings { gap: 16px; }
+  .trust-rating-item { font-size: 14px; }
+}
+
 /* ═══ MEGA-MENU GUIDES — Premium ═══ */
 .mega-menu-guides { padding: 0 !important; }
 .mega-guides-grid {
