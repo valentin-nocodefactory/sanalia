@@ -42,8 +42,8 @@
 }
 </script>
 <link rel="stylesheet" href="/tokens.css">
-<link rel="stylesheet" href="/css/base.css?v=20260417e">
-<link rel="stylesheet" href="/css/components.css?v=20260417e">
+<link rel="stylesheet" href="/css/base.css?v=20260417f">
+<link rel="stylesheet" href="/css/components.css?v=20260417f">
 <style>
 /* ═══════════════════════════════════════════════════
    DEVIS — Minimal header + Multi-step form
@@ -360,6 +360,17 @@
   .devis-msf-row .devis-msf-field { margin-bottom: 14px; }
 }
 .devis-msf-field { margin-bottom: 14px; }
+/* CP + Ville reveal block (revealed after address selection or manual mode) */
+.devis-msf-cpville {
+  margin-top: 14px;
+  margin-bottom: 4px;
+  animation: msf-cpville-in 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.devis-msf-cpville[hidden] { display: none; }
+@keyframes msf-cpville-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 .devis-msf-field label {
   display: block;
   font-family: var(--font-primary);
@@ -1975,11 +1986,12 @@
           </div>
 
           <!-- Progress indicator -->
-          <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/<span id="msfStepTotal">3</span></div>
+          <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/<span id="msfStepTotal">4</span></div>
           <div class="devis-msf-progress" id="msfProgressBar">
             <div class="devis-msf-progress-step active" data-step="1"></div>
             <div class="devis-msf-progress-step" data-step="2"></div>
             <div class="devis-msf-progress-step" data-step="3"></div>
+            <div class="devis-msf-progress-step" data-step="4"></div>
           </div>
 
           <div class="devis-msf-step-wrap">
@@ -2028,12 +2040,11 @@
             <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext1" style="display:none;" disabled>Continuer</button>
           </div>
 
-          <!-- ─── Step 2: Statut + Adresse ─── -->
+          <!-- ─── Step 2: Statut ─── -->
           <div class="devis-msf-step" data-step="2">
-            <h2>Où et pour qui ?</h2>
-            <p class="devis-msf-sub">Votre statut et l'adresse d'intervention.</p>
+            <h2>Vous êtes…</h2>
+            <p class="devis-msf-sub">Cela nous aide à adapter le devis à votre situation.</p>
 
-            <label style="display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px;">Vous êtes…</label>
             <div class="devis-msf-radios">
               <label class="devis-msf-radio">
                 <input type="radio" name="statut" value="proprietaire" required>
@@ -2057,10 +2068,26 @@
               </label>
             </div>
 
-            <div class="devis-msf-field devis-msf-autocomplete" style="margin-top:14px;" id="msfAddressField">
-              <label for="msf-address"><span id="msfAddressLabel">Adresse de l'intervention</span></label>
+            <div class="devis-msf-actions">
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                <span class="sr-only">Retour</span>
+              </button>
+              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext2" disabled>
+                Continuer
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ─── Step 3: Adresse ─── -->
+          <div class="devis-msf-step" data-step="3">
+            <h2>Adresse d'intervention</h2>
+            <p class="devis-msf-sub">Saisissez votre adresse — code postal et ville se rempliront tout seuls.</p>
+
+            <div class="devis-msf-field devis-msf-autocomplete" id="msfAddressField">
+              <label for="msf-address"><span id="msfAddressLabel">Adresse</span></label>
               <input type="text" id="msf-address" name="address" autocomplete="street-address" placeholder="Ex : 15 rue de Rivoli, Paris">
-              <input type="hidden" name="postalcode" id="msf-postalcode">
               <input type="hidden" name="address_unknown" id="msf-address-unknown" value="false">
               <div class="devis-msf-suggestions" id="msfSuggestions"></div>
               <button type="button" class="devis-msf-unknown-address" id="msfUnknownAddress">
@@ -2073,12 +2100,26 @@
               </button>
             </div>
 
+            <!-- CP + Ville : revealed after autocomplete selection or manual mode -->
+            <div class="devis-msf-cpville" id="msfCpVille" hidden>
+              <div class="devis-msf-row">
+                <div class="devis-msf-field">
+                  <label for="msf-postalcode">Code postal</label>
+                  <input type="text" id="msf-postalcode" name="postalcode" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="75001">
+                </div>
+                <div class="devis-msf-field">
+                  <label for="msf-city">Ville</label>
+                  <input type="text" id="msf-city" name="city" autocomplete="address-level2" placeholder="Paris">
+                </div>
+              </div>
+            </div>
+
             <div class="devis-msf-actions">
-              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="1">
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                 <span class="sr-only">Retour</span>
               </button>
-              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext2" disabled>
+              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext3" disabled>
                 Continuer
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
@@ -2144,7 +2185,7 @@
             </div>
 
             <div class="devis-msf-actions">
-              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="2">
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="3">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                 <span class="sr-only">Retour</span>
               </button>
@@ -2155,8 +2196,8 @@
             </div>
           </div>
 
-          <!-- ─── Step 3 / 4: Contact ─── -->
-          <div class="devis-msf-step" data-step="3">
+          <!-- ─── Step 4: Contact ─── -->
+          <div class="devis-msf-step" data-step="4">
             <h2>Recevez votre devis</h2>
             <p class="devis-msf-sub">Dernière étape. Devis sous 2h, sans engagement.</p>
 
@@ -2822,7 +2863,7 @@ body.is-embed .devis-msf {
 </div>
 <!-- Mobile sticky CTA removed on devis page — we are ON the devis page -->
 <div data-component="mobile-sticky-cta-skip"></div>
-<script src="/js/app.js?v=20260417e"></script>
+<script src="/js/app.js?v=20260417f"></script>
 <script src="/js/phone-widget.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════
@@ -2848,9 +2889,10 @@ body.is-embed .devis-msf {
   var totalEl = document.getElementById('msfStepTotal');
   var next1 = document.getElementById('msfNext1');
   var next2 = document.getElementById('msfNext2');
+  var next3 = document.getElementById('msfNext3');
   var nextPro = document.getElementById('msfNextPro');
   var submitBtn = document.getElementById('msfSubmit');
-  // currentStep can be: 1, 2, 'pro', 3
+  // currentStep can be: 1 (nuisible), 2 (statut), 3 (adresse), 'pro' (entreprise), 4 (contact)
   var currentStep = 1;
 
   function isProFlow() {
@@ -2865,25 +2907,25 @@ body.is-embed .devis-msf {
       el.classList.toggle('is-active', String(s) === String(n));
     });
 
-    // Progress bar: 3 segments default / 4 if pro
+    // Progress bar: 4 segments default, 5 if pro
     var pro = isProFlow();
-    if (totalEl) totalEl.textContent = pro ? '4' : '3';
-
-    // Rebuild progress bar to match flow
     var stepIndex, totalSteps;
     if (pro) {
-      totalSteps = 4;
-      if (n === 1) stepIndex = 1;
-      else if (n === 2) stepIndex = 2;
-      else if (n === 'pro') stepIndex = 3;
-      else if (n === 3) stepIndex = 4;
-    } else {
-      totalSteps = 3;
+      totalSteps = 5;
       if (n === 1) stepIndex = 1;
       else if (n === 2) stepIndex = 2;
       else if (n === 3) stepIndex = 3;
+      else if (n === 'pro') stepIndex = 4;
+      else if (n === 4) stepIndex = 5;
+    } else {
+      totalSteps = 4;
+      if (n === 1) stepIndex = 1;
+      else if (n === 2) stepIndex = 2;
+      else if (n === 3) stepIndex = 3;
+      else if (n === 4) stepIndex = 4;
       else stepIndex = 2;
     }
+    if (totalEl) totalEl.textContent = totalSteps;
     if (currentEl) currentEl.textContent = stepIndex;
 
     // Rebuild dots
@@ -2916,11 +2958,22 @@ body.is-embed .devis-msf {
     var nuisible = form.querySelector('input[name="nuisible"]:checked');
     next1.disabled = !nuisible;
   }
-  // Step 2: statut + address (same input, even in manual mode)
+  // Step 2: statut only
   function validateStep2() {
     var statut = form.querySelector('input[name="statut"]:checked');
+    next2.disabled = !statut;
+  }
+  // Step 3: adresse + (cp + ville si visibles)
+  function validateStep3() {
     var address = form.querySelector('#msf-address').value.trim();
-    next2.disabled = !(statut && address.length >= 5);
+    var cpVilleVisible = !document.getElementById('msfCpVille').hasAttribute('hidden');
+    var ok = address.length >= 5;
+    if (cpVilleVisible) {
+      var cp = (form.querySelector('#msf-postalcode').value || '').trim();
+      var city = (form.querySelector('#msf-city').value || '').trim();
+      ok = ok && /^\d{5}$/.test(cp) && city.length >= 2;
+    }
+    next3.disabled = !ok;
   }
   // Step Pro: secteur + demande type
   function validateStepPro() {
@@ -2929,17 +2982,24 @@ body.is-embed .devis-msf {
     if (nextPro) nextPro.disabled = !(secteur && demande);
   }
 
-  form.addEventListener('change', function() { validateStep1(); validateStep2(); validateStepPro(); });
-  form.querySelector('#msf-address').addEventListener('input', validateStep2);
+  form.addEventListener('change', function() {
+    validateStep1();
+    validateStep2();
+    validateStep3();
+    validateStepPro();
+  });
+  form.querySelector('#msf-address').addEventListener('input', validateStep3);
+  form.querySelector('#msf-postalcode').addEventListener('input', validateStep3);
+  form.querySelector('#msf-city').addEventListener('input', validateStep3);
 
   next1.addEventListener('click', function(e) { e.preventDefault(); setStep(2); });
-  next2.addEventListener('click', function(e) {
+  next2.addEventListener('click', function(e) { e.preventDefault(); setStep(3); });
+  next3.addEventListener('click', function(e) {
     e.preventDefault();
-    // Branch: if pro → step pro, else → step 3
     if (isProFlow()) setStep('pro');
-    else setStep(3);
+    else setStep(4);
   });
-  if (nextPro) nextPro.addEventListener('click', function(e) { e.preventDefault(); setStep(3); });
+  if (nextPro) nextPro.addEventListener('click', function(e) { e.preventDefault(); setStep(4); });
 
   // Back buttons — event delegation (handles "auto" which depends on flow)
   form.addEventListener('click', function(e) {
@@ -2950,12 +3010,12 @@ body.is-embed .devis-msf {
     var raw = back.getAttribute('data-back-to');
     var target;
     if (raw === 'auto') {
-      target = isProFlow() ? 'pro' : 2;
+      target = isProFlow() ? 'pro' : 3;
     } else if (raw === 'pro') {
       target = 'pro';
     } else {
       var parsed = parseInt(raw, 10);
-      target = (parsed >= 1 && parsed <= 3) ? parsed : 1;
+      target = (parsed >= 1 && parsed <= 4) ? parsed : 1;
     }
     setStep(target);
   });
@@ -2972,7 +3032,7 @@ body.is-embed .devis-msf {
     });
   });
 
-  // "Je ne trouve pas mon adresse" — keeps the SAME input but switches it to free-text mode
+  // "Je ne trouve pas mon adresse" — switches to manual mode (CP + ville editable libres)
   var addressField = document.getElementById('msfAddressField');
   var unknownBtn = document.getElementById('msfUnknownAddress');
   var resetBtn = document.getElementById('msfUnknownReset');
@@ -2980,28 +3040,45 @@ body.is-embed .devis-msf {
   var addressInputEl = document.getElementById('msf-address');
   var addressLabelEl = document.getElementById('msfAddressLabel');
   var suggestionsEl2 = document.getElementById('msfSuggestions');
+  var cpVilleWrap = document.getElementById('msfCpVille');
+  var cpInput = document.getElementById('msf-postalcode');
+  var cityInput = document.getElementById('msf-city');
+
+  function showCpVille() {
+    if (!cpVilleWrap) return;
+    cpVilleWrap.removeAttribute('hidden');
+    cpVilleWrap.classList.add('is-revealed');
+  }
+  function hideCpVille() {
+    if (!cpVilleWrap) return;
+    cpVilleWrap.setAttribute('hidden', '');
+    cpVilleWrap.classList.remove('is-revealed');
+  }
 
   unknownBtn.addEventListener('click', function() {
     addressField.classList.add('is-unknown');
     unknownInput.value = 'true';
-    // Keep whatever the user typed, just switch to free-text (disable autocomplete queries)
     if (addressLabelEl) addressLabelEl.textContent = 'Saisissez votre adresse manuellement';
-    addressInputEl.placeholder = 'N° et nom de rue, code postal, ville';
+    addressInputEl.placeholder = 'N° et nom de rue';
     if (suggestionsEl2) suggestionsEl2.classList.remove('is-open');
+    // Reveal CP + ville for free input
+    showCpVille();
     setTimeout(function() {
       addressInputEl.focus();
       var len = addressInputEl.value.length;
       addressInputEl.setSelectionRange(len, len);
     }, 50);
-    validateStep2();
+    validateStep3();
   });
   resetBtn.addEventListener('click', function() {
     addressField.classList.remove('is-unknown');
     unknownInput.value = 'false';
-    if (addressLabelEl) addressLabelEl.textContent = 'Adresse de l\'intervention';
+    if (addressLabelEl) addressLabelEl.textContent = 'Adresse';
     addressInputEl.placeholder = 'Ex : 15 rue de Rivoli, Paris';
+    // Hide CP+ville again unless they have content (preserve user input safety)
+    if (!cpInput.value && !cityInput.value) hideCpVille();
     addressInputEl.focus();
-    validateStep2();
+    validateStep3();
   });
 
   // Embed mode: called via iframe from callback modal — hide page chrome
@@ -3101,11 +3178,22 @@ body.is-embed .devis-msf {
     }
   });
 
-  // Address autocomplete via Nominatim (OSM)
+  // Address autocomplete via Nominatim (OSM) — parse address into street + CP + city
   var addressInput = document.getElementById('msf-address');
   var suggestionsEl = document.getElementById('msfSuggestions');
-  var postalcodeHidden = document.getElementById('msf-postalcode');
   var debounceTimer;
+
+  function buildStreet(addr) {
+    if (!addr) return '';
+    var nb = addr.house_number || '';
+    var road = addr.road || addr.pedestrian || addr.footway || addr.path || '';
+    var s = (nb + ' ' + road).trim();
+    return s;
+  }
+  function pickCity(addr) {
+    if (!addr) return '';
+    return addr.city || addr.town || addr.village || addr.municipality || addr.suburb || '';
+  }
 
   addressInput.addEventListener('input', function(e) {
     clearTimeout(debounceTimer);
@@ -3127,20 +3215,41 @@ body.is-embed .devis-msf {
             suggestionsEl.classList.remove('is-open');
             return;
           }
-          suggestionsEl.innerHTML = data.map(function(r) {
-            var postcode = (r.address && r.address.postcode) || '';
+          // Pre-parse all suggestions into a closure-side array (avoids HTML attr escaping bugs)
+          var parsedSuggestions = data.map(function(r) {
             var label = r.display_name.split(',').slice(0, 3).join(',');
-            return '<div class="devis-msf-suggestion" data-address="' + r.display_name.replace(/"/g, '&quot;') + '" data-postcode="' + postcode + '">' +
+            return {
+              street: buildStreet(r.address) || label.split(',')[0].trim(),
+              postcode: (r.address && r.address.postcode) || '',
+              city: pickCity(r.address),
+              full: r.display_name,
+              label: label
+            };
+          });
+          function escapeHtml(s) {
+            return String(s).replace(/[&<>"']/g, function(c) {
+              return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+            });
+          }
+          suggestionsEl.innerHTML = parsedSuggestions.map(function(p, idx) {
+            return '<div class="devis-msf-suggestion" data-idx="' + idx + '">' +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
-              '<span>' + label + '</span></div>';
+              '<span>' + escapeHtml(p.label) + '</span></div>';
           }).join('');
           suggestionsEl.classList.add('is-open');
           suggestionsEl.querySelectorAll('.devis-msf-suggestion').forEach(function(s) {
             s.addEventListener('click', function() {
-              addressInput.value = this.dataset.address;
-              postalcodeHidden.value = this.dataset.postcode;
+              var idx = parseInt(this.dataset.idx, 10);
+              var parsed = parsedSuggestions[idx] || {};
+              // Fill street into address input (CP + ville go in their own fields)
+              addressInput.value = parsed.street || parsed.full || '';
+              cpInput.value = parsed.postcode || '';
+              cityInput.value = parsed.city || '';
               suggestionsEl.classList.remove('is-open');
-              validateStep1();
+              showCpVille();
+              validateStep3();
+              // If CP missing from suggestion, focus CP for completion
+              if (!parsed.postcode) setTimeout(function() { cpInput.focus(); }, 100);
             });
           });
         })
