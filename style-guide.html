@@ -465,9 +465,135 @@
     </div>
   </div>
 
-  <!-- 06 — COMPOSANTS UI -->
+  <!-- 06 — INPUTS & FORM CONTROLS -->
   <div class="sg-section">
-    <div class="sg-section-title">06 — Composants UI</div>
+    <div class="sg-section-title">06 — Inputs & Form Controls</div>
+    <p style="font-family:'Space Mono',monospace;font-size:12px;color:#999;margin:0 0 24px;text-transform:uppercase;letter-spacing:0.04em;">Issus de la page /devis/ (référence canonique des form controls Sanalia)</p>
+
+    <!-- Text inputs -->
+    <div class="sg-component-card" style="margin-bottom:24px;background:white;">
+      <div class="sg-component-label">Text input</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;">
+        <div>
+          <label style="display:block;font-family:'Uxum',sans-serif;font-weight:600;font-size:13px;color:#0E052A;margin-bottom:6px;">Prénom</label>
+          <input type="text" placeholder="Marie" style="width:100%;padding:13px 14px;border:1.5px solid #E5E5E5;border-radius:10px;font-size:15px;font-family:'Uxum',sans-serif;color:#0E052A;background:#fff;box-sizing:border-box;outline:none;transition:border-color 0.2s,box-shadow 0.2s;" onfocus="this.style.borderColor='#635DDD';this.style.boxShadow='0 0 0 3px rgba(99,93,221,0.12)';" onblur="this.style.borderColor='#E5E5E5';this.style.boxShadow='none';">
+        </div>
+        <div>
+          <label style="display:block;font-family:'Uxum',sans-serif;font-weight:600;font-size:13px;color:#0E052A;margin-bottom:6px;">Email</label>
+          <input type="email" placeholder="marie.durand@exemple.fr" style="width:100%;padding:13px 14px;border:1.5px solid #635DDD;border-radius:10px;font-size:15px;font-family:'Uxum',sans-serif;color:#0E052A;background:#fff;box-sizing:border-box;outline:none;box-shadow:0 0 0 3px rgba(99,93,221,0.12);">
+        </div>
+      </div>
+      <div style="font-size:12px;color:#666;font-family:'Space Mono',monospace;line-height:1.9;margin-top:12px;">
+        <div>padding: 13px 14px · border: 1.5px solid #E5E5E5 · radius: 10px</div>
+        <div>focus: border #635DDD · box-shadow: 0 0 0 3px rgba(99,93,221,0.12)</div>
+      </div>
+    </div>
+
+    <!-- Radio cards (nuisible cards) -->
+    <div class="sg-component-card" style="margin-bottom:24px;background:white;">
+      <div class="sg-component-label">Radio cards visuelles (nuisibles)</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;">
+        <label style="position:relative;padding:12px 8px;background:#E9E8FF;border:2px solid #635DDD;border-radius:12px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 0 0 3px rgba(99,93,221,0.12);">
+          <div style="width:36px;height:36px;background:#FBF2FF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#635DDD;font-weight:700;">A</div>
+          <span style="font-family:'Uxum',sans-serif;font-weight:600;font-size:13px;color:#0E052A;">Sélectionné</span>
+        </label>
+        <label style="position:relative;padding:12px 8px;background:#F6F5F0;border:2px solid transparent;border-radius:12px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:36px;height:36px;background:#FBF2FF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#635DDD;font-weight:700;">B</div>
+          <span style="font-family:'Uxum',sans-serif;font-weight:600;font-size:13px;color:#0E052A;">Hover</span>
+        </label>
+        <label style="position:relative;padding:12px 8px;background:#F6F5F0;border:2px solid transparent;border-radius:12px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="width:36px;height:36px;background:#FBF2FF;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#635DDD;font-weight:700;">C</div>
+          <span style="font-family:'Uxum',sans-serif;font-weight:600;font-size:13px;color:#0E052A;">Default</span>
+        </label>
+      </div>
+      <div style="font-size:12px;color:#666;font-family:'Space Mono',monospace;line-height:1.9;margin-top:12px;">
+        <div>padding: 12px 8px · border: 2px solid transparent · radius: 12px · bg: #F6F5F0</div>
+        <div>selected: bg #E9E8FF · border #635DDD · box-shadow: 0 0 0 3px rgba(99,93,221,0.12)</div>
+      </div>
+    </div>
+
+    <!-- Radio pills (statut) -->
+    <div class="sg-component-card" style="margin-bottom:24px;background:white;">
+      <div class="sg-component-label">Radio pills (statut)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;">
+        <label style="position:relative;padding:14px 16px;background:#E9E8FF;border:2px solid #635DDD;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:10px;">
+          <span style="width:18px;height:18px;border-radius:50%;border:2px solid #635DDD;position:relative;flex-shrink:0;">
+            <span style="position:absolute;inset:3px;border-radius:50%;background:#635DDD;display:block;"></span>
+          </span>
+          <span style="font-family:'Uxum',sans-serif;font-weight:600;font-size:14px;color:#0E052A;">Propriétaire</span>
+        </label>
+        <label style="position:relative;padding:14px 16px;background:#F6F5F0;border:2px solid transparent;border-radius:12px;cursor:pointer;display:flex;align-items:center;gap:10px;">
+          <span style="width:18px;height:18px;border-radius:50%;border:2px solid #E5E5E5;flex-shrink:0;"></span>
+          <span style="font-family:'Uxum',sans-serif;font-weight:600;font-size:14px;color:#0E052A;">Locataire</span>
+        </label>
+      </div>
+      <div style="font-size:12px;color:#666;font-family:'Space Mono',monospace;line-height:1.9;margin-top:12px;">
+        padding: 14px 16px · radius: 12px · check: 18x18 circle, inner dot 12x12
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="sg-component-card" style="margin-bottom:24px;background:white;">
+      <div class="sg-component-label">Progress bar (multi-step)</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px;">Étape 2/3</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="flex:1;height:4px;border-radius:4px;background:#635DDD;"></div>
+        <div style="flex:1;height:4px;border-radius:4px;background:#635DDD;"></div>
+        <div style="flex:1;height:4px;border-radius:4px;background:#E5E5E5;"></div>
+      </div>
+      <div style="font-size:12px;color:#666;font-family:'Space Mono',monospace;line-height:1.9;margin-top:12px;">
+        height: 4px · radius: 4px · active: #635DDD · inactive: #E5E5E5
+      </div>
+    </div>
+
+    <!-- Availability badge -->
+    <div class="sg-component-card" style="margin-bottom:24px;background:white;">
+      <div class="sg-component-label">Badge "Offre du mois"</div>
+      <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(34,197,94,0.08);color:#15803d;font-family:'Uxum',sans-serif;font-weight:600;font-size:12px;padding:6px 12px 6px 10px;border-radius:50px;border:1px solid rgba(34,197,94,0.2);">
+        <span style="width:7px;height:7px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 2px rgba(34,197,94,0.25);"></span>
+        Offre du mois · 1<sup>ère</sup> intervention offerte
+      </div>
+      <div style="font-size:12px;color:#666;font-family:'Space Mono',monospace;line-height:1.9;margin-top:12px;">
+        bg: rgba(34,197,94,0.08) · color: #15803D · border: 1px rgba(34,197,94,0.2) · radius: 50px
+      </div>
+    </div>
+
+    <!-- Phone button navbar -->
+    <div class="sg-component-card" style="margin-bottom:24px;background:white;">
+      <div class="sg-component-label">Bouton téléphone (avatar vert pulsant)</div>
+      <a href="#" onclick="return false;" style="display:inline-flex;align-items:center;gap:10px;font-family:'Uxum',sans-serif;text-decoration:none;padding:8px 18px 8px 8px;border-radius:50px;background:#fff;border:1px solid rgba(14,5,42,0.08);box-shadow:0 1px 2px rgba(14,5,42,0.04),0 4px 14px -4px rgba(14,5,42,0.08);">
+        <span style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#22C55E 0%,#16A34A 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(34,197,94,0.3);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <span style="font-family:'Uxum',sans-serif;font-weight:700;font-size:15px;color:#0E052A;">06 67 46 48 97</span>
+      </a>
+      <div style="font-size:12px;color:#666;font-family:'Space Mono',monospace;line-height:1.9;margin-top:12px;">
+        avatar: 32x32 radius 50% · bg: linear-gradient(135deg,#22C55E,#16A34A)
+      </div>
+    </div>
+
+    <!-- Form buttons -->
+    <div class="sg-component-card" style="background:white;">
+      <div class="sg-component-label">Boutons form (primary + back)</div>
+      <div style="display:flex;gap:10px;">
+        <button type="button" style="flex:0;padding:14px 16px;background:transparent;color:#34285A;border:1.5px solid #E5E5E5;border-radius:12px;font-family:'Uxum',sans-serif;font-weight:700;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Retour
+        </button>
+        <button type="button" style="flex:1;padding:14px 20px;background:#0E052A;color:#fff;border:none;border-radius:12px;font-family:'Uxum',sans-serif;font-weight:700;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+          Continuer
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div style="font-size:12px;color:#666;font-family:'Space Mono',monospace;line-height:1.9;margin-top:12px;">
+        primary: #0E052A · hover #635DDD · radius: 12px · padding: 14px 20px
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 — COMPOSANTS UI -->
+  <div class="sg-section">
+    <div class="sg-section-title">07 — Composants UI</div>
     <div class="sg-components-grid">
       <div class="sg-component-card">
         <div class="sg-component-label">Hero Banner</div>
@@ -491,9 +617,9 @@
     </div>
   </div>
 
-  <!-- 07 — ESPACEMENTS & RADIUS -->
+  <!-- 08 — ESPACEMENTS & RADIUS -->
   <div class="sg-section">
-    <div class="sg-section-title">07 — Espacements & Arrondis</div>
+    <div class="sg-section-title">08 — Espacements & Arrondis</div>
     <div class="sg-components-grid">
       <div class="sg-component-card">
         <div class="sg-component-label">Espacements</div>
@@ -519,9 +645,9 @@
     </div>
   </div>
 
-  <!-- 08 — DESIGN TOKENS -->
+  <!-- 09 — DESIGN TOKENS -->
   <div class="sg-section">
-    <div class="sg-section-title">08 — Resume des Design Tokens</div>
+    <div class="sg-section-title">09 — Resume des Design Tokens</div>
     <div style="background: white; border-radius: 20px; padding: 48px; font-size: 14px; line-height: 2.2;">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
         <div>
