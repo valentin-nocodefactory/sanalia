@@ -49,60 +49,117 @@
    DEVIS — Minimal header + Multi-step form
    ═══════════════════════════════════════════════════ */
 
-/* ─── Minimal header ─── */
+/* ─── Minimal header — TRANSPARENT to keep focus on form ─── */
 .devis-minimal-header {
-  background: #fff;
-  border-bottom: 1px solid var(--color-gray-light);
-  position: sticky;
+  background: transparent;
+  border-bottom: none;
+  position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
 }
+
+/* ─── Phone button — Premium card-style with 2-line hierarchy ─── */
 .devis-minimal-phone {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   font-family: var(--font-primary);
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--color-primary-900);
   text-decoration: none;
-  padding: 8px 14px;
-  border-radius: var(--radius-full);
-  background: var(--color-primary-100);
-  transition: background 0.2s;
+  padding: 8px 18px 8px 12px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(14,5,42,0.08);
+  box-shadow: 0 1px 2px rgba(14,5,42,0.04), 0 8px 20px -6px rgba(14,5,42,0.08);
+  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s, border-color 0.2s;
 }
-.devis-minimal-phone:hover { background: var(--color-primary-200); }
-.devis-minimal-phone .phone-availability-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #22C55E;
-  margin-left: 2px;
+.devis-minimal-phone:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(14,5,42,0.04), 0 14px 28px -8px rgba(99,93,221,0.2);
+  border-color: var(--color-primary-200);
 }
-.phone-availability-dot {
-  display: inline-block;
-  width: 9px;
-  height: 9px;
+.devis-minimal-phone:active { transform: translateY(0); }
+
+.phone-avatar {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: #22C55E;
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(34,197,94,0.3);
 }
-.phone-availability-dot::before {
+.phone-avatar svg {
+  width: 16px;
+  height: 16px;
+  color: #fff;
+  stroke-width: 2.5;
+}
+.phone-avatar::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid rgba(34,197,94,0.5);
+  animation: phone-ring-pulse 2s ease-out infinite;
+}
+@keyframes phone-ring-pulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.phone-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.15;
+}
+.phone-text .phone-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #22C55E;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.phone-text .phone-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: #22C55E;
-  opacity: 0.5;
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
   animation: phone-dot-pulse 1.8s ease-out infinite;
+  flex-shrink: 0;
 }
 @keyframes phone-dot-pulse {
-  0% { transform: scale(1); opacity: 0.5; }
-  100% { transform: scale(2.5); opacity: 0; }
+  0%, 100% { box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+  50% { box-shadow: 0 0 0 5px rgba(34,197,94,0.05); }
 }
+.phone-text .phone-number {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-primary-900);
+  letter-spacing: -0.01em;
+  margin-top: 1px;
+}
+
 @media (max-width: 560px) {
-  .devis-minimal-phone .phone-availability-label { display: none; }
-  .devis-minimal-phone { padding: 8px 12px; }
+  .devis-minimal-phone { padding: 6px 12px 6px 8px; gap: 8px; }
+  .phone-avatar { width: 32px; height: 32px; }
+  .phone-text .phone-label { font-size: 9.5px; }
+  .phone-text .phone-number { font-size: 14px; }
+}
+@media (max-width: 380px) {
+  .phone-text .phone-label { display: none; }
+  .phone-text .phone-number { margin-top: 0; }
 }
 
 /* ─── Multi-step form ─── */
@@ -274,6 +331,17 @@
 }
 
 /* Text fields */
+.devis-msf-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.devis-msf-row .devis-msf-field { margin-bottom: 0; }
+@media (max-width: 480px) {
+  .devis-msf-row { grid-template-columns: 1fr; gap: 0; }
+  .devis-msf-row .devis-msf-field { margin-bottom: 14px; }
+}
 .devis-msf-field { margin-bottom: 14px; }
 .devis-msf-field label {
   display: block;
@@ -302,6 +370,65 @@
   border-color: var(--color-primary-600);
   box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
 }
+
+/* "Je ne connais pas l'adresse" link */
+.devis-msf-unknown-address {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 4px 0;
+  background: transparent;
+  border: none;
+  color: var(--color-primary-600);
+  font-family: var(--font-primary);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(99,93,221,0.3);
+  text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+.devis-msf-unknown-address:hover {
+  color: var(--color-primary-900);
+  text-decoration-color: var(--color-primary-900);
+}
+.devis-msf-unknown-address svg {
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+.devis-msf-autocomplete.is-unknown label::after {
+  content: ' · Adresse inconnue';
+  color: #22C55E;
+  font-weight: 500;
+  font-size: 11.5px;
+}
+.devis-msf-autocomplete.is-unknown input[type="text"] {
+  background: var(--color-bg);
+  color: #999;
+  border-style: dashed;
+}
+.devis-msf-autocomplete.is-unknown .devis-msf-unknown-address {
+  display: none;
+}
+.devis-msf-autocomplete.is-unknown .devis-msf-unknown-reset {
+  display: inline-flex;
+}
+.devis-msf-unknown-reset {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  background: transparent;
+  border: none;
+  color: #666;
+  font-family: var(--font-primary);
+  font-size: 12.5px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.devis-msf-unknown-reset:hover { color: var(--color-primary-900); }
 
 /* Address autocomplete */
 .devis-msf-autocomplete {
@@ -1748,11 +1875,14 @@
         <defs><clipPath id="clip0d"><rect width="159" height="57" fill="white"/></clipPath></defs>
       </svg>
     </a>
-    <a href="tel:0667464897" class="devis-minimal-phone">
-      <span class="phone-availability-dot" aria-hidden="true"></span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      <span>06 67 46 48 97</span>
-      <span class="phone-availability-label">Disponible maintenant</span>
+    <a href="tel:0667464897" class="devis-minimal-phone" aria-label="Appeler Sanalia au 06 67 46 48 97">
+      <span class="phone-avatar" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </span>
+      <span class="phone-text">
+        <span class="phone-label">Disponible maintenant</span>
+        <span class="phone-number">06 67 46 48 97</span>
+      </span>
     </a>
   </div>
 </header>
@@ -1798,16 +1928,17 @@
       <div class="devis-simple-right">
         <form class="devis-msf" id="devisForm" action="/merci/" method="POST" novalidate>
           <!-- Progress indicator -->
-          <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/2</div>
+          <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/3</div>
           <div class="devis-msf-progress">
             <div class="devis-msf-progress-step active" data-step="1"></div>
             <div class="devis-msf-progress-step" data-step="2"></div>
+            <div class="devis-msf-progress-step" data-step="3"></div>
           </div>
 
-          <!-- ─── Step 1: Qualification ─── -->
+          <!-- ─── Step 1: Nuisible + Adresse ─── -->
           <div class="devis-msf-step is-active" data-step="1">
-            <h2>Décrivez votre situation</h2>
-            <p class="devis-msf-sub">3 questions pour qu'on comprenne votre problème. 30 secondes.</p>
+            <h2>Quel est votre problème&nbsp;?</h2>
+            <p class="devis-msf-sub">Sélectionnez le nuisible et l'adresse. 15 secondes.</p>
 
             <label style="display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px;">Quel nuisible ?</label>
             <div class="devis-msf-nuisibles">
@@ -1843,8 +1974,36 @@
               </label>
             </div>
 
-            <label style="display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px;margin-top:8px;">Vous êtes…</label>
-            <div class="devis-msf-radios">
+            <div class="devis-msf-field devis-msf-autocomplete" style="margin-top:8px;" id="msfAddressField">
+              <label for="msf-address">Adresse de l'intervention</label>
+              <input type="text" id="msf-address" name="address" autocomplete="street-address" placeholder="Ex : 15 rue de Rivoli, Paris">
+              <input type="hidden" name="postalcode" id="msf-postalcode">
+              <div class="devis-msf-suggestions" id="msfSuggestions"></div>
+              <button type="button" class="devis-msf-unknown-address" id="msfUnknownAddress">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Je ne connais pas l'adresse
+              </button>
+              <input type="hidden" name="address_unknown" id="msf-address-unknown" value="false">
+              <button type="button" class="devis-msf-unknown-reset" id="msfUnknownReset">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Saisir l'adresse
+              </button>
+            </div>
+
+            <div class="devis-msf-actions">
+              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext1" disabled>
+                Continuer
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ─── Step 2: Statut ─── -->
+          <div class="devis-msf-step" data-step="2">
+            <h2>Vous êtes…</h2>
+            <p class="devis-msf-sub">Cela nous aide à préparer votre devis.</p>
+
+            <div class="devis-msf-radios" style="grid-template-columns:1fr;">
               <label class="devis-msf-radio">
                 <input type="radio" name="statut" value="proprietaire" required>
                 <span class="devis-msf-radio-check"></span>
@@ -1858,43 +2017,41 @@
               <label class="devis-msf-radio">
                 <input type="radio" name="statut" value="syndic">
                 <span class="devis-msf-radio-check"></span>
-                <span class="devis-msf-radio-label">Syndic / Copro</span>
+                <span class="devis-msf-radio-label">Syndic / Copropriété</span>
               </label>
               <label class="devis-msf-radio">
                 <input type="radio" name="statut" value="pro">
                 <span class="devis-msf-radio-check"></span>
-                <span class="devis-msf-radio-label">Professionnel</span>
+                <span class="devis-msf-radio-label">Professionnel / Entreprise</span>
               </label>
             </div>
 
-            <div class="devis-msf-field devis-msf-autocomplete">
-              <label for="msf-address">Adresse de l'intervention</label>
-              <input type="text" id="msf-address" name="address" required autocomplete="street-address" placeholder="Ex : 15 rue de Rivoli, Paris">
-              <input type="hidden" name="postalcode" id="msf-postalcode">
-              <div class="devis-msf-suggestions" id="msfSuggestions"></div>
-            </div>
-
             <div class="devis-msf-actions">
-              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext" disabled>
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Retour
+              </button>
+              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext2" disabled>
                 Continuer
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
             </div>
           </div>
 
-          <!-- ─── Step 2: Contact ─── -->
-          <div class="devis-msf-step" data-step="2">
+          <!-- ─── Step 3: Contact ─── -->
+          <div class="devis-msf-step" data-step="3">
             <h2>Où vous envoyons-nous le devis&nbsp;?</h2>
             <p class="devis-msf-sub">Dernière étape. Rappel sous 2h, sans engagement.</p>
 
-            <div class="devis-msf-field">
-              <label for="msf-firstname">Prénom</label>
-              <input type="text" id="msf-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
-            </div>
-
-            <div class="devis-msf-field">
-              <label for="msf-lastname">Nom</label>
-              <input type="text" id="msf-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
+            <div class="devis-msf-row">
+              <div class="devis-msf-field">
+                <label for="msf-firstname">Prénom</label>
+                <input type="text" id="msf-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
+              </div>
+              <div class="devis-msf-field">
+                <label for="msf-lastname">Nom</label>
+                <input type="text" id="msf-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
+              </div>
             </div>
 
             <div class="devis-msf-field">
@@ -1908,7 +2065,7 @@
             </div>
 
             <div class="devis-msf-actions">
-              <button type="button" class="devis-msf-btn devis-msf-btn-back" id="msfBack">
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="2">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                 Retour
               </button>
@@ -2189,8 +2346,10 @@
   var stepEls = form.querySelectorAll('.devis-msf-step');
   var progressSteps = form.querySelectorAll('.devis-msf-progress-step');
   var currentEl = document.getElementById('msfStepCurrent');
-  var nextBtn = document.getElementById('msfNext');
-  var backBtn = document.getElementById('msfBack');
+  var next1 = document.getElementById('msfNext1');
+  var next2 = document.getElementById('msfNext2');
+  var backBtns = form.querySelectorAll('[data-back-to]');
+  var TOTAL_STEPS = 3;
   var currentStep = 1;
 
   function setStep(n) {
@@ -2202,26 +2361,61 @@
     });
     if (currentEl) currentEl.textContent = n;
     currentStep = n;
-    // Focus first field of new step
+    // Focus first fillable field of new step
     setTimeout(function() {
       var active = form.querySelector('.devis-msf-step.is-active input:not([type="radio"]):not([type="hidden"])');
       if (active) active.focus();
     }, 350);
+    // Scroll the form into view on mobile for better UX
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // Validate step 1 to enable "Continuer"
+  // Step 1: nuisible + address (or "unknown address")
   function validateStep1() {
     var nuisible = form.querySelector('input[name="nuisible"]:checked');
-    var statut = form.querySelector('input[name="statut"]:checked');
     var address = form.querySelector('#msf-address').value.trim();
-    nextBtn.disabled = !(nuisible && statut && address.length >= 5);
+    var unknown = form.querySelector('#msf-address-unknown').value === 'true';
+    next1.disabled = !(nuisible && (unknown || address.length >= 5));
   }
 
-  form.addEventListener('change', validateStep1);
+  // "Je ne connais pas l'adresse" toggle
+  var addressField = document.getElementById('msfAddressField');
+  var unknownBtn = document.getElementById('msfUnknownAddress');
+  var resetBtn = document.getElementById('msfUnknownReset');
+  var unknownInput = document.getElementById('msf-address-unknown');
+  var addressInputEl = document.getElementById('msf-address');
+
+  unknownBtn.addEventListener('click', function() {
+    addressField.classList.add('is-unknown');
+    unknownInput.value = 'true';
+    addressInputEl.value = 'Adresse à préciser par téléphone';
+    addressInputEl.setAttribute('readonly', 'readonly');
+    validateStep1();
+  });
+  resetBtn.addEventListener('click', function() {
+    addressField.classList.remove('is-unknown');
+    unknownInput.value = 'false';
+    addressInputEl.value = '';
+    addressInputEl.removeAttribute('readonly');
+    addressInputEl.focus();
+    validateStep1();
+  });
+  // Step 2: statut
+  function validateStep2() {
+    var statut = form.querySelector('input[name="statut"]:checked');
+    next2.disabled = !statut;
+  }
+
+  form.addEventListener('change', function() { validateStep1(); validateStep2(); });
   form.querySelector('#msf-address').addEventListener('input', validateStep1);
 
-  nextBtn.addEventListener('click', function() { setStep(2); });
-  backBtn.addEventListener('click', function() { setStep(1); });
+  next1.addEventListener('click', function() { setStep(2); });
+  next2.addEventListener('click', function() { setStep(3); });
+  backBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      setStep(parseInt(btn.getAttribute('data-back-to')));
+    });
+  });
 
   // Address autocomplete via Nominatim (OSM)
   var addressInput = document.getElementById('msf-address');
