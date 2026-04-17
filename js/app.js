@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ── Mobile sticky CTA : hidden at top, appears once user has scrolled ──
    - Hidden by default (top of page = hero, CTAs already visible there)
    - Appears once user has scrolled past SHOW_THRESHOLD
-   - While scrolled: hide on scroll down (reading mode), show on scroll up (intent to act) */
+   - While scrolled: show on scroll down (intent to explore), hide on scroll up */
 function initStickyCtaScrollAware() {
   const bar = document.querySelector('.mobile-sticky-cta-v3');
   if (!bar) return;
@@ -43,11 +43,11 @@ function initStickyCtaScrollAware() {
     if (Math.abs(diff) < DELTA) { ticking = false; return; }
 
     if (diff > 0) {
-      // scrolling down → hide
-      bar.classList.add('is-hidden');
-    } else {
-      // scrolling up → show
+      // scrolling down → show
       bar.classList.remove('is-hidden');
+    } else {
+      // scrolling up → hide
+      bar.classList.add('is-hidden');
     }
     lastY = y;
     ticking = false;
