@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
    - Appears once user has scrolled past SHOW_THRESHOLD
    - While scrolled: hide on scroll down (reading mode), show on scroll up (intent to act) */
 function initStickyCtaScrollAware() {
-  const bar = document.querySelector('.mobile-sticky-cta-v2');
+  const bar = document.querySelector('.mobile-sticky-cta-v3');
   if (!bar) return;
 
   // Start hidden : the bar only shows after the user has scrolled

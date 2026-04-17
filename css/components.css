@@ -1643,9 +1643,9 @@ body.mobile-menu-open { overflow: hidden; }
 }
 
 /* ══════════════════════════════════════════════════════════
-   Mobile Sticky CTA v2/v3 — Devis + Phone icon + discreet offer badge below
+   Mobile Sticky CTA v3 — Devis + Phone icon + discreet offer badge below
    ══════════════════════════════════════════════════════════ */
-.mobile-sticky-cta-v2 {
+.mobile-sticky-cta-v3 {
   display: none;
   position: fixed;
   bottom: 0;
@@ -1659,7 +1659,6 @@ body.mobile-menu-open { overflow: hidden; }
   -webkit-backdrop-filter: saturate(180%) blur(16px);
   border-top: 1px solid rgba(14, 5, 42, 0.08);
   box-shadow: 0 -8px 24px rgba(14, 5, 42, 0.06);
-  display: none;
   flex-direction: column;
   gap: 8px;
   font-family: var(--font-primary);
@@ -1667,11 +1666,11 @@ body.mobile-menu-open { overflow: hidden; }
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
-.mobile-sticky-cta-v2.is-hidden {
+.mobile-sticky-cta-v3.is-hidden {
   transform: translateY(calc(100% + 24px));
 }
 @media (max-width: 768px) {
-  .mobile-sticky-cta-v2 { display: flex; }
+  .mobile-sticky-cta-v3 { display: flex; }
   body { padding-bottom: calc(108px + env(safe-area-inset-bottom, 0px)); }
 }
 .mscta-badge {
@@ -1752,11 +1751,11 @@ body.mobile-menu-open { overflow: hidden; }
 .mscta-phone svg { width: 20px; height: 20px; }
 
 /* Legacy fallback (old classes still in use on some pages) */
-.mobile-sticky-cta:not(.mobile-sticky-cta-v2) {
+.mobile-sticky-cta:not(.mobile-sticky-cta-v3) {
   display: none;
 }
 @media (max-width: 768px) {
-  .mobile-sticky-cta:not(.mobile-sticky-cta-v2) { display: none; }
+  .mobile-sticky-cta:not(.mobile-sticky-cta-v3) { display: none; }
 }
 
 /* Phone icon in CTA */
