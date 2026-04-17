@@ -42,8 +42,8 @@
 }
 </script>
 <link rel="stylesheet" href="/tokens.css">
-<link rel="stylesheet" href="/css/base.css?v=20260417d">
-<link rel="stylesheet" href="/css/components.css?v=20260417d">
+<link rel="stylesheet" href="/css/base.css?v=20260417e">
+<link rel="stylesheet" href="/css/components.css?v=20260417e">
 <style>
 /* ═══════════════════════════════════════════════════
    DEVIS — Minimal header + Multi-step form
@@ -2255,7 +2255,8 @@ body.is-embed .devis-msf {
   .devis-simple { padding: 100px 0 60px; }
 }
 @media (max-width: 560px) {
-  .devis-simple { padding: 88px 0 48px; }
+  .devis-simple { padding: 80px 0 40px; }
+  .devis-simple > .container { padding-left: 14px; padding-right: 14px; }
 }
 .devis-simple-grid {
   display: grid;
@@ -2266,7 +2267,21 @@ body.is-embed .devis-msf {
   margin: 0 auto;
 }
 @media (max-width: 900px) {
-  .devis-simple-grid { grid-template-columns: 1fr; gap: 32px; }
+  .devis-simple-grid { grid-template-columns: 1fr; gap: 28px; align-items: stretch; }
+  .devis-simple-left { text-align: left; padding: 0 4px; }
+  .devis-simple-left .trust-ratings { justify-content: flex-start; }
+  .devis-simple-right { width: 100%; }
+}
+@media (max-width: 560px) {
+  /* Edge-to-edge form card with reduced internal padding for cleaner alignment */
+  .devis-msf {
+    padding: 20px 18px 22px;
+    border-radius: 16px;
+    max-width: 100%;
+  }
+  .devis-msf-progress { margin-bottom: 14px; }
+  .devis-msf h2 { font-size: 20px; line-height: 1.25; }
+  .devis-msf-step h2 { margin-top: 0; }
 }
 .devis-simple-title {
   font-size: clamp(32px, 4.5vw, 48px);
@@ -2807,7 +2822,7 @@ body.is-embed .devis-msf {
 </div>
 <!-- Mobile sticky CTA removed on devis page — we are ON the devis page -->
 <div data-component="mobile-sticky-cta-skip"></div>
-<script src="/js/app.js?v=20260417d"></script>
+<script src="/js/app.js?v=20260417e"></script>
 <script src="/js/phone-widget.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════

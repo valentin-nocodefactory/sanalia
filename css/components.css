@@ -857,13 +857,18 @@ body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 6px; transform:
   .header .btn-primary.hide-mobile { display: none !important; }
   .header-phone-mobile { display: inline-flex; }
 
-  /* ─── Backdrop overlay (CSS-only, sibling to drawer) ─── */
-  body.mobile-menu-open::before {
-    content: '';
+  /* ─── Backdrop overlay (real div injected by JS, click-to-close) ─── */
+  .mnav-backdrop {
+    display: none;
     position: fixed;
     inset: 0;
     background: rgba(14, 5, 42, 0.5);
     z-index: 1000;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body.mobile-menu-open .mnav-backdrop {
+    display: block;
     animation: mnav-backdrop-in 0.25s ease;
   }
   @keyframes mnav-backdrop-in {
@@ -1216,10 +1221,9 @@ body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 6px; transform:
   .header-nav > .nav-item.is-open > a .nav-chevron { transform: rotate(180deg); }
 }
 
-/* ─── Body scroll lock when mobile menu is open ─── */
+/* ─── Body scroll lock when mobile menu is open (no touch-action — would block taps) ─── */
 body.mobile-menu-open {
   overflow: hidden;
-  touch-action: none;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -3607,4 +3611,16 @@ img, video, svg {
 }
 .mega-guides-cta-box .mgc-btn:hover {
   background: var(--color-primary-600);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   iOS / Mobile : prevent input auto-zoom on focus (font ≥ 16px)
+   Overrides any page-level smaller font on form fields below 768px.
+   ══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
 }

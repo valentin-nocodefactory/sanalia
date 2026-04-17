@@ -75,6 +75,15 @@ function initMobileMenu() {
     const nav = getNav();
     if (!nav) return;
 
+    // Inject backdrop (real DOM element, click anywhere outside the drawer to close)
+    if (!document.querySelector('.mnav-backdrop')) {
+      const bd = document.createElement('div');
+      bd.className = 'mnav-backdrop';
+      bd.setAttribute('aria-hidden', 'true');
+      bd.addEventListener('click', closeMenu);
+      document.body.appendChild(bd);
+    }
+
     // Inject drawer header (title + close button) at the top of the nav
     if (!nav.querySelector('.mnav-head')) {
       const head = document.createElement('div');
