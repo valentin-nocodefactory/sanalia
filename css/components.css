@@ -1865,6 +1865,22 @@ img, video, svg {
   box-shadow: 0 0 0 3px rgba(99, 93, 221, 0.12);
 }
 
+/* ═══ CALLBACK MODAL — Iframe version ═══ */
+.callback-modal-iframe {
+  display: block;
+  width: 100%;
+  height: 560px;
+  border: none;
+  background: transparent;
+  margin-top: 4px;
+}
+@media (max-width: 480px) {
+  .callback-modal-iframe { height: 520px; }
+}
+.callback-modal-overlay .callback-modal {
+  max-width: 520px;
+}
+
 /* ═══ CALLBACK MODAL — States (loading / form) ═══ */
 .callback-state { display: none; }
 .callback-state.is-active { display: block; }

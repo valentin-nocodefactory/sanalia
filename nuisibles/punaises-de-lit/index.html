@@ -1313,7 +1313,7 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
       <p class="callback-loader-sub">Nous cherchons un conseiller disponible pour vous.</p>
     </div>
 
-    <!-- ─── STATE 2: Form (same fields as /devis/) ─── -->
+    <!-- ─── STATE 2: Iframe with the real multi-step devis form ─── -->
     <div class="callback-state callback-state-form" data-state="form">
       <div class="callback-modal-header">
         <div class="callback-modal-icon" aria-hidden="true">
@@ -1321,106 +1321,10 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
         </div>
         <div>
           <h3 id="callbackModalTitle">Oups, ligne occupée !</h3>
-          <p class="callback-modal-sub">Nos conseillers sont tous en ligne.</p>
+          <p class="callback-modal-sub">Laissez-nous 30 sec, on vous rappelle dans 10 minutes.</p>
         </div>
       </div>
-      <p class="callback-modal-message">
-        Laissez-nous vos coordonnées, un conseiller vous rappelle <strong>dans les 10 minutes</strong>.
-      </p>
-      <form class="callback-modal-form" id="callbackModalForm" action="/merci/" method="POST" novalidate>
-        <input type="hidden" name="form_type" value="callback">
-
-        <!-- Nuisible -->
-        <label class="callback-label">Quel nuisible ?</label>
-        <div class="callback-nuisibles">
-          <label class="callback-nuisible">
-            <input type="radio" name="nuisible" value="rats" required>
-            <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
-            <span>Rats / Souris</span>
-          </label>
-          <label class="callback-nuisible">
-            <input type="radio" name="nuisible" value="punaises">
-            <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="">
-            <span>Punaises</span>
-          </label>
-          <label class="callback-nuisible">
-            <input type="radio" name="nuisible" value="cafards">
-            <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="">
-            <span>Cafards</span>
-          </label>
-          <label class="callback-nuisible">
-            <input type="radio" name="nuisible" value="guepes">
-            <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
-            <span>Guêpes</span>
-          </label>
-          <label class="callback-nuisible">
-            <input type="radio" name="nuisible" value="fourmis">
-            <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="">
-            <span>Fourmis</span>
-          </label>
-          <label class="callback-nuisible">
-            <input type="radio" name="nuisible" value="autre">
-            <span class="callback-nuisible-placeholder">?</span>
-            <span>Autre</span>
-          </label>
-        </div>
-
-        <!-- Statut -->
-        <label class="callback-label">Vous êtes…</label>
-        <div class="callback-row callback-row-4">
-          <label class="callback-pill">
-            <input type="radio" name="statut" value="proprietaire" required>
-            <span>Propriétaire</span>
-          </label>
-          <label class="callback-pill">
-            <input type="radio" name="statut" value="locataire">
-            <span>Locataire</span>
-          </label>
-          <label class="callback-pill">
-            <input type="radio" name="statut" value="syndic">
-            <span>Syndic</span>
-          </label>
-          <label class="callback-pill">
-            <input type="radio" name="statut" value="pro">
-            <span>Professionnel</span>
-          </label>
-        </div>
-
-        <!-- Contact -->
-        <div class="callback-row">
-          <div class="callback-field">
-            <label for="cb-firstname">Prénom</label>
-            <input type="text" id="cb-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
-          </div>
-          <div class="callback-field">
-            <label for="cb-lastname">Nom</label>
-            <input type="text" id="cb-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
-          </div>
-        </div>
-        <div class="callback-field">
-          <label for="cb-phone">Téléphone</label>
-          <div class="phone-input-group" data-phone-widget>
-            <button type="button" class="phone-country-toggle" aria-haspopup="listbox" aria-expanded="false">
-              <span class="phone-flag" data-flag>🇫🇷</span>
-              <span class="phone-code" data-code>+33</span>
-              <svg class="phone-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="phone-country-dropdown" role="listbox"></div>
-            <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="6 12 34 56 78" data-phone-input>
-            <input type="hidden" name="phone_country" value="FR" data-phone-country>
-            <input type="hidden" name="phone_dial_code" value="+33" data-phone-dial>
-          </div>
-        </div>
-        <div class="callback-field">
-          <label for="cb-email">Email</label>
-          <input type="email" id="cb-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
-        </div>
-        <button type="submit" class="callback-modal-submit">
-          <span class="submit-label">Être rappelé dans 10 min</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-        </button>
-        <p class="callback-modal-legal">Données confidentielles. Aucun engagement.</p>
-      </form>
+      <iframe class="callback-modal-iframe" id="callbackModalIframe" src="about:blank" title="Formulaire de devis" loading="lazy"></iframe>
       <div class="callback-modal-alt">
         Préférez appeler directement ? <a href="tel:0667464897" data-callback-skip="true">06 67 46 48 97</a>
       </div>
@@ -1442,18 +1346,37 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     });
   }
 
+  var iframe = document.getElementById('callbackModalIframe');
+  var iframeLoaded = false;
+
+  function buildIframeUrl() {
+    var p = new URLSearchParams();
+    p.set('embed', '1');
+    // Preserve current page nuisible / statut context if present
+    var current = new URLSearchParams(window.location.search);
+    ['nuisible', 'statut', 'utm_source', 'utm_medium', 'utm_campaign'].forEach(function(k) {
+      var v = current.get(k);
+      if (v) p.set(k, v);
+    });
+    // Infer pro if URL contains /professionnel/
+    if (!p.has('statut') && window.location.pathname.indexOf('/professionnel/') !== -1) {
+      p.set('statut', 'pro');
+    }
+    return '/devis/?' + p.toString();
+  }
+
   function openModal() {
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    // Always start with loader state
     showState('loading');
-    // After 1.5s, transition to "line busy" form state
+    // Preload the iframe during the loader phase
+    if (iframe && !iframeLoaded) {
+      iframe.src = buildIframeUrl();
+      iframeLoaded = true;
+    }
     setTimeout(function() {
       if (!modal.classList.contains('is-open')) return;
       showState('form');
-      setTimeout(function() {
-        if (window.initPhoneWidgets) window.initPhoneWidgets();
-      }, 50);
     }, 1500);
   }
   function closeModal() {
@@ -1477,35 +1400,8 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 
-  // Callback modal submit → n8n webhook + redirect /merci/
-  var cbForm = document.getElementById('callbackModalForm');
-  var CB_WEBHOOK = 'https://n8n.srv1336530.hstgr.cloud/webhook/e0762f14-4aee-4f37-bdfa-d17c2e45ec1d';
-  if (cbForm) {
-    cbForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Basic validation — native constraints
-      if (!cbForm.checkValidity()) { cbForm.reportValidity(); return; }
-      var fd = new FormData(cbForm);
-      var payload = {};
-      fd.forEach(function(v, k) { payload[k] = v; });
-      payload.form_type = 'callback';
-      var dial = payload.phone_dial_code || '+33';
-      payload.phone_full = dial + ' ' + (payload.phone || '').trim();
-      payload.submitted_at = new Date().toISOString();
-      payload.page_url = window.location.href;
-      var submit = cbForm.querySelector('.callback-modal-submit');
-      var lbl = submit ? submit.querySelector('.submit-label') : null;
-      if (submit) { submit.disabled = true; if (lbl) lbl.textContent = 'Envoi en cours…'; }
-      fetch(CB_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        mode: 'cors'
-      }).finally(function() {
-        window.location.href = '/merci/';
-      });
-    });
-  }
+  // NOTE: the form submit is handled INSIDE the iframe (/devis/ page),
+  // which posts to the same n8n webhook and redirects the PARENT window to /merci/.
 })();
 </script>
 </div>
