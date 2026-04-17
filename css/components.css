@@ -845,139 +845,295 @@ textarea.form-input {
 body.mobile-menu-open .mobile-menu-icon span:nth-child(1) { top: 5px; transform: rotate(45deg); }
 body.mobile-menu-open .mobile-menu-icon span:nth-child(2) { opacity: 0; }
 body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+/* ══════════════════════════════════════════════════════════════
+   MOBILE NAV — Right-slide drawer, accordion, sticky CTA bar
+   Active below 1024px (tablet + phone)
+   ══════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
+  /* Hide desktop nav by default */
   .header-nav { display: none; }
-  .header-nav.open {
-    display: flex;
-    flex-direction: column;
-    /* Full-screen slide-in panel */
+  .mobile-menu-btn { display: flex; }
+  /* Hide desktop-only utility elements (CTA + phone card) below 1024px too */
+  .header-phone-card { display: none !important; }
+  .header .btn-primary.hide-mobile { display: none !important; }
+  .header-phone-mobile { display: inline-flex; }
+
+  /* ─── Backdrop overlay (CSS-only, sibling to drawer) ─── */
+  body.mobile-menu-open::before {
+    content: '';
     position: fixed;
-    top: 72px; /* leave the header visible (with close button in place of burger) */
+    inset: 0;
+    background: rgba(14, 5, 42, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: 1000;
+    animation: mnav-backdrop-in 0.25s ease;
+  }
+  @keyframes mnav-backdrop-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ─── Drawer panel ─── */
+  .header-nav {
+    position: fixed;
+    top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    max-width: 100%;
-    height: calc(100dvh - 72px);
-    max-height: calc(100dvh - 72px);
+    width: min(420px, 92vw);
+    max-width: 92vw;
+    height: 100dvh;
     background: var(--color-surface);
+    box-shadow: -16px 0 48px rgba(14, 5, 42, 0.18);
+    z-index: 1010;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
     padding: 0;
-    padding-bottom: 140px; /* room for sticky CTA */
+    margin: 0;
     border: none;
     border-radius: 0;
-    box-shadow: none;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    animation: mmenu-slide-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 90;
+    transform: translateX(100%);
+    transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow: hidden;
+    visibility: hidden;
   }
-  @keyframes mmenu-slide-in {
-    from { opacity: 0; transform: translateX(100%); }
-    to { opacity: 1; transform: translateX(0); }
+  .header-nav.open {
+    transform: translateX(0);
+    visibility: visible;
   }
-  .mega-menu { display: none !important; }
-  .nav-chevron { display: inline-block; transform: rotate(-90deg); opacity: 0.5; transition: transform 0.2s; }
-  .mobile-menu-btn { display: flex; }
 
-  /* Mobile nav items as accordions */
-  .header-nav.open > .nav-item {
-    border-bottom: 1px solid var(--color-gray-light);
-  }
-  .header-nav.open > .nav-item > a {
+  /* ─── Drawer header (title + close) — injected by JS as .mnav-head ─── */
+  .mnav-head {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 18px 24px;
-    min-height: 56px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-gray-light);
+    background: var(--color-surface);
+  }
+  .mnav-head-title {
+    font-family: var(--font-system);
+    font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #999;
+  }
+  .mnav-close {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--color-bg);
+    color: var(--color-primary-900);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.12s;
+  }
+  .mnav-close:hover { background: var(--color-primary-100); }
+  .mnav-close:active { transform: scale(0.94); }
+  .mnav-close svg { width: 18px; height: 18px; }
+
+  /* ─── Drawer body (scrollable accordion list) ─── */
+  .header-nav > .nav-item,
+  .header-nav > a:not(.btn) {
+    flex: 0 0 auto;
+  }
+  /* The body is the natural flow between head and footer; scroll on nav */
+  .header-nav {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* ─── Top-level item (accordion trigger) ─── */
+  .header-nav > .nav-item {
+    border-bottom: 1px solid rgba(14, 5, 42, 0.06);
+    position: static;
+  }
+  .header-nav > .nav-item > a {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 20px;
+    min-height: 60px;
     font-family: var(--font-primary);
     font-weight: 700;
     font-size: 17px;
+    line-height: 1.3;
     color: var(--color-primary-900);
     text-decoration: none;
+    background: transparent;
+    border-radius: 0;
     cursor: pointer;
+    transition: background 0.15s;
+    word-break: break-word;
+  }
+  .header-nav > .nav-item > a:active { background: var(--color-bg); }
+
+  /* Chevron rotates when open */
+  .nav-chevron {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    opacity: 0.7;
+    transform: rotate(0deg);
+    transition: transform 0.25s ease, color 0.15s;
+    color: var(--color-primary-900);
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .header-nav > .nav-item.is-open > a .nav-chevron {
+    transform: rotate(180deg);
+    color: var(--color-primary-600);
   }
 
-  /* Mobile menu reveals submenu when .is-open class on nav-item */
-  .header-nav.open > .nav-item.is-open > a .nav-chevron { transform: rotate(0deg); opacity: 1; color: var(--color-primary-600); }
-  .header-nav.open > .nav-item.is-open > .mega-menu {
-    display: block !important;
-    position: static;
-    width: auto;
-    max-width: none;
+  /* ─── Submenu (mega-menu reset for mobile) ─── */
+  .mega-menu {
+    /* Hard reset of all desktop positioning */
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 100% !important;
     min-width: 0 !important;
-    background: var(--color-bg);
-    padding: 16px 24px 20px;
-    box-shadow: none;
-    border-radius: 0;
+    max-width: 100% !important;
+    background: var(--color-bg) !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    /* Collapsed state */
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: max-height 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 0.2s ease,
+                visibility 0.2s;
+    z-index: auto;
+  }
+  .header-nav > .nav-item.is-open > .mega-menu {
+    max-height: 1600px; /* large enough for the longest sub-list */
     opacity: 1;
     visibility: visible;
-    transform: none;
-    animation: mmenu-submenu-fade 0.25s ease;
+    padding: 8px 16px 16px !important;
   }
-  @keyframes mmenu-submenu-fade {
-    from { opacity: 0; transform: translateY(-6px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* When collapsed, ensure mega-menu cannot be hovered into visibility */
+  .nav-item:hover > .mega-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: none;
+  }
+  .header-nav > .nav-item.is-open:hover > .mega-menu {
+    opacity: 1;
+    visibility: visible;
   }
 
-  /* Mobile: simplify the mega-menu content for list-like display */
-  .header-nav.open .mega-menu-grid,
-  .header-nav.open .mega-guides-grid,
-  .header-nav.open .mega-guides-v2,
-  .header-nav.open .mega-menu-implant-layout {
-    display: block !important;
+  /* ─── Submenu content layout ─── */
+  .mega-menu-grid,
+  .mega-guides-v2,
+  .mega-menu-implant-layout {
+    display: flex !important;
+    flex-direction: column !important;
     grid-template-columns: none !important;
-    gap: 0 !important;
+    gap: 4px !important;
+    width: 100% !important;
   }
-  .header-nav.open .mega-menu-label {
+  /* Section labels (small caps) */
+  .mega-menu-label {
     display: block;
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: #999;
-    margin: 4px 0 8px;
+    padding: 8px 4px 6px;
+    margin: 0;
   }
-  .header-nav.open .mega-menu-item,
-  .header-nav.open .mega-guides-pill,
-  .header-nav.open .mega-guide-card,
-  .header-nav.open .mega-implant-city {
-    display: flex;
+
+  /* ─── Sub-items (Services, À-propos, Implantations) ─── */
+  .mega-menu-item {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    margin: 2px 0;
+    border-radius: 10px;
+    background: transparent;
+    text-decoration: none;
+    min-height: 48px;
+    transition: background 0.15s;
+    box-sizing: border-box;
+  }
+  .mega-menu-item:active,
+  .mega-menu-item:hover { background: var(--color-primary-100) !important; }
+  .mega-menu-item h4 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--color-primary-900);
+    margin: 0 0 2px !important;
+    word-break: break-word;
+  }
+  .mega-menu-item p {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    font-size: 12.5px;
+    line-height: 1.35;
+    color: var(--color-primary-800);
+    margin: 0 !important;
+    word-break: break-word;
+    white-space: normal;
+  }
+
+  /* ─── Guides : pills grid (2 columns on phone, 3 on tablet) ─── */
+  .mega-guides-main { width: 100%; padding: 0 !important; }
+  .mega-guides-header,
+  .mega-guides-sidebar,
+  .mega-menu-implant-map { display: none !important; }
+  .mega-guides-pills {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    width: 100%;
+    padding: 4px 0 0;
+  }
+  .mega-guides-pill {
+    display: flex !important;
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    border-radius: 10px;
-    min-height: 44px;
+    background: var(--color-bg-offwhite);
+    border: 1px solid var(--color-gray-light);
+    border-radius: 12px;
     text-decoration: none;
+    min-height: 56px;
     color: var(--color-primary-900);
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    margin: 2px 0;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    box-sizing: border-box;
+    overflow: hidden;
   }
-  .header-nav.open .mega-menu-item:hover,
-  .header-nav.open .mega-guides-pill:active,
-  .header-nav.open .mega-guide-card:active {
+  .mega-guides-pill:active {
     background: var(--color-primary-100);
+    border-color: var(--color-primary-200);
+    transform: scale(0.98);
   }
-  .header-nav.open .mega-menu-item h4,
-  .header-nav.open .mega-guide-card-body h4 {
-    font-family: var(--font-primary);
-    font-weight: 600;
-    font-size: 15px;
-    margin: 0 0 2px;
-    color: var(--color-primary-900);
-  }
-  .header-nav.open .mega-menu-item p,
-  .header-nav.open .mega-guide-card-body p {
-    font-size: 12.5px;
-    color: var(--color-primary-800);
-    margin: 0;
-    line-height: 1.35;
-  }
-  .header-nav.open .mega-service-icon,
-  .header-nav.open .mega-guides-pill .mgp-ico,
-  .header-nav.open .mega-guide-card-icon {
+  .mega-guides-pill .mgp-ico {
     width: 36px;
     height: 36px;
     border-radius: 9px;
@@ -985,58 +1141,91 @@ body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 5px; transform:
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-size: 16px;
+    font-size: 18px;
   }
-  .header-nav.open .mega-guides-pill .mgp-ico img,
-  .header-nav.open .mega-guide-card-icon img {
+  .mega-guides-pill .mgp-ico img {
     width: 26px;
     height: 26px;
+    object-fit: contain;
   }
-  .header-nav.open .mega-guides-pill .mgp-name {
+  .mega-guides-pill .mgp-name {
     font-family: var(--font-primary);
     font-weight: 600;
-    font-size: 15px;
+    font-size: 13.5px;
+    line-height: 1.25;
     color: var(--color-primary-900);
+    white-space: normal;
+    word-break: break-word;
+    flex: 1;
+    min-width: 0;
   }
-  .header-nav.open .mega-menu-footer,
-  .header-nav.open .mega-guides-header,
-  .header-nav.open .mega-guides-categories,
-  .header-nav.open .mega-guides-sidebar,
-  .header-nav.open .mega-menu-implant-map {
-    display: none;
+
+  /* ─── Implantations : city pills 2-col grid ─── */
+  .mega-menu-implant-cities {
+    width: 100%;
+    padding: 0 !important;
   }
-  .header-nav.open .mega-implant-grid {
+  .mega-implant-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 4px !important;
+    gap: 6px !important;
+    width: 100%;
   }
-  .header-nav.open .mega-implant-city {
+  .mega-implant-city {
+    display: flex !important;
+    align-items: center;
     justify-content: flex-start;
+    padding: 12px 14px;
+    background: var(--color-bg-offwhite);
+    border: 1px solid var(--color-gray-light);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--color-primary-900);
     font-family: var(--font-primary);
     font-weight: 600;
     font-size: 14px;
+    min-height: 44px;
+    transition: background 0.15s;
   }
+  .mega-implant-city:active { background: var(--color-primary-100); }
 
-  /* Mobile menu bottom CTA bar */
+  /* Hide mega-menu footer "Vous êtes pro?" link inside accordion (kept on desktop) */
+  .mega-menu-footer { display: none !important; }
+
+  /* ─── Drawer footer : sticky CTA bar (injected by JS as .mobile-menu-cta) ─── */
   .mobile-menu-cta {
+    flex: 0 0 auto;
     position: sticky;
     bottom: 0;
-    padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(to top, rgba(255,255,255,1) 70%, rgba(255,255,255,0) 100%);
+    margin-top: auto;
+    padding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px));
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    border-top: 1px solid var(--color-gray-light);
     display: flex;
     flex-direction: column;
     gap: 8px;
-    border-top: 1px solid var(--color-gray-light);
+    box-shadow: 0 -8px 20px rgba(14, 5, 42, 0.06);
   }
   .mobile-menu-cta .btn {
     width: 100%;
     justify-content: center;
     min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 12px;
   }
+
+  /* Prevent the mega-menu :hover behavior from firing on touch */
+  .nav-item:hover .nav-chevron { transform: rotate(0deg); }
+  .header-nav > .nav-item.is-open > a .nav-chevron { transform: rotate(180deg); }
 }
 
-/* Prevent scroll when mobile menu is open */
-body.mobile-menu-open { overflow: hidden; }
+/* ─── Body scroll lock when mobile menu is open ─── */
+body.mobile-menu-open {
+  overflow: hidden;
+  touch-action: none;
+}
 
 /* ══════════════════════════════════════════════════════════════
    FOOTER v2 — Premium architecture (Stripe/Linear inspired)

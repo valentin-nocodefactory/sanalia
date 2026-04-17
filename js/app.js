@@ -61,7 +61,7 @@ function initStickyCtaScrollAware() {
   }, { passive: true });
 }
 
-/* ── Mobile Menu (premium full-screen slide-in) ──
+/* ── Mobile Menu (right-slide drawer with accordion) ──
    Uses document-level event delegation so the burger works even if the header
    is replaced/re-rendered after DOMContentLoaded (runtime robustness). */
 function initMobileMenu() {
@@ -71,18 +71,34 @@ function initMobileMenu() {
   function getNav()  { return document.querySelector('.header-nav'); }
   function getBtn()  { return document.querySelector('.mobile-menu-btn'); }
 
-  function ensureStickyCta() {
+  function ensureDrawerChrome() {
     const nav = getNav();
-    if (!nav || nav.querySelector('.mobile-menu-cta')) return;
-    const cta = document.createElement('div');
-    cta.className = 'mobile-menu-cta';
-    cta.innerHTML =
-      '<a href="/devis/" class="btn btn-primary">Demander mon devis' +
-      '<span class="btn-arrow"></span></a>' +
-      '<a href="tel:0667464897" class="btn btn-outline">' +
-      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>' +
-      '06&nbsp;67&nbsp;46&nbsp;48&nbsp;97</a>';
-    nav.appendChild(cta);
+    if (!nav) return;
+
+    // Inject drawer header (title + close button) at the top of the nav
+    if (!nav.querySelector('.mnav-head')) {
+      const head = document.createElement('div');
+      head.className = 'mnav-head';
+      head.innerHTML =
+        '<span class="mnav-head-title">Menu</span>' +
+        '<button type="button" class="mnav-close" aria-label="Fermer le menu">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+        '</button>';
+      nav.insertBefore(head, nav.firstChild);
+    }
+
+    // Inject sticky CTA bar at the bottom of the nav
+    if (!nav.querySelector('.mobile-menu-cta')) {
+      const cta = document.createElement('div');
+      cta.className = 'mobile-menu-cta';
+      cta.innerHTML =
+        '<a href="/devis/" class="btn btn-primary">Demander mon devis' +
+        '<span class="btn-arrow"></span></a>' +
+        '<a href="tel:0667464897" class="btn btn-outline">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>' +
+        '06&nbsp;67&nbsp;46&nbsp;48&nbsp;97</a>';
+      nav.appendChild(cta);
+    }
   }
 
   function closeMenu() {
@@ -91,24 +107,25 @@ function initMobileMenu() {
     nav.classList.remove('open');
     document.body.classList.remove('mobile-menu-open');
     if (btn) btn.setAttribute('aria-expanded', 'false');
+    // Reset accordion state so next open starts clean
     nav.querySelectorAll('.nav-item.is-open').forEach(i => i.classList.remove('is-open'));
   }
 
   function openMenu() {
     const nav = getNav(), btn = getBtn();
     if (!nav) return;
-    ensureStickyCta();
+    ensureDrawerChrome();
     nav.classList.add('open');
     document.body.classList.add('mobile-menu-open');
     if (btn) btn.setAttribute('aria-expanded', 'true');
   }
 
-  ensureStickyCta();
+  ensureDrawerChrome();
 
-  // Delegation : burger click anywhere (captures even if DOM changed after init)
+  // Delegation : single document-level click handler
   document.addEventListener('click', (e) => {
-    const burger = e.target.closest('.mobile-menu-btn');
-    if (burger) {
+    // 1) Burger toggle
+    if (e.target.closest('.mobile-menu-btn')) {
       e.preventDefault();
       e.stopPropagation();
       const nav = getNav();
@@ -118,9 +135,25 @@ function initMobileMenu() {
       return;
     }
 
-    // Clicks inside the open mobile nav
-    if (window.innerWidth > 1024) return;
+    // 2) Close button inside drawer
+    if (e.target.closest('.mnav-close')) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeMenu();
+      return;
+    }
+
+    // 3) Backdrop click (anywhere outside the drawer when open)
     const nav = getNav();
+    if (nav && nav.classList.contains('open') && window.innerWidth <= 1024) {
+      if (!nav.contains(e.target) && !e.target.closest('.mobile-menu-btn')) {
+        closeMenu();
+        return;
+      }
+    }
+
+    // 4) Clicks inside the open mobile nav
+    if (window.innerWidth > 1024) return;
     if (!nav || !nav.classList.contains('open')) return;
     if (!nav.contains(e.target)) return;
 
@@ -128,14 +161,21 @@ function initMobileMenu() {
     if (!link) return;
 
     const navItem = link.closest('.nav-item');
+    // Top-level accordion trigger → toggle submenu (don't navigate)
     if (navItem && link.parentElement === navItem && navItem.querySelector('.mega-menu')) {
-      // Top-level link → toggle submenu
       e.preventDefault();
       e.stopPropagation();
+      // Close other open items (single-open accordion)
       nav.querySelectorAll('.nav-item.is-open').forEach(i => {
         if (i !== navItem) i.classList.remove('is-open');
       });
       navItem.classList.toggle('is-open');
+      // Scroll the opened item into view
+      if (navItem.classList.contains('is-open')) {
+        setTimeout(() => {
+          navItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 80);
+      }
       return;
     }
 
@@ -149,7 +189,7 @@ function initMobileMenu() {
     if (e.key === 'Escape' && nav && nav.classList.contains('open')) closeMenu();
   });
 
-  // Close menu on window resize to desktop
+  // Close menu on resize to desktop
   window.addEventListener('resize', () => {
     const nav = getNav();
     if (window.innerWidth > 1024 && nav && nav.classList.contains('open')) closeMenu();
