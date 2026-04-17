@@ -1948,7 +1948,7 @@
         <form class="devis-msf" id="devisForm" action="/merci/" method="POST" novalidate>
           <!-- Availability badge -->
           <div class="devis-msf-availability-badge">
-            Offre du mois · 1<sup>ère</sup> intervention offerte
+            Jusqu'au <span id="msfOfferDate">—</span> · 1<sup>ère</sup> intervention offerte
           </div>
 
           <!-- Progress indicator -->
@@ -2467,6 +2467,15 @@
   var form = document.getElementById('devisForm');
   if (!form) return;
 
+  // Dynamic offer date — always shows "today + 3 days"
+  var offerDateEl = document.getElementById('msfOfferDate');
+  if (offerDateEl) {
+    var d = new Date();
+    d.setDate(d.getDate() + 3);
+    var months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    offerDateEl.textContent = d.getDate() + ' ' + months[d.getMonth()];
+  }
+
   var stepEls = form.querySelectorAll('.devis-msf-step');
   var progressSteps = form.querySelectorAll('.devis-msf-progress-step');
   var currentEl = document.getElementById('msfStepCurrent');
@@ -2513,22 +2522,28 @@
     form.querySelector('#msf-address-manual').addEventListener('input', validateStep2);
   }
 
-  next1.addEventListener('click', function() { setStep(2); });
-  next2.addEventListener('click', function() { setStep(3); });
-  backBtns.forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      var target = parseInt(e.currentTarget.getAttribute('data-back-to'), 10);
-      if (target >= 1 && target <= 3) setStep(target);
-    });
+  next1.addEventListener('click', function(e) { e.preventDefault(); setStep(2); });
+  next2.addEventListener('click', function(e) { e.preventDefault(); setStep(3); });
+
+  // Back buttons — event delegation on the form (more robust than per-button handler)
+  form.addEventListener('click', function(e) {
+    var back = e.target.closest('[data-back-to]');
+    if (!back || !form.contains(back)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var target = parseInt(back.getAttribute('data-back-to'), 10);
+    if (target >= 1 && target <= 3) setStep(target);
   });
 
   // Auto-advance: when a nuisible is picked, jump to step 2 automatically
-  form.querySelectorAll('input[name="nuisible"]').forEach(function(input) {
-    input.addEventListener('change', function() {
-      if (currentStep === 1 && input.checked) {
-        setTimeout(function() { setStep(2); }, 180);
-      }
+  // Use 'click' instead of 'change' so re-clicking the same radio still works
+  form.querySelectorAll('.devis-msf-nuisible').forEach(function(label) {
+    label.addEventListener('click', function() {
+      if (currentStep !== 1) return;
+      setTimeout(function() {
+        var picked = form.querySelector('input[name="nuisible"]:checked');
+        if (picked) setStep(2);
+      }, 180);
     });
   });
 
