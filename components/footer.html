@@ -84,3 +84,90 @@
     </div>
   </div>
 </footer>
+
+<!-- ════════ CALLBACK MODAL (intercepte les clics "Appeler") ════════ -->
+<div class="callback-modal-overlay" id="callbackModal" role="dialog" aria-modal="true" aria-labelledby="callbackModalTitle">
+  <div class="callback-modal">
+    <button type="button" class="callback-modal-close" id="callbackModalClose" aria-label="Fermer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="callback-modal-header">
+      <div class="callback-modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <h3 id="callbackModalTitle">Oups, déjà en ligne !</h3>
+        <p class="callback-modal-sub">Nos conseillers sont occupés sur d'autres urgences.</p>
+      </div>
+    </div>
+    <p class="callback-modal-message">
+      Laissez-nous vos coordonnées, un conseiller vous rappelle <strong>dans les 10 minutes</strong> pour traiter votre demande.
+    </p>
+    <form class="callback-modal-form" id="callbackModalForm" action="/merci/" method="POST">
+      <input type="hidden" name="type" value="callback">
+      <div class="callback-row">
+        <div class="callback-field">
+          <label for="cb-firstname">Prénom</label>
+          <input type="text" id="cb-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
+        </div>
+        <div class="callback-field">
+          <label for="cb-lastname">Nom</label>
+          <input type="text" id="cb-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
+        </div>
+      </div>
+      <div class="callback-field">
+        <label for="cb-phone">Téléphone</label>
+        <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78" pattern="[0-9\s+]{10,}">
+      </div>
+      <div class="callback-field">
+        <label for="cb-email">Email</label>
+        <input type="email" id="cb-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
+      </div>
+      <button type="submit" class="callback-modal-submit">
+        Être rappelé dans 10 min
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+      <p class="callback-modal-legal">Données confidentielles. Aucun engagement.</p>
+    </form>
+    <div class="callback-modal-alt">
+      Préférez appeler directement ? <a href="tel:0667464897" data-callback-skip="true">06 67 46 48 97</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var modal = document.getElementById('callbackModal');
+  if (!modal) return;
+  var closeBtn = document.getElementById('callbackModalClose');
+
+  function openModal() {
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      var first = modal.querySelector('input:not([type="hidden"])');
+      if (first) first.focus();
+    }, 200);
+  }
+  function closeModal() {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Intercept all tel: links (except opt-out via data-callback-skip)
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href^="tel:"]');
+    if (!link) return;
+    if (link.dataset.callbackSkip === 'true') return;
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    openModal();
+  }, true);
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+})();
+</script>

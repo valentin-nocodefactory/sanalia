@@ -495,25 +495,28 @@
           <div class="mega-menu mega-menu-implantations" style="min-width:680px;">
             <div class="mega-menu-implant-layout">
               <div class="mega-menu-implant-map">
-                <span class="mega-menu-label">10 métropoles — 50+ techniciens</span>
-                <div class="france-map-wrap">
-                  <svg class="france-map" width="200" height="220" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto;">
-                    <path d="M95,20 C105,18 118,15 128,18 C138,22 142,30 148,38 C152,44 160,50 162,58 C164,65 158,72 160,80 C162,88 168,95 168,104 C168,112 160,118 162,126 C165,135 168,145 165,155 C162,165 155,172 150,180 C145,188 138,195 128,200 C118,203 105,205 92,202 C80,200 70,195 62,188 C54,180 48,170 42,160 C38,150 32,140 28,128 C25,115 22,100 25,88 C28,75 35,65 42,55 C48,45 55,35 65,28 C75,22 85,20 95,20 Z" fill="#FBF2FF" stroke="#CECCFC" stroke-width="1.5"/>
-                    <g>
-                      <a href="/deratisation/paris/"><circle cx="98" cy="55" r="10" fill="#635DDD" fill-opacity="0.3"><animate attributeName="r" values="5;14;5" dur="2s" repeatCount="indefinite"/><animate attributeName="fill-opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/></circle><circle cx="98" cy="55" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Paris</title></circle></a>
-                      <a href="/deratisation/lyon/"><circle cx="118" cy="108" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Lyon</title></circle></a>
-                      <a href="/deratisation/marseille/"><circle cx="122" cy="168" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Marseille</title></circle></a>
-                      <a href="/deratisation/bordeaux/"><circle cx="60" cy="132" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Bordeaux</title></circle></a>
-                      <a href="/deratisation/toulouse/"><circle cx="90" cy="162" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Toulouse</title></circle></a>
-                      <a href="/deratisation/nantes/"><circle cx="55" cy="88" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Nantes</title></circle></a>
-                      <a href="/deratisation/lille/"><circle cx="105" cy="25" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Lille</title></circle></a>
-                      <a href="/deratisation/nice/"><circle cx="148" cy="162" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Nice</title></circle></a>
-                      <a href="/deratisation/montpellier/"><circle cx="108" cy="162" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Montpellier</title></circle></a>
-                      <a href="/deratisation/strasbourg/"><circle cx="152" cy="60" r="5" fill="#635DDD" stroke="#fff" stroke-width="2" class="france-dot"><title>Strasbourg</title></circle></a>
-                    </g>
-                  </svg>
+                <span class="mega-menu-label">Couverture nationale</span>
+                <div class="mega-implant-hero">
+                  <div class="mega-implant-hero-stats">
+                    <div class="mega-implant-stat">
+                      <span class="mega-implant-stat-num">10</span>
+                      <span class="mega-implant-stat-lbl">métropoles</span>
+                    </div>
+                    <div class="mega-implant-stat">
+                      <span class="mega-implant-stat-num">50+</span>
+                      <span class="mega-implant-stat-lbl">techniciens</span>
+                    </div>
+                    <div class="mega-implant-stat">
+                      <span class="mega-implant-stat-num">24h</span>
+                      <span class="mega-implant-stat-lbl">intervention</span>
+                    </div>
+                  </div>
+                  <p class="mega-implant-hero-text">Trouvez l'agence la plus proche de chez vous et obtenez un devis gratuit sous 2h.</p>
+                  <a href="/implantations/" class="mega-implant-hero-cta">
+                    Voir toutes nos agences
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                  </a>
                 </div>
-                <a href="/implantations/" class="france-map-cta">Explorer la carte interactive →</a>
               </div>
               <div class="mega-menu-implant-cities">
                 <span class="mega-menu-label">Nos villes</span>
@@ -892,6 +895,93 @@
     </div>
   </div>
 </footer>
+
+<!-- ════════ CALLBACK MODAL (intercepte les clics "Appeler") ════════ -->
+<div class="callback-modal-overlay" id="callbackModal" role="dialog" aria-modal="true" aria-labelledby="callbackModalTitle">
+  <div class="callback-modal">
+    <button type="button" class="callback-modal-close" id="callbackModalClose" aria-label="Fermer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="callback-modal-header">
+      <div class="callback-modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <h3 id="callbackModalTitle">Oups, déjà en ligne !</h3>
+        <p class="callback-modal-sub">Nos conseillers sont occupés sur d'autres urgences.</p>
+      </div>
+    </div>
+    <p class="callback-modal-message">
+      Laissez-nous vos coordonnées, un conseiller vous rappelle <strong>dans les 10 minutes</strong> pour traiter votre demande.
+    </p>
+    <form class="callback-modal-form" id="callbackModalForm" action="/merci/" method="POST">
+      <input type="hidden" name="type" value="callback">
+      <div class="callback-row">
+        <div class="callback-field">
+          <label for="cb-firstname">Prénom</label>
+          <input type="text" id="cb-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
+        </div>
+        <div class="callback-field">
+          <label for="cb-lastname">Nom</label>
+          <input type="text" id="cb-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
+        </div>
+      </div>
+      <div class="callback-field">
+        <label for="cb-phone">Téléphone</label>
+        <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78" pattern="[0-9\s+]{10,}">
+      </div>
+      <div class="callback-field">
+        <label for="cb-email">Email</label>
+        <input type="email" id="cb-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
+      </div>
+      <button type="submit" class="callback-modal-submit">
+        Être rappelé dans 10 min
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </button>
+      <p class="callback-modal-legal">Données confidentielles. Aucun engagement.</p>
+    </form>
+    <div class="callback-modal-alt">
+      Préférez appeler directement ? <a href="tel:0667464897" data-callback-skip="true">06 67 46 48 97</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var modal = document.getElementById('callbackModal');
+  if (!modal) return;
+  var closeBtn = document.getElementById('callbackModalClose');
+
+  function openModal() {
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      var first = modal.querySelector('input:not([type="hidden"])');
+      if (first) first.focus();
+    }, 200);
+  }
+  function closeModal() {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Intercept all tel: links (except opt-out via data-callback-skip)
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href^="tel:"]');
+    if (!link) return;
+    if (link.dataset.callbackSkip === 'true') return;
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    openModal();
+  }, true);
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+})();
+</script>
 </div>
 
 <div data-component="mobile-sticky-cta">

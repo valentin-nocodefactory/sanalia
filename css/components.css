@@ -1728,70 +1728,259 @@ img, video, svg {
 .mega-implant-city { display: block; padding: 8px 14px; border-radius: var(--radius-md); font-size: 13px; color: var(--color-primary-900); text-decoration: none; transition: background 0.15s; }
 .mega-implant-city:hover { background: var(--color-bg); }
 
-/* ═══ MEGA MENU — France Map (Implantations) ═══ */
-.mega-menu-implant-map { min-width: 240px; display: flex; flex-direction: column; }
-.france-map-wrap {
+/* ═══ CALLBACK MODAL — "Déjà en ligne, on vous rappelle" ═══ */
+.callback-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 5, 42, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.callback-modal-overlay.is-open {
+  display: flex;
+  opacity: 1;
+}
+.callback-modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(14, 5, 42, 0.3);
   position: relative;
-  width: 200px;
-  height: 220px;
-  margin: 8px auto 0;
-  padding: 0;
+  transform: translateY(10px) scale(0.98);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.callback-modal-overlay.is-open .callback-modal {
+  transform: translateY(0) scale(1);
+}
+.callback-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+  transition: background 0.15s, color 0.15s;
+}
+.callback-modal-close:hover {
+  background: var(--color-bg);
+  color: var(--color-primary-900);
+}
+.callback-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.callback-modal-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
-.france-map {
-  width: 200px;
-  height: 220px;
+.callback-modal-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.callback-modal h3 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-primary-900);
+  margin: 0 0 2px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.callback-modal-sub {
+  font-size: 13.5px;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+.callback-modal-message {
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-primary-800);
+}
+.callback-modal-message strong {
+  color: var(--color-primary-900);
+  font-weight: 700;
+}
+.callback-modal-form label {
   display: block;
-  overflow: visible;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--color-primary-900);
+  margin-bottom: 6px;
 }
-.france-shape {
-  fill: #FBF2FF;
-  stroke: #CECCFC;
-  stroke-width: 1.5;
-  transition: fill 0.3s;
+.callback-modal-form .callback-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
 }
-.mega-menu-implant-map:hover .france-shape {
-  fill: #E9E8FF;
+.callback-modal-form .callback-field { margin-bottom: 12px; }
+.callback-modal-form .callback-row .callback-field { margin-bottom: 0; }
+.callback-modal-form input {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: var(--font-primary);
+  color: var(--color-primary-900);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
 }
-.france-dots a {
+.callback-modal-form input:focus {
+  outline: none;
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px rgba(99, 93, 221, 0.12);
+}
+.callback-modal-submit {
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--color-primary-900);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 15px;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+  margin-top: 4px;
 }
-.france-dot {
-  fill: #635DDD;
-  stroke: #fff;
-  stroke-width: 2;
-  transition: fill 0.2s, r 0.2s;
-  cursor: pointer;
+.callback-modal-submit:hover {
+  background: var(--color-primary-600);
+  transform: translateY(-1px);
 }
-.france-dot:hover {
-  fill: #0E052A;
-  r: 7;
-}
-.france-dot-pulse {
-  fill: #635DDD;
-  opacity: 0.6;
-  animation: france-dot-pulse 2s infinite;
-  pointer-events: none;
-}
-@keyframes france-dot-pulse {
-  0% { r: 5; opacity: 0.6; }
-  100% { r: 14; opacity: 0; }
-}
-.france-map-cta {
-  display: block;
+.callback-modal-legal {
+  font-size: 11.5px;
+  color: #999;
   text-align: center;
+  margin: 10px 0 0;
+  line-height: 1.4;
+}
+.callback-modal-alt {
+  text-align: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-gray-light);
+  font-size: 12.5px;
+  color: #666;
+}
+.callback-modal-alt a {
+  color: var(--color-primary-600);
+  font-weight: 600;
+  text-decoration: none;
+}
+.callback-modal-alt a:hover { text-decoration: underline; }
+
+/* ═══ MEGA MENU — Implantations CTA ═══ */
+.mega-menu-implant-map { min-width: 280px; display: flex; flex-direction: column; }
+.mega-implant-hero {
+  background: linear-gradient(135deg, #F8F7FF 0%, #EFEDFE 100%);
+  border-radius: 14px;
+  padding: 18px 16px 16px;
+  margin-top: 8px;
+  border: 1px solid rgba(99,93,221,0.12);
+}
+.mega-implant-hero-stats {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(99,93,221,0.12);
+}
+.mega-implant-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+.mega-implant-stat-num {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color-primary-900);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.mega-implant-stat-lbl {
+  font-size: 10.5px;
+  color: var(--color-primary-800);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.mega-implant-hero-text {
+  font-size: 13px;
+  color: var(--color-primary-800);
+  line-height: 1.5;
+  margin: 0 0 14px;
+  text-align: center;
+}
+.mega-implant-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--color-primary-900);
+  color: #fff;
   font-family: var(--font-primary);
   font-weight: 700;
   font-size: 13px;
-  color: var(--color-primary-600);
+  border-radius: 10px;
   text-decoration: none;
-  padding: 10px;
-  margin-top: var(--space-sm);
-  border-top: 1px solid var(--color-gray-light);
-  transition: color 0.2s;
+  transition: background 0.2s, transform 0.15s;
+  box-sizing: border-box;
 }
-.france-map-cta:hover {
-  color: var(--color-primary-900);
+.mega-implant-hero-cta:hover {
+  background: var(--color-primary-600);
+  transform: translateY(-1px);
+}
+.mega-implant-hero-cta svg {
+  transition: transform 0.2s;
+}
+.mega-implant-hero-cta:hover svg {
+  transform: translateX(2px);
 }
 
 /* ═══ TRUST RATINGS WIDGET — Simple ═══ */
