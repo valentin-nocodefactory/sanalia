@@ -2306,6 +2306,135 @@ img, video, svg {
   .trust-rating-item { font-size: 14px; }
 }
 
+/* ═══ PROTOCOLE TIMELINE — v2 chronologique ═══ */
+.protocol-timeline {
+  position: relative;
+  max-width: 860px;
+  margin: var(--space-2xl) auto 0;
+  padding-left: 4px;
+}
+.protocol-timeline::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    var(--color-primary-200) 0%,
+    var(--color-primary-600) 50%,
+    var(--color-primary-200) 100%);
+  border-radius: 2px;
+}
+.protocol-timeline-item {
+  position: relative;
+  padding-left: 80px;
+  padding-bottom: 32px;
+}
+.protocol-timeline-item:last-child { padding-bottom: 0; }
+.protocol-timeline-num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--color-primary-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-primary-900);
+  box-shadow: 0 4px 14px rgba(99,93,221,0.15);
+  z-index: 2;
+}
+.protocol-timeline-card {
+  background: #fff;
+  border: 1px solid var(--color-gray-light);
+  border-radius: 16px;
+  padding: 20px 24px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.protocol-timeline-card:hover {
+  border-color: var(--color-primary-200);
+  box-shadow: 0 10px 28px rgba(14,5,42,0.06);
+  transform: translateY(-2px);
+}
+.protocol-timeline-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.protocol-timeline-card h3 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-primary-900);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.protocol-timeline-duration {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: #666;
+  background: var(--color-bg);
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.protocol-timeline-card > p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-primary-800);
+  margin: 0 0 12px;
+}
+.protocol-timeline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.protocol-timeline-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-primary-800);
+}
+.protocol-timeline-list li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-primary-600);
+  background: transparent;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .protocol-timeline { padding-left: 0; }
+  .protocol-timeline::before { left: 22px; }
+  .protocol-timeline-item { padding-left: 64px; padding-bottom: 24px; }
+  .protocol-timeline-num { width: 46px; height: 46px; font-size: 15px; }
+  .protocol-timeline-card { padding: 16px 18px; }
+  .protocol-timeline-card h3 { font-size: 16px; }
+  .protocol-timeline-header { gap: 8px; }
+}
+
 /* ═══ MEGA-MENU GUIDES — v2 (pills grid + sidebar) ═══ */
 .mega-menu-guides { padding: 0 !important; }
 .mega-guides-v2 {
