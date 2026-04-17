@@ -314,9 +314,23 @@
       </nav>
 
       <div class="flex gap-md" style="align-items:center">
-        <a href="tel:0667464897" class="header-cta-phone hide-mobile">06 67 46 48 97</a>
+        <a href="tel:0667464897" class="header-phone-card hide-mobile" aria-label="Appeler Sanalia au 06 67 46 48 97">
+          <span class="header-phone-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <span class="header-phone-number">06&nbsp;67&nbsp;46&nbsp;48&nbsp;97</span>
+        </a>
         <a href="/devis/" class="btn btn-primary btn-sm hide-mobile">Devis gratuit <span class="btn-arrow"></span></a>
-        <button class="mobile-menu-btn">&#9776;</button>
+        <a href="tel:0667464897" class="header-phone-mobile show-mobile" aria-label="Appeler Sanalia au 06 67 46 48 97">
+          <span class="header-phone-mobile-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+        </a>
+        <button class="mobile-menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span class="mobile-menu-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -743,17 +757,33 @@
           </form>
         </div>
 
-        <!-- ─── Column: Services ─── -->
+        <!-- ─── Column: Services particuliers ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Services</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h4>Services particuliers</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/deratisation/">Dératisation</a></li>
             <li><a href="/desinsectisation/">Désinsectisation</a></li>
             <li><a href="/desinfection/">Désinfection</a></li>
             <li><a href="/depigeonnage/">Dépigeonnage</a></li>
-            <li class="footer-col-separator"><a href="/professionnel/">Sanalia Pro <span class="footer-col-tag">B2B</span></a></li>
+            <li><a href="/desinsectisation/moustiques/">Démoustication</a></li>
+            <li><a href="/desinsectisation/punaises-de-lit/">Punaises de lit</a></li>
+            <li><a href="/desinsectisation/cafards/">Cafards &amp; blattes</a></li>
+            <li><a href="/desinsectisation/guepes-frelons/">Guêpes &amp; frelons</a></li>
+          </ul>
+        </details>
+
+        <!-- ─── Column: Services pros ─── -->
+        <details class="footer-col footer-col-accordion">
+          <summary class="footer-col-title"><h4>Services pros <span class="footer-col-tag">B2B</span></h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <ul>
+            <li><a href="/professionnel/">Sanalia Pro</a></li>
             <li><a href="/professionnel/">Restauration &amp; HACCP</a></li>
+            <li><a href="/professionnel/">Hôtellerie</a></li>
             <li><a href="/professionnel/">Copropriétés &amp; syndics</a></li>
+            <li><a href="/professionnel/">Agroalimentaire</a></li>
+            <li><a href="/professionnel/deratisation/paris/">Dératisation pro Paris</a></li>
+            <li><a href="/professionnel/deratisation/lyon/">Dératisation pro Lyon</a></li>
+            <li><a href="/devenir-franchise/">Devenir franchisé</a></li>
           </ul>
         </details>
 
@@ -763,13 +793,18 @@
           <ul>
             <li><a href="/nuisibles/rats/">Rats</a></li>
             <li><a href="/nuisibles/souris/">Souris</a></li>
+            <li><a href="/nuisibles/taupes/">Taupes</a></li>
             <li><a href="/nuisibles/punaises-de-lit/">Punaises de lit</a></li>
             <li><a href="/nuisibles/cafards/">Cafards</a></li>
-            <li><a href="/nuisibles/guepes-frelons/">Guêpes &amp; frelons</a></li>
             <li><a href="/nuisibles/fourmis/">Fourmis</a></li>
+            <li><a href="/nuisibles/puces/">Puces</a></li>
+            <li><a href="/nuisibles/guepes-frelons/">Guêpes &amp; frelons</a></li>
             <li><a href="/nuisibles/moustiques/">Moustiques</a></li>
+            <li><a href="/nuisibles/mites-alimentaires/">Mites</a></li>
             <li><a href="/nuisibles/pigeons/">Pigeons</a></li>
-            <li><a href="/nuisibles/" class="footer-col-see-all">Voir les 13 guides →</a></li>
+            <li><a href="/nuisibles/termites/">Termites</a></li>
+            <li><a href="/nuisibles/chenilles-processionnaires/">Chenilles</a></li>
+            <li><a href="/nuisibles/" class="footer-col-see-all">Voir tous les guides →</a></li>
           </ul>
         </details>
 
@@ -785,6 +820,8 @@
             <li><a href="/deratisation/nantes/">Nantes</a></li>
             <li><a href="/deratisation/lille/">Lille</a></li>
             <li><a href="/deratisation/nice/">Nice</a></li>
+            <li><a href="/deratisation/montpellier/">Montpellier</a></li>
+            <li><a href="/deratisation/strasbourg/">Strasbourg</a></li>
             <li><a href="/implantations/" class="footer-col-see-all">Voir la carte →</a></li>
           </ul>
         </details>
@@ -795,6 +832,7 @@
           <ul>
             <li><a href="/a-propos/">Notre histoire</a></li>
             <li><a href="/garantie/">Nos garanties</a></li>
+            <li><a href="/garantie/">Certifications</a></li>
             <li><a href="/reglementation/">Réglementation</a></li>
             <li><a href="/blog/">Blog</a></li>
             <li><a href="/devenir-franchise/">Devenir franchisé</a></li>
@@ -1000,9 +1038,22 @@
 </script>
 </div>
 <div data-component="mobile-sticky-cta">
-<div class="mobile-sticky-cta">
-  <a href="/devis/" class="btn btn-primary">Devis gratuit <span class="btn-arrow"></span></a>
-  <a href="tel:0667464897" class="btn btn-outline"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler</a>
+<div class="mobile-sticky-cta mobile-sticky-cta-v3" role="region" aria-label="Actions rapides">
+  <!-- Action row : primary CTA (full width) + phone icon button -->
+  <div class="mscta-actions">
+    <a href="/devis/" class="mscta-primary">
+      Demander mon devis
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+    <a href="tel:0667464897" class="mscta-phone" aria-label="Appeler Sanalia">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
+  </div>
+  <!-- Badge offre (discreet, below CTAs) -->
+  <div class="mscta-badge">
+    <span class="mscta-badge-dot" aria-hidden="true"></span>
+    <span class="mscta-badge-text">Offre du mois · 1<sup>ère</sup> intervention offerte</span>
+  </div>
 </div>
 </div>
 <script src="/js/app.js"></script>

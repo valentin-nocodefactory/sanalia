@@ -102,6 +102,7 @@ p { margin-bottom: var(--space-md); max-width: 75ch; }
 .gap-lg { gap: var(--space-lg); }
 .gap-xl { gap: var(--space-xl); }
 .text-center { text-align: center; }
+.show-mobile { display: none; }
 
 /* --- Responsive --- */
 @media (max-width: 1024px) {
@@ -116,6 +117,7 @@ p { margin-bottom: var(--space-md); max-width: 75ch; }
   .section { padding: var(--space-2xl) 0; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .hide-mobile { display: none !important; }
+  .show-mobile { display: inline-flex; }
   /* Prevent horizontal overflow — clip au lieu de hidden pour préserver sticky */
   .container, .section { overflow-x: clip; }
 }
