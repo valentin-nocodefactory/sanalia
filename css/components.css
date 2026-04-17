@@ -1864,6 +1864,43 @@ img, video, svg {
   border-color: var(--color-primary-600);
   box-shadow: 0 0 0 3px rgba(99, 93, 221, 0.12);
 }
+
+/* Callback modal phone group (with country prefix) */
+.callback-phone-group {
+  display: flex;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.callback-phone-group:focus-within {
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
+}
+.callback-phone-prefix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-gray-light);
+  font-family: var(--font-primary);
+  font-weight: 600;
+  color: var(--color-primary-900);
+  user-select: none;
+  flex-shrink: 0;
+}
+.callback-phone-prefix .phone-flag { font-size: 17px; line-height: 1; }
+.callback-phone-prefix .phone-code { font-size: 13px; color: var(--color-primary-800); }
+.callback-phone-group input {
+  flex: 1;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.callback-phone-group input:focus { box-shadow: none !important; }
 .callback-modal-submit {
   width: 100%;
   padding: 13px 20px;

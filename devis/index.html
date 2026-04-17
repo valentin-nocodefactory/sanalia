@@ -377,6 +377,49 @@
   box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
 }
 
+/* Phone input with country prefix */
+.devis-msf-phone-group {
+  display: flex;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.devis-msf-phone-group:focus-within {
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
+}
+.devis-msf-phone-prefix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  background: var(--color-bg);
+  border-right: 1px solid var(--color-gray-light);
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-primary-900);
+  user-select: none;
+  flex-shrink: 0;
+}
+.devis-msf-phone-prefix .phone-flag { font-size: 18px; line-height: 1; }
+.devis-msf-phone-prefix .phone-code { font-size: 14px; color: var(--color-primary-800); }
+.devis-msf-phone-group input {
+  flex: 1;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 13px 14px;
+  font-size: 15px;
+  font-family: var(--font-primary);
+  color: var(--color-primary-900);
+  outline: none !important;
+  box-shadow: none !important;
+}
+.devis-msf-phone-group input:focus { box-shadow: none !important; border: none !important; }
+
 /* "Je ne connais pas l'adresse" link */
 .devis-msf-unknown-address {
   display: inline-flex;
@@ -1952,8 +1995,8 @@
           </div>
 
           <!-- Progress indicator -->
-          <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/3</div>
-          <div class="devis-msf-progress">
+          <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/<span id="msfStepTotal">3</span></div>
+          <div class="devis-msf-progress" id="msfProgressBar">
             <div class="devis-msf-progress-step active" data-step="1"></div>
             <div class="devis-msf-progress-step" data-step="2"></div>
             <div class="devis-msf-progress-step" data-step="3"></div>
@@ -2035,25 +2078,19 @@
             </div>
 
             <div class="devis-msf-field devis-msf-autocomplete" style="margin-top:14px;" id="msfAddressField">
-              <label for="msf-address">Adresse de l'intervention</label>
+              <label for="msf-address"><span id="msfAddressLabel">Adresse de l'intervention</span></label>
               <input type="text" id="msf-address" name="address" autocomplete="street-address" placeholder="Ex : 15 rue de Rivoli, Paris">
               <input type="hidden" name="postalcode" id="msf-postalcode">
+              <input type="hidden" name="address_unknown" id="msf-address-unknown" value="false">
               <div class="devis-msf-suggestions" id="msfSuggestions"></div>
               <button type="button" class="devis-msf-unknown-address" id="msfUnknownAddress">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 Je ne trouve pas mon adresse
               </button>
-              <input type="hidden" name="address_unknown" id="msf-address-unknown" value="false">
               <button type="button" class="devis-msf-unknown-reset" id="msfUnknownReset">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-                Rechercher l'adresse
+                Réactiver la recherche d'adresse
               </button>
-            </div>
-
-            <!-- Manual address fallback (hidden by default, shown if user can't find address) -->
-            <div class="devis-msf-field devis-msf-manual" id="msfManualAddress" style="display:none;">
-              <label for="msf-address-manual">Saisissez votre adresse manuellement</label>
-              <input type="text" id="msf-address-manual" name="address_manual" placeholder="N° et nom de rue, code postal, ville" autocomplete="street-address">
             </div>
 
             <div class="devis-msf-actions">
@@ -2068,7 +2105,77 @@
             </div>
           </div>
 
-          <!-- ─── Step 3: Contact ─── -->
+          <!-- ─── Step 3 PRO: Détails entreprise (visible si statut=pro) ─── -->
+          <div class="devis-msf-step" data-step="pro">
+            <h2>Votre entreprise</h2>
+            <p class="devis-msf-sub">Quelques infos pour préparer un devis pro adapté.</p>
+
+            <div class="devis-msf-field">
+              <label for="msf-company">Nom de l'entreprise</label>
+              <input type="text" id="msf-company" name="company" autocomplete="organization" placeholder="Ex : Hôtel du Parc">
+            </div>
+
+            <label style="display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px;">Secteur d'activité</label>
+            <div class="devis-msf-radios">
+              <label class="devis-msf-radio">
+                <input type="radio" name="secteur" value="restauration">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Restauration</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="secteur" value="hotellerie">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Hôtellerie</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="secteur" value="agroalimentaire">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Agroalimentaire</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="secteur" value="commerce">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Commerce</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="secteur" value="bureau">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Bureau / Tertiaire</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="secteur" value="autre-pro">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Autre</span>
+              </label>
+            </div>
+
+            <label style="display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px;margin-top:14px;">Type de demande</label>
+            <div class="devis-msf-radios" style="grid-template-columns:1fr 1fr;">
+              <label class="devis-msf-radio">
+                <input type="radio" name="demande_type" value="urgence">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Intervention urgente</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="demande_type" value="contrat">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Contrat annuel</span>
+              </label>
+            </div>
+
+            <div class="devis-msf-actions">
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Retour
+              </button>
+              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNextPro" disabled>
+                Continuer
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ─── Step 3 / 4: Contact ─── -->
           <div class="devis-msf-step" data-step="3">
             <h2>Recevez votre devis</h2>
             <p class="devis-msf-sub">Dernière étape. Devis sous 2h, sans engagement.</p>
@@ -2086,7 +2193,14 @@
 
             <div class="devis-msf-field">
               <label for="msf-phone">Téléphone</label>
-              <input type="tel" id="msf-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78" pattern="[0-9\s+]{10,}">
+              <div class="devis-msf-phone-group">
+                <div class="devis-msf-phone-prefix" aria-hidden="true">
+                  <span class="phone-flag">🇫🇷</span>
+                  <span class="phone-code">+33</span>
+                </div>
+                <input type="tel" id="msf-phone" name="phone" required autocomplete="tel" placeholder="6 12 34 56 78" pattern="[0-9\s]{9,}">
+                <input type="hidden" name="phone_country" value="FR" id="msf-phone-country">
+              </div>
             </div>
 
             <div class="devis-msf-field">
@@ -2095,12 +2209,12 @@
             </div>
 
             <div class="devis-msf-actions">
-              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="2">
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="auto">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                 Retour
               </button>
-              <button type="submit" class="devis-msf-btn devis-msf-btn-primary">
-                Recevoir mon devis
+              <button type="submit" class="devis-msf-btn devis-msf-btn-primary" id="msfSubmit">
+                <span class="msfSubmitLabel">Recevoir mon devis</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
             </div>
@@ -2401,7 +2515,14 @@
       </div>
       <div class="callback-field">
         <label for="cb-phone">Téléphone</label>
-        <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78" pattern="[0-9\s+]{10,}">
+        <div class="callback-phone-group">
+          <div class="callback-phone-prefix" aria-hidden="true">
+            <span class="phone-flag">🇫🇷</span>
+            <span class="phone-code">+33</span>
+          </div>
+          <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="6 12 34 56 78" pattern="[0-9\s]{9,}">
+          <input type="hidden" name="phone_country" value="FR">
+        </div>
       </div>
       <div class="callback-field">
         <label for="cb-email">Email</label>
@@ -2453,6 +2574,32 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
+
+  // Callback modal submit → n8n webhook + redirect /merci/
+  var cbForm = document.getElementById('callbackModalForm');
+  var CB_WEBHOOK = 'https://n8n.srv1336530.hstgr.cloud/webhook/e0762f14-4aee-4f37-bdfa-d17c2e45ec1d';
+  if (cbForm) {
+    cbForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var fd = new FormData(cbForm);
+      var payload = {};
+      fd.forEach(function(v, k) { payload[k] = v; });
+      payload.form_type = 'callback';
+      payload.phone_full = '+33 ' + (payload.phone || '').replace(/^0+/, '').trim();
+      payload.submitted_at = new Date().toISOString();
+      payload.page_url = window.location.href;
+      var submit = cbForm.querySelector('.callback-modal-submit');
+      if (submit) { submit.disabled = true; submit.textContent = 'Envoi en cours…'; }
+      fetch(CB_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        mode: 'cors'
+      }).finally(function() {
+        window.location.href = '/merci/';
+      });
+    });
+  }
 })();
 </script>
 </div>
@@ -2478,23 +2625,68 @@
 
   var stepEls = form.querySelectorAll('.devis-msf-step');
   var progressSteps = form.querySelectorAll('.devis-msf-progress-step');
+  var progressBar = document.getElementById('msfProgressBar');
   var currentEl = document.getElementById('msfStepCurrent');
+  var totalEl = document.getElementById('msfStepTotal');
   var next1 = document.getElementById('msfNext1');
   var next2 = document.getElementById('msfNext2');
-  var backBtns = form.querySelectorAll('[data-back-to]');
-  var TOTAL_STEPS = 3;
+  var nextPro = document.getElementById('msfNextPro');
+  var submitBtn = document.getElementById('msfSubmit');
+  // currentStep can be: 1, 2, 'pro', 3
   var currentStep = 1;
 
+  function isProFlow() {
+    var statut = form.querySelector('input[name="statut"]:checked');
+    return statut && statut.value === 'pro';
+  }
+
   function setStep(n) {
+    // Show/hide steps
     stepEls.forEach(function(el) {
-      el.classList.toggle('is-active', parseInt(el.dataset.step) === n);
+      var s = el.dataset.step;
+      el.classList.toggle('is-active', String(s) === String(n));
     });
-    progressSteps.forEach(function(el) {
-      el.classList.toggle('active', parseInt(el.dataset.step) <= n);
-    });
-    if (currentEl) currentEl.textContent = n;
+
+    // Progress bar: 3 segments default / 4 if pro
+    var pro = isProFlow();
+    if (totalEl) totalEl.textContent = pro ? '4' : '3';
+
+    // Rebuild progress bar to match flow
+    var stepIndex, totalSteps;
+    if (pro) {
+      totalSteps = 4;
+      if (n === 1) stepIndex = 1;
+      else if (n === 2) stepIndex = 2;
+      else if (n === 'pro') stepIndex = 3;
+      else if (n === 3) stepIndex = 4;
+    } else {
+      totalSteps = 3;
+      if (n === 1) stepIndex = 1;
+      else if (n === 2) stepIndex = 2;
+      else if (n === 3) stepIndex = 3;
+      else stepIndex = 2;
+    }
+    if (currentEl) currentEl.textContent = stepIndex;
+
+    // Rebuild dots
+    if (progressBar) {
+      progressBar.innerHTML = '';
+      for (var i = 1; i <= totalSteps; i++) {
+        var dot = document.createElement('div');
+        dot.className = 'devis-msf-progress-step' + (i <= stepIndex ? ' active' : '');
+        progressBar.appendChild(dot);
+      }
+    }
+
     currentStep = n;
-    // Focus first fillable field of new step (no scroll — keep position stable)
+
+    // Update submit button label for pro
+    if (submitBtn) {
+      var lbl = submitBtn.querySelector('.msfSubmitLabel');
+      if (lbl) lbl.textContent = pro ? 'Recevoir mon devis pro' : 'Recevoir mon devis';
+    }
+
+    // Focus first fillable field of new step (no scroll)
     setTimeout(function() {
       var active = form.querySelector('.devis-msf-step.is-active input:not([type="radio"]):not([type="hidden"])');
       if (active) active.focus({ preventScroll: true });
@@ -2506,33 +2698,48 @@
     var nuisible = form.querySelector('input[name="nuisible"]:checked');
     next1.disabled = !nuisible;
   }
-  // Step 2: statut + address (autocomplete OR manual)
+  // Step 2: statut + address (same input, even in manual mode)
   function validateStep2() {
     var statut = form.querySelector('input[name="statut"]:checked');
     var address = form.querySelector('#msf-address').value.trim();
-    var manual = form.querySelector('#msf-address-manual') ? form.querySelector('#msf-address-manual').value.trim() : '';
-    var unknown = form.querySelector('#msf-address-unknown').value === 'true';
-    var addressOk = unknown ? manual.length >= 5 : address.length >= 5;
-    next2.disabled = !(statut && addressOk);
+    next2.disabled = !(statut && address.length >= 5);
+  }
+  // Step Pro: secteur + demande type
+  function validateStepPro() {
+    var secteur = form.querySelector('input[name="secteur"]:checked');
+    var demande = form.querySelector('input[name="demande_type"]:checked');
+    if (nextPro) nextPro.disabled = !(secteur && demande);
   }
 
-  form.addEventListener('change', function() { validateStep1(); validateStep2(); });
+  form.addEventListener('change', function() { validateStep1(); validateStep2(); validateStepPro(); });
   form.querySelector('#msf-address').addEventListener('input', validateStep2);
-  if (form.querySelector('#msf-address-manual')) {
-    form.querySelector('#msf-address-manual').addEventListener('input', validateStep2);
-  }
 
   next1.addEventListener('click', function(e) { e.preventDefault(); setStep(2); });
-  next2.addEventListener('click', function(e) { e.preventDefault(); setStep(3); });
+  next2.addEventListener('click', function(e) {
+    e.preventDefault();
+    // Branch: if pro → step pro, else → step 3
+    if (isProFlow()) setStep('pro');
+    else setStep(3);
+  });
+  if (nextPro) nextPro.addEventListener('click', function(e) { e.preventDefault(); setStep(3); });
 
-  // Back buttons — event delegation on the form (more robust than per-button handler)
+  // Back buttons — event delegation (handles "auto" which depends on flow)
   form.addEventListener('click', function(e) {
     var back = e.target.closest('[data-back-to]');
     if (!back || !form.contains(back)) return;
     e.preventDefault();
     e.stopPropagation();
-    var target = parseInt(back.getAttribute('data-back-to'), 10);
-    if (target >= 1 && target <= 3) setStep(target);
+    var raw = back.getAttribute('data-back-to');
+    var target;
+    if (raw === 'auto') {
+      target = isProFlow() ? 'pro' : 2;
+    } else if (raw === 'pro') {
+      target = 'pro';
+    } else {
+      var parsed = parseInt(raw, 10);
+      target = (parsed >= 1 && parsed <= 3) ? parsed : 1;
+    }
+    setStep(target);
   });
 
   // Auto-advance: when a nuisible is picked, jump to step 2 automatically
@@ -2547,40 +2754,34 @@
     });
   });
 
-  // "Je ne trouve pas mon adresse" — shows manual input
+  // "Je ne trouve pas mon adresse" — keeps the SAME input but switches it to free-text mode
   var addressField = document.getElementById('msfAddressField');
-  var manualField = document.getElementById('msfManualAddress');
   var unknownBtn = document.getElementById('msfUnknownAddress');
   var resetBtn = document.getElementById('msfUnknownReset');
   var unknownInput = document.getElementById('msf-address-unknown');
   var addressInputEl = document.getElementById('msf-address');
-  var manualInputEl = document.getElementById('msf-address-manual');
+  var addressLabelEl = document.getElementById('msfAddressLabel');
+  var suggestionsEl2 = document.getElementById('msfSuggestions');
 
   unknownBtn.addEventListener('click', function() {
     addressField.classList.add('is-unknown');
     unknownInput.value = 'true';
-    // Carry over what the user already typed so they don't re-type
-    var carried = addressInputEl.value.trim();
-    if (manualField) {
-      manualField.style.display = 'block';
-      if (carried && !manualInputEl.value) manualInputEl.value = carried;
-      setTimeout(function() {
-        manualInputEl.focus();
-        var len = manualInputEl.value.length;
-        manualInputEl.setSelectionRange(len, len);
-      }, 50);
-    }
-    addressInputEl.value = '';
+    // Keep whatever the user typed, just switch to free-text (disable autocomplete queries)
+    if (addressLabelEl) addressLabelEl.textContent = 'Saisissez votre adresse manuellement';
+    addressInputEl.placeholder = 'N° et nom de rue, code postal, ville';
+    if (suggestionsEl2) suggestionsEl2.classList.remove('is-open');
+    setTimeout(function() {
+      addressInputEl.focus();
+      var len = addressInputEl.value.length;
+      addressInputEl.setSelectionRange(len, len);
+    }, 50);
     validateStep2();
   });
   resetBtn.addEventListener('click', function() {
     addressField.classList.remove('is-unknown');
     unknownInput.value = 'false';
-    // Carry back the manual text so user doesn't lose it
-    var carried = manualInputEl.value.trim();
-    if (carried) addressInputEl.value = carried;
-    if (manualField) manualField.style.display = 'none';
-    if (manualInputEl) manualInputEl.value = '';
+    if (addressLabelEl) addressLabelEl.textContent = 'Adresse de l\'intervention';
+    addressInputEl.placeholder = 'Ex : 15 rue de Rivoli, Paris';
     addressInputEl.focus();
     validateStep2();
   });
@@ -2620,6 +2821,56 @@
     }
   }
 
+  // ═══ SUBMIT → n8n webhook + redirect /merci/ ═══
+  var WEBHOOK_URL = 'https://n8n.srv1336530.hstgr.cloud/webhook/e0762f14-4aee-4f37-bdfa-d17c2e45ec1d';
+  var SUCCESS_URL = '/merci/';
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Gather all form data
+    var fd = new FormData(form);
+    var payload = {};
+    fd.forEach(function(value, key) { payload[key] = value; });
+
+    // Enrich payload with useful meta
+    payload.form_type = 'devis';
+    payload.is_pro = isProFlow();
+    payload.phone_full = '+33 ' + (payload.phone || '').replace(/^0+/, '').trim();
+    payload.submitted_at = new Date().toISOString();
+    payload.page_url = window.location.href;
+    payload.utm = {};
+    try {
+      var p = new URLSearchParams(window.location.search);
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k) {
+        var v = p.get(k); if (v) payload.utm[k] = v;
+      });
+    } catch(err) {}
+
+    // Disable button + loading state
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      var lbl = submitBtn.querySelector('.msfSubmitLabel');
+      if (lbl) lbl.textContent = 'Envoi en cours…';
+    }
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      mode: 'cors'
+    })
+    .then(function(r) {
+      // Redirect regardless — we don't want user to see failure
+      window.location.href = SUCCESS_URL;
+    })
+    .catch(function(err) {
+      console.warn('Webhook error:', err);
+      // Fallback: still redirect so user is not stuck
+      window.location.href = SUCCESS_URL;
+    });
+  });
+
   // Address autocomplete via Nominatim (OSM)
   var addressInput = document.getElementById('msf-address');
   var suggestionsEl = document.getElementById('msfSuggestions');
@@ -2628,6 +2879,11 @@
 
   addressInput.addEventListener('input', function(e) {
     clearTimeout(debounceTimer);
+    // If in manual mode, don't query Nominatim
+    if (addressField.classList.contains('is-unknown')) {
+      suggestionsEl.classList.remove('is-open');
+      return;
+    }
     var q = e.target.value.trim();
     if (q.length < 3) {
       suggestionsEl.classList.remove('is-open');

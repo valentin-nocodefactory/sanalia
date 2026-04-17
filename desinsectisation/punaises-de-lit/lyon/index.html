@@ -698,7 +698,14 @@
       </div>
       <div class="callback-field">
         <label for="cb-phone">Téléphone</label>
-        <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78" pattern="[0-9\s+]{10,}">
+        <div class="callback-phone-group">
+          <div class="callback-phone-prefix" aria-hidden="true">
+            <span class="phone-flag">🇫🇷</span>
+            <span class="phone-code">+33</span>
+          </div>
+          <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="6 12 34 56 78" pattern="[0-9\s]{9,}">
+          <input type="hidden" name="phone_country" value="FR">
+        </div>
       </div>
       <div class="callback-field">
         <label for="cb-email">Email</label>
@@ -750,6 +757,32 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
+
+  // Callback modal submit → n8n webhook + redirect /merci/
+  var cbForm = document.getElementById('callbackModalForm');
+  var CB_WEBHOOK = 'https://n8n.srv1336530.hstgr.cloud/webhook/e0762f14-4aee-4f37-bdfa-d17c2e45ec1d';
+  if (cbForm) {
+    cbForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var fd = new FormData(cbForm);
+      var payload = {};
+      fd.forEach(function(v, k) { payload[k] = v; });
+      payload.form_type = 'callback';
+      payload.phone_full = '+33 ' + (payload.phone || '').replace(/^0+/, '').trim();
+      payload.submitted_at = new Date().toISOString();
+      payload.page_url = window.location.href;
+      var submit = cbForm.querySelector('.callback-modal-submit');
+      if (submit) { submit.disabled = true; submit.textContent = 'Envoi en cours…'; }
+      fetch(CB_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        mode: 'cors'
+      }).finally(function() {
+        window.location.href = '/merci/';
+      });
+    });
+  }
 })();
 </script>
 </div>
