@@ -802,24 +802,30 @@ textarea.form-input {
   .header-phone-mobile { display: inline-flex; }
 }
 
-/* ─── Burger menu button (animated) ─── */
+/* ─── Burger menu button (dark pill, animated) ─── */
 .mobile-menu-btn {
   display: none;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   align-items: center;
   justify-content: center;
   border: none;
-  background: transparent;
+  background: #0E052A;
   cursor: pointer;
-  border-radius: 10px;
-  transition: background 0.15s;
+  border-radius: 50%;
+  transition: transform 0.15s ease, background 0.15s;
+  box-shadow: 0 2px 6px rgba(14, 5, 42, 0.16);
+  padding: 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 }
-.mobile-menu-btn:hover { background: var(--color-bg); }
+.mobile-menu-btn:hover { background: #000; }
+.mobile-menu-btn:active { transform: scale(0.94); }
 .mobile-menu-icon {
   position: relative;
-  width: 22px;
-  height: 16px;
+  width: 18px;
+  height: 12px;
   display: inline-block;
 }
 .mobile-menu-icon span {
@@ -827,18 +833,18 @@ textarea.form-input {
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--color-primary-900);
+  background: #FFFFFF;
   border-radius: 2px;
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               top 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.15s;
 }
 .mobile-menu-icon span:nth-child(1) { top: 0; }
-.mobile-menu-icon span:nth-child(2) { top: 7px; }
-.mobile-menu-icon span:nth-child(3) { top: 14px; }
-body.mobile-menu-open .mobile-menu-icon span:nth-child(1) { top: 7px; transform: rotate(45deg); }
+.mobile-menu-icon span:nth-child(2) { top: 5px; }
+.mobile-menu-icon span:nth-child(3) { top: 10px; }
+body.mobile-menu-open .mobile-menu-icon span:nth-child(1) { top: 5px; transform: rotate(45deg); }
 body.mobile-menu-open .mobile-menu-icon span:nth-child(2) { opacity: 0; }
-body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
+body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
 @media (max-width: 1024px) {
   .header-nav { display: none; }
   .header-nav.open {

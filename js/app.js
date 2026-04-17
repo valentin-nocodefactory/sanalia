@@ -61,14 +61,19 @@ function initStickyCtaScrollAware() {
   }, { passive: true });
 }
 
-/* ── Mobile Menu (premium full-screen slide-in) ── */
+/* ── Mobile Menu (premium full-screen slide-in) ──
+   Uses document-level event delegation so the burger works even if the header
+   is replaced/re-rendered after DOMContentLoaded (runtime robustness). */
 function initMobileMenu() {
-  const btn = document.querySelector('.mobile-menu-btn');
-  const nav = document.querySelector('.header-nav');
-  if (!btn || !nav) return;
+  if (window.__mobileMenuInit) return;
+  window.__mobileMenuInit = true;
 
-  // Inject sticky CTA at the bottom of the mobile menu (once)
-  if (!nav.querySelector('.mobile-menu-cta')) {
+  function getNav()  { return document.querySelector('.header-nav'); }
+  function getBtn()  { return document.querySelector('.mobile-menu-btn'); }
+
+  function ensureStickyCta() {
+    const nav = getNav();
+    if (!nav || nav.querySelector('.mobile-menu-cta')) return;
     const cta = document.createElement('div');
     cta.className = 'mobile-menu-cta';
     cta.innerHTML =
@@ -81,37 +86,52 @@ function initMobileMenu() {
   }
 
   function closeMenu() {
+    const nav = getNav(), btn = getBtn();
+    if (!nav) return;
     nav.classList.remove('open');
     document.body.classList.remove('mobile-menu-open');
-    btn.setAttribute('aria-expanded', 'false');
-    // Reset all open submenus
+    if (btn) btn.setAttribute('aria-expanded', 'false');
     nav.querySelectorAll('.nav-item.is-open').forEach(i => i.classList.remove('is-open'));
   }
 
   function openMenu() {
+    const nav = getNav(), btn = getBtn();
+    if (!nav) return;
+    ensureStickyCta();
     nav.classList.add('open');
     document.body.classList.add('mobile-menu-open');
-    btn.setAttribute('aria-expanded', 'true');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
   }
 
-  btn.addEventListener('click', () => {
-    if (nav.classList.contains('open')) closeMenu();
-    else openMenu();
-  });
+  ensureStickyCta();
 
-  // Mobile: handle clicks inside nav — toggle top-level, close on leaf
-  nav.addEventListener('click', (e) => {
+  // Delegation : burger click anywhere (captures even if DOM changed after init)
+  document.addEventListener('click', (e) => {
+    const burger = e.target.closest('.mobile-menu-btn');
+    if (burger) {
+      e.preventDefault();
+      e.stopPropagation();
+      const nav = getNav();
+      if (!nav) return;
+      if (nav.classList.contains('open')) closeMenu();
+      else openMenu();
+      return;
+    }
+
+    // Clicks inside the open mobile nav
     if (window.innerWidth > 1024) return;
+    const nav = getNav();
+    if (!nav || !nav.classList.contains('open')) return;
+    if (!nav.contains(e.target)) return;
+
     const link = e.target.closest('a');
     if (!link) return;
 
-    // Case 1 : top-level link inside .nav-item > a (direct child) with a mega-menu
-    // → intercept and toggle submenu instead of navigating
     const navItem = link.closest('.nav-item');
     if (navItem && link.parentElement === navItem && navItem.querySelector('.mega-menu')) {
+      // Top-level link → toggle submenu
       e.preventDefault();
       e.stopPropagation();
-      // Exclusive open: close siblings
       nav.querySelectorAll('.nav-item.is-open').forEach(i => {
         if (i !== navItem) i.classList.remove('is-open');
       });
@@ -119,19 +139,20 @@ function initMobileMenu() {
       return;
     }
 
-    // Case 2 : any other link (leaf link inside submenu, CTA at bottom)
-    // → let it navigate, but close the menu for next time
+    // Leaf link (or CTA) → navigate, close menu for next time
     closeMenu();
-  }, true); // capture to run before default navigation
+  }, true);
 
   // Close menu on ESC
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('open')) closeMenu();
+    const nav = getNav();
+    if (e.key === 'Escape' && nav && nav.classList.contains('open')) closeMenu();
   });
 
   // Close menu on window resize to desktop
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 1024 && nav.classList.contains('open')) closeMenu();
+    const nav = getNav();
+    if (window.innerWidth > 1024 && nav && nav.classList.contains('open')) closeMenu();
   });
 }
 
