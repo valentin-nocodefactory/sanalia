@@ -71,6 +71,30 @@ function initMobileMenu() {
   function getNav()  { return document.querySelector('.header-nav'); }
   function getBtn()  { return document.querySelector('.mobile-menu-btn'); }
 
+  // Track the nav's original location so we can restore it on desktop resize.
+  // The header's stacking context (z-index 110, backdrop-filter) traps the drawer
+  // below the backdrop. Moving the nav to <body> escapes that stacking context.
+  var navOriginalParent = null;
+  var navOriginalNext = null;
+  function relocateNavToBody() {
+    var nav = getNav();
+    if (!nav) return;
+    if (nav.parentElement === document.body) return; // already moved
+    navOriginalParent = nav.parentElement;
+    navOriginalNext = nav.nextElementSibling;
+    document.body.appendChild(nav);
+  }
+  function restoreNavToHeader() {
+    var nav = getNav();
+    if (!nav || !navOriginalParent) return;
+    if (nav.parentElement === navOriginalParent) return; // already restored
+    if (navOriginalNext && navOriginalNext.parentElement === navOriginalParent) {
+      navOriginalParent.insertBefore(nav, navOriginalNext);
+    } else {
+      navOriginalParent.appendChild(nav);
+    }
+  }
+
   function ensureDrawerChrome() {
     const nav = getNav();
     if (!nav) return;
@@ -123,6 +147,9 @@ function initMobileMenu() {
   function openMenu() {
     const nav = getNav(), btn = getBtn();
     if (!nav) return;
+    // Move the nav out of .header (which has z-index/backdrop-filter creating a
+    // stacking context that would trap the drawer below the backdrop).
+    relocateNavToBody();
     ensureDrawerChrome();
     nav.classList.add('open');
     document.body.classList.add('mobile-menu-open');
@@ -130,6 +157,9 @@ function initMobileMenu() {
   }
 
   ensureDrawerChrome();
+  // Pre-move the nav on small viewports so the drawer is positioned correctly
+  // even before the user opens the menu (avoids a flash on first open).
+  if (window.innerWidth <= 1024) relocateNavToBody();
 
   // Delegation : single document-level click handler
   document.addEventListener('click', (e) => {
@@ -198,10 +228,15 @@ function initMobileMenu() {
     if (e.key === 'Escape' && nav && nav.classList.contains('open')) closeMenu();
   });
 
-  // Close menu on resize to desktop
+  // Close menu on resize to desktop AND restore the nav into its original parent
   window.addEventListener('resize', () => {
     const nav = getNav();
-    if (window.innerWidth > 1024 && nav && nav.classList.contains('open')) closeMenu();
+    if (window.innerWidth > 1024) {
+      if (nav && nav.classList.contains('open')) closeMenu();
+      restoreNavToHeader();
+    } else {
+      relocateNavToBody();
+    }
   });
 }
 

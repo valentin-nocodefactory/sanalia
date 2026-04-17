@@ -2252,6 +2252,7 @@ body.mobile-menu-open {
   text-align: left;
   font-weight: var(--font-weight-bold);
   font-size: var(--text-body);
+  color: var(--color-primary-900); /* explicit — iOS/Android render <button> in system blue otherwise */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2259,7 +2260,16 @@ body.mobile-menu-open {
   border: none;
   background: none;
   font-family: var(--font-primary);
+  -webkit-appearance: none;
+  appearance: none;
   transition: color 0.2s;
+}
+/* iOS auto-detects dates/addresses/phones inside FAQ bodies as blue links — neutralize */
+.accordion-body-inner a[href^="x-apple-data-detectors://"],
+.accordion-header a[href^="x-apple-data-detectors://"] {
+  color: inherit !important;
+  text-decoration: none !important;
+  pointer-events: none !important;
 }
 .accordion-item.open .accordion-header { color: var(--color-primary-600); }
 .accordion-header .icon-toggle {
