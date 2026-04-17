@@ -607,6 +607,120 @@
   background: var(--color-surface);
 }
 
+/* Protocole concret — grille 2 colonnes */
+.protocol-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+}
+.protocol-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.protocol-card:hover {
+  border-color: var(--color-primary-200);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(14, 5, 42, 0.06);
+}
+.protocol-num {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  color: var(--color-primary-600);
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+}
+.protocol-duration {
+  display: inline-block;
+  width: fit-content;
+  font-size: 12px;
+  color: #999;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--color-bg-sand);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-xs);
+}
+.protocol-card h3 {
+  margin: 0;
+  font-family: 'Uxum', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color-primary-900);
+  padding-right: 60px;
+  line-height: 1.25;
+}
+.protocol-card > p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--color-primary-800);
+  line-height: 1.6;
+}
+.protocol-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-xs) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.protocol-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 14px;
+  color: var(--color-primary-800);
+  line-height: 1.55;
+}
+.protocol-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  border: 2px solid var(--color-primary-600);
+}
+@media (max-width: 900px) {
+  .protocol-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  .protocol-card {
+    padding: var(--space-lg);
+  }
+  .protocol-num {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    top: var(--space-md);
+    right: var(--space-md);
+  }
+  .protocol-card h3 {
+    font-size: 19px;
+    padding-right: 48px;
+  }
+}
+
 /* Included list */
 .included-grid {
   display: grid;
@@ -849,7 +963,7 @@
               <a href="/garantie/" class="mega-menu-item">
                 <div><h4>Certifications</h4><p>Certibiocide, RC Pro, QualiPro 3D</p></div>
               </a>
-              <a href="/professionnel/" class="mega-menu-item">
+              <a href="/devenir-franchise/" class="mega-menu-item">
                 <div><h4>Devenir franchisé</h4><p>Rejoignez le réseau Sanalia</p></div>
               </a>
             </div>
@@ -1261,6 +1375,106 @@
     <div class="accordion-item">
       <button class="accordion-header">Comment savoir si j'ai des rats ou des souris ? <span class="icon-toggle">+</span></button>
       <div class="accordion-body"><div class="accordion-body-inner">Les signes les plus courants sont : des bruits de grattement la nuit dans les murs ou le plafond, des crottes noires de 1 à 2 cm (rats) ou 3 à 5 mm (souris), des traces de grignotage sur les câbles ou emballages, et des traces de passage graisseuses le long des murs. Consultez nos <a href="/nuisibles/rats/">guides d'identification</a> pour en savoir plus.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PROTOCOLE CONCRET ════════ -->
+<section class="section-premium bg-cream" id="protocole-concret">
+  <div class="container">
+    <div class="section-header" style="max-width:780px;margin-left:auto;margin-right:auto;text-align:center;">
+      <span class="mono" style="color:#999;">Protocole opérationnel</span>
+      <h2>Concrètement, voilà ce qu'on fait chez vous</h2>
+      <p>Pas de magie, pas de discours marketing. Voici le protocole exact appliqué chez vous par un technicien Certibiocide.</p>
+    </div>
+
+    <div class="protocol-grid">
+
+      <!-- 1. Inspection -->
+      <article class="protocol-card">
+        <div class="protocol-num">01</div>
+        <div class="protocol-duration mono">Durée : 1h</div>
+        <h3>Inspection complète</h3>
+        <p>Le technicien passe chaque pièce, repère les crottes, les traces de graisse le long des plinthes, les points d'entrée. Il utilise une lampe UV pour détecter les marquages d'urine invisibles à l'œil nu.</p>
+        <ul class="protocol-list">
+          <li>Repérage des coulées et zones de nidification</li>
+          <li>Identification de l'espèce : rat brun, rat noir ou souris grise</li>
+          <li>Cartographie précise pour adapter le traitement</li>
+        </ul>
+      </article>
+
+      <!-- 2. Bouchage -->
+      <article class="protocol-card">
+        <div class="protocol-num">02</div>
+        <div class="protocol-duration mono">Durée : 2 à 3h</div>
+        <h3>Bouchage des accès</h3>
+        <p>On rebouche TOUS les passages identifiés. Un rat peut passer dans un trou de 2 cm, une souris dans 6 mm : rien n'est laissé au hasard.</p>
+        <ul class="protocol-list">
+          <li>Trous autour des canalisations : laine d'acier + mortier</li>
+          <li>Fissures de dalles et joints de fenêtres colmatés</li>
+          <li>Grilles d'aération équipées de grillage inox 6 mm</li>
+          <li>Traitement des gaines techniques, soupiraux et coffrages</li>
+        </ul>
+      </article>
+
+      <!-- 3. Postes d'appâtage -->
+      <article class="protocol-card">
+        <div class="protocol-num">03</div>
+        <div class="protocol-duration mono">5 à 15 postes</div>
+        <h3>Pose de postes d'appâtage connectés</h3>
+        <p>Entre 5 et 15 postes verrouillés selon la surface, placés précisément sur les coulées identifiées à l'étape 1. Équipés de capteurs IoT qui nous alertent à chaque passage de rongeur.</p>
+        <ul class="protocol-list">
+          <li>Postes inviolables brevetés : sécurisés pour enfants et animaux</li>
+          <li>Alertes temps réel dès la première activité détectée</li>
+          <li>Suivi de la consommation d'appât à distance</li>
+        </ul>
+      </article>
+
+      <!-- 4. Pièges mécaniques -->
+      <article class="protocol-card">
+        <div class="protocol-num">04</div>
+        <div class="protocol-duration mono">Zones sensibles</div>
+        <h3>Pièges mécaniques complémentaires</h3>
+        <p>Dans les zones où l'appât chimique n'est pas envisageable — cuisine familiale, chambre de bébé, commerce alimentaire, ERP — on pose des pièges mécaniques adaptés à vos contraintes.</p>
+        <ul class="protocol-list">
+          <li>Tapettes professionnelles inviolables haute sensibilité</li>
+          <li>Pièges à capture vivante si vous le souhaitez</li>
+          <li>Choix du dispositif validé avec vous avant installation</li>
+        </ul>
+      </article>
+
+      <!-- 5. Désinfection -->
+      <article class="protocol-card">
+        <div class="protocol-num">05</div>
+        <div class="protocol-duration mono">Si contamination</div>
+        <h3>Désodorisation et désinfection</h3>
+        <p>Si nous détectons des cadavres ou des zones imprégnées d'urine, nous appliquons un traitement de décontamination complet. Ce n'est pas systématique : seulement quand c'est nécessaire.</p>
+        <ul class="protocol-list">
+          <li>Traitement à l'ozone pour neutraliser les odeurs persistantes</li>
+          <li>Biocide virucide sur surfaces contaminées</li>
+          <li>Élimination des bactéries : leptospirose, hantavirus, salmonelles</li>
+        </ul>
+      </article>
+
+      <!-- 6. Suivi -->
+      <article class="protocol-card">
+        <div class="protocol-num">06</div>
+        <div class="protocol-duration mono">Jusqu'à éradication</div>
+        <h3>Suivi WhatsApp jusqu'à éradication</h3>
+        <p>Vous n'êtes pas lâché après l'intervention. On garde le contact jusqu'à confirmation que l'infestation est terminée — c'est ce qu'on appelle la garantie 3 mois.</p>
+        <ul class="protocol-list">
+          <li>Photos des postes installés envoyées à J+0</li>
+          <li>Notifications des capteurs IoT en temps réel</li>
+          <li>Visite de contrôle à J+10 : retrait des cadavres et vérification</li>
+          <li>Re-visite à J+30 gratuite si une activité est encore détectée</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <div style="text-align:center;margin-top:var(--space-2xl);">
+      <a href="/devis/?nuisible=rats" class="btn btn-primary btn-lg">Demander un diagnostic chez vous</a>
+      <p class="mono" style="margin-top:var(--space-md);color:#999;font-size:13px;">Diagnostic et devis gratuits — Intervention sous 24h</p>
     </div>
   </div>
 </section>

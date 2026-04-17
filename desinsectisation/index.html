@@ -241,6 +241,37 @@
 .section-premium.bg-cream { background: var(--color-bg); }
 .section-premium.bg-white { background: var(--color-surface); }
 
+/* Protocole concret — 2 col grid with numbered cards */
+.protocol-intro { max-width: 720px; margin: 0 auto var(--space-2xl); text-align: center; color: var(--color-primary-800); font-size: 16px; line-height: 1.6; }
+.protocol-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+.protocol-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.protocol-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(14,5,42,.06); border-color: var(--color-primary-200); }
+.protocol-number {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--color-primary-100); color: var(--color-primary-600);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-primary); font-weight: 700; font-size: 18px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(99, 93, 221, 0.15);
+}
+.protocol-body { flex: 1; }
+.protocol-body h3 { font-size: 17px; margin: 0 0 6px; color: var(--color-primary-900); line-height: 1.35; }
+.protocol-body h3 .protocol-duration { display: inline-block; margin-left: 6px; font-family: 'Space Mono', monospace; font-weight: 400; font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
+.protocol-body p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--color-primary-800); }
+@media (max-width: 900px) {
+  .protocol-grid { grid-template-columns: 1fr; }
+  .protocol-card { padding: var(--space-lg); gap: var(--space-md); }
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; }
@@ -452,7 +483,7 @@
               <a href="/garantie/" class="mega-menu-item">
                 <div><h4>Certifications</h4><p>Certibiocide, RC Pro, QualiPro 3D</p></div>
               </a>
-              <a href="/professionnel/" class="mega-menu-item">
+              <a href="/devenir-franchise/" class="mega-menu-item">
                 <div><h4>Devenir franchisé</h4><p>Rejoignez le réseau Sanalia</p></div>
               </a>
             </div>
@@ -802,6 +833,61 @@
     <div class="accordion-item">
       <button class="accordion-header">Faut-il quitter le logement pendant le traitement ? <span class="icon-toggle">+</span></button>
       <div class="accordion-body"><div class="accordion-body-inner">Dans la majorité des cas, non. Il suffit généralement d'aérer 2 à 4 heures après l'intervention avant de revenir. Pour les traitements thermiques ou à fort spectre, le technicien vous précise les consignes spécifiques lors du diagnostic.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ PROTOCOLE CONCRET ════════ -->
+<section class="section-premium bg-cream">
+  <div class="container">
+    <div class="section-header">
+      <span class="mono" style="color:#999;">Le protocole terrain</span>
+      <h2>Concrètement, voilà ce qu'on fait chez vous</h2>
+    </div>
+    <p class="protocol-intro">Pas de magie, pas de discours marketing. Voici le protocole exact appliqué par un technicien Certibiocide.</p>
+    <div class="protocol-grid">
+      <div class="protocol-card">
+        <div class="protocol-number">1</div>
+        <div class="protocol-body">
+          <h3>Diagnostic de l'espèce <span class="protocol-duration">30 min</span></h3>
+          <p>Avant tout traitement, on identifie précisément : blatte germanique, orientale, américaine, punaise de lit adulte ou larve, fourmi noire de jardin ou pharaon. Chaque espèce a un traitement différent. On localise les foyers, les fentes, les refuges (derrière le frigo, sous le lave-vaisselle, dans les prises électriques).</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-number">2</div>
+        <div class="protocol-body">
+          <h3>Traitement thermique punaises de lit <span class="protocol-duration">4-6 h</span></h3>
+          <p>55 °C en cœur de matelas pendant 2 h : tue œufs, larves et adultes instantanément. Sondes thermiques posées dans chaque matelas, canapé, cadre de lit. Aucun produit chimique dans vos draps. Méthode la plus efficace (97 % de réussite en 1 passage).</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-number">3</div>
+        <div class="protocol-body">
+          <h3>Gel appât cafards <span class="protocol-duration">2 h</span></h3>
+          <p>Application de petites gouttes de gel (quelques grammes) sur les zones de passage : charnières de placards, plinthes de cuisine, sous les éviers. Les cafards mangent, ramènent au nid, meurent, les autres mangent les cadavres, effet cascade. Pas de nébulisation, pas d'aération obligatoire.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-number">4</div>
+        <div class="protocol-body">
+          <h3>Pulvérisation rémanente ciblée</h3>
+          <p>Pour fourmis et autres rampants : traitement aux pyréthrinoïdes sur les points d'entrée uniquement (plinthes, seuils de porte, fissures extérieures). Rémanence 3 mois. On ne pulvérise JAMAIS dans les zones d'alimentation.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-number">5</div>
+        <div class="protocol-body">
+          <h3>Destruction de nid (guêpes / frelons)</h3>
+          <p>Intervention en combinaison intégrale + casque apiculteur. Injection de poudre dans le nid en début de soirée (activité moindre). Retrait complet du nid sous 48 h après traitement. Devis gratuit, intervention sous 4 h si urgence.</p>
+        </div>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-number">6</div>
+        <div class="protocol-body">
+          <h3>Suivi WhatsApp + contrôle J+10 / J+21</h3>
+          <p>Photos des zones traitées envoyées. Pour punaises de lit : 2e passage J+14 inclus (cycle de reproduction). Pour cafards : re-traitement gratuit si activité détectée dans les 6 mois. Rapport PDF pour votre assurance / bailleur.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
