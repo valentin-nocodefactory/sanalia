@@ -190,105 +190,129 @@
         <!-- ═══ GUIDES ═══ -->
         <div class="nav-item">
           <a href="/nuisibles/">Guides <span class="nav-chevron">&#9662;</span></a>
-          <div class="mega-menu mega-menu-guides" style="min-width:720px;padding:0;overflow:hidden;">
-            <div class="mega-guides-grid">
-              <!-- Colonne 1 : Les plus demandés -->
-              <div class="mega-guides-featured">
-                <span class="mega-menu-label">Les plus demandés</span>
-                <div class="mega-guides-cards">
-                  <a href="/nuisibles/rats/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-gold-light);">
-                      <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Rats</h4>
-                      <p>Identification, dangers, traitement</p>
-                    </div>
+          <div class="mega-menu mega-menu-guides" style="min-width:780px;padding:0;overflow:hidden;">
+            <div class="mega-guides-v2">
+              <!-- ─── Main : Grid of 13 nuisibles ─── -->
+              <div class="mega-guides-main">
+                <div class="mega-guides-header">
+                  <div>
+                    <h3 class="mega-guides-title">Guides des nuisibles</h3>
+                    <p class="mega-guides-subtitle">Identification, dangers et traitements professionnels</p>
+                  </div>
+                  <a href="/nuisibles/" class="mega-guides-see-all">Voir les 13 <span>→</span></a>
+                </div>
+
+                <div class="mega-guides-pills">
+                  <a href="/nuisibles/rats/" class="mega-guides-pill" data-cat="rongeurs">
+                    <span class="mgp-ico" style="background:var(--color-pastel-gold-light);">
+                      <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Rats</span>
                   </a>
-                  <a href="/nuisibles/punaises-de-lit/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-rose-light);">
-                      <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Punaises de lit</h4>
-                      <p>Piqûres, infestations, traitement</p>
-                    </div>
+                  <a href="/nuisibles/souris/" class="mega-guides-pill" data-cat="rongeurs">
+                    <span class="mgp-ico" style="background:var(--color-pastel-lavender-light);">
+                      <img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Souris</span>
                   </a>
-                  <a href="/nuisibles/cafards/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-mint-light);">
-                      <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Cafards & blattes</h4>
-                      <p>Espèces, dangers, éradication</p>
-                    </div>
+                  <a href="/nuisibles/taupes/" class="mega-guides-pill" data-cat="rongeurs">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🦫</span>
+                    </span>
+                    <span class="mgp-name">Taupes</span>
                   </a>
-                  <a href="/nuisibles/guepes-frelons/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-gold-light);">
-                      <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Guêpes & Frelons</h4>
-                      <p>Nids, urgence, destruction</p>
-                    </div>
+                  <a href="/nuisibles/punaises-de-lit/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-rose-light);">
+                      <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Punaises de lit</span>
+                  </a>
+                  <a href="/nuisibles/cafards/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-mint-light);">
+                      <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Cafards</span>
+                  </a>
+                  <a href="/nuisibles/fourmis/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-rose-light);">
+                      <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Fourmis</span>
+                  </a>
+                  <a href="/nuisibles/puces/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🪰</span>
+                    </span>
+                    <span class="mgp-name">Puces</span>
+                  </a>
+                  <a href="/nuisibles/guepes-frelons/" class="mega-guides-pill" data-cat="volants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-gold-light);">
+                      <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Guêpes & frelons</span>
+                  </a>
+                  <a href="/nuisibles/moustiques/" class="mega-guides-pill" data-cat="volants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-blue-light);">
+                      <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Moustiques</span>
+                  </a>
+                  <a href="/nuisibles/mites-alimentaires/" class="mega-guides-pill" data-cat="volants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🦋</span>
+                    </span>
+                    <span class="mgp-name">Mites</span>
+                  </a>
+                  <a href="/nuisibles/pigeons/" class="mega-guides-pill" data-cat="autres">
+                    <span class="mgp-ico" style="background:var(--color-pastel-mint-light);">
+                      <img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Pigeons</span>
+                  </a>
+                  <a href="/nuisibles/termites/" class="mega-guides-pill" data-cat="autres">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🪵</span>
+                    </span>
+                    <span class="mgp-name">Termites</span>
+                  </a>
+                  <a href="/nuisibles/chenilles-processionnaires/" class="mega-guides-pill" data-cat="autres">
+                    <span class="mgp-ico" style="background:var(--color-pastel-mint-light);">
+                      <span class="mgp-emoji">🐛</span>
+                    </span>
+                    <span class="mgp-name">Chenilles</span>
                   </a>
                 </div>
               </div>
 
-              <!-- Colonne 2 : Toutes les catégories -->
-              <div class="mega-guides-categories">
-                <span class="mega-menu-label">Par catégorie</span>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Rongeurs</h5>
-                  <a href="/nuisibles/rats/" class="mega-guide-link">Rats</a>
-                  <a href="/nuisibles/souris/" class="mega-guide-link">Souris</a>
-                  <a href="/nuisibles/taupes/" class="mega-guide-link">Taupes</a>
-                </div>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Insectes rampants</h5>
-                  <a href="/nuisibles/cafards/" class="mega-guide-link">Cafards</a>
-                  <a href="/nuisibles/punaises-de-lit/" class="mega-guide-link">Punaises de lit</a>
-                  <a href="/nuisibles/fourmis/" class="mega-guide-link">Fourmis</a>
-                  <a href="/nuisibles/puces/" class="mega-guide-link">Puces</a>
-                </div>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Insectes volants</h5>
-                  <a href="/nuisibles/guepes-frelons/" class="mega-guide-link">Guêpes & Frelons</a>
-                  <a href="/nuisibles/moustiques/" class="mega-guide-link">Moustiques</a>
-                  <a href="/nuisibles/mites-alimentaires/" class="mega-guide-link">Mites</a>
-                </div>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Autres nuisibles</h5>
-                  <a href="/nuisibles/pigeons/" class="mega-guide-link">Pigeons</a>
-                  <a href="/nuisibles/termites/" class="mega-guide-link">Termites</a>
-                  <a href="/nuisibles/chenilles-processionnaires/" class="mega-guide-link">Chenilles</a>
-                </div>
-              </div>
-
-              <!-- Colonne 3 : Contenus & ressources -->
-              <div class="mega-guides-resources">
+              <!-- ─── Sidebar : Resources ─── -->
+              <div class="mega-guides-sidebar">
                 <span class="mega-menu-label">Ressources</span>
-                <a href="/blog/" class="mega-resource-item">
+                <a href="/blog/" class="mega-guides-resource">
+                  <svg class="mgr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                   <div>
-                    <h4>Blog Sanalia</h4>
-                    <p>Articles d'experts, actualités</p>
+                    <strong>Blog Sanalia</strong>
+                    <span>Articles d'experts, actualités</span>
                   </div>
                 </a>
-                <a href="/reglementation/" class="mega-resource-item">
+                <a href="/reglementation/" class="mega-guides-resource">
+                  <svg class="mgr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
                   <div>
-                    <h4>Réglementation</h4>
-                    <p>HACCP, obligations légales</p>
+                    <strong>Réglementation</strong>
+                    <span>HACCP, obligations légales</span>
                   </div>
                 </a>
-                <a href="/nuisibles/" class="mega-resource-item">
+                <a href="/garantie/" class="mega-guides-resource">
+                  <svg class="mgr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                   <div>
-                    <h4>Tous les nuisibles</h4>
-                    <p>13 guides complets</p>
+                    <strong>Nos garanties</strong>
+                    <span>Certibiocide, CS3D, QualiPro</span>
                   </div>
                 </a>
-                <div class="mega-guides-cta">
-                  <p>Un problème urgent ?</p>
-                  <a href="/devis/" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Devis gratuit en 2 min</a>
+
+                <div class="mega-guides-cta-box">
+                  <p class="mgc-title">Un nuisible chez vous&nbsp;?</p>
+                  <p class="mgc-sub">Devis gratuit sous 2h.</p>
+                  <a href="/devis/" class="mgc-btn">Demander un devis →</a>
                 </div>
               </div>
             </div>
