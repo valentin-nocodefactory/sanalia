@@ -802,30 +802,29 @@ textarea.form-input {
   .header-phone-mobile { display: inline-flex; }
 }
 
-/* ─── Burger menu button (dark pill, animated) ─── */
+/* ─── Burger menu button (minimal — just 3 lines, no background) ─── */
 .mobile-menu-btn {
   display: none;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   border: none;
-  background: #0E052A;
+  background: transparent;
   cursor: pointer;
-  border-radius: 50%;
-  transition: transform 0.15s ease, background 0.15s;
-  box-shadow: 0 2px 6px rgba(14, 5, 42, 0.16);
   padding: 0;
+  margin: 0;
   flex-shrink: 0;
   position: relative;
-  z-index: 2;
+  z-index: 1020; /* above drawer so the close (X) state stays clickable */
+  transition: transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.mobile-menu-btn:hover { background: #000; }
-.mobile-menu-btn:active { transform: scale(0.94); }
+.mobile-menu-btn:active { transform: scale(0.92); }
 .mobile-menu-icon {
   position: relative;
-  width: 18px;
-  height: 12px;
+  width: 22px;
+  height: 14px;
   display: inline-block;
 }
 .mobile-menu-icon span {
@@ -833,18 +832,18 @@ textarea.form-input {
   left: 0;
   right: 0;
   height: 2px;
-  background: #FFFFFF;
+  background: var(--color-primary-900);
   border-radius: 2px;
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               top 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.15s;
 }
 .mobile-menu-icon span:nth-child(1) { top: 0; }
-.mobile-menu-icon span:nth-child(2) { top: 5px; }
-.mobile-menu-icon span:nth-child(3) { top: 10px; }
-body.mobile-menu-open .mobile-menu-icon span:nth-child(1) { top: 5px; transform: rotate(45deg); }
+.mobile-menu-icon span:nth-child(2) { top: 6px; }
+.mobile-menu-icon span:nth-child(3) { top: 12px; }
+body.mobile-menu-open .mobile-menu-icon span:nth-child(1) { top: 6px; transform: rotate(45deg); }
 body.mobile-menu-open .mobile-menu-icon span:nth-child(2) { opacity: 0; }
-body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
 /* ══════════════════════════════════════════════════════════════
    MOBILE NAV — Right-slide drawer, accordion, sticky CTA bar
    Active below 1024px (tablet + phone)
@@ -863,9 +862,7 @@ body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 5px; transform:
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(14, 5, 42, 0.45);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background: rgba(14, 5, 42, 0.5);
     z-index: 1000;
     animation: mnav-backdrop-in 0.25s ease;
   }
@@ -1199,9 +1196,7 @@ body.mobile-menu-open .mobile-menu-icon span:nth-child(3) { top: 5px; transform:
     bottom: 0;
     margin-top: auto;
     padding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px));
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: saturate(180%) blur(10px);
-    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    background: #fff;
     border-top: 1px solid var(--color-gray-light);
     display: flex;
     flex-direction: column;
