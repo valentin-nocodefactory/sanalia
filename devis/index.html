@@ -46,6 +46,366 @@
 <link rel="stylesheet" href="/css/components.css">
 <style>
 /* ═══════════════════════════════════════════════════
+   DEVIS — Minimal header + Multi-step form
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Minimal header ─── */
+.devis-minimal-header {
+  background: #fff;
+  border-bottom: 1px solid var(--color-gray-light);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.devis-minimal-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-primary-900);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-100);
+  transition: background 0.2s;
+}
+.devis-minimal-phone:hover { background: var(--color-primary-200); }
+.devis-minimal-phone .phone-availability-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #22C55E;
+  margin-left: 2px;
+}
+.phone-availability-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22C55E;
+  position: relative;
+  flex-shrink: 0;
+}
+.phone-availability-dot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22C55E;
+  opacity: 0.5;
+  animation: phone-dot-pulse 1.8s ease-out infinite;
+}
+@keyframes phone-dot-pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+@media (max-width: 560px) {
+  .devis-minimal-phone .phone-availability-label { display: none; }
+  .devis-minimal-phone { padding: 8px 12px; }
+}
+
+/* ─── Multi-step form ─── */
+.devis-msf {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 24px 28px 32px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(14,5,42,0.04), 0 20px 40px -12px rgba(14,5,42,0.1);
+  border: 1px solid rgba(14,5,42,0.05);
+}
+.devis-msf-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.devis-msf-progress-step {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--color-gray-light);
+  transition: background 0.3s ease;
+}
+.devis-msf-progress-step.active {
+  background: var(--color-primary-600);
+}
+.devis-msf-progress-text {
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+.devis-msf-step {
+  display: none;
+  animation: msf-fade 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.devis-msf-step.is-active { display: block; }
+@keyframes msf-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.devis-msf-step h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--color-primary-900);
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+.devis-msf-step .devis-msf-sub {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 18px;
+}
+
+/* Nuisible selector — visual cards grid */
+.devis-msf-nuisibles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+@media (max-width: 560px) {
+  .devis-msf-nuisibles { grid-template-columns: repeat(2, 1fr); }
+}
+.devis-msf-nuisible {
+  position: relative;
+  padding: 12px 8px;
+  background: var(--color-bg);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.devis-msf-nuisible:hover {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-200);
+}
+.devis-msf-nuisible input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.devis-msf-nuisible input[type="radio"]:checked + .devis-msf-nuisible-content {
+  color: var(--color-primary-900);
+}
+.devis-msf-nuisible:has(input:checked) {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
+}
+.devis-msf-nuisible img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+.devis-msf-nuisible-label {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-primary-900);
+  line-height: 1.15;
+}
+
+/* Radio group (propriétaire/locataire) */
+.devis-msf-radios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.devis-msf-radio {
+  position: relative;
+  padding: 14px 16px;
+  background: var(--color-bg);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.devis-msf-radio:hover {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-200);
+}
+.devis-msf-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+.devis-msf-radio-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gray-light);
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.2s;
+}
+.devis-msf-radio:has(input:checked) {
+  background: var(--color-primary-100);
+  border-color: var(--color-primary-600);
+}
+.devis-msf-radio:has(input:checked) .devis-msf-radio-check {
+  border-color: var(--color-primary-600);
+}
+.devis-msf-radio:has(input:checked) .devis-msf-radio-check::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--color-primary-600);
+}
+.devis-msf-radio-label {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-primary-900);
+}
+
+/* Text fields */
+.devis-msf-field { margin-bottom: 14px; }
+.devis-msf-field label {
+  display: block;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-primary-900);
+  margin-bottom: 6px;
+}
+.devis-msf-field input[type="text"],
+.devis-msf-field input[type="tel"],
+.devis-msf-field input[type="email"] {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1.5px solid var(--color-gray-light);
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: var(--font-primary);
+  color: var(--color-primary-900);
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+.devis-msf-field input:focus {
+  outline: none;
+  border-color: var(--color-primary-600);
+  box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
+}
+
+/* Address autocomplete */
+.devis-msf-autocomplete {
+  position: relative;
+}
+.devis-msf-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid var(--color-gray-light);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(14,5,42,0.1);
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 10;
+  display: none;
+}
+.devis-msf-suggestions.is-open { display: block; }
+.devis-msf-suggestion {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--color-primary-900);
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-gray-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.devis-msf-suggestion:last-child { border-bottom: 0; }
+.devis-msf-suggestion:hover { background: var(--color-primary-100); }
+.devis-msf-suggestion svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-primary-600);
+  flex-shrink: 0;
+}
+
+/* Actions */
+.devis-msf-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.devis-msf-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.devis-msf-btn-primary {
+  background: var(--color-primary-900);
+  color: #fff;
+}
+.devis-msf-btn-primary:hover { background: var(--color-primary-600); transform: translateY(-1px); }
+.devis-msf-btn-primary:disabled {
+  background: var(--color-gray-light);
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+}
+.devis-msf-btn-back {
+  flex: 0;
+  padding: 14px 16px;
+  background: transparent;
+  color: var(--color-primary-800);
+  border: 1.5px solid var(--color-gray-light);
+}
+.devis-msf-btn-back:hover { background: var(--color-bg); }
+
+/* Reassurance footer */
+.devis-msf-reassurance {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-gray-light);
+  flex-wrap: wrap;
+}
+.devis-msf-reassurance-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #666;
+}
+.devis-msf-reassurance-item svg {
+  width: 12px;
+  height: 12px;
+  color: #22C55E;
+}
+
+/* ═══════════════════════════════════════════════════
    DEVIS — Premium concierge-grade redesign
    ═══════════════════════════════════════════════════ */
 
@@ -1372,236 +1732,32 @@
 </head>
 <body>
 
-<div data-component="header">
-<!-- ════════ TOP BAR (animated pastel) ════════ -->
-<div class="urgency-bar">
-  <div class="urgency-bar-inner">
-    <span class="urgency-bar-text">Intervention rapide 8h-20h, 7j/7 — Appelez maintenant : <a href="tel:0667464897">06 67 46 48 97</a></span>
-    <div class="toggle-tabs">
-      <button class="toggle-tab active" data-mode="particulier">Particulier</button>
-      <button class="toggle-tab" data-mode="pro">Professionnel</button>
-    </div>
-  </div>
-</div>
-
-<!-- ════════ HEADER + MEGA MENUS ════════ -->
-<header class="header">
-  <div class="header-main">
-    <div class="container flex-between">
-      <a href="/" class="header-logo">
-        <svg viewBox="0 0 159 57" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clip-path="url(#clip0)">
-            <mask id="mask0" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask>
-            <g mask="url(#mask0)"><path d="M23.9401 18.74V22.87H15.05V17.48C15.05 14.0267 13.9534 12.3 11.76 12.3C10.8267 12.3 10.1034 12.6733 9.59 13.42C9.07667 14.12 8.82 15.03 8.82 16.15C8.82 17.0833 9.1 18.11 9.66 19.23C10.22 20.3033 11.27 21.8433 12.81 23.85L19.3899 32.67C21.35 35.33 22.6567 37.4767 23.3101 39.11C24.01 40.7433 24.36 42.68 24.36 44.92C24.36 48.2333 23.1934 50.9867 20.8601 53.18C18.5267 55.3267 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3033 3.5 53.11C1.16667 50.9167 0 47.5333 0 42.96V38.2H8.89V44.5C8.89 48.2333 10.0567 50.1 12.39 50.1C13.37 50.1 14.1634 49.7267 14.77 48.98C15.4234 48.2333 15.75 47.2533 15.75 46.04C15.75 44.8267 15.5167 43.7067 15.05 42.68C14.5834 41.6067 13.6034 40.09 12.11 38.13L5.53 29.45C3.57 26.8367 2.24 24.6433 1.54 22.87C0.886667 21.0967 0.56 19.0433 0.56 16.71C0.56 13.9567 1.58667 11.4833 3.64 9.29C5.74 7.09667 8.56333 6 12.11 6C15.5634 6 18.3866 7.16667 20.58 9.5C22.82 11.7867 23.9401 14.8667 23.9401 18.74ZM49.8515 55.7H41.2415L42.0815 50.8H41.2415C40.6349 51.78 40.0982 52.5967 39.6315 53.25C39.1649 53.8567 38.3714 54.5333 37.2514 55.28C36.1314 56.0267 34.9414 56.4 33.6814 56.4C31.4414 56.4 29.6682 55.6067 28.3615 54.02C27.1015 52.4333 26.4715 50.3567 26.4715 47.79C26.4715 45.1767 27.0315 42.82 28.1515 40.72C29.2715 38.5733 31.0915 36.2867 33.6115 33.86L41.1015 26.58V25.6C41.1015 22.3333 40.1681 20.7 38.3014 20.7C36.4348 20.7 35.5014 22.3333 35.5014 25.6V30.15H26.7514V27.56C26.7514 23.5 27.7781 20.3033 29.8314 17.97C31.8848 15.59 34.7081 14.4 38.3014 14.4C41.8948 14.4 44.7182 15.59 46.7715 17.97C48.8249 20.3033 49.8515 23.5233 49.8515 27.63V55.7ZM41.1015 44.43V34.28L37.8115 37.78C35.4315 40.3 34.2415 42.61 34.2415 44.71C34.2415 46.9033 35.0582 48 36.6915 48C38.2782 48 39.7482 46.81 41.1015 44.43ZM63.1614 55.7H54.4114V15.1H63.1614L62.3214 19.86H63.1614C65.3547 16.22 68.0147 14.4 71.1414 14.4C73.148 14.4 74.8514 15.2867 76.2514 17.06C77.6514 18.7867 78.3514 21.47 78.3514 25.11V55.7H69.6014V27.7C69.6014 24.7133 68.7147 23.22 66.9414 23.22C65.588 23.22 64.328 24.2933 63.1614 26.44V55.7ZM104.914 55.7H96.3036L97.1436 50.8H96.3036C95.697 51.78 95.1603 52.5967 94.6936 53.25C94.227 53.8567 93.4336 54.5333 92.3136 55.28C91.1936 56.0267 90.0036 56.4 88.7436 56.4C86.5036 56.4 84.7303 55.6067 83.4236 54.02C82.1636 52.4333 81.5336 50.3567 81.5336 47.79C81.5336 45.1767 82.0936 42.82 83.2136 40.72C84.3336 38.5733 86.1536 36.2867 88.6736 33.86L96.1636 26.58V25.6C96.1636 22.3333 95.2303 20.7 93.3636 20.7C91.497 20.7 90.5636 22.3333 90.5636 25.6V30.15H81.8136V27.56C81.8136 23.5 82.8403 20.3033 84.8936 17.97C86.947 15.59 89.7703 14.4 93.3636 14.4C96.957 14.4 99.7803 15.59 101.834 17.97C103.887 20.3033 104.914 23.5233 104.914 27.63V55.7ZM96.1636 44.43V34.28L92.8736 37.78C90.4936 40.3 89.3036 42.61 89.3036 44.71C89.3036 46.9033 90.1203 48 91.7536 48C93.3403 48 94.8103 46.81 96.1636 44.43ZM109.473 6.7H118.223V55.7H109.473V6.7ZM127 10.5L132.893 6.7C132.893 10.7133 131.377 13.1867 128.343 14.12V15.1H131.843V55.7H123.093V15.1H126.593V14.12C123.56 13.1867 127 14.5133 127 10.5ZM158.693 55.7H150.083L150.923 50.8H150.083C149.477 51.78 148.94 52.5967 148.473 53.25C148.007 53.8567 147.213 54.5333 146.093 55.28C144.973 56.0267 143.783 56.4 142.523 56.4C140.283 56.4 138.51 55.6067 137.203 54.02C135.943 52.4333 135.313 50.3567 135.313 47.79C135.313 45.1767 135.873 42.82 136.993 40.72C138.113 38.5733 139.933 36.2867 142.453 33.86L149.943 26.58V25.6C149.943 22.3333 149.01 20.7 147.143 20.7C145.277 20.7 144.343 22.3333 144.343 25.6V30.15H135.593V27.56C135.593 23.5 136.62 20.3033 138.673 17.97C140.727 15.59 143.55 14.4 147.143 14.4C150.737 14.4 153.56 15.59 155.613 17.97C157.667 20.3033 158.693 23.5233 158.693 27.63V55.7ZM149.943 44.43V34.28L146.653 37.78C144.273 40.3 143.083 42.61 143.083 44.71C143.083 46.9033 143.9 48 145.533 48C147.12 48 148.59 46.81 149.943 44.43Z" fill="#0E052A"/></g>
-            <path d="M123.391 16.6304C123.251 16.003 123.036 15.3996 122.836 14.8434C122.526 13.9844 122.232 13.1859 122.088 12.3126C121.818 10.6778 122.05 8.63123 124.452 5.74813C126.242 3.59975 129.234 2.31614 131.963 1.63019C133.309 1.29191 134.546 1.11031 135.462 1.03716C135.83 1.00778 136.137 0.998543 136.371 1.00018C136.415 1.23036 136.46 1.53314 136.497 1.8998C136.591 2.81441 136.636 4.06349 136.546 5.44831C136.364 8.25653 135.642 11.431 133.852 13.5794C131.484 16.4204 129.162 17.071 127.267 17.1069C126.288 17.1254 125.393 16.9797 124.591 16.8332C124.204 16.7625 123.805 16.6848 123.459 16.638C123.437 16.635 123.414 16.6333 123.391 16.6304Z" fill="#635DDD" stroke="white" stroke-width="2"/>
-          </g>
-          <defs><clipPath id="clip0"><rect width="159" height="57" fill="white"/></clipPath></defs>
-        </svg>
-      </a>
-
-      <nav class="header-nav">
-        <!-- ═══ NOS SERVICES ═══ -->
-        <div class="nav-item">
-          <a href="/deratisation/">Nos services <span class="nav-chevron">&#9662;</span></a>
-          <div class="mega-menu" style="min-width:420px;">
-            <span class="mega-menu-label">Nos services</span>
-            <div class="mega-menu-grid" style="grid-template-columns:1fr;">
-              <a href="/deratisation/" class="mega-menu-item">
-                <div><h4>Dératisation</h4><p>Rats, souris, rongeurs</p></div>
-              </a>
-              <a href="/desinsectisation/" class="mega-menu-item">
-                <div><h4>Désinsectisation</h4><p>Punaises, cafards, guêpes, fourmis, puces</p></div>
-              </a>
-              <a href="/desinfection/" class="mega-menu-item">
-                <div><h4>Désinfection</h4><p>Traitement bactérien et viral</p></div>
-              </a>
-              <a href="/depigeonnage/" class="mega-menu-item">
-                <div><h4>Dépigeonnage</h4><p>Pics, filets, répulsifs</p></div>
-              </a>
-            </div>
-            <div class="mega-menu-footer">
-              <a href="/professionnel/">Vous êtes professionnel ? →</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ═══ GUIDES ═══ -->
-        <div class="nav-item">
-          <a href="/nuisibles/">Guides <span class="nav-chevron">&#9662;</span></a>
-          <div class="mega-menu mega-menu-guides" style="min-width:920px;padding:0;overflow:hidden;">
-            <div class="mega-guides-grid">
-              <!-- Colonne 1 : Les plus demandés -->
-              <div class="mega-guides-featured">
-                <span class="mega-menu-label">Les plus demandés</span>
-                <div class="mega-guides-cards">
-                  <a href="/nuisibles/rats/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-gold-light);">
-                      <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Rats</h4>
-                      <p>Identification, dangers, traitement</p>
-                    </div>
-                  </a>
-                  <a href="/nuisibles/punaises-de-lit/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-rose-light);">
-                      <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Punaises de lit</h4>
-                      <p>Piqûres, infestations, traitement</p>
-                    </div>
-                  </a>
-                  <a href="/nuisibles/cafards/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-mint-light);">
-                      <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Cafards & blattes</h4>
-                      <p>Espèces, dangers, éradication</p>
-                    </div>
-                  </a>
-                  <a href="/nuisibles/guepes-frelons/" class="mega-guide-card">
-                    <div class="mega-guide-card-icon" style="background:var(--color-pastel-gold-light);">
-                      <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="48" height="48">
-                    </div>
-                    <div class="mega-guide-card-body">
-                      <h4>Guêpes & Frelons</h4>
-                      <p>Nids, urgence, destruction</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-
-              <!-- Colonne 2 : Toutes les catégories -->
-              <div class="mega-guides-categories">
-                <span class="mega-menu-label">Par catégorie</span>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Rongeurs</h5>
-                  <a href="/nuisibles/rats/" class="mega-guide-link">Rats</a>
-                  <a href="/nuisibles/souris/" class="mega-guide-link">Souris</a>
-                  <a href="/nuisibles/taupes/" class="mega-guide-link">Taupes</a>
-                </div>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Insectes rampants</h5>
-                  <a href="/nuisibles/cafards/" class="mega-guide-link">Cafards</a>
-                  <a href="/nuisibles/punaises-de-lit/" class="mega-guide-link">Punaises de lit</a>
-                  <a href="/nuisibles/fourmis/" class="mega-guide-link">Fourmis</a>
-                  <a href="/nuisibles/puces/" class="mega-guide-link">Puces</a>
-                </div>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Insectes volants</h5>
-                  <a href="/nuisibles/guepes-frelons/" class="mega-guide-link">Guêpes & Frelons</a>
-                  <a href="/nuisibles/moustiques/" class="mega-guide-link">Moustiques</a>
-                  <a href="/nuisibles/mites-alimentaires/" class="mega-guide-link">Mites</a>
-                </div>
-                <div class="mega-guide-cat-group">
-                  <h5 class="mega-guide-cat-title">Autres nuisibles</h5>
-                  <a href="/nuisibles/pigeons/" class="mega-guide-link">Pigeons</a>
-                  <a href="/nuisibles/termites/" class="mega-guide-link">Termites</a>
-                  <a href="/nuisibles/chenilles-processionnaires/" class="mega-guide-link">Chenilles</a>
-                </div>
-              </div>
-
-              <!-- Colonne 3 : Contenus & ressources -->
-              <div class="mega-guides-resources">
-                <span class="mega-menu-label">Ressources</span>
-                <a href="/blog/" class="mega-resource-item">
-                  <div class="mega-resource-icon" style="background:var(--color-primary-100);">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                  </div>
-                  <div>
-                    <h4>Blog Sanalia</h4>
-                    <p>Articles d'experts, actualités</p>
-                  </div>
-                </a>
-                <a href="/reglementation/" class="mega-resource-item">
-                  <div class="mega-resource-icon" style="background:var(--color-pastel-gold-light);">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-                  </div>
-                  <div>
-                    <h4>Réglementation</h4>
-                    <p>HACCP, obligations légales</p>
-                  </div>
-                </a>
-                <a href="/nuisibles/" class="mega-resource-item">
-                  <div class="mega-resource-icon" style="background:var(--color-pastel-mint-light);">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                  </div>
-                  <div>
-                    <h4>Tous les nuisibles</h4>
-                    <p>13 guides complets</p>
-                  </div>
-                </a>
-                <div class="mega-guides-cta">
-                  <p>Un problème urgent ?</p>
-                  <a href="/devis/" class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">Devis gratuit en 2 min</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ═══ À PROPOS ═══ -->
-        <div class="nav-item">
-          <a href="/a-propos/">À propos <span class="nav-chevron">&#9662;</span></a>
-          <div class="mega-menu" style="min-width:380px;">
-            <div class="mega-menu-grid" style="grid-template-columns: 1fr;">
-              <a href="/a-propos/" class="mega-menu-item">
-                <div><h4>Notre mission</h4><p>L'équipe, les valeurs, l'histoire</p></div>
-              </a>
-              <a href="/garantie/" class="mega-menu-item">
-                <div><h4>Certifications</h4><p>Certibiocide, RC Pro, QualiPro 3D</p></div>
-              </a>
-              <a href="/professionnel/" class="mega-menu-item">
-                <div><h4>Devenir franchisé</h4><p>Rejoignez le réseau Sanalia</p></div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ═══ NOS IMPLANTATIONS ═══ -->
-        <div class="nav-item">
-          <a href="/implantations/">Implantations <span class="nav-chevron">&#9662;</span></a>
-          <div class="mega-menu mega-menu-implantations" style="min-width:640px;">
-            <div class="mega-menu-implant-layout">
-              <div class="mega-menu-implant-map">
-                <span class="mega-menu-label">Nous intervenons partout en France</span>
-                <div style="text-align:center;padding:var(--space-md) 0;">
-                  <p style="font-size:13px;color:var(--color-primary-800);margin:0 0 var(--space-sm);">10 métropoles, 50+ techniciens</p>
-                  <a href="/implantations/" class="btn btn-primary btn-sm" style="font-size:13px;">Trouver mon agence →</a>
-                </div>
-              </div>
-              <div class="mega-menu-implant-cities">
-                <span class="mega-menu-label">Nos villes</span>
-                <div class="mega-implant-grid">
-                  <a href="/deratisation/paris/" class="mega-implant-city">Paris</a>
-                  <a href="/deratisation/lyon/" class="mega-implant-city">Lyon</a>
-                  <a href="/deratisation/marseille/" class="mega-implant-city">Marseille</a>
-                  <a href="/deratisation/nantes/" class="mega-implant-city">Nantes</a>
-                  <a href="/deratisation/lille/" class="mega-implant-city">Lille</a>
-                  <a href="/deratisation/toulouse/" class="mega-implant-city">Toulouse</a>
-                  <a href="/deratisation/nice/" class="mega-implant-city">Nice</a>
-                  <a href="/deratisation/bordeaux/" class="mega-implant-city">Bordeaux</a>
-                  <a href="/deratisation/montpellier/" class="mega-implant-city">Montpellier</a>
-                  <a href="/deratisation/strasbourg/" class="mega-implant-city">Strasbourg</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </nav>
-
-      <div class="flex gap-md" style="align-items:center">
-        <a href="tel:0667464897" class="header-cta-phone hide-mobile">06 67 46 48 97</a>
-        <a href="/devis/" class="btn btn-primary btn-sm hide-mobile">Devis gratuit <span class="btn-arrow"></span></a>
-        <button class="mobile-menu-btn">&#9776;</button>
-      </div>
-    </div>
+<!-- ════════ MINIMAL HEADER — DEVIS PAGE ═══════
+     NOTE: data-component wrapper renommé pour que build.sh ne touche pas ce header.
+     Cette page est un "funnel" dédié à la conversion : pas de nav pour distraire. -->
+<div data-component="header-skip">
+<header class="devis-minimal-header">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:20px 0;">
+    <a href="/" class="header-logo" aria-label="Retour à l'accueil Sanalia">
+      <svg viewBox="0 0 159 57" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0d)">
+          <mask id="mask0d" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask>
+          <g mask="url(#mask0d)"><path d="M23.9401 18.74V22.87H15.05V17.48C15.05 14.0267 13.9534 12.3 11.76 12.3C10.8267 12.3 10.1034 12.6733 9.59 13.42C9.07667 14.12 8.82 15.03 8.82 16.15C8.82 17.0833 9.1 18.11 9.66 19.23C10.22 20.3033 11.27 21.8433 12.81 23.85L19.3899 32.67C21.35 35.33 22.6567 37.4767 23.3101 39.11C24.01 40.7433 24.36 42.68 24.36 44.92C24.36 48.2333 23.1934 50.9867 20.8601 53.18C18.5267 55.3267 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3033 3.5 53.11C1.16667 50.9167 0 47.5333 0 42.96V38.2H8.89V44.5C8.89 48.2333 10.0567 50.1 12.39 50.1C13.37 50.1 14.1634 49.7267 14.77 48.98C15.4234 48.2333 15.75 47.2533 15.75 46.04C15.75 44.8267 15.5167 43.7067 15.05 42.68C14.5834 41.6067 13.6034 40.09 12.11 38.13L5.53 29.45C3.57 26.8367 2.24 24.6433 1.54 22.87C0.886667 21.0967 0.56 19.0433 0.56 16.71C0.56 13.9567 1.58667 11.4833 3.64 9.29C5.74 7.09667 8.56333 6 12.11 6C15.5634 6 18.3866 7.16667 20.58 9.5C22.82 11.7867 23.9401 14.8667 23.9401 18.74ZM49.8515 55.7H41.2415L42.0815 50.8H41.2415C40.6349 51.78 40.0982 52.5967 39.6315 53.25C39.1649 53.8567 38.3714 54.5333 37.2514 55.28C36.1314 56.0267 34.9414 56.4 33.6814 56.4C31.4414 56.4 29.6682 55.6067 28.3615 54.02C27.1015 52.4333 26.4715 50.3567 26.4715 47.79C26.4715 45.1767 27.0315 42.82 28.1515 40.72C29.2715 38.5733 31.0915 36.2867 33.6115 33.86L41.1015 26.58V25.6C41.1015 22.3333 40.1681 20.7 38.3014 20.7C36.4348 20.7 35.5014 22.3333 35.5014 25.6V30.15H26.7514V27.56C26.7514 23.5 27.7781 20.3033 29.8314 17.97C31.8848 15.59 34.7081 14.4 38.3014 14.4C41.8948 14.4 44.7182 15.59 46.7715 17.97C48.8249 20.3033 49.8515 23.5233 49.8515 27.63V55.7ZM41.1015 44.43V34.28L37.8115 37.78C35.4315 40.3 34.2415 42.61 34.2415 44.71C34.2415 46.9033 35.0582 48 36.6915 48C38.2782 48 39.7482 46.81 41.1015 44.43ZM63.1614 55.7H54.4114V15.1H63.1614L62.3214 19.86H63.1614C65.3547 16.22 68.0147 14.4 71.1414 14.4C73.148 14.4 74.8514 15.2867 76.2514 17.06C77.6514 18.7867 78.3514 21.47 78.3514 25.11V55.7H69.6014V27.7C69.6014 24.7133 68.7147 23.22 66.9414 23.22C65.588 23.22 64.328 24.2933 63.1614 26.44V55.7ZM104.914 55.7H96.3036L97.1436 50.8H96.3036C95.697 51.78 95.1603 52.5967 94.6936 53.25C94.227 53.8567 93.4336 54.5333 92.3136 55.28C91.1936 56.0267 90.0036 56.4 88.7436 56.4C86.5036 56.4 84.7303 55.6067 83.4236 54.02C82.1636 52.4333 81.5336 50.3567 81.5336 47.79C81.5336 45.1767 82.0936 42.82 83.2136 40.72C84.3336 38.5733 86.1536 36.2867 88.6736 33.86L96.1636 26.58V25.6C96.1636 22.3333 95.2303 20.7 93.3636 20.7C91.497 20.7 90.5636 22.3333 90.5636 25.6V30.15H81.8136V27.56C81.8136 23.5 82.8403 20.3033 84.8936 17.97C86.947 15.59 89.7703 14.4 93.3636 14.4C96.957 14.4 99.7803 15.59 101.834 17.97C103.887 20.3033 104.914 23.5233 104.914 27.63V55.7ZM96.1636 44.43V34.28L92.8736 37.78C90.4936 40.3 89.3036 42.61 89.3036 44.71C89.3036 46.9033 90.1203 48 91.7536 48C93.3403 48 94.8103 46.81 96.1636 44.43ZM109.473 6.7H118.223V55.7H109.473V6.7ZM127 10.5L132.893 6.7C132.893 10.7133 131.377 13.1867 128.343 14.12V15.1H131.843V55.7H123.093V15.1H126.593V14.12C123.56 13.1867 127 14.5133 127 10.5ZM158.693 55.7H150.083L150.923 50.8H150.083C149.477 51.78 148.94 52.5967 148.473 53.25C148.007 53.8567 147.213 54.5333 146.093 55.28C144.973 56.0267 143.783 56.4 142.523 56.4C140.283 56.4 138.51 55.6067 137.203 54.02C135.943 52.4333 135.313 50.3567 135.313 47.79C135.313 45.1767 135.873 42.82 136.993 40.72C138.113 38.5733 139.933 36.2867 142.453 33.86L149.943 26.58V25.6C149.943 22.3333 149.01 20.7 147.143 20.7C145.277 20.7 144.343 22.3333 144.343 25.6V30.15H135.593V27.56C135.593 23.5 136.62 20.3033 138.673 17.97C140.727 15.59 143.55 14.4 147.143 14.4C150.737 14.4 153.56 15.59 155.613 17.97C157.667 20.3033 158.693 23.5233 158.693 27.63V55.7ZM149.943 44.43V34.28L146.653 37.78C144.273 40.3 143.083 42.61 143.083 44.71C143.083 46.9033 143.9 48 145.533 48C147.12 48 148.59 46.81 149.943 44.43Z" fill="#0E052A"/></g>
+          <path d="M123.391 16.6304C123.251 16.003 123.036 15.3996 122.836 14.8434C122.526 13.9844 122.232 13.1859 122.088 12.3126C121.818 10.6778 122.05 8.63123 124.452 5.74813C126.242 3.59975 129.234 2.31614 131.963 1.63019C133.309 1.29191 134.546 1.11031 135.462 1.03716C135.83 1.00778 136.137 0.998543 136.371 1.00018C136.415 1.23036 136.46 1.53314 136.497 1.8998C136.591 2.81441 136.636 4.06349 136.546 5.44831C136.364 8.25653 135.642 11.431 133.852 13.5794C131.484 16.4204 129.162 17.071 127.267 17.1069C126.288 17.1254 125.393 16.9797 124.591 16.8332C124.204 16.7625 123.805 16.6848 123.459 16.638C123.437 16.635 123.414 16.6333 123.391 16.6304Z" fill="#635DDD" stroke="white" stroke-width="2"/>
+        </g>
+        <defs><clipPath id="clip0d"><rect width="159" height="57" fill="white"/></clipPath></defs>
+      </svg>
+    </a>
+    <a href="tel:0667464897" class="devis-minimal-phone">
+      <span class="phone-availability-dot" aria-hidden="true"></span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>06 67 46 48 97</span>
+      <span class="phone-availability-label">Disponible maintenant</span>
+    </a>
   </div>
 </header>
 </div>
+
 <div class="breadcrumb-bar" style="display:none;">
   <div class="container">
     <nav class="breadcrumb-nav" aria-label="Fil d'Ariane">
@@ -1638,45 +1794,135 @@
         </ul>
       </div>
 
-      <!-- Right : formulaire unique, 4 champs -->
+      <!-- Right : formulaire multi-step -->
       <div class="devis-simple-right">
-        <form class="devis-simple-form" action="/merci/" method="POST">
-          <div class="devis-simple-form-head">
-            <h2>Obtenez votre devis</h2>
-            <p>Rappel sous 2h · Gratuit · Sans engagement</p>
+        <form class="devis-msf" id="devisForm" action="/merci/" method="POST" novalidate>
+          <!-- Progress indicator -->
+          <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/2</div>
+          <div class="devis-msf-progress">
+            <div class="devis-msf-progress-step active" data-step="1"></div>
+            <div class="devis-msf-progress-step" data-step="2"></div>
           </div>
-          
-          <label for="ds-name">Votre nom</label>
-          <input type="text" id="ds-name" name="name" required autocomplete="name" placeholder="Marie Durand">
-          
-          <label for="ds-phone">Votre téléphone</label>
-          <input type="tel" id="ds-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78">
-          
-          <label for="ds-nuisible">De quel nuisible s'agit-il ?</label>
-          <select id="ds-nuisible" name="nuisible" required>
-            <option value="">Choisir…</option>
-            <option value="rats">Rats ou souris</option>
-            <option value="punaises">Punaises de lit</option>
-            <option value="cafards">Cafards / blattes</option>
-            <option value="guepes">Guêpes / frelons</option>
-            <option value="fourmis">Fourmis</option>
-            <option value="puces">Puces</option>
-            <option value="pigeons">Pigeons</option>
-            <option value="autre">Autre / Je ne sais pas</option>
-          </select>
-          
-          <label for="ds-cp">Code postal</label>
-          <input type="text" id="ds-cp" name="postalcode" required autocomplete="postal-code" placeholder="75011" pattern="[0-9]{5}" maxlength="5">
-          
-          <button type="submit" class="devis-simple-submit">
-            Recevoir mon devis gratuit
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-          </button>
-          
-          <p class="devis-simple-legal">🔒 Vos données sont confidentielles. En soumettant, vous acceptez d'être rappelé.</p>
-          
-          <div class="devis-simple-pro-link">
-            Vous êtes professionnel ? <a href="/professionnel/">Découvrir l'offre pro →</a>
+
+          <!-- ─── Step 1: Qualification ─── -->
+          <div class="devis-msf-step is-active" data-step="1">
+            <h2>Décrivez votre situation</h2>
+            <p class="devis-msf-sub">3 questions pour qu'on comprenne votre problème. 30 secondes.</p>
+
+            <label style="display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px;">Quel nuisible ?</label>
+            <div class="devis-msf-nuisibles">
+              <label class="devis-msf-nuisible">
+                <input type="radio" name="nuisible" value="rats" required>
+                <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+                <span class="devis-msf-nuisible-label">Rats / Souris</span>
+              </label>
+              <label class="devis-msf-nuisible">
+                <input type="radio" name="nuisible" value="punaises">
+                <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="">
+                <span class="devis-msf-nuisible-label">Punaises de lit</span>
+              </label>
+              <label class="devis-msf-nuisible">
+                <input type="radio" name="nuisible" value="cafards">
+                <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="">
+                <span class="devis-msf-nuisible-label">Cafards</span>
+              </label>
+              <label class="devis-msf-nuisible">
+                <input type="radio" name="nuisible" value="guepes">
+                <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+                <span class="devis-msf-nuisible-label">Guêpes / Frelons</span>
+              </label>
+              <label class="devis-msf-nuisible">
+                <input type="radio" name="nuisible" value="fourmis">
+                <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="">
+                <span class="devis-msf-nuisible-label">Fourmis</span>
+              </label>
+              <label class="devis-msf-nuisible">
+                <input type="radio" name="nuisible" value="autre">
+                <div style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--color-primary-600);">?</div>
+                <span class="devis-msf-nuisible-label">Autre / Je ne sais pas</span>
+              </label>
+            </div>
+
+            <label style="display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px;margin-top:8px;">Vous êtes…</label>
+            <div class="devis-msf-radios">
+              <label class="devis-msf-radio">
+                <input type="radio" name="statut" value="proprietaire" required>
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Propriétaire</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="statut" value="locataire">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Locataire</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="statut" value="syndic">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Syndic / Copro</span>
+              </label>
+              <label class="devis-msf-radio">
+                <input type="radio" name="statut" value="pro">
+                <span class="devis-msf-radio-check"></span>
+                <span class="devis-msf-radio-label">Professionnel</span>
+              </label>
+            </div>
+
+            <div class="devis-msf-field devis-msf-autocomplete">
+              <label for="msf-address">Adresse de l'intervention</label>
+              <input type="text" id="msf-address" name="address" required autocomplete="street-address" placeholder="Ex : 15 rue de Rivoli, Paris">
+              <input type="hidden" name="postalcode" id="msf-postalcode">
+              <div class="devis-msf-suggestions" id="msfSuggestions"></div>
+            </div>
+
+            <div class="devis-msf-actions">
+              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext" disabled>
+                Continuer
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ─── Step 2: Contact ─── -->
+          <div class="devis-msf-step" data-step="2">
+            <h2>Où vous envoyons-nous le devis&nbsp;?</h2>
+            <p class="devis-msf-sub">Dernière étape. Rappel sous 2h, sans engagement.</p>
+
+            <div class="devis-msf-field">
+              <label for="msf-firstname">Prénom</label>
+              <input type="text" id="msf-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
+            </div>
+
+            <div class="devis-msf-field">
+              <label for="msf-lastname">Nom</label>
+              <input type="text" id="msf-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
+            </div>
+
+            <div class="devis-msf-field">
+              <label for="msf-phone">Téléphone</label>
+              <input type="tel" id="msf-phone" name="phone" required autocomplete="tel" placeholder="06 12 34 56 78" pattern="[0-9\s+]{10,}">
+            </div>
+
+            <div class="devis-msf-field">
+              <label for="msf-email">Email</label>
+              <input type="email" id="msf-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
+            </div>
+
+            <div class="devis-msf-actions">
+              <button type="button" class="devis-msf-btn devis-msf-btn-back" id="msfBack">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Retour
+              </button>
+              <button type="submit" class="devis-msf-btn devis-msf-btn-primary">
+                Recevoir mon devis
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="devis-msf-reassurance">
+            <span class="devis-msf-reassurance-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Rappel sous 2h</span>
+            <span class="devis-msf-reassurance-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Sans engagement</span>
+            <span class="devis-msf-reassurance-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg> Données confidentielles</span>
           </div>
         </form>
       </div>
@@ -1929,13 +2175,103 @@
   </div>
 </footer>
 </div>
-<div data-component="mobile-sticky-cta">
-<div class="mobile-sticky-cta">
-  <a href="/devis/" class="btn btn-primary">Devis gratuit <span class="btn-arrow"></span></a>
-  <a href="tel:0667464897" class="btn btn-outline"><span class="btn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Appeler</a>
-</div>
-</div>
+<!-- Mobile sticky CTA removed on devis page — we are ON the devis page -->
+<div data-component="mobile-sticky-cta-skip"></div>
 <script src="/js/app.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════
+   DEVIS — Multi-step form logic
+   ═══════════════════════════════════════════════════ */
+(function() {
+  var form = document.getElementById('devisForm');
+  if (!form) return;
+
+  var stepEls = form.querySelectorAll('.devis-msf-step');
+  var progressSteps = form.querySelectorAll('.devis-msf-progress-step');
+  var currentEl = document.getElementById('msfStepCurrent');
+  var nextBtn = document.getElementById('msfNext');
+  var backBtn = document.getElementById('msfBack');
+  var currentStep = 1;
+
+  function setStep(n) {
+    stepEls.forEach(function(el) {
+      el.classList.toggle('is-active', parseInt(el.dataset.step) === n);
+    });
+    progressSteps.forEach(function(el) {
+      el.classList.toggle('active', parseInt(el.dataset.step) <= n);
+    });
+    if (currentEl) currentEl.textContent = n;
+    currentStep = n;
+    // Focus first field of new step
+    setTimeout(function() {
+      var active = form.querySelector('.devis-msf-step.is-active input:not([type="radio"]):not([type="hidden"])');
+      if (active) active.focus();
+    }, 350);
+  }
+
+  // Validate step 1 to enable "Continuer"
+  function validateStep1() {
+    var nuisible = form.querySelector('input[name="nuisible"]:checked');
+    var statut = form.querySelector('input[name="statut"]:checked');
+    var address = form.querySelector('#msf-address').value.trim();
+    nextBtn.disabled = !(nuisible && statut && address.length >= 5);
+  }
+
+  form.addEventListener('change', validateStep1);
+  form.querySelector('#msf-address').addEventListener('input', validateStep1);
+
+  nextBtn.addEventListener('click', function() { setStep(2); });
+  backBtn.addEventListener('click', function() { setStep(1); });
+
+  // Address autocomplete via Nominatim (OSM)
+  var addressInput = document.getElementById('msf-address');
+  var suggestionsEl = document.getElementById('msfSuggestions');
+  var postalcodeHidden = document.getElementById('msf-postalcode');
+  var debounceTimer;
+
+  addressInput.addEventListener('input', function(e) {
+    clearTimeout(debounceTimer);
+    var q = e.target.value.trim();
+    if (q.length < 3) {
+      suggestionsEl.classList.remove('is-open');
+      return;
+    }
+    debounceTimer = setTimeout(function() {
+      fetch('https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&countrycodes=fr&limit=5&q=' + encodeURIComponent(q))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data || !data.length) {
+            suggestionsEl.classList.remove('is-open');
+            return;
+          }
+          suggestionsEl.innerHTML = data.map(function(r) {
+            var postcode = (r.address && r.address.postcode) || '';
+            var label = r.display_name.split(',').slice(0, 3).join(',');
+            return '<div class="devis-msf-suggestion" data-address="' + r.display_name.replace(/"/g, '&quot;') + '" data-postcode="' + postcode + '">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+              '<span>' + label + '</span></div>';
+          }).join('');
+          suggestionsEl.classList.add('is-open');
+          suggestionsEl.querySelectorAll('.devis-msf-suggestion').forEach(function(s) {
+            s.addEventListener('click', function() {
+              addressInput.value = this.dataset.address;
+              postalcodeHidden.value = this.dataset.postcode;
+              suggestionsEl.classList.remove('is-open');
+              validateStep1();
+            });
+          });
+        })
+        .catch(function() { suggestionsEl.classList.remove('is-open'); });
+    }, 350);
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.devis-msf-autocomplete')) {
+      suggestionsEl.classList.remove('is-open');
+    }
+  });
+})();
+</script>
 <script>
 /* ═══════════════════════════════════════════════════
    DEVIS — form logic (vanilla)

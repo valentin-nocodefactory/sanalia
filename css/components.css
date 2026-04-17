@@ -1728,6 +1728,72 @@ img, video, svg {
 .mega-implant-city { display: block; padding: 8px 14px; border-radius: var(--radius-md); font-size: 13px; color: var(--color-primary-900); text-decoration: none; transition: background 0.15s; }
 .mega-implant-city:hover { background: var(--color-bg); }
 
+/* ═══ MEGA MENU — France Map (Implantations) ═══ */
+.mega-menu-implant-map { min-width: 240px; display: flex; flex-direction: column; }
+.france-map-wrap {
+  position: relative;
+  width: 200px;
+  height: 220px;
+  margin: 8px auto 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+.france-map {
+  width: 200px;
+  height: 220px;
+  display: block;
+  overflow: visible;
+}
+.france-shape {
+  fill: #FBF2FF;
+  stroke: #CECCFC;
+  stroke-width: 1.5;
+  transition: fill 0.3s;
+}
+.mega-menu-implant-map:hover .france-shape {
+  fill: #E9E8FF;
+}
+.france-dots a {
+  cursor: pointer;
+}
+.france-dot {
+  fill: #635DDD;
+  stroke: #fff;
+  stroke-width: 2;
+  transition: fill 0.2s, r 0.2s;
+  cursor: pointer;
+}
+.france-dot:hover {
+  fill: #0E052A;
+  r: 7;
+}
+.france-dot-pulse {
+  fill: #635DDD;
+  opacity: 0.6;
+  animation: france-dot-pulse 2s infinite;
+  pointer-events: none;
+}
+@keyframes france-dot-pulse {
+  0% { r: 5; opacity: 0.6; }
+  100% { r: 14; opacity: 0; }
+}
+.france-map-cta {
+  display: block;
+  text-align: center;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-primary-600);
+  text-decoration: none;
+  padding: 10px;
+  margin-top: var(--space-sm);
+  border-top: 1px solid var(--color-gray-light);
+  transition: color 0.2s;
+}
+.france-map-cta:hover {
+  color: var(--color-primary-900);
+}
+
 /* ═══ TRUST RATINGS WIDGET — Simple ═══ */
 .trust-ratings {
   display: inline-flex;
