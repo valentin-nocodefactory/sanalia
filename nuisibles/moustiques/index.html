@@ -1243,70 +1243,159 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
     <button type="button" class="callback-modal-close" id="callbackModalClose" aria-label="Fermer">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
-    <div class="callback-modal-header">
-      <div class="callback-modal-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+
+    <!-- ─── STATE 1: Loader (showing first) ─── -->
+    <div class="callback-state callback-state-loading is-active" data-state="loading">
+      <div class="callback-loader-icon">
+        <div class="callback-loader-spinner"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
       </div>
-      <div>
-        <h3 id="callbackModalTitle">Oups, déjà en ligne !</h3>
-        <p class="callback-modal-sub">Nos conseillers sont occupés sur d'autres urgences.</p>
-      </div>
+      <h3 class="callback-loader-title">Vérification de la disponibilité…</h3>
+      <p class="callback-loader-sub">Nous cherchons un conseiller disponible pour vous.</p>
     </div>
-    <p class="callback-modal-message">
-      Laissez-nous vos coordonnées, un conseiller vous rappelle <strong>dans les 10 minutes</strong> pour traiter votre demande.
-    </p>
-    <form class="callback-modal-form" id="callbackModalForm" action="/merci/" method="POST">
-      <input type="hidden" name="type" value="callback">
-      <div class="callback-row">
-        <div class="callback-field">
-          <label for="cb-firstname">Prénom</label>
-          <input type="text" id="cb-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
+
+    <!-- ─── STATE 2: Form (same fields as /devis/) ─── -->
+    <div class="callback-state callback-state-form" data-state="form">
+      <div class="callback-modal-header">
+        <div class="callback-modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <div class="callback-field">
-          <label for="cb-lastname">Nom</label>
-          <input type="text" id="cb-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
+        <div>
+          <h3 id="callbackModalTitle">Oups, ligne occupée !</h3>
+          <p class="callback-modal-sub">Nos conseillers sont tous en ligne.</p>
         </div>
       </div>
-      <div class="callback-field">
-        <label for="cb-phone">Téléphone</label>
-        <div class="callback-phone-group">
-          <div class="callback-phone-prefix" aria-hidden="true">
-            <span class="phone-flag">🇫🇷</span>
-            <span class="phone-code">+33</span>
+      <p class="callback-modal-message">
+        Laissez-nous vos coordonnées, un conseiller vous rappelle <strong>dans les 10 minutes</strong>.
+      </p>
+      <form class="callback-modal-form" id="callbackModalForm" action="/merci/" method="POST" novalidate>
+        <input type="hidden" name="form_type" value="callback">
+
+        <!-- Nuisible -->
+        <label class="callback-label">Quel nuisible ?</label>
+        <div class="callback-nuisibles">
+          <label class="callback-nuisible">
+            <input type="radio" name="nuisible" value="rats" required>
+            <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+            <span>Rats / Souris</span>
+          </label>
+          <label class="callback-nuisible">
+            <input type="radio" name="nuisible" value="punaises">
+            <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="">
+            <span>Punaises</span>
+          </label>
+          <label class="callback-nuisible">
+            <input type="radio" name="nuisible" value="cafards">
+            <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="">
+            <span>Cafards</span>
+          </label>
+          <label class="callback-nuisible">
+            <input type="radio" name="nuisible" value="guepes">
+            <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+            <span>Guêpes</span>
+          </label>
+          <label class="callback-nuisible">
+            <input type="radio" name="nuisible" value="fourmis">
+            <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="">
+            <span>Fourmis</span>
+          </label>
+          <label class="callback-nuisible">
+            <input type="radio" name="nuisible" value="autre">
+            <span class="callback-nuisible-placeholder">?</span>
+            <span>Autre</span>
+          </label>
+        </div>
+
+        <!-- Statut -->
+        <label class="callback-label">Vous êtes…</label>
+        <div class="callback-row callback-row-4">
+          <label class="callback-pill">
+            <input type="radio" name="statut" value="proprietaire" required>
+            <span>Propriétaire</span>
+          </label>
+          <label class="callback-pill">
+            <input type="radio" name="statut" value="locataire">
+            <span>Locataire</span>
+          </label>
+          <label class="callback-pill">
+            <input type="radio" name="statut" value="syndic">
+            <span>Syndic</span>
+          </label>
+          <label class="callback-pill">
+            <input type="radio" name="statut" value="pro">
+            <span>Professionnel</span>
+          </label>
+        </div>
+
+        <!-- Contact -->
+        <div class="callback-row">
+          <div class="callback-field">
+            <label for="cb-firstname">Prénom</label>
+            <input type="text" id="cb-firstname" name="firstname" required autocomplete="given-name" placeholder="Marie">
           </div>
-          <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="6 12 34 56 78" pattern="[0-9\s]{9,}">
-          <input type="hidden" name="phone_country" value="FR">
+          <div class="callback-field">
+            <label for="cb-lastname">Nom</label>
+            <input type="text" id="cb-lastname" name="lastname" required autocomplete="family-name" placeholder="Durand">
+          </div>
         </div>
+        <div class="callback-field">
+          <label for="cb-phone">Téléphone</label>
+          <div class="phone-input-group" data-phone-widget>
+            <button type="button" class="phone-country-toggle" aria-haspopup="listbox" aria-expanded="false">
+              <span class="phone-flag" data-flag>🇫🇷</span>
+              <span class="phone-code" data-code>+33</span>
+              <svg class="phone-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="phone-country-dropdown" role="listbox"></div>
+            <input type="tel" id="cb-phone" name="phone" required autocomplete="tel" placeholder="6 12 34 56 78" data-phone-input>
+            <input type="hidden" name="phone_country" value="FR" data-phone-country>
+            <input type="hidden" name="phone_dial_code" value="+33" data-phone-dial>
+          </div>
+        </div>
+        <div class="callback-field">
+          <label for="cb-email">Email</label>
+          <input type="email" id="cb-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
+        </div>
+        <button type="submit" class="callback-modal-submit">
+          <span class="submit-label">Être rappelé dans 10 min</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+        <p class="callback-modal-legal">Données confidentielles. Aucun engagement.</p>
+      </form>
+      <div class="callback-modal-alt">
+        Préférez appeler directement ? <a href="tel:0667464897" data-callback-skip="true">06 67 46 48 97</a>
       </div>
-      <div class="callback-field">
-        <label for="cb-email">Email</label>
-        <input type="email" id="cb-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
-      </div>
-      <button type="submit" class="callback-modal-submit">
-        Être rappelé dans 10 min
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </button>
-      <p class="callback-modal-legal">Données confidentielles. Aucun engagement.</p>
-    </form>
-    <div class="callback-modal-alt">
-      Préférez appeler directement ? <a href="tel:0667464897" data-callback-skip="true">06 67 46 48 97</a>
     </div>
   </div>
 </div>
 
+<script src="/js/phone-widget.js"></script>
 <script>
 (function() {
   var modal = document.getElementById('callbackModal');
   if (!modal) return;
   var closeBtn = document.getElementById('callbackModalClose');
+  var states = modal.querySelectorAll('[data-state]');
+
+  function showState(name) {
+    states.forEach(function(el) {
+      el.classList.toggle('is-active', el.getAttribute('data-state') === name);
+    });
+  }
 
   function openModal() {
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    // Always start with loader state
+    showState('loading');
+    // After 1.5s, transition to "line busy" form state
     setTimeout(function() {
-      var first = modal.querySelector('input:not([type="hidden"])');
-      if (first) first.focus();
-    }, 200);
+      if (!modal.classList.contains('is-open')) return;
+      showState('form');
+      setTimeout(function() {
+        if (window.initPhoneWidgets) window.initPhoneWidgets();
+      }, 50);
+    }, 1500);
   }
   function closeModal() {
     modal.classList.remove('is-open');
@@ -1335,15 +1424,19 @@ input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; backgro
   if (cbForm) {
     cbForm.addEventListener('submit', function(e) {
       e.preventDefault();
+      // Basic validation — native constraints
+      if (!cbForm.checkValidity()) { cbForm.reportValidity(); return; }
       var fd = new FormData(cbForm);
       var payload = {};
       fd.forEach(function(v, k) { payload[k] = v; });
       payload.form_type = 'callback';
-      payload.phone_full = '+33 ' + (payload.phone || '').replace(/^0+/, '').trim();
+      var dial = payload.phone_dial_code || '+33';
+      payload.phone_full = dial + ' ' + (payload.phone || '').trim();
       payload.submitted_at = new Date().toISOString();
       payload.page_url = window.location.href;
       var submit = cbForm.querySelector('.callback-modal-submit');
-      if (submit) { submit.disabled = true; submit.textContent = 'Envoi en cours…'; }
+      var lbl = submit ? submit.querySelector('.submit-label') : null;
+      if (submit) { submit.disabled = true; if (lbl) lbl.textContent = 'Envoi en cours…'; }
       fetch(CB_WEBHOOK, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
