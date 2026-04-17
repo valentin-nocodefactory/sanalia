@@ -12,27 +12,29 @@ document.addEventListener('DOMContentLoaded', () => {
   initStickyCtaScrollAware();
 });
 
-/* ── Mobile sticky CTA : show on scroll up, hide on scroll down ──
-   - Always visible near top of page (< 120px)
-   - Hides when user scrolls down (reading mode)
-   - Reappears immediately on scroll up (intent to act) */
+/* ── Mobile sticky CTA : hidden at top, appears once user has scrolled ──
+   - Hidden by default (top of page = hero, CTAs already visible there)
+   - Appears once user has scrolled past SHOW_THRESHOLD
+   - While scrolled: hide on scroll down (reading mode), show on scroll up (intent to act) */
 function initStickyCtaScrollAware() {
   const bar = document.querySelector('.mobile-sticky-cta-v2');
   if (!bar) return;
 
+  // Start hidden : the bar only shows after the user has scrolled
+  bar.classList.add('is-hidden');
+
   let lastY = window.scrollY || 0;
   let ticking = false;
-  const DELTA = 6;           // minimum scroll distance to trigger change
-  const TOP_THRESHOLD = 120; // always show near top
-  const DOWN_THRESHOLD = 160; // require some scroll before hiding
+  const DELTA = 6;             // minimum scroll distance to trigger change
+  const SHOW_THRESHOLD = 240;  // only reveal after this much scroll
 
   function update() {
     const y = window.scrollY || 0;
     const diff = y - lastY;
 
-    // Near top : always visible
-    if (y < TOP_THRESHOLD) {
-      bar.classList.remove('is-hidden');
+    // Near top : always hidden (hero already has CTAs)
+    if (y < SHOW_THRESHOLD) {
+      bar.classList.add('is-hidden');
       lastY = y;
       ticking = false;
       return;
@@ -40,10 +42,10 @@ function initStickyCtaScrollAware() {
 
     if (Math.abs(diff) < DELTA) { ticking = false; return; }
 
-    if (diff > 0 && y > DOWN_THRESHOLD) {
+    if (diff > 0) {
       // scrolling down → hide
       bar.classList.add('is-hidden');
-    } else if (diff < 0) {
+    } else {
       // scrolling up → show
       bar.classList.remove('is-hidden');
     }
