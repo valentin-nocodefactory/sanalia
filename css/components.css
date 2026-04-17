@@ -1720,7 +1720,7 @@ img, video, svg {
 .mega-menu-footer a { color: var(--color-primary-600); font-weight: 700; text-decoration: none; }
 .mega-menu-footer a:hover { text-decoration: underline; }
 .mega-menu-pro-link { color: var(--color-primary-800) !important; font-weight: 500 !important; }
-.mega-menu-implant-layout { display: grid; grid-template-columns: 180px 1fr; gap: var(--space-xl); }
+.mega-menu-implant-layout { display: grid; grid-template-columns: 260px 1fr; gap: var(--space-xl); }
 .mega-menu-implant-map { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
 .mega-implant-all { font-size: 12px; color: var(--color-primary-600); font-weight: 700; text-decoration: none; }
 .mega-implant-all:hover { text-decoration: underline; }
@@ -2310,9 +2310,10 @@ img, video, svg {
 .mega-menu-guides { padding: 0 !important; }
 .mega-guides-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
-  min-height: 400px;
+  grid-template-columns: 1.4fr 1fr;
+  min-height: 360px;
 }
+.mega-guides-categories { display: none; }
 .mega-guides-featured {
   padding: var(--space-xl);
   background: var(--color-bg);
