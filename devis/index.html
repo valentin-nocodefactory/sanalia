@@ -1854,7 +1854,7 @@
      Cette page est un "funnel" dédié à la conversion : pas de nav pour distraire. -->
 <div data-component="header-skip">
 <header class="devis-minimal-header">
-  <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:20px 0;">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:24px 0;">
     <a href="/" class="header-logo" aria-label="Retour à l'accueil Sanalia">
       <svg viewBox="0 0 159 57" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0d)">
@@ -1916,7 +1916,7 @@
         <form class="devis-msf" id="devisForm" action="/merci/" method="POST" novalidate>
           <!-- Availability badge -->
           <div class="devis-msf-availability-badge">
-            Disponible maintenant · Rappel sous 2h
+            Offre du mois · 1<sup>ère</sup> intervention offerte
           </div>
 
           <!-- Progress indicator -->
@@ -2088,10 +2088,16 @@
 
 <style>
 .devis-simple {
-  padding: var(--space-2xl) 0 var(--space-3xl);
+  padding: 120px 0 80px;
   background: var(--color-bg);
   background-image: radial-gradient(circle at 85% 0%, rgba(206,204,252,0.35), transparent 40%), radial-gradient(circle at 10% 90%, rgba(244,233,193,0.3), transparent 40%);
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 80px);
+}
+@media (max-width: 900px) {
+  .devis-simple { padding: 100px 0 60px; }
+}
+@media (max-width: 560px) {
+  .devis-simple { padding: 88px 0 48px; }
 }
 .devis-simple-grid {
   display: grid;
@@ -2496,16 +2502,26 @@
   unknownBtn.addEventListener('click', function() {
     addressField.classList.add('is-unknown');
     unknownInput.value = 'true';
-    addressInputEl.value = '';
+    // Carry over what the user already typed so they don't re-type
+    var carried = addressInputEl.value.trim();
     if (manualField) {
       manualField.style.display = 'block';
-      setTimeout(function() { manualInputEl.focus(); }, 50);
+      if (carried && !manualInputEl.value) manualInputEl.value = carried;
+      setTimeout(function() {
+        manualInputEl.focus();
+        var len = manualInputEl.value.length;
+        manualInputEl.setSelectionRange(len, len);
+      }, 50);
     }
+    addressInputEl.value = '';
     validateStep2();
   });
   resetBtn.addEventListener('click', function() {
     addressField.classList.remove('is-unknown');
     unknownInput.value = 'false';
+    // Carry back the manual text so user doesn't lose it
+    var carried = manualInputEl.value.trim();
+    if (carried) addressInputEl.value = carried;
     if (manualField) manualField.style.display = 'none';
     if (manualInputEl) manualInputEl.value = '';
     addressInputEl.focus();
