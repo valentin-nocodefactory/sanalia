@@ -43,8 +43,8 @@
 }
 </script>
 <link rel="stylesheet" href="/tokens.css">
-<link rel="stylesheet" href="/css/base.css?v=20260417h">
-<link rel="stylesheet" href="/css/components.css?v=20260417h">
+<link rel="stylesheet" href="/css/base.css?v=20260417i">
+<link rel="stylesheet" href="/css/components.css?v=20260417i">
 <style>
 /* ═══════════════════════════════════════════════════
    DEVIS — Minimal header + Multi-step form
@@ -491,7 +491,8 @@
   gap: 8px;
 }
 .devis-msf-suggestion:last-child { border-bottom: 0; }
-.devis-msf-suggestion:hover { background: var(--color-primary-100); }
+.devis-msf-suggestion:hover,
+.devis-msf-suggestion.is-active { background: var(--color-primary-100); }
 .devis-msf-suggestion svg {
   width: 14px;
   height: 14px;
@@ -2864,7 +2865,7 @@ body.is-embed .devis-msf {
 </div>
 <!-- Mobile sticky CTA removed on devis page — we are ON the devis page -->
 <div data-component="mobile-sticky-cta-skip"></div>
-<script src="/js/app.js?v=20260417h"></script>
+<script src="/js/app.js?v=20260417i"></script>
 <script src="/js/phone-widget.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════
@@ -3179,89 +3180,135 @@ body.is-embed .devis-msf {
     }
   });
 
-  // Address autocomplete via Nominatim (OSM) — parse address into street + CP + city
+  // ═══ Address autocomplete via BAN (Base Adresse Nationale — api-adresse.data.gouv.fr)
+  // Fast French-specific API : ~100ms typical response, no rate limit, structured data.
   var addressInput = document.getElementById('msf-address');
   var suggestionsEl = document.getElementById('msfSuggestions');
-  var debounceTimer;
+  var banDebounce = null;
+  var banAbort = null;
+  var banCache = {}; // memoize queries within a session
+  var banParsed = []; // current list of parsed suggestions
+  var banActiveIdx = -1; // keyboard highlight index
 
-  function buildStreet(addr) {
-    if (!addr) return '';
-    var nb = addr.house_number || '';
-    var road = addr.road || addr.pedestrian || addr.footway || addr.path || '';
-    var s = (nb + ' ' + road).trim();
-    return s;
+  function escHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, function(c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
   }
-  function pickCity(addr) {
-    if (!addr) return '';
-    return addr.city || addr.town || addr.village || addr.municipality || addr.suburb || '';
+
+  function closeSuggestions() {
+    suggestionsEl.classList.remove('is-open');
+    banActiveIdx = -1;
+  }
+
+  function renderSuggestions(list) {
+    banParsed = list;
+    if (!list.length) { closeSuggestions(); return; }
+    suggestionsEl.innerHTML = list.map(function(p, idx) {
+      return '<div class="devis-msf-suggestion" data-idx="' + idx + '" role="option">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+        '<span>' + escHtml(p.label) + '</span></div>';
+    }).join('');
+    suggestionsEl.classList.add('is-open');
+  }
+
+  function applySuggestion(idx) {
+    var p = banParsed[idx];
+    if (!p) return;
+    addressInput.value = p.street || p.label || '';
+    cpInput.value = p.postcode || '';
+    cityInput.value = p.city || '';
+    closeSuggestions();
+    showCpVille();
+    validateStep3();
+    // Remove focus so the mobile keyboard collapses and the Continue button is visible
+    try { addressInput.blur(); } catch(e) {}
+  }
+
+  function queryBan(q) {
+    // Cache hit → render synchronously
+    if (banCache[q]) { renderSuggestions(banCache[q]); return; }
+    // Cancel in-flight request
+    if (banAbort) { try { banAbort.abort(); } catch(e) {} }
+    banAbort = ('AbortController' in window) ? new AbortController() : null;
+    var opts = banAbort ? { signal: banAbort.signal } : {};
+    var url = 'https://api-adresse.data.gouv.fr/search/?limit=5&autocomplete=1&q=' + encodeURIComponent(q);
+    fetch(url, opts)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data || !data.features || !data.features.length) { closeSuggestions(); return; }
+        var parsed = data.features.map(function(f) {
+          var pr = f.properties || {};
+          var street = pr.name || '';
+          // For "housenumber" type, `name` already includes the number; for "street"/"locality", it doesn't
+          return {
+            street: street,
+            postcode: pr.postcode || '',
+            city: pr.city || '',
+            label: pr.label || [street, pr.postcode, pr.city].filter(Boolean).join(' ')
+          };
+        });
+        banCache[q] = parsed;
+        // Only render if the current input still matches this query (user may have typed more)
+        if (addressInput.value.trim() === q) renderSuggestions(parsed);
+      })
+      .catch(function(err) {
+        if (err && err.name === 'AbortError') return; // expected
+        closeSuggestions();
+      });
   }
 
   addressInput.addEventListener('input', function(e) {
-    clearTimeout(debounceTimer);
-    // If in manual mode, don't query Nominatim
-    if (addressField.classList.contains('is-unknown')) {
-      suggestionsEl.classList.remove('is-open');
-      return;
-    }
+    clearTimeout(banDebounce);
+    if (addressField.classList.contains('is-unknown')) { closeSuggestions(); return; }
     var q = e.target.value.trim();
-    if (q.length < 3) {
-      suggestionsEl.classList.remove('is-open');
-      return;
-    }
-    debounceTimer = setTimeout(function() {
-      fetch('https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&countrycodes=fr&limit=5&q=' + encodeURIComponent(q))
-        .then(function(r) { return r.json(); })
-        .then(function(data) {
-          if (!data || !data.length) {
-            suggestionsEl.classList.remove('is-open');
-            return;
-          }
-          // Pre-parse all suggestions into a closure-side array (avoids HTML attr escaping bugs)
-          var parsedSuggestions = data.map(function(r) {
-            var label = r.display_name.split(',').slice(0, 3).join(',');
-            return {
-              street: buildStreet(r.address) || label.split(',')[0].trim(),
-              postcode: (r.address && r.address.postcode) || '',
-              city: pickCity(r.address),
-              full: r.display_name,
-              label: label
-            };
-          });
-          function escapeHtml(s) {
-            return String(s).replace(/[&<>"']/g, function(c) {
-              return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
-            });
-          }
-          suggestionsEl.innerHTML = parsedSuggestions.map(function(p, idx) {
-            return '<div class="devis-msf-suggestion" data-idx="' + idx + '">' +
-              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
-              '<span>' + escapeHtml(p.label) + '</span></div>';
-          }).join('');
-          suggestionsEl.classList.add('is-open');
-          suggestionsEl.querySelectorAll('.devis-msf-suggestion').forEach(function(s) {
-            s.addEventListener('click', function() {
-              var idx = parseInt(this.dataset.idx, 10);
-              var parsed = parsedSuggestions[idx] || {};
-              // Fill street into address input (CP + ville go in their own fields)
-              addressInput.value = parsed.street || parsed.full || '';
-              cpInput.value = parsed.postcode || '';
-              cityInput.value = parsed.city || '';
-              suggestionsEl.classList.remove('is-open');
-              showCpVille();
-              validateStep3();
-              // If CP missing from suggestion, focus CP for completion
-              if (!parsed.postcode) setTimeout(function() { cpInput.focus(); }, 100);
-            });
-          });
-        })
-        .catch(function() { suggestionsEl.classList.remove('is-open'); });
-    }, 350);
+    if (q.length < 3) { closeSuggestions(); return; }
+    // Short debounce — BAN is fast enough to handle every keystroke
+    banDebounce = setTimeout(function() { queryBan(q); }, 120);
   });
 
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.devis-msf-autocomplete')) {
-      suggestionsEl.classList.remove('is-open');
+  // Keyboard navigation : ↑ ↓ Enter Escape
+  addressInput.addEventListener('keydown', function(e) {
+    if (!suggestionsEl.classList.contains('is-open')) return;
+    var items = suggestionsEl.querySelectorAll('.devis-msf-suggestion');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      banActiveIdx = Math.min(banActiveIdx + 1, items.length - 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      banActiveIdx = Math.max(banActiveIdx - 1, 0);
+    } else if (e.key === 'Enter') {
+      if (banActiveIdx >= 0) { e.preventDefault(); applySuggestion(banActiveIdx); return; }
+    } else if (e.key === 'Escape') {
+      closeSuggestions();
+      return;
+    } else {
+      return;
     }
+    items.forEach(function(el, i) { el.classList.toggle('is-active', i === banActiveIdx); });
+  });
+
+  // Click on suggestion — event delegation (works even if DOM is re-rendered)
+  suggestionsEl.addEventListener('mousedown', function(e) {
+    // mousedown instead of click so the input's blur doesn't close suggestions before we apply
+    var item = e.target.closest('.devis-msf-suggestion');
+    if (!item) return;
+    e.preventDefault();
+    e.stopPropagation();
+    var idx = parseInt(item.dataset.idx, 10);
+    if (!isNaN(idx)) applySuggestion(idx);
+  });
+  suggestionsEl.addEventListener('touchstart', function(e) {
+    var item = e.target.closest('.devis-msf-suggestion');
+    if (!item) return;
+    e.preventDefault();
+    var idx = parseInt(item.dataset.idx, 10);
+    if (!isNaN(idx)) applySuggestion(idx);
+  }, { passive: false });
+
+  // Close suggestions on outside click
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.devis-msf-autocomplete')) closeSuggestions();
   });
 })();
 </script>
