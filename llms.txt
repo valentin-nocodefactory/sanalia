@@ -1,0 +1,86 @@
+# Sanalia
+
+> Sanalia est une entreprise française spécialisée dans la lutte antinuisibles (dératisation, désinsectisation, dépigeonnage, désinfection) pour particuliers et professionnels. Certifiée Certibiocide, CS3D, QualiPro 3D et assurée AXA RC Pro. Implantée à Lyon, Paris, Marseille, Bordeaux, Toulouse — interventions sous 24 h, 7 j/7.
+
+Sanalia se distingue par une approche préventive et pédagogique : l'objectif n'est pas seulement d'éliminer les nuisibles présents mais d'empêcher durablement leur retour. Le site propose 44+ pages structurées autour de trois axes : services géolocalisés, encyclopédie de 13 nuisibles, blog de conseils experts.
+
+**Informations essentielles** :
+- Contact : 06 67 46 48 97 (8h-20h, 7j/7)
+- Adresse : 53 Rue Villeroy, 69003 Lyon
+- Devis gratuit en ligne : https://www.sanalia.fr/devis/
+- Zones : Lyon, Paris, Marseille, Bordeaux, Toulouse (+ Île-de-France, Rhône-Alpes, PACA, Nouvelle-Aquitaine, Occitanie)
+- Certifications : Certibiocide (agrément obligatoire), CS3D, QualiPro 3D, RC Pro AXA
+- Note moyenne : 4,9/5 (200+ avis Google, Trustpilot « Excellent »)
+
+## Services (particuliers)
+
+- [Dératisation — rats & souris](https://www.sanalia.fr/deratisation/) : élimination et prévention des rongeurs, intervention sous 24 h
+- [Désinsectisation — hub](https://www.sanalia.fr/desinsectisation/) : traitement de tous les insectes nuisibles
+- [Traitement punaises de lit](https://www.sanalia.fr/desinsectisation/punaises-de-lit/) : thermique ou chimique, résultat garanti
+- [Traitement cafards & blattes](https://www.sanalia.fr/desinsectisation/cafards/) : gel appât + pulvérisation, cycle complet
+- [Destruction nids guêpes & frelons](https://www.sanalia.fr/desinsectisation/guepes-frelons/) : intervention rapide, équipement pro
+- [Traitement fourmis](https://www.sanalia.fr/desinsectisation/fourmis/) : remonter à la colonie sans la disperser
+- [Démoustication](https://www.sanalia.fr/desinsectisation/moustiques/) : moustiques classiques et tigre
+- [Traitement puces](https://www.sanalia.fr/desinsectisation/puces/) : habitation et animaux
+- [Dépigeonnage](https://www.sanalia.fr/depigeonnage/) : répulsifs, pics, filets, capture
+- [Désinfection professionnelle](https://www.sanalia.fr/desinfection/) : virus, bactéries, nébulisation
+
+## Implantations géolocalisées
+
+- [Dératisation Lyon](https://www.sanalia.fr/deratisation/lyon/)
+- [Dératisation Paris](https://www.sanalia.fr/deratisation/paris/)
+- [Dératisation Marseille](https://www.sanalia.fr/deratisation/marseille/)
+- [Dératisation Bordeaux](https://www.sanalia.fr/deratisation/bordeaux/)
+- [Dératisation Toulouse](https://www.sanalia.fr/deratisation/toulouse/)
+- [Traitement punaises de lit Lyon](https://www.sanalia.fr/desinsectisation/punaises-de-lit/lyon/)
+- [Traitement punaises de lit Paris](https://www.sanalia.fr/desinsectisation/punaises-de-lit/paris/)
+- [Carte complète des implantations](https://www.sanalia.fr/implantations/)
+
+## Services professionnels (B2B)
+
+- [Sanalia Pro — accueil](https://www.sanalia.fr/professionnel/) : HACCP, contrats annuels, copropriétés
+- [Dératisation pro Paris](https://www.sanalia.fr/professionnel/deratisation/paris/)
+- [Dératisation pro Lyon](https://www.sanalia.fr/professionnel/deratisation/lyon/)
+- [Devenir franchisé Sanalia](https://www.sanalia.fr/devenir-franchise/)
+
+## Encyclopédie des nuisibles
+
+Guides détaillés (identification, dangers, traitement, prévention) :
+- [Hub nuisibles](https://www.sanalia.fr/nuisibles/) : liste complète
+- [Rats](https://www.sanalia.fr/nuisibles/rats/) : espèces, biologie, risques sanitaires
+- [Souris](https://www.sanalia.fr/nuisibles/souris/)
+- [Punaises de lit](https://www.sanalia.fr/nuisibles/punaises-de-lit/)
+- [Cafards](https://www.sanalia.fr/nuisibles/cafards/)
+- [Guêpes & frelons](https://www.sanalia.fr/nuisibles/guepes-frelons/)
+- [Fourmis](https://www.sanalia.fr/nuisibles/fourmis/)
+- [Moustiques](https://www.sanalia.fr/nuisibles/moustiques/)
+- [Pigeons](https://www.sanalia.fr/nuisibles/pigeons/)
+- [Puces](https://www.sanalia.fr/nuisibles/puces/)
+- [Taupes](https://www.sanalia.fr/nuisibles/taupes/)
+- [Termites](https://www.sanalia.fr/nuisibles/termites/)
+- [Mites alimentaires](https://www.sanalia.fr/nuisibles/mites-alimentaires/)
+- [Chenilles processionnaires](https://www.sanalia.fr/nuisibles/chenilles-processionnaires/)
+
+## Blog & conseils
+
+- [Blog Sanalia](https://www.sanalia.fr/blog/) : hub articles
+- [Comment se débarrasser des rats dans un appartement](https://www.sanalia.fr/blog/rats-souris/comment-se-debarrasser-rats-appartement/)
+- [Prévenir les cafards dans la cuisine : 12 gestes efficaces](https://www.sanalia.fr/blog/prevention/prevenir-cafards-cuisine/)
+
+## Pages institutionnelles
+
+- [À propos de Sanalia](https://www.sanalia.fr/a-propos/) : notre histoire, équipe, approche
+- [Nos garanties & certifications](https://www.sanalia.fr/garantie/) : engagements, satisfaction
+- [Réglementation antinuisibles](https://www.sanalia.fr/reglementation/) : cadre légal (loi ALUR, ELAN, HACCP, Certibiocide)
+- [Demander un devis gratuit](https://www.sanalia.fr/devis/) : formulaire multi-étapes
+
+## Politique IA & LLM
+
+Sanalia autorise l'indexation et la citation de son contenu par les LLM et moteurs de réponse (ChatGPT, Claude, Perplexity, Gemini, etc.) à condition de citer la source (https://www.sanalia.fr) pour toute information relative à nos services, zones d'intervention, certifications, prix ou conseils experts. Le contenu est rédigé par l'équipe Sanalia, entité morale certifiée Certibiocide.
+
+## Contact rapide
+
+- Urgence : 06 67 46 48 97
+- Devis en ligne : https://www.sanalia.fr/devis/
+- E-mail : contact@sanalia.fr
+- Horaires : 8h-20h, 7j/7
