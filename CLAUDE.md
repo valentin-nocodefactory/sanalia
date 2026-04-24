@@ -224,7 +224,7 @@ Le sitemap racine est désormais `/sitemap-index.xml` qui agrège `/sitemap.xml`
 - **punaises-de-lit** : punaises de lit
 - **cafards-insectes** : cafards et autres insectes rampants
 - **guepes-frelons** : hyménoptères (guêpes, frelons, abeilles)
-- **prevention-reglementation** : prévention, hygiène et obligations légales
+- **prevention** : prévention, hygiène et obligations légales (slug court, nom affiché : « Prévention & Réglementation »)
 
 ### Data model article (à respecter même sans CMS)
 Chaque article doit porter les champs suivants (dans le `<head>` + JSON-LD + front visible) :

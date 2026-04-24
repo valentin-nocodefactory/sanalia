@@ -9,3 +9,7 @@
 /blog/guepes-frelons/  /nuisibles/guepes-frelons/  301
 /blog/prevention-reglementation  /reglementation/  301
 /blog/prevention-reglementation/  /reglementation/  301
+/blog/prevention-reglementation/*  /blog/prevention/:splat  301
+# Hub prevention lui-même (sans article) → page réglementation
+/blog/prevention  /reglementation/  301
+/blog/prevention/  /reglementation/  301

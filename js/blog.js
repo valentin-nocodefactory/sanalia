@@ -511,22 +511,24 @@
   // 11. Blog search autocomplete (hub)
   // ------------------------------------------------------------
   var searchSuggestions = [
-    // Articles blog
+    // Articles blog (rédigés)
     {type:'article', title:'Comment se débarrasser des rats dans un appartement', url:'/blog/rats-souris/comment-se-debarrasser-rats-appartement/', tag:'Rats & Souris', category:'rats'},
-    {type:'article', title:'Les 7 signes précoces d\'une infestation de punaises de lit', url:'/blog/punaises-de-lit/detecter-precocement/', tag:'Punaises', category:'punaises'},
-    {type:'article', title:'Cycle de vie du cafard : pourquoi ils reviennent', url:'/blog/cafards-insectes/cycle-vie-cafard/', tag:'Cafards', category:'cafards'},
-    {type:'article', title:'Rat ou souris ? 9 différences pour les reconnaître', url:'/blog/rats-souris/difference-rat-souris/', tag:'Rats & Souris', category:'rats'},
-    {type:'article', title:'Comment boucher durablement les entrées des rongeurs', url:'/blog/rats-souris/boucher-entrees-rongeurs/', tag:'Prévention', category:'prevention'},
-    {type:'article', title:'Maladies transmises par les rats : leptospirose, hantavirus', url:'/blog/rats-souris/maladies-transmises-rats/', tag:'Santé', category:'rats'},
-    {type:'article', title:'Thermique ou chimique ? Traitements des punaises de lit', url:'/blog/punaises-de-lit/traitement-thermique-vs-chimique/', tag:'Traitement', category:'punaises'},
-    {type:'article', title:'Voyage et hôtel : ne pas ramener de punaises de lit', url:'/blog/punaises-de-lit/punaises-voyage-hotel/', tag:'Prévention', category:'punaises'},
-    {type:'article', title:'Piqûres de punaises de lit : les identifier', url:'/blog/punaises-de-lit/piqures-identifier/', tag:'Punaises', category:'punaises'},
-    {type:'article', title:'Frelon asiatique ou européen : 5 critères', url:'/blog/guepes-frelons/frelon-asiatique-reconnaitre/', tag:'Guêpes', category:'guepes'},
-    {type:'article', title:'Nid de guêpes dans la toiture : ne pas le déloger soi-même', url:'/blog/guepes-frelons/nid-guepes-toiture/', tag:'Guêpes', category:'guepes'},
-    {type:'article', title:'Piqûre de guêpe et allergie : réagir dans les 15 minutes', url:'/blog/guepes-frelons/piqure-allergie-reagir/', tag:'Santé', category:'guepes'},
-    {type:'article', title:'Cafards en cuisine professionnelle : risques HACCP', url:'/blog/cafards-insectes/cafards-cuisine-restaurant/', tag:'Pro', category:'cafards'},
-    {type:'article', title:'Fourmis dans la maison : remonter à la colonie', url:'/blog/cafards-insectes/fourmis-maison-colonies/', tag:'Fourmis', category:'fourmis'},
-    {type:'article', title:'Moustique tigre : 12 gestes pour protéger votre jardin', url:'/blog/cafards-insectes/moustique-tigre-jardin/', tag:'Moustiques', category:'moustiques'},
+    {type:'article', title:'Prévenir les cafards dans la cuisine : 12 gestes efficaces', url:'/blog/prevention/prevenir-cafards-cuisine/', tag:'Prévention', category:'prevention'},
+    // TODO: Réintégrer ces entrées au fur et à mesure de la rédaction (voir table Notion "Articles blog à rédiger")
+    // {type:'article', title:'Les 7 signes précoces d\'une infestation de punaises de lit', url:'/blog/punaises-de-lit/detecter-precocement/', tag:'Punaises', category:'punaises'},
+    // {type:'article', title:'Cycle de vie du cafard : pourquoi ils reviennent', url:'/blog/cafards-insectes/cycle-vie-cafard/', tag:'Cafards', category:'cafards'},
+    // {type:'article', title:'Rat ou souris ? 9 différences pour les reconnaître', url:'/blog/rats-souris/difference-rat-souris/', tag:'Rats & Souris', category:'rats'},
+    // {type:'article', title:'Comment boucher durablement les entrées des rongeurs', url:'/blog/rats-souris/boucher-entrees-rongeurs/', tag:'Prévention', category:'prevention'},
+    // {type:'article', title:'Maladies transmises par les rats : leptospirose, hantavirus', url:'/blog/rats-souris/maladies-transmises-rats/', tag:'Santé', category:'rats'},
+    // {type:'article', title:'Thermique ou chimique ? Traitements des punaises de lit', url:'/blog/punaises-de-lit/traitement-thermique-vs-chimique/', tag:'Traitement', category:'punaises'},
+    // {type:'article', title:'Voyage et hôtel : ne pas ramener de punaises de lit', url:'/blog/punaises-de-lit/punaises-voyage-hotel/', tag:'Prévention', category:'punaises'},
+    // {type:'article', title:'Piqûres de punaises de lit : les identifier', url:'/blog/punaises-de-lit/piqures-identifier/', tag:'Punaises', category:'punaises'},
+    // {type:'article', title:'Frelon asiatique ou européen : 5 critères', url:'/blog/guepes-frelons/frelon-asiatique-reconnaitre/', tag:'Guêpes', category:'guepes'},
+    // {type:'article', title:'Nid de guêpes dans la toiture : ne pas le déloger soi-même', url:'/blog/guepes-frelons/nid-guepes-toiture/', tag:'Guêpes', category:'guepes'},
+    // {type:'article', title:'Piqûre de guêpe et allergie : réagir dans les 15 minutes', url:'/blog/guepes-frelons/piqure-allergie-reagir/', tag:'Santé', category:'guepes'},
+    // {type:'article', title:'Cafards en cuisine professionnelle : risques HACCP', url:'/blog/cafards-insectes/cafards-cuisine-restaurant/', tag:'Pro', category:'cafards'},
+    // {type:'article', title:'Fourmis dans la maison : remonter à la colonie', url:'/blog/cafards-insectes/fourmis-maison-colonies/', tag:'Fourmis', category:'fourmis'},
+    // {type:'article', title:'Moustique tigre : 12 gestes pour protéger votre jardin', url:'/blog/cafards-insectes/moustique-tigre-jardin/', tag:'Moustiques', category:'moustiques'},
     // Pillars
     {type:'pillar', title:'Rats & Souris : Guide complet 2026', url:'/nuisibles/rats/', tag:'Dossier', category:'rats'},
     {type:'pillar', title:'Punaises de lit : Guide complet', url:'/nuisibles/punaises-de-lit/', tag:'Dossier', category:'punaises'},
@@ -545,9 +547,10 @@
     // Réglementation
     {type:'reglementation', title:'Obligations du locataire face aux nuisibles', url:'/reglementation/', tag:'Réglementation', category:'prevention'},
     {type:'reglementation', title:'Réglementation copropriété et dératisation', url:'/reglementation/', tag:'Réglementation', category:'prevention'},
-    {type:'reglementation', title:'Punaises de lit : qui paie, locataire ou propriétaire', url:'/blog/prevention-reglementation/loi-punaises-locataires/', tag:'Réglementation', category:'prevention'},
-    {type:'reglementation', title:'Certibiocide : que vérifier avant de choisir', url:'/blog/prevention-reglementation/certibiocide-artisans/', tag:'Réglementation', category:'prevention'},
-    {type:'reglementation', title:'Calendrier 2026 des nuisibles en France', url:'/blog/prevention-reglementation/calendrier-nuisibles-france/', tag:'Saisonnalité', category:'prevention'},
+    // TODO: Réintégrer ces entrées au fur et à mesure de la rédaction (voir table Notion "Articles blog à rédiger")
+    // {type:'reglementation', title:'Punaises de lit : qui paie, locataire ou propriétaire', url:'/blog/prevention/loi-punaises-locataires/', tag:'Réglementation', category:'prevention'},
+    // {type:'reglementation', title:'Certibiocide : que vérifier avant de choisir', url:'/blog/prevention/certibiocide-artisans/', tag:'Réglementation', category:'prevention'},
+    // {type:'reglementation', title:'Calendrier 2026 des nuisibles en France', url:'/blog/prevention/calendrier-nuisibles-france/', tag:'Saisonnalité', category:'prevention'},
     // Services
     {type:'service', title:'Dératisation à Lyon', url:'/deratisation/lyon/', tag:'Service', category:'rats'},
     {type:'service', title:'Dératisation à Paris', url:'/deratisation/paris/', tag:'Service', category:'rats'},
