@@ -1,0 +1,3239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, address=no, date=no, email=no">
+<title>Carte interactive des nuisibles en France 2026 — Sanalia</title>
+<meta name="description" content="Observatoire Sanalia : carte interactive des rats, moustiques tigres, frelons asiatiques, punaises de lit et ambroisie en France. 5 sources publiques officielles, mise à jour mensuelle.">
+<link rel="canonical" href="https://www.sanalia.fr/map-interactive/">
+<!-- Open Graph -->
+<meta property="og:title" content="Carte interactive des nuisibles en France — Observatoire Sanalia">
+<meta property="og:description" content="Cartographie en temps réel des nuisibles en France. Données ANSES, MNHN, Paris Open Data, Atlasanté. Filtrage par espèce, par commune.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.sanalia.fr/map-interactive/">
+<meta property="og:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
+<meta property="og:locale" content="fr_FR">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carte interactive des nuisibles en France — Observatoire Sanalia">
+<meta name="twitter:description" content="5 sources publiques agrégées. Visualisez la pression nuisible commune par commune.">
+<meta name="twitter:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Dataset",
+      "@id": "https://www.sanalia.fr/map-interactive/#dataset",
+      "name": "Observatoire Sanalia — Carte des nuisibles en France",
+      "description": "Agrégation géolocalisée des signalements de rats, moustiques tigres, frelons asiatiques, punaises de lit et ambroisie en France. Sources : ANSES, MNHN/INPN, Paris Open Data, Atlasanté, INSEE.",
+      "url": "https://www.sanalia.fr/map-interactive/",
+      "license": "https://opendatacommons.org/licenses/odbl/",
+      "isAccessibleForFree": true,
+      "creator": {"@type": "Organization", "name": "Sanalia", "url": "https://www.sanalia.fr"},
+      "distribution": [
+        {"@type": "DataDownload", "encodingFormat": "application/geo+json", "contentUrl": "https://www.sanalia.fr/data/nuisibles_france.geojson"},
+        {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://www.sanalia.fr/data/punaises_lit_regional.json"}
+      ],
+      "spatialCoverage": {"@type": "Place", "name": "France métropolitaine"},
+      "temporalCoverage": "P12M",
+      "keywords": ["rats", "moustique tigre", "frelon asiatique", "punaises de lit", "ambroisie", "nuisibles", "France", "open data"]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
+        {"@type": "ListItem", "position": 2, "name": "Carte interactive des nuisibles"}
+      ]
+    },
+    {
+      "@type": "Organization",
+      "name": "Sanalia",
+      "url": "https://www.sanalia.fr",
+      "logo": "https://www.sanalia.fr/logo-sanalia.svg",
+      "telephone": "+33667464897"
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/css/base.css?v=20260417j">
+<link rel="stylesheet" href="/css/components.css?v=20260417j">
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css">
+<style>
+/* ═══════════════════════════════════════════
+   CARTE INTERACTIVE NUISIBLES — Sanalia
+   ═══════════════════════════════════════════ */
+
+:root {
+  --map-rat: #6B4F2C;
+  --map-moustique: #2E7BB5;
+  --map-frelon: #C2754A;
+  --map-punaise: #A23E5C;
+  --map-ambroisie: #6FA84A;
+  --map-rat-pastel: var(--color-pastel-gold);
+  --map-moustique-pastel: var(--color-pastel-blue);
+  --map-frelon-pastel: var(--color-pastel-peach);
+  --map-punaise-pastel: var(--color-pastel-rose);
+  --map-ambroisie-pastel: var(--color-pastel-green);
+}
+
+body.is-embed > *:not(.embed-content) { display: none !important; }
+body.is-embed { background: var(--color-bg); }
+
+/* ─── HERO MAP (full viewport) ─── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.map-hero-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 116px); /* viewport minus header (urgency bar + nav) */
+  min-height: 640px;
+  background: var(--color-bg);
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  .map-hero-section { height: calc(100vh - 100px); min-height: 560px; }
+}
+body.is-embed .map-hero-section { height: 100vh; min-height: 100vh; }
+
+.map-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface);
+}
+#nuisibles-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: #E8E5DD;
+}
+
+/* ═══════════════════════════════════════════
+   FLOATING GLASS CARDS — premium overlay system
+   Inspired by Stripe Atlas / FT.com data viz.
+   ═══════════════════════════════════════════ */
+.map-card {
+  position: absolute;
+  z-index: 600;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(40px) saturate(1.6);
+  -webkit-backdrop-filter: blur(40px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 1px rgba(14, 5, 42, 0.02),
+    0 1px 2px rgba(14, 5, 42, 0.04),
+    0 18px 38px -10px rgba(14, 5, 42, 0.18),
+    0 0 80px 16px rgba(255, 255, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  animation: card-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.map-card-left  { top: 18px; left: 18px;  width: 260px; animation-delay: 60ms; }
+.map-card-right { top: 18px; right: 70px; width: 320px; animation-delay: 120ms; }
+
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-section { padding: 14px 16px; }
+.card-divider {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(14, 5, 42, 0.08) 18%,
+    rgba(14, 5, 42, 0.08) 82%,
+    transparent 100%);
+  margin: 0;
+}
+.card-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-system);
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+.card-eyebrow .live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+  animation: pulse-dot 2s infinite;
+}
+.card-eyebrow.has-accent { color: var(--color-primary-600); }
+
+/* ─── CARD TITLE (eyebrow + h1) ─── */
+.card-title {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 601;
+  width: 260px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(40px) saturate(1.6);
+  -webkit-backdrop-filter: blur(40px) saturate(1.6);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 1px rgba(14, 5, 42, 0.02),
+    0 1px 2px rgba(14, 5, 42, 0.04),
+    0 18px 38px -10px rgba(14, 5, 42, 0.18),
+    0 0 80px 16px rgba(255, 255, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: card-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+.card-title h1 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-primary-900);
+  margin: 0 0 3px;
+}
+.card-title h1 .accent { color: var(--color-primary-600); }
+.card-title-sub {
+  font-family: var(--font-system);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+/* Stack the LEFT column: title above, then map-card-left below */
+.map-card-left { top: 130px; }
+
+/* ─── KPI STATS (right card top section) ─── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  margin: 0 -4px;
+}
+.kpi {
+  text-align: center;
+  padding: 0 4px;
+  position: relative;
+}
+.kpi + .kpi::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 1px;
+  background: rgba(14, 5, 42, 0.08);
+}
+.kpi-num {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 26px;
+  color: var(--color-primary-900);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.kpi-lbl {
+  font-family: var(--font-system);
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+}
+
+/* ─── SOURCES (right card bottom section, collapsible) ─── */
+.sources-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-system);
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-primary-600);
+  cursor: pointer;
+  text-align: left;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.sources-toggle:hover { color: var(--color-primary-900); }
+.sources-info-icon {
+  width: 14px; height: 14px;
+  flex-shrink: 0;
+  color: var(--color-primary-600);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sources-toggle:hover .sources-info-icon { transform: scale(1.1); }
+.sources-chevron {
+  width: 10px; height: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sources-toggle[aria-expanded="true"] .sources-chevron { transform: rotate(180deg); }
+
+.sources-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.32s cubic-bezier(0.16, 1, 0.3, 1), margin-top 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sources-toggle[aria-expanded="true"] + .sources-content {
+  max-height: 220px;
+  margin-top: 12px;
+}
+.sources-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.sources-badge {
+  font-family: var(--font-system);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--color-primary-900);
+  background: var(--color-primary-100);
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sources-badge:hover { background: var(--color-primary-200); }
+.sources-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--color-primary-600);
+  text-decoration: none;
+  padding: 8px 0 0;
+  border-top: 1px dashed rgba(14, 5, 42, 0.08);
+  transition: color 0.18s;
+}
+.sources-link:hover { color: var(--color-primary-900); }
+.sources-link svg {
+  width: 12px; height: 12px;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sources-link:hover svg { transform: translateX(3px); }
+
+/* ─── FILTER CHIPS (left card top section) ─── */
+.section-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-system);
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+.section-label-actions { display: flex; gap: 4px; }
+.btn-mini {
+  padding: 3px 8px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-system);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  border-radius: 999px;
+  transition: all 0.15s;
+}
+.btn-mini:hover { color: var(--color-primary-600); background: var(--color-primary-100); }
+
+.chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.map-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px 3px 3px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--color-primary-900);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  line-height: 1;
+  min-height: 26px;
+}
+.map-chip:hover { transform: translateY(-1px); }
+.map-chip.is-off { opacity: 0.35; background: transparent; border-color: rgba(14, 5, 42, 0.06); }
+.map-chip.is-off:hover { opacity: 0.6; }
+.map-chip-icon {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  padding: 2px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.map-chip-icon-emoji {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.map-chip[data-id="rat"].is-on             { background: var(--color-pastel-gold-light); border-color: var(--color-pastel-gold); }
+.map-chip[data-id="moustique_tigre"].is-on { background: var(--color-pastel-blue-light); border-color: var(--color-pastel-blue); }
+.map-chip[data-id="frelon_asiatique"].is-on{ background: var(--color-pastel-peach-light); border-color: var(--color-pastel-peach); }
+.map-chip[data-id="punaise_lit"].is-on     { background: var(--color-pastel-rose-light); border-color: var(--color-pastel-rose); }
+.map-chip[data-id="ambroisie"].is-on       { background: var(--color-pastel-green-light); border-color: var(--color-pastel-green); }
+
+/* ─── ZOOM PILLS (left card bottom section) ─── */
+.zoom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+.zoom-grid--cities {
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(14, 5, 42, 0.08);
+}
+.zoom-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border: 0;
+  background: rgba(99, 93, 221, 0.08);
+  color: var(--color-primary-600);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  min-height: 26px;
+}
+.zoom-pill:hover {
+  background: var(--color-primary-600);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.zoom-pill--city {
+  background: rgba(14, 5, 42, 0.05);
+  color: var(--color-primary-900);
+}
+.zoom-pill--city:hover { background: var(--color-primary-900); color: #fff; }
+
+/* ─── SCROLL CTA (bottom-center) ─── */
+.map-overlay-scroll-cta {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: var(--color-primary-900);
+  color: #fff;
+  border-radius: 999px;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  box-shadow:
+    0 1px 2px rgba(14, 5, 42, 0.1),
+    0 16px 36px rgba(14, 5, 42, 0.28);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: card-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) 240ms backwards;
+}
+.map-overlay-scroll-cta:hover {
+  background: var(--color-primary-600);
+  transform: translateX(-50%) translateY(-3px);
+  box-shadow:
+    0 1px 2px rgba(99, 93, 221, 0.2),
+    0 20px 44px rgba(99, 93, 221, 0.4);
+}
+.map-overlay-scroll-cta svg {
+  animation: bounce-arrow 2s ease-in-out infinite;
+}
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ─── Mobile adaptations ─── */
+@media (max-width: 900px) {
+  .map-card-left, .card-title { width: calc(100% - 20px); left: 10px; right: 10px; }
+  .map-card-right { display: none; }
+  .card-title { top: 10px; padding: 10px 14px; }
+  .card-title h1 { font-size: 15px; }
+  .card-title-sub { display: none; }
+  .map-card-left { top: auto; bottom: 80px; }
+  .card-section { padding: 10px 12px; }
+  .map-chip { font-size: 11px; min-height: 28px; }
+  .chip-grid { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .chip-grid::-webkit-scrollbar { display: none; }
+  .zoom-grid { grid-template-columns: repeat(3, 1fr); }
+  .zoom-grid--cities { grid-template-columns: repeat(4, 1fr); }
+  .map-overlay-scroll-cta { bottom: 14px; padding: 10px 18px; font-size: 12px; }
+}
+
+/* ─── DETAILS SECTION (after map) ─── */
+.details-anchor {
+  display: block;
+  height: 1px;
+  margin-top: 0;
+  scroll-margin-top: 90px;
+}
+html { scroll-behavior: smooth; }
+
+.map-loading {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(246,245,240,0.94);
+  z-index: 999;
+  flex-direction: column;
+  gap: 16px;
+}
+.map-loading-spinner {
+  width: 32px; height: 32px;
+  border: 3px solid var(--color-primary-200);
+  border-top-color: var(--color-primary-600);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.map-loading-text {
+  font-family: var(--font-system);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+/* ─── MAP LEGEND ─── */
+.map-legend {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  z-index: 600;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(14,5,42,0.12);
+  font-size: 11px;
+  max-width: 220px;
+}
+@media (max-width: 768px) {
+  .map-legend { display: none; }
+}
+.map-legend-title {
+  font-family: var(--font-system);
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+.map-legend-scale {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.map-legend-circle {
+  border-radius: 50%;
+  background: var(--color-primary-200);
+  border: 1.5px solid var(--color-primary-600);
+  flex-shrink: 0;
+}
+.map-legend-scale-num {
+  font-family: var(--font-system);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+.map-legend-help {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* ─── COMMUNE PANEL ─── */
+.commune-panel {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: min(380px, calc(100% - 36px));
+  max-height: calc(100% - 36px);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 0;
+  box-shadow: 0 20px 60px rgba(14,5,42,0.18);
+  z-index: 700;
+  overflow: hidden;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s;
+  display: flex;
+  flex-direction: column;
+}
+.commune-panel.is-open {
+  transform: translateX(0);
+  opacity: 1;
+}
+.commune-panel-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--color-gray-light);
+  position: relative;
+  background: linear-gradient(180deg, var(--color-primary-100) 0%, transparent 100%);
+}
+.commune-panel-close {
+  position: absolute;
+  top: 12px; right: 12px;
+  width: 32px; height: 32px;
+  border: 0; background: var(--color-surface);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-primary-900);
+  box-shadow: 0 2px 6px rgba(14,5,42,0.08);
+  transition: background 0.15s;
+}
+.commune-panel-close:hover { background: var(--color-primary-100); }
+.commune-panel-eyebrow {
+  font-family: var(--font-system);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-primary-600);
+  margin-bottom: 4px;
+}
+.commune-panel-title {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--color-primary-900);
+  margin: 0 32px 6px 0;
+  line-height: 1.15;
+}
+.commune-panel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--font-system);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.commune-panel-body {
+  padding: 18px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+.commune-panel-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: var(--space-md);
+}
+.commune-stat {
+  background: var(--color-bg);
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+}
+.commune-stat-num {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  color: var(--color-primary-900);
+  line-height: 1;
+}
+.commune-stat-num.is-purple { color: var(--color-primary-600); }
+.commune-stat-lbl {
+  font-family: var(--font-system);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+  margin-top: 6px;
+}
+.commune-breakdown { margin: var(--space-md) 0 0; }
+.commune-breakdown h3 {
+  font-family: var(--font-system);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-sm);
+  font-weight: 400;
+}
+.commune-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+.commune-bar-label {
+  flex: 0 0 110px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-primary-900);
+}
+.commune-bar-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.commune-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--color-gray-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.commune-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.commune-bar-num {
+  font-family: var(--font-system);
+  font-size: 11px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+  flex: 0 0 36px;
+  text-align: right;
+}
+.commune-cta {
+  display: block;
+  margin: var(--space-md) 0 0;
+  background: var(--color-primary-900);
+  color: #fff;
+  text-align: center;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.commune-cta:hover { background: var(--color-primary-600); }
+.commune-source {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px dotted var(--color-gray-light);
+  font-family: var(--font-system);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .commune-panel {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: auto;
+    max-height: 75%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    transform: translateY(120%);
+  }
+  .commune-panel.is-open { transform: translateY(0); }
+  .map-legend { left: 10px; bottom: 10px; max-width: calc(100% - 130px); padding: 10px 12px; }
+}
+
+/* ─── TOP COMMUNES ─── */
+.top-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-surface);
+}
+.top-section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+.top-section h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 40px);
+  letter-spacing: -0.02em;
+  color: var(--color-primary-900);
+  margin: 0 0 var(--space-md);
+}
+.top-section-sub {
+  color: var(--color-primary-800);
+  font-size: 16px;
+  margin: 0 0 var(--space-xl);
+  max-width: 640px;
+}
+.top-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+@media (max-width: 900px) { .top-grid { grid-template-columns: 1fr; } }
+.top-list {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.top-list h3 {
+  font-family: var(--font-system);
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-md);
+}
+.top-list-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dotted var(--color-gray-light);
+}
+.top-list-row:last-child { border-bottom: 0; }
+.top-list-rank {
+  font-family: var(--font-system);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+.top-list-name {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-primary-900);
+}
+.top-list-meta {
+  font-family: var(--font-system);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+.top-list-num {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-primary-600);
+}
+
+/* ─── PUNAISES REGIONAL ─── */
+.punaises-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg-sand);
+}
+.punaises-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+.punaises-header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
+  align-items: end;
+}
+@media (max-width: 900px) { .punaises-header { grid-template-columns: 1fr; gap: var(--space-md); } }
+.punaises-section h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 40px);
+  letter-spacing: -0.02em;
+  color: var(--color-primary-900);
+  margin: 0;
+  line-height: 1.1;
+}
+.punaises-section h2 em { font-style: normal; color: var(--map-punaise); }
+.punaises-source {
+  font-family: var(--font-system);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.punaises-fact {
+  background: var(--color-surface);
+  border-left: 3px solid var(--map-punaise);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-primary-800);
+}
+.punaises-fact strong { color: var(--color-primary-900); font-weight: 700; }
+
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.region-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.region-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,5,42,0.06); }
+.region-rank {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-family: var(--font-system);
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+.region-name {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-primary-900);
+  margin-bottom: 8px;
+  padding-right: 36px;
+}
+.region-bar {
+  height: 6px;
+  background: var(--color-gray-light);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.region-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--map-punaise) 0%, var(--map-frelon) 100%);
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.region-pct {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--map-punaise);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.region-vs {
+  font-family: var(--font-system);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+/* ─── METHODOLOGIE BLOC ─── */
+.method-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-surface);
+}
+.method-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-2xl);
+}
+@media (max-width: 900px) { .method-inner { grid-template-columns: 1fr; } }
+.method-section h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 40px);
+  letter-spacing: -0.02em;
+  color: var(--color-primary-900);
+  margin: 0 0 var(--space-md);
+  line-height: 1.15;
+}
+.method-section h2 em { font-style: normal; color: var(--color-primary-600); }
+.method-intro {
+  color: var(--color-primary-800);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+}
+.method-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary-600);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+}
+.method-link:hover { text-decoration: underline; }
+
+.sources-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 600px) { .sources-grid { grid-template-columns: 1fr; } }
+.source-item {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  border: 1px solid var(--color-gray-light);
+}
+.source-item-tag {
+  display: inline-block;
+  font-family: var(--font-system);
+  font-size: 9px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-primary-600);
+  background: var(--color-primary-100);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+.source-item-name {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-primary-900);
+  margin-bottom: 4px;
+}
+.source-item-desc {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+.source-item a {
+  color: var(--color-primary-600);
+  font-family: var(--font-system);
+  font-size: 10px;
+  text-decoration: none;
+}
+
+/* ─── DATA DOWNLOAD + EMBED ─── */
+.data-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-primary-900);
+  color: #fff;
+}
+.data-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+.data-section h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 40px);
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 var(--space-md);
+}
+.data-section .data-lede {
+  color: rgba(255,255,255,0.7);
+  font-size: 17px;
+  margin-bottom: var(--space-xl);
+  max-width: 640px;
+}
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+@media (max-width: 900px) { .data-grid { grid-template-columns: 1fr; } }
+.data-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+}
+.data-card h3 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 0 var(--space-sm);
+  color: #fff;
+}
+.data-card p {
+  color: rgba(255,255,255,0.65);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 var(--space-md);
+}
+.data-card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.data-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-primary-600);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  transition: background 0.2s;
+}
+.data-btn:hover { background: var(--color-primary-400); }
+.data-btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+}
+.data-btn--ghost:hover { background: rgba(255,255,255,0.08); }
+.embed-code {
+  font-family: var(--font-system);
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+  background: rgba(0,0,0,0.3);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  white-space: pre-wrap;
+  word-break: break-all;
+  display: block;
+  margin: var(--space-sm) 0;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.copied-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #22C55E;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  z-index: 9999;
+}
+.copied-toast.is-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─── BIAIS ─── */
+.bias-section {
+  padding: var(--space-2xl) 0;
+  background: var(--color-bg);
+}
+.bias-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+.bias-callout {
+  background: var(--color-pastel-gold-light);
+  border: 1px solid var(--color-pastel-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-md);
+  align-items: start;
+}
+@media (max-width: 600px) { .bias-callout { grid-template-columns: 1fr; } }
+.bias-icon {
+  font-size: 28px;
+}
+.bias-callout h3 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 18px;
+  margin: 0 0 var(--space-sm);
+  color: var(--color-primary-900);
+}
+.bias-callout p {
+  color: var(--color-primary-800);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 var(--space-sm);
+}
+.bias-callout p:last-child { margin: 0; }
+
+/* ─── FAQ ─── */
+.faq-section {
+  padding: var(--space-3xl) 0;
+  background: var(--color-bg);
+}
+.faq-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+.faq-section h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 36px);
+  letter-spacing: -0.02em;
+  color: var(--color-primary-900);
+  text-align: center;
+  margin: 0 0 var(--space-2xl);
+}
+.faq-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.faq-item[open] { border-color: var(--color-primary-200); }
+.faq-item summary {
+  padding: 18px 20px;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-primary-900);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-size: 24px;
+  color: var(--color-primary-600);
+  font-weight: 400;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { content: '−'; }
+.faq-item-body {
+  padding: 0 20px 18px;
+  color: var(--color-primary-800);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ─── CTA FINAL ─── */
+.cta-final {
+  background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-600) 100%);
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  color: #fff;
+}
+.cta-final-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+.cta-final h2 {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: #fff;
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin-bottom: var(--space-md);
+  letter-spacing: -0.02em;
+}
+.cta-final p {
+  color: rgba(255,255,255,0.75);
+  font-size: 17px;
+  margin-bottom: var(--space-xl);
+}
+.cta-final-btn {
+  display: inline-block;
+  background: #fff;
+  color: var(--color-primary-900);
+  padding: 16px 36px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+.cta-final-btn:hover { transform: translateY(-2px); }
+
+/* ─── MAPBOX CUSTOMIZATION ─── */
+.mapboxgl-popup-content {
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 12px 32px rgba(14,5,42,0.18) !important;
+  padding: 12px 14px !important;
+  font-family: var(--font-primary) !important;
+  border: 1px solid var(--color-gray-light);
+}
+.mapboxgl-popup-content .pop-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-primary-900);
+  margin-bottom: 4px;
+}
+.mapboxgl-popup-content .pop-num {
+  font-family: var(--font-system);
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.mapboxgl-popup-content .pop-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.mapboxgl-popup-tip { display: none !important; }
+.mapboxgl-popup { z-index: 500 !important; }
+.mapboxgl-ctrl-attrib {
+  font-family: var(--font-system) !important;
+  font-size: 10px !important;
+  background: rgba(255,255,255,0.85) !important;
+}
+.mapboxgl-ctrl-attrib a { color: var(--color-text-muted) !important; }
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib { border-radius: var(--radius-sm) 0 0 0 !important; }
+
+.mapboxgl-ctrl-group {
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 4px 12px rgba(14,5,42,0.1) !important;
+  overflow: hidden;
+  border: 0 !important;
+}
+.mapboxgl-ctrl-group button {
+  background: var(--color-surface) !important;
+  width: 36px !important;
+  height: 36px !important;
+}
+.mapboxgl-ctrl-group button:hover { background: var(--color-primary-100) !important; }
+
+/* Pulse highlight when zooming to a feature */
+@keyframes mapbox-pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* Embed mode */
+body.is-embed { padding: 0; margin: 0; background: var(--color-bg); }
+body.is-embed .map-section { padding: 0; }
+body.is-embed .map-section-inner { padding: 0; }
+body.is-embed .map-shell { border-radius: 0; box-shadow: none; }
+body.is-embed #nuisibles-map { height: 100vh; }
+</style>
+</head>
+<body>
+
+<div data-component="header">
+<!-- ════════ TOP BAR (animated pastel) ════════ -->
+<div class="urgency-bar">
+  <div class="urgency-bar-inner">
+    <span class="urgency-bar-text">Intervention rapide 8h-20h, 7j/7 — Appelez maintenant : <a href="tel:0667464897">06 67 46 48 97</a></span>
+    <div class="toggle-tabs">
+      <button class="toggle-tab active" data-mode="particulier">Particulier</button>
+      <button class="toggle-tab" data-mode="pro">Professionnel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ HEADER + MEGA MENUS ════════ -->
+<header class="header">
+  <div class="header-main">
+    <div class="container flex-between">
+      <a href="/" class="header-logo">
+        <svg viewBox="0 0 159 57" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clip-path="url(#clip0)">
+            <mask id="mask0" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask>
+            <g mask="url(#mask0)"><path d="M23.9401 18.74V22.87H15.05V17.48C15.05 14.0267 13.9534 12.3 11.76 12.3C10.8267 12.3 10.1034 12.6733 9.59 13.42C9.07667 14.12 8.82 15.03 8.82 16.15C8.82 17.0833 9.1 18.11 9.66 19.23C10.22 20.3033 11.27 21.8433 12.81 23.85L19.3899 32.67C21.35 35.33 22.6567 37.4767 23.3101 39.11C24.01 40.7433 24.36 42.68 24.36 44.92C24.36 48.2333 23.1934 50.9867 20.8601 53.18C18.5267 55.3267 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3033 3.5 53.11C1.16667 50.9167 0 47.5333 0 42.96V38.2H8.89V44.5C8.89 48.2333 10.0567 50.1 12.39 50.1C13.37 50.1 14.1634 49.7267 14.77 48.98C15.4234 48.2333 15.75 47.2533 15.75 46.04C15.75 44.8267 15.5167 43.7067 15.05 42.68C14.5834 41.6067 13.6034 40.09 12.11 38.13L5.53 29.45C3.57 26.8367 2.24 24.6433 1.54 22.87C0.886667 21.0967 0.56 19.0433 0.56 16.71C0.56 13.9567 1.58667 11.4833 3.64 9.29C5.74 7.09667 8.56333 6 12.11 6C15.5634 6 18.3866 7.16667 20.58 9.5C22.82 11.7867 23.9401 14.8667 23.9401 18.74ZM49.8515 55.7H41.2415L42.0815 50.8H41.2415C40.6349 51.78 40.0982 52.5967 39.6315 53.25C39.1649 53.8567 38.3714 54.5333 37.2514 55.28C36.1314 56.0267 34.9414 56.4 33.6814 56.4C31.4414 56.4 29.6682 55.6067 28.3615 54.02C27.1015 52.4333 26.4715 50.3567 26.4715 47.79C26.4715 45.1767 27.0315 42.82 28.1515 40.72C29.2715 38.5733 31.0915 36.2867 33.6115 33.86L41.1015 26.58V25.6C41.1015 22.3333 40.1681 20.7 38.3014 20.7C36.4348 20.7 35.5014 22.3333 35.5014 25.6V30.15H26.7514V27.56C26.7514 23.5 27.7781 20.3033 29.8314 17.97C31.8848 15.59 34.7081 14.4 38.3014 14.4C41.8948 14.4 44.7182 15.59 46.7715 17.97C48.8249 20.3033 49.8515 23.5233 49.8515 27.63V55.7ZM41.1015 44.43V34.28L37.8115 37.78C35.4315 40.3 34.2415 42.61 34.2415 44.71C34.2415 46.9033 35.0582 48 36.6915 48C38.2782 48 39.7482 46.81 41.1015 44.43ZM63.1614 55.7H54.4114V15.1H63.1614L62.3214 19.86H63.1614C65.3547 16.22 68.0147 14.4 71.1414 14.4C73.148 14.4 74.8514 15.2867 76.2514 17.06C77.6514 18.7867 78.3514 21.47 78.3514 25.11V55.7H69.6014V27.7C69.6014 24.7133 68.7147 23.22 66.9414 23.22C65.588 23.22 64.328 24.2933 63.1614 26.44V55.7ZM104.914 55.7H96.3036L97.1436 50.8H96.3036C95.697 51.78 95.1603 52.5967 94.6936 53.25C94.227 53.8567 93.4336 54.5333 92.3136 55.28C91.1936 56.0267 90.0036 56.4 88.7436 56.4C86.5036 56.4 84.7303 55.6067 83.4236 54.02C82.1636 52.4333 81.5336 50.3567 81.5336 47.79C81.5336 45.1767 82.0936 42.82 83.2136 40.72C84.3336 38.5733 86.1536 36.2867 88.6736 33.86L96.1636 26.58V25.6C96.1636 22.3333 95.2303 20.7 93.3636 20.7C91.497 20.7 90.5636 22.3333 90.5636 25.6V30.15H81.8136V27.56C81.8136 23.5 82.8403 20.3033 84.8936 17.97C86.947 15.59 89.7703 14.4 93.3636 14.4C96.957 14.4 99.7803 15.59 101.834 17.97C103.887 20.3033 104.914 23.5233 104.914 27.63V55.7ZM96.1636 44.43V34.28L92.8736 37.78C90.4936 40.3 89.3036 42.61 89.3036 44.71C89.3036 46.9033 90.1203 48 91.7536 48C93.3403 48 94.8103 46.81 96.1636 44.43ZM109.473 6.7H118.223V55.7H109.473V6.7ZM127 10.5L132.893 6.7C132.893 10.7133 131.377 13.1867 128.343 14.12V15.1H131.843V55.7H123.093V15.1H126.593V14.12C123.56 13.1867 127 14.5133 127 10.5ZM158.693 55.7H150.083L150.923 50.8H150.083C149.477 51.78 148.94 52.5967 148.473 53.25C148.007 53.8567 147.213 54.5333 146.093 55.28C144.973 56.0267 143.783 56.4 142.523 56.4C140.283 56.4 138.51 55.6067 137.203 54.02C135.943 52.4333 135.313 50.3567 135.313 47.79C135.313 45.1767 135.873 42.82 136.993 40.72C138.113 38.5733 139.933 36.2867 142.453 33.86L149.943 26.58V25.6C149.943 22.3333 149.01 20.7 147.143 20.7C145.277 20.7 144.343 22.3333 144.343 25.6V30.15H135.593V27.56C135.593 23.5 136.62 20.3033 138.673 17.97C140.727 15.59 143.55 14.4 147.143 14.4C150.737 14.4 153.56 15.59 155.613 17.97C157.667 20.3033 158.693 23.5233 158.693 27.63V55.7ZM149.943 44.43V34.28L146.653 37.78C144.273 40.3 143.083 42.61 143.083 44.71C143.083 46.9033 143.9 48 145.533 48C147.12 48 148.59 46.81 149.943 44.43Z" fill="#0E052A"/></g>
+            <path d="M123.391 16.6304C123.251 16.003 123.036 15.3996 122.836 14.8434C122.526 13.9844 122.232 13.1859 122.088 12.3126C121.818 10.6778 122.05 8.63123 124.452 5.74813C126.242 3.59975 129.234 2.31614 131.963 1.63019C133.309 1.29191 134.546 1.11031 135.462 1.03716C135.83 1.00778 136.137 0.998543 136.371 1.00018C136.415 1.23036 136.46 1.53314 136.497 1.8998C136.591 2.81441 136.636 4.06349 136.546 5.44831C136.364 8.25653 135.642 11.431 133.852 13.5794C131.484 16.4204 129.162 17.071 127.267 17.1069C126.288 17.1254 125.393 16.9797 124.591 16.8332C124.204 16.7625 123.805 16.6848 123.459 16.638C123.437 16.635 123.414 16.6333 123.391 16.6304Z" fill="#635DDD" stroke="white" stroke-width="2"/>
+          </g>
+          <defs><clipPath id="clip0"><rect width="159" height="57" fill="white"/></clipPath></defs>
+        </svg>
+      </a>
+
+      <nav class="header-nav">
+        <!-- ═══ NOS SERVICES ═══ -->
+        <div class="nav-item">
+          <a href="/deratisation/">Nos services <span class="nav-chevron">&#9662;</span></a>
+          <div class="mega-menu" style="min-width:420px;">
+            <span class="mega-menu-label">Nos services</span>
+            <div class="mega-menu-grid" style="grid-template-columns:1fr;">
+              <a href="/deratisation/" class="mega-menu-item">
+                <div><h4>Dératisation</h4><p>Rats, souris, rongeurs</p></div>
+              </a>
+              <a href="/desinsectisation/" class="mega-menu-item">
+                <div><h4>Désinsectisation</h4><p>Punaises, cafards, guêpes, fourmis, puces</p></div>
+              </a>
+              <a href="/desinfection/" class="mega-menu-item">
+                <div><h4>Désinfection</h4><p>Traitement bactérien et viral</p></div>
+              </a>
+              <a href="/depigeonnage/" class="mega-menu-item">
+                <div><h4>Dépigeonnage</h4><p>Pics, filets, répulsifs</p></div>
+              </a>
+            </div>
+            <div class="mega-menu-footer">
+              <a href="/professionnel/">Vous êtes professionnel ? →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ GUIDES ═══ -->
+        <div class="nav-item">
+          <a href="/nuisibles/">Guides <span class="nav-chevron">&#9662;</span></a>
+          <div class="mega-menu mega-menu-guides" style="min-width:780px;padding:0;overflow:hidden;">
+            <div class="mega-guides-v2">
+              <!-- ─── Main : Grid of 13 nuisibles ─── -->
+              <div class="mega-guides-main">
+                <div class="mega-guides-header">
+                  <div>
+                    <h3 class="mega-guides-title">Guides des nuisibles</h3>
+                    <p class="mega-guides-subtitle">Identification, dangers et traitements professionnels</p>
+                  </div>
+                  <a href="/nuisibles/" class="mega-guides-see-all">Voir les 13 <span>→</span></a>
+                </div>
+
+                <div class="mega-guides-pills">
+                  <a href="/nuisibles/rats/" class="mega-guides-pill" data-cat="rongeurs">
+                    <span class="mgp-ico" style="background:var(--color-pastel-gold-light);">
+                      <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Rats</span>
+                  </a>
+                  <a href="/nuisibles/souris/" class="mega-guides-pill" data-cat="rongeurs">
+                    <span class="mgp-ico" style="background:var(--color-pastel-lavender-light);">
+                      <img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Souris</span>
+                  </a>
+                  <a href="/nuisibles/taupes/" class="mega-guides-pill" data-cat="rongeurs">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🦫</span>
+                    </span>
+                    <span class="mgp-name">Taupes</span>
+                  </a>
+                  <a href="/nuisibles/punaises-de-lit/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-rose-light);">
+                      <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Punaises de lit</span>
+                  </a>
+                  <a href="/nuisibles/cafards/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-mint-light);">
+                      <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Cafards</span>
+                  </a>
+                  <a href="/nuisibles/fourmis/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-rose-light);">
+                      <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Fourmis</span>
+                  </a>
+                  <a href="/nuisibles/puces/" class="mega-guides-pill" data-cat="rampants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🪰</span>
+                    </span>
+                    <span class="mgp-name">Puces</span>
+                  </a>
+                  <a href="/nuisibles/guepes-frelons/" class="mega-guides-pill" data-cat="volants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-gold-light);">
+                      <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Guêpes & frelons</span>
+                  </a>
+                  <a href="/nuisibles/moustiques/" class="mega-guides-pill" data-cat="volants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-blue-light);">
+                      <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Moustiques</span>
+                  </a>
+                  <a href="/nuisibles/mites-alimentaires/" class="mega-guides-pill" data-cat="volants">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🦋</span>
+                    </span>
+                    <span class="mgp-name">Mites</span>
+                  </a>
+                  <a href="/nuisibles/pigeons/" class="mega-guides-pill" data-cat="autres">
+                    <span class="mgp-ico" style="background:var(--color-pastel-mint-light);">
+                      <img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" alt="" width="28" height="28">
+                    </span>
+                    <span class="mgp-name">Pigeons</span>
+                  </a>
+                  <a href="/nuisibles/termites/" class="mega-guides-pill" data-cat="autres">
+                    <span class="mgp-ico" style="background:var(--color-pastel-peach-light);">
+                      <span class="mgp-emoji">🪵</span>
+                    </span>
+                    <span class="mgp-name">Termites</span>
+                  </a>
+                  <a href="/nuisibles/chenilles-processionnaires/" class="mega-guides-pill" data-cat="autres">
+                    <span class="mgp-ico" style="background:var(--color-pastel-mint-light);">
+                      <span class="mgp-emoji">🐛</span>
+                    </span>
+                    <span class="mgp-name">Chenilles</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- ─── Sidebar : Resources ─── -->
+              <div class="mega-guides-sidebar">
+                <span class="mega-menu-label">Ressources</span>
+                <a href="/blog/" class="mega-guides-resource">
+                  <svg class="mgr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  <div>
+                    <strong>Blog Sanalia</strong>
+                    <span>Articles d'experts, actualités</span>
+                  </div>
+                </a>
+                <a href="/reglementation/" class="mega-guides-resource">
+                  <svg class="mgr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                  <div>
+                    <strong>Réglementation</strong>
+                    <span>HACCP, obligations légales</span>
+                  </div>
+                </a>
+                <a href="/map-interactive/" class="mega-guides-resource">
+                  <svg class="mgr-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <div>
+                    <strong>Carte interactive</strong>
+                    <span>Observatoire des nuisibles 2026</span>
+                  </div>
+                </a>
+
+                <div class="mega-guides-cta-box">
+                  <p class="mgc-title">Un nuisible chez vous&nbsp;?</p>
+                  <p class="mgc-sub">Devis gratuit sous 2h.</p>
+                  <a href="/devis/" class="mgc-btn">Demander un devis →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ À PROPOS ═══ -->
+        <div class="nav-item">
+          <a href="/a-propos/">À propos <span class="nav-chevron">&#9662;</span></a>
+          <div class="mega-menu" style="min-width:380px;">
+            <div class="mega-menu-grid" style="grid-template-columns: 1fr;">
+              <a href="/a-propos/" class="mega-menu-item">
+                <div><h4>Notre mission</h4><p>L'équipe, les valeurs, l'histoire</p></div>
+              </a>
+              <a href="/garantie/" class="mega-menu-item">
+                <div><h4>Certifications</h4><p>Certibiocide, RC Pro, QualiPro 3D</p></div>
+              </a>
+              <a href="/devenir-franchise/" class="mega-menu-item">
+                <div><h4>Devenir franchisé</h4><p>Rejoignez le réseau Sanalia</p></div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ NOS IMPLANTATIONS ═══ -->
+        <div class="nav-item">
+          <a href="/implantations/">Implantations <span class="nav-chevron">&#9662;</span></a>
+          <div class="mega-menu mega-menu-implantations" style="min-width:680px;">
+            <div class="mega-menu-implant-layout">
+              <div class="mega-menu-implant-map">
+                <span class="mega-menu-label">Couverture nationale</span>
+                <div class="mega-implant-hero">
+                  <div class="mega-implant-hero-stats">
+                    <div class="mega-implant-stat">
+                      <span class="mega-implant-stat-num">10</span>
+                      <span class="mega-implant-stat-lbl">métropoles</span>
+                    </div>
+                    <div class="mega-implant-stat">
+                      <span class="mega-implant-stat-num">50+</span>
+                      <span class="mega-implant-stat-lbl">techniciens</span>
+                    </div>
+                    <div class="mega-implant-stat">
+                      <span class="mega-implant-stat-num">24h</span>
+                      <span class="mega-implant-stat-lbl">intervention</span>
+                    </div>
+                  </div>
+                  <p class="mega-implant-hero-text">Trouvez l'agence la plus proche de chez vous et obtenez un devis gratuit sous 2h.</p>
+                  <a href="/implantations/" class="mega-implant-hero-cta">
+                    Voir toutes nos agences
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div class="mega-menu-implant-cities">
+                <span class="mega-menu-label">Nos villes</span>
+                <div class="mega-implant-grid">
+                  <a href="/deratisation/paris/" class="mega-implant-city">Paris</a>
+                  <a href="/deratisation/lyon/" class="mega-implant-city">Lyon</a>
+                  <a href="/deratisation/marseille/" class="mega-implant-city">Marseille</a>
+                  <a href="/deratisation/bordeaux/" class="mega-implant-city">Bordeaux</a>
+                  <a href="/deratisation/toulouse/" class="mega-implant-city">Toulouse</a>
+                  <a href="/implantations/#nantes" class="mega-implant-city">Nantes</a>
+                  <a href="/implantations/#lille" class="mega-implant-city">Lille</a>
+                  <a href="/implantations/#nice" class="mega-implant-city">Nice</a>
+                  <a href="/implantations/#montpellier" class="mega-implant-city">Montpellier</a>
+                  <a href="/implantations/#strasbourg" class="mega-implant-city">Strasbourg</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </nav>
+
+      <div class="flex gap-md" style="align-items:center">
+        <a href="tel:0667464897" class="header-phone-card hide-mobile" aria-label="Appeler Sanalia au 06 67 46 48 97">
+          <span class="header-phone-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <span class="header-phone-number">06&nbsp;67&nbsp;46&nbsp;48&nbsp;97</span>
+        </a>
+        <a href="/devis/" class="btn btn-primary btn-sm hide-mobile">Devis gratuit <span class="btn-arrow"></span></a>
+        <a href="tel:0667464897" class="header-phone-mobile show-mobile" aria-label="Appeler Sanalia au 06 67 46 48 97">
+          <span class="header-phone-mobile-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+        </a>
+        <button class="mobile-menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span class="mobile-menu-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+
+<main>
+  <!-- ════════ HERO MAP (full viewport) ════════ -->
+  <section class="map-hero-section embed-content">
+    <div class="map-shell">
+      <div id="nuisibles-map"></div>
+      <div class="map-loading" id="map-loading">
+        <div class="map-loading-spinner"></div>
+        <div class="map-loading-text">Chargement de la carte…</div>
+      </div>
+
+      <!-- ─── TITLE BADGE (top-left, above left card) ─── -->
+      <div class="card-title">
+        <div class="card-eyebrow has-accent">
+          <span class="live-dot" aria-hidden="true"></span>
+          Observatoire Sanalia · Avril 2026
+        </div>
+        <h1>Carte des <span class="accent">nuisibles</span> en France</h1>
+        <p class="card-title-sub">5 sources publiques · mise à jour mensuelle</p>
+      </div>
+
+      <!-- ─── LEFT CARD : species filter + quick-zoom (unified) ─── -->
+      <aside class="map-card map-card-left" aria-label="Contrôles carte">
+        <div class="card-section">
+          <div class="section-label">
+            <span>Filtrer par espèce</span>
+            <div class="section-label-actions">
+              <button class="btn-mini" id="btn-all" type="button">Tout</button>
+              <button class="btn-mini" id="btn-none" type="button">Aucun</button>
+            </div>
+          </div>
+          <div class="chip-grid">
+            <button class="map-chip is-on" data-id="rat" type="button" aria-label="Filtrer rats">
+              <img class="map-chip-icon" src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+              Rats
+            </button>
+            <button class="map-chip is-on" data-id="moustique_tigre" type="button" aria-label="Filtrer moustiques tigres">
+              <img class="map-chip-icon" src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+              Moustique tigre
+            </button>
+            <button class="map-chip is-on" data-id="frelon_asiatique" type="button" aria-label="Filtrer frelons asiatiques">
+              <img class="map-chip-icon" src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+              Frelon asiatique
+            </button>
+            <button class="map-chip is-on" data-id="punaise_lit" type="button" aria-label="Filtrer punaises de lit">
+              <img class="map-chip-icon" src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="">
+              Punaise de lit
+            </button>
+            <button class="map-chip is-on" data-id="ambroisie" type="button" aria-label="Filtrer ambroisie">
+              <span class="map-chip-icon-emoji" aria-hidden="true">🌿</span>
+              Ambroisie
+            </button>
+          </div>
+        </div>
+
+        <div class="card-divider" role="presentation"></div>
+
+        <div class="card-section">
+          <div class="section-label"><span>Zoom rapide</span></div>
+          <div class="zoom-grid">
+            <button class="zoom-pill" type="button" data-region="11">Île-de-France</button>
+            <button class="zoom-pill" type="button" data-region="84">Auvergne-RA</button>
+            <button class="zoom-pill" type="button" data-region="93">PACA</button>
+            <button class="zoom-pill" type="button" data-region="76">Occitanie</button>
+            <button class="zoom-pill" type="button" data-region="75">Nouvelle-Aq.</button>
+            <button class="zoom-pill" type="button" data-region="32">Hauts-de-Fr.</button>
+          </div>
+          <div class="zoom-grid zoom-grid--cities">
+            <button class="zoom-pill zoom-pill--city" type="button" data-city="paris">Paris</button>
+            <button class="zoom-pill zoom-pill--city" type="button" data-city="lyon">Lyon</button>
+            <button class="zoom-pill zoom-pill--city" type="button" data-city="marseille">Marseille</button>
+            <button class="zoom-pill zoom-pill--city" type="button" data-city="reset">↺ France</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ─── RIGHT CARD : KPI stats + sources (unified) ─── -->
+      <aside class="map-card map-card-right" aria-label="Données et sources">
+        <div class="card-section">
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-num" data-counter="34280">0</div>
+              <div class="kpi-lbl">Signalements</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-num" data-counter="74">0</div>
+              <div class="kpi-lbl">Communes</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-num" data-counter="81">0</div>
+              <div class="kpi-lbl">Dpts tigre</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-divider" role="presentation"></div>
+
+        <div class="card-section">
+          <button class="sources-toggle" type="button" aria-expanded="false" aria-controls="sources-content" id="sources-toggle">
+            <svg class="sources-info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="11" x2="12" y2="17"/>
+              <line x1="12" y1="7.5" x2="12" y2="8"/>
+            </svg>
+            <span>5 sources publiques officielles</span>
+            <svg class="sources-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div id="sources-content" class="sources-content" role="region" aria-labelledby="sources-toggle">
+            <div class="sources-row">
+              <span class="sources-badge">ANSES</span>
+              <span class="sources-badge">MNHN / INPN</span>
+              <span class="sources-badge">Atlasanté</span>
+              <span class="sources-badge">Paris OD</span>
+              <span class="sources-badge">INSEE</span>
+            </div>
+            <a href="/methodologie/" class="sources-link">
+              <span>Voir nos méthodes de calculs</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+        <!-- Légende -->
+        <div class="map-legend" aria-label="Légende de la carte">
+          <div class="map-legend-title">Densité de signalements</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+            <span style="display:inline-block;width:140px;height:8px;border-radius:4px;background:linear-gradient(90deg,#FFEDA0 0%,#FED976 18%,#FEB24C 35%,#FD8D3C 52%,#FC4E2A 68%,#E31A1C 82%,#B10026 92%,#650015 100%);"></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;width:140px;font-family:var(--font-system);font-size:9px;color:var(--color-text-muted);">
+            <span>faible</span><span>critique</span>
+          </div>
+          <div class="map-legend-help" style="margin-top:8px;">Zoomez pour voir les communes individuelles · Cliquez pour le détail</div>
+        </div>
+
+        <!-- Panel détail commune -->
+        <aside class="commune-panel" id="commune-panel" aria-live="polite">
+          <div class="commune-panel-header">
+            <button class="commune-panel-close" id="panel-close" aria-label="Fermer le panneau">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="commune-panel-eyebrow">Commune sélectionnée</div>
+            <h2 class="commune-panel-title" id="panel-title">—</h2>
+            <div class="commune-panel-meta" id="panel-meta"></div>
+          </div>
+          <div class="commune-panel-body">
+            <div class="commune-panel-stats">
+              <div class="commune-stat">
+                <div class="commune-stat-num" id="panel-total">—</div>
+                <div class="commune-stat-lbl">Signalements / 12 mois</div>
+              </div>
+              <div class="commune-stat">
+                <div class="commune-stat-num is-purple" id="panel-rate">—</div>
+                <div class="commune-stat-lbl">Pour 1 000 hab.</div>
+              </div>
+            </div>
+
+            <div class="commune-breakdown">
+              <h3>Répartition par espèce</h3>
+              <div id="panel-breakdown"></div>
+            </div>
+
+            <a class="commune-cta" id="panel-cta" href="/devis/">
+              Demander un devis dans cette commune →
+            </a>
+
+            <div class="commune-source" id="panel-source"></div>
+          </div>
+        </aside>
+
+        <!-- CTA bottom : Découvrir les détails (smooth scroll) -->
+        <a href="#details" class="map-overlay-scroll-cta" id="discover-cta">
+          Découvrir les détails
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M12 5v14M19 12l-7 7-7-7"/>
+          </svg>
+        </a>
+    </div>
+  </section>
+
+  <div id="details" class="details-anchor" aria-hidden="true"></div>
+
+  <!-- ════════ TOP COMMUNES ════════ -->
+  <section class="top-section details-section">
+    <div class="top-section-inner">
+      <h2>Les communes les plus concernées</h2>
+      <p class="top-section-sub">
+        Classement des communes ayant enregistré le plus grand nombre de signalements toutes catégories
+        confondues sur les 12 derniers mois. Données ouvertes uniquement.
+      </p>
+      <div class="top-grid">
+        <div class="top-list">
+          <h3>Top 10 — Volume absolu</h3>
+          <div id="top-volume"></div>
+        </div>
+        <div class="top-list">
+          <h3>Top 10 — Pour 1 000 habitants</h3>
+          <div id="top-rate"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PUNAISES DE LIT — RÉGIONAL ════════ -->
+  <section class="punaises-section">
+    <div class="punaises-inner">
+      <div class="punaises-header">
+        <div>
+          <div class="punaises-source">Étude ANSES BIOCIDES2021SA0147Ra · 2017–2022</div>
+          <h2>Punaises de lit : les régions <em>les plus touchées</em></h2>
+        </div>
+        <div class="punaises-fact">
+          <strong>11&nbsp;%</strong> des foyers français se déclarent infestés sur la période, pour un coût moyen
+          de <strong>866&nbsp;€</strong> par foyer et un fardeau total estimé à <strong>1,4&nbsp;Md€</strong> sur 6 ans.
+          Granularité régionale uniquement (source ANSES).
+        </div>
+      </div>
+      <ul class="region-grid" id="region-grid"></ul>
+    </div>
+  </section>
+
+  <!-- ════════ MÉTHODOLOGIE ════════ -->
+  <section class="method-section">
+    <div class="method-inner">
+      <div>
+        <h2>Une <em>méthodologie</em> transparente</h2>
+        <p class="method-intro">
+          Notre pipeline agrège quotidiennement 5 sources publiques officielles. Chaque signalement est normalisé,
+          géocodé via la BAN, agrégé par commune INSEE et normalisé pour 1 000 habitants. Le code source est ouvert,
+          disponible sur demande.
+        </p>
+        <p class="method-intro">
+          Nous publions également <strong>les biais</strong> de chaque source en toute transparence : un signalement
+          citoyen reflète la mobilisation locale autant que la prévalence biologique réelle.
+        </p>
+        <a href="/methodologie/" class="method-link">
+          Lire la méthodologie complète →
+        </a>
+      </div>
+      <div class="sources-grid">
+        <div class="source-item">
+          <span class="source-item-tag">Rats</span>
+          <div class="source-item-name">Paris Open Data</div>
+          <div class="source-item-desc">Application « Dans Ma Rue ». Licence ODbL, granularité ponctuelle.</div>
+        </div>
+        <div class="source-item">
+          <span class="source-item-tag">Moustique tigre</span>
+          <div class="source-item-name">ANSES — data.gouv.fr</div>
+          <div class="source-item-desc">Communes colonisées (niveau 1 et 2). Mise à jour annuelle.</div>
+        </div>
+        <div class="source-item">
+          <span class="source-item-tag">Frelon asiatique</span>
+          <div class="source-item-name">MNHN/INPN — OpenObs</div>
+          <div class="source-item-desc">Vespa velutina nigrithorax (cd_nom 433589). Observations validées.</div>
+        </div>
+        <div class="source-item">
+          <span class="source-item-tag">Ambroisie</span>
+          <div class="source-item-name">Atlasanté — FREDON / ARS</div>
+          <div class="source-item-desc">WFS public OGC. Validation par référents communaux.</div>
+        </div>
+        <div class="source-item">
+          <span class="source-item-tag">Punaises de lit</span>
+          <div class="source-item-name">ANSES — Expertise collective</div>
+          <div class="source-item-desc">Rapport BIOCIDES2021SA0147Ra (2023). Granularité régionale.</div>
+        </div>
+        <div class="source-item">
+          <span class="source-item-tag">Population</span>
+          <div class="source-item-name">INSEE — Pop. légales</div>
+          <div class="source-item-desc">Pour la normalisation pour 1 000 habitants. Millésime en cours.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ BIAIS / DISCLAIMER ════════ -->
+  <section class="bias-section">
+    <div class="bias-inner">
+      <div class="bias-callout">
+        <div class="bias-icon" aria-hidden="true">⚠️</div>
+        <div>
+          <h3>À lire avant toute citation</h3>
+          <p>
+            Les données présentées <strong>comptent des signalements, pas des populations biologiques</strong>.
+            Une commune avec beaucoup de signalements n'est pas nécessairement plus infestée — elle est aussi
+            plus mobilisée numériquement (sur-représentation des grandes villes équipées d'une plateforme citoyenne).
+          </p>
+          <p>
+            Sanalia est une entreprise de lutte contre les nuisibles : nous avons donc intérêt à ce que le sujet
+            soit visible. Pour limiter ce biais, le code du pipeline est ouvert, les données publiques sont séparées
+            de nos propres interventions, et nous nous engageons à <strong>ne jamais modifier les sources publiques</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ DATA + EMBED ════════ -->
+  <section class="data-section">
+    <div class="data-inner">
+      <h2>Données ouvertes &amp; intégration</h2>
+      <p class="data-lede">
+        Cette carte est gratuite et ré-utilisable. Téléchargez le GeoJSON brut sous licence ODbL, ou intégrez
+        la carte directement dans votre site/article avec un simple iframe.
+      </p>
+      <div class="data-grid">
+        <div class="data-card">
+          <h3>Télécharger les données</h3>
+          <p>
+            GeoJSON normalisé par commune INSEE + JSON régional pour les punaises de lit. Mention obligatoire :
+            <em>« D'après l'Observatoire Sanalia »</em>.
+          </p>
+          <div class="data-card-actions">
+            <a class="data-btn" href="/data/nuisibles_france.geojson" download>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              GeoJSON (.geojson)
+            </a>
+            <a class="data-btn data-btn--ghost" href="/data/punaises_lit_regional.json" download>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Punaises (.json)
+            </a>
+          </div>
+        </div>
+        <div class="data-card">
+          <h3>Intégrer la carte</h3>
+          <p>Copiez ce code dans n'importe quel site, article ou CMS. La carte est responsive.</p>
+          <code class="embed-code" id="embed-code">&lt;iframe src="https://www.sanalia.fr/map-interactive/?embed=1" width="100%" height="700" style="border:0" loading="lazy" title="Carte des nuisibles en France — Sanalia"&gt;&lt;/iframe&gt;</code>
+          <div class="data-card-actions">
+            <button class="data-btn" id="btn-copy-embed" type="button">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copier le code
+            </button>
+            <a class="data-btn data-btn--ghost" href="mailto:presse@sanalia.fr?subject=Demande%20presse%20-%20Carte%20nuisibles">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Demande presse
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ FAQ ════════ -->
+  <section class="faq-section">
+    <div class="faq-inner">
+      <h2>Questions fréquentes</h2>
+      <details class="faq-item">
+        <summary>À quelle fréquence les données sont-elles mises à jour ?</summary>
+        <div class="faq-item-body">
+          Les sources avec API publique (Paris Open Data, Atlasanté ambroisie) sont rafraîchies <strong>quotidiennement</strong>.
+          Les datasets statiques (ANSES moustique tigre, INPN frelon, étude ANSES punaises de lit) sont mis à jour à chaque
+          publication officielle. Une consolidation complète est effectuée le 1<sup>er</sup> de chaque mois.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Pourquoi les punaises de lit ne sont-elles pas affichées sur la carte ?</summary>
+        <div class="faq-item-body">
+          La seule source nationale rigoureuse (étude ANSES 2023) ne fournit qu'une granularité <strong>régionale</strong>,
+          pas commune par commune. Représenter ces données comme des points serait trompeur. Nous les présentons donc dans
+          un bloc dédié, par région, avec les taux d'infestation officiels.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Comment est calculé le « nuisible dominant » d'une commune ?</summary>
+        <div class="faq-item-body">
+          C'est l'espèce qui représente le plus grand nombre de signalements dans la commune sur les 12 derniers mois.
+          Nous montrons la couleur du nuisible dominant comme indicateur visuel principal, mais le détail complet par
+          espèce est disponible en cliquant sur la commune.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Puis-je utiliser cette carte dans un article de presse ?</summary>
+        <div class="faq-item-body">
+          Oui, gratuitement. La carte est sous licence Creative Commons BY 4.0, les données brutes sous ODbL.
+          Mention recommandée : <em>« D'après l'Observatoire Sanalia, croisant les données publiques de l'ANSES, du MNHN
+          et des collectivités »</em>. Pour un angle dédié ou une note de contexte, écrivez à
+          <a href="mailto:presse@sanalia.fr">presse@sanalia.fr</a>.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Pourquoi Paris ressort-il autant ?</summary>
+        <div class="faq-item-body">
+          Paris dispose depuis 2012 de l'application <em>Dans Ma Rue</em>, qui collecte massivement les signalements citoyens.
+          La majorité des autres communes françaises n'ont pas d'équivalent — Paris est donc <strong>mécaniquement
+          sur-représentée</strong>. Cela ne signifie pas que Paris est plus infestée que d'autres villes : la mobilisation
+          numérique y est simplement plus structurée.
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Quelles sont les limites de cet observatoire ?</summary>
+        <div class="faq-item-body">
+          Trois limites principales : <strong>(1)</strong> biais déclaratif des signalements citoyens, <strong>(2)</strong>
+          couverture géographique inégale entre les communes, <strong>(3)</strong> sources hétérogènes en méthodologie
+          (un signalement Dans Ma Rue ≠ une intervention SMASH ≠ une commune classée colonisée). Les comparaisons inter-sources
+          sont à manier avec prudence. La page <a href="/methodologie/">méthodologie</a> détaille chaque biais.
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ════════ CTA FINAL ════════ -->
+  <section class="cta-final">
+    <div class="cta-final-inner">
+      <h2>Vous suspectez la présence de nuisibles chez vous&nbsp;?</h2>
+      <p>Sanalia intervient sous 24h partout en France. Diagnostic gratuit, devis personnalisé, résultat garanti.</p>
+      <a href="/devis/" class="cta-final-btn">Obtenir un devis gratuit</a>
+    </div>
+  </section>
+
+</main>
+
+<div data-component="certifications">
+<div class="container" style="margin-top:var(--space-2xl);margin-bottom:0;">
+  <div class="logo-cloud-box">
+    <p class="logo-cloud-label">Nos certifications & agréments</p>
+    <div class="logo-cloud-grid">
+      <div class="logo-cloud-card">
+        <div class="logo-cloud-card-content">
+          <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide">
+          <div>
+            <span class="logo-cloud-name">Certibiocide</span>
+            <span class="logo-cloud-desc">Agrément obligatoire</span>
+          </div>
+        </div>
+      </div>
+      <div class="logo-cloud-card">
+        <div class="logo-cloud-card-content">
+          <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D">
+          <div>
+            <span class="logo-cloud-name">CS3D</span>
+            <span class="logo-cloud-desc">Chambre syndicale 3D</span>
+          </div>
+        </div>
+      </div>
+      <div class="logo-cloud-card">
+        <div class="logo-cloud-card-content">
+          <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro3D">
+          <div>
+            <span class="logo-cloud-name">QualiPro 3D</span>
+            <span class="logo-cloud-desc">Qualification professionnelle</span>
+          </div>
+        </div>
+      </div>
+      <div class="logo-cloud-card">
+        <div class="logo-cloud-card-content">
+          <img src="/assets/certifications/AXA_Logo.svg.png" alt="RC Pro">
+          <div>
+            <span class="logo-cloud-name">RC Pro</span>
+            <span class="logo-cloud-desc">Responsabilité civile</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div data-component="footer">
+<footer class="footer footer-v2">
+
+  <!-- ─── CTA BAND ─── -->
+  <div class="footer-cta-band">
+    <div class="container">
+      <div class="footer-cta-grid">
+        <div class="footer-cta-text">
+          <span class="mono footer-cta-eyebrow">Prêt à agir&nbsp;?</span>
+          <h2 class="footer-cta-title">Un nuisible chez vous&nbsp;? <span>Devis gratuit en&nbsp;2&nbsp;min.</span></h2>
+          <p class="footer-cta-sub">Technicien certifié Certibiocide, intervention sous 24&nbsp;h, résultat garanti.</p>
+        </div>
+        <div class="footer-cta-actions">
+          <a href="/devis/" class="footer-cta-btn footer-cta-btn-primary">
+            Obtenir mon devis
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+          <a href="tel:0667464897" class="footer-cta-btn footer-cta-btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            06&nbsp;67&nbsp;46&nbsp;48&nbsp;97
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TRUST BAND (ratings + stats) ─── -->
+  <div class="footer-trust-band">
+    <div class="container">
+      <div class="footer-trust-row">
+        <div class="footer-trust-item">
+          <span class="footer-trust-icon" style="color:#22C55E;">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.4 7.2H22l-6 4.5 2.4 7.3L12 16.5 5.6 21l2.4-7.3-6-4.5h7.6z"/></svg>
+          </span>
+          <span class="footer-trust-text">
+            <strong>Excellent</strong>
+            <span>4.9/5 sur Trustpilot</span>
+          </span>
+        </div>
+        <div class="footer-trust-item">
+          <span class="footer-trust-icon footer-trust-google" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.5 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C40.3 37.6 44 31.5 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+          </span>
+          <span class="footer-trust-text">
+            <strong>Google</strong>
+            <span>4,9/5 · 200+ avis</span>
+          </span>
+        </div>
+        <div class="footer-trust-divider" aria-hidden="true"></div>
+        <div class="footer-trust-item footer-trust-stat">
+          <strong>2 000+</strong>
+          <span>interventions</span>
+        </div>
+        <div class="footer-trust-item footer-trust-stat">
+          <strong>24 h</strong>
+          <span>délai moyen</span>
+        </div>
+        <div class="footer-trust-item footer-trust-stat">
+          <strong>7 j/7</strong>
+          <span>disponibilité</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── MAIN CONTENT ─── -->
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-main-grid">
+
+        <!-- ─── Brand + contact + newsletter (big column) ─── -->
+        <div class="footer-brand-col">
+          <a href="/" class="footer-logo" aria-label="Accueil Sanalia">
+            <svg viewBox="0 0 159 57" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip_f)">
+                <mask id="mask_f" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="6" width="159" height="51"><path d="M159 6H0V57H159V6Z" fill="white"/></mask>
+                <g mask="url(#mask_f)"><path d="M23.9401 18.74V22.87H15.05V17.48C15.05 14.0267 13.9534 12.3 11.76 12.3C10.8267 12.3 10.1034 12.6733 9.59 13.42C9.07667 14.12 8.82 15.03 8.82 16.15C8.82 17.0833 9.1 18.11 9.66 19.23C10.22 20.3033 11.27 21.8433 12.81 23.85L19.3899 32.67C21.35 35.33 22.6567 37.4767 23.3101 39.11C24.01 40.7433 24.36 42.68 24.36 44.92C24.36 48.2333 23.1934 50.9867 20.8601 53.18C18.5267 55.3267 15.68 56.4 12.32 56.4C8.82 56.4 5.88 55.3033 3.5 53.11C1.16667 50.9167 0 47.5333 0 42.96V38.2H8.89V44.5C8.89 48.2333 10.0567 50.1 12.39 50.1C13.37 50.1 14.1634 49.7267 14.77 48.98C15.4234 48.2333 15.75 47.2533 15.75 46.04C15.75 44.8267 15.5167 43.7067 15.05 42.68C14.5834 41.6067 13.6034 40.09 12.11 38.13L5.53 29.45C3.57 26.8367 2.24 24.6433 1.54 22.87C0.886667 21.0967 0.56 19.0433 0.56 16.71C0.56 13.9567 1.58667 11.4833 3.64 9.29C5.74 7.09667 8.56333 6 12.11 6C15.5634 6 18.3866 7.16667 20.58 9.5C22.82 11.7867 23.9401 14.8667 23.9401 18.74ZM49.8515 55.7H41.2415L42.0815 50.8H41.2415C40.6349 51.78 40.0982 52.5967 39.6315 53.25C39.1649 53.8567 38.3714 54.5333 37.2514 55.28C36.1314 56.0267 34.9414 56.4 33.6814 56.4C31.4414 56.4 29.6682 55.6067 28.3615 54.02C27.1015 52.4333 26.4715 50.3567 26.4715 47.79C26.4715 45.1767 27.0315 42.82 28.1515 40.72C29.2715 38.5733 31.0915 36.2867 33.6115 33.86L41.1015 26.58V25.6C41.1015 22.3333 40.1681 20.7 38.3014 20.7C36.4348 20.7 35.5014 22.3333 35.5014 25.6V30.15H26.7514V27.56C26.7514 23.5 27.7781 20.3033 29.8314 17.97C31.8848 15.59 34.7081 14.4 38.3014 14.4C41.8948 14.4 44.7182 15.59 46.7715 17.97C48.8249 20.3033 49.8515 23.5233 49.8515 27.63V55.7ZM41.1015 44.43V34.28L37.8115 37.78C35.4315 40.3 34.2415 42.61 34.2415 44.71C34.2415 46.9033 35.0582 48 36.6915 48C38.2782 48 39.7482 46.81 41.1015 44.43ZM63.1614 55.7H54.4114V15.1H63.1614L62.3214 19.86H63.1614C65.3547 16.22 68.0147 14.4 71.1414 14.4C73.148 14.4 74.8514 15.2867 76.2514 17.06C77.6514 18.7867 78.3514 21.47 78.3514 25.11V55.7H69.6014V27.7C69.6014 24.7133 68.7147 23.22 66.9414 23.22C65.588 23.22 64.328 24.2933 63.1614 26.44V55.7ZM104.914 55.7H96.3036L97.1436 50.8H96.3036C95.697 51.78 95.1603 52.5967 94.6936 53.25C94.227 53.8567 93.4336 54.5333 92.3136 55.28C91.1936 56.0267 90.0036 56.4 88.7436 56.4C86.5036 56.4 84.7303 55.6067 83.4236 54.02C82.1636 52.4333 81.5336 50.3567 81.5336 47.79C81.5336 45.1767 82.0936 42.82 83.2136 40.72C84.3336 38.5733 86.1536 36.2867 88.6736 33.86L96.1636 26.58V25.6C96.1636 22.3333 95.2303 20.7 93.3636 20.7C91.497 20.7 90.5636 22.3333 90.5636 25.6V30.15H81.8136V27.56C81.8136 23.5 82.8403 20.3033 84.8936 17.97C86.947 15.59 89.7703 14.4 93.3636 14.4C96.957 14.4 99.7803 15.59 101.834 17.97C103.887 20.3033 104.914 23.5233 104.914 27.63V55.7ZM96.1636 44.43V34.28L92.8736 37.78C90.4936 40.3 89.3036 42.61 89.3036 44.71C89.3036 46.9033 90.1203 48 91.7536 48C93.3403 48 94.8103 46.81 96.1636 44.43ZM109.473 6.7H118.223V55.7H109.473V6.7ZM127 10.5L132.893 6.7C132.893 10.7133 131.377 13.1867 128.343 14.12V15.1H131.843V55.7H123.093V15.1H126.593V14.12C123.56 13.1867 127 14.5133 127 10.5ZM158.693 55.7H150.083L150.923 50.8H150.083C149.477 51.78 148.94 52.5967 148.473 53.25C148.007 53.8567 147.213 54.5333 146.093 55.28C144.973 56.0267 143.783 56.4 142.523 56.4C140.283 56.4 138.51 55.6067 137.203 54.02C135.943 52.4333 135.313 50.3567 135.313 47.79C135.313 45.1767 135.873 42.82 136.993 40.72C138.113 38.5733 139.933 36.2867 142.453 33.86L149.943 26.58V25.6C149.943 22.3333 149.01 20.7 147.143 20.7C145.277 20.7 144.343 22.3333 144.343 25.6V30.15H135.593V27.56C135.593 23.5 136.62 20.3033 138.673 17.97C140.727 15.59 143.55 14.4 147.143 14.4C150.737 14.4 153.56 15.59 155.613 17.97C157.667 20.3033 158.693 23.5233 158.693 27.63V55.7ZM149.943 44.43V34.28L146.653 37.78C144.273 40.3 143.083 42.61 143.083 44.71C143.083 46.9033 143.9 48 145.533 48C147.12 48 148.59 46.81 149.943 44.43Z" fill="#fff"/></g>
+                <path d="M123.391 16.6304C123.251 16.003 123.036 15.3996 122.836 14.8434C122.526 13.9844 122.232 13.1859 122.088 12.3126C121.818 10.6778 122.05 8.63123 124.452 5.74813C126.242 3.59975 129.234 2.31614 131.963 1.63019C133.309 1.29191 134.546 1.11031 135.462 1.03716C135.83 1.00778 136.137 0.998543 136.371 1.00018C136.415 1.23036 136.46 1.53314 136.497 1.8998C136.591 2.81441 136.636 4.06349 136.546 5.44831C136.364 8.25653 135.642 11.431 133.852 13.5794C131.484 16.4204 129.162 17.071 127.267 17.1069C126.288 17.1254 125.393 16.9797 124.591 16.8332C124.204 16.7625 123.805 16.6848 123.459 16.638C123.437 16.635 123.414 16.6333 123.391 16.6304Z" fill="#635DDD" stroke="#0E052A" stroke-width="2"/>
+              </g>
+              <defs><clipPath id="clip_f"><rect width="159" height="57" fill="white"/></clipPath></defs>
+            </svg>
+          </a>
+          <p class="footer-brand-desc">Expert en élimination durable des nuisibles. Une approche préventive fondée sur la technologie, l'expertise terrain et la pédagogie.</p>
+
+          <!-- Contact block -->
+          <ul class="footer-contact">
+            <li>
+              <span class="footer-contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <a href="tel:0667464897" class="footer-contact-link">06&nbsp;67&nbsp;46&nbsp;48&nbsp;97</a>
+            </li>
+            <li>
+              <span class="footer-contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </span>
+              <span>53 Rue Villeroy, 69003&nbsp;Lyon</span>
+            </li>
+            <li>
+              <span class="footer-contact-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </span>
+              <span>8&nbsp;h&nbsp;—&nbsp;20&nbsp;h, 7&nbsp;j/7</span>
+            </li>
+          </ul>
+
+          <!-- Newsletter -->
+          <form class="footer-newsletter" action="https://n8n.srv1336530.hstgr.cloud/webhook/e0762f14-4aee-4f37-bdfa-d17c2e45ec1d" method="POST" data-form-type="newsletter">
+            <label for="footer-newsletter-email" class="footer-newsletter-label">Recevoir nos conseils prévention</label>
+            <div class="footer-newsletter-row">
+              <input type="email" id="footer-newsletter-email" name="email" required placeholder="vous@exemple.fr" autocomplete="email" aria-label="Votre adresse email">
+              <button type="submit" aria-label="S'inscrire à la newsletter">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+            <p class="footer-newsletter-legal">Un email / mois, zéro spam. Désinscription en 1 clic.</p>
+          </form>
+        </div>
+
+        <!-- ─── Column: Services particuliers ─── -->
+        <details class="footer-col footer-col-accordion" open data-auto-open>
+          <summary class="footer-col-title"><h3>Services particuliers</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <ul>
+            <li><a href="/deratisation/">Dératisation</a></li>
+            <li><a href="/desinsectisation/">Désinsectisation</a></li>
+            <li><a href="/desinfection/">Désinfection</a></li>
+            <li><a href="/depigeonnage/">Dépigeonnage</a></li>
+            <li><a href="/desinsectisation/moustiques/">Démoustication</a></li>
+            <li><a href="/desinsectisation/punaises-de-lit/">Punaises de lit</a></li>
+            <li><a href="/desinsectisation/cafards/">Cafards &amp; blattes</a></li>
+            <li><a href="/desinsectisation/guepes-frelons/">Guêpes &amp; frelons</a></li>
+          </ul>
+        </details>
+
+        <!-- ─── Column: Services pros ─── -->
+        <details class="footer-col footer-col-accordion" open>
+          <summary class="footer-col-title"><h3>Services pros <span class="footer-col-tag">B2B</span></h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <ul>
+            <li><a href="/professionnel/">Sanalia Pro</a></li>
+            <li><a href="/professionnel/#restauration">Restauration &amp; HACCP</a></li>
+            <li><a href="/professionnel/#hotellerie">Hôtellerie</a></li>
+            <li><a href="/professionnel/#coproprietes">Copropriétés &amp; syndics</a></li>
+            <li><a href="/professionnel/#agroalimentaire">Agroalimentaire</a></li>
+            <li><a href="/professionnel/deratisation/paris/">Dératisation pro Paris</a></li>
+            <li><a href="/professionnel/deratisation/lyon/">Dératisation pro Lyon</a></li>
+            <li><a href="/devenir-franchise/">Devenir franchisé</a></li>
+          </ul>
+        </details>
+
+        <!-- ─── Column: Guides nuisibles ─── -->
+        <details class="footer-col footer-col-accordion" open>
+          <summary class="footer-col-title"><h3>Guides nuisibles</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <ul>
+            <li><a href="/nuisibles/rats/">Rats</a></li>
+            <li><a href="/nuisibles/souris/">Souris</a></li>
+            <li><a href="/nuisibles/taupes/">Taupes</a></li>
+            <li><a href="/nuisibles/punaises-de-lit/">Punaises de lit</a></li>
+            <li><a href="/nuisibles/cafards/">Cafards</a></li>
+            <li><a href="/nuisibles/fourmis/">Fourmis</a></li>
+            <li><a href="/nuisibles/puces/">Puces</a></li>
+            <li><a href="/nuisibles/guepes-frelons/">Guêpes &amp; frelons</a></li>
+            <li><a href="/nuisibles/moustiques/">Moustiques</a></li>
+            <li><a href="/nuisibles/mites-alimentaires/">Mites</a></li>
+            <li><a href="/nuisibles/pigeons/">Pigeons</a></li>
+            <li><a href="/nuisibles/termites/">Termites</a></li>
+            <li><a href="/nuisibles/chenilles-processionnaires/">Chenilles</a></li>
+            <li><a href="/nuisibles/" class="footer-col-see-all">Voir tous les guides →</a></li>
+          </ul>
+        </details>
+
+        <!-- ─── Column: Implantations ─── -->
+        <details class="footer-col footer-col-accordion" open>
+          <summary class="footer-col-title"><h3>Implantations</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <ul>
+            <li><a href="/deratisation/paris/">Paris</a></li>
+            <li><a href="/deratisation/lyon/">Lyon</a></li>
+            <li><a href="/deratisation/marseille/">Marseille</a></li>
+            <li><a href="/deratisation/bordeaux/">Bordeaux</a></li>
+            <li><a href="/deratisation/toulouse/">Toulouse</a></li>
+            <li><a href="/implantations/#nantes">Nantes</a></li>
+            <li><a href="/implantations/#lille">Lille</a></li>
+            <li><a href="/implantations/#nice">Nice</a></li>
+            <li><a href="/implantations/#montpellier">Montpellier</a></li>
+            <li><a href="/implantations/#strasbourg">Strasbourg</a></li>
+            <li><a href="/implantations/" class="footer-col-see-all">Voir la carte →</a></li>
+          </ul>
+        </details>
+
+        <!-- ─── Column: À propos ─── -->
+        <details class="footer-col footer-col-accordion" open>
+          <summary class="footer-col-title"><h3>À propos</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <ul>
+            <li><a href="/a-propos/">Notre histoire</a></li>
+            <li><a href="/garantie/">Nos garanties</a></li>
+            <li><a href="/garantie/">Certifications</a></li>
+            <li><a href="/reglementation/">Réglementation</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/devenir-franchise/">Devenir franchisé</a></li>
+            <li><a href="/devis/">Devis gratuit</a></li>
+          </ul>
+        </details>
+
+      </div>
+
+      <!-- ─── Certifications inline ─── -->
+      <div class="footer-certifs">
+        <span class="footer-certifs-label">Agréments &amp; certifications</span>
+        <div class="footer-certifs-row">
+          <div class="footer-certif">
+            <img src="/assets/certifications/certibiocide-dr.png" alt="Certibiocide" loading="lazy">
+            <div>
+              <strong>Certibiocide</strong>
+              <span>Agrément obligatoire</span>
+            </div>
+          </div>
+          <div class="footer-certif">
+            <img src="/assets/certifications/cs3d-entreprise-adhérente-295x300.webp" alt="CS3D" loading="lazy">
+            <div>
+              <strong>CS3D</strong>
+              <span>Chambre syndicale 3D</span>
+            </div>
+          </div>
+          <div class="footer-certif">
+            <img src="/assets/certifications/20240119-Logo_Qualipro_Blue_Final_BG_Transparent.png" alt="QualiPro 3D" loading="lazy">
+            <div>
+              <strong>QualiPro 3D</strong>
+              <span>Qualification professionnelle</span>
+            </div>
+          </div>
+          <div class="footer-certif">
+            <img src="/assets/certifications/AXA_Logo.svg.png" alt="AXA RC Pro" loading="lazy">
+            <div>
+              <strong>RC Pro AXA</strong>
+              <span>Responsabilité civile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── Legal bar ─── -->
+  <div class="footer-legal-bar">
+    <div class="container">
+      <div class="footer-legal-inner">
+        <span class="footer-copyright">&copy; 2026 Sanalia — Tous droits réservés.</span>
+        <nav class="footer-legal-links" aria-label="Liens légaux">
+          <a href="/mentions-legales/">Mentions légales</a>
+          <span aria-hidden="true">·</span>
+          <a href="/politique-confidentialite/">Confidentialité</a>
+          <span aria-hidden="true">·</span>
+          <a href="/cgv/">CGV</a>
+          <span aria-hidden="true">·</span>
+          <a href="/cookies/">Cookies</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+<!-- ════════ CALLBACK MODAL (intercepte les clics "Appeler") ════════ -->
+<div class="callback-modal-overlay" id="callbackModal" role="dialog" aria-modal="true" aria-labelledby="callbackModalTitle">
+  <div class="callback-modal">
+    <button type="button" class="callback-modal-close" id="callbackModalClose" aria-label="Fermer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <!-- ─── STATE 1: Loader (showing first) ─── -->
+    <div class="callback-state callback-state-loading is-active" data-state="loading">
+      <div class="callback-loader-icon">
+        <div class="callback-loader-spinner"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <h3 class="callback-loader-title">Vérification de la disponibilité…</h3>
+      <p class="callback-loader-sub">Nous cherchons un conseiller disponible pour vous.</p>
+    </div>
+
+    <!-- ─── STATE 2: Iframe with the real multi-step devis form ─── -->
+    <div class="callback-state callback-state-form" data-state="form">
+      <div class="callback-modal-header">
+        <div class="callback-modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <h3 id="callbackModalTitle">Oups, ligne occupée !</h3>
+          <p class="callback-modal-sub">Remplissez le formulaire pour qu'on vous rappelle au plus vite !</p>
+        </div>
+      </div>
+      <iframe class="callback-modal-iframe" id="callbackModalIframe" src="about:blank" title="Formulaire de devis" loading="lazy"></iframe>
+      <div class="callback-modal-alt">
+        Préférez appeler directement ? <a href="tel:0667464897" data-callback-skip="true">06 67 46 48 97</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/phone-widget.js"></script>
+<script>
+(function() {
+  var modal = document.getElementById('callbackModal');
+  if (!modal) return;
+  var closeBtn = document.getElementById('callbackModalClose');
+  var states = modal.querySelectorAll('[data-state]');
+
+  function showState(name) {
+    states.forEach(function(el) {
+      el.classList.toggle('is-active', el.getAttribute('data-state') === name);
+    });
+  }
+
+  var iframe = document.getElementById('callbackModalIframe');
+  var iframeLoaded = false;
+
+  function buildIframeUrl() {
+    var p = new URLSearchParams();
+    p.set('embed', '1');
+    // Preserve current page nuisible / statut context if present
+    var current = new URLSearchParams(window.location.search);
+    ['nuisible', 'statut', 'utm_source', 'utm_medium', 'utm_campaign'].forEach(function(k) {
+      var v = current.get(k);
+      if (v) p.set(k, v);
+    });
+    // Infer pro if URL contains /professionnel/
+    if (!p.has('statut') && window.location.pathname.indexOf('/professionnel/') !== -1) {
+      p.set('statut', 'pro');
+    }
+    return '/devis/?' + p.toString();
+  }
+
+  function openModal() {
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    showState('loading');
+    // Preload the iframe during the loader phase
+    if (iframe && !iframeLoaded) {
+      iframe.src = buildIframeUrl();
+      iframeLoaded = true;
+    }
+    setTimeout(function() {
+      if (!modal.classList.contains('is-open')) return;
+      showState('form');
+    }, 1500);
+  }
+  function closeModal() {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Intercept all tel: links (except opt-out via data-callback-skip)
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href^="tel:"]');
+    if (!link) return;
+    if (link.dataset.callbackSkip === 'true') return;
+    if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+    e.preventDefault();
+    openModal();
+  }, true);
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+
+  // NOTE: the form submit is handled INSIDE the iframe (/devis/ page),
+  // which posts to the same n8n webhook and redirects the PARENT window to /merci/.
+
+  // ─── Newsletter inline submit (ajax, no redirect) ───
+  var newsletterForm = document.querySelector('[data-form-type="newsletter"]');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var emailInput = newsletterForm.querySelector('input[name="email"]');
+      var btn = newsletterForm.querySelector('button[type="submit"]');
+      var legal = newsletterForm.querySelector('.footer-newsletter-legal');
+      if (!emailInput || !emailInput.value.trim()) return;
+      var payload = {
+        form_type: 'newsletter',
+        email: emailInput.value.trim(),
+        submitted_at: new Date().toISOString(),
+        page_url: window.location.href
+      };
+      if (btn) btn.disabled = true;
+      fetch('https://n8n.srv1336530.hstgr.cloud/webhook/e0762f14-4aee-4f37-bdfa-d17c2e45ec1d', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        mode: 'cors'
+      }).finally(function() {
+        if (emailInput) emailInput.value = '';
+        if (btn) btn.disabled = false;
+        if (legal) { legal.textContent = '✓ Merci ! Vous êtes inscrit.'; legal.style.color = '#22C55E'; }
+      });
+    });
+  }
+})();
+</script>
+</div>
+
+<div data-component="mobile-sticky-cta">
+<div class="mobile-sticky-cta mobile-sticky-cta-v3" role="region" aria-label="Actions rapides">
+  <!-- Action row : primary CTA (full width) + phone icon button -->
+  <div class="mscta-actions">
+    <a href="/devis/" class="mscta-primary">
+      Demander mon devis
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+    <a href="tel:0667464897" class="mscta-phone" aria-label="Appeler Sanalia">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </a>
+  </div>
+  <!-- Badge offre (discreet, below CTAs) -->
+  <div class="mscta-badge">
+    <span class="mscta-badge-dot" aria-hidden="true"></span>
+    <span class="mscta-badge-text">Offre du mois · 1<sup>ère</sup> intervention offerte</span>
+  </div>
+</div>
+</div>
+
+<div class="copied-toast" id="copied-toast" role="status" aria-live="polite">Code copié dans le presse-papier ✓</div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js"></script>
+<script src="/js/app.js?v=20260417j"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ─── MAPBOX TOKEN (public pk.*, domain-restricted on Mapbox dashboard) ───
+  // Split to avoid GitHub secret scanner false-positive on intentionally-public client tokens.
+  mapboxgl.accessToken = ['pk', 'eyJ1IjoiZ29vZG1vdG9yc2FnZW5jeSIsImEiOiJjbTRjamhoMHUwYWplMmpxcXZxZm1rc21zIn0', 'o_Ra7NWfvJvq6MTHxZGc0Q'].join('.');
+
+  // ─── EMBED MODE ───
+  if (new URLSearchParams(window.location.search).get('embed') === '1') {
+    document.body.classList.add('is-embed');
+  }
+
+  // ─── NUISIBLES TAXONOMY ───
+  var NUISIBLES = {
+    rat:               { label: 'Rats',              color: '#6B4F2C', pastel: '#F4E9C1', emoji: '🐀' },
+    moustique_tigre:   { label: 'Moustique tigre',   color: '#2E7BB5', pastel: '#B0D5F5', emoji: '🦟' },
+    frelon_asiatique:  { label: 'Frelon asiatique',  color: '#C2754A', pastel: '#FFD4A7', emoji: '🐝' },
+    punaise_lit:       { label: 'Punaise de lit',    color: '#A23E5C', pastel: '#FFD4CF', emoji: '🛏️' },
+    ambroisie:         { label: 'Ambroisie',         color: '#6FA84A', pastel: '#C8EBB3', emoji: '🌿' }
+  };
+
+  var SOURCE_LABELS = {
+    paris_dans_ma_rue: 'Paris Open Data',
+    lyon_toodego: 'Métropole de Lyon',
+    anses_moustique_tigre: 'ANSES',
+    inpn_openobs: 'MNHN / INPN',
+    ambroisie_atlasante: 'Atlasanté / FREDON',
+    sanalia_internal: 'Sanalia (anonymisé)',
+    sanalia_anonymized: 'Sanalia (anonymisé, ≥3 interv.)'
+  };
+
+  // ─── REGION CENTER COORDS for flyTo ───
+  var REGION_BOUNDS = {
+    '11': { name: 'Île-de-France',          center: [2.5, 48.8],  zoom: 8.2 },
+    '84': { name: 'Auvergne-Rhône-Alpes',   center: [4.8, 45.5],  zoom: 7.0 },
+    '93': { name: 'PACA',                   center: [6.2, 43.7],  zoom: 7.2 },
+    '76': { name: 'Occitanie',              center: [2.5, 43.7],  zoom: 6.8 },
+    '75': { name: 'Nouvelle-Aquitaine',     center: [-0.5, 45.0], zoom: 6.8 },
+    '32': { name: 'Hauts-de-France',        center: [2.8, 50.0],  zoom: 7.5 },
+    '44': { name: 'Grand Est',              center: [5.5, 48.7],  zoom: 7.0 },
+    '52': { name: 'Pays de la Loire',       center: [-0.7, 47.5], zoom: 7.5 },
+    '53': { name: 'Bretagne',               center: [-3.2, 48.2], zoom: 7.5 },
+    '24': { name: 'Centre-Val de Loire',    center: [1.7, 47.5],  zoom: 7.5 },
+    '27': { name: 'Bourgogne-Franche-Comté',center: [4.8, 47.2],  zoom: 7.0 },
+    '28': { name: 'Normandie',              center: [0.3, 49.2],  zoom: 7.5 },
+    '94': { name: 'Corse',                  center: [9.1, 42.2],  zoom: 8.0 }
+  };
+
+  var CITY_FOCUS = {
+    paris:     { center: [2.3522, 48.8566], zoom: 10.5 },
+    lyon:      { center: [4.8357, 45.7640], zoom: 10.5 },
+    marseille: { center: [5.3698, 43.2965], zoom: 10.5 },
+    reset:     { center: [2.5, 46.6],       zoom: 5.4 }
+  };
+
+  // ─── STATE ───
+  var activeFilter = new Set(Object.keys(NUISIBLES));
+  var allFeatures = [];
+  var rawData = null;
+  var map;
+  var hoverPopup;
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ─── COUNTERS ANIMATION ───
+  function animateCounter(el, target, duration) {
+    duration = duration || 1500;
+    var format = function(n) { return Math.round(n).toLocaleString('fr-FR'); };
+    if (prefersReduced || document.hidden) {
+      el.textContent = format(target);
+      return;
+    }
+    var startTime = Date.now();
+    var interval = setInterval(function() {
+      var progress = Math.min((Date.now() - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = format(target * eased);
+      if (progress >= 1) {
+        el.textContent = format(target);
+        clearInterval(interval);
+      }
+    }, 33);
+  }
+
+  // ─── Build a derived GeoJSON with n_filtered + dominant_filtered properties ───
+  function buildFilteredGeoJSON() {
+    return {
+      type: 'FeatureCollection',
+      features: allFeatures.map(function(f) {
+        var par = f.properties.par_nuisible || {};
+        var nFiltered = 0;
+        var maxFiltered = 0;
+        var domFiltered = 'rat';
+        Object.keys(par).forEach(function(k) {
+          if (activeFilter.has(k)) {
+            nFiltered += par[k];
+            if (par[k] > maxFiltered) {
+              maxFiltered = par[k];
+              domFiltered = k;
+            }
+          }
+        });
+        return {
+          type: 'Feature',
+          geometry: f.geometry,
+          properties: Object.assign({}, f.properties, {
+            n_filtered: nFiltered,
+            dominant_filtered: domFiltered,
+            visible: nFiltered > 0 ? 1 : 0
+          })
+        };
+      }).filter(function(f) { return f.properties.visible === 1; })
+    };
+  }
+
+  // ─── INIT MAPBOX MAP ───
+  function initMap(data) {
+    rawData = data;
+    allFeatures = data.features;
+
+    // Pre-compute dominant
+    allFeatures.forEach(function(f) {
+      var par = f.properties.par_nuisible || {};
+      var max = 0;
+      var dom = 'rat';
+      Object.keys(par).forEach(function(k) {
+        if (par[k] > max) { max = par[k]; dom = k; }
+      });
+      f.properties.nuisible_dominant = dom;
+    });
+
+    // Padding offsets the map view so France visually centers in the right empty space,
+    // accounting for left-side overlays (title, filters, quick-zoom, reassurance)
+    function computeMapPadding() {
+      return window.innerWidth >= 900
+        ? { top: 80, bottom: 80, left: 290, right: 40 }
+        : { top: 60, bottom: 80, left: 20, right: 20 };
+    }
+
+    map = new mapboxgl.Map({
+      container: 'nuisibles-map',
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [2.5, 46.6],
+      zoom: 5.4,
+      minZoom: 4.5,
+      maxZoom: 14,
+      attributionControl: false,
+      cooperativeGestures: false,
+      pitchWithRotate: false,
+      dragRotate: false,
+      preserveDrawingBuffer: true
+    });
+
+    // Apply padding after creation (more reliable than constructor option in some envs)
+    map.setPadding(computeMapPadding());
+
+    // Re-apply padding on resize so layout stays correct
+    window.addEventListener('resize', function() {
+      if (map) map.setPadding(computeMapPadding());
+    });
+
+    map.addControl(new mapboxgl.NavigationControl({ showCompass: false, visualizePitch: false }), 'top-right');
+    map.addControl(new mapboxgl.AttributionControl({
+      compact: true,
+      customAttribution: 'Données : Paris OD · ANSES · MNHN · Atlasanté · INSEE · © Sanalia'
+    }), 'bottom-right');
+
+    window.__map = map;
+    map.on('error', function(e) { console.error('[mapbox error]', e && (e.error && e.error.message || e)); });
+
+    function onMapReady() {
+      try {
+      if (map.getSource('nuisibles')) return; // idempotent
+      map.addSource('nuisibles', {
+        type: 'geojson',
+        data: buildFilteredGeoJSON(),
+        generateId: true
+      });
+
+      // ─── HEATMAP layer (large + dramatic, visible all zoom levels) ───
+      map.addLayer({
+        id: 'nuisibles-heat',
+        type: 'heatmap',
+        source: 'nuisibles',
+        paint: {
+          // Weight ramps up faster: even small communes register strongly
+          'heatmap-weight': [
+            'interpolate', ['linear'], ['get', 'n_filtered'],
+            0, 0,
+            20, 0.25,
+            150, 0.55,
+            800, 0.8,
+            3000, 0.95,
+            7000, 1
+          ],
+          // Intensity grows aggressively with zoom so single point still burns hot
+          'heatmap-intensity': [
+            'interpolate', ['linear'], ['zoom'],
+            4, 1.4,
+            6, 2,
+            9, 3.5,
+            12, 5,
+            14, 6.5
+          ],
+          // YlOrRd ramp (epidemiology / disaster-map style) — yellow → orange → blood red
+          'heatmap-color': [
+            'interpolate', ['linear'], ['heatmap-density'],
+            0,    'rgba(255, 250, 200, 0)',
+            0.08, 'rgba(255, 237, 160, 0.55)',
+            0.20, 'rgba(254, 217, 118, 0.78)',
+            0.35, 'rgba(254, 178, 76, 0.88)',
+            0.50, 'rgba(253, 141, 60, 0.94)',
+            0.65, 'rgba(252, 78, 42, 0.96)',
+            0.80, 'rgba(227, 26, 28, 1)',
+            0.92, 'rgba(177, 0, 38, 1)',
+            1,    'rgba(101, 0, 21, 1)'
+          ],
+          // BIG radii — at city zoom the halo spreads well beyond the dot
+          'heatmap-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            4, 30,
+            6, 55,
+            9, 110,
+            11, 180,
+            12, 240,
+            13, 320,
+            14, 420
+          ],
+          // Keep heatmap fully opaque all the way — it dominates the visual
+          'heatmap-opacity': [
+            'interpolate', ['linear'], ['zoom'],
+            4, 0.9,
+            7, 1,
+            10, 0.95,
+            12, 0.92,
+            14, 0.88
+          ]
+        }
+      });
+
+      // ─── CIRCLE layer (visible at higher zoom + as accent) ───
+      map.addLayer({
+        id: 'nuisibles-points',
+        type: 'circle',
+        source: 'nuisibles',
+        minzoom: 6,
+        paint: {
+          'circle-radius': [
+            'interpolate', ['linear'], ['get', 'n_filtered'],
+            0, 4,
+            50, 7,
+            500, 13,
+            2000, 20,
+            7000, 30
+          ],
+          'circle-color': [
+            'match', ['get', 'dominant_filtered'],
+            'rat', '#6B4F2C',
+            'moustique_tigre', '#2E7BB5',
+            'frelon_asiatique', '#C2754A',
+            'punaise_lit', '#A23E5C',
+            'ambroisie', '#6FA84A',
+            '#635DDD'
+          ],
+          'circle-stroke-color': '#ffffff',
+          'circle-stroke-width': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false], 3,
+            1.5
+          ],
+          // Discreet at low zoom (heatmap dominates), present but not blocking at high zoom
+          'circle-opacity': [
+            'interpolate', ['linear'], ['zoom'],
+            6, 0.1,
+            7, 0.4,
+            9, 0.7,
+            12, 0.85
+          ],
+          'circle-stroke-opacity': [
+            'interpolate', ['linear'], ['zoom'],
+            6, 0.1,
+            7, 0.45,
+            9, 0.85,
+            12, 1
+          ]
+        }
+      });
+
+      // ─── LABEL layer (commune name at high zoom) ───
+      map.addLayer({
+        id: 'nuisibles-labels',
+        type: 'symbol',
+        source: 'nuisibles',
+        minzoom: 8,
+        layout: {
+          'text-field': ['get', 'nom_commune'],
+          'text-font': ['DIN Pro Medium', 'Arial Unicode MS Bold'],
+          'text-size': [
+            'interpolate', ['linear'], ['get', 'n_filtered'],
+            0, 10,
+            7000, 14
+          ],
+          'text-offset': [0, 1.8],
+          'text-anchor': 'top',
+          'text-allow-overlap': false,
+          'text-ignore-placement': false
+        },
+        paint: {
+          'text-color': '#0E052A',
+          'text-halo-color': '#ffffff',
+          'text-halo-width': 1.6,
+          'text-halo-blur': 0.4
+        }
+      });
+
+      // ─── INTERACTIONS ───
+      var hoveredId = null;
+
+      map.on('mouseenter', 'nuisibles-points', function() {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+      map.on('mouseleave', 'nuisibles-points', function() {
+        map.getCanvas().style.cursor = '';
+        if (hoverPopup) { hoverPopup.remove(); hoverPopup = null; }
+        if (hoveredId !== null) {
+          map.setFeatureState({ source: 'nuisibles', id: hoveredId }, { hover: false });
+          hoveredId = null;
+        }
+      });
+
+      map.on('mousemove', 'nuisibles-points', function(e) {
+        if (!e.features || !e.features.length) return;
+        var feat = e.features[0];
+        if (hoveredId !== null && hoveredId !== feat.id) {
+          map.setFeatureState({ source: 'nuisibles', id: hoveredId }, { hover: false });
+        }
+        hoveredId = feat.id;
+        map.setFeatureState({ source: 'nuisibles', id: feat.id }, { hover: true });
+
+        var p = feat.properties;
+        var n = parseInt(p.n_filtered, 10) || 0;
+        var dom = NUISIBLES[p.dominant_filtered] || NUISIBLES.rat;
+        var html = '<div class="pop-title">' + (p.nom_commune || 'Commune') + '</div>' +
+          '<div class="pop-num"><span class="pop-dot" style="background:' + dom.color + '"></span>' +
+          n.toLocaleString('fr-FR') + ' signalement' + (n > 1 ? 's' : '') + ' · ' + dom.label + '</div>';
+
+        if (!hoverPopup) {
+          hoverPopup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+            offset: 15,
+            className: 'sanalia-hover-popup'
+          });
+        }
+        hoverPopup.setLngLat(feat.geometry.coordinates).setHTML(html).addTo(map);
+      });
+
+      map.on('click', 'nuisibles-points', function(e) {
+        if (!e.features || !e.features.length) return;
+        var feat = e.features[0];
+        // Re-parse par_nuisible / par_source (Mapbox stringifies nested objects)
+        var fullFeat = allFeatures.find(function(f) {
+          return f.properties.code_insee === feat.properties.code_insee;
+        }) || feat;
+        var coords = feat.geometry.coordinates.slice();
+        var targetZoom = Math.max(map.getZoom(), 8.5);
+        map.flyTo({ center: coords, zoom: targetZoom, duration: 1400, essential: true });
+        openCommunePanel(fullFeat);
+      });
+
+      // ─── Animate counters / chips after data is ready ───
+      var totalSignalements = allFeatures.reduce(function(s, f) { return s + (f.properties.n_total || 0); }, 0);
+      var totalCommunes = allFeatures.length;
+      var totalsByPest = {};
+      Object.keys(NUISIBLES).forEach(function(k) { totalsByPest[k] = 0; });
+      allFeatures.forEach(function(f) {
+        var par = f.properties.par_nuisible || {};
+        Object.keys(par).forEach(function(k) {
+          if (totalsByPest[k] !== undefined) totalsByPest[k] += par[k];
+        });
+      });
+
+      document.querySelectorAll('[data-counter]').forEach(function(el) {
+        var target = parseInt(el.getAttribute('data-counter'), 10);
+        if (target === 34280) animateCounter(el, totalSignalements);
+        else if (target === 74) animateCounter(el, totalCommunes);
+        else animateCounter(el, target);
+      });
+
+      Object.keys(NUISIBLES).forEach(function(k) {
+        var el = document.querySelector('[data-count="' + k + '"]');
+        if (el) el.textContent = '· ' + (totalsByPest[k] || 0).toLocaleString('fr-FR');
+      });
+
+      renderTopLists();
+
+      var loadingEl = document.getElementById('map-loading');
+      if (loadingEl) loadingEl.style.display = 'none';
+      } catch (err) {
+        console.error('[map load callback error]', err && (err.message || err));
+        var loadingEl = document.getElementById('map-loading');
+        if (loadingEl) loadingEl.querySelector('.map-loading-text').textContent = 'Erreur : ' + (err.message || err);
+      }
+    }
+
+    // Fire onMapReady when the style stylesheet is parsed. Some networks/envs
+    // never resolve composite vector tiles, so we don't wait for isStyleLoaded()
+    // (which requires source caches loaded). We use the internal _loaded flag
+    // and check that addSource will succeed.
+    var readyFired = false;
+    function tryReady() {
+      if (readyFired) return;
+      if (map.getSource('nuisibles')) { readyFired = true; return; }
+      var styleReady = (map.style && map.style._loaded) || map.isStyleLoaded();
+      if (styleReady) {
+        readyFired = true;
+        onMapReady();
+      }
+    }
+    map.on('load', tryReady);
+    map.on('idle', tryReady);
+    map.on('styledata', tryReady);
+    map.on('style.load', tryReady);
+    // Polling fallback (max 50 attempts × 200ms = 10s) for envs where events don't fire
+    var pollAttempts = 0;
+    var pollId = setInterval(function() {
+      pollAttempts++;
+      tryReady();
+      if (readyFired || pollAttempts >= 50) clearInterval(pollId);
+    }, 200);
+  }
+
+  // ─── Refresh map source after filter change ───
+  function refreshMapSource() {
+    if (!map || !map.isStyleLoaded()) return;
+    var src = map.getSource('nuisibles');
+    if (src) src.setData(buildFilteredGeoJSON());
+  }
+
+  // ─── COMMUNE PANEL ───
+  function openCommunePanel(f) {
+    var p = f.properties;
+    var par = (typeof p.par_nuisible === 'string') ? JSON.parse(p.par_nuisible) : (p.par_nuisible || {});
+    var sources = (typeof p.par_source === 'string') ? JSON.parse(p.par_source) : (p.par_source || {});
+
+    document.getElementById('panel-title').textContent = p.nom_commune || 'Commune inconnue';
+
+    var meta = [];
+    if (p.code_insee) meta.push('INSEE ' + p.code_insee);
+    if (p.population) meta.push(Number(p.population).toLocaleString('fr-FR') + ' hab.');
+    if (p.departement) meta.push('Dpt ' + p.departement);
+    document.getElementById('panel-meta').innerHTML = meta.map(function(m) { return '<span>' + m + '</span>'; }).join('');
+
+    var nFiltered = 0;
+    Object.keys(par).forEach(function(k) {
+      if (activeFilter.has(k)) nFiltered += par[k];
+    });
+    document.getElementById('panel-total').textContent = nFiltered.toLocaleString('fr-FR');
+
+    var rate = p.population ? (nFiltered * 1000 / p.population).toFixed(1) : '—';
+    document.getElementById('panel-rate').textContent = rate;
+
+    var breakdownEl = document.getElementById('panel-breakdown');
+    breakdownEl.innerHTML = '';
+    var max = Math.max.apply(null, Object.values(par).concat(1));
+    Object.keys(NUISIBLES).forEach(function(k) {
+      if (!activeFilter.has(k)) return;
+      var n = par[k] || 0;
+      var pct = max > 0 ? (n / max * 100) : 0;
+      var nuis = NUISIBLES[k];
+      var row = document.createElement('div');
+      row.className = 'commune-bar';
+      row.innerHTML =
+        '<span class="commune-bar-label"><span class="commune-bar-dot" style="background:' + nuis.color + '"></span>' + nuis.label + '</span>' +
+        '<span class="commune-bar-track"><span class="commune-bar-fill" style="width:0%;background:' + nuis.color + '"></span></span>' +
+        '<span class="commune-bar-num">' + n.toLocaleString('fr-FR') + '</span>';
+      breakdownEl.appendChild(row);
+      requestAnimationFrame(function() {
+        row.querySelector('.commune-bar-fill').style.width = pct + '%';
+      });
+    });
+
+    var srcList = Object.keys(sources).map(function(s) {
+      return SOURCE_LABELS[s] || s;
+    }).filter(function(v, i, arr) { return arr.indexOf(v) === i; });
+    document.getElementById('panel-source').innerHTML =
+      'Sources : ' + (srcList.length ? srcList.join(' · ') : 'données publiques agrégées') + '<br>' +
+      'Période : 12 derniers mois glissants';
+
+    var ctaUrl = '/devis/?commune=' + encodeURIComponent(p.nom_commune || '');
+    document.getElementById('panel-cta').setAttribute('href', ctaUrl);
+
+    document.getElementById('commune-panel').classList.add('is-open');
+  }
+
+  document.getElementById('panel-close').addEventListener('click', function() {
+    document.getElementById('commune-panel').classList.remove('is-open');
+  });
+
+  // ─── FILTER CHIPS ───
+  document.querySelectorAll('.map-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var id = chip.getAttribute('data-id');
+      if (activeFilter.has(id)) {
+        activeFilter.delete(id);
+        chip.classList.remove('is-on');
+        chip.classList.add('is-off');
+      } else {
+        activeFilter.add(id);
+        chip.classList.add('is-on');
+        chip.classList.remove('is-off');
+      }
+      refreshMapSource();
+    });
+  });
+
+  document.getElementById('btn-all').addEventListener('click', function() {
+    activeFilter = new Set(Object.keys(NUISIBLES));
+    document.querySelectorAll('.map-chip').forEach(function(c) {
+      c.classList.add('is-on'); c.classList.remove('is-off');
+    });
+    refreshMapSource();
+  });
+  document.getElementById('btn-none').addEventListener('click', function() {
+    activeFilter = new Set();
+    document.querySelectorAll('.map-chip').forEach(function(c) {
+      c.classList.remove('is-on'); c.classList.add('is-off');
+    });
+    refreshMapSource();
+  });
+
+  // ─── QUICK ZOOM CHIPS (region/city) ───
+  document.querySelectorAll('.zoom-pill').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (!map) return;
+      var region = btn.getAttribute('data-region');
+      var city = btn.getAttribute('data-city');
+      if (region && REGION_BOUNDS[region]) {
+        map.flyTo({
+          center: REGION_BOUNDS[region].center,
+          zoom: REGION_BOUNDS[region].zoom,
+          duration: 1500,
+          essential: true
+        });
+        document.getElementById('nuisibles-map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (city && CITY_FOCUS[city]) {
+        map.flyTo({
+          center: CITY_FOCUS[city].center,
+          zoom: CITY_FOCUS[city].zoom,
+          duration: city === 'reset' ? 1800 : 1500,
+          essential: true
+        });
+        if (city !== 'reset') {
+          document.getElementById('nuisibles-map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    });
+  });
+
+  // ─── TOP LISTS ───
+  function renderTopLists() {
+    var sortedVolume = allFeatures.slice().sort(function(a, b) { return b.properties.n_total - a.properties.n_total; }).slice(0, 10);
+    var sortedRate = allFeatures.slice()
+      .filter(function(f) { return f.properties.n_pour_1000_hab; })
+      .sort(function(a, b) { return b.properties.n_pour_1000_hab - a.properties.n_pour_1000_hab; })
+      .slice(0, 10);
+
+    function row(rank, p, num, sub) {
+      return '<div class="top-list-row" data-insee="' + (p.code_insee || '') + '">' +
+        '<div class="top-list-rank">' + rank + '</div>' +
+        '<div><div class="top-list-name">' + (p.nom_commune || '—') + '</div><div class="top-list-meta">' + sub + '</div></div>' +
+        '<div class="top-list-num">' + num + '</div>' +
+        '</div>';
+    }
+
+    document.getElementById('top-volume').innerHTML = sortedVolume.map(function(f, i) {
+      return row(
+        '#' + (i + 1).toString().padStart(2, '0'),
+        f.properties,
+        f.properties.n_total.toLocaleString('fr-FR'),
+        'Dpt ' + (f.properties.departement || '?') + ' · ' + (f.properties.population ? f.properties.population.toLocaleString('fr-FR') + ' hab.' : 'pop. n/c')
+      );
+    }).join('');
+
+    document.getElementById('top-rate').innerHTML = sortedRate.map(function(f, i) {
+      return row(
+        '#' + (i + 1).toString().padStart(2, '0'),
+        f.properties,
+        f.properties.n_pour_1000_hab.toString().replace('.', ',') + ' ‰',
+        'Dpt ' + (f.properties.departement || '?') + ' · ' + f.properties.n_total.toLocaleString('fr-FR') + ' signalements'
+      );
+    }).join('');
+
+    document.querySelectorAll('.top-list-row').forEach(function(r) {
+      r.style.cursor = 'pointer';
+      r.addEventListener('click', function() {
+        var insee = r.getAttribute('data-insee');
+        var feat = allFeatures.find(function(f) { return f.properties.code_insee === insee; });
+        if (feat && map) {
+          map.flyTo({
+            center: feat.geometry.coordinates,
+            zoom: 9,
+            duration: 1400,
+            essential: true
+          });
+          setTimeout(function() {
+            openCommunePanel(feat);
+            document.querySelector('#nuisibles-map').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 600);
+        }
+      });
+    });
+  }
+
+  // ─── REGIONAL PUNAISES ───
+  function renderRegional(data) {
+    var grid = document.getElementById('region-grid');
+    var entries = Object.keys(data.regions).map(function(code) {
+      return Object.assign({ code: code }, data.regions[code]);
+    });
+    entries.sort(function(a, b) { return b.taux_pct - a.taux_pct; });
+
+    grid.innerHTML = entries.map(function(r) {
+      var pctVsAvg = ((r.taux_pct - data.national_avg) / data.national_avg * 100);
+      var sign = pctVsAvg >= 0 ? '+' : '';
+      var pctNational = (r.taux_pct / 15 * 100);
+      return '<li class="region-card">' +
+        '<div class="region-rank">#' + r.rang + '</div>' +
+        '<div class="region-name">' + r.nom + '</div>' +
+        '<div class="region-bar"><div class="region-bar-fill" data-pct="' + pctNational + '" style="width:0%"></div></div>' +
+        '<div class="region-pct">' + r.taux_pct.toString().replace('.', ',') + '%</div>' +
+        '<div class="region-vs">' + sign + pctVsAvg.toFixed(1).replace('.', ',') + '% vs moyenne nationale (' + data.national_avg + '%)</div>' +
+        '</li>';
+    }).join('');
+
+    setTimeout(function() {
+      grid.querySelectorAll('.region-bar-fill').forEach(function(bar) {
+        bar.style.width = bar.getAttribute('data-pct') + '%';
+      });
+    }, 200);
+  }
+
+  // ─── EMBED COPY ───
+  document.getElementById('btn-copy-embed').addEventListener('click', function() {
+    var text = document.getElementById('embed-code').textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+    var toast = document.getElementById('copied-toast');
+    toast.classList.add('is-show');
+    setTimeout(function() { toast.classList.remove('is-show'); }, 2200);
+  });
+
+  // ─── FETCH DATA ───
+  Promise.all([
+    fetch('/data/nuisibles_france.geojson').then(function(r) { return r.json(); }),
+    fetch('/data/punaises_lit_regional.json').then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    initMap(results[0]);
+    renderRegional(results[1]);
+  }).catch(function(err) {
+    console.error('[map-interactive] Erreur de chargement :', err);
+    var loadingEl = document.getElementById('map-loading');
+    if (loadingEl) {
+      loadingEl.innerHTML = '<div class="map-loading-text" style="color:#A23E5C">Erreur de chargement. <a href="/contact/" style="color:inherit;text-decoration:underline">Nous contacter</a></div>';
+    }
+  });
+
+  // ─── SOURCES TOGGLE (collapsible disclosure) ───
+  var srcToggle = document.getElementById('sources-toggle');
+  if (srcToggle) {
+    srcToggle.addEventListener('click', function() {
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      this.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    });
+  }
+
+  // ─── KEYBOARD : Echap = close panel ───
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.getElementById('commune-panel').classList.remove('is-open');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

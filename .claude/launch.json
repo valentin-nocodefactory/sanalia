@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "sanalia",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3456"],
-      "port": 3456
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "python3 -m http.server $PORT"],
+      "autoPort": true
     }
   ]
 }

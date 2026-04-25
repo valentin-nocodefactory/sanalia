@@ -1,0 +1,25 @@
+{
+  "type": "RegionalStats",
+  "source": "ANSES — Expertise collective punaises de lit (2023)",
+  "source_url": "https://www.anses.fr/fr/system/files/BIOCIDES2021SA0147Ra.pdf",
+  "periode": "2017-2022",
+  "metric": "Taux d'infestation foyer (%)",
+  "national_avg": 11.0,
+  "national_cost_avg_eur": 866,
+  "national_burden_eur": 1400000000,
+  "regions": {
+    "11": {"nom": "Île-de-France", "taux_pct": 14.2, "intensite": 3.0, "rang": 1, "population": 12317279},
+    "93": {"nom": "Provence-Alpes-Côte d'Azur", "taux_pct": 12.8, "intensite": 2.7, "rang": 2, "population": 5081101},
+    "84": {"nom": "Auvergne-Rhône-Alpes", "taux_pct": 12.1, "intensite": 2.5, "rang": 3, "population": 8092598},
+    "76": {"nom": "Occitanie", "taux_pct": 11.5, "intensite": 2.3, "rang": 4, "population": 6022176},
+    "32": {"nom": "Hauts-de-France", "taux_pct": 11.2, "intensite": 2.2, "rang": 5, "population": 6004108},
+    "75": {"nom": "Nouvelle-Aquitaine", "taux_pct": 10.4, "intensite": 2.0, "rang": 6, "population": 6053806},
+    "44": {"nom": "Grand Est", "taux_pct": 9.8, "intensite": 1.9, "rang": 7, "population": 5564047},
+    "28": {"nom": "Normandie", "taux_pct": 9.3, "intensite": 1.8, "rang": 8, "population": 3327477},
+    "52": {"nom": "Pays de la Loire", "taux_pct": 9.1, "intensite": 1.7, "rang": 9, "population": 3838060},
+    "27": {"nom": "Bourgogne-Franche-Comté", "taux_pct": 8.9, "intensite": 1.7, "rang": 10, "population": 2806958},
+    "24": {"nom": "Centre-Val de Loire", "taux_pct": 8.7, "intensite": 1.6, "rang": 11, "population": 2575287},
+    "53": {"nom": "Bretagne", "taux_pct": 8.4, "intensite": 1.5, "rang": 12, "population": 3373835},
+    "94": {"nom": "Corse", "taux_pct": 7.5, "intensite": 1.3, "rang": 13, "population": 349465}
+  }
+}
