@@ -234,6 +234,44 @@ html              → scroll-padding-top: 130px
 16. **Performance** : images optimisees, CSS/JS minifies, pas de ressources bloquantes inutiles
 17. **Mobile** : toutes les pages sont responsive et passent le test Mobile-Friendly
 
+### 🔴 RÈGLE D'OR SITEMAP (NON-NÉGOCIABLE)
+
+**TOUTE PAGE INDEXABLE DOIT ÊTRE DANS LE SITEMAP.** Avant chaque commit qui ajoute, supprime ou renomme une page HTML, vérifier :
+
+1. **Toute nouvelle page indexable** (sans `<meta name="robots" content="noindex">`) DOIT être ajoutée à `sitemap.xml` (pages générales) ou `sitemap-blog.xml` (articles blog/conseils) avec :
+   - `<loc>https://www.sanalia.fr/[chemin]/</loc>` (URL canonique avec www)
+   - `<lastmod>YYYY-MM-DD</lastmod>` (date du dernier changement)
+   - `<changefreq>` adapté (weekly pour services / pages prio, monthly pour fiches, monthly pour blog)
+   - `<priority>` cohérent (1.0 pour homepage, 0.9 services pilier, 0.8 géo P1, 0.7 fiches/pro, 0.6 institut, 0.5-0.6 secondaire)
+
+2. **Toute page supprimée ou renommée** DOIT être retirée du sitemap, et idéalement avoir un redirect 301 dans `_redirects`.
+
+3. **Pages noindex légitimes** (ex : `/merci/`) ne doivent JAMAIS apparaître dans le sitemap. Les ajouter à `_redirects` ou via `<meta name="robots" content="noindex, follow">`.
+
+4. **`/sitemap-index.xml`** est la racine officielle déclarée dans `robots.txt` ; il agrège `/sitemap.xml` + `/sitemap-blog.xml`. Les 3 fichiers doivent toujours être à jour ensemble.
+
+5. **`<lastmod>` du sitemap parent** (`sitemap-index.xml`) doit être bumpé à chaque modification d'un sitemap enfant, pour informer Googlebot.
+
+**Procédure de vérification (avant chaque push)** :
+```bash
+# Comparer les pages publiques aux URLs du sitemap
+python3 -c "
+import os, re
+pages = {os.path.relpath(os.path.join(r,'index.html')).replace('/index.html','/').replace('index.html','/') for r,d,f in os.walk('.') if 'index.html' in f and not r.startswith('./.') and 'components' not in r and 'node_modules' not in r}
+sitemap = set()
+for sm in ['sitemap.xml','sitemap-blog.xml']:
+    if os.path.exists(sm):
+        sitemap |= set(re.findall(r'<loc>https?://www\.sanalia\.fr(/[^<]*)</loc>', open(sm).read()))
+noindex = {p for p in pages if 'noindex' in open(p.lstrip('/').rstrip('/')+'/index.html' if p!='/'else 'index.html').read()}
+missing = pages - sitemap - noindex
+extra = sitemap - pages
+print('Manquantes :', missing or 'OK')
+print('En trop :', extra or 'OK')
+"
+```
+
+**Sanction** : tout commit ajoutant une page sans entrée sitemap correspondante doit être amendé immédiatement.
+
 ## Blog Sanalia — Architecture et conventions
 
 ### Structure URL
