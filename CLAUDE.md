@@ -185,6 +185,34 @@ html              → scroll-padding-top: 130px
 - **Ancien nom** : toute reference a "Ciao Nuisible" doit etre remplacee par "Sanalia"
 - **Domaine** : le site est sur `https://www.sanalia.fr` (avec www). Le root `sanalia.fr` redirige vers `www.sanalia.fr`.
 
+### 🔴 RÈGLE D'OR ANTI-CANNIBALISATION (URL pattern)
+
+**Cette règle est NON-NÉGOCIABLE. Chaque nuisible peut avoir au maximum 2 pages, une par intent, avec un pattern URL strict :**
+
+| Pattern URL | Intent | Contenu autorisé | Contenu INTERDIT |
+|-------------|--------|-----------------|-------------------|
+| `/nuisibles/[espece]/` | 🔵 **Informationnel** (biologie, identification) | Espèces, cycle de vie, dangers sanitaires, signes de présence, photos d'identification, prévention générale, FAQ biologique | ❌ Grille prix, ❌ Déroulé d'intervention, ❌ CTA service agressif, ❌ Durées de traitement, ❌ Comparatif méthodes pro |
+| `/deratisation/[espece]/` (rongeurs : rats, souris, taupes) ou `/desinsectisation/[espece]/` (insectes : cafards, punaises, guêpes, fourmis, moustiques, puces, chenilles, mites) | 🟠 **Commercial / Transactionnel** (service) | Méthodes pro, produits utilisés, nombre de passages, durée, prix indicatifs, garanties, préparation logement, CTA devis | ❌ Biologie de l'espèce, ❌ Photos identification, ❌ Cycle de vie, ❌ Listes maladies transmises |
+
+**Conséquences concrètes :**
+1. Chaque espèce = 1 page `/nuisibles/[espece]/` + 1 page `/[service]/[espece]/` max, JAMAIS de troisième page.
+2. La page `/nuisibles/[espece]/` termine toujours avec un CTA renvoyant vers `/[service]/[espece]/` (flèche "J'ai ce problème → Voir le traitement"). L'inverse est un lien discret en bas ("En savoir plus sur l'espèce →").
+3. Les Titles doivent être radicalement différents :
+   - Info : `"[Espèce] — Guide d'identification, dangers & solutions"`
+   - Service : `"Traitement [espèce] / [Service] — Méthodes pro & devis"`
+4. Les pages génériques (`/deratisation/`, `/desinsectisation/`) ciblent le service global et relaient vers les spécialités espèce.
+5. Si un nuisible n'a pas de page service dédiée (ex : taupes), la page `/nuisibles/[espece]/` capture les 2 intents via un CTA service fort, MAIS il faut alors créer la page service dès que le volume le justifie (> 500 recherches/mois sur "traitement X" ou "[service] X").
+
+**Exceptions documentées :**
+- `/traitement-termites/` reste un pilier séparé (PAS dans `/desinsectisation/termites/`) car diagnostic obligatoire + traitement bois + réglementation spécifique.
+- Les méthodes sous-spécialisées (ex : `/traitement-thermique-punaises/`) sont autorisées SI elles ciblent un KW distinct (volume ≥ 500) et si le contenu ne recoupe pas la page principale `/desinsectisation/punaises-de-lit/`.
+
+**Vérification avant création d'une page :**
+1. Ouvrir la SERP Google pour le KW cible sur Chrome incognito.
+2. Si les 5 premiers résultats sont des pages info (Wikipedia, gouv.fr, Ameli) → cible la page `/nuisibles/`.
+3. Si les 5 premiers résultats sont des pages commerciales (entreprises, prestataires) → cible la page `/[service]/[espece]/`.
+4. Si la SERP mélange les 2 → **NE PAS créer une nouvelle page**, enrichir la page existante avec le meilleur intent et surveiller le ranking.
+
 ## SEO Technique — Checklist OBLIGATOIRE avant chaque deploiement
 **Cette checklist DOIT etre verifiee avant chaque push/deploiement. C'est un site SEO, le technique doit etre parfait.**
 

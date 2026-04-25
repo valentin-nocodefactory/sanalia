@@ -19,6 +19,64 @@
 
 ---
 
+## 🔴 RÈGLE D'OR ABSOLUE — URL PATTERN PAR NUISIBLE
+
+> **NON-NÉGOCIABLE. À LIRE AVANT TOUTE CRÉATION DE PAGE.**
+
+**Chaque nuisible = 2 pages maximum avec un pattern URL strict :**
+
+```
+┌─────────────────────────────────────────┬────────────────────────────────────────────────┐
+│ /nuisibles/[espèce]/                    │ /[service]/[espèce]/                            │
+│ 🔵 Informationnel                        │ 🟠 Commercial / Transactionnel                  │
+├─────────────────────────────────────────┼────────────────────────────────────────────────┤
+│ Intent : "Qu'est-ce qu'un X ?"          │ Intent : "Comment un pro élimine un X ?"        │
+│ Contenu :                                │ Contenu :                                       │
+│  ✅ Biologie, cycle de vie                │  ✅ Méthodes pro d'intervention                 │
+│  ✅ Espèces présentes en France          │  ✅ Produits utilisés                          │
+│  ✅ Dangers sanitaires                   │  ✅ Nombre de passages, durée                  │
+│  ✅ Signes de présence                   │  ✅ Prix indicatifs                            │
+│  ✅ Photos d'identification              │  ✅ Garanties                                  │
+│  ✅ Prévention générale                  │  ✅ Préparation logement                       │
+│  ✅ FAQ biologique                       │  ✅ CTA devis fort                             │
+│                                          │                                                 │
+│ INTERDIT :                               │ INTERDIT :                                      │
+│  ❌ Grille prix                          │  ❌ Biologie de l'espèce                       │
+│  ❌ Déroulé d'intervention pro           │  ❌ Photos d'identification                    │
+│  ❌ CTA service agressif                 │  ❌ Cycle de vie                               │
+│  ❌ Durées de traitement                 │  ❌ Maladies transmises détaillées             │
+│  ❌ Comparatif de méthodes pro           │  ❌ Questions de prévention DIY                │
+└─────────────────────────────────────────┴────────────────────────────────────────────────┘
+```
+
+**Mapping obligatoire par type de nuisible :**
+
+| Type | Service pattern | Exemples |
+|------|-----------------|----------|
+| Rongeur (rat, souris, taupe, surmulot) | `/deratisation/[espèce]/` | `/deratisation/rats/`, `/deratisation/souris/`, `/deratisation/taupes/` |
+| Insecte (cafard, punaise, guêpe, fourmi, moustique, puce, chenille, mite) | `/desinsectisation/[espèce]/` | `/desinsectisation/cafards/`, `/desinsectisation/punaises-de-lit/`, `/desinsectisation/chenilles-processionnaires/` |
+| Oiseau (pigeon) | `/depigeonnage/` (pas de suffixe espèce pour l'instant) | `/depigeonnage/` |
+| Cas particulier : termites | `/traitement-termites/` (pilier à part, diagnostic obligatoire) | `/traitement-termites/` |
+| Microbien (bactéries, virus) | `/desinfection/` | `/desinfection/` |
+
+**Maillage directionnel obligatoire :**
+- `/nuisibles/[espèce]/` → CTA visible haut + milieu + bas : **"J'ai ce problème → Voir notre traitement"** → lien vers `/[service]/[espèce]/`
+- `/[service]/[espèce]/` → lien contextuel discret bas de page : "En savoir plus sur l'espèce →" `/nuisibles/[espèce]/`
+
+**Titles radicalement différents (obligatoire) :**
+- `/nuisibles/rats/` → `"Rats — Guide d'identification, dangers & solutions | Sanalia"`
+- `/deratisation/rats/` → `"Dératisation Rats — Traitement pro & devis gratuit | Sanalia"`
+
+**Avant création d'une page, TEST OBLIGATOIRE :**
+1. Ouvrir la SERP Google du KW cible en incognito
+2. Si SERP dominée par Wikipedia/Ameli/gouv.fr → page `/nuisibles/`
+3. Si SERP dominée par entreprises concurrentes → page `/[service]/`
+4. Si SERP mélangée → **NE PAS créer de nouvelle page**, enrichir l'existant
+
+**Toute page qui enfreint cette règle sera fusionnée avec redirect 301.**
+
+---
+
 ## RÈGLE CARDINALE : 1 intention de recherche = 1 seule page
 
 > Cette règle est la colonne vertébrale de toute l'architecture. Chaque décision de création, de rédaction et de maillage doit la respecter. Sa violation est la première cause d'échec SEO.

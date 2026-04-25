@@ -2,6 +2,29 @@
 
 > Chaque page a 1 intent dominant unique. Ce fichier détaille les questions auxquelles chaque page DOIT répondre et celles qui sont INTERDITES (territoire d'une autre page).
 
+## 🔴 RÈGLE D'OR ANTI-CANNIBALISATION — URL PATTERN PAR NUISIBLE
+
+**NON-NÉGOCIABLE. Chaque nuisible = 2 pages maximum :**
+
+| URL | Intent | Contenu | Titre type |
+|-----|--------|---------|-----------|
+| `/nuisibles/[espèce]/` | 🔵 Informationnel | Biologie, identification, dangers sanitaires, photos, prévention générale | `"[Espèce] — Guide d'identification, dangers & solutions"` |
+| `/deratisation/[rongeur]/` ou `/desinsectisation/[insecte]/` | 🟠 Commercial | Méthodes pro, produits, prix indicatifs, durée, garanties, CTA devis | `"[Service] [Espèce] — Méthodes pro & devis gratuit"` |
+
+**Mapping obligatoire :**
+- **Rongeurs** (rat, souris, taupe, mulot) → `/deratisation/[espèce]/`
+- **Insectes** (cafard, punaise, guêpe, fourmi, moustique, puce, chenille, mite) → `/desinsectisation/[espèce]/`
+- **Oiseaux** (pigeon) → `/depigeonnage/`
+- **Termites** → `/traitement-termites/` (pilier séparé : diagnostic obligatoire)
+
+**Maillage obligatoire :**
+- `/nuisibles/[espèce]/` → CTA fort vers `/[service]/[espèce]/` ("J'ai ce problème → Voir notre traitement")
+- `/[service]/[espèce]/` → lien discret vers `/nuisibles/[espèce]/` ("En savoir plus sur l'espèce")
+
+**Détail de ces règles** : voir `CLAUDE.md` section "RÈGLE D'OR ANTI-CANNIBALISATION" + `SEO-ARCHITECTURE.md` section "RÈGLE D'OR ABSOLUE — URL PATTERN PAR NUISIBLE".
+
+---
+
 | URL                                                    | Intent dominant            | KW principal                       | Questions auxquelles la page DOIT répondre         | Questions INTERDITES (territoire autre page)                                      |
 |:-------------------------------------------------------|:---------------------------|:-----------------------------------|:---------------------------------------------------|:----------------------------------------------------------------------------------|
 | /nuisibles/rats/                                       | 🔵 Informationnel           | rats                               | Quelles espèces en France ?                        | PAS de détail sur l'intervention pro (→ /deratisation/)                           |
