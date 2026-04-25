@@ -7,53 +7,447 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no, address=no, date=no, email=no">
-<title>Mites alimentaires — Identification | Sanalia</title>
-<meta name="description" content="Comment reconnaître les mites alimentaires (pyrales), les dégâts qu'elles causent à vos réserves et les solutions pour les éliminer. Guide Sanalia.">
+<title>Mites alimentaires — Guide complet | Sanalia</title>
+<meta name="description" content="Guide complet mites alimentaires : pyrale indienne, identification, dégâts, simulateur de prolifération et protocole d'éradication. Par Sanalia, expert agréé.">
 <link rel="canonical" href="https://www.sanalia.fr/nuisibles/mites-alimentaires/">
-<meta property="og:title" content="Mites alimentaires — Identification | Sanalia">
-<meta property="og:description" content="Comment reconnaître les mites alimentaires (pyrales), les dégâts qu'elles causent à vos réserves et les solutions pour les éliminer. Guide Sanalia.">
+<meta property="og:title" content="Mites alimentaires — Guide de référence | Sanalia">
+<meta property="og:description" content="La page qui répond à toutes vos questions sur les mites alimentaires : identification, dégâts, prolifération, zones à risque, méthodes de traitement.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.sanalia.fr/nuisibles/mites-alimentaires/">
-<meta property="og:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
+<!-- TODO Recraft : générer image mite alimentaire (Plodia interpunctella) ailes mouchetées brun/cuivre, fond pastel gold -->
+<meta property="og:image" content="https://www.sanalia.fr/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Sanalia">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Mites alimentaires — Identification | Sanalia">
-<meta name="twitter:description" content="Comment reconnaître les mites alimentaires (pyrales), les dégâts qu'elles causent à vos réserves et les solutions pour les éliminer. Guide Sanalia.">
+<meta name="twitter:title" content="Mites alimentaires — Guide de référence | Sanalia">
+<meta name="twitter:description" content="La page qui répond à toutes vos questions sur les mites alimentaires : identification, dégâts, prolifération, zones à risque, méthodes de traitement.">
 <meta name="twitter:image" content="https://www.sanalia.fr/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "headline": "Mites alimentaires — Identification, Dangers \u0026 Solutions",
-      "description": "Comment reconnaître les mites alimentaires (pyrales), les dégâts qu\'elles causent à vos réserves et les solutions pour les éliminer. Guide Sanalia.",
-      "author": {"@type": "Organization", "name": "Sanalia"},
-      "publisher": {
-        "@type": "Organization",
-        "name": "Sanalia",
-        "logo": {"@type": "ImageObject", "url": "https://www.sanalia.fr/logo-sanalia.svg"}
-      },
-      "datePublished": "2026-04-14",
-      "dateModified": "2026-04-14",
-      "mainEntityOfPage": "https://www.sanalia.fr/nuisibles/mites-alimentaires/"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
-        {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
-        {"@type": "ListItem", "position": 3, "name": "Mites alimentaires — Identification, Dangers \u0026 Solutions"}
-      ]
-    }
-  ]
-}
-</script>
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/css/base.css?v=20260417j">
 <link rel="stylesheet" href="/css/components.css?v=20260417j">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Les mites alimentaires sont-elles dangereuses pour la santé ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, les mites alimentaires ne transmettent aucune maladie connue à l'homme. Le principal risque est la contamination alimentaire : larves vivantes, fils de soie, déjections et mues rendent les denrées impropres à la consommation. Les personnes très sensibles peuvent développer des allergies."}},
+    {"@type": "Question", "name": "D'où viennent les mites alimentaires dans ma cuisine ?", "acceptedAnswer": {"@type": "Answer", "text": "Les mites alimentaires entrent généralement déjà sous forme d'œufs cachés dans les denrées achetées en magasin (farine, céréales, fruits secs, riz, croquettes pour animaux). Plus rarement, elles entrent par les fenêtres en été, attirées par la lumière."}},
+    {"@type": "Question", "name": "Quel produit naturel est efficace contre les mites alimentaires ?", "acceptedAnswer": {"@type": "Answer", "text": "Les huiles essentielles de lavande, cèdre, laurier ou clou de girofle ont un effet répulsif léger. Le froid (-18°C pendant 72h) tue œufs et larves dans les aliments suspects. La terre de diatomée alimentaire détruit les larves par déshydratation. Aucune méthode naturelle ne remplace l'élimination des denrées contaminées."}},
+    {"@type": "Question", "name": "Combien de temps pour éradiquer une infestation de mites alimentaires ?", "acceptedAnswer": {"@type": "Answer", "text": "Comptez 4 à 8 semaines pour éradiquer complètement une infestation. Le cycle de vie de la mite alimentaire est de 8-12 semaines, et les œufs cachés peuvent éclore après le traitement. Un suivi avec pièges à phéromones pendant 3 mois est recommandé."}},
+    {"@type": "Question", "name": "Que faire des denrées contaminées par les mites ?", "acceptedAnswer": {"@type": "Answer", "text": "Toute denrée contenant des fils de soie, des larves ou des papillons doit être jetée immédiatement dans un sac hermétique sorti à l'extérieur. Les denrées suspectes mais sans signes peuvent être congelées 72h à -18°C ou chauffées à 60°C pendant 30 minutes pour tuer œufs et larves."}},
+    {"@type": "Question", "name": "Les pièges à phéromones fonctionnent-ils contre les mites alimentaires ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, mais uniquement comme outil de détection et de monitoring. Les pièges à phéromones n'attirent que les mâles de Plodia interpunctella. Ils permettent d'évaluer l'infestation et de localiser les foyers, mais ne remplacent jamais l'élimination des denrées contaminées et le nettoyage approfondi."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
+    {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
+    {"@type": "ListItem", "position": 3, "name": "Mites alimentaires"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Mites alimentaires — Guide complet d'identification, dégâts et traitement",
+  "description": "Guide complet mites alimentaires : pyrale indienne, identification, dégâts, simulateur de prolifération et protocole d'éradication. Par Sanalia, expert agréé.",
+  "image": "https://www.sanalia.fr/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png",
+  "author": {"@type": "Organization", "name": "Sanalia", "url": "https://www.sanalia.fr/"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sanalia",
+    "logo": {"@type": "ImageObject", "url": "https://www.sanalia.fr/logo-sanalia.svg"}
+  },
+  "datePublished": "2026-04-14",
+  "dateModified": "2026-04-24",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.sanalia.fr/nuisibles/mites-alimentaires/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Comment éliminer une infestation de mites alimentaires",
+  "description": "Protocole en 5 étapes pour éradiquer durablement une infestation de mites alimentaires (pyrale indienne, pyrale de la farine).",
+  "step": [
+    {"@type": "HowToStep", "name": "Diagnostiquer", "text": "Inspecter tous les paquets de farine, céréales, riz, pâtes, fruits secs, chocolat et croquettes. Identifier la source par la présence de fils de soie, larves ou papillons adultes."},
+    {"@type": "HowToStep", "name": "Éliminer", "text": "Jeter immédiatement toutes les denrées contaminées dans un sac hermétique sorti à l'extérieur. Ne jamais simplement les remettre dans le placard."},
+    {"@type": "HowToStep", "name": "Nettoyer", "text": "Aspirer minutieusement tous les placards (coins, charnières, fissures), puis nettoyer au vinaigre blanc chaud ou à la vapeur. Vider l'aspirateur immédiatement."},
+    {"@type": "HowToStep", "name": "Sécuriser", "text": "Stocker tous les aliments secs dans des bocaux hermétiques en verre ou plastique épais. Vérifier les achats pendant 1 mois."},
+    {"@type": "HowToStep", "name": "Surveiller", "text": "Installer 2-3 pièges à phéromones pour détecter toute reprise d'activité pendant 3 mois après éradication."}
+  ]
+}
+</script>
 <style>
-.nuisible-hero{display:flex;gap:var(--space-2xl);align-items:center;flex-wrap:wrap}.nuisible-hero-img{width:400px;max-width:100%;border-radius:var(--radius-lg)}.nuisible-hero-text{flex:1;min-width:280px}.nuisible-section{max-width:800px;margin:0 auto}.nuisible-section h2{margin-top:var(--space-2xl);margin-bottom:var(--space-md)}.nuisible-section ul{padding-left:var(--space-lg);margin:var(--space-md) 0}.nuisible-section li{margin-bottom:var(--space-sm);line-height:var(--leading-normal)}.checklist{list-style:none;padding:0}.checklist li::before{content:"✓ ";color:var(--color-primary-600);font-weight:700}.cta-double{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-lg)}.related-links{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-md)}.related-links a{background:var(--color-primary-100);color:var(--color-primary-600);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-full);text-decoration:none;font-size:var(--text-small);font-family:var(--font-primary);font-weight:var(--font-weight-bold)}
+/* ══════════════════════════════════════════════
+   MITES ALIMENTAIRES — Guide complet
+   ══════════════════════════════════════════════ */
+
+/* ── Global ── */
+html { scroll-padding-top: 130px; }
+[data-component="header"] { position: sticky; top: -45px; z-index: 100; background: var(--color-surface); }
+
+/* ── Hero ── */
+.mite-hero { background: var(--color-pastel-gold-light); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-2xl) var(--space-2xl); max-width: 1400px; margin: 0 auto; position: relative; overflow: hidden; }
+.mite-hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(244,233,193,0.55) 0%, transparent 70%); pointer-events: none; }
+.mite-hero-grid { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-2xl); align-items: center; position: relative; z-index: 1; }
+.mite-hero h1 { font-size: 40px; line-height: 1.1; margin: 0 0 var(--space-md); color: var(--color-primary-900); }
+.mite-hero .subtitle { font-size: 16px; color: var(--color-text-muted); line-height: 1.6; margin-bottom: var(--space-lg); }
+.mite-hero .mono { color: #999; }
+.hero-impact-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: var(--space-xl); background: rgba(14,5,42,0.08); border-radius: var(--radius-lg); overflow: hidden; }
+.impact-stat { text-align: center; padding: var(--space-lg) var(--space-sm); background: var(--color-pastel-gold-light); }
+.impact-stat-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 32px; color: var(--color-primary-900); display: block; line-height: 1; }
+.impact-stat-desc { font-size: 11px; color: var(--color-text-muted); display: block; margin-top: 6px; line-height: 1.3; }
+.mite-hero-img { width: 300px; height: auto; filter: drop-shadow(0 12px 40px rgba(0,0,0,0.15)); }
+@media (max-width: 900px) { .mite-hero-grid { grid-template-columns: 1fr; } .mite-hero-img { width: 220px; margin: 0 auto; } .hero-impact-stats { grid-template-columns: repeat(2, 1fr); } .mite-hero h1 { font-size: 28px; } }
+
+/* ── Page Layout (2 cols) ── */
+.page-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-2xl); max-width: 1200px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); align-items: start; }
+.page-content { min-width: 0; }
+.page-content section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.page-content section:last-child { border-bottom: none; }
+@media (max-width: 1024px) { .page-layout { grid-template-columns: 1fr; } }
+
+/* ── Sticky Sidebar ── */
+.sidebar-wrap { position: sticky; top: 130px; display: flex; flex-direction: column; gap: var(--space-md); }
+.sidebar-card { background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); overflow: hidden; padding: var(--space-xs); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.sidebar-visual { display: flex; align-items: center; justify-content: center; padding: var(--space-xl) var(--space-lg); border-radius: var(--radius-lg); background: var(--color-pastel-gold-light); min-height: 160px; }
+.sidebar-visual img { width: 120px; height: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08)); }
+.sidebar-body { padding: var(--space-md) var(--space-sm) var(--space-sm); text-align: center; }
+.sidebar-body h3 { font-size: 20px; margin: 0; display: inline; }
+.sidebar-badge { font-size: 10px; color: #B45309; font-weight: 700; background: #FEF3C7; padding: 2px 8px; border-radius: var(--radius-full); margin-left: 8px; vertical-align: middle; }
+.sidebar-latin { font-family: var(--font-secondary); font-weight: 400; color: #999; font-size: 11px; font-style: italic; display: block; margin: 4px 0 var(--space-md); }
+.sidebar-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; text-align: left; padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-light); }
+.sidebar-stat-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.sidebar-stat-label { font-size: 10px; color: var(--color-text-muted); }
+.sidebar-cta { margin-top: var(--space-md); }
+.sidebar-cta .btn { width: 100%; text-align: center; }
+.sidebar-offer { display: flex; align-items: center; justify-content: center; font-size: 12px; color: #22C55E; font-weight: 700; margin-top: 8px; }
+.pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22C55E; margin-right: 6px; animation: pulseDot 1.5s infinite; }
+@keyframes pulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+.sidebar-quiz { display: block; padding: var(--space-sm) var(--space-md); border: 1.5px dashed #C8B99A; border-radius: var(--radius-lg); text-align: center; font-size: 11px; color: #999; text-decoration: none; transition: all 0.2s; }
+.sidebar-quiz:hover { color: var(--color-primary-900); border-color: var(--color-primary-900); }
+@media (max-width: 1024px) { .sidebar-wrap { position: static; max-width: 380px; margin: 0 auto var(--space-xl); } }
+
+/* ── Section headings ── */
+.section-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: var(--color-primary-600); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: var(--space-sm); }
+.page-content h2 { margin-top: 0; margin-bottom: var(--space-sm); font-size: 28px; }
+.page-content h2 + p { color: var(--color-text-muted); margin-bottom: var(--space-xl); font-size: 15px; line-height: 1.6; }
+
+/* ── "Le saviez-vous" ── */
+.did-you-know { display: flex; gap: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--color-bg-sand); border-radius: var(--radius-md); margin: var(--space-xl) 0; align-items: flex-start; border-left: 3px solid #C8B99A; }
+.did-you-know-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
+
+/* ── Identification (species cards) ── */
+.species-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
+.species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
+.species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
+.species-card-v2.active { border-color: var(--color-gray-light); box-shadow: 0 16px 48px rgba(14,5,42,0.1); }
+.species-card-visual { padding: var(--space-xl) var(--space-lg); text-align: center; position: relative; min-height: 140px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); margin: var(--space-xs); }
+.species-card-visual img { width: 100%; max-width: 180px; height: auto; object-fit: contain; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+.species-card-v2:hover .species-card-visual img { transform: scale(1.05) translateY(-4px); }
+.species-card-visual .badge { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 700; background: var(--color-primary-900); color: #fff; padding: 4px 12px; border-radius: var(--radius-full); }
+.species-card-body { padding: var(--space-md) var(--space-lg) var(--space-lg); }
+.species-card-body h3 { font-size: 18px; margin: 0 0 4px; }
+.species-card-body .latin { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; font-style: italic; }
+.species-card-body .stars { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.species-card-body .stars-label { font-size: 11px; color: var(--color-text-muted); }
+.species-specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--color-gray-light); margin-top: var(--space-lg); }
+.spec { padding: 14px 8px; text-align: center; border-right: 1px solid var(--color-gray-light); }
+.spec:last-child { border-right: none; }
+.spec-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
+.species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
+@media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
+
+/* ── Signs of presence ── */
+.signs-grid { display: grid; grid-template-columns: repeat(auto-fill, 112px); gap: var(--space-md); margin-top: var(--space-lg); justify-content: start; }
+.sign-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; background: transparent; border: none; padding: 0; transition: transform 0.2s; }
+.sign-card:hover { transform: translateY(-2px); }
+.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-xl); transition: opacity 0.3s; cursor: zoom-in; margin-bottom: var(--space-sm); background: var(--color-pastel-gold-light); }
+.sign-card h4 { font-size: 12px; margin: 0 0 4px; font-weight: 700; line-height: 1.3; color: var(--color-primary-900); }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 600px) { .sign-card p { display: none; } }
+
+/* ── Lightbox ── */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; border-radius: var(--radius-lg); }
+
+/* ── Dangers ── */
+.danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
+.danger-fact { padding: var(--space-xl); text-align: center; border-right: 1px solid var(--color-gray-light); }
+.danger-fact:last-child { border-right: none; }
+.danger-fact-num { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 36px; color: #B45309; line-height: 1; display: block; margin-bottom: var(--space-sm); }
+.danger-fact-text strong { font-size: 14px; display: block; color: var(--color-primary-900); margin-bottom: 6px; }
+.danger-fact-text span { font-size: 12px; color: var(--color-text-muted); line-height: 1.5; }
+@media (max-width: 600px) { .danger-facts { grid-template-columns: 1fr; } .danger-fact { border-right: none; border-bottom: 1px solid var(--color-gray-light); } .danger-fact:last-child { border-bottom: none; } }
+
+/* ── Risk Tabs ── */
+.risk-tabs { display: flex; gap: 4px; margin-bottom: var(--space-lg); border-bottom: 1px solid var(--color-gray-light); }
+.risk-tab { padding: 10px 16px; font-family: var(--font-primary); font-size: 13px; font-weight: 500; color: var(--color-text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.risk-tab:hover { color: var(--color-primary-900); }
+.risk-tab.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); font-weight: 700; }
+.risk-tab-content { display: none; }
+.risk-tab-content.active { display: block; }
+@media (max-width: 600px) { .risk-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; } .risk-tab { font-size: 12px; padding: 8px 12px; } }
+
+.disease-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-top: var(--space-md); }
+.disease-card { padding: var(--space-lg); border-radius: var(--radius-xl); transition: all 0.3s; }
+.disease-card.high { background: #FFF8E1; border: 1px solid #FFE0B2; }
+.disease-card.moderate { background: #F3F3F3; border: 1px solid var(--color-gray-light); }
+.disease-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+.disease-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.disease-severity { font-size: 10px; letter-spacing: 2px; }
+.disease-card.high .disease-severity { color: #E65100; }
+.disease-card.moderate .disease-severity { color: #999; }
+.disease-header strong { font-size: 16px; flex: 1; }
+.disease-tag { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: var(--radius-full); letter-spacing: 0.3px; flex-shrink: 0; }
+.disease-tag.high { background: #FFE0B2; color: #E65100; }
+.disease-tag.moderate { background: #E0E0E0; color: #616161; }
+.disease-card p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; margin: 0 0 var(--space-sm); }
+.disease-stat { font-size: 12px; font-weight: 600; color: var(--color-primary-900); padding: 4px 10px; background: rgba(0,0,0,0.04); border-radius: var(--radius-md); display: inline-block; }
+
+.damage-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-top: var(--space-md); }
+.damage-item { display: flex; align-items: flex-start; gap: var(--space-sm); padding: var(--space-lg); background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); }
+.damage-icon { font-size: 24px; flex-shrink: 0; }
+.damage-item strong { font-size: 14px; display: block; margin-bottom: 4px; }
+.damage-item span { font-size: 12px; color: var(--color-text-muted); line-height: 1.4; }
+@media (max-width: 600px) { .disease-grid, .damage-row { grid-template-columns: 1fr; } }
+
+/* ── Sliders ── */
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: #E5E5E5; outline: none; cursor: pointer; margin: 8px 0; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-top: -7px; cursor: grab; }
+input[type="range"]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; background: transparent; }
+input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; cursor: grab; }
+input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: #E5E5E5; }
+
+/* ── Prolifération ── */
+.prolif-config { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); margin-bottom: var(--space-lg); padding: var(--space-md) var(--space-lg); background: var(--color-surface); border-radius: var(--radius-lg); border: 1px solid var(--color-gray-light); align-items: center; }
+.prolif-config-item { display: flex; align-items: center; gap: 8px; }
+.prolif-config-label { font-family: var(--font-secondary); font-weight: 400; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.prolif-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+.prolif-pill { padding: 4px 10px; border: 1.5px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); white-space: nowrap; }
+.prolif-pill:hover { border-color: #C8B99A; }
+.prolif-pill.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+@media (max-width: 600px) { .prolif-config { flex-direction: column; align-items: flex-start; } .prolif-config-item { flex-wrap: wrap; } }
+
+.prolif-2col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); align-items: stretch; }
+.prolif-box-inputs { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); }
+.prolif-config-inner { display: flex; flex-direction: column; gap: var(--space-sm); }
+.prolif-box-results { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); transition: border-color 0.4s, background 0.4s; }
+.prolif-box-results.critical { border-color: #E8C4C4; background: #FEFAFA; }
+.prolif-result-header { display: flex; align-items: baseline; gap: var(--space-sm); }
+.prolif-stats-compact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.prolif-stats-compact > div { padding: 8px; background: var(--color-bg); border-radius: var(--radius-md); }
+.prolif-stats-compact strong { font-size: 16px; color: var(--color-primary-900); display: block; }
+.prolif-stats-compact span { font-size: 9px; color: var(--color-text-muted); }
+@media (max-width: 768px) { .prolif-2col { grid-template-columns: 1fr; } }
+.prolif-month-display { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-sm); }
+.prolif-month-label { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+.prolif-pop-count { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 32px; color: var(--color-primary-900); transition: color 0.3s; line-height: 1; }
+.prolif-pop-count.danger { color: #B45309; }
+.prolif-months-bar { display: flex; justify-content: space-between; font-size: 10px; color: #999; font-family: var(--font-secondary); margin-top: 4px; }
+.prolif-visual { background: var(--color-bg); border-radius: var(--radius-lg); padding: var(--space-sm) var(--space-md); min-height: 60px; overflow: hidden; }
+.prolif-rats { display: flex; flex-wrap: wrap; gap: 1px; font-size: 13px; line-height: 1.1; }
+.rat-icon { display: inline-block; animation: ratAppear 0.15s ease; }
+.rat-overflow { font-size: 11px; color: #B45309; font-weight: 700; display: inline-block; margin-left: 4px; vertical-align: middle; }
+@keyframes ratAppear { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+
+.prolif-alert { display: flex; align-items: center; gap: var(--space-sm); padding: 10px 16px; border-radius: var(--radius-lg); transition: all 0.4s; font-size: 13px; }
+.prolif-alert.level-ok { background: #E8F5E9; color: #2E7D32; }
+.prolif-alert.level-warn { background: #FFF3E0; color: #E65100; }
+.prolif-alert.level-danger { background: #FFEBEE; color: #C62828; }
+.prolif-alert.level-critical { background: #C62828; color: #fff; }
+.prolif-alert-icon { font-size: 14px; flex-shrink: 0; }
+.prolif-alert-text { font-size: 13px; font-weight: 500; }
+.prolif-cta { text-align: center; margin-top: var(--space-lg); }
+
+/* ── Kitchen Cross-Section ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; }
+
+/* ── Risk Score ── */
+.risk-check-layout { display: grid; grid-template-columns: 1fr 240px; gap: var(--space-xl); align-items: start; }
+.risk-checklist { display: flex; flex-direction: column; gap: 8px; }
+.risk-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-lg); border: 1px solid var(--color-gray-light); cursor: pointer; font-size: 13px; transition: all 0.2s; background: var(--color-surface); }
+.risk-check-item:hover { border-color: #C8B99A; }
+.risk-check-item input { accent-color: #B45309; width: 16px; height: 16px; cursor: pointer; }
+.risk-result-box { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); text-align: center; position: sticky; top: 140px; }
+.risk-score-svg { width: 200px; height: 120px; }
+.risk-verdict h3 { margin: var(--space-sm) 0 4px; }
+.risk-verdict p { font-size: 13px; color: var(--color-text-muted); }
+@media (max-width: 700px) { .risk-check-layout { grid-template-columns: 1fr; } }
+
+/* ── Calendar ── */
+.calendar-grid { display: grid; grid-template-columns: auto repeat(12, 1fr); gap: 2px; font-size: 11px; }
+.cal-cell { padding: 8px 4px; text-align: center; border-radius: var(--radius-xs); position: relative; }
+.cal-header { font-family: var(--font-primary); font-weight: 700; background: var(--color-primary-900); color: #fff; }
+.cal-label { font-family: var(--font-primary); font-weight: 700; font-size: 10px; text-align: right; padding-right: 8px; background: var(--color-bg); display: flex; align-items: center; justify-content: flex-end; }
+.cal-current { outline: 2px solid var(--color-primary-600); outline-offset: -1px; }
+.cal-tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--color-primary-900); color: #fff; padding: 6px 12px; border-radius: var(--radius-md); font-size: 11px; white-space: nowrap; z-index: 10; pointer-events: none; }
+.cal-cell:hover .cal-tip { display: block; }
+
+/* ── France Map ── */
+.france-map-wrapper { display: grid; grid-template-columns: 3fr 2fr; gap: var(--space-lg); align-items: start; }
+.france-map-left { display: flex; flex-direction: column; gap: var(--space-md); }
+.france-map-svg { width: 100%; height: auto; }
+.france-map-svg path { cursor: pointer; stroke: #fff; stroke-width: 1.5; transition: all 0.2s ease; }
+.france-map-svg path:hover { filter: brightness(0.93); }
+.france-map-svg path.region-selected { filter: brightness(0.88); stroke: #fff; stroke-width: 3; }
+.map-legend { display: flex; gap: var(--space-lg); font-size: 12px; color: var(--color-text-muted); flex-wrap: wrap; }
+.map-legend-item { display: flex; align-items: center; gap: 6px; }
+.map-legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.08); }
+.map-detail-panel { background: var(--color-bg-sand); border-radius: var(--radius-lg); padding: var(--space-xl); position: sticky; top: 140px; transition: all 0.3s ease; }
+.map-detail-panel h4 { margin: 0 0 var(--space-xs); font-size: 18px; font-family: var(--font-primary); font-weight: 700; color: var(--color-primary-900); }
+.map-detail-level { display: inline-block; font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: var(--radius-full); margin-bottom: var(--space-sm); }
+.map-detail-level.high { background: #F5A623; color: #fff; }
+.map-detail-level.moderate { background: #F5D76E; }
+.map-detail-text { font-size: 14px; line-height: 1.6; color: var(--color-primary-800); margin: 0; }
+@media (max-width: 480px) { .france-map-wrapper { grid-template-columns: 1fr; } .map-detail-panel { position: static; } }
+
+/* ── Methods ── */
+.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+.method-card { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); transition: all 0.3s; }
+.method-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.method-card.recommended { border-color: #22C55E; position: relative; box-shadow: 0 0 0 1px #22C55E; }
+.method-card.recommended::before { content: '✓ Recommandé'; position: absolute; top: -12px; right: 16px; background: #22C55E; color: #fff; font-size: 10px; font-weight: 700; padding: 4px 14px; border-radius: var(--radius-full); }
+.method-card h4 { margin: 0 0 var(--space-sm); font-size: 16px; }
+.method-meter { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.method-meter-label { font-size: 11px; color: var(--color-text-muted); width: 70px; flex-shrink: 0; }
+.method-meter-bar { flex: 1; height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.method-meter-fill { height: 100%; border-radius: 3px; }
+.method-filter { padding: 6px 16px; border: 2px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); }
+.method-filter:hover { border-color: #C8B99A; }
+.method-filter.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+.method-card.dimmed { opacity: 0.3; transform: scale(0.97); }
+@media (max-width: 768px) { .methods-grid { grid-template-columns: 1fr; } }
+
+/* ── Protocol ── */
+.protocol-steps { counter-reset: step; }
+.protocol-step { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); margin-bottom: var(--space-md); transition: box-shadow 0.3s; }
+.protocol-step:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+.protocol-step h4 { display: flex; align-items: center; gap: var(--space-sm); font-size: 16px; margin: 0 0 var(--space-sm); }
+.protocol-step h4::before { counter-increment: step; content: counter(step); width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary-900); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.protocol-check { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--color-text-muted); cursor: pointer; }
+.protocol-check input { accent-color: var(--color-primary-600); }
+.protocol-check.checked { text-decoration: line-through; opacity: 0.5; }
+
+/* ── Cost ── */
+.cost-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.cost-highlight { text-align: center; padding: var(--space-2xl); background: linear-gradient(135deg, var(--color-primary-100) 0%, #F8F6FF 100%); border-radius: var(--radius-xl); }
+.cost-highlight .big { font-size: 56px; font-weight: var(--font-weight-bold); color: var(--color-primary-600); line-height: 1; }
+.cost-highlight .label { font-size: 14px; color: var(--color-text-muted); margin-top: 4px; }
+.cost-slider-wrap { margin-top: var(--space-lg); text-align: center; }
+.cost-slider-wrap label { font-size: 13px; font-weight: 500; display: block; margin-bottom: var(--space-sm); }
+.cost-savings { font-size: 16px; font-weight: 700; color: #22C55E; margin-top: var(--space-sm); }
+@media (max-width: 700px) { .cost-layout { grid-template-columns: 1fr; } }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--color-gray-light); }
+.tl-item { position: relative; padding: 0 0 var(--space-lg) var(--space-lg); }
+.tl-item::before { content: ''; position: absolute; left: -20px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #C8B99A; border: 2px solid var(--color-surface); }
+.tl-item:last-child { padding-bottom: 0; }
+.tl-year { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+.tl-text { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
+
+/* ── Final CTA ── */
+.final-cta { background: var(--color-primary-900); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-2xl); text-align: center; color: #fff; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(99,93,221,0.15) 0%, transparent 60%); pointer-events: none; }
+.final-cta h2 { color: #fff; margin: 0 0 var(--space-sm); font-size: 28px; position: relative; }
+.final-cta p { color: rgba(255,255,255,0.6); margin-bottom: var(--space-xl); position: relative; }
+.final-cta .btn-primary { background: #fff; color: var(--color-primary-900); font-size: 16px; padding: 16px 32px; position: relative; }
+.final-cta .btn-primary:hover { background: var(--color-primary-100); }
+.trust-badges { display: flex; gap: var(--space-xl); justify-content: center; margin-top: var(--space-xl); font-size: 13px; color: rgba(255,255,255,0.5); position: relative; }
+
+/* ── Quiz ── */
+.quiz-container { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); }
+.quiz-progress { display: flex; gap: var(--space-xs); margin-bottom: var(--space-xl); }
+.quiz-progress .step { flex: 1; height: 4px; border-radius: var(--radius-full); background: var(--color-gray-light); }
+.quiz-progress .step.done { background: var(--color-primary-600); }
+.quiz-progress .step.current { background: var(--color-primary-400); }
+.quiz-question { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 20px; margin-bottom: var(--space-lg); }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+.quiz-option { padding: var(--space-md) var(--space-lg); border: 2px solid var(--color-gray-light); border-radius: var(--radius-xl); cursor: pointer; font-family: var(--font-primary); font-size: 15px; transition: all 0.25s; background: var(--color-surface); text-align: center; }
+.quiz-option:hover { border-color: var(--color-primary-600); background: var(--color-primary-100); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.quiz-result { text-align: center; display: none; }
+.quiz-result.active { display: block; }
+.quiz-result .score-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-lg); font-size: 32px; font-weight: var(--font-weight-bold); color: #fff; }
+
+/* ── Anatomy ── */
+.anatomy-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+.anatomy-visual { position: relative; display: flex; justify-content: center; }
+.anatomy-points { position: absolute; inset: 0; }
+.anat-point { position: absolute; width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--color-primary-900); background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: all 0.25s; transform: translate(-50%, -50%); z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.anat-point:not(.active) { animation: anat-pulse 2s ease-in-out infinite; }
+@keyframes anat-pulse { 0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 0 rgba(99,93,221,0.4); } 50% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 8px rgba(99,93,221,0); } }
+.anat-point:hover, .anat-point.active { background: var(--color-primary-900); color: #fff; transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 6px 20px rgba(14,5,42,0.2); animation: none; }
+.anatomy-detail { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); min-height: 240px; display: flex; flex-direction: column; justify-content: center; }
+.anatomy-detail h3 { margin: 0 0 var(--space-sm); }
+.anatomy-detail p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+@media (max-width: 700px) { .anatomy-layout { grid-template-columns: 1fr; } }
+
+/* ── World Map ── */
+.world-cities { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+.world-city { display: flex; align-items: center; gap: var(--space-sm); padding: 14px 18px; border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); cursor: pointer; transition: all 0.3s; }
+.world-city:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.world-city.active { border-color: var(--color-primary-900); background: var(--color-primary-100); }
+.world-city-flag { font-size: 24px; flex-shrink: 0; }
+.world-city-info strong { font-size: 14px; display: block; }
+.world-city-info span { font-size: 11px; color: var(--color-text-muted); }
+.world-detail { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); margin-top: var(--space-md); min-height: 100px; }
+.world-detail h3 { margin: 0 0 var(--space-sm); }
+.world-detail p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin: 0; }
+
+/* ── Scroll Animations ── */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Cohabitants ── */
+.cohabit-section { max-width: 1400px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); }
+
+/* ── Step Nav ── */
+.step-nav { position: sticky; top: 72px; z-index: 90; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-gray-light); display: flex; align-items: center; overflow: visible; width: 100%; padding: 0 calc((100% - 1200px) / 2 + var(--space-lg)); }
+.step-nav-links { display: flex; align-items: center; overflow-x: auto; overflow-y: visible; flex: 1; -ms-overflow-style: none; scrollbar-width: none; }
+.step-nav-links::-webkit-scrollbar { display: none; }
+.step-nav-links a { flex-shrink: 0; padding: 12px 16px; font-size: 12px; font-family: var(--font-primary); font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.step-nav-links a.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); }
+
+/* ── Hero stats V1 ── */
+.hero-stats { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl); }
+.hero-stat { display: flex; align-items: center; gap: var(--space-sm); }
+.hero-stat-icon { width: 18px; height: 18px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; color: var(--color-primary-800); opacity: 0.45; padding: 0; box-sizing: border-box; }
+.hero-stat-icon svg { width: 100%; height: 100%; }
+.hero-stat-text { display: flex; align-items: baseline; gap: 6px; }
+.hero-stat-value { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 15px; color: var(--color-primary-900); }
+.hero-stat-label { font-size: 12px; color: var(--color-text-muted); }
+.nuisible-hero { display: flex; gap: var(--space-2xl); align-items: center; flex-wrap: wrap; }
+.nuisible-hero-img { width: 400px; max-width: 100%; border-radius: var(--radius-lg); }
+.nuisible-hero-text { flex: 1; min-width: 280px; }
+
+/* ── Intro Radar ── */
+.section-inner { padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.intro-profile { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.intro-radar-wrap { display: flex; justify-content: center; }
+.intro-radar-wrap canvas { max-width: 220px; max-height: 220px; }
+.intro-gauges { display: flex; flex-direction: column; gap: 10px; }
+.gauge-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.gauge-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; }
+.gauge-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 12px; color: var(--color-primary-900); }
+.gauge-bar { height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.gauge-fill { height: 100%; border-radius: 3px; }
+@media (max-width: 700px) { .intro-profile { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -334,6 +728,8 @@
   </div>
 </header>
 </div>
+
+<!-- ════════ STICKY NAV + BREADCRUMB ════════ -->
 <div class="breadcrumb-bar">
   <div class="container">
     <nav class="breadcrumb-nav" aria-label="Fil d'Ariane">
@@ -342,82 +738,824 @@
       <a href="/nuisibles/">Nuisibles</a>
       <span class="breadcrumb-sep">›</span>
       <div class="breadcrumb-nuisible-wrap">
-      <span class="breadcrumb-current">Mites alimentaires</span>
-      <div class="breadcrumb-dropdown">
-        <a href="/nuisibles/rats/" class=""><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" class="bg-gold" alt="">Rats</a>
-        <a href="/nuisibles/souris/" class=""><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" class="bg-lavender" alt="">Souris</a>
-        <a href="/nuisibles/punaises-de-lit/" class=""><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" class="bg-rose" alt="">Punaises de lit</a>
-        <a href="/nuisibles/cafards/" class=""><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" class="bg-mint" alt="">Cafards</a>
-        <a href="/nuisibles/guepes-frelons/" class=""><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" class="bg-gold" alt="">Guepes & Frelons</a>
-        <a href="/nuisibles/fourmis/" class=""><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" class="bg-rose" alt="">Fourmis</a>
-        <a href="/nuisibles/moustiques/" class=""><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" class="bg-blue" alt="">Moustiques</a>
-        <a href="/nuisibles/pigeons/" class=""><img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" class="bg-mint" alt="">Pigeons</a>
+        <span class="breadcrumb-current">Mites alimentaires</span>
+        <div class="breadcrumb-dropdown">
+          <a href="/nuisibles/rats/" class=""><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" class="bg-gold" alt="">Rats</a>
+          <a href="/nuisibles/souris/" class=""><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" class="bg-lavender" alt="">Souris</a>
+          <a href="/nuisibles/punaises-de-lit/" class=""><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" class="bg-rose" alt="">Punaises de lit</a>
+          <a href="/nuisibles/cafards/" class=""><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" class="bg-mint" alt="">Cafards</a>
+          <a href="/nuisibles/guepes-frelons/" class=""><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" class="bg-gold" alt="">Guêpes & Frelons</a>
+          <a href="/nuisibles/fourmis/" class=""><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" class="bg-rose" alt="">Fourmis</a>
+          <a href="/nuisibles/moustiques/" class=""><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" class="bg-blue" alt="">Moustiques</a>
+          <a href="/nuisibles/pigeons/" class=""><img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" class="bg-mint" alt="">Pigeons</a>
+        </div>
       </div>
-    </div>
     </nav>
   </div>
 </div>
-<section class="section" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-primary-100) 100%); padding-top: var(--space-3xl);">
+
+<nav class="step-nav" id="stepNav">
+  <div class="step-nav-links">
+    <a href="#identification" data-nav>Identification</a>
+    <a href="#dangers" data-nav>Risques</a>
+    <a href="#simulateur" data-nav>Prolifération</a>
+    <a href="#zones" data-nav>Cachettes</a>
+    <a href="#evaluation" data-nav>Votre risque</a>
+    <a href="#calendrier" data-nav>Saisons</a>
+    <a href="#methodes" data-nav>Méthodes</a>
+    <a href="#protocole" data-nav>Protocole</a>
+    <a href="#quiz" data-nav>Quiz</a>
+    <a href="#cout" data-nav>Coûts</a>
+    <a href="#faq" data-nav>FAQ</a>
+    <a href="#action" data-nav>Agir</a>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="section" id="hero" style="padding-top: var(--space-2xl);">
   <div class="container">
-    <div class="nuisible-hero">
-      <div class="nuisible-hero-text">
-        <span class="mono" style="color: #999;">Guide d'identification</span>
-        <h1>Mites alimentaires — Identification, Dangers & Solutions</h1>
-        <p style="color: var(--color-text-muted); margin-top: var(--space-md);">La pyrale de la farine (Ephestia kuehniella) et la pyrale indienne (Plodia interpunctella) sont les mites alimentaires les plus courantes en France. Elles infestent les réserves de farine, céréales, fruits secs et épices.</p>
+    <div class="hero-box" style="background: var(--color-pastel-gold-light); border-radius: var(--radius-xl); padding: var(--space-2xl); overflow: hidden; max-width: none; margin: 0 -24px;">
+      <div class="nuisible-hero">
+        <div class="nuisible-hero-text">
+          <span class="mono" style="color: #999;">GUIDE EXPERT</span>
+          <h1>Mites alimentaires : Identification, Dégâts &amp; Solutions</h1>
+          <p style="color: var(--color-text-muted); margin-top: var(--space-md);">La pyrale indienne (Plodia interpunctella) et la pyrale de la farine (Ephestia kuehniella) sont les mites alimentaires les plus répandues en France. Présentes dans 1 cuisine sur 3, elles contaminent farines, céréales, fruits secs et pâtes. Apprenez à les identifier, comprendre les risques et agir efficacement.</p>
+          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg);">
+            <a href="/devis/?nuisible=mites-alimentaires" class="btn btn-primary btn-lg">Diagnostic gratuit <span class="btn-arrow"></span></a>
+            <a href="#identification" class="btn btn-outline btn-lg">Identifier l'espèce</a>
+          </div>
+        </div>
+        <!-- TODO Recraft : générer image mite alimentaire (Plodia interpunctella) ailes mouchetées brun/cuivre, fond pastel gold -->
+        <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Mite alimentaire — Plodia interpunctella (placeholder)" class="nuisible-hero-img">
       </div>
-      <img src="../../assets/nuisibles/mold-spores--aspergillus--realistic-fungal-shape--.png" alt="Mite alimentaire" class="nuisible-hero-img">
+
+      <div class="hero-stats animate-in">
+        <div class="hero-stat">
+          <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span>
+          <div class="hero-stat-text">
+            <span class="hero-stat-value" data-count="33" data-suffix="%">0</span>
+            <span class="hero-stat-label">des cuisines françaises</span>
+          </div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          <div class="hero-stat-text">
+            <span class="hero-stat-value" data-count="300" data-suffix="">0</span>
+            <span class="hero-stat-label">œufs par femelle</span>
+          </div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+          <div class="hero-stat-text">
+            <span class="hero-stat-value" data-count="8" data-suffix=" sem.">0</span>
+            <span class="hero-stat-label">cycle œuf-adulte</span>
+          </div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M4 14h9M18 6c1.5 0 3 1 3 4s-1.5 4-3 4h-2v4h-4V4h6c1.5 0 3 1 3 2"/></svg></span>
+          <div class="hero-stat-text">
+            <span class="hero-stat-value" data-count="200" data-suffix="€ /traitement">0</span>
+            <span class="hero-stat-label">à partir de</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container nuisible-section">
-    <h2>Comment reconnaître les mites alimentaires ?</h2>
-    <ul>
-      <li><strong>Papillon adulte :</strong> petit papillon de 8-10 mm d'envergure, ailes gris-brun (pyrale de la farine) ou bicolores beige et cuivre (pyrale indienne). Vole en zigzag près des plafonds.</li>
-      <li><strong>Larves :</strong> petits vers blancs de 10-15 mm avec une tête foncée. Ce sont les larves qui causent les dégâts en se nourrissant dans vos aliments.</li>
-      <li><strong>Cocons :</strong> les larves tissent des fils de soie dans les aliments et dans les recoins des placards avant de se nymphoser.</li>
-      <li><strong>Cycle :</strong> œuf à adulte en 4 à 8 semaines selon la température. Les adultes vivent 1 à 2 semaines et ne mangent pas — seules les larves se nourrissent.</li>
-    </ul>
 
-    <h2>Dangers et nuisances</h2>
-    <ul>
-      <li><strong>Contamination des aliments :</strong> les larves perforent les emballages et contaminent la farine, les céréales, le riz, les pâtes, les fruits secs, le chocolat et les épices.</li>
-      <li><strong>Fils de soie :</strong> les larves tissent des filaments de soie qui agglomèrent les aliments. Des grumeaux dans la farine sont un signe caractéristique.</li>
-      <li><strong>Allergènes :</strong> les déjections et les mues des larves peuvent provoquer des réactions allergiques chez les personnes sensibles.</li>
-      <li><strong>Gaspillage alimentaire :</strong> une infestation non traitée oblige à jeter de grandes quantités de nourriture stockée.</li>
-    </ul>
+<!-- ══════════════════════════════════════
+     PAGE LAYOUT — Content + Sidebar
+     ══════════════════════════════════════ -->
+<div class="page-layout">
+  <div class="page-content">
 
-    <h2>Signes de présence</h2>
-    <ul class="checklist">
-      <li>Petits papillons gris volant dans la cuisine, surtout le soir</li>
-      <li>Fils de soie ou toiles fines dans les paquets de farine, céréales ou riz</li>
-      <li>Petits vers blancs dans les aliments secs ou rampant sur les murs et plafonds</li>
-      <li>Trous dans les emballages en carton ou en plastique souple</li>
-      <li>Grumeaux inhabituels dans la farine ou les céréales</li>
-    </ul>
+    <!-- ════════ INTRO SEO + RADAR ════════ -->
+    <section class="section-inner" id="intro-seo">
+      <h2 style="margin-top:0;">Les mites alimentaires en France : un fléau silencieux des cuisines</h2>
+      <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">La pyrale indienne (Plodia interpunctella) représente plus de 70 % des infestations de denrées en France. Voici son profil de menace.</p>
 
-    <h2>Solutions</h2>
-    <ul>
-      <li><strong>Tri et élimination :</strong> inspectez tous les aliments secs. Jetez tout produit contaminé ou suspect. Nettoyez minutieusement les placards avec du vinaigre blanc.</li>
-      <li><strong>Stockage :</strong> transférez tous les aliments secs dans des bocaux en verre ou des boîtes hermétiques rigides. Les mites percent le carton et le plastique souple.</li>
-      <li><strong>Pièges à phéromones :</strong> les pièges collants à phéromones attirent les mâles adultes et permettent de surveiller l'infestation. Ils ne suffisent pas à éliminer le problème mais aident à évaluer son ampleur.</li>
-      <li><strong>Traitement professionnel :</strong> en cas d'infestation importante ou récurrente, nos techniciens appliquent un traitement insecticide ciblé dans les placards et recoins pour éliminer les larves cachées.</li>
-    </ul>
+      <div class="intro-profile">
+        <div class="intro-radar-wrap">
+          <canvas id="ficheRadar" width="220" height="220"></canvas>
+        </div>
+        <div class="intro-gauges">
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Reproduction</span><span class="gauge-val">88/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:88%;background:#E65100;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Discrétion</span><span class="gauge-val">85/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:85%;background:#F9A825;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Persistance</span><span class="gauge-val">80/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:80%;background:#F9A825;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Dégâts économiques</span><span class="gauge-val">75/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:75%;background:#C8B99A;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Adaptabilité</span><span class="gauge-val">90/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:90%;background:#E65100;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Résistance</span><span class="gauge-val">65/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:65%;background:#C8B99A;"></div></div></div>
+        </div>
+      </div>
 
-    <div style="background: var(--color-primary-100); border-radius: var(--radius-lg); padding: var(--space-2xl); margin-top: var(--space-2xl); text-align: center;">
-      <h2 style="margin-top: 0;">Mites dans vos placards ?</h2>
-      <p style="color: var(--color-text-muted);">Nos techniciens interviennent pour éliminer les mites alimentaires et vous conseillent sur les mesures de prévention.</p>
-      <div class="cta-double" style="justify-content: center;">
-        <a href="/devis/?nuisible=mites-alimentaires" class="btn btn-accent btn-lg">Intervention particulier →</a>
-        <a href="/devis/?nuisible=mites-alimentaires&type=pro" class="btn btn-primary btn-lg">Contrat pro →</a>
+      <p style="color:var(--color-text-muted);font-size:14px;line-height:1.7;margin-top:var(--space-lg);">Les mites alimentaires colonisent <strong>1 cuisine française sur 3</strong> au moins une fois dans sa vie. Une seule femelle pond <strong>100 à 300 œufs</strong> directement dans vos denrées sèches. Discrètes, leurs larves vivent cachées dans la farine, le riz, les pâtes, les fruits secs ou le chocolat. Sans intervention, une infestation dure plusieurs cycles consécutifs et oblige à jeter <strong>plusieurs kilos de provisions</strong> par foyer.</p>
+    </section>
+
+    <!-- ═══ ANATOMIE ═══ -->
+    <section id="anatomie">
+      <span class="section-label fade-up">Ce qui la rend redoutable</span>
+      <h2>Ce que cache l'anatomie de la pyrale indienne</h2>
+      <p>La mite alimentaire la plus fréquente en France, Plodia interpunctella, possède des capacités d'adaptation et de discrétion qui expliquent sa persistance. Comprendre son anatomie, c'est comprendre pourquoi une infestation revient malgré un grand ménage.</p>
+
+      <div class="anatomy-layout">
+        <div class="anatomy-visual" style="position:relative; min-height:320px; background:var(--color-pastel-gold-light); border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center;">
+          <!-- TODO Recraft : générer schéma anatomique pyrale indienne (ailes ouvertes, antennes, vue dorsale) -->
+          <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Anatomie de la pyrale indienne (placeholder)" style="width:100%; max-width:380px; border-radius:12px;">
+          <div class="anatomy-points">
+            <button class="anat-point" data-anat="ailes" style="top:30%;left:30%;" title="Ailes">🦋</button>
+            <button class="anat-point" data-anat="antennes" style="top:25%;left:55%;" title="Antennes">📡</button>
+            <button class="anat-point" data-anat="ovipositeur" style="top:65%;left:60%;" title="Reproduction">🥚</button>
+            <button class="anat-point" data-anat="larve" style="top:75%;left:30%;" title="Larve">🐛</button>
+            <button class="anat-point" data-anat="bouche" style="top:50%;left:70%;" title="Pièces buccales">👄</button>
+            <button class="anat-point" data-anat="soie" style="top:80%;left:50%;" title="Glandes séricigènes">🕸️</button>
+            <button class="anat-point" data-anat="pheromones" style="top:35%;left:75%;" title="Phéromones">💨</button>
+            <button class="anat-point" data-anat="ecailles" style="top:45%;left:40%;" title="Écailles">✨</button>
+          </div>
+        </div>
+        <div class="anatomy-detail" id="anatomyDetail">
+          <p style="color:#999;text-align:center;padding:var(--space-lg) 0;">Cliquez sur un point pour en savoir plus.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 1 — Identification ═══ -->
+    <section id="identification">
+      <span class="section-label fade-up">Étape 1 — Identification</span>
+      <h2>Les 4 mites alimentaires les plus présentes</h2>
+      <p>Pyrale indienne, pyrale de la farine, teigne du chocolat ou bruche du blé ? Chaque espèce a ses denrées de prédilection et sa biologie. En France, la pyrale indienne (<em>Plodia interpunctella</em>) représente 70 % des infestations domestiques. Voici comment les différencier.</p>
+
+      <div class="species-compare">
+        <div class="species-card-v2 active" data-species="plodia">
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);">
+            <!-- TODO Recraft : pyrale indienne ailes mouchetées brun/cuivre -->
+            <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Pyrale indienne — Plodia interpunctella (placeholder)">
+            <span class="badge">70 % des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Pyrale indienne</h3>
+            <span class="latin">Plodia interpunctella</span>
+            <div class="stars"><span class="stars-label">Fréquence</span> <span style="color:var(--color-accent-500);">★★★★★</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">8-10 mm</span><span class="spec-key">Envergure</span></div>
+              <div class="spec"><span class="spec-val">12-15 mm</span><span class="spec-key">Larve</span></div>
+              <div class="spec"><span class="spec-val">8-12 sem.</span><span class="spec-key">Cycle</span></div>
+              <div class="spec"><span class="spec-val">100-300</span><span class="spec-key">Œufs</span></div>
+            </div>
+            <p class="desc">Espèce la plus fréquente. Ailes bicolores : moitié antérieure beige clair, moitié postérieure cuivre rougeâtre. Larves dans céréales, fruits secs, chocolat, croquettes pour animaux.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="ephestia">
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);">
+            <!-- TODO Recraft : pyrale de la farine, ailes gris-brun uniforme -->
+            <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Pyrale de la farine — Ephestia kuehniella (placeholder)">
+            <span class="badge">20 % des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Pyrale de la farine</h3>
+            <span class="latin">Ephestia kuehniella</span>
+            <div class="stars"><span class="stars-label">Fréquence</span> <span style="color:var(--color-accent-500);">★★★★☆</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">10-14 mm</span><span class="spec-key">Envergure</span></div>
+              <div class="spec"><span class="spec-val">12-19 mm</span><span class="spec-key">Larve</span></div>
+              <div class="spec"><span class="spec-val">9-12 sem.</span><span class="spec-key">Cycle</span></div>
+              <div class="spec"><span class="spec-val">200-500</span><span class="spec-key">Œufs</span></div>
+            </div>
+            <p class="desc">Ailes gris-brun uniforme, plus grandes que la pyrale indienne. Affectionne particulièrement les farines, semoules et minoteries. Sa larve tisse de longs fils de soie agglomérant la farine.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="elutella">
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);">
+            <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Teigne du chocolat — Ephestia elutella (placeholder)">
+            <span class="badge">7 % des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Teigne du chocolat</h3>
+            <span class="latin">Ephestia elutella</span>
+            <div class="stars"><span class="stars-label">Fréquence</span> <span style="color:var(--color-accent-500);">★★★☆☆</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">10-14 mm</span><span class="spec-key">Envergure</span></div>
+              <div class="spec"><span class="spec-val">10-14 mm</span><span class="spec-key">Larve</span></div>
+              <div class="spec"><span class="spec-val">10-16 sem.</span><span class="spec-key">Cycle</span></div>
+              <div class="spec"><span class="spec-val">100-250</span><span class="spec-key">Œufs</span></div>
+            </div>
+            <p class="desc">Ravageur classique du cacao, du tabac et des fruits secs. Ailes gris-brun avec deux bandes transversales claires. Plus fréquente dans les entrepôts que dans les cuisines.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="sitotroga">
+          <div class="species-card-visual" style="background: var(--color-pastel-gold-light);">
+            <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Bruche du blé — Sitotroga cerealella (placeholder)">
+            <span class="badge">3 % des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Alucite des céréales</h3>
+            <span class="latin">Sitotroga cerealella</span>
+            <div class="stars"><span class="stars-label">Fréquence</span> <span style="color:var(--color-accent-500);">★★☆☆☆</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">12-16 mm</span><span class="spec-key">Envergure</span></div>
+              <div class="spec"><span class="spec-val">5-7 mm</span><span class="spec-key">Larve</span></div>
+              <div class="spec"><span class="spec-val">5-8 sem.</span><span class="spec-key">Cycle</span></div>
+              <div class="spec"><span class="spec-val">50-150</span><span class="spec-key">Œufs</span></div>
+            </div>
+            <p class="desc">Aussi appelée alucite. Ailes jaune paille à franges. Sa larve se développe à l'intérieur des grains entiers (blé, orge, maïs, riz). Plus rare en logement, fréquente dans silos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="did-you-know">
+        <span class="did-you-know-icon">💡</span>
+        <p><strong>Le saviez-vous ?</strong> Ne confondez pas les <strong>mites alimentaires</strong> (cuisine, denrées) avec les <strong>mites des vêtements</strong> (Tineola bisselliella, dressing, laine, soie). Les mites alimentaires sont plus grandes (8-15 mm) et bicolores cuivre, alors que les mites des vêtements sont uniformément dorées et plus petites (6-8 mm). Voir notre guide <a href="/nuisibles/" style="color:var(--color-primary-600);">mites des vêtements</a>.</p>
+      </div>
+
+      <!-- Signs of presence -->
+      <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Comparez avec ce que vous avez trouvé chez vous. Cliquez sur une image pour zoomer.</p>
+
+      <div class="signs-grid">
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Papillons de mites alimentaires volant en cuisine — placeholder" loading="lazy">
+          <h4>Papillons</h4>
+          <p>Petits papillons gris-cuivre volant le soir près des plafonds.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Fils de soie blancs dans paquet de farine — placeholder" loading="lazy">
+          <h4>Fils de soie</h4>
+          <p>Filaments blancs agglomérant la farine, le riz ou les céréales.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Larves blanches grimpant au plafond — placeholder" loading="lazy">
+          <h4>Larves grimpantes</h4>
+          <p>Petits vers blancs (12-15 mm) sur murs et plafonds avant nymphose.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cocons en angle de placard — placeholder" loading="lazy">
+          <h4>Cocons</h4>
+          <p>Cocons soyeux brunâtres en angle de placard ou sous étagère.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Grumeaux dans la farine — placeholder" loading="lazy">
+          <h4>Grumeaux</h4>
+          <p>Agrégats inhabituels dans farine, semoule ou poudres alimentaires.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Trous dans emballages cartons — placeholder" loading="lazy">
+          <h4>Trous emballages</h4>
+          <p>Petits trous percés dans cartons ou plastiques fins.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══ SECTION 2 — Risques sanitaires ═══ -->
+    <section id="dangers">
+      <span class="section-label fade-up">Étape 2 — Risques &amp; nuisances</span>
+      <h2>Ce que les mites alimentaires font vraiment dans vos placards</h2>
+      <p>Les mites alimentaires ne transmettent pas de maladies à l'homme — c'est leur seul aspect rassurant. En revanche, elles contaminent toutes vos provisions sèches : farines, céréales, fruits secs, riz, pâtes, chocolat, croquettes pour animaux. Voici les risques concrets.</p>
+
+      <!-- Tabs -->
+      <div class="risk-tabs">
+        <button class="risk-tab active" data-tab="contamination">🍽️ Ce qu'elles font à vos aliments</button>
+        <button class="risk-tab" data-tab="allergies">🤧 Allergies et intolérances</button>
+        <button class="risk-tab" data-tab="degats">💸 Les pertes économiques</button>
+      </div>
+
+      <!-- Tab 1: Contamination -->
+      <div class="risk-tab-content active" id="tab-contamination">
+        <div class="danger-facts">
+          <div class="danger-fact">
+            <div class="danger-fact-num">300</div>
+            <div class="danger-fact-text">
+              <strong>œufs par femelle</strong>
+              <span>Pondus directement à la surface des denrées. Microscopiques, ils restent invisibles jusqu'à éclosion en 4-6 jours.</span>
+            </div>
+          </div>
+          <div class="danger-fact">
+            <div class="danger-fact-num">12 sem.</div>
+            <div class="danger-fact-text">
+              <strong>de larves dans vos provisions</strong>
+              <span>La larve est le stade qui se nourrit. Elle creuse galeries dans les grains, tisse des fils de soie, dépose ses déjections.</span>
+            </div>
+          </div>
+          <div class="danger-fact">
+            <div class="danger-fact-num">5 kg</div>
+            <div class="danger-fact-text">
+              <strong>jetés en moyenne par foyer</strong>
+              <span>Une infestation moyenne oblige à jeter farines, riz, pâtes, fruits secs, chocolat. Toute denrée contaminée est impropre à la consommation.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Allergies -->
+      <div class="risk-tab-content" id="tab-allergies">
+        <div class="disease-grid">
+          <div class="disease-card high">
+            <div class="disease-header"><span class="disease-severity">●●○</span><strong>Allergies respiratoires</strong><span class="disease-tag high">Risque modéré</span></div>
+            <p>Les écailles des ailes et les déjections des larves peuvent provoquer rhinites, conjonctivites et asthme chez les personnes sensibles.</p>
+            <span class="disease-stat">Surtout chez asthmatiques et atopiques</span>
+          </div>
+          <div class="disease-card high">
+            <div class="disease-header"><span class="disease-severity">●●○</span><strong>Dermatites de contact</strong><span class="disease-tag high">Risque modéré</span></div>
+            <p>Les soies des chenilles peuvent irriter la peau au contact direct. Démangeaisons localisées en manipulant des denrées contaminées.</p>
+            <span class="disease-stat">Réactions individuelles</span>
+          </div>
+          <div class="disease-card moderate">
+            <div class="disease-header"><span class="disease-severity">●○○</span><strong>Troubles digestifs</strong><span class="disease-tag moderate">Risque faible</span></div>
+            <p>L'ingestion accidentelle d'œufs ou de larves est sans danger pour la santé, mais peut occasionner des troubles digestifs légers chez les enfants.</p>
+            <span class="disease-stat">Pas de transmission de pathogène</span>
+          </div>
+          <div class="disease-card moderate">
+            <div class="disease-header"><span class="disease-severity">●○○</span><strong>Pas de maladie transmise</strong><span class="disease-tag moderate">Bonne nouvelle</span></div>
+            <p>Contrairement aux rats, cafards ou mouches, les mites alimentaires ne sont vecteurs d'aucune maladie infectieuse. Le risque est purement alimentaire.</p>
+            <span class="disease-stat">0 maladie connue chez l'homme</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Pertes économiques -->
+      <div class="risk-tab-content" id="tab-degats">
+        <div class="damage-row">
+          <div class="damage-item">
+            <span class="damage-icon">🛒</span>
+            <div><strong>Provisions à jeter</strong><span>Une infestation moyenne = 5 à 15 kg de denrées (farine, riz, pâtes, fruits secs) à jeter. Coût : 50 à 200 €.</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">🏪</span>
+            <div><strong>Pertes commerciales</strong><span>Pour boulangeries, épiceries et restaurants : un foyer non traité = arrêts d'exploitation et plaintes clients. Risque sanitaire majeur.</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">📦</span>
+            <div><strong>Industrie agroalimentaire</strong><span>Premier ravageur des denrées stockées dans le monde. Pertes annuelles estimées entre 5 et 10 % de la production mondiale de céréales.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3 — Prolifération ═══ -->
+    <section id="simulateur">
+      <span class="section-label fade-up">Étape 3 — Prolifération</span>
+      <h2>Que se passe-t-il si vous n'agissez pas ?</h2>
+      <p>Avec un cycle de 8 à 12 semaines à température ambiante et 100 à 300 œufs par femelle, la prolifération des mites alimentaires est rapide. Ce simulateur vous montre l'évolution réelle d'une colonie dans votre cuisine selon votre situation.</p>
+
+      <div class="prolif-2col">
+        <div class="prolif-box-inputs">
+          <h3 style="margin:0 0 var(--space-md);font-size:15px;">Votre situation</h3>
+          <div class="prolif-config-inner">
+            <div class="prolif-config-item"><span class="prolif-config-label">Stockage</span><div class="prolif-pills" id="cfgLogement"><button class="prolif-pill active" data-val="paquet">📦 Paquets ouverts</button><button class="prolif-pill" data-val="bocal">🫙 Bocaux</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Température</span><div class="prolif-pills" id="cfgSecteur"><button class="prolif-pill" data-val="frais">❄️ Frais (15°C)</button><button class="prolif-pill active" data-val="ambient">🌡️ Tempéré (20°C)</button><button class="prolif-pill" data-val="chaud">☀️ Chaud (25°C+)</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Denrées exposées</span><div class="prolif-pills" id="cfgFood"><button class="prolif-pill" data-val="peu">Peu</button><button class="prolif-pill active" data-val="moyen">Moyen</button><button class="prolif-pill" data-val="beaucoup">Beaucoup</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Papillons aperçus</span><div class="prolif-pills" id="cfgInitial"><button class="prolif-pill active" data-val="1">1</button><button class="prolif-pill" data-val="3">3</button><button class="prolif-pill" data-val="5">5</button><button class="prolif-pill" data-val="10">10+</button></div></div>
+          </div>
+          <div style="margin-top:var(--space-lg);">
+            <span class="prolif-config-label">Projection dans le temps</span>
+            <input type="range" id="prolifSlider" min="0" max="11" value="0" style="width:100%;margin-top:6px;">
+            <div class="prolif-months-bar"><span>S2</span><span>S4</span><span>S8</span><span>S12</span><span>S24</span></div>
+          </div>
+        </div>
+
+        <div class="prolif-box-results" id="prolifResultsBox">
+          <div class="prolif-result-header">
+            <span class="prolif-month-label" id="prolifMonth">SEMAINE 2</span>
+            <span class="prolif-pop-count" id="prolifCount">1 mite</span>
+          </div>
+          <div class="prolif-visual" id="prolifVisual">
+            <div class="prolif-rats" id="prolifRats"></div>
+          </div>
+          <div class="prolif-stats-compact">
+            <div><strong id="pImpactCrottes">100</strong><span>œufs pondus</span></div>
+            <div><strong id="pImpactCost">2 €</strong><span>denrées</span></div>
+            <div><strong id="pImpactFood">0,2 kg</strong><span>contaminés</span></div>
+          </div>
+          <div class="prolif-alert" id="prolifAlert">
+            <span class="prolif-alert-icon">✓</span>
+            <span class="prolif-alert-text">Situation maîtrisable.</span>
+          </div>
+          <div class="prolif-cta" id="prolifCta" style="display:none;">
+            <a href="/devis/?nuisible=mites-alimentaires" class="btn btn-primary" style="width:100%;">Intervenir maintenant <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4 — Zones d'infestation (CUISINE) ═══ -->
+    <section id="zones">
+      <span class="section-label fade-up">Étape 4 — Votre cuisine</span>
+      <h2>Où se cachent les mites dans votre cuisine ?</h2>
+      <p>Les mites alimentaires colonisent les zones de stockage des denrées sèches. Placards à céréales, garde-manger, fruits secs, gamelles d'animaux : voici les cachettes les plus courantes et comment les inspecter.</p>
+
+      <div class="house-wrap" id="houseWrap">
+        <svg viewBox="0 0 900 550" id="houseSvg" aria-label="Coupe d'une cuisine — zones d'infestation par les mites alimentaires"></svg>
+        <div class="house-tooltip" id="houseTooltip"></div>
+      </div>
+
+      <div class="did-you-know">
+        <span class="did-you-know-icon">💡</span>
+        <p><strong>Le saviez-vous ?</strong> Les larves de pyrale indienne <strong>migrent jusqu'à 8 mètres</strong> de leur source de nourriture pour trouver un endroit sec et tranquille où se nymphoser. C'est pourquoi vous trouvez parfois des cocons dans une chambre ou un couloir loin de la cuisine.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 5 — Score de risque ═══ -->
+    <section id="evaluation">
+      <span class="section-label fade-up">Votre situation</span>
+      <h2>Votre score de risque personnel</h2>
+      <p>Évaluez gratuitement le niveau de vulnérabilité de votre cuisine face aux mites alimentaires. Ce diagnostic en 8 points identifie les facteurs qui favorisent une infestation.</p>
+      <div class="risk-check-layout">
+        <div class="risk-checklist" id="riskChecklist">
+          <label class="risk-check-item"><input type="checkbox" data-score="18" checked> Petits papillons gris volant le soir en cuisine</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="15"> Fils de soie blancs dans paquets de farine ou céréales</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="15"> Larves blanches grimpant aux murs ou plafonds</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="12" checked> Stockage de denrées sèches dans emballages d'origine</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="10"> Bocaux non hermétiques (sacs plastiques, boîtes mal fermées)</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="8"> Achat récent de farine, riz, fruits secs ou croquettes</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="10"> Cuisine chauffée à plus de 22°C en permanence</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="12"> Placards rarement vidés et nettoyés (plus de 6 mois)</label>
+        </div>
+        <div class="risk-result-box">
+          <svg class="risk-score-svg" viewBox="0 0 240 140" id="riskGauge">
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#E5E5E5" stroke-width="14" stroke-linecap="round"/>
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#4CAF50" stroke-width="14" stroke-linecap="round" id="riskArc" stroke-dasharray="314" stroke-dashoffset="314"/>
+            <text x="120" y="105" text-anchor="middle" font-size="36" font-weight="700" fill="var(--color-primary-900)" id="riskScoreText">0</text>
+            <text x="120" y="125" text-anchor="middle" font-size="12" fill="#999">/100</text>
+          </svg>
+          <div class="risk-verdict">
+            <h3 id="riskVerdictTitle">Faible</h3>
+            <p id="riskVerdictDesc">Cochez les cases pour évaluer votre risque.</p>
+          </div>
+          <div id="riskCta" style="margin-top:var(--space-md);display:none;">
+            <a href="/devis/?nuisible=mites-alimentaires" class="btn btn-primary" style="width:100%;">Diagnostic gratuit <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 6 — Calendrier ═══ -->
+    <section id="calendrier">
+      <span class="section-label fade-up">Saisonnalité</span>
+      <h2>Quand agir ? Le calendrier des mites alimentaires</h2>
+      <p>Les mites alimentaires sont actives toute l'année dans les logements chauffés, mais leur cycle est plus rapide en été. Comprendre leur saisonnalité permet d'agir au bon moment et de prévenir les pics d'infestation.</p>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </section>
+
+
+    <!-- ═══ SECTION 7 — Carte de France ═══ -->
+    <section id="carte">
+      <span class="section-label fade-up">Géographie</span>
+      <h2>Les régions les plus touchées par les mites alimentaires</h2>
+      <p>Les mites alimentaires sont présentes sur tout le territoire français, principalement dans les logements chauffés. Cliquez sur une région pour découvrir la situation locale.</p>
+      <div class="france-map-wrapper">
+        <div class="france-map-left">
+          <svg class="france-map-svg" viewBox="0 0 550 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carte de France des niveaux d'infestation par les mites alimentaires">
+            <!-- Carte simplifiée : 13 régions en rectangles stylisés -->
+            <g>
+              <rect data-region="ile-de-france" x="280" y="170" width="50" height="40" rx="4" fill="#F5A623"/>
+              <rect data-region="hauts-de-france" x="270" y="100" width="80" height="50" rx="4" fill="#F5A623"/>
+              <rect data-region="grand-est" x="370" y="120" width="100" height="80" rx="4" fill="#F5A623"/>
+              <rect data-region="bourgogne-franche-comte" x="320" y="220" width="100" height="80" rx="4" fill="#F5D76E"/>
+              <rect data-region="auvergne-rhone-alpes" x="320" y="310" width="120" height="100" rx="4" fill="#F5A623"/>
+              <rect data-region="paca" x="380" y="420" width="100" height="70" rx="4" fill="#F5A623"/>
+              <rect data-region="occitanie" x="200" y="420" width="170" height="80" rx="4" fill="#F5A623"/>
+              <rect data-region="nouvelle-aquitaine" x="120" y="280" width="170" height="140" rx="4" fill="#F5D76E"/>
+              <rect data-region="centre-val-de-loire" x="220" y="220" width="90" height="80" rx="4" fill="#F5D76E"/>
+              <rect data-region="pays-de-la-loire" x="120" y="220" width="90" height="50" rx="4" fill="#F5D76E"/>
+              <rect data-region="bretagne" x="40" y="170" width="120" height="50" rx="4" fill="#F5D76E"/>
+              <rect data-region="normandie" x="160" y="120" width="100" height="50" rx="4" fill="#F5D76E"/>
+              <rect data-region="corse" x="490" y="510" width="40" height="60" rx="4" fill="#F5D76E"/>
+            </g>
+          </svg>
+          <div class="map-legend">
+            <div class="map-legend-item"><span class="map-legend-swatch" style="background:#F5A623;"></span> Élevé (logements chauffés denses)</div>
+            <div class="map-legend-item"><span class="map-legend-swatch" style="background:#F5D76E;"></span> Modéré</div>
+          </div>
+        </div>
+        <div class="map-detail-panel" id="mapDetailPanel">
+          <span class="map-detail-level high">Élevé</span>
+          <h3 id="mapDetailName">Île-de-France</h3>
+          <p class="map-detail-text" id="mapDetailText">Densité urbaine et chauffage permanent toute l'année favorisent un cycle complet sans pause hivernale. Forte fréquence dans les appartements parisiens et la petite couronne.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 8 — Méthodes de traitement ═══ -->
+    <section id="methodes">
+      <span class="section-label fade-up">Solutions</span>
+      <h2>Quelle méthode choisir contre les mites alimentaires ?</h2>
+      <p>Pièges à phéromones, congélation, vapeur, terre de diatomée ou intervention professionnelle : chaque méthode a ses avantages et ses limites. Comparaison objective pour choisir le traitement adapté à votre niveau d'infestation.</p>
+
+      <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-lg);">
+        <button class="method-filter active" data-level="all" onclick="filterMethods('all')">Toutes</button>
+        <button class="method-filter" data-level="light" onclick="filterMethods('light')">Infestation légère</button>
+        <button class="method-filter" data-level="medium" onclick="filterMethods('medium')">Moyenne</button>
+        <button class="method-filter" data-level="severe" onclick="filterMethods('severe')">Sévère</button>
+      </div>
+
+      <div class="methods-grid">
+        <div class="method-card" data-level="light">
+          <h3>🪤 Pièges à phéromones</h3>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:50%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:35%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Outil de détection et monitoring. N'attire que les mâles. Ne remplace jamais l'élimination des denrées contaminées.</p>
+        </div>
+        <div class="method-card" data-level="light">
+          <h4>❄️ Congélation 72h</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:80%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:50%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:100%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Mettre les denrées suspectes 72h à -18°C tue œufs et larves. Méthode 100 % sûre, idéale pour aliments douteux.</p>
+        </div>
+        <div class="method-card" data-level="medium">
+          <h4>💨 Nettoyage vapeur</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:75%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:80%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Vapeur à 100°C tue tous les stades. Indispensable pour traiter joints, charnières et fissures où se cachent œufs et cocons.</p>
+        </div>
+        <div class="method-card" data-level="medium">
+          <h4>🌿 Terre de diatomée</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:60%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:40%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:90%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Poudre minérale alimentaire. Tue les larves par déshydratation. Application en barrière dans les angles des placards.</p>
+        </div>
+        <div class="method-card recommended" data-level="severe">
+          <h4>🛡️ Intervention professionnelle</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:90%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Diagnostic complet, aspiration HEPA, traitement vapeur, pulvérisation insecticide ciblé non alimentaire, suivi post-intervention. Le seul moyen fiable pour une infestation établie.</p>
+        </div>
+        <div class="method-card" data-level="severe">
+          <h4>🧪 Insecticides ciblés</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:85%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:80%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:35%;background:#F44336;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Pyréthrinoïdes en pulvérisation murale (hors zone alimentaire). Réservé aux professionnels Certibiocide. Vider les placards avant traitement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 9 — Protocole ═══ -->
+    <section id="protocole">
+      <span class="section-label fade-up">Plan d'action</span>
+      <h2>Le protocole étape par étape</h2>
+      <p>Un plan d'action structuré en 5 étapes pour éliminer les mites alimentaires de votre cuisine. Que vous fassiez appel à <a href="/desinsectisation/mites-alimentaires/" style="color:var(--color-primary-600);">un professionnel Sanalia</a> ou que vous agissiez vous-même, ce protocole couvre l'ensemble du processus.</p>
+      <div class="protocol-steps" id="protocolSteps">
+        <div class="protocol-step">
+          <h3>Diagnostiquer</h3>
+          <label class="protocol-check"><input type="checkbox"> Inspecter tous les paquets : farine, riz, pâtes, céréales, fruits secs, chocolat, croquettes</label>
+          <label class="protocol-check"><input type="checkbox"> Repérer les fils de soie, larves vivantes ou papillons adultes</label>
+          <label class="protocol-check"><input type="checkbox"> Identifier l'espèce (pyrale indienne dans 70 % des cas)</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Éliminer</h4>
+          <label class="protocol-check"><input type="checkbox"> Jeter immédiatement toutes les denrées contaminées dans un sac hermétique</label>
+          <label class="protocol-check"><input type="checkbox"> Sortir le sac à l'extérieur (poubelle dehors, jamais sous l'évier)</label>
+          <label class="protocol-check"><input type="checkbox"> Ne jamais simplement remettre des paquets douteux dans le placard</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Nettoyer</h4>
+          <label class="protocol-check"><input type="checkbox"> Vider entièrement chaque placard et étagère</label>
+          <label class="protocol-check"><input type="checkbox"> Aspirer minutieusement (coins, charnières, fissures, dessus des meubles)</label>
+          <label class="protocol-check"><input type="checkbox"> Vider l'aspirateur immédiatement, sortir le sac à l'extérieur</label>
+          <label class="protocol-check"><input type="checkbox"> Nettoyer au vinaigre blanc chaud ou à la vapeur</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Sécuriser</h4>
+          <label class="protocol-check"><input type="checkbox"> Transférer toutes les denrées sèches dans des bocaux hermétiques en verre</label>
+          <label class="protocol-check"><input type="checkbox"> Congeler 72h à -18°C les achats récents de farine, riz et fruits secs</label>
+          <label class="protocol-check"><input type="checkbox"> Disposer des feuilles de laurier ou clous de girofle en répulsif</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Surveiller</h4>
+          <label class="protocol-check"><input type="checkbox"> Installer 2 à 3 pièges à phéromones (Plodia) dans les placards</label>
+          <label class="protocol-check"><input type="checkbox"> Inspecter les denrées toutes les 2 semaines pendant 3 mois</label>
+          <label class="protocol-check"><input type="checkbox"> Vérifier les achats neufs avant de les ranger</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 10 — Quiz ═══ -->
+    <section id="quiz">
+      <span class="section-label fade-up">Auto-diagnostic</span>
+      <h2>Avez-vous des mites alimentaires chez vous ?</h2>
+      <p>Ce quiz rapide analyse les indices de présence de mites dans votre cuisine. Papillons volants, fils de soie, larves grimpantes : répondez à 8 questions pour obtenir un diagnostic personnalisé.</p>
+      <div class="quiz-container" id="quizContainer">
+        <div class="quiz-progress" id="quizProgress"></div>
+        <div id="quizBody">
+          <p class="quiz-question" id="quizQuestion"></p>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+        <div class="quiz-result" id="quizResult">
+          <div class="score-circle" id="quizScoreCircle"></div>
+          <h3 id="quizVerdictTitle"></h3>
+          <p id="quizVerdictDesc"></p>
+          <div style="display:flex;gap:var(--space-md);justify-content:center;margin-top:var(--space-xl);flex-wrap:wrap;">
+            <button class="btn btn-outline" id="quizRestart">Recommencer</button>
+            <a href="/devis/?nuisible=mites-alimentaires" class="btn btn-primary">Diagnostic gratuit <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 11 — Coût ═══ -->
+    <section id="cout">
+      <span class="section-label fade-up">L'enjeu financier</span>
+      <h2>Ce que coûte l'inattention</h2>
+      <p>Une infestation de mites alimentaires entraîne des pertes économiques significatives : provisions à jeter, équipements à nettoyer, traitement professionnel. Voici la répartition des coûts réels.</p>
+
+      <div class="cost-breakdown" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-sm);margin-bottom:var(--space-xl);">
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🛒</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">50 – 200 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Provisions à jeter<br><span style="font-size:11px;">(farine, riz, fruits secs, croquettes)</span></div>
+        </div>
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🫙</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">80 – 250 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Bocaux hermétiques<br><span style="font-size:11px;">(verre, plastique épais)</span></div>
+        </div>
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🧹</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">40 – 150 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Pièges et produits<br><span style="font-size:11px;">(phéromones, vapeur, terre de diatomée)</span></div>
+        </div>
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🛡️</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">150 – 600 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Traitement Sanalia<br><span style="font-size:11px;">(ponctuel ou avec suivi prévention)</span></div>
+        </div>
+      </div>
+
+      <div class="cost-layout">
+        <div class="sim-chart-wrap">
+          <canvas id="costChart" height="200"></canvas>
+        </div>
+        <div class="cost-highlight">
+          <div class="big" id="costRoi">8:1</div>
+          <div class="label">Retour sur investissement</div>
+          <div class="cost-slider-wrap">
+            <label>Mois d'intervention : <strong id="costMonthVal">3</strong></label>
+            <input type="range" id="costMonthSlider" min="1" max="12" value="3" style="max-width:200px;">
+            <div class="cost-savings" id="costSavings">Vous économisez ~600 €</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 12 — Histoire ═══ -->
+    <section id="histoire">
+      <span class="section-label fade-up">Contexte historique</span>
+      <h2>Quand l'Histoire s'en mêle</h2>
+      <p>Les mites alimentaires accompagnent l'humanité depuis l'invention du stockage des céréales. Voici les grandes dates de la lutte contre ce ravageur des denrées.</p>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-year">1813</span><div class="tl-text">L'entomologiste allemand <strong>Jacob Hübner</strong> décrit pour la première fois Plodia interpunctella, la pyrale indienne, dans un ouvrage de référence sur les lépidoptères.</div></div>
+        <div class="tl-item"><span class="tl-year">~1900</span><div class="tl-text">Premières <strong>luttes chimiques</strong> par fumigation au sulfure de carbone et au cyanure dans les minoteries européennes.</div></div>
+        <div class="tl-item"><span class="tl-year">1950</span><div class="tl-text">Naissance de l'<strong>Integrated Pest Management (IPM)</strong> dans l'industrie agroalimentaire américaine, combinant hygiène, surveillance et chimie raisonnée.</div></div>
+        <div class="tl-item"><span class="tl-year">1980</span><div class="tl-text">Synthèse des <strong>phéromones sexuelles</strong> de Plodia interpunctella, ouvrant la voie aux pièges de monitoring devenus standard mondial.</div></div>
+        <div class="tl-item"><span class="tl-year">2010</span><div class="tl-text">Généralisation de la <strong>lutte intégrée</strong> en France : pièges, vapeur, congélation, insecticides ciblés. Bannissement progressif des fumigants.</div></div>
+        <div class="tl-item"><span class="tl-year">2020</span><div class="tl-text">Essor des <strong>biopesticides</strong> (Bacillus thuringiensis) et des <strong>auxiliaires de lutte</strong> (Trichogramma) en industrie agroalimentaire.</div></div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION — Carte mondiale ═══ -->
+    <section id="monde">
+      <span class="section-label fade-up">Perspective mondiale</span>
+      <h2>Les mites alimentaires, un défi planétaire</h2>
+      <p>Premier ravageur des denrées stockées au monde, la pyrale indienne touche tous les continents. Cliquez sur une région pour découvrir l'ampleur du phénomène.</p>
+
+      <div class="world-cities" id="worldCities">
+        <div class="world-city active" data-city="usa"><span class="world-city-flag">🇺🇸</span><div class="world-city-info"><strong>États-Unis</strong><span>Premier ravageur post-récolte</span></div></div>
+        <div class="world-city" data-city="europe"><span class="world-city-flag">🇪🇺</span><div class="world-city-info"><strong>Europe centrale</strong><span>Industrie chocolatière à risque</span></div></div>
+        <div class="world-city" data-city="india"><span class="world-city-flag">🇮🇳</span><div class="world-city-info"><strong>Inde</strong><span>Origine de la pyrale indienne</span></div></div>
+        <div class="world-city" data-city="brazil"><span class="world-city-flag">🇧🇷</span><div class="world-city-info"><strong>Brésil</strong><span>Pertes massives sur le café</span></div></div>
+        <div class="world-city" data-city="asia"><span class="world-city-flag">🇨🇳</span><div class="world-city-info"><strong>Asie du Sud-Est</strong><span>Fléau du riz stocké</span></div></div>
+        <div class="world-city" data-city="madagascar"><span class="world-city-flag">🇲🇬</span><div class="world-city-info"><strong>Madagascar</strong><span>Stockage céréales à risque</span></div></div>
+      </div>
+
+      <div class="world-detail" id="worldDetail">
+        <h3>🇺🇸 États-Unis — Premier ravageur post-récolte</h3>
+        <p>Aux États-Unis, la pyrale indienne (<em>Plodia interpunctella</em>) est considérée comme le <strong>ravageur n°1 des denrées stockées</strong>. La FDA lui consacre un programme dédié, et l'industrie consacre plus de <strong>500 millions de dollars par an</strong> à sa surveillance et à son contrôle. Des pièges à phéromones sont obligatoires dans la plupart des entrepôts agroalimentaires.</p>
+      </div>
+    </section>
+
+
+    <!-- ═══ SECTION 13 — FAQ ═══ -->
+    <section id="faq">
+      <span class="section-label fade-up">Questions fréquentes</span>
+      <h2>Les vraies réponses, sans détour</h2>
+      <p>Les questions les plus posées par nos clients sur les mites alimentaires, les méthodes de traitement et la prévention. Réponses claires et sans jargon.</p>
+      <div class="accordion-list" id="faqAccordion">
+        <div class="accordion-item">
+          <button class="accordion-header">Les mites alimentaires sont-elles dangereuses pour la santé ? <span class="icon-toggle">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Non. Les mites alimentaires (Plodia interpunctella, Ephestia kuehniella) ne transmettent <strong>aucune maladie connue</strong> à l'homme. Le principal risque est la contamination alimentaire : larves vivantes, fils de soie, déjections et mues rendent les denrées impropres à la consommation. Les personnes très sensibles peuvent développer des allergies respiratoires (rhinite, asthme) ou cutanées (dermatite de contact) en présence d'une infestation massive.
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">D'où viennent les mites alimentaires dans ma cuisine ? <span class="icon-toggle">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Dans <strong>90 % des cas</strong>, les mites entrent déjà sous forme d'œufs cachés dans les denrées achetées en magasin : farine, riz, pâtes, céréales, fruits secs, chocolat, biscuits, croquettes pour animaux. La contamination peut avoir eu lieu en silo, en usine, en entrepôt ou en magasin. Plus rarement, les papillons adultes entrent par les fenêtres en été, attirés par la lumière.
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">Quel produit naturel est efficace contre les mites alimentaires ? <span class="icon-toggle">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Plusieurs solutions naturelles ont une efficacité limitée mais utile en prévention : <strong>huiles essentielles</strong> de lavande, cèdre, laurier ou clou de girofle (effet répulsif), <strong>terre de diatomée alimentaire</strong> (tue les larves par déshydratation), <strong>congélation à -18°C pendant 72h</strong> (tue œufs et larves), <strong>vinaigre blanc chaud</strong> en nettoyage (effet larvicide). Aucune méthode naturelle ne remplace l'élimination des denrées contaminées.
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">Combien de temps pour éradiquer une infestation ? <span class="icon-toggle">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Comptez <strong>4 à 8 semaines</strong> pour éradiquer complètement une infestation. Le cycle de vie de la mite alimentaire est de 8-12 semaines, et les œufs cachés peuvent éclore après le traitement. Un suivi avec pièges à phéromones pendant <strong>3 mois</strong> est recommandé pour s'assurer de l'absence de reprise. Avec un traitement professionnel <a href="/desinsectisation/mites-alimentaires/" style="color:var(--color-primary-600);">Sanalia</a>, comptez 2-3 visites espacées de 3 semaines.
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">Que faire des denrées contaminées ? <span class="icon-toggle">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Toute denrée contenant des fils de soie, des larves ou des papillons doit être <strong>jetée immédiatement</strong> dans un sac hermétique sorti à l'extérieur. Ne la mettez jamais dans la poubelle de la cuisine sous l'évier — les larves continueraient à se nourrir. Les denrées suspectes mais sans signes visibles peuvent être <strong>congelées 72h à -18°C</strong> ou <strong>chauffées à 60°C pendant 30 minutes</strong> pour tuer œufs et larves.
+          </div></div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-header">Les pièges à phéromones fonctionnent-ils vraiment ? <span class="icon-toggle">+</span></button>
+          <div class="accordion-body"><div class="accordion-body-inner">
+            Oui, mais uniquement comme <strong>outil de détection et de monitoring</strong>. Les pièges à phéromones n'attirent que les <strong>mâles</strong> de Plodia interpunctella (et certaines espèces voisines). Ils permettent d'évaluer l'ampleur de l'infestation, de localiser les foyers et de surveiller la reprise après traitement. Ils ne remplacent jamais l'élimination des denrées contaminées et le nettoyage approfondi. Renouveler tous les 2-3 mois pour rester efficace.
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 14 — CTA Final ═══ -->
+    <section id="action" style="border-bottom:none;">
+      <div class="final-cta">
+        <h2>Vous savez maintenant. Il est temps d'agir.</h2>
+        <p>Diagnostic gratuit en 2 minutes. Réponse sous 2 h. Intervention sous 48 h.</p>
+        <a href="/devis/?nuisible=mites-alimentaires" class="btn btn-primary btn-lg">Obtenir mon diagnostic gratuit <span class="btn-arrow"></span></a>
+        <div class="trust-badges">
+          <span>✓ Sans engagement</span>
+          <span>✓ Techniciens Certibiocide</span>
+          <span>✓ Intervention sous 48 h</span>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ══════════════════════════════════════
+       STICKY SIDEBAR
+       ══════════════════════════════════════ -->
+  <div class="sidebar-wrap">
+    <div class="sidebar-card">
+      <div class="sidebar-visual">
+        <!-- TODO Recraft : pyrale indienne ailes ouvertes, fond pastel gold -->
+        <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Mite alimentaire — placeholder">
+      </div>
+      <div class="sidebar-body">
+        <h3>Mites alimentaires</h3><span class="sidebar-badge">1 cuisine sur 3</span>
+        <span class="sidebar-latin">Plodia interpunctella</span>
+        <div class="sidebar-stats">
+          <div><span class="sidebar-stat-val">33 %</span><span class="sidebar-stat-label">des cuisines</span></div>
+          <div><span class="sidebar-stat-val">300 œufs</span><span class="sidebar-stat-label">par femelle</span></div>
+          <div><span class="sidebar-stat-val">8-12 sem.</span><span class="sidebar-stat-label">cycle complet</span></div>
+          <div><span class="sidebar-stat-val">0 maladie</span><span class="sidebar-stat-label">transmise</span></div>
+        </div>
+        <div class="sidebar-cta">
+          <a href="/devis/?nuisible=mites-alimentaires" class="btn btn-primary">Devis traitement <span class="btn-arrow"></span></a>
+          <span class="sidebar-offer"><span class="pulse-dot"></span> 1ère intervention offerte</span>
+        </div>
       </div>
     </div>
+    <a href="#quiz" class="sidebar-quiz">Avez-vous des mites chez vous ? Faites le test →</a>
+  </div>
 
-    <h2>Liens utiles</h2>
-    <div class="related-links">
-      <a href="/nuisibles/cafards/">Fiche Cafards</a>
-      <a href="/nuisibles/">Tous les nuisibles</a>
+</div><!-- /.page-layout -->
+
+<!-- ══════════════════════════════════════
+     COHABITANTS (full width)
+     ══════════════════════════════════════ -->
+<section class="section" id="cohabitants">
+  <div class="container">
+    <h2>Les nuisibles qui cohabitent souvent avec les mites alimentaires</h2>
+    <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">La présence de mites alimentaires accompagne souvent celle d'autres ravageurs des denrées stockées dans la cuisine.</p>
+    <div class="nuisibles-grid">
+      <a href="/nuisibles/" class="card-nuisible pastel-rose">
+        <div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Mite des vêtements"></div>
+        <div class="card-nuisible-info"><h3>Mites des vêtements</h3><span class="card-nuisible-cta">En savoir plus →</span></div>
+      </a>
+      <a href="/nuisibles/" class="card-nuisible pastel-gold">
+        <div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Charançons"></div>
+        <div class="card-nuisible-info"><h3>Charançons</h3><span class="card-nuisible-cta">En savoir plus →</span></div>
+      </a>
+      <a href="/nuisibles/" class="card-nuisible pastel-peach">
+        <div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Bruches du blé"></div>
+        <div class="card-nuisible-info"><h3>Bruches du blé</h3><span class="card-nuisible-cta">En savoir plus →</span></div>
+      </a>
+      <a href="/nuisibles/cafards/" class="card-nuisible pastel-mint">
+        <div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cafards"></div>
+        <div class="card-nuisible-info"><h3>Cafards</h3><span class="card-nuisible-cta">En savoir plus →</span></div>
+      </a>
     </div>
   </div>
 </section>
@@ -467,6 +1605,7 @@
   </div>
 </div>
 </div>
+
 <div data-component="footer">
 <footer class="footer footer-v2">
 
@@ -588,7 +1727,7 @@
 
         <!-- ─── Column: Services particuliers ─── -->
         <details class="footer-col footer-col-accordion" open data-auto-open>
-          <summary class="footer-col-title"><h4>Services particuliers</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Services particuliers</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/deratisation/">Dératisation</a></li>
             <li><a href="/desinsectisation/">Désinsectisation</a></li>
@@ -603,7 +1742,7 @@
 
         <!-- ─── Column: Services pros ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Services pros <span class="footer-col-tag">B2B</span></h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Services pros <span class="footer-col-tag">B2B</span></h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/professionnel/">Sanalia Pro</a></li>
             <li><a href="/professionnel/#restauration">Restauration &amp; HACCP</a></li>
@@ -618,7 +1757,7 @@
 
         <!-- ─── Column: Guides nuisibles ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Guides nuisibles</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Guides nuisibles</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/nuisibles/rats/">Rats</a></li>
             <li><a href="/nuisibles/souris/">Souris</a></li>
@@ -639,7 +1778,7 @@
 
         <!-- ─── Column: Implantations ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Implantations</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Implantations</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/deratisation/paris/">Paris</a></li>
             <li><a href="/deratisation/lyon/">Lyon</a></li>
@@ -657,7 +1796,7 @@
 
         <!-- ─── Column: À propos ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>À propos</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>À propos</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/a-propos/">Notre histoire</a></li>
             <li><a href="/garantie/">Nos garanties</a></li>
@@ -866,6 +2005,7 @@
 })();
 </script>
 </div>
+
 <div data-component="mobile-sticky-cta">
 <div class="mobile-sticky-cta mobile-sticky-cta-v3" role="region" aria-label="Actions rapides">
   <!-- Action row : primary CTA (full width) + phone icon button -->
@@ -885,6 +2025,688 @@
   </div>
 </div>
 </div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
 <script src="/js/app.js?v=20260417j"></script>
+<script>
+/* ══════════════════════════════════════════════
+   MITES ALIMENTAIRES — Interactive Features
+   ══════════════════════════════════════════════ */
+
+function updateSliderFill(el) {
+  const pct = (el.value - el.min) / (el.max - el.min) * 100;
+  el.style.background = 'linear-gradient(to right, #C8B99A 0%, #C8B99A ' + pct + '%, #E5E5E5 ' + pct + '%, #E5E5E5 100%)';
+}
+
+const DATA = {
+  calendar: [
+    {month:'Jan',activity:2,reproduction:2,intrusion:2,treatment:'Optimal'},
+    {month:'Fév',activity:2,reproduction:2,intrusion:2,treatment:'Optimal'},
+    {month:'Mar',activity:3,reproduction:3,intrusion:3,treatment:'Bon'},
+    {month:'Avr',activity:4,reproduction:4,intrusion:4,treatment:'Bon'},
+    {month:'Mai',activity:5,reproduction:5,intrusion:4,treatment:'Moyen'},
+    {month:'Jun',activity:5,reproduction:5,intrusion:5,treatment:'Moyen'},
+    {month:'Jul',activity:5,reproduction:5,intrusion:5,treatment:'Moyen'},
+    {month:'Aoû',activity:5,reproduction:5,intrusion:5,treatment:'Moyen'},
+    {month:'Sep',activity:4,reproduction:4,intrusion:4,treatment:'Bon'},
+    {month:'Oct',activity:3,reproduction:3,intrusion:3,treatment:'Optimal'},
+    {month:'Nov',activity:3,reproduction:2,intrusion:2,treatment:'Optimal'},
+    {month:'Déc',activity:2,reproduction:2,intrusion:2,treatment:'Optimal'}
+  ],
+  quiz: [
+    {q:'Avez-vous vu de petits papillons gris voler le soir près du plafond ?',opts:['Oui','Non','Parfois'],scores:[3,0,1]},
+    {q:'Trouvez-vous des fils de soie blancs dans les paquets de farine ou riz ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},
+    {q:'Avez-vous vu des petits vers blancs grimper aux murs ou au plafond ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Stockez-vous farine, riz, pâtes dans leur emballage d\'origine ?',opts:['Oui','Non, en bocaux'],scores:[2,0]},
+    {q:'Y a-t-il des grumeaux inhabituels dans votre farine ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Avez-vous remarqué des trous dans des cartons d\'aliments ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Y a-t-il des cocons soyeux dans les angles des placards ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Votre cuisine est-elle chauffée à plus de 22°C en permanence ?',opts:['Oui','Non'],scores:[2,0]}
+  ],
+  houseZones: [
+    {x:150,y:240,label:'Placards à céréales',desc:'Le foyer principal. Farines, riz, pâtes, semoules, flocons d\'avoine. Les œufs sont déposés sur les ouvertures de paquets — vérifiez systématiquement avant de ranger.'},
+    {x:280,y:240,label:'Garde-manger',desc:'Chocolats, biscuits, fruits secs, épices : aliments très attractifs pour la pyrale indienne et la teigne du chocolat. Inspectez sucre, cacao et chapelure.'},
+    {x:420,y:240,label:'Étagère ouverte',desc:'Les bocaux non hermétiques laissent passer les femelles qui pondent à proximité. Toujours préférer le verre avec joint.'},
+    {x:550,y:240,label:'Tiroirs à épices',desc:'Cumin, coriandre, paprika, piment : les épices stockées en sachets souples sont une cible classique. Petits cocons souvent collés au plafond du tiroir.'},
+    {x:700,y:300,label:'Gamelle animal',desc:'Les croquettes pour chat ou chien sont l\'une des plus grandes sources de Plodia. Sacs ouverts = autoroute. Stocker dans un récipient hermétique.'},
+    {x:150,y:380,label:'Sous l\'évier',desc:'Zone humide et sombre où les larves migrent pour se nymphoser. Vérifier les coins, les charnières et les plinthes — cocons collés.'},
+    {x:300,y:430,label:'Panier à pommes',desc:'Fruits secs, fruits oléagineux (noix, noisettes, amandes) : très attractifs pour la teigne du chocolat. Inspecter régulièrement.'},
+    {x:480,y:430,label:'Hotte aspirante',desc:'Les graisses accumulées attirent les adultes. Les filtres rarement nettoyés sont des nids à œufs en été.'},
+    {x:620,y:380,label:'Plinthes et fissures',desc:'Les larves migrent jusqu\'à 8 m de leur source pour se nymphoser. Cocons souvent dans les fissures de plinthes ou sous les meubles.'},
+    {x:750,y:430,label:'Coin poubelle',desc:'Restes alimentaires + chaleur = foyer secondaire. Vider quotidiennement, désinfecter au vinaigre.'},
+    {x:200,y:130,label:'Plafond',desc:'C\'est là que vous voyez voler les papillons adultes. Ils sont attirés par la lumière et émergent surtout au crépuscule.'},
+    {x:450,y:130,label:'Coins de placards hauts',desc:'Les larves grimpent et tissent leurs cocons dans les angles supérieurs. Difficiles à voir, faciles à louper en nettoyant.'},
+    {x:700,y:130,label:'Suspension lumineuse',desc:'Les adultes sont attirés par la lumière. Vérifier autour des spots et lampes au-dessus du plan de travail.'}
+  ]
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+  initSimulator();
+  initHouseZones();
+  initAnatomy();
+  initRiskGauges();
+  initCalendar();
+  initQuiz();
+  initCostChart();
+  initCostSlider();
+  initWorldMap();
+  initProtocol();
+  initLightbox();
+  initAccordions();
+  initRiskTabs();
+  initBackToTop();
+  initStepNav();
+  initFranceMap();
+
+  // Dropdown click toggle for mobile
+  var crumb = document.querySelector('.step-crumb-current');
+  if (crumb) crumb.addEventListener('click', function() {
+    var dd = document.querySelector('.step-crumb-dropdown');
+    dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+  });
+
+  if(typeof initFicheRadar==="function")initFicheRadar();
+  initHeroCounters();
+});
+
+/* ── Prolifération ── */
+function initSimulator() {
+  const slider = document.getElementById('prolifSlider');
+  if (!slider) return;
+
+  const cfg = { logement: 'paquet', secteur: 'ambient', food: 'moyen', initial: 1 };
+
+  document.querySelectorAll('.prolif-pills').forEach(group => {
+    group.querySelectorAll('.prolif-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        group.querySelectorAll('.prolif-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const id = group.id;
+        if (id === 'cfgLogement') cfg.logement = pill.dataset.val;
+        if (id === 'cfgSecteur') cfg.secteur = pill.dataset.val;
+        if (id === 'cfgFood') cfg.food = pill.dataset.val;
+        if (id === 'cfgInitial') cfg.initial = +pill.dataset.val;
+        recompute();
+      });
+    });
+  });
+
+  let population = [];
+  // Weeks: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24
+  const weekLabels = [2,4,6,8,10,12,14,16,18,20,22,24];
+
+  function recompute() {
+    const foodMult = { peu: 0.4, moyen: 0.7, beaucoup: 1.0 }[cfg.food];
+    const tempMult = { frais: 0.5, ambient: 1.0, chaud: 1.5 }[cfg.secteur];
+    const stockMult = cfg.logement === 'bocal' ? 0.2 : 1.0;
+    const baseMult = foodMult * tempMult * stockMult;
+
+    population = [cfg.initial];
+    for (let m = 1; m < 12; m++) {
+      const prev = population[m - 1];
+      // 1 femelle = 200 œufs en moyenne, 1 cycle complet = 8 sem ≈ 4 pas de 2 sem
+      const newborn = prev * 0.5 * 200 * baseMult * 0.05;
+      const deaths = prev * 0.05;
+      population.push(Math.max(1, Math.round(prev + newborn - deaths)));
+    }
+    update(+slider.value);
+  }
+
+  function update(idx) {
+    const pop = population[idx] || 1;
+    const week = weekLabels[idx];
+    document.getElementById('prolifMonth').textContent = 'Semaine ' + week;
+    const countEl = document.getElementById('prolifCount');
+    countEl.textContent = pop.toLocaleString('fr-FR') + ' mite' + (pop > 1 ? 's' : '');
+    countEl.classList.toggle('danger', pop > 50);
+
+    const maxRats = 300;
+    const n = Math.min(maxRats, pop);
+    let html = '';
+    for (let i = 0; i < n; i++) {
+      html += '<span class="rat-icon" style="animation-delay:' + (i * 0.003) + 's">🦋</span>';
+    }
+    if (pop > maxRats) {
+      html += '<span class="rat-overflow">+' + (pop - maxRats).toLocaleString('fr-FR') + '</span>';
+    }
+    document.getElementById('prolifRats').innerHTML = html;
+    const resBox = document.getElementById('prolifResultsBox');
+    if (resBox) resBox.classList.toggle('critical', pop > 50);
+
+    document.getElementById('pImpactCrottes').textContent = (pop * 200).toLocaleString('fr-FR');
+    document.getElementById('pImpactCost').textContent = Math.round(pop * 1.5).toLocaleString('fr-FR') + ' €';
+    document.getElementById('pImpactFood').textContent = (pop * 0.05).toFixed(1) + ' kg';
+
+    const a = document.getElementById('prolifAlert');
+    const icon = a.querySelector('.prolif-alert-icon');
+    const text = a.querySelector('.prolif-alert-text');
+    const cta = document.getElementById('prolifCta');
+
+    if (pop <= 3) {
+      a.className = 'prolif-alert level-ok';
+      icon.textContent = '✓';
+      text.textContent = 'Encore temps d\'agir. Une seule femelle pondra jusqu\'à 300 œufs si rien n\'est fait.';
+      cta.style.display = 'none';
+    } else if (pop <= 20) {
+      a.className = 'prolif-alert level-warn';
+      icon.textContent = '⚠️';
+      text.textContent = pop + ' mites dans votre cuisine. Vos paquets de farine, riz et fruits secs sont déjà contaminés.';
+      cta.style.display = 'none';
+    } else if (pop <= 100) {
+      a.className = 'prolif-alert level-danger';
+      icon.textContent = '🚨';
+      text.textContent = pop + ' mites. Plusieurs kilos de denrées sont à jeter. Le nettoyage complet est urgent.';
+      cta.style.display = 'block';
+    } else {
+      a.className = 'prolif-alert level-critical';
+      icon.textContent = '☠️';
+      text.textContent = pop.toLocaleString('fr-FR') + ' mites. Infestation massive : tous vos placards sont touchés. Une intervention professionnelle est indispensable.';
+      cta.style.display = 'block';
+    }
+
+    updateSliderFill(slider);
+  }
+
+  slider.addEventListener('input', () => update(+slider.value));
+  updateSliderFill(slider);
+  recompute();
+}
+
+
+/* ── House Zones (cuisine) ── */
+function initHouseZones() {
+  const svg = document.getElementById('houseSvg');
+  if (!svg) return;
+
+  let html = '';
+  // Background
+  html += '<rect x="0" y="0" width="900" height="550" fill="#FBF7EC" rx="12"/>';
+  // Mur arrière
+  html += '<rect x="0" y="80" width="900" height="380" fill="#F5EAD0"/>';
+  // Plinthe sol
+  html += '<rect x="0" y="460" width="900" height="40" fill="#C5B98F"/>';
+  // Plan de travail
+  html += '<rect x="60" y="320" width="780" height="20" fill="#A0856E"/>';
+  // Carrelage mural
+  html += '<rect x="60" y="200" width="780" height="120" fill="#FAF6E8" stroke="#D5C9A0" stroke-width="1"/>';
+  for (let i = 1; i < 12; i++) {
+    html += '<line x1="' + (60 + i*65) + '" y1="200" x2="' + (60 + i*65) + '" y2="320" stroke="#E0D5B0" stroke-width="0.5"/>';
+  }
+
+  // Placards hauts (gauche)
+  html += '<rect x="80" y="100" width="500" height="180" fill="#E8D9B8" stroke="#B8A878" stroke-width="2" rx="3"/>';
+  html += '<line x1="200" y1="100" x2="200" y2="280" stroke="#B8A878" stroke-width="2"/>';
+  html += '<line x1="330" y1="100" x2="330" y2="280" stroke="#B8A878" stroke-width="2"/>';
+  html += '<line x1="460" y1="100" x2="460" y2="280" stroke="#B8A878" stroke-width="2"/>';
+  // Poignées placards
+  html += '<circle cx="195" cy="190" r="4" fill="#8B7355"/>';
+  html += '<circle cx="325" cy="190" r="4" fill="#8B7355"/>';
+  html += '<circle cx="455" cy="190" r="4" fill="#8B7355"/>';
+  html += '<circle cx="575" cy="190" r="4" fill="#8B7355"/>';
+
+  // Étagère ouverte (centre droite)
+  html += '<rect x="640" y="120" width="160" height="40" fill="#D8C8A8" stroke="#A89878" stroke-width="1.5"/>';
+  html += '<rect x="640" y="170" width="160" height="40" fill="#D8C8A8" stroke="#A89878" stroke-width="1.5"/>';
+  // Bocaux
+  html += '<rect x="650" y="125" width="20" height="30" fill="#C8E0F0" stroke="#A8C0D0" rx="2"/>';
+  html += '<rect x="680" y="128" width="20" height="27" fill="#E8D8C0" stroke="#C8B8A0" rx="2"/>';
+  html += '<rect x="710" y="125" width="20" height="30" fill="#D0E8D0" stroke="#A8C0A8" rx="2"/>';
+
+  // Hotte aspirante
+  html += '<polygon points="450,60 590,60 575,100 465,100" fill="#E5E5E5" stroke="#B5B5B5" stroke-width="1.5"/>';
+  html += '<rect x="465" y="100" width="110" height="15" fill="#D0D0D0" stroke="#B0B0B0" stroke-width="1"/>';
+
+  // Plaque de cuisson
+  html += '<rect x="480" y="320" width="120" height="12" fill="#5D5D5D" stroke="#3D3D3D" stroke-width="1.5"/>';
+  html += '<circle cx="510" cy="330" r="14" fill="#3D3D3D" stroke="#1D1D1D" stroke-width="1"/>';
+  html += '<circle cx="570" cy="330" r="14" fill="#3D3D3D" stroke="#1D1D1D" stroke-width="1"/>';
+
+  // Évier
+  html += '<rect x="120" y="320" width="120" height="14" fill="#A0A0A0" stroke="#808080" stroke-width="1.5"/>';
+  html += '<rect x="135" y="332" width="90" height="40" rx="6" fill="#C5C5C5" stroke="#909090" stroke-width="1.5"/>';
+
+  // Réfrigérateur (droite)
+  html += '<rect x="800" y="200" width="80" height="220" fill="#E8E8E8" stroke="#B8B8B8" stroke-width="2" rx="5"/>';
+  html += '<line x1="800" y1="290" x2="880" y2="290" stroke="#B8B8B8" stroke-width="1.5"/>';
+
+  // Plinthe basse
+  html += '<rect x="60" y="340" width="780" height="120" fill="#E5D5B0" stroke="#B5A580" stroke-width="1.5" rx="2"/>';
+  html += '<line x1="220" y1="340" x2="220" y2="460" stroke="#B5A580" stroke-width="1.5"/>';
+  html += '<line x1="380" y1="340" x2="380" y2="460" stroke="#B5A580" stroke-width="1.5"/>';
+  html += '<line x1="620" y1="340" x2="620" y2="460" stroke="#B5A580" stroke-width="1.5"/>';
+
+  // Poubelle
+  html += '<rect x="730" y="420" width="40" height="40" rx="3" fill="#888" stroke="#666" stroke-width="1.5"/>';
+
+  // Labels
+  html += '<text x="80" y="95" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">PLACARDS HAUTS</text>';
+  html += '<text x="640" y="115" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">ÉTAGÈRE BOCAUX</text>';
+  html += '<text x="80" y="475" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">PLINTHE BASSE</text>';
+  html += '<text x="800" y="195" font-size="11" fill="#999" font-weight="700" font-family="monospace" letter-spacing="1">FRIGO</text>';
+
+  // Hotspots
+  DATA.houseZones.forEach((zone, i) => {
+    html += '<g class="house-hotspot" data-zone="' + i + '" tabindex="0" role="button" aria-label="' + zone.label + '">';
+    html += '<circle cx="' + zone.x + '" cy="' + zone.y + '" r="10" fill="#F66C24" opacity="0.8" style="animation: hotspot-pulse 2s infinite ' + (i * 0.2) + 's"/>';
+    html += '<circle cx="' + zone.x + '" cy="' + zone.y + '" r="4" fill="#fff"/>';
+    html += '</g>';
+  });
+
+  svg.innerHTML = html;
+
+  // Hotspot pulse animation
+  if (!document.getElementById('hotspotStyle')) {
+    const s = document.createElement('style');
+    s.id = 'hotspotStyle';
+    s.textContent = '@keyframes hotspot-pulse{0%,100%{opacity:0.6;r:8}50%{opacity:1;r:12}}';
+    document.head.appendChild(s);
+  }
+
+  const tooltip = document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(g => {
+    g.addEventListener('mouseenter', () => {
+      const zone = DATA.houseZones[g.dataset.zone];
+      tooltip.innerHTML = '<h4>' + zone.label + '</h4><p>' + zone.desc + '</p>';
+      tooltip.classList.add('active');
+      const rect = svg.getBoundingClientRect();
+      const x = zone.x / 900 * rect.width;
+      const y = zone.y / 550 * rect.height;
+      tooltip.style.left = Math.min(x + 20, rect.width - 300) + 'px';
+      tooltip.style.top = (y - 40) + 'px';
+    });
+    g.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('active');
+    });
+  });
+}
+
+/* ── Risk Gauges ── */
+function initRiskGauges() {
+  var list = document.getElementById('riskChecklist');
+  if (!list) return;
+  function updateRiskScore() {
+    var score = 0;
+    list.querySelectorAll('input:checked').forEach(function(cb) { score += +cb.dataset.score; });
+    score = Math.min(100, score);
+    document.getElementById('riskScoreText').textContent = score;
+    var arc = document.getElementById('riskArc');
+    arc.style.strokeDashoffset = 314 - (score / 100 * 314);
+    arc.style.stroke = score < 25 ? '#4CAF50' : score < 50 ? '#FF9800' : '#F44336';
+    var titles = ['Faible','Modéré','Élevé','Critique'];
+    var descs = ['Peu de facteurs favorables.','Quelques mesures préventives suffiraient.','Votre cuisine est vulnérable.','Infestation probable — agissez vite.'];
+    var lvl = score < 25 ? 0 : score < 50 ? 1 : score < 75 ? 2 : 3;
+    document.getElementById('riskVerdictTitle').textContent = titles[lvl];
+    document.getElementById('riskVerdictDesc').textContent = descs[lvl];
+    var cta = document.getElementById('riskCta');
+    if (cta) cta.style.display = score >= 50 ? 'block' : 'none';
+  }
+  list.addEventListener('change', updateRiskScore);
+  updateRiskScore();
+}
+
+/* ── Calendar ── */
+function initCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  if (!grid) return;
+  const colors = ['','#E8F5E9','#FFF9C4','#FFE0B2','#FFCCBC','#FFAB91'];
+  const now = new Date().getMonth();
+  const rows = ['Activité','Reproduction','Intrusion','Traitement'];
+  const keys = ['activity','reproduction','intrusion','treatment'];
+  let html = '<div class="cal-cell cal-header"></div>';
+  DATA.calendar.forEach((m,i) => html += '<div class="cal-cell cal-header'+(i===now?' cal-current':'')+'">'+m.month+'</div>');
+  const tips = [
+    'Hiver — cycle ralenti, mais possible en logements chauffés',
+    'Fin d\'hiver — moment optimal pour grand nettoyage préventif',
+    'Printemps — reprise progressive, vérifiez les stocks',
+    'Printemps — accélération, contrôlez les achats récents',
+    'Pic de reproduction — vol des adultes, attention aux fenêtres ouvertes',
+    'Été — cycle complet possible en 6 semaines, intervention urgente si signes',
+    'Pic d\'activité — papillons visibles le soir, larves grimpent au plafond',
+    'Été — pic estival, particulièrement en cuisine non climatisée',
+    'Automne — ralentissement, fin du pic estival',
+    'Automne — bon moment pour traitement avant l\'hiver',
+    'Stabilisation — moment idéal pour vidange complète des placards',
+    'Hiver — activité réduite mais persistante en logements chauffés'
+  ];
+  rows.forEach((r,ri) => {
+    html += '<div class="cal-cell cal-label">'+r+'</div>';
+    DATA.calendar.forEach((m,i) => {
+      const v = ri < 3 ? m[keys[ri]] : ({'Optimal':4,'Bon':3,'Moyen':2}[m.treatment]||1);
+      const tip = ri === 0 ? '<span class="cal-tip">' + tips[i] + '</span>' : '';
+      html += '<div class="cal-cell'+(i===now?' cal-current':'')+'" style="background:'+colors[v]+'">'+tip+'</div>';
+    });
+  });
+  grid.innerHTML = html;
+}
+
+/* ── Quiz ── */
+function initQuiz() {
+  const container = document.getElementById('quizContainer');
+  if (!container) return;
+  let current = 0, score = 0;
+  const progress = document.getElementById('quizProgress');
+  const body = document.getElementById('quizBody');
+  const result = document.getElementById('quizResult');
+
+  function renderProgress() {
+    progress.innerHTML = DATA.quiz.map((_,i) => '<div class="step'+(i<current?' done':'')+(i===current?' current':'')+'"></div>').join('');
+  }
+  function renderQuestion() {
+    if (current >= DATA.quiz.length) return showResult();
+    const q = DATA.quiz[current];
+    document.getElementById('quizQuestion').textContent = q.q;
+    document.getElementById('quizOptions').innerHTML = q.opts.map((o,i) => '<div class="quiz-option" data-score="'+q.scores[i]+'">'+o+'</div>').join('');
+    document.querySelectorAll('.quiz-option').forEach(opt => {
+      opt.addEventListener('click', () => { score += +opt.dataset.score; current++; renderProgress(); renderQuestion(); });
+    });
+    renderProgress();
+  }
+  function showResult() {
+    body.style.display = 'none';
+    const pct = Math.round(score / (DATA.quiz.length * 3) * 100);
+    const circle = document.getElementById('quizScoreCircle');
+    circle.textContent = pct + '%';
+    circle.style.background = pct < 30 ? '#4CAF50' : pct < 60 ? '#FF9800' : '#F44336';
+    document.getElementById('quizVerdictTitle').textContent = pct < 30 ? 'Peu probable' : pct < 60 ? 'Possible' : 'Très probable';
+    document.getElementById('quizVerdictDesc').textContent = pct < 30 ? 'Les signes sont faibles. Restez vigilant en inspectant régulièrement vos placards.' : pct < 60 ? 'Plusieurs indices concordent. Une inspection complète et un nettoyage des placards sont recommandés.' : 'D\'après vos réponses, une infestation de mites alimentaires est très probable. Agissez rapidement pour éviter la propagation.';
+    result.classList.add('active');
+    renderProgress();
+  }
+  document.getElementById('quizRestart').addEventListener('click', () => { current=0;score=0;body.style.display='block';result.classList.remove('active');renderQuestion(); });
+  renderQuestion();
+}
+
+/* ── Cost Chart ── */
+function initCostChart() {
+  const ctx = document.getElementById('costChart');
+  if (!ctx) return;
+  const months = Array.from({length:12},(_,i)=>'Mois '+(i+1));
+  const damages = months.map((_,i) => Math.round(30 * Math.pow(1.25, i)));
+  const treatment = months.map(() => 250);
+  new Chart(ctx, {
+    type:'line',
+    data:{labels:months,datasets:[
+      {label:'Pertes cumulées (sans action)',data:damages,borderColor:'#B45309',backgroundColor:'rgba(180,83,9,0.1)',fill:true,tension:0.3},
+      {label:'Coût traitement professionnel',data:treatment,borderColor:'#4CAF50',backgroundColor:'rgba(76,175,80,0.05)',fill:true,borderDash:[6,4]}
+    ]},
+    options:{responsive:true,plugins:{legend:{labels:{font:{size:11}}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'€'}}}}
+  });
+}
+
+/* ── Cost Slider ── */
+function initCostSlider() {
+  const slider = document.getElementById('costMonthSlider');
+  if (!slider) return;
+  const monthVal = document.getElementById('costMonthVal');
+  const roi = document.getElementById('costRoi');
+  const savings = document.getElementById('costSavings');
+
+  function update() {
+    const month = +slider.value;
+    monthVal.textContent = month;
+    const damageAtMonth = Math.round(30 * Math.pow(1.25, month));
+    const damageAt12 = Math.round(30 * Math.pow(1.25, 12));
+    const saved = damageAt12 - damageAtMonth;
+    const ratio = Math.max(1, Math.round(saved / 250));
+    roi.textContent = ratio + ':1';
+    savings.textContent = 'Vous économisez ~' + saved.toLocaleString('fr-FR') + ' €';
+    updateSliderFill(slider);
+  }
+
+  slider.addEventListener('input', update);
+  update();
+}
+
+
+/* ── World Map ── */
+function initWorldMap() {
+  const cities = {
+    usa: { title: '🇺🇸 États-Unis — Premier ravageur post-récolte', text: 'Aux États-Unis, la pyrale indienne (<em>Plodia interpunctella</em>) est considérée comme le <strong>ravageur n°1 des denrées stockées</strong>. La FDA lui consacre un programme dédié, et l\'industrie consacre plus de <strong>500 millions de dollars par an</strong> à sa surveillance et à son contrôle.' },
+    europe: { title: '🇪🇺 Europe centrale — L\'industrie chocolatière à risque', text: 'En Suisse, Belgique, Allemagne, l\'industrie du chocolat utilise systématiquement des <strong>pièges à phéromones et des chambres froides</strong>. La teigne du chocolat (<em>Ephestia elutella</em>) y est considérée comme un risque sanitaire majeur sur tous les sites de production.' },
+    india: { title: '🇮🇳 Inde — Berceau de la pyrale indienne', text: 'L\'Inde est l\'origine présumée de Plodia interpunctella, d\'où son nom. Le climat tropical et le stockage traditionnel des céréales en jute favorisent un cycle continu. Pertes estimées à <strong>15 % de la production de riz</strong> stockée.' },
+    brazil: { title: '🇧🇷 Brésil — Pertes massives sur le café', text: 'Premier producteur mondial de café, le Brésil subit chaque année des <strong>pertes considérables</strong> dues à plusieurs lépidoptères ravageurs des denrées. Plodia attaque tabac, café, cacao en entrepôt portuaire avant exportation.' },
+    asia: { title: '🇨🇳 Asie du Sud-Est — Fléau du riz stocké', text: 'En Chine, Vietnam, Thaïlande, la pyrale indienne et l\'alucite des céréales (<em>Sitotroga cerealella</em>) infestent les stocks de riz dès la récolte. Recours massif à la <strong>fumigation au phosphure d\'aluminium</strong>, méthode désormais limitée pour des raisons sanitaires.' },
+    madagascar: { title: '🇲🇬 Madagascar — Stockage céréales à risque', text: 'L\'agriculture vivrière malgache repose sur le stockage en greniers traditionnels (greniers à riz). Les mites alimentaires causent des <strong>pertes post-récolte estimées à 20-30 %</strong>, avec un impact direct sur la sécurité alimentaire.' }
+  };
+
+  document.querySelectorAll('.world-city').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.world-city').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const d = cities[card.dataset.city];
+      if (d) document.getElementById('worldDetail').innerHTML = '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
+    });
+  });
+}
+
+/* ── France Map ── */
+function initFranceMap() {
+  const regionData = {
+    'ile-de-france': { name: 'Île-de-France', level: 'high', text: 'Densité urbaine et chauffage permanent toute l\'année favorisent un cycle complet sans pause hivernale. Forte fréquence dans les appartements parisiens et la petite couronne.' },
+    'auvergne-rhone-alpes': { name: 'Auvergne-Rhône-Alpes', level: 'high', text: 'Lyon et Grenoble : appartements modernes bien chauffés. Forte présence dans les supermarchés bio à grande rotation. Sanalia intervient régulièrement.' },
+    'paca': { name: 'Provence-Alpes-Côte d\'Azur', level: 'high', text: 'Climat méditerranéen + chauffage hivernal = cycle continu. Marseille et Nice en zones particulièrement touchées. Pic estival prolongé.' },
+    'hauts-de-france': { name: 'Hauts-de-France', level: 'high', text: 'Logements anciens à isolation moyenne, mais chauffage soutenu en hiver. Lille et sa métropole connaissent une augmentation des signalements.' },
+    'occitanie': { name: 'Occitanie', level: 'high', text: 'Toulouse, Montpellier : densité d\'appartements en croissance. Climat doux qui favorise un cycle long, même en intersaison.' },
+    'nouvelle-aquitaine': { name: 'Nouvelle-Aquitaine', level: 'moderate', text: 'Bordeaux et son agglomération : présence stable. Particularité régionale : forte présence dans les exploitations viticoles avec stocks de céréales.' },
+    'grand-est': { name: 'Grand Est', level: 'high', text: 'Strasbourg, Metz, Reims : logements bien chauffés en hiver. Présence renforcée dans les boulangeries et minoteries traditionnelles de la région.' },
+    'pays-de-la-loire': { name: 'Pays de la Loire', level: 'moderate', text: 'Nantes et Angers : présence modérée mais en croissance. Cas plus fréquents dans les zones pavillonnaires neuves bien isolées.' },
+    'bretagne': { name: 'Bretagne', level: 'moderate', text: 'Rennes et Brest : climat océanique frais qui ralentit le cycle. Présence cependant active dans les logements bien chauffés.' },
+    'normandie': { name: 'Normandie', level: 'moderate', text: 'Le Havre, Caen, Rouen : ports historiques avec activité agroalimentaire importante. Présence modérée mais constante dans les zones portuaires.' },
+    'bourgogne-franche-comte': { name: 'Bourgogne-Franche-Comté', level: 'moderate', text: 'Dijon, Besançon : climat semi-continental, hivers froids. Présence concentrée dans les centres-villes anciens et logements chauffés.' },
+    'centre-val-de-loire': { name: 'Centre-Val de Loire', level: 'moderate', text: 'Tours, Orléans : zone agricole importante. Présence régulière dans les exploitations céréalières et silos.' },
+    'corse': { name: 'Corse', level: 'moderate', text: 'Ajaccio, Bastia : climat méditerranéen favorable. Présence modérée mais constante dans les logements et restaurants côtiers.' }
+  };
+
+  const mapPaths = document.querySelectorAll('.france-map-svg [data-region]');
+  const detailName = document.getElementById('mapDetailName');
+  const detailText = document.getElementById('mapDetailText');
+  const detailPanel = document.getElementById('mapDetailPanel');
+  if (!detailPanel) return;
+  const detailLevel = detailPanel.querySelector('.map-detail-level');
+
+  function selectRegion(regionId) {
+    mapPaths.forEach(p => p.classList.remove('region-selected'));
+    const path = document.querySelector('[data-region="' + regionId + '"]');
+    if (path) path.classList.add('region-selected');
+    const data = regionData[regionId];
+    if (data) {
+      detailName.textContent = data.name;
+      detailText.textContent = data.text;
+      detailLevel.className = 'map-detail-level ' + data.level;
+      detailLevel.textContent = data.level === 'high' ? 'Élevé' : 'Modéré';
+    }
+  }
+
+  mapPaths.forEach(path => {
+    path.addEventListener('click', () => selectRegion(path.dataset.region));
+  });
+
+  selectRegion('ile-de-france');
+}
+
+/* ── Anatomy ── */
+function initAnatomy() {
+  const detail = document.getElementById('anatomyDetail');
+  if (!detail) return;
+  const data = {
+    ailes: {title:'Ailes mouchetées', text:'Les ailes de la pyrale indienne mesurent 8-10 mm d\'envergure. La moitié supérieure est <strong>beige clair</strong>, la moitié inférieure <strong>cuivre rougeâtre</strong>. Ce contraste bicolore est le critère d\'identification le plus fiable. Les écailles tombent au moindre contact, laissant une fine poussière brunâtre.'},
+    antennes: {title:'Antennes', text:'Longues et filiformes, les antennes captent les phéromones sexuelles à plus de <strong>20 mètres</strong>. C\'est ce qui rend les pièges à phéromones efficaces : ils exploitent ce système pour attirer les mâles vers une plaque collante.'},
+    ovipositeur: {title:'Reproduction explosive', text:'Une femelle pond <strong>100 à 300 œufs</strong> directement à la surface des denrées sèches en 2-3 jours. Les œufs sont microscopiques (0,5 mm), blancs et collés aux grains. Ils éclosent en 4-6 jours à 25°C.'},
+    larve: {title:'Larve, le vrai ravageur', text:'La larve mesure 12-15 mm à maturité. Blanche-crème avec une <strong>tête brune</strong>, elle se nourrit pendant 6 à 12 semaines. C\'est le seul stade qui mange — l\'adulte ne se nourrit pas. La larve creuse galeries et tisse des fils de soie en se déplaçant.'},
+    bouche: {title:'Pièces buccales', text:'L\'adulte n\'a pas de pièces buccales fonctionnelles : il <strong>ne se nourrit pas</strong>. Sa seule mission est la reproduction pendant ses 8-15 jours de vie. La larve, elle, dispose de mandibules puissantes capables de percer les emballages cartons et plastiques fins.'},
+    soie: {title:'Glandes séricigènes', text:'La larve possède des glandes spéciales qui produisent un <strong>fil de soie blanc</strong>. Elle l\'utilise pour se déplacer (fil d\'Ariane), agglomérer les denrées en grumeaux, et fabriquer son cocon de nymphose. Ces fils sont le signe le plus visible d\'une infestation.'},
+    pheromones: {title:'Phéromones sexuelles', text:'La femelle émet une phéromone (<em>cis-9, trans-12-tetradecadien-1-ol acetate</em>) qui attire les mâles à plus de <strong>30 mètres</strong>. Cette molécule est synthétisée et utilisée dans tous les pièges à phéromones du marché.'},
+    ecailles: {title:'Écailles allergisantes', text:'Les ailes sont recouvertes d\'<strong>écailles microscopiques</strong> qui se détachent au moindre contact. Ces écailles, mélangées aux mues larvaires, peuvent provoquer rhinites et asthmes chez les personnes sensibles en cas d\'infestation massive.'}
+  };
+  document.querySelectorAll('.anat-point').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.anat-point').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const d = data[btn.dataset.anat];
+      if (d) detail.innerHTML = '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
+    });
+  });
+  // Sélection par défaut : larve
+  const defaultBtn = document.querySelector('.anat-point[data-anat="larve"]');
+  if (defaultBtn) defaultBtn.click();
+}
+
+/* ── Method Filters ── */
+function filterMethods(level) {
+  document.querySelectorAll('.method-filter').forEach(f => f.classList.toggle('active', f.dataset.level === level));
+  document.querySelectorAll('.method-card').forEach(card => {
+    if (level === 'all') { card.classList.remove('dimmed'); }
+    else { card.classList.toggle('dimmed', card.dataset.level !== level); }
+  });
+}
+
+/* ── Scroll Animations ── */
+function initScrollAnimations() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+}
+
+/* ── Hero Counter Animation ── */
+function initHeroCounters() {
+  const heroStats = document.querySelectorAll('.hero-stat-value[data-count]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        if (!target) return;
+        let current = 0;
+        const step = Math.max(1, Math.floor(target / 40));
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = current.toLocaleString('fr-FR') + suffix;
+        }, 30);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  heroStats.forEach(s => obs.observe(s));
+}
+
+/* ── Risk Tabs ── */
+function initRiskTabs() {
+  document.querySelectorAll('.risk-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.risk-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.risk-tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+/* ── Protocol Checklist ── */
+function initProtocol() {
+  const saved = JSON.parse(localStorage.getItem('miteProtocol') || '{}');
+  document.querySelectorAll('.protocol-check input').forEach((cb, i) => {
+    if (saved[i]) { cb.checked = true; cb.parentElement.classList.add('checked'); }
+    cb.addEventListener('change', () => {
+      cb.parentElement.classList.toggle('checked', cb.checked);
+      const state = {};
+      document.querySelectorAll('.protocol-check input').forEach((c, j) => { if (c.checked) state[j] = true; });
+      localStorage.setItem('miteProtocol', JSON.stringify(state));
+    });
+  });
+}
+
+/* ── Lightbox ── */
+function initLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+  const lbImg = lb.querySelector('img');
+  document.querySelectorAll('.sign-img').forEach(img => {
+    img.addEventListener('click', () => { lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('active'); });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('active'));
+}
+
+/* ── Accordions ── */
+function initAccordions() {
+  document.querySelectorAll('.accordion-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      item.parentElement.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+      btn.querySelector('.icon-toggle').textContent = item.classList.contains('open') ? '−' : '+';
+    });
+  });
+}
+
+/* ── Back to Top ── */
+function initBackToTop() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+  window.addEventListener('scroll', () => { btn.style.display = window.scrollY > 600 ? 'flex' : 'none'; }, {passive:true});
+  btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+}
+
+/* ── Step Nav ── */
+function initStepNav() {
+  var nav = document.getElementById('stepNav'); if (!nav) return;
+  var links = nav.querySelectorAll('[data-nav]'), sections = [];
+  links.forEach(function(l) { var el = document.getElementById(l.getAttribute('href').slice(1)); if (el) sections.push({el:el,link:l}); });
+  window.addEventListener('scroll', function() { var sy=window.scrollY,vh=window.innerHeight; sections.forEach(function(s) { var t=s.el.getBoundingClientRect().top+sy,b=t+s.el.offsetHeight; if(sy+vh*0.3>=t&&sy+vh*0.3<b){links.forEach(function(l){l.classList.remove('active')});s.link.classList.add('active');}}); }, {passive:true});
+  links.forEach(function(l) { l.addEventListener('click', function(e) { e.preventDefault(); var t=document.getElementById(l.getAttribute('href').slice(1)); if(t)t.scrollIntoView({behavior:'smooth',block:'start'}); }); });
+}
+
+/* ── Fiche Radar ── */
+function initFicheRadar() {
+  const ctx = document.getElementById('ficheRadar');
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Reproduction', 'Discrétion', 'Résistance', 'Dégâts', 'Adaptabilité', 'Persistance'],
+      datasets: [{
+        data: [88, 85, 65, 75, 90, 80],
+        backgroundColor: 'rgba(200, 185, 154, 0.2)',
+        borderColor: '#C8B99A',
+        borderWidth: 2,
+        pointBackgroundColor: '#C8B99A',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 1,
+        pointRadius: 4,
+        pointHoverRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 1,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 100,
+          ticks: { display: false, stepSize: 25 },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          angleLines: { color: 'rgba(0,0,0,0.06)' },
+          pointLabels: {
+            font: { family: "'Uxum', sans-serif", size: 11, weight: '700' },
+            color: '#0E052A'
+          }
+        }
+      }
+    }
+  });
+}
+</script>
 </body>
 </html>

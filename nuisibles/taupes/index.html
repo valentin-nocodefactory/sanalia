@@ -7,53 +7,408 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no, address=no, date=no, email=no">
-<title>Taupes — Identification, Nuisances & Solutions | Sanalia</title>
-<meta name="description" content="Comment identifier les taupes, comprendre leurs dégâts sur les pelouses et jardins, et les solutions de piégeage professionnel. Guide Sanalia.">
+<title>Taupes — Identification, Dégâts & Solutions | Sanalia</title>
+<meta name="description" content="Guide complet taupes : identification, dégâts au jardin, piégeage professionnel et calendrier d'intervention. Par Sanalia, expert en lutte contre les taupes.">
 <link rel="canonical" href="https://www.sanalia.fr/nuisibles/taupes/">
-<meta property="og:title" content="Taupes — Identification, Nuisances & Solutions | Sanalia">
-<meta property="og:description" content="Comment identifier les taupes, comprendre leurs dégâts sur les pelouses et jardins, et les solutions de piégeage professionnel. Guide Sanalia.">
+<meta property="og:title" content="Taupes — Identification, Dégâts & Solutions | Sanalia">
+<meta property="og:description" content="Guide complet taupes : identification, dégâts au jardin, piégeage professionnel et calendrier d'intervention. Par Sanalia, expert en lutte contre les taupes.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.sanalia.fr/nuisibles/taupes/">
-<meta property="og:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
+<meta property="og:image" content="https://www.sanalia.fr/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Sanalia">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Taupes — Identification, Nuisances & Solutions | Sanalia">
-<meta name="twitter:description" content="Comment identifier les taupes, comprendre leurs dégâts sur les pelouses et jardins, et les solutions de piégeage professionnel. Guide Sanalia.">
+<meta name="twitter:title" content="Taupes — Identification, Dégâts & Solutions | Sanalia">
+<meta name="twitter:description" content="Guide complet taupes : identification, dégâts au jardin, piégeage professionnel et calendrier d'intervention. Par Sanalia, expert en lutte contre les taupes.">
 <meta name="twitter:image" content="https://www.sanalia.fr/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "headline": "Taupes — Identification, Nuisances \u0026 Solutions",
-      "description": "Comment identifier les taupes, comprendre leurs dégâts sur les pelouses et jardins, et les solutions de piégeage professionnel. Guide Sanalia.",
-      "author": {"@type": "Organization", "name": "Sanalia"},
-      "publisher": {
-        "@type": "Organization",
-        "name": "Sanalia",
-        "logo": {"@type": "ImageObject", "url": "https://www.sanalia.fr/logo-sanalia.svg"}
-      },
-      "datePublished": "2026-04-14",
-      "dateModified": "2026-04-14",
-      "mainEntityOfPage": "https://www.sanalia.fr/nuisibles/taupes/"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
-        {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
-        {"@type": "ListItem", "position": 3, "name": "Taupes — Identification, Nuisances \u0026 Solutions"}
-      ]
-    }
-  ]
-}
-</script>
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/css/base.css?v=20260417j">
 <link rel="stylesheet" href="/css/components.css?v=20260417j">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Les taupes sont-elles dangereuses pour l'homme ou les animaux ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, la taupe d'Europe ne transmet pas de maladies à l'homme et ne s'attaque pas aux animaux domestiques. Elle est insectivore et vit sous terre. Les nuisances sont uniquement liées aux dégâts qu'elle cause au jardin : taupinières, galeries et affaissement de la pelouse."}},
+    {"@type": "Question", "name": "Combien de taupes peut-il y avoir dans mon jardin ?", "acceptedAnswer": {"@type": "Answer", "text": "Une seule taupe peut produire 20 à 200 taupinières et coloniser jusqu'à 2 000 m². Les taupes sont solitaires et territoriales : ce qui semble être plusieurs individus est souvent une seule taupe très active. Comptez 1 à 3 taupes par hectare en jardin urbain."}},
+    {"@type": "Question", "name": "Les répulsifs à ultrasons contre les taupes fonctionnent-ils ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, l'efficacité des répulsifs à ultrasons est très limitée et temporaire. La taupe s'habitue aux vibrations en quelques jours et reprend son activité. Les seules solutions vraiment efficaces sont le piégeage mécanique professionnel et le bouchage des galeries."}},
+    {"@type": "Question", "name": "Existe-t-il des pièges à taupes humains et sans tuer ?", "acceptedAnswer": {"@type": "Answer", "text": "Les pièges à capture vivante existent mais sont peu efficaces sur les taupes : la taupe meurt souvent de stress avant d'être relâchée. Le piégeage mécanique professionnel (pince ou à boudin) est la méthode recommandée — rapide et sélective."}},
+    {"@type": "Question", "name": "A-t-on le droit de détruire les taupes dans son jardin ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, la taupe d'Europe (Talpa europaea) n'est pas une espèce protégée. Le piégeage et la lutte sont autorisés dans les jardins privés. En zone agricole, les traitements chimiques (gaz) sont encadrés par l'arrêté ACUTAB."}},
+    {"@type": "Question", "name": "Combien de temps faut-il pour que la pelouse se régénère après les taupes ?", "acceptedAnswer": {"@type": "Answer", "text": "Après élimination des taupes, comptez 2 à 6 semaines pour égaliser le terrain (rouler les taupinières, regarnir le gazon). Le rétablissement complet de la pelouse demande 2 à 3 mois selon la saison. Un traitement préventif évite la récidive."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
+    {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
+    {"@type": "ListItem", "position": 3, "name": "Taupes"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Taupes — Guide complet d'identification, dégâts et solutions",
+  "description": "Guide complet taupes : identification, dégâts au jardin, piégeage professionnel et calendrier d'intervention. Par Sanalia, expert en lutte contre les taupes.",
+  "image": "https://www.sanalia.fr/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png",
+  "author": {
+    "@type": "Organization",
+    "name": "Sanalia",
+    "url": "https://www.sanalia.fr/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sanalia",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.sanalia.fr/logo-sanalia.svg"
+    }
+  },
+  "datePublished": "2026-04-14",
+  "dateModified": "2026-04-24",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.sanalia.fr/nuisibles/taupes/"
+  }
+}
+</script>
 <style>
-.nuisible-hero{display:flex;gap:var(--space-2xl);align-items:center;flex-wrap:wrap}.nuisible-hero-img{width:400px;max-width:100%;border-radius:var(--radius-lg)}.nuisible-hero-text{flex:1;min-width:280px}.nuisible-section{max-width:800px;margin:0 auto}.nuisible-section h2{margin-top:var(--space-2xl);margin-bottom:var(--space-md)}.nuisible-section ul{padding-left:var(--space-lg);margin:var(--space-md) 0}.nuisible-section li{margin-bottom:var(--space-sm);line-height:var(--leading-normal)}.checklist{list-style:none;padding:0}.checklist li::before{content:"✓ ";color:var(--color-primary-600);font-weight:700}.cta-double{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-lg)}.related-links{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-md)}.related-links a{background:var(--color-primary-100);color:var(--color-primary-600);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-full);text-decoration:none;font-size:var(--text-small);font-family:var(--font-primary);font-weight:var(--font-weight-bold)}
+/* ══════════════════════════════════════════════
+   TAUPES — Page Premium
+   ══════════════════════════════════════════════ */
+html { scroll-padding-top: 130px; }
+[data-component="header"] { position: sticky; top: -45px; z-index: 100; background: var(--color-surface); }
+
+/* ── Hero V1 ── */
+.nuisible-hero { display: flex; gap: var(--space-2xl); align-items: center; flex-wrap: wrap; }
+.nuisible-hero-img { width: 400px; max-width: 100%; border-radius: var(--radius-lg); }
+.nuisible-hero-text { flex: 1; min-width: 280px; }
+.hero-stats { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl); }
+.hero-stat { display: flex; align-items: center; gap: var(--space-sm); }
+.hero-stat-icon { width: 18px; height: 18px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; color: var(--color-primary-800); opacity: 0.45; }
+.hero-stat-icon svg { width: 100%; height: 100%; }
+.hero-stat-text { display: flex; align-items: baseline; gap: 6px; }
+.hero-stat-value { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 15px; color: var(--color-primary-900); }
+.hero-stat-label { font-size: 12px; color: var(--color-text-muted); }
+
+/* ── Page Layout (2 cols) ── */
+.page-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-2xl); max-width: 1200px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); align-items: start; }
+.page-content { min-width: 0; }
+.page-content section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.page-content section:last-child { border-bottom: none; }
+@media (max-width: 1024px) { .page-layout { grid-template-columns: 1fr; } }
+
+/* ── Sidebar ── */
+.sidebar-wrap { position: sticky; top: 130px; display: flex; flex-direction: column; gap: var(--space-md); }
+.sidebar-card { background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); overflow: hidden; padding: var(--space-xs); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.sidebar-visual { display: flex; align-items: center; justify-content: center; padding: var(--space-xl) var(--space-lg); border-radius: var(--radius-lg); background: var(--color-pastel-peach-light); min-height: 160px; }
+.sidebar-visual img { width: 120px; height: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08)); }
+.sidebar-body { padding: var(--space-md) var(--space-sm) var(--space-sm); text-align: center; }
+.sidebar-body h3 { font-size: 20px; margin: 0; display: inline; }
+.sidebar-badge { font-size: 10px; color: #B8541E; font-weight: 700; background: #FFE5CF; padding: 2px 8px; border-radius: var(--radius-full); margin-left: 8px; vertical-align: middle; }
+.sidebar-latin { font-family: var(--font-secondary); font-weight: 400; color: #999; font-size: 11px; font-style: italic; display: block; margin: 4px 0 var(--space-md); }
+.sidebar-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; text-align: left; padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-light); }
+.sidebar-stat-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.sidebar-stat-label { font-size: 10px; color: var(--color-text-muted); }
+.sidebar-cta { margin-top: var(--space-md); }
+.sidebar-cta .btn { width: 100%; text-align: center; }
+.sidebar-offer { display: flex; align-items: center; justify-content: center; font-size: 12px; color: #22C55E; font-weight: 700; margin-top: 8px; }
+.pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22C55E; margin-right: 6px; animation: pulseDot 1.5s infinite; }
+@keyframes pulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+.sidebar-quiz { display: block; padding: var(--space-sm) var(--space-md); border: 1.5px dashed #C8B99A; border-radius: var(--radius-lg); text-align: center; font-size: 11px; color: #999; text-decoration: none; transition: all 0.2s; }
+.sidebar-quiz:hover { color: var(--color-primary-900); border-color: var(--color-primary-900); }
+@media (max-width: 1024px) { .sidebar-wrap { position: static; max-width: 380px; margin: 0 auto var(--space-xl); } }
+
+/* ── Section headings ── */
+.section-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: var(--color-primary-600); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: var(--space-sm); }
+.page-content h2 { margin-top: 0; margin-bottom: var(--space-sm); font-size: 28px; }
+.page-content h2 + p { color: var(--color-text-muted); margin-bottom: var(--space-xl); font-size: 15px; line-height: 1.6; }
+
+/* ── Did you know ── */
+.did-you-know { display: flex; gap: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--color-bg-sand); border-radius: var(--radius-md); margin: var(--space-xl) 0; align-items: flex-start; border-left: 3px solid #C8B99A; }
+.did-you-know-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
+
+/* ── Step nav ── */
+.step-nav { position: sticky; top: 72px; z-index: 90; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-gray-light); display: flex; align-items: center; overflow: visible; width: 100%; padding: 0 calc((100% - 1200px) / 2 + var(--space-lg)); }
+.step-nav-links { display: flex; align-items: center; overflow-x: auto; overflow-y: visible; flex: 1; -ms-overflow-style: none; scrollbar-width: none; }
+.step-nav-links::-webkit-scrollbar { display: none; }
+.step-nav-links a { flex-shrink: 0; padding: 12px 16px; font-size: 12px; font-family: var(--font-primary); font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.step-nav-links a.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); }
+
+/* ── Intro radar ── */
+.section-inner { padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.intro-profile { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.intro-radar-wrap { display: flex; justify-content: center; }
+.intro-radar-wrap canvas { max-width: 220px; max-height: 220px; }
+.intro-gauges { display: flex; flex-direction: column; gap: 10px; }
+.gauge-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.gauge-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; }
+.gauge-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 12px; color: var(--color-primary-900); }
+.gauge-bar { height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.gauge-fill { height: 100%; border-radius: 3px; }
+@media (max-width: 700px) { .intro-profile { grid-template-columns: 1fr; } }
+
+/* ── Anatomy ── */
+.anatomy-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+.anatomy-visual { position: relative; display: flex; justify-content: center; }
+.anatomy-points { position: absolute; inset: 0; }
+.anat-point { position: absolute; width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--color-primary-900); background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: all 0.25s; transform: translate(-50%, -50%); z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.anat-point:not(.active) { animation: anat-pulse 2s ease-in-out infinite; }
+.anat-point:not(.active):nth-child(2) { animation-delay: 0.25s; }
+.anat-point:not(.active):nth-child(3) { animation-delay: 0.5s; }
+.anat-point:not(.active):nth-child(4) { animation-delay: 0.75s; }
+.anat-point:not(.active):nth-child(5) { animation-delay: 1s; }
+.anat-point:not(.active):nth-child(6) { animation-delay: 1.25s; }
+.anat-point:not(.active):nth-child(7) { animation-delay: 1.5s; }
+@keyframes anat-pulse { 0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 0 rgba(246,108,36,0.4); } 50% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 8px rgba(246,108,36,0); } }
+.anat-point:hover, .anat-point.active { background: var(--color-primary-900); color: #fff; transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 6px 20px rgba(14,5,42,0.2); animation: none; }
+.anatomy-detail { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); min-height: 240px; display: flex; flex-direction: column; justify-content: center; }
+.anatomy-detail h3 { margin: 0 0 var(--space-sm); }
+.anatomy-detail p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+@media (max-width: 700px) { .anatomy-layout { grid-template-columns: 1fr; } }
+
+/* ── Species cards ── */
+.species-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
+.species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
+.species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
+.species-card-visual { padding: var(--space-xl) var(--space-lg); text-align: center; position: relative; min-height: 140px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); margin: var(--space-xs); }
+.species-card-visual img { width: 100%; max-width: 180px; height: auto; object-fit: contain; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+.species-card-v2:hover .species-card-visual img { transform: scale(1.05) translateY(-4px); }
+.species-card-visual .badge { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 700; background: var(--color-primary-900); color: #fff; padding: 4px 12px; border-radius: var(--radius-full); }
+.species-card-body { padding: var(--space-md) var(--space-lg) var(--space-lg); }
+.species-card-body h3 { font-size: 18px; margin: 0 0 4px; }
+.species-card-body .latin { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; font-style: italic; }
+.species-card-body .stars { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.species-card-body .stars-label { font-size: 11px; color: var(--color-text-muted); }
+.species-specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--color-gray-light); margin-top: var(--space-lg); }
+.spec { padding: 14px 8px; text-align: center; border-right: 1px solid var(--color-gray-light); }
+.spec:last-child { border-right: none; }
+.spec-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
+.species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
+
+/* ── Signs ── */
+.signs-grid { display: grid; grid-template-columns: repeat(auto-fill, 112px); gap: var(--space-md); margin-top: var(--space-lg); justify-content: start; }
+.sign-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; background: transparent; border: none; padding: 0; transition: transform 0.2s; }
+.sign-card:hover { transform: translateY(-2px); }
+.sign-card .sign-thumb { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 38px; border-radius: var(--radius-xl); margin-bottom: var(--space-sm); background: var(--color-pastel-peach-light); }
+.sign-card h4 { font-size: 12px; margin: 0 0 4px; font-weight: 700; line-height: 1.3; color: var(--color-primary-900); }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 600px) { .sign-card p { display: none; } }
+@media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
+
+/* ── Dangers ── */
+.danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
+.danger-fact { padding: var(--space-xl); text-align: center; border-right: 1px solid var(--color-gray-light); }
+.danger-fact:last-child { border-right: none; }
+.danger-fact-num { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 36px; color: #B8541E; line-height: 1; display: block; margin-bottom: var(--space-sm); }
+.danger-fact-text strong { font-size: 14px; display: block; color: var(--color-primary-900); margin-bottom: 6px; }
+.danger-fact-text span { font-size: 12px; color: var(--color-text-muted); line-height: 1.5; }
+@media (max-width: 600px) { .danger-facts { grid-template-columns: 1fr; } .danger-fact { border-right: none; border-bottom: 1px solid var(--color-gray-light); } .danger-fact:last-child { border-bottom: none; } }
+
+.risk-tabs { display: flex; gap: 4px; margin-bottom: var(--space-lg); border-bottom: 1px solid var(--color-gray-light); }
+.risk-tab { padding: 10px 16px; font-family: var(--font-primary); font-size: 13px; font-weight: 500; color: var(--color-text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.risk-tab:hover { color: var(--color-primary-900); }
+.risk-tab.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); font-weight: 700; }
+.risk-tab-content { display: none; }
+.risk-tab-content.active { display: block; }
+@media (max-width: 600px) { .risk-tabs { overflow-x: auto; } .risk-tab { font-size: 12px; padding: 8px 12px; } }
+.disease-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-top: var(--space-md); }
+.disease-card { padding: var(--space-lg); border-radius: var(--radius-xl); transition: all 0.3s; background: #FFF7EE; border: 1px solid #FFE5CF; }
+.disease-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+.disease-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.disease-severity { font-size: 10px; letter-spacing: 2px; color: #B8541E; }
+.disease-header strong { font-size: 16px; flex: 1; }
+.disease-tag { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: var(--radius-full); letter-spacing: 0.3px; flex-shrink: 0; background: #FFE5CF; color: #B8541E; }
+.disease-card p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; margin: 0 0 var(--space-sm); }
+.disease-stat { font-size: 12px; font-weight: 600; color: var(--color-primary-900); padding: 4px 10px; background: rgba(0,0,0,0.04); border-radius: var(--radius-md); display: inline-block; }
+.damage-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-top: var(--space-md); }
+.damage-item { display: flex; align-items: flex-start; gap: var(--space-sm); padding: var(--space-lg); background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); }
+.damage-icon { font-size: 24px; flex-shrink: 0; }
+.damage-item strong { font-size: 14px; display: block; margin-bottom: 4px; }
+.damage-item span { font-size: 12px; color: var(--color-text-muted); line-height: 1.4; }
+@media (max-width: 600px) { .disease-grid, .damage-row { grid-template-columns: 1fr; } }
+
+/* ── Range slider ── */
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: #E5E5E5; outline: none; cursor: pointer; margin: 8px 0; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-top: -7px; cursor: grab; }
+input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; cursor: grab; }
+
+/* Simulator config pills */
+.prolif-config-item { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.prolif-config-label { font-family: var(--font-secondary); font-weight: 400; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.prolif-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+.prolif-pill { padding: 4px 10px; border: 1.5px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); white-space: nowrap; }
+.prolif-pill:hover { border-color: #C8B99A; }
+.prolif-pill.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+.prolif-2col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); align-items: stretch; }
+.prolif-box-inputs, .prolif-box-results { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); }
+.prolif-box-results { display: flex; flex-direction: column; gap: var(--space-md); transition: border-color 0.4s, background 0.4s; }
+.prolif-box-results.critical { border-color: #FFD4A7; background: #FFF7EE; }
+.prolif-config-inner { display: flex; flex-direction: column; gap: var(--space-sm); }
+.prolif-result-header { display: flex; align-items: baseline; gap: var(--space-sm); }
+.prolif-stats-compact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.prolif-stats-compact > div { padding: 8px; background: var(--color-bg); border-radius: var(--radius-md); }
+.prolif-stats-compact strong { font-size: 16px; color: var(--color-primary-900); display: block; }
+.prolif-stats-compact span { font-size: 9px; color: var(--color-text-muted); }
+@media (max-width: 768px) { .prolif-2col { grid-template-columns: 1fr; } }
+.prolif-month-label { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+.prolif-pop-count { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 32px; color: var(--color-primary-900); transition: color 0.3s; line-height: 1; }
+.prolif-pop-count.danger { color: #B8541E; }
+.prolif-months-bar { display: flex; justify-content: space-between; font-size: 10px; color: #999; font-family: var(--font-secondary); margin-top: 4px; }
+.prolif-visual { background: var(--color-bg); border-radius: var(--radius-lg); padding: var(--space-sm) var(--space-md); min-height: 60px; overflow: hidden; }
+.prolif-rats { display: flex; flex-wrap: wrap; gap: 1px; font-size: 13px; line-height: 1.1; }
+.rat-icon { display: inline-block; animation: ratAppear 0.15s ease; }
+.rat-overflow { font-size: 11px; color: #B8541E; font-weight: 700; display: inline-block; margin-left: 4px; vertical-align: middle; }
+@keyframes ratAppear { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+.prolif-alert { display: flex; align-items: center; gap: var(--space-sm); padding: 10px 16px; border-radius: var(--radius-lg); transition: all 0.4s; font-size: 13px; }
+.prolif-alert.level-ok { background: #E8F5E9; color: #2E7D32; }
+.prolif-alert.level-warn { background: #FFF3E0; color: #E65100; }
+.prolif-alert.level-danger { background: #FFEBEE; color: #C62828; }
+.prolif-alert.level-critical { background: #C62828; color: #fff; }
+.prolif-cta { text-align: center; margin-top: var(--space-lg); }
+
+/* ── Garden cross-section (zones) ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; }
+
+/* ── Risk score ── */
+.risk-check-layout { display: grid; grid-template-columns: 1fr 240px; gap: var(--space-xl); align-items: start; }
+.risk-checklist { display: flex; flex-direction: column; gap: 8px; }
+.risk-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-lg); border: 1px solid var(--color-gray-light); cursor: pointer; font-size: 13px; transition: all 0.2s; background: var(--color-surface); }
+.risk-check-item:hover { border-color: #C8B99A; }
+.risk-check-item input { accent-color: #F66C24; width: 16px; height: 16px; cursor: pointer; }
+.risk-result-box { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); text-align: center; position: sticky; top: 140px; }
+.risk-score-svg { width: 200px; height: 120px; }
+.risk-verdict h3 { margin: var(--space-sm) 0 4px; }
+.risk-verdict p { font-size: 13px; color: var(--color-text-muted); }
+@media (max-width: 700px) { .risk-check-layout { grid-template-columns: 1fr; } }
+
+/* ── Calendar ── */
+.calendar-grid { display: grid; grid-template-columns: auto repeat(12, 1fr); gap: 2px; font-size: 11px; }
+.cal-cell { padding: 8px 4px; text-align: center; border-radius: var(--radius-xs); position: relative; }
+.cal-header { font-family: var(--font-primary); font-weight: 700; background: var(--color-primary-900); color: #fff; }
+.cal-label { font-family: var(--font-primary); font-weight: 700; font-size: 10px; text-align: right; padding-right: 8px; background: var(--color-bg); display: flex; align-items: center; justify-content: flex-end; }
+.cal-current { outline: 2px solid var(--color-primary-600); outline-offset: -1px; }
+.cal-tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--color-primary-900); color: #fff; padding: 6px 12px; border-radius: var(--radius-md); font-size: 11px; white-space: nowrap; z-index: 10; pointer-events: none; }
+.cal-cell:hover .cal-tip { display: block; }
+
+/* ── France map ── */
+.france-map-wrapper { display: grid; grid-template-columns: 3fr 2fr; gap: var(--space-lg); align-items: start; }
+.france-map-svg { width: 100%; height: auto; }
+.france-map-svg path { cursor: pointer; stroke: #fff; stroke-width: 1.5; transition: all 0.2s ease; }
+.france-map-svg path:hover { filter: brightness(0.93); }
+.france-map-svg path.region-selected { filter: brightness(0.88); stroke: #fff; stroke-width: 3; }
+.map-legend { display: flex; gap: var(--space-lg); font-size: 12px; color: var(--color-text-muted); flex-wrap: wrap; margin-top: var(--space-sm); }
+.map-legend-item { display: flex; align-items: center; gap: 6px; }
+.map-legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.08); }
+.map-detail-panel { background: var(--color-bg-sand); border-radius: var(--radius-lg); padding: var(--space-xl); position: sticky; top: 140px; }
+.map-detail-panel h4 { margin: 0 0 var(--space-xs); font-size: 18px; font-weight: 700; color: var(--color-primary-900); }
+.map-detail-level { display: inline-block; font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: var(--radius-full); margin-bottom: var(--space-sm); }
+.map-detail-level.critical { background: #D94F4F; color: #fff; }
+.map-detail-level.high { background: #F5A623; color: #fff; }
+.map-detail-level.moderate { background: #F5D76E; }
+.map-detail-text { font-size: 14px; line-height: 1.6; color: var(--color-primary-800); margin: 0; }
+@media (max-width: 768px) { .france-map-wrapper { grid-template-columns: 1fr; } .map-detail-panel { position: static; } }
+
+/* ── Methods ── */
+.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+.method-card { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); transition: all 0.3s; }
+.method-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.method-card.recommended { border-color: #22C55E; position: relative; box-shadow: 0 0 0 1px #22C55E; }
+.method-card.recommended::before { content: '✓ Recommandé'; position: absolute; top: -12px; right: 16px; background: #22C55E; color: #fff; font-size: 10px; font-weight: 700; padding: 4px 14px; border-radius: var(--radius-full); }
+.method-card h4 { margin: 0 0 var(--space-sm); font-size: 16px; }
+.method-meter { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.method-meter-label { font-size: 11px; color: var(--color-text-muted); width: 70px; flex-shrink: 0; }
+.method-meter-bar { flex: 1; height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.method-meter-fill { height: 100%; border-radius: 3px; }
+.method-filter { padding: 6px 16px; border: 2px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); }
+.method-filter:hover { border-color: #C8B99A; }
+.method-filter.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+.method-card.dimmed { opacity: 0.3; transform: scale(0.97); }
+@media (max-width: 768px) { .methods-grid { grid-template-columns: 1fr; } }
+
+/* ── Protocol ── */
+.protocol-step { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); margin-bottom: var(--space-md); transition: box-shadow 0.3s; counter-increment: step; }
+.protocol-steps { counter-reset: step; }
+.protocol-step:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
+.protocol-step h4 { display: flex; align-items: center; gap: var(--space-sm); font-size: 16px; margin: 0 0 var(--space-sm); }
+.protocol-step h4::before { content: counter(step); width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary-900); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.protocol-check { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--color-text-muted); cursor: pointer; }
+.protocol-check input { accent-color: var(--color-primary-600); }
+.protocol-check.checked { text-decoration: line-through; opacity: 0.5; }
+
+/* ── Quiz ── */
+.quiz-container { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); }
+.quiz-progress { display: flex; gap: var(--space-xs); margin-bottom: var(--space-xl); }
+.quiz-progress .step { flex: 1; height: 4px; border-radius: var(--radius-full); background: var(--color-gray-light); }
+.quiz-progress .step.done { background: var(--color-primary-600); }
+.quiz-progress .step.current { background: var(--color-primary-400); }
+.quiz-question { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 20px; margin-bottom: var(--space-lg); }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+.quiz-option { padding: var(--space-md) var(--space-lg); border: 2px solid var(--color-gray-light); border-radius: var(--radius-xl); cursor: pointer; font-family: var(--font-primary); font-size: 15px; transition: all 0.25s; background: var(--color-surface); text-align: center; }
+.quiz-option:hover { border-color: var(--color-primary-600); background: var(--color-primary-100); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.quiz-result { text-align: center; display: none; }
+.quiz-result.active { display: block; }
+.quiz-result .score-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-lg); font-size: 32px; font-weight: var(--font-weight-bold); color: #fff; }
+
+/* ── Cost ── */
+.cost-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.cost-highlight { text-align: center; padding: var(--space-2xl); background: linear-gradient(135deg, var(--color-pastel-peach-light) 0%, #FFF7EE 100%); border-radius: var(--radius-xl); }
+.cost-highlight .big { font-size: 56px; font-weight: var(--font-weight-bold); color: var(--color-primary-600); line-height: 1; }
+.cost-highlight .label { font-size: 14px; color: var(--color-text-muted); margin-top: 4px; }
+.cost-slider-wrap { margin-top: var(--space-lg); text-align: center; }
+.cost-slider-wrap label { font-size: 13px; font-weight: 500; display: block; margin-bottom: var(--space-sm); }
+.cost-savings { font-size: 16px; font-weight: 700; color: #22C55E; margin-top: var(--space-sm); }
+@media (max-width: 700px) { .cost-layout { grid-template-columns: 1fr; } }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--color-gray-light); }
+.tl-item { position: relative; padding: 0 0 var(--space-lg) var(--space-lg); }
+.tl-item::before { content: ''; position: absolute; left: -20px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #C8B99A; border: 2px solid var(--color-surface); }
+.tl-year { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+.tl-text { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
+
+/* ── World ── */
+.world-cities { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+.world-city { display: flex; align-items: center; gap: var(--space-sm); padding: 14px 18px; border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); cursor: pointer; transition: all 0.3s; }
+.world-city:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.world-city.active { border-color: var(--color-primary-900); background: var(--color-pastel-peach-light); }
+.world-city-flag { font-size: 24px; flex-shrink: 0; }
+.world-city-info strong { font-size: 14px; display: block; }
+.world-city-info span { font-size: 11px; color: var(--color-text-muted); }
+.world-detail { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); margin-top: var(--space-md); min-height: 100px; }
+.world-detail h3 { margin: 0 0 var(--space-sm); }
+.world-detail p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin: 0; }
+
+/* ── Final CTA ── */
+.final-cta { background: var(--color-primary-900); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-2xl); text-align: center; color: #fff; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(99,93,221,0.15) 0%, transparent 60%); pointer-events: none; }
+.final-cta h2 { color: #fff; margin: 0 0 var(--space-sm); font-size: 28px; position: relative; }
+.final-cta p { color: rgba(255,255,255,0.6); margin-bottom: var(--space-xl); position: relative; }
+.final-cta .btn-primary { background: #fff; color: var(--color-primary-900); font-size: 16px; padding: 16px 32px; position: relative; }
+.final-cta .btn-primary:hover { background: var(--color-pastel-peach-light); }
+.trust-badges { display: flex; gap: var(--space-xl); justify-content: center; margin-top: var(--space-xl); font-size: 13px; color: rgba(255,255,255,0.5); position: relative; flex-wrap: wrap; }
+
+/* ── Scroll animations ── */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Cohabitants ── */
+.cohabit-section { max-width: 1400px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); }
+.related-links { display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-md); }
+.related-links a { background: var(--color-pastel-peach-light); color: var(--color-primary-900); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-full); text-decoration: none; font-size: var(--text-small); font-family: var(--font-primary); font-weight: var(--font-weight-bold); }
 </style>
 </head>
 <body>
@@ -358,65 +713,736 @@
     </nav>
   </div>
 </div>
-<section class="section" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-primary-100) 100%); padding-top: var(--space-3xl);">
+<nav class="step-nav" id="stepNav">
+  <div class="step-nav-links">
+    <a href="#identification" data-nav>Identification</a>
+    <a href="#dangers" data-nav>Dégâts</a>
+    <a href="#simulateur" data-nav>Activité</a>
+    <a href="#zones" data-nav>Jardin</a>
+    <a href="#evaluation" data-nav>Votre risque</a>
+    <a href="#calendrier" data-nav>Saisons</a>
+    <a href="#methodes" data-nav>Méthodes</a>
+    <a href="#protocole" data-nav>Protocole</a>
+    <a href="#quiz" data-nav>Quiz</a>
+    <a href="#cout" data-nav>Coûts</a>
+    <a href="#faq" data-nav>FAQ</a>
+    <a href="#action" data-nav>Agir</a>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="section" id="hero" style="padding-top: var(--space-2xl);">
   <div class="container">
+    <div class="hero-box" style="background: var(--color-pastel-peach-light); border-radius: var(--radius-xl); padding: var(--space-2xl); overflow: hidden; max-width: none; margin: 0 -24px;">
     <div class="nuisible-hero">
       <div class="nuisible-hero-text">
-        <span class="mono" style="color: #999;">Guide d'identification</span>
-        <h1>Taupes — Identification, Nuisances & Solutions</h1>
-        <p style="color: var(--color-text-muted); margin-top: var(--space-md);">La taupe européenne (Talpa europaea) vit exclusivement sous terre. Si elle joue un rôle écologique en aérant le sol, ses galeries et taupinières peuvent dévaster une pelouse ou un jardin en quelques jours.</p>
+        <span class="mono" style="color: #999;">GUIDE EXPERT</span>
+        <h1>Taupes : Identification, Dégâts & Solutions</h1>
+        <p style="color: var(--color-text-muted); margin-top: var(--space-md);">La taupe d'Europe (<em>Talpa europaea</em>) est un mammifère insectivore qui vit exclusivement sous terre. Discrète mais redoutable, elle peut transformer une pelouse impeccable en champ de taupinières en quelques semaines. Voici comment l'identifier, comprendre son activité et la déloger durablement.</p>
+        <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg);">
+          <a href="/devis/?nuisible=taupes" class="btn btn-primary btn-lg">Devis gratuit <span class="btn-arrow"></span></a>
+          <a href="#methodes" class="btn btn-outline btn-lg">Voir nos méthodes</a>
+        </div>
       </div>
-      <img src="../../assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe européenne" class="nuisible-hero-img">
+      <img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe d'Europe (Talpa europaea)" class="nuisible-hero-img">
     </div>
+
+    <div class="hero-stats animate-in">
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="20" data-suffix=" m/jour">0</span>
+          <span class="hero-stat-label">de galeries creusées</span>
+        </div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22h20"/><path d="M5 22V10l7-6 7 6v12"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="2000" data-suffix=" m²">0</span>
+          <span class="hero-stat-label">territoire moyen</span>
+        </div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="200" data-suffix="">0</span>
+          <span class="hero-stat-label">taupinières/an possibles</span>
+        </div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="0" data-suffix="">0</span>
+          <span class="hero-stat-label">maladie transmise à l'homme</span>
+        </div>
+      </div>
+    </div>
+    </div><!-- /.hero-box -->
   </div>
 </section>
 
-<section class="section">
-  <div class="container nuisible-section">
-    <h2>Comment reconnaître les taupes ?</h2>
-    <ul>
-      <li><strong>Taille :</strong> 12-16 cm de long, poids de 60 à 120 g. Corps cylindrique, pelage noir velouté, museau pointu et rose.</li>
-      <li><strong>Pattes :</strong> pattes antérieures très larges et puissantes, en forme de pelle, adaptées au creusement. Elle peut creuser jusqu'à 20 mètres de galeries par jour.</li>
-      <li><strong>Mode de vie :</strong> solitaire et territoriale. Chaque taupe occupe un réseau de galeries de 200 à 400 mètres carrés. Active toute l'année, jour et nuit.</li>
-      <li><strong>Alimentation :</strong> insectivore (vers de terre, larves, limaces). Elle ne mange pas les racines des plantes mais ses galeries les endommagent indirectement.</li>
-    </ul>
+<!-- ══════════════════════════════════════
+     PAGE LAYOUT — Content + Sidebar
+     ══════════════════════════════════════ -->
+<div class="page-layout">
+  <div class="page-content">
 
-    <h2>Dangers et nuisances</h2>
-    <ul>
-      <li><strong>Taupinières :</strong> monticules de terre disgracieux qui défigurent les pelouses et compliquent la tonte. Une seule taupe peut produire des dizaines de taupinières.</li>
-      <li><strong>Dommages aux racines :</strong> les galeries déracinent les plantes, assèchent les racines et créent des poches d'air néfastes pour le gazon et les cultures.</li>
-      <li><strong>Risques d'affaissement :</strong> les galeries superficielles créent des zones instables qui s'affaissent sous le poids des pieds, des tondeuses ou des véhicules.</li>
-      <li><strong>Terrains sportifs et espaces verts :</strong> pour les professionnels (gestionnaires de parcs, terrains de golf, stades), les taupinières représentent un problème majeur de sécurité et d'esthétique.</li>
-    </ul>
+    <!-- ════════ INTRO SEO + RADAR ════════ -->
+    <section class="section-inner" id="intro-seo">
+      <h2 style="margin-top:0;">La taupe en France : un nuisible silencieux du jardin</h2>
+      <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">Présente partout en France métropolitaine, la taupe d'Europe est l'un des nuisibles les plus visibles du jardin — sans jamais se montrer. Voici son profil.</p>
 
-    <h2>Signes de présence</h2>
-    <ul class="checklist">
-      <li>Taupinières (monticules de terre fraîche) apparaissant sur la pelouse, surtout au printemps et en automne</li>
-      <li>Sillons de surface visibles sur le gazon (galeries peu profondes)</li>
-      <li>Zones de gazon jaunies ou affaissées</li>
-      <li>Sol mou et spongieux quand vous marchez sur la pelouse</li>
-    </ul>
+      <div class="intro-profile">
+        <div class="intro-radar-wrap">
+          <canvas id="ficheRadar" width="220" height="220"></canvas>
+        </div>
+        <div class="intro-gauges">
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Dégâts jardin</span><span class="gauge-val">88/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:88%;background:#B8541E;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Discrétion</span><span class="gauge-val">95/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:95%;background:#E65100;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Persévérance</span><span class="gauge-val">85/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:85%;background:#F9A825;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Reproduction</span><span class="gauge-val">45/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:45%;background:#C8B99A;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Adaptabilité</span><span class="gauge-val">75/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:75%;background:#C8B99A;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Coût intervention</span><span class="gauge-val">60/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:60%;background:#E5DED2;"></div></div></div>
+        </div>
+      </div>
 
-    <h2>Solutions</h2>
-    <ul>
-      <li><strong>Piégeage professionnel :</strong> la méthode la plus efficace. Nos techniciens installent des pièges mécaniques dans les galeries actives. Cette technique est sélective et respectueuse de l'environnement.</li>
-      <li><strong>Repérage des galeries :</strong> l'identification des galeries principales (par opposition aux galeries de prospection) est essentielle pour un piégeage efficace. C'est un savoir-faire de spécialiste.</li>
-      <li><strong>Inefficacité des remèdes maison :</strong> les appareils à ultrasons, les boules de naphtaline et les fumigènes sont largement inefficaces. La taupe se contente de creuser de nouvelles galeries.</li>
-    </ul>
+      <p style="color:var(--color-text-muted);font-size:14px;line-height:1.7;margin-top:var(--space-lg);">Une seule taupe peut creuser jusqu'à <strong>20 mètres de galeries par jour</strong> et coloniser un territoire de <strong>2 000 m²</strong>. Solitaire et territoriale, elle vit 3 à 5 ans et produit 1 à 2 portées par an entre mars et juillet. Bonne nouvelle : la taupe ne transmet aucune maladie à l'homme. La lutte est avant tout esthétique et agronomique.</p>
+    </section>
 
-    <div style="background: var(--color-primary-100); border-radius: var(--radius-lg); padding: var(--space-2xl); margin-top: var(--space-2xl); text-align: center;">
-      <h2 style="margin-top: 0;">Taupinières dans votre jardin ?</h2>
-      <p style="color: var(--color-text-muted);">Nos taupiers professionnels interviennent pour un piégeage efficace et respectueux de l'environnement.</p>
-      <div class="cta-double" style="justify-content: center;">
-        <a href="/devis/?nuisible=taupes" class="btn btn-accent btn-lg">Intervention particulier →</a>
-        <a href="/devis/?nuisible=taupes&type=pro" class="btn btn-primary btn-lg">Contrat pro →</a>
+    <!-- ════════ ANATOMIE ════════ -->
+    <section id="anatomie">
+      <span class="section-label fade-up">Ce qui en fait un creuseur d'élite</span>
+      <h2>Ce que cache son anatomie</h2>
+      <p>La taupe est un mammifère parfaitement adapté à la vie souterraine. Chacune de ses caractéristiques anatomiques explique pourquoi elle est si difficile à éliminer sans piégeage professionnel.</p>
+
+      <div class="anatomy-layout">
+        <div class="anatomy-visual">
+          <img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Anatomie de la taupe d'Europe" style="width:100%;max-width:480px;border-radius:12px;background:var(--color-pastel-peach-light);padding:24px;">
+          <div class="anatomy-points">
+            <button class="anat-point" data-anat="pattes" style="top:65%;left:35%;" title="Pattes en pelle">🐾</button>
+            <button class="anat-point" data-anat="museau" style="top:48%;left:80%;" title="Museau">👃</button>
+            <button class="anat-point" data-anat="yeux" style="top:35%;left:72%;" title="Yeux atrophiés">👁️</button>
+            <button class="anat-point" data-anat="pelage" style="top:45%;left:50%;" title="Pelage">🧶</button>
+            <button class="anat-point" data-anat="oreilles" style="top:32%;left:62%;" title="Ouïe">👂</button>
+            <button class="anat-point" data-anat="queue" style="top:60%;left:15%;" title="Queue">〰️</button>
+            <button class="anat-point" data-anat="ventre" style="top:55%;left:55%;" title="Reproduction">🐭</button>
+          </div>
+        </div>
+        <div class="anatomy-detail" id="anatomyDetail">
+          <p style="color:#999;text-align:center;padding:var(--space-lg) 0;">Cliquez sur un point pour en savoir plus.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 1 — Identification ═══ -->
+    <section id="identification">
+      <span class="section-label fade-up">Étape 1 — Identification</span>
+      <h2>Les espèces de taupes en France</h2>
+      <p>En France métropolitaine, la <em>taupe d'Europe</em> (Talpa europaea) est largement dominante — elle représente plus de 95 % des cas. Au sud de la Loire et en zone méditerranéenne, on rencontre aussi la <em>taupe aveugle</em> (Talpa caeca) et la <em>taupe romaine</em> (Talpa romana).</p>
+
+      <div class="species-compare">
+        <div class="species-card-v2 active" data-species="europe">
+          <div class="species-card-visual" style="background: var(--color-pastel-peach-light);">
+            <img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe d'Europe — Talpa europaea">
+            <span class="badge">95% des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Taupe d'Europe</h3>
+            <span class="latin">Talpa europaea</span>
+            <div class="stars"><span class="stars-label">Dégâts jardin</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">12-18 cm</span><span class="spec-key">Taille</span></div>
+              <div class="spec"><span class="spec-val">60-130 g</span><span class="spec-key">Poids</span></div>
+              <div class="spec"><span class="spec-val">3-5 ans</span><span class="spec-key">Vie</span></div>
+              <div class="spec"><span class="spec-val">1-2/an</span><span class="spec-key">Portées</span></div>
+            </div>
+            <p class="desc">Espèce dominante partout en France sauf le bassin méditerranéen. Pelage noir velouté, museau rose, pattes avant en pelle. Présente du nord au sud, de la plaine à 2 000 m d'altitude.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="aveugle">
+          <div class="species-card-visual" style="background: var(--color-pastel-peach-light);">
+            <img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe aveugle — Talpa caeca">
+            <span class="badge">Sud-Est</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Taupe aveugle</h3>
+            <span class="latin">Talpa caeca</span>
+            <div class="stars"><span class="stars-label">Dégâts jardin</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">10-14 cm</span><span class="spec-key">Taille</span></div>
+              <div class="spec"><span class="spec-val">40-80 g</span><span class="spec-key">Poids</span></div>
+              <div class="spec"><span class="spec-val">3-4 ans</span><span class="spec-key">Vie</span></div>
+              <div class="spec"><span class="spec-val">1/an</span><span class="spec-key">Portées</span></div>
+            </div>
+            <p class="desc">Plus petite, présente dans les Alpes, le Massif central et la Provence. Yeux totalement recouverts par une membrane (d'où son nom). Galeries plus profondes que la taupe d'Europe.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="romaine">
+          <div class="species-card-visual" style="background: var(--color-pastel-peach-light);">
+            <img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe romaine — Talpa romana">
+            <span class="badge">Rare</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Taupe romaine</h3>
+            <span class="latin">Talpa romana</span>
+            <div class="stars"><span class="stars-label">Dégâts jardin</span> <span style="color:var(--color-accent-500);">&#9733;&#9733;&#9733;&#9734;&#9734;</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">14-17 cm</span><span class="spec-key">Taille</span></div>
+              <div class="spec"><span class="spec-val">80-130 g</span><span class="spec-key">Poids</span></div>
+              <div class="spec"><span class="spec-val">3-5 ans</span><span class="spec-key">Vie</span></div>
+              <div class="spec"><span class="spec-val">1/an</span><span class="spec-key">Portées</span></div>
+            </div>
+            <p class="desc">Limitée à l'extrême sud-est de la France, plus présente en Italie. Plus robuste, taupinières plus volumineuses. Se rencontre principalement en zones agricoles méditerranéennes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="did-you-know">
+        <span class="did-you-know-icon">💡</span>
+        <p><strong>Le saviez-vous ?</strong> La taupe d'Europe est presque aveugle mais elle perçoit la lumière. Elle compense par un odorat extraordinaire et des moustaches (vibrisses) qui détectent les vibrations d'un ver de terre à <strong>plusieurs mètres</strong> sous terre.</p>
+      </div>
+
+      <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Reconnaître la présence d'une taupe est facile : elle laisse des indices visibles à la surface du sol.</p>
+
+      <div class="signs-grid">
+        <div class="sign-card">
+          <div class="sign-thumb">⛰️</div>
+          <h4>Taupinières</h4>
+          <p>Monticules de terre fine de 20-40 cm, sans trou apparent au sommet.</p>
+        </div>
+        <div class="sign-card">
+          <div class="sign-thumb">〰️</div>
+          <h4>Galeries</h4>
+          <p>Sillons en relief sur la pelouse, surtout après la pluie.</p>
+        </div>
+        <div class="sign-card">
+          <div class="sign-thumb">🌱</div>
+          <h4>Gazon jauni</h4>
+          <p>Bandes ou zones de gazon qui jaunissent sans raison apparente.</p>
+        </div>
+        <div class="sign-card">
+          <div class="sign-thumb">👣</div>
+          <h4>Sol mou</h4>
+          <p>Terrain spongieux qui s'enfonce sous le pied.</p>
+        </div>
+        <div class="sign-card">
+          <div class="sign-thumb">🌿</div>
+          <h4>Plantes mortes</h4>
+          <p>Massifs ou bordures dont les racines sont déchaussées.</p>
+        </div>
+        <div class="sign-card">
+          <div class="sign-thumb">🕳️</div>
+          <h4>Trou central</h4>
+          <p>Sortie ouverte d'urgence (rare, signe d'activité intense).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 2 — Dégâts ═══ -->
+    <section id="dangers">
+      <span class="section-label fade-up">Étape 2 — Les dégâts</span>
+      <h2>Ce que fait vraiment la taupe à votre jardin</h2>
+      <p>Bonne nouvelle : la taupe ne transmet pas de maladies à l'homme et ne s'attaque pas aux animaux domestiques. Mauvaise nouvelle : ses dégâts esthétiques et structurels sur la pelouse, le potager et les bordures peuvent rapidement devenir conséquents.</p>
+
+      <div class="risk-tabs">
+        <button class="risk-tab active" data-tab="esthetique">🌿 Dégâts esthétiques</button>
+        <button class="risk-tab" data-tab="agronomique">🌱 Impacts agronomiques</button>
+        <button class="risk-tab" data-tab="structurel">🛠️ Risques structurels</button>
+      </div>
+
+      <div class="risk-tab-content active" id="tab-esthetique">
+        <div class="danger-facts">
+          <div class="danger-fact">
+            <div class="danger-fact-num">200</div>
+            <div class="danger-fact-text">
+              <strong>taupinières par an</strong>
+              <span>Une seule taupe active peut produire jusqu'à 200 monticules en une saison. Chaque monticule fait 20 à 40 cm de diamètre.</span>
+            </div>
+          </div>
+          <div class="danger-fact">
+            <div class="danger-fact-num">3 kg</div>
+            <div class="danger-fact-text">
+              <strong>de terre remontée par jour</strong>
+              <span>La taupe pousse environ 3 kg de terre à la surface chaque jour pendant ses creusements actifs.</span>
+            </div>
+          </div>
+          <div class="danger-fact">
+            <div class="danger-fact-num">2-3 j</div>
+            <div class="danger-fact-text">
+              <strong>pour défigurer une pelouse</strong>
+              <span>Une taupe en pleine activité peut transformer une pelouse soignée en champ de bosses en 48-72 heures.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-tab-content" id="tab-agronomique">
+        <div class="disease-grid">
+          <div class="disease-card">
+            <div class="disease-header"><span class="disease-severity">●●●</span><strong>Racines déchaussées</strong><span class="disease-tag">Impact élevé</span></div>
+            <p>Les galeries sous-superficielles sectionnent les racines et créent des poches d'air. Massifs, rosiers et jeunes arbres dépérissent rapidement.</p>
+            <span class="disease-stat">Jusqu'à 30 % des plantes affectées en bordure de galerie</span>
+          </div>
+          <div class="disease-card">
+            <div class="disease-header"><span class="disease-severity">●●○</span><strong>Pelouse soulevée</strong><span class="disease-tag">Impact modéré</span></div>
+            <p>La couche superficielle de gazon est décollée du sol. La pelouse jaunit, s'assèche et se déchire sous les pieds.</p>
+            <span class="disease-stat">Récupération en 2 à 6 mois après traitement</span>
+          </div>
+          <div class="disease-card">
+            <div class="disease-header"><span class="disease-severity">●●○</span><strong>Potager perturbé</strong><span class="disease-tag">Impact modéré</span></div>
+            <p>Bien que la taupe ne mange pas les légumes (elle est insectivore), ses galeries assèchent les rangs et déstabilisent les jeunes plants.</p>
+            <span class="disease-stat">Carottes, salades et radis particulièrement vulnérables</span>
+          </div>
+          <div class="disease-card">
+            <div class="disease-header"><span class="disease-severity">●○○</span><strong>Mulots opportunistes</strong><span class="disease-tag">Effet indirect</span></div>
+            <p>Les galeries de taupe sont colonisées par des mulots et campagnols qui, eux, mangent les racines et les bulbes. C'est l'effet domino classique.</p>
+            <span class="disease-stat">Risque accru en automne et hiver</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-tab-content" id="tab-structurel">
+        <div class="damage-row">
+          <div class="damage-item">
+            <span class="damage-icon">🚜</span>
+            <div><strong>Tondeuse endommagée</strong><span>Les taupinières font ricocher les lames de tondeuse. Risque de casse moteur ou d'éjection de pierre.</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">⚽</span>
+            <div><strong>Terrains de sport</strong><span>Sols irréguliers et instables. Risque accru d'entorses et de chutes pour les pratiquants.</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">🏠</span>
+            <div><strong>Allées affaissées</strong><span>Les galeries sous les dalles ou pavés peuvent provoquer des affaissements localisés.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3 — Activité simulée ═══ -->
+    <section id="simulateur">
+      <span class="section-label fade-up">Étape 3 — Activité</span>
+      <h2>Combien de taupinières en quelques mois ?</h2>
+      <p>Contrairement aux rongeurs, la taupe ne prolifère pas : elle est solitaire. Mais une seule taupe active peut produire des dizaines, voire des centaines de taupinières par saison. Ce simulateur estime l'évolution des dégâts selon votre situation.</p>
+
+      <div class="prolif-2col">
+        <div class="prolif-box-inputs">
+          <h3 style="margin:0 0 var(--space-md);font-size:15px;">Votre situation</h3>
+          <div class="prolif-config-inner">
+            <div class="prolif-config-item"><span class="prolif-config-label">Type de jardin</span><div class="prolif-pills" id="cfgLogement"><button class="prolif-pill active" data-val="petit">🏡 Petit (&lt;500 m²)</button><button class="prolif-pill" data-val="moyen">🌳 Moyen (500-2000 m²)</button><button class="prolif-pill" data-val="grand">🌲 Grand (&gt;2000 m²)</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Sol</span><div class="prolif-pills" id="cfgSecteur"><button class="prolif-pill active" data-val="argileux">Argileux</button><button class="prolif-pill" data-val="limoneux">Limoneux</button><button class="prolif-pill" data-val="sableux">Sableux</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Vers de terre</span><div class="prolif-pills" id="cfgFood"><button class="prolif-pill" data-val="peu">Peu</button><button class="prolif-pill active" data-val="moyen">Moyen</button><button class="prolif-pill" data-val="beaucoup">Abondants</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Taupes détectées</span><div class="prolif-pills" id="cfgInitial"><button class="prolif-pill active" data-val="1">1</button><button class="prolif-pill" data-val="2">2</button><button class="prolif-pill" data-val="3">3</button></div></div>
+          </div>
+          <div style="margin-top:var(--space-lg);">
+            <span class="prolif-config-label">Mois d'activité</span>
+            <input type="range" id="prolifSlider" min="0" max="11" value="0" style="width:100%;margin-top:6px;">
+            <div class="prolif-months-bar"><span>M1</span><span>M3</span><span>M6</span><span>M9</span><span>M12</span></div>
+          </div>
+        </div>
+
+        <div class="prolif-box-results" id="prolifResultsBox">
+          <div class="prolif-result-header">
+            <span class="prolif-month-label" id="prolifMonth">MOIS 1</span>
+            <span class="prolif-pop-count" id="prolifCount">5 taupinières</span>
+          </div>
+          <div class="prolif-visual" id="prolifVisual">
+            <div class="prolif-rats" id="prolifRats"></div>
+          </div>
+          <div class="prolif-stats-compact">
+            <div><strong id="pImpactCrottes">5</strong><span>taupinières</span></div>
+            <div><strong id="pImpactCost">15 €</strong><span>regazonnage</span></div>
+            <div><strong id="pImpactFood">3 m²</strong><span>pelouse abîmée</span></div>
+          </div>
+          <div class="prolif-alert" id="prolifAlert">
+            <span class="prolif-alert-icon">✓</span>
+            <span class="prolif-alert-text">Situation maîtrisable.</span>
+          </div>
+          <div class="prolif-cta" id="prolifCta" style="display:none;">
+            <a href="/devis/?nuisible=taupes" class="btn btn-primary" style="width:100%;">Demander un devis <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4 — Zones jardin ═══ -->
+    <section id="zones">
+      <span class="section-label fade-up">Étape 4 — Votre jardin</span>
+      <h2>Où la taupe s'installe-t-elle dans votre jardin ?</h2>
+      <p>La taupe privilégie les sols meubles et riches en vers de terre. Elle évite les zones très compactées ou inondées. Voici les zones les plus exposées dans un jardin type.</p>
+
+      <div class="house-wrap" id="houseWrap">
+        <svg viewBox="0 0 900 480" id="houseSvg" aria-label="Coupe du jardin — zones d'infestation des taupes"></svg>
+        <div class="house-tooltip" id="houseTooltip"></div>
+      </div>
+
+      <div class="did-you-know">
+        <span class="did-you-know-icon">💡</span>
+        <p><strong>Le saviez-vous ?</strong> Les galeries de chasse (peu profondes, sous-superficielles) sont distinctes des galeries permanentes (40-60 cm de profondeur). C'est dans ces dernières — sur les axes principaux — que les pièges professionnels sont placés pour une efficacité maximale.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 5 — Score de risque ═══ -->
+    <section id="evaluation">
+      <span class="section-label fade-up">Votre situation</span>
+      <h2>Votre score de risque taupes</h2>
+      <p>Évaluez gratuitement le niveau de vulnérabilité de votre jardin face aux taupes. Ce diagnostic en 8 points identifie les facteurs qui favorisent leur installation.</p>
+      <div class="risk-check-layout">
+        <div class="risk-checklist" id="riskChecklist">
+          <label class="risk-check-item"><input type="checkbox" data-score="20" checked> Taupinières fraîches visibles sur la pelouse</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="15"> Jardin de plus de 500 m² avec pelouse</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="12" checked> Sol riche, humide, avec beaucoup de vers de terre</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="10"> Proximité de prairies, champs ou bois</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="10"> Voisinage avec des cas de taupes</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="8"> Arrosage automatique régulier</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="10"> Pelouse jaunie ou affaissée par endroits</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="15"> Galeries en relief visibles après la pluie</label>
+        </div>
+        <div class="risk-result-box">
+          <svg class="risk-score-svg" viewBox="0 0 240 140" id="riskGauge">
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#E5E5E5" stroke-width="14" stroke-linecap="round"/>
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#4CAF50" stroke-width="14" stroke-linecap="round" id="riskArc" stroke-dasharray="314" stroke-dashoffset="314"/>
+            <text x="120" y="105" text-anchor="middle" font-size="36" font-weight="700" fill="var(--color-primary-900)" id="riskScoreText">0</text>
+            <text x="120" y="125" text-anchor="middle" font-size="12" fill="#999">/100</text>
+          </svg>
+          <div class="risk-verdict">
+            <h3 id="riskVerdictTitle">Faible</h3>
+            <p id="riskVerdictDesc">Cochez les cases pour évaluer votre risque.</p>
+          </div>
+          <div id="riskCta" style="display:none;margin-top:var(--space-md);">
+            <a href="/devis/?nuisible=taupes" class="btn btn-primary" style="width:100%;font-size:14px;">Demander un devis <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 6 — Calendrier ═══ -->
+    <section id="calendrier">
+      <span class="section-label fade-up">Saisonnalité</span>
+      <h2>Quand intervenir ? Le calendrier des saisons</h2>
+      <p>La taupe est active toute l'année, mais son activité connaît deux pics marqués au printemps (mars-juin) et à l'automne (septembre-novembre). C'est dans ces fenêtres que le piégeage est le plus efficace.</p>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </section>
+
+    <!-- ═══ SECTION 7 — Carte de France ═══ -->
+    <section id="carte">
+      <span class="section-label fade-up">Géographie</span>
+      <h2>Les régions les plus touchées par les taupes</h2>
+      <p>La taupe d'Europe est présente dans toute la France métropolitaine, à l'exception de la Corse et du littoral méditerranéen le plus sec. Les bocages humides du nord-ouest et les prairies des moyennes montagnes sont les zones les plus densément peuplées.</p>
+      <div class="france-map-wrapper">
+        <div class="france-map-left">
+        <svg class="france-map-svg" viewBox="0 0 550 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carte de France des niveaux d'infestation par les taupes">
+          <path data-region="bretagne" fill="#D94F4F" d="M50,180 L160,160 L180,210 L165,260 L100,275 L60,250 Z"/>
+          <path data-region="normandie" fill="#D94F4F" d="M160,140 L260,135 L280,200 L210,210 L180,200 L165,160 Z"/>
+          <path data-region="pays-de-la-loire" fill="#F5A623" d="M120,260 L210,220 L240,275 L210,320 L130,310 L100,280 Z"/>
+          <path data-region="centre-val-de-loire" fill="#F5A623" d="M210,220 L300,225 L310,290 L240,310 L215,275 Z"/>
+          <path data-region="ile-de-france" fill="#F5D76E" d="M270,180 L320,175 L330,210 L290,225 L270,210 Z"/>
+          <path data-region="hauts-de-france" fill="#F5D76E" d="M250,90 L350,85 L370,140 L320,160 L260,140 Z"/>
+          <path data-region="grand-est" fill="#F5A623" d="M340,120 L460,115 L490,200 L420,225 L355,200 L340,150 Z"/>
+          <path data-region="bourgogne-franche-comte" fill="#F5A623" d="M310,240 L420,225 L450,310 L380,330 L320,300 Z"/>
+          <path data-region="nouvelle-aquitaine" fill="#F5A623" d="M120,330 L260,320 L280,440 L200,470 L130,450 L95,380 Z"/>
+          <path data-region="auvergne-rhone-alpes" fill="#D94F4F" d="M280,310 L420,310 L440,420 L350,450 L290,420 L270,360 Z"/>
+          <path data-region="occitanie" fill="#F5D76E" d="M180,440 L320,440 L340,520 L260,550 L180,530 Z"/>
+          <path data-region="paca" fill="#F5D76E" d="M340,420 L460,420 L480,510 L400,540 L350,500 Z"/>
+          <path data-region="corse" fill="#F5D76E" d="M490,490 L520,485 L530,560 L500,565 Z"/>
+        </svg>
+        <div class="map-legend">
+          <div class="map-legend-item"><span class="map-legend-swatch" style="background:#D94F4F;"></span> Très dense</div>
+          <div class="map-legend-item"><span class="map-legend-swatch" style="background:#F5A623;"></span> Élevé</div>
+          <div class="map-legend-item"><span class="map-legend-swatch" style="background:#F5D76E;"></span> Modéré</div>
+        </div>
+        </div>
+        <div class="map-detail-panel" id="mapDetailPanel">
+          <span class="map-detail-level critical">Très dense</span>
+          <h3 id="mapDetailName">Bretagne</h3>
+          <p class="map-detail-text" id="mapDetailText">Les bocages humides et les sols riches en vers de terre font de la Bretagne l'une des zones les plus densément peuplées de taupes en France. Densités locales jusqu'à 5 individus/hectare.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 8 — Méthodes ═══ -->
+    <section id="methodes">
+      <span class="section-label fade-up">Solutions</span>
+      <h2>Quelle méthode contre les taupes ?</h2>
+      <p>Pièges, répulsifs, gaz, ultrasons : toutes les méthodes ne se valent pas. Le piégeage mécanique professionnel reste la seule solution réellement efficace et durable. Voici un comparatif honnête.</p>
+
+      <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-lg);flex-wrap:wrap;">
+        <button class="method-filter active" data-level="all" onclick="filterMethods('all')">Toutes</button>
+        <button class="method-filter" data-level="light" onclick="filterMethods('light')">Quelques taupinières</button>
+        <button class="method-filter" data-level="medium" onclick="filterMethods('medium')">Infestation moyenne</button>
+        <button class="method-filter" data-level="severe" onclick="filterMethods('severe')">Jardin défiguré</button>
+      </div>
+
+      <div class="methods-grid">
+        <div class="method-card" data-level="light">
+          <h3>📡 Répulsifs ultrasons</h3>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:20%;background:#F44336;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:15%;background:#F44336;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:90%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Les taupes s'habituent aux vibrations en quelques jours. Effet placebo dans la majorité des cas.</p>
+        </div>
+        <div class="method-card" data-level="light">
+          <h4>🌿 Répulsifs naturels</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:25%;background:#F44336;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:20%;background:#F44336;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Plante euphorbe, ricin, marc de café… Effet limité, à compléter par d'autres méthodes.</p>
+        </div>
+        <div class="method-card" data-level="medium">
+          <h4>🪤 Pièges du commerce</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:50%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:40%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:55%;background:#FF9800;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Pièges à pince ou à boudin. Efficaces si placés correctement, ce qui demande de l'expérience.</p>
+        </div>
+        <div class="method-card recommended" data-level="severe">
+          <h4>🛡️ Piégeage professionnel</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:80%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Diagnostic, pose de pièges sur galeries actives, suivi. La méthode la plus fiable et sélective.</p>
+        </div>
+        <div class="method-card" data-level="severe">
+          <h4>💨 Gaz (zone agricole)</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:75%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:85%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:35%;background:#F44336;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Réservé aux exploitations agricoles. Encadré par l'arrêté ACUTAB. Pas adapté aux jardins privés.</p>
+        </div>
+        <div class="method-card" data-level="medium">
+          <h4>🚧 Bouchage de galeries</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:35%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:30%;background:#F44336;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:90%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Combler les galeries pour gêner la taupe. Méthode complémentaire, jamais suffisante seule.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 9 — Protocole ═══ -->
+    <section id="protocole">
+      <span class="section-label fade-up">Plan d'action</span>
+      <h2>Le protocole étape par étape</h2>
+      <p>Un plan d'action structuré en 5 étapes pour éliminer durablement les taupes de votre jardin. Chaque étape compte : un piégeage mal mené est presque toujours infructueux.</p>
+      <div class="protocol-steps" id="protocolSteps">
+        <div class="protocol-step">
+          <h3>Diagnostiquer</h3>
+          <label class="protocol-check"><input type="checkbox"> Compter les taupinières fraîches (terre humide et meuble)</label>
+          <label class="protocol-check"><input type="checkbox"> Repérer les axes principaux (galeries en ligne droite)</label>
+          <label class="protocol-check"><input type="checkbox"> Distinguer galeries de chasse et galeries permanentes</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Préparer le terrain</h4>
+          <label class="protocol-check"><input type="checkbox"> Tasser ou araser les taupinières existantes</label>
+          <label class="protocol-check"><input type="checkbox"> Marquer les zones d'activité fraîche après 48h</label>
+          <label class="protocol-check"><input type="checkbox"> Identifier les passages obligés (bordures, clôtures)</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Piéger</h4>
+          <label class="protocol-check"><input type="checkbox"> Localiser une galerie permanente active</label>
+          <label class="protocol-check"><input type="checkbox"> Poser 2 à 4 pièges mécaniques (pince ou boudin)</label>
+          <label class="protocol-check"><input type="checkbox"> Reboucher délicatement pour éviter la lumière</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Vérifier</h4>
+          <label class="protocol-check"><input type="checkbox"> Contrôler les pièges chaque jour</label>
+          <label class="protocol-check"><input type="checkbox"> Déplacer les pièges si pas de capture en 5 jours</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Prévenir la récidive</h4>
+          <label class="protocol-check"><input type="checkbox"> Niveler la pelouse et regarnir les zones abîmées</label>
+          <label class="protocol-check"><input type="checkbox"> Installer une clôture anti-taupes en bordure de propriété</label>
+          <label class="protocol-check"><input type="checkbox"> Surveillance trimestrielle au printemps et à l'automne</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 10 — Quiz ═══ -->
+    <section id="quiz">
+      <span class="section-label fade-up">Auto-diagnostic</span>
+      <h2>Avez-vous une taupe dans votre jardin ?</h2>
+      <p>Ce quiz rapide analyse les indices de présence des taupes dans votre jardin. Taupinières, sillons, sol mou : répondez à 8 questions pour obtenir un diagnostic personnalisé.</p>
+      <div class="quiz-container" id="quizContainer">
+        <div class="quiz-progress" id="quizProgress"></div>
+        <div id="quizBody">
+          <p class="quiz-question" id="quizQuestion"></p>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+        <div class="quiz-result" id="quizResult">
+          <div class="score-circle" id="quizScoreCircle"></div>
+          <h3 id="quizVerdictTitle"></h3>
+          <p id="quizVerdictDesc"></p>
+          <div style="display:flex;gap:var(--space-md);justify-content:center;margin-top:var(--space-xl);flex-wrap:wrap;">
+            <button class="btn btn-outline" id="quizRestart">Recommencer</button>
+            <a href="/devis/?nuisible=taupes" class="btn btn-primary">Devis gratuit <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 11 — Coût ═══ -->
+    <section id="cout">
+      <span class="section-label fade-up">L'enjeu financier</span>
+      <h2>Combien coûte une intervention contre les taupes ?</h2>
+      <p>Une intervention professionnelle contre les taupes représente un investissement compris entre 200 € et 1 200 € selon la taille du jardin et la durée du suivi. C'est sans commune mesure avec les coûts indirects d'une infestation chronique.</p>
+
+      <div class="cost-breakdown" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-sm);margin-bottom:var(--space-xl);">
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🪤</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">200 – 450 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Piégeage ponctuel<br><span style="font-size:11px;">(petit jardin, 1-2 visites)</span></div>
+        </div>
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🌳</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">450 – 800 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Jardin moyen<br><span style="font-size:11px;">(500-2000 m², 3-4 visites)</span></div>
+        </div>
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🌲</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">600 – 1 200 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Saison complète<br><span style="font-size:11px;">(grand jardin, suivi 3 mois)</span></div>
+        </div>
+        <div style="background:var(--color-bg-sand);border-radius:var(--radius-md);padding:var(--space-md);text-align:center;">
+          <div style="font-size:20px;margin-bottom:4px;">🌱</div>
+          <div style="font-weight:700;font-size:15px;color:var(--color-primary-900);">100 – 400 €</div>
+          <div style="font-size:12px;color:var(--color-text-muted);margin-top:4px;">Regazonnage<br><span style="font-size:11px;">(après élimination)</span></div>
+        </div>
+      </div>
+
+      <div class="cost-layout">
+        <div class="sim-chart-wrap">
+          <canvas id="costChart" height="200"></canvas>
+        </div>
+        <div class="cost-highlight">
+          <div class="big" id="costRoi">8:1</div>
+          <div class="label">Retour sur investissement</div>
+          <div class="cost-slider-wrap">
+            <label>Mois d'intervention : <strong id="costMonthVal">3</strong></label>
+            <input type="range" id="costMonthSlider" min="1" max="12" value="3" style="max-width:200px;">
+            <div class="cost-savings" id="costSavings">Vous économisez ~600 €</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 12 — Histoire ═══ -->
+    <section id="histoire">
+      <span class="section-label fade-up">Contexte historique</span>
+      <h2>La taupe, compagne séculaire des jardiniers</h2>
+      <p>Présente sur tout le continent européen, la taupe accompagne l'agriculture humaine depuis des millénaires. Méconnue, parfois honnie, elle a vu sa lutte évoluer au fil des siècles, du piégeage artisanal aux méthodes modernes encadrées.</p>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-year">Antiquité</span><div class="tl-text"><strong>Pline l'Ancien</strong> évoque déjà la taupe au Ier siècle, soulignant ses dégâts sur les jardins romains.</div></div>
+        <div class="tl-item"><span class="tl-year">1758</span><div class="tl-text"><strong>Carl von Linné</strong> classifie scientifiquement la taupe d'Europe sous le nom de <em>Talpa europaea</em>.</div></div>
+        <div class="tl-item"><span class="tl-year">XIXe siècle</span><div class="tl-text">Le métier de <strong>taupier</strong> se professionnalise dans les campagnes françaises. Première génération de pièges mécaniques.</div></div>
+        <div class="tl-item"><span class="tl-year">1980</span><div class="tl-text">Réglementation des produits chimiques de lutte. Interdiction progressive des appâts à la strychnine.</div></div>
+        <div class="tl-item"><span class="tl-year">2010</span><div class="tl-text">Bannissement des derniers raticides agissant sur la taupe. Le piégeage mécanique redevient la norme.</div></div>
+        <div class="tl-item"><span class="tl-year">2020</span><div class="tl-text">Renaissance du métier de <strong>taupier professionnel</strong>, certifié et formé aux méthodes sélectives.</div></div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION — Carte mondiale ═══ -->
+    <section id="monde">
+      <span class="section-label fade-up">Perspective européenne</span>
+      <h2>La taupe, un défi européen</h2>
+      <p>La taupe d'Europe est présente dans toute l'Europe tempérée, du Royaume-Uni à la Pologne. Cliquez sur un pays pour découvrir les particularités locales.</p>
+
+      <div class="world-cities" id="worldCities">
+        <div class="world-city active" data-city="france"><span class="world-city-flag">🇫🇷</span><div class="world-city-info"><strong>France</strong><span>Bocages, prairies, jardins</span></div></div>
+        <div class="world-city" data-city="uk"><span class="world-city-flag">🇬🇧</span><div class="world-city-info"><strong>Royaume-Uni</strong><span>20 millions de taupes estimées</span></div></div>
+        <div class="world-city" data-city="allemagne"><span class="world-city-flag">🇩🇪</span><div class="world-city-info"><strong>Allemagne</strong><span>Espèce protégée depuis 1986</span></div></div>
+        <div class="world-city" data-city="paysbas"><span class="world-city-flag">🇳🇱</span><div class="world-city-info"><strong>Pays-Bas</strong><span>Polders et jardins</span></div></div>
+        <div class="world-city" data-city="belgique"><span class="world-city-flag">🇧🇪</span><div class="world-city-info"><strong>Belgique</strong><span>Densité élevée en Wallonie</span></div></div>
+        <div class="world-city" data-city="pologne"><span class="world-city-flag">🇵🇱</span><div class="world-city-info"><strong>Pologne</strong><span>Plaines agricoles</span></div></div>
+      </div>
+
+      <div class="world-detail" id="worldDetail">
+        <h3>🇫🇷 France — Bocages et prairies</h3>
+        <p>La taupe d'Europe est présente sur l'ensemble du territoire métropolitain, à l'exception de la Corse. Les bocages humides de Normandie et de Bretagne, les prairies du Massif central et les jardins urbains du nord et de l'ouest sont les zones les plus densément peuplées. La lutte est libre dans les jardins privés.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 13 — FAQ ═══ -->
+    <section id="faq">
+      <span class="section-label fade-up">Questions fréquentes</span>
+      <h2>Les vraies réponses, sans détour</h2>
+      <p>Les questions les plus posées par nos clients sur la lutte contre les taupes, les méthodes de piégeage et l'efficacité des solutions naturelles.</p>
+      <div class="accordion-list" id="faqAccordion">
+        <div class="accordion-item"><button class="accordion-header">Les taupes sont-elles dangereuses pour l'homme ou les animaux ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Non. La taupe d'Europe ne transmet pas de maladies à l'homme et ne s'attaque pas aux animaux domestiques. Elle est strictement insectivore (vers de terre, larves, insectes). Les nuisances sont uniquement esthétiques et agronomiques.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Combien de taupes peut-il y avoir dans mon jardin ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Une seule taupe peut produire 20 à 200 taupinières et coloniser jusqu'à 2 000 m². Les taupes sont solitaires et territoriales : ce qui semble être plusieurs individus est souvent une seule taupe très active. Comptez 1 à 3 taupes par hectare en jardin urbain.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Les répulsifs à ultrasons fonctionnent-ils ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Non, l'efficacité des répulsifs à ultrasons est très limitée et temporaire. La taupe s'habitue aux vibrations en quelques jours. Les seules solutions vraiment efficaces sont le piégeage mécanique professionnel et le bouchage des galeries.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Existe-t-il des pièges à taupes humains et sans tuer ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Les pièges à capture vivante existent mais sont peu efficaces : la taupe meurt souvent de stress avant d'être relâchée. Le piégeage mécanique professionnel (pince ou à boudin) est la méthode recommandée — rapide et sélective.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">A-t-on le droit de détruire les taupes dans son jardin ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Oui, la taupe d'Europe (<em>Talpa europaea</em>) n'est pas une espèce protégée en France. Le piégeage et la lutte sont autorisés dans les jardins privés. En zone agricole, les traitements chimiques (gaz) sont encadrés par l'arrêté ACUTAB.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Combien de temps faut-il pour que la pelouse se régénère ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Après élimination des taupes, comptez 2 à 6 semaines pour égaliser le terrain (rouler les taupinières, regarnir le gazon). Le rétablissement complet de la pelouse demande 2 à 3 mois selon la saison. Un traitement préventif évite la récidive.</div></div></div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 14 — CTA Final ═══ -->
+    <section id="action" style="border-bottom:none;">
+      <div class="final-cta">
+        <h2>Vous savez maintenant. Il est temps d'agir.</h2>
+        <p>Devis gratuit en 2 minutes. Réponse sous 2h. Intervention sous 48h.</p>
+        <a href="/devis/?nuisible=taupes" class="btn btn-primary btn-lg">Obtenir mon devis gratuit <span class="btn-arrow"></span></a>
+        <div class="trust-badges">
+          <span>✓ Sans engagement</span>
+          <span>✓ Taupiers expérimentés</span>
+          <span>✓ Méthode sélective</span>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ══════════════════════════════════════
+       STICKY SIDEBAR
+       ══════════════════════════════════════ -->
+  <div class="sidebar-wrap">
+    <div class="sidebar-card">
+      <div class="sidebar-visual">
+        <img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Taupe d'Europe">
+      </div>
+      <div class="sidebar-body">
+        <h3>Taupe</h3><span class="sidebar-badge">1 jardin sur 4</span>
+        <span class="sidebar-latin">Talpa europaea</span>
+        <div class="sidebar-stats">
+          <div><span class="sidebar-stat-val">2 000 m²</span><span class="sidebar-stat-label">territoire</span></div>
+          <div><span class="sidebar-stat-val">200/an</span><span class="sidebar-stat-label">taupinières</span></div>
+          <div><span class="sidebar-stat-val">3-5 ans</span><span class="sidebar-stat-label">durée de vie</span></div>
+          <div><span class="sidebar-stat-val">0</span><span class="sidebar-stat-label">maladie humaine</span></div>
+        </div>
+        <div class="sidebar-cta">
+          <a href="/devis/?nuisible=taupes" class="btn btn-primary">Devis taupes <span class="btn-arrow"></span></a>
+          <span class="sidebar-offer"><span class="pulse-dot"></span> 1ère intervention offerte</span>
+        </div>
       </div>
     </div>
+    <a href="#quiz" class="sidebar-quiz">Avez-vous des taupes dans votre jardin ? Faites le test →</a>
+  </div>
 
-    <h2>Liens utiles</h2>
+</div><!-- /.page-layout -->
+
+<!-- ══════════════════════════════════════
+     COHABITANTS
+     ══════════════════════════════════════ -->
+<section class="section" id="cohabitants">
+  <div class="container">
+    <h2>Les nuisibles qui cohabitent souvent avec les taupes</h2>
+    <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">Les galeries de taupes sont souvent réutilisées par d'autres rongeurs et insectes du jardin.</p>
+    <div class="nuisibles-grid">
+      <a href="/nuisibles/rats/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="Rat"></div><div class="card-nuisible-info"><h3>Rats</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/souris/" class="card-nuisible pastel-lavender"><div class="card-nuisible-visual"><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="Souris"></div><div class="card-nuisible-info"><h3>Souris</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/fourmis/" class="card-nuisible pastel-rose"><div class="card-nuisible-visual"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi"></div><div class="card-nuisible-info"><h3>Fourmis</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/" class="card-nuisible pastel-mint"><div class="card-nuisible-visual"><img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="Mulots"></div><div class="card-nuisible-info"><h3>Mulots</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+    </div>
+
+    <h3 style="margin-top:var(--space-2xl);">Liens utiles</h3>
     <div class="related-links">
-      <a href="/nuisibles/rats/">Fiche Rats</a>
       <a href="/nuisibles/">Tous les nuisibles</a>
+      <a href="/deratisation/">Service de dératisation</a>
+      <a href="/devis/?nuisible=taupes">Demander un devis taupes</a>
+      <a href="/blog/">Blog Sanalia</a>
     </div>
   </div>
 </section>
@@ -587,7 +1613,7 @@
 
         <!-- ─── Column: Services particuliers ─── -->
         <details class="footer-col footer-col-accordion" open data-auto-open>
-          <summary class="footer-col-title"><h4>Services particuliers</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Services particuliers</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/deratisation/">Dératisation</a></li>
             <li><a href="/desinsectisation/">Désinsectisation</a></li>
@@ -602,7 +1628,7 @@
 
         <!-- ─── Column: Services pros ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Services pros <span class="footer-col-tag">B2B</span></h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Services pros <span class="footer-col-tag">B2B</span></h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/professionnel/">Sanalia Pro</a></li>
             <li><a href="/professionnel/#restauration">Restauration &amp; HACCP</a></li>
@@ -617,7 +1643,7 @@
 
         <!-- ─── Column: Guides nuisibles ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Guides nuisibles</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Guides nuisibles</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/nuisibles/rats/">Rats</a></li>
             <li><a href="/nuisibles/souris/">Souris</a></li>
@@ -638,7 +1664,7 @@
 
         <!-- ─── Column: Implantations ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Implantations</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Implantations</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/deratisation/paris/">Paris</a></li>
             <li><a href="/deratisation/lyon/">Lyon</a></li>
@@ -656,7 +1682,7 @@
 
         <!-- ─── Column: À propos ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>À propos</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>À propos</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/a-propos/">Notre histoire</a></li>
             <li><a href="/garantie/">Nos garanties</a></li>
@@ -885,5 +1911,633 @@
 </div>
 </div>
 <script src="/js/app.js?v=20260417j"></script>
+<script>
+/* ══════════════════════════════════════════════
+   TAUPES — Interactive Features
+   ══════════════════════════════════════════════ */
+function updateSliderFill(el) {
+  const pct = (el.value - el.min) / (el.max - el.min) * 100;
+  el.style.background = 'linear-gradient(to right, #C8B99A 0%, #C8B99A ' + pct + '%, #E5E5E5 ' + pct + '%, #E5E5E5 100%)';
+}
+
+const DATA = {
+  calendar: [
+    {month:'Jan',activity:2,reproduction:1,intrusion:2,treatment:'Moyen'},
+    {month:'Fév',activity:2,reproduction:2,intrusion:2,treatment:'Moyen'},
+    {month:'Mar',activity:4,reproduction:4,intrusion:4,treatment:'Optimal'},
+    {month:'Avr',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},
+    {month:'Mai',activity:5,reproduction:5,intrusion:4,treatment:'Optimal'},
+    {month:'Jun',activity:4,reproduction:4,intrusion:3,treatment:'Bon'},
+    {month:'Jul',activity:3,reproduction:2,intrusion:2,treatment:'Moyen'},
+    {month:'Aoû',activity:2,reproduction:1,intrusion:2,treatment:'Moyen'},
+    {month:'Sep',activity:4,reproduction:1,intrusion:4,treatment:'Optimal'},
+    {month:'Oct',activity:5,reproduction:1,intrusion:5,treatment:'Optimal'},
+    {month:'Nov',activity:4,reproduction:1,intrusion:4,treatment:'Bon'},
+    {month:'Déc',activity:2,reproduction:1,intrusion:2,treatment:'Moyen'}
+  ],
+  quiz: [
+    {q:'Voyez-vous des taupinières fraîches dans votre jardin ?',opts:['Oui','Non','Parfois'],scores:[3,0,1]},
+    {q:'La pelouse présente-t-elle des sillons en relief ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Le sol est-il mou ou spongieux par endroits ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Avez-vous remarqué des plantes qui jaunissent sans raison ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Votre jardin est-il riche en vers de terre ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},
+    {q:'Habitez-vous près de prairies, bocages ou champs ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Vos voisins ont-ils aussi des taupes ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},
+    {q:'Les dégâts s\'aggravent-ils malgré vos efforts ?',opts:['Oui','Non'],scores:[3,0]}
+  ],
+  houseZones: [
+    {x:170,y:240,label:'Pelouse principale',desc:'Zone privilégiée par la taupe : sol meuble, riche en vers de terre, peu compacté. Les premières taupinières apparaissent généralement ici.'},
+    {x:330,y:280,label:'Bordures de massifs',desc:'Les bordures attirent particulièrement la taupe car la terre y est régulièrement travaillée et reste meuble. Galeries souvent parallèles aux allées.'},
+    {x:500,y:310,label:'Potager',desc:'La taupe ne mange pas les légumes mais ses galeries déstabilisent les rangs et assèchent les jeunes plants. Carottes et radis particulièrement vulnérables.'},
+    {x:680,y:230,label:'Pied d\'arbres et arbustes',desc:'Les arbres fruitiers et arbustes attirent la taupe par la richesse en vers de terre du sol. Risque de déracinement des jeunes plants.'},
+    {x:130,y:380,label:'Bordure de clôture',desc:'Voie d\'entrée principale depuis le terrain voisin. Les pièges sont souvent posés ici pour intercepter les taupes en transit.'},
+    {x:780,y:350,label:'Compost / tas de feuilles',desc:'Source de chaleur et de nourriture (vers de terre, larves). La taupe creuse fréquemment des galeries jusqu\'au tas.'},
+    {x:430,y:170,label:'Terrain en pente',desc:'Les pentes ensoleillées et drainées sont des zones de chasse privilégiées au printemps. Galeries souvent moins profondes.'},
+    {x:600,y:400,label:'Zone arrosée régulièrement',desc:'L\'arrosage automatique maintient le sol meuble et humide, conditions idéales pour la taupe. Densité de vers de terre maximale.'}
+  ]
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+  initSimulator();
+  initGardenZones();
+  initAnatomy();
+  initRiskGauges();
+  initCalendar();
+  initQuiz();
+  initCostChart();
+  initCostSlider();
+  initWorldMap();
+  initProtocol();
+  initAccordions();
+  initRiskTabs();
+  initBackToTop();
+  initStepNav();
+  initFranceMap();
+  if(typeof initFicheRadar==="function") initFicheRadar();
+  initHeroCounters();
+});
+
+/* ── Simulator (taupinières) ── */
+function initSimulator() {
+  const slider = document.getElementById('prolifSlider');
+  if (!slider) return;
+  const cfg = { logement: 'petit', secteur: 'argileux', food: 'moyen', initial: 1 };
+  document.querySelectorAll('.prolif-pills').forEach(group => {
+    group.querySelectorAll('.prolif-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        group.querySelectorAll('.prolif-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const id = group.id;
+        if (id === 'cfgLogement') cfg.logement = pill.dataset.val;
+        if (id === 'cfgSecteur') cfg.secteur = pill.dataset.val;
+        if (id === 'cfgFood') cfg.food = pill.dataset.val;
+        if (id === 'cfgInitial') cfg.initial = +pill.dataset.val;
+        recompute();
+      });
+    });
+  });
+  let mounds = [];
+  function recompute() {
+    const foodMult = { peu: 0.5, moyen: 1.0, beaucoup: 1.6 }[cfg.food];
+    const soilMult = { argileux: 0.8, limoneux: 1.2, sableux: 0.6 }[cfg.secteur];
+    const sizeMult = { petit: 0.7, moyen: 1.0, grand: 1.4 }[cfg.logement];
+    const baseRate = 5 * foodMult * soilMult * sizeMult * cfg.initial;
+    mounds = [];
+    for (let m = 0; m < 12; m++) {
+      const seasonMult = (m === 2 || m === 3 || m === 9 || m === 10) ? 1.6 : (m === 6 || m === 7) ? 0.5 : 1.0;
+      const monthly = Math.round(baseRate * seasonMult);
+      mounds.push((mounds[m - 1] || 0) + monthly);
+    }
+    update(+slider.value);
+  }
+  function update(month) {
+    const total = mounds[month] || 0;
+    document.getElementById('prolifMonth').textContent = 'Mois ' + (month + 1);
+    const countEl = document.getElementById('prolifCount');
+    countEl.textContent = total.toLocaleString('fr-FR') + ' taupinière' + (total > 1 ? 's' : '');
+    countEl.classList.toggle('danger', total > 50);
+    const maxIcons = 200;
+    const n = Math.min(maxIcons, total);
+    let html = '';
+    for (let i = 0; i < n; i++) html += '<span class="rat-icon">⛰️</span>';
+    if (total > maxIcons) html += '<span class="rat-overflow">+' + (total - maxIcons).toLocaleString('fr-FR') + '</span>';
+    document.getElementById('prolifRats').innerHTML = html;
+    const resBox = document.getElementById('prolifResultsBox');
+    if (resBox) resBox.classList.toggle('critical', total > 30);
+    document.getElementById('pImpactCrottes').textContent = total.toLocaleString('fr-FR');
+    document.getElementById('pImpactCost').textContent = (total * 3).toLocaleString('fr-FR') + ' €';
+    document.getElementById('pImpactFood').textContent = Math.round(total * 0.5) + ' m²';
+    const a = document.getElementById('prolifAlert');
+    const icon = a.querySelector('.prolif-alert-icon');
+    const text = a.querySelector('.prolif-alert-text');
+    const cta = document.getElementById('prolifCta');
+    if (total <= 10) {
+      a.className = 'prolif-alert level-ok'; icon.textContent = '✓';
+      text.textContent = 'Activité limitée. La pelouse reste récupérable rapidement.';
+      cta.style.display = 'none';
+    } else if (total <= 30) {
+      a.className = 'prolif-alert level-warn'; icon.textContent = '⚠️';
+      text.textContent = total + ' taupinières dégradent visiblement votre jardin. Une intervention est conseillée.';
+      cta.style.display = 'none';
+    } else if (total <= 80) {
+      a.className = 'prolif-alert level-danger'; icon.textContent = '🚨';
+      text.textContent = total + ' taupinières. La pelouse est défigurée. Le piégeage professionnel s\'impose.';
+      cta.style.display = 'block';
+    } else {
+      a.className = 'prolif-alert level-critical'; icon.textContent = '☠️';
+      text.textContent = total.toLocaleString('fr-FR') + ' taupinières — votre jardin est compromis. Intervention urgente recommandée.';
+      cta.style.display = 'block';
+    }
+    updateSliderFill(slider);
+  }
+  slider.addEventListener('input', () => update(+slider.value));
+  updateSliderFill(slider);
+  recompute();
+}
+
+/* ── Garden zones SVG ── */
+function initGardenZones() {
+  const svg = document.getElementById('houseSvg');
+  if (!svg) return;
+  let html = '';
+  // Sky
+  html += '<rect x="0" y="0" width="900" height="200" fill="#E8F2FB" rx="0"/>';
+  // Sun
+  html += '<circle cx="780" cy="60" r="34" fill="#FFE082"/>';
+  // Distant trees
+  html += '<ellipse cx="100" cy="180" rx="50" ry="60" fill="#A8C8A0"/>';
+  html += '<ellipse cx="200" cy="190" rx="40" ry="50" fill="#90B888"/>';
+  html += '<ellipse cx="800" cy="180" rx="55" ry="65" fill="#A8C8A0"/>';
+  // House (small, in background)
+  html += '<rect x="260" y="135" width="80" height="60" fill="#E8DDC8" stroke="#B8A788" stroke-width="1"/>';
+  html += '<polygon points="255,135 345,135 300,100" fill="#A87060" stroke="#7A4838" stroke-width="1"/>';
+  html += '<rect x="285" y="160" width="20" height="35" fill="#7A4838"/>';
+  // Pelouse
+  html += '<rect x="0" y="200" width="900" height="280" fill="#9CC76B" rx="0"/>';
+  // Underground (cross-section visible)
+  html += '<rect x="0" y="320" width="900" height="160" fill="#8B6F47" opacity="0.85"/>';
+  html += '<rect x="0" y="320" width="900" height="20" fill="#7A5F3A"/>';
+  // Galerie network underground
+  html += '<path d="M 50 360 Q 200 380 350 365 T 700 370 T 880 360" stroke="#3D2B1F" stroke-width="6" fill="none" opacity="0.7"/>';
+  html += '<path d="M 150 400 Q 300 420 500 410 T 850 415" stroke="#3D2B1F" stroke-width="5" fill="none" opacity="0.6"/>';
+  html += '<path d="M 200 440 Q 400 460 700 450" stroke="#3D2B1F" stroke-width="4" fill="none" opacity="0.5"/>';
+  // Taupinières on surface
+  for (let i = 0; i < 6; i++) {
+    const cx = 80 + i * 130 + Math.random() * 30;
+    const cy = 215 + (i % 2 === 0 ? -3 : 4);
+    html += '<ellipse cx="' + cx + '" cy="' + cy + '" rx="14" ry="6" fill="#7A5F3A"/>';
+    html += '<ellipse cx="' + cx + '" cy="' + (cy - 3) + '" rx="10" ry="4" fill="#8B6F47"/>';
+  }
+  // Potager (vegetable rows) - right side
+  html += '<rect x="450" y="270" width="140" height="50" fill="#7AAD58" rx="2"/>';
+  for (let i = 0; i < 6; i++) {
+    html += '<rect x="' + (455 + i * 22) + '" y="275" width="3" height="40" fill="#5A8048"/>';
+  }
+  // Massif fleuri - left
+  html += '<circle cx="100" cy="260" r="14" fill="#F4A6B4"/>';
+  html += '<circle cx="120" cy="270" r="12" fill="#E876A0"/>';
+  html += '<circle cx="80" cy="275" r="10" fill="#F4A6B4"/>';
+  // Fence (left bordure)
+  for (let i = 0; i < 5; i++) {
+    html += '<rect x="' + (15 + i * 25) + '" y="200" width="5" height="60" fill="#8B6F47"/>';
+  }
+  html += '<rect x="0" y="225" width="130" height="3" fill="#8B6F47"/>';
+  // Compost - right
+  html += '<rect x="755" y="320" width="70" height="50" fill="#6F5535" stroke="#4A3520" stroke-width="2" rx="2"/>';
+  html += '<text x="790" y="350" font-size="9" fill="#fff" font-family="monospace" text-anchor="middle">COMPOST</text>';
+  // Trees right (arbre fruitier)
+  html += '<rect x="660" y="220" width="8" height="35" fill="#7A4838"/>';
+  html += '<circle cx="664" cy="210" r="22" fill="#7AAD58"/>';
+  html += '<circle cx="660" cy="205" r="3" fill="#E54B40"/>';
+  html += '<circle cx="668" cy="215" r="3" fill="#E54B40"/>';
+
+  // Hotspots
+  DATA.houseZones.forEach((zone, i) => {
+    html += '<g class="house-hotspot" data-zone="' + i + '" tabindex="0" role="button" aria-label="' + zone.label + '">';
+    html += '<circle cx="' + zone.x + '" cy="' + zone.y + '" r="12" fill="#F66C24" opacity="0.85" style="animation: hotspot-pulse 2s infinite ' + (i * 0.2) + 's"/>';
+    html += '<circle cx="' + zone.x + '" cy="' + zone.y + '" r="5" fill="#fff"/>';
+    html += '</g>';
+  });
+
+  svg.innerHTML = html;
+
+  const tooltip = document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(g => {
+    g.addEventListener('mouseenter', () => {
+      const zone = DATA.houseZones[g.dataset.zone];
+      tooltip.innerHTML = '<h4>' + zone.label + '</h4><p>' + zone.desc + '</p>';
+      tooltip.classList.add('active');
+      const rect = svg.getBoundingClientRect();
+      const x = zone.x / 900 * rect.width;
+      const y = zone.y / 480 * rect.height;
+      tooltip.style.left = Math.min(x + 20, rect.width - 280) + 'px';
+      tooltip.style.top = (y - 40) + 'px';
+    });
+    g.addEventListener('mouseleave', () => tooltip.classList.remove('active'));
+  });
+}
+if (!document.getElementById('hotspotStyle')) {
+  const s = document.createElement('style');
+  s.id = 'hotspotStyle';
+  s.textContent = '@keyframes hotspot-pulse{0%,100%{opacity:0.7;r:10}50%{opacity:1;r:14}}';
+  document.head.appendChild(s);
+}
+
+/* ── Risk gauge ── */
+function initRiskGauges() {
+  const list = document.getElementById('riskChecklist');
+  if (!list) return;
+  function updateRiskScore() {
+    let score = 0;
+    list.querySelectorAll('input:checked').forEach(cb => score += +cb.dataset.score);
+    score = Math.min(100, score);
+    document.getElementById('riskScoreText').textContent = score;
+    const arc = document.getElementById('riskArc');
+    arc.style.strokeDashoffset = 314 - (score / 100 * 314);
+    arc.style.stroke = score < 25 ? '#4CAF50' : score < 50 ? '#FF9800' : '#F66C24';
+    const titles = ['Faible','Modéré','Élevé','Critique'];
+    const descs = [
+      'Peu de facteurs favorables.',
+      'Quelques mesures préventives suffiraient.',
+      'Votre jardin est vulnérable aux taupes.',
+      'Infestation très probable — agissez vite.'
+    ];
+    const lvl = score < 25 ? 0 : score < 50 ? 1 : score < 75 ? 2 : 3;
+    document.getElementById('riskVerdictTitle').textContent = titles[lvl];
+    document.getElementById('riskVerdictDesc').textContent = descs[lvl];
+    const cta = document.getElementById('riskCta');
+    if (cta) cta.style.display = score >= 50 ? 'block' : 'none';
+  }
+  list.addEventListener('change', updateRiskScore);
+  updateRiskScore();
+}
+
+/* ── Calendar ── */
+function initCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  if (!grid) return;
+  const colors = ['','#E8F5E9','#FFF9C4','#FFE0B2','#FFD4A7','#F66C24'];
+  const now = new Date().getMonth();
+  const rows = ['Activité','Reproduction','Dégâts','Traitement'];
+  const keys = ['activity','reproduction','intrusion','treatment'];
+  let html = '<div class="cal-cell cal-header"></div>';
+  DATA.calendar.forEach((m,i) => html += '<div class="cal-cell cal-header'+(i===now?' cal-current':'')+'">'+m.month+'</div>');
+  const tips = [
+    'Hiver — taupe peu active, sol gelé',
+    'Fin d\'hiver — préparation reproduction',
+    'Printemps — pic de reproduction et de creusement',
+    'Avril — activité maximale, dégâts visibles',
+    'Mai — derniers accouplements, taupinières nombreuses',
+    'Juin — naissances, jeunes en galerie',
+    'Été — sol sec, activité ralentie',
+    'Août — sortie des jeunes, dispersion territoriale',
+    'Septembre — reprise d\'activité, deuxième pic',
+    'Octobre — pic d\'automne, moment idéal pour piéger',
+    'Novembre — dernières taupinières avant l\'hiver',
+    'Décembre — taupe active sous le sol, peu visible'
+  ];
+  rows.forEach((r,ri) => {
+    html += '<div class="cal-cell cal-label">'+r+'</div>';
+    DATA.calendar.forEach((m,i) => {
+      const v = ri < 3 ? m[keys[ri]] : ({'Optimal':5,'Bon':4,'Moyen':2}[m.treatment]||1);
+      const tip = ri === 0 ? '<span class="cal-tip">' + tips[i] + '</span>' : '';
+      html += '<div class="cal-cell'+(i===now?' cal-current':'')+'" style="background:'+colors[v]+'">'+tip+'</div>';
+    });
+  });
+  grid.innerHTML = html;
+}
+
+/* ── Quiz ── */
+function initQuiz() {
+  const container = document.getElementById('quizContainer');
+  if (!container) return;
+  let current = 0, score = 0;
+  const progress = document.getElementById('quizProgress');
+  const body = document.getElementById('quizBody');
+  const result = document.getElementById('quizResult');
+  function renderProgress() {
+    progress.innerHTML = DATA.quiz.map((_,i) => '<div class="step'+(i<current?' done':'')+(i===current?' current':'')+'"></div>').join('');
+  }
+  function renderQuestion() {
+    if (current >= DATA.quiz.length) return showResult();
+    const q = DATA.quiz[current];
+    document.getElementById('quizQuestion').textContent = q.q;
+    document.getElementById('quizOptions').innerHTML = q.opts.map((o,i) => '<div class="quiz-option" data-score="'+q.scores[i]+'">'+o+'</div>').join('');
+    document.querySelectorAll('.quiz-option').forEach(opt => {
+      opt.addEventListener('click', () => { score += +opt.dataset.score; current++; renderProgress(); renderQuestion(); });
+    });
+    renderProgress();
+  }
+  function showResult() {
+    body.style.display = 'none';
+    const pct = Math.round(score / (DATA.quiz.length * 3) * 100);
+    const circle = document.getElementById('quizScoreCircle');
+    circle.textContent = pct + '%';
+    circle.style.background = pct < 30 ? '#4CAF50' : pct < 60 ? '#FF9800' : '#F66C24';
+    document.getElementById('quizVerdictTitle').textContent = pct < 30 ? 'Peu probable' : pct < 60 ? 'Possible' : 'Très probable';
+    document.getElementById('quizVerdictDesc').textContent = pct < 30 ? 'Les indices sont faibles. Restez vigilant au printemps.' : pct < 60 ? 'Plusieurs indices concordent. Une inspection s\'impose.' : 'D\'après vos réponses, une taupe est très probablement installée. Le piégeage professionnel est recommandé.';
+    result.classList.add('active');
+    renderProgress();
+  }
+  document.getElementById('quizRestart').addEventListener('click', () => { current=0;score=0;body.style.display='block';result.classList.remove('active');renderQuestion(); });
+  renderQuestion();
+}
+
+/* ── Cost chart ── */
+function initCostChart() {
+  const ctx = document.getElementById('costChart');
+  if (!ctx || typeof Chart === 'undefined') return;
+  const months = Array.from({length:12},(_,i)=>'Mois '+(i+1));
+  const damages = months.map((_,i) => Math.round(20 * Math.pow(1.25, i)));
+  const treatment = months.map(() => 350);
+  new Chart(ctx, {
+    type:'line',
+    data:{labels:months,datasets:[
+      {label:'Dégâts cumulés (sans action)',data:damages,borderColor:'#F66C24',backgroundColor:'rgba(246,108,36,0.1)',fill:true,tension:0.3},
+      {label:'Coût intervention pro',data:treatment,borderColor:'#4CAF50',backgroundColor:'rgba(76,175,80,0.05)',fill:true,borderDash:[6,4]}
+    ]},
+    options:{responsive:true,plugins:{legend:{labels:{font:{size:11}}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'€'}}}}
+  });
+}
+
+/* ── Cost slider ── */
+function initCostSlider() {
+  const slider = document.getElementById('costMonthSlider');
+  if (!slider) return;
+  const monthVal = document.getElementById('costMonthVal');
+  const roi = document.getElementById('costRoi');
+  const savings = document.getElementById('costSavings');
+  function update() {
+    const month = +slider.value;
+    monthVal.textContent = month;
+    const damageAtMonth = Math.round(20 * Math.pow(1.25, month));
+    const damageAt12 = Math.round(20 * Math.pow(1.25, 12));
+    const saved = damageAt12 - damageAtMonth;
+    const ratio = Math.max(1, Math.round(saved / 350));
+    roi.textContent = ratio + ':1';
+    savings.textContent = 'Vous économisez ~' + saved.toLocaleString('fr-FR') + ' €';
+    updateSliderFill(slider);
+  }
+  slider.addEventListener('input', update);
+  update();
+}
+
+/* ── Protocol ── */
+function initProtocol() {
+  const saved = JSON.parse(localStorage.getItem('taupeProtocol') || '{}');
+  document.querySelectorAll('.protocol-check input').forEach((cb, i) => {
+    if (saved[i]) { cb.checked = true; cb.parentElement.classList.add('checked'); }
+    cb.addEventListener('change', () => {
+      cb.parentElement.classList.toggle('checked', cb.checked);
+      const state = {};
+      document.querySelectorAll('.protocol-check input').forEach((c, j) => { if (c.checked) state[j] = true; });
+      localStorage.setItem('taupeProtocol', JSON.stringify(state));
+    });
+  });
+}
+
+/* ── Accordions ── */
+function initAccordions() {
+  document.querySelectorAll('.accordion-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      item.parentElement.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+      btn.querySelector('.icon-toggle').textContent = item.classList.contains('open') ? '−' : '+';
+    });
+  });
+}
+
+/* ── Risk tabs ── */
+function initRiskTabs() {
+  document.querySelectorAll('.risk-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.risk-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.risk-tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+/* ── Anatomy ── */
+function initAnatomy() {
+  const detail = document.getElementById('anatomyDetail');
+  if (!detail) return;
+  const data = {
+    pattes: {title:'Pattes en pelle', text:'Les pattes antérieures de la taupe sont des outils de creusement. Très larges, dotées de griffes puissantes, elles peuvent déplacer <strong>3 kg de terre par jour</strong>. La taupe creuse 10 à 20 mètres de galeries en 24 heures.'},
+    museau: {title:'Museau & odorat', text:'Le museau rose et tubulaire est extrêmement sensible. La taupe détecte les vers de terre par <strong>vibrations et odeurs</strong>. Les vibrisses (moustaches) tactiles complètent ce système sensoriel d\'une précision étonnante.'},
+    yeux: {title:'Yeux atrophiés', text:'Les yeux de la taupe sont minuscules et recouverts d\'un fin pelage. Elle perçoit la lumière mais pas les formes. Cette quasi-cécité est une adaptation parfaite à la vie souterraine — la vue ne sert à rien sous terre.'},
+    pelage: {title:'Pelage velouté', text:'Le pelage est <strong>orientable dans tous les sens</strong>. C\'est unique dans le monde animal : cela permet à la taupe de se déplacer aussi facilement en avant qu\'en arrière dans ses galeries étroites. Couleur noir-brun, parfois grise.'},
+    oreilles: {title:'Ouïe & vibrations', text:'La taupe n\'a pas de pavillon externe : ses oreilles sont cachées sous le pelage pour ne pas être abîmées par la terre. Mais son ouïe est <strong>extrêmement fine</strong>, particulièrement sensible aux vibrations transmises par le sol.'},
+    queue: {title:'Queue tactile', text:'Courte (2-3 cm) et velue, la queue de la taupe est un organe sensoriel : couverte de vibrisses, elle détecte les <strong>parois des galeries</strong> quand la taupe se déplace en arrière. Indispensable à la navigation souterraine.'},
+    ventre: {title:'Reproduction', text:'La taupe se reproduit une seule fois par an, entre <strong>mars et juillet</strong>. Gestation de 4 semaines, 3 à 7 petits par portée. Les jeunes quittent la galerie maternelle à 5-6 semaines pour chercher leur propre territoire.'}
+  };
+  document.querySelectorAll('.anat-point').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.anat-point').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const d = data[btn.dataset.anat];
+      if (d) detail.innerHTML = '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
+    });
+  });
+  const defaultBtn = document.querySelector('.anat-point[data-anat="pattes"]');
+  if (defaultBtn) defaultBtn.click();
+}
+
+/* ── Method filters ── */
+function filterMethods(level) {
+  document.querySelectorAll('.method-filter').forEach(f => f.classList.toggle('active', f.dataset.level === level));
+  document.querySelectorAll('.method-card').forEach(card => {
+    if (level === 'all') card.classList.remove('dimmed');
+    else card.classList.toggle('dimmed', card.dataset.level !== level);
+  });
+}
+
+/* ── Scroll animations ── */
+function initScrollAnimations() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+}
+
+/* ── Hero counter animation ── */
+function initHeroCounters() {
+  const heroStats = document.querySelectorAll('.hero-stat-value[data-count]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        if (!target && target !== 0) return;
+        let current = 0;
+        if (target === 0) { el.textContent = '0' + suffix; obs.unobserve(el); return; }
+        const step = Math.max(1, Math.floor(target / 40));
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = current.toLocaleString('fr-FR') + suffix;
+        }, 30);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  heroStats.forEach(s => obs.observe(s));
+}
+
+/* ── World map ── */
+function initWorldMap() {
+  const cities = {
+    france: { title: '🇫🇷 France — Bocages et prairies', text: 'La taupe d\'Europe est présente sur l\'ensemble du territoire métropolitain, à l\'exception de la Corse. Les bocages humides de Normandie et de Bretagne, les prairies du Massif central et les jardins urbains du nord et de l\'ouest sont les zones les plus densément peuplées. La lutte est libre dans les jardins privés.' },
+    uk: { title: '🇬🇧 Royaume-Uni — Le pays des taupes', text: 'Estimées à <strong>20 millions</strong>, les taupes britanniques font partie du folklore (Wind in the Willows). Le métier de <strong>mole catcher</strong> est une tradition séculaire encore très active. Densité jusqu\'à 30 individus par hectare dans les prairies.' },
+    allemagne: { title: '🇩🇪 Allemagne — Espèce protégée', text: 'En Allemagne, la taupe est <strong>protégée par la loi</strong> depuis 1986 (Bundesartenschutzverordnung). Le piégeage et la destruction sont strictement encadrés et nécessitent une autorisation. Seuls des moyens dissuasifs sont autorisés au quotidien.' },
+    paysbas: { title: '🇳🇱 Pays-Bas — Polders et jardins', text: 'Très présente dans les <strong>polders</strong> et les jardins urbains. Les conditions humides et les sols meubles sont idéaux. Plus de 10 millions de taupes estimées sur ce petit territoire. La lutte par piégeage est libre.' },
+    belgique: { title: '🇧🇪 Belgique — Densité élevée en Wallonie', text: 'En Wallonie, la densité de taupes est l\'une des plus élevées d\'Europe. Les bocages ardennais et les prairies humides du Hainaut sont particulièrement infestés. Lutte autorisée et largement pratiquée par les jardiniers.' },
+    pologne: { title: '🇵🇱 Pologne — Plaines agricoles', text: 'Présente dans toute la Pologne, surtout dans les plaines agricoles et les prairies humides. Densités importantes en zones rurales. Le piégeage est une pratique courante en milieu agricole, notamment dans les exploitations laitières.' }
+  };
+  document.querySelectorAll('.world-city').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.world-city').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const d = cities[card.dataset.city];
+      if (d) document.getElementById('worldDetail').innerHTML = '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
+    });
+  });
+}
+
+/* ── France map ── */
+function initFranceMap() {
+  const regionData = {
+    'bretagne': { name: 'Bretagne', level: 'critical', text: 'Les bocages humides et les sols riches en vers de terre font de la Bretagne l\'une des zones les plus densément peuplées de taupes en France. Densités locales jusqu\'à 5 individus/hectare.' },
+    'normandie': { name: 'Normandie', level: 'critical', text: 'Bocages, prairies et sols argileux : la Normandie offre un habitat idéal pour la taupe. Les jardins urbains de Caen et Rouen sont également très exposés.' },
+    'pays-de-la-loire': { name: 'Pays de la Loire', level: 'high', text: 'Densité élevée dans les jardins, en particulier en Mayenne et Sarthe. Les sols limoneux des bords de Loire favorisent l\'installation des taupes.' },
+    'centre-val-de-loire': { name: 'Centre-Val de Loire', level: 'high', text: 'Présence importante dans les jardins ruraux et péri-urbains. Le climat doux et les sols limoneux du bassin de la Loire sont propices à l\'espèce.' },
+    'auvergne-rhone-alpes': { name: 'Auvergne-Rhône-Alpes', level: 'critical', text: 'Les prairies du Massif central et les vallées rhônalpines abritent de très fortes densités. La taupe est présente jusqu\'à 2 000 m d\'altitude dans les estives.' },
+    'nouvelle-aquitaine': { name: 'Nouvelle-Aquitaine', level: 'high', text: 'Présente dans les jardins du Périgord, du Limousin et du bassin aquitain. Les sols argileux et les fortes pluies hivernales favorisent la prolifération.' },
+    'occitanie': { name: 'Occitanie', level: 'moderate', text: 'Présence modérée. Le climat sec du Languedoc limite l\'installation, mais les Pyrénées et le piémont sont densément peuplés.' },
+    'paca': { name: 'Provence-Alpes-Côte d\'Azur', level: 'moderate', text: 'La taupe d\'Europe est rare sur le littoral méditerranéen sec. On rencontre la taupe aveugle (<em>Talpa caeca</em>) en zones d\'altitude alpines.' },
+    'grand-est': { name: 'Grand Est', level: 'high', text: 'Très présente dans les Vosges, l\'Argonne et les plaines lorraines. Les sols argileux et les prairies humides sont des zones de forte densité.' },
+    'bourgogne-franche-comte': { name: 'Bourgogne-Franche-Comté', level: 'high', text: 'Présence importante dans le Jura, le Morvan et la plaine bressane. Les pâturages laitiers et les bocages favorisent les fortes densités.' },
+    'hauts-de-france': { name: 'Hauts-de-France', level: 'moderate', text: 'Densité modérée. Les zones de polders et de marais sont peu favorables, mais les jardins urbains de Lille et Amiens connaissent des infestations régulières.' },
+    'ile-de-france': { name: 'Île-de-France', level: 'moderate', text: 'Présence concentrée dans les jardins de la grande couronne. Les bois de Vincennes, Boulogne, Versailles et Rambouillet abritent des populations stables.' },
+    'corse': { name: 'Corse', level: 'moderate', text: 'La taupe d\'Europe est <strong>absente</strong> de la Corse. Seule la <em>Talpa romana</em> est ponctuellement signalée dans les zones agricoles. Risque très limité.' }
+  };
+  const mapPaths = document.querySelectorAll('.france-map-svg path[data-region]');
+  const detailName = document.getElementById('mapDetailName');
+  const detailText = document.getElementById('mapDetailText');
+  const detailPanel = document.getElementById('mapDetailPanel');
+  if (!detailPanel) return;
+  const detailLevel = detailPanel.querySelector('.map-detail-level');
+  function selectRegion(regionId) {
+    mapPaths.forEach(p => p.classList.remove('region-selected'));
+    const path = document.querySelector('path[data-region="' + regionId + '"]');
+    if (path) path.classList.add('region-selected');
+    const data = regionData[regionId];
+    if (data) {
+      detailName.textContent = data.name;
+      detailText.innerHTML = data.text;
+      detailLevel.className = 'map-detail-level ' + data.level;
+      detailLevel.textContent = data.level === 'critical' ? 'Très dense' : data.level === 'high' ? 'Élevé' : 'Modéré';
+    }
+  }
+  mapPaths.forEach(path => {
+    path.addEventListener('click', () => selectRegion(path.dataset.region));
+  });
+  selectRegion('bretagne');
+}
+
+/* ── Step nav scroll spy ── */
+function initStepNav() {
+  const nav = document.getElementById('stepNav');
+  if (!nav) return;
+  const links = nav.querySelectorAll('.step-nav-links a[data-nav]');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  links.forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        const offset = nav.offsetHeight + 10;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({top, behavior:'smooth'});
+      }
+    });
+  });
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY + nav.offsetHeight + 40;
+        let current = null;
+        sections.forEach(s => { if (s.offsetTop <= scrollY) current = s; });
+        links.forEach(a => {
+          const href = a.getAttribute('href').slice(1);
+          a.classList.toggle('active', current && current.id === href);
+        });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, {passive:true});
+}
+
+/* ── Back to top ── */
+function initBackToTop() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+  window.addEventListener('scroll', () => { btn.style.display = window.scrollY > 600 ? 'flex' : 'none'; }, {passive:true});
+  btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+}
+
+/* ── Fiche radar (Chart.js) ── */
+function initFicheRadar() {
+  const ctx = document.getElementById('ficheRadar');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Dégâts jardin', 'Discrétion', 'Reproduction', 'Persévérance', 'Adaptabilité', 'Coût intervention'],
+      datasets: [{
+        data: [88, 95, 45, 85, 75, 60],
+        backgroundColor: 'rgba(246, 108, 36, 0.15)',
+        borderColor: '#F66C24',
+        borderWidth: 2,
+        pointBackgroundColor: '#F66C24',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 1,
+        pointRadius: 4,
+        pointHoverRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 1,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 100,
+          ticks: { display: false, stepSize: 25 },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          angleLines: { color: 'rgba(0,0,0,0.06)' },
+          pointLabels: {
+            font: { family: "'Uxum', sans-serif", size: 11, weight: '700' },
+            color: '#0E052A'
+          }
+        }
+      }
+    }
+  });
+}
+</script>
+
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
 </body>
 </html>

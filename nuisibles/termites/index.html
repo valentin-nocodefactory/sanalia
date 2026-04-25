@@ -14,46 +14,436 @@
 <meta property="og:description" content="Comment détecter les termites, comprendre les dégâts qu'ils causent aux structures en bois et les traitements professionnels disponibles. Guide Sanalia.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.sanalia.fr/nuisibles/termites/">
-<meta property="og:image" content="https://www.sanalia.fr/assets/hero_technicienne.png">
+<!-- TODO Recraft : générer image termite ouvrier (Reticulitermes santonensis), fond pastel mint/sand, format 1200x630 -->
+<meta property="og:image" content="https://www.sanalia.fr/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Sanalia">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Termites — Identification, Dangers & Solutions | Sanalia">
 <meta name="twitter:description" content="Comment détecter les termites, comprendre les dégâts qu'ils causent aux structures en bois et les traitements professionnels disponibles. Guide Sanalia.">
 <meta name="twitter:image" content="https://www.sanalia.fr/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Article",
-      "headline": "Termites — Identification, Dangers \u0026 Solutions",
-      "description": "Comment détecter les termites, comprendre les dégâts qu\'ils causent aux structures en bois et les traitements professionnels disponibles. Guide Sanalia.",
-      "author": {"@type": "Organization", "name": "Sanalia"},
-      "publisher": {
-        "@type": "Organization",
-        "name": "Sanalia",
-        "logo": {"@type": "ImageObject", "url": "https://www.sanalia.fr/logo-sanalia.svg"}
-      },
-      "datePublished": "2026-04-14",
-      "dateModified": "2026-04-14",
-      "mainEntityOfPage": "https://www.sanalia.fr/nuisibles/termites/"
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
-        {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
-        {"@type": "ListItem", "position": 3, "name": "Termites — Identification, Dangers \u0026 Solutions"}
-      ]
-    }
-  ]
-}
-</script>
 <link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/css/base.css?v=20260417j">
 <link rel="stylesheet" href="/css/components.css?v=20260417j">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Comment savoir si j'ai des termites chez moi ?", "acceptedAnswer": {"@type": "Answer", "text": "Les signes les plus fréquents sont la présence de cordonnets de terre le long des murs, du bois qui sonne creux à la percussion, des ailes abandonnées au sol après l'essaimage (avril-juin), des poutres qui s'affaissent ou des trous d'envol minuscules dans le bois."}},
+    {"@type": "Question", "name": "Le diagnostic termites est-il obligatoire ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, dans 84 départements français concernés par un arrêté préfectoral, le diagnostic termites est obligatoire pour toute vente immobilière. Sa validité est de 6 mois et son coût varie de 100 à 300 euros."}},
+    {"@type": "Question", "name": "Combien coûte un traitement anti-termites ?", "acceptedAnswer": {"@type": "Answer", "text": "Le traitement curatif d'une maison de 100 m² coûte entre 800 et 3000 euros selon la méthode (barrière chimique, pièges-appâts, traitement charpente). Un effondrement nécessitant remplacement structurel peut atteindre 5000 à 15000 euros."}},
+    {"@type": "Question", "name": "Peut-on vendre une maison infestée de termites ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, mais le diagnostic termites est obligatoire et l'infestation doit être déclarée. La loi du 8 juin 1999 oblige le propriétaire à déclarer la présence de termites en mairie sous peine d'amende et d'annulation de la vente."}},
+    {"@type": "Question", "name": "L'assurance habitation couvre-t-elle les dégâts de termites ?", "acceptedAnswer": {"@type": "Answer", "text": "Non, la majorité des contrats d'assurance habitation excluent explicitement les dégâts causés par les insectes xylophages dont les termites. Seul un traitement préventif peut éviter ces frais."}},
+    {"@type": "Question", "name": "Combien de temps avant qu'une charpente s'effondre à cause des termites ?", "acceptedAnswer": {"@type": "Answer", "text": "Une colonie active peut perdre jusqu'à 50 % du volume du bois en 6 mois. Selon l'ampleur de la colonie, l'effondrement structurel peut survenir en 3 à 10 ans après le début de l'infestation."}}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.sanalia.fr/"},
+    {"@type": "ListItem", "position": 2, "name": "Nuisibles", "item": "https://www.sanalia.fr/nuisibles/"},
+    {"@type": "ListItem", "position": 3, "name": "Termites"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Termites — Guide complet d'identification, dangers et traitement",
+  "description": "Comment détecter les termites, comprendre les dégâts qu'ils causent aux structures en bois et les traitements professionnels disponibles. Guide Sanalia.",
+  "image": "https://www.sanalia.fr/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png",
+  "author": {"@type": "Organization", "name": "Sanalia", "url": "https://www.sanalia.fr/"},
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sanalia",
+    "logo": {"@type": "ImageObject", "url": "https://www.sanalia.fr/logo-sanalia.svg"}
+  },
+  "datePublished": "2026-04-14",
+  "dateModified": "2026-04-24",
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.sanalia.fr/nuisibles/termites/"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Comment détecter et traiter une infestation de termites",
+  "description": "Protocole en 5 étapes pour identifier, déclarer et traiter une infestation de termites en France",
+  "step": [
+    {"@type": "HowToStep", "name": "Diagnostiquer", "text": "Inspecter le bois (poutres, planchers, encadrements) pour repérer cordonnets de terre, son creux, ailes abandonnées et galeries internes."},
+    {"@type": "HowToStep", "name": "Faire diagnostiquer par un professionnel", "text": "Faire intervenir un diagnostiqueur certifié pour confirmer l'infestation et identifier l'espèce."},
+    {"@type": "HowToStep", "name": "Déclarer en mairie", "text": "Conformément à la loi du 8 juin 1999, déclarer obligatoirement la présence de termites en mairie."},
+    {"@type": "HowToStep", "name": "Traiter", "text": "Appliquer un traitement curatif adapté : barrière chimique, pièges-appâts ou traitement de la charpente."},
+    {"@type": "HowToStep", "name": "Surveiller", "text": "Inspecter chaque année pour détecter une éventuelle recolonisation et entretenir les protections existantes."}
+  ]
+}
+</script>
 <style>
-.nuisible-hero{display:flex;gap:var(--space-2xl);align-items:center;flex-wrap:wrap}.nuisible-hero-img{width:400px;max-width:100%;border-radius:var(--radius-lg)}.nuisible-hero-text{flex:1;min-width:280px}.nuisible-section{max-width:800px;margin:0 auto}.nuisible-section h2{margin-top:var(--space-2xl);margin-bottom:var(--space-md)}.nuisible-section ul{padding-left:var(--space-lg);margin:var(--space-md) 0}.nuisible-section li{margin-bottom:var(--space-sm);line-height:var(--leading-normal)}.checklist{list-style:none;padding:0}.checklist li::before{content:"✓ ";color:var(--color-primary-600);font-weight:700}.cta-double{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-lg)}.related-links{display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-md)}.related-links a{background:var(--color-primary-100);color:var(--color-primary-600);padding:var(--space-sm) var(--space-md);border-radius:var(--radius-full);text-decoration:none;font-size:var(--text-small);font-family:var(--font-primary);font-weight:var(--font-weight-bold)}
+/* ══════════════════════════════════════════════
+   TERMITES — Refonte Premium (couleur sand/mint)
+   ══════════════════════════════════════════════ */
+
+html { scroll-padding-top: 130px; }
+[data-component="header"] { position: sticky; top: -45px; z-index: 100; background: var(--color-surface); }
+
+/* ── Hero ── */
+.term-hero { background: var(--color-bg-sand); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-2xl) var(--space-2xl); max-width: 1400px; margin: 0 auto; position: relative; overflow: hidden; }
+.term-hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(99,93,221,0.08) 0%, transparent 70%); pointer-events: none; }
+
+/* ── Page Layout ── */
+.page-layout { display: grid; grid-template-columns: 1fr 320px; gap: var(--space-2xl); max-width: 1200px; margin: 0 auto; padding: var(--space-xl) var(--space-lg); align-items: start; }
+.page-content { min-width: 0; }
+.page-content section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.page-content section:last-child { border-bottom: none; }
+@media (max-width: 1024px) { .page-layout { grid-template-columns: 1fr; } }
+
+/* ── Sidebar ── */
+.sidebar-wrap { position: sticky; top: 130px; display: flex; flex-direction: column; gap: var(--space-md); }
+.sidebar-card { background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); overflow: hidden; padding: var(--space-xs); box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+.sidebar-visual { display: flex; align-items: center; justify-content: center; padding: var(--space-xl) var(--space-lg); border-radius: var(--radius-lg); background: var(--color-pastel-mint-light, #E1F7F1); min-height: 160px; }
+.sidebar-visual img { width: 120px; height: auto; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08)); }
+.sidebar-body { padding: var(--space-md) var(--space-sm) var(--space-sm); text-align: center; }
+.sidebar-body h3 { font-size: 20px; margin: 0; display: inline; }
+.sidebar-badge { font-size: 10px; color: #C62828; font-weight: 700; background: #FFEBEE; padding: 2px 8px; border-radius: var(--radius-full); margin-left: 8px; vertical-align: middle; }
+.sidebar-latin { font-family: var(--font-secondary); font-weight: 400; color: #999; font-size: 11px; font-style: italic; display: block; margin: 4px 0 var(--space-md); }
+.sidebar-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; text-align: left; padding-top: var(--space-sm); border-top: 1px solid var(--color-gray-light); }
+.sidebar-stat-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.sidebar-stat-label { font-size: 10px; color: var(--color-text-muted); }
+.sidebar-cta { margin-top: var(--space-md); }
+.sidebar-cta .btn { width: 100%; text-align: center; }
+.sidebar-offer { display: flex; align-items: center; justify-content: center; font-size: 12px; color: #22C55E; font-weight: 700; margin-top: 8px; }
+.pulse-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22C55E; margin-right: 6px; animation: pulseDot 1.5s infinite; }
+@keyframes pulseDot { 0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); } 50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); } }
+.sidebar-quiz { display: block; padding: var(--space-sm) var(--space-md); border: 1.5px dashed #C8B99A; border-radius: var(--radius-lg); text-align: center; font-size: 11px; color: #999; text-decoration: none; transition: all 0.2s; }
+.sidebar-quiz:hover { color: var(--color-primary-900); border-color: var(--color-primary-900); }
+@media (max-width: 1024px) { .sidebar-wrap { position: static; max-width: 380px; margin: 0 auto var(--space-xl); } }
+
+/* ── Section headings ── */
+.section-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: var(--color-primary-600); text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: var(--space-sm); }
+.page-content h2 { margin-top: 0; margin-bottom: var(--space-sm); font-size: 28px; }
+.page-content h2 + p { color: var(--color-text-muted); margin-bottom: var(--space-xl); font-size: 15px; line-height: 1.6; }
+
+/* ── Le saviez-vous ── */
+.did-you-know { display: flex; gap: var(--space-md); padding: var(--space-md) var(--space-lg); background: var(--color-bg-sand); border-radius: var(--radius-md); margin: var(--space-xl) 0; align-items: flex-start; border-left: 3px solid #C8B99A; }
+.did-you-know-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
+
+/* ── Encart obligation légale ── */
+.legal-callout { display: flex; gap: var(--space-md); padding: var(--space-lg) var(--space-xl); background: linear-gradient(135deg, var(--color-primary-100) 0%, #F8F6FF 100%); border-radius: var(--radius-lg); margin: var(--space-xl) 0; align-items: flex-start; border-left: 4px solid var(--color-primary-600); }
+.legal-callout-icon { font-size: 22px; flex-shrink: 0; }
+.legal-callout strong { color: var(--color-primary-900); display: block; margin-bottom: 4px; font-size: 14px; }
+.legal-callout p { font-size: 13px; color: var(--color-primary-800); line-height: 1.6; margin: 0; }
+
+/* ── Identification ── */
+.species-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-lg); }
+.species-card-v2 { border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); overflow: hidden; cursor: pointer; transition: all 0.35s; position: relative; }
+.species-card-v2:hover { box-shadow: 0 16px 48px rgba(14,5,42,0.08); transform: translateY(-4px); }
+.species-card-visual { padding: var(--space-xl) var(--space-lg); text-align: center; position: relative; min-height: 140px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-lg); margin: var(--space-xs); }
+.species-card-visual img { width: 100%; max-width: 180px; height: auto; object-fit: contain; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+.species-card-visual .badge { position: absolute; top: 16px; right: 16px; font-size: 11px; font-weight: 700; background: var(--color-primary-900); color: #fff; padding: 4px 12px; border-radius: var(--radius-full); }
+.species-card-body { padding: var(--space-md) var(--space-lg) var(--space-lg); }
+.species-card-body h3 { font-size: 18px; margin: 0 0 4px; }
+.species-card-body .latin { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; font-style: italic; }
+.species-card-body .stars { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
+.species-card-body .stars-label { font-size: 11px; color: var(--color-text-muted); }
+.species-specs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--color-gray-light); margin-top: var(--space-lg); }
+.spec { padding: 14px 8px; text-align: center; border-right: 1px solid var(--color-gray-light); }
+.spec:last-child { border-right: none; }
+.spec-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
+.spec-key { font-family: var(--font-secondary); font-weight: 400; font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-top: 2px; }
+.species-card-body .desc { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin-top: var(--space-md); }
+
+/* ── Signs ── */
+.signs-grid { display: grid; grid-template-columns: repeat(auto-fill, 112px); gap: var(--space-md); margin-top: var(--space-lg); justify-content: start; }
+.sign-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; background: transparent; border: none; padding: 0; transition: transform 0.2s; }
+.sign-card:hover { transform: translateY(-2px); }
+.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-xl); transition: opacity 0.3s; cursor: zoom-in; margin-bottom: var(--space-sm); background: var(--color-bg-sand); }
+.sign-card h4 { font-size: 12px; margin: 0 0 4px; font-weight: 700; line-height: 1.3; color: var(--color-primary-900); }
+.sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
+@media (max-width: 768px) { .species-compare { grid-template-columns: 1fr; } }
+
+/* ── Lightbox ── */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; cursor: zoom-out; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; border-radius: var(--radius-lg); }
+
+/* ── Dangers ── */
+.danger-facts { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); overflow: hidden; margin-bottom: var(--space-xl); }
+.danger-fact { padding: var(--space-xl); text-align: center; border-right: 1px solid var(--color-gray-light); }
+.danger-fact:last-child { border-right: none; }
+.danger-fact-num { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 36px; color: #C62828; line-height: 1; display: block; margin-bottom: var(--space-sm); }
+.danger-fact-text strong { font-size: 14px; display: block; color: var(--color-primary-900); margin-bottom: 6px; }
+.danger-fact-text span { font-size: 12px; color: var(--color-text-muted); line-height: 1.5; }
+@media (max-width: 600px) { .danger-facts { grid-template-columns: 1fr; } .danger-fact { border-right: none; border-bottom: 1px solid var(--color-gray-light); } }
+
+.risk-tabs { display: flex; gap: 4px; margin-bottom: var(--space-lg); border-bottom: 1px solid var(--color-gray-light); }
+.risk-tab { padding: 10px 16px; font-family: var(--font-primary); font-size: 13px; font-weight: 500; color: var(--color-text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.risk-tab:hover { color: var(--color-primary-900); }
+.risk-tab.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); font-weight: 700; }
+.risk-tab-content { display: none; }
+.risk-tab-content.active { display: block; }
+@media (max-width: 600px) { .risk-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; } .risk-tab { font-size: 12px; padding: 8px 12px; } }
+
+.disease-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); margin-top: var(--space-md); }
+.disease-card { padding: var(--space-lg); border-radius: var(--radius-xl); transition: all 0.3s; }
+.disease-card.critical { background: #FFF5F5; border: 1px solid #FFCDD2; }
+.disease-card.high { background: #FFF8E1; border: 1px solid #FFE0B2; }
+.disease-card.moderate { background: #F3F3F3; border: 1px solid var(--color-gray-light); }
+.disease-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.disease-severity { font-size: 10px; letter-spacing: 2px; }
+.disease-card.critical .disease-severity { color: #C62828; }
+.disease-card.high .disease-severity { color: #E65100; }
+.disease-card.moderate .disease-severity { color: #999; }
+.disease-header strong { font-size: 16px; flex: 1; }
+.disease-tag { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: var(--radius-full); letter-spacing: 0.3px; flex-shrink: 0; }
+.disease-tag.critical { background: #FFCDD2; color: #B71C1C; }
+.disease-tag.high { background: #FFE0B2; color: #E65100; }
+.disease-tag.moderate { background: #E0E0E0; color: #616161; }
+.disease-card p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; margin: 0 0 var(--space-sm); }
+.disease-stat { font-size: 12px; font-weight: 600; color: var(--color-primary-900); padding: 4px 10px; background: rgba(0,0,0,0.04); border-radius: var(--radius-md); display: inline-block; }
+
+.damage-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-top: var(--space-md); }
+.damage-item { display: flex; align-items: flex-start; gap: var(--space-sm); padding: var(--space-lg); background: var(--color-surface); border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); }
+.damage-icon { font-size: 24px; flex-shrink: 0; }
+.damage-item strong { font-size: 14px; display: block; margin-bottom: 4px; }
+.damage-item span { font-size: 12px; color: var(--color-text-muted); line-height: 1.4; }
+@media (max-width: 600px) { .disease-grid, .damage-row { grid-template-columns: 1fr; } }
+
+/* ── Slider ── */
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: #E5E5E5; outline: none; cursor: pointer; margin: 8px 0; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.2); margin-top: -7px; cursor: grab; }
+input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: var(--color-primary-900); border: 3px solid #fff; cursor: grab; }
+
+/* ── Simulator ── */
+.prolif-config { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); margin-bottom: var(--space-lg); padding: var(--space-md) var(--space-lg); background: var(--color-surface); border-radius: var(--radius-lg); border: 1px solid var(--color-gray-light); }
+.prolif-config-item { display: flex; align-items: center; gap: 8px; }
+.prolif-config-label { font-family: var(--font-secondary); font-weight: 400; font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.prolif-pills { display: flex; flex-wrap: wrap; gap: 4px; }
+.prolif-pill { padding: 4px 10px; border: 1.5px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); }
+.prolif-pill:hover { border-color: #C8B99A; }
+.prolif-pill.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+.prolif-2col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); align-items: stretch; }
+.prolif-box-inputs { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); }
+.prolif-config-inner { display: flex; flex-direction: column; gap: var(--space-sm); }
+.prolif-box-results { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-md); transition: border-color 0.4s, background 0.4s; }
+.prolif-box-results.critical { border-color: #E8C4C4; background: #FEFAFA; }
+.prolif-result-header { display: flex; align-items: baseline; gap: var(--space-sm); }
+.prolif-stats-compact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.prolif-stats-compact > div { padding: 8px; background: var(--color-bg); border-radius: var(--radius-md); }
+.prolif-stats-compact strong { font-size: 16px; color: var(--color-primary-900); display: block; }
+.prolif-stats-compact span { font-size: 9px; color: var(--color-text-muted); }
+@media (max-width: 768px) { .prolif-2col { grid-template-columns: 1fr; } }
+.prolif-month-label { font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+.prolif-pop-count { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 32px; color: var(--color-primary-900); transition: color 0.3s; line-height: 1; }
+.prolif-pop-count.danger { color: #C62828; }
+.prolif-months-bar { display: flex; justify-content: space-between; font-size: 10px; color: #999; font-family: var(--font-secondary); margin-top: 4px; }
+.prolif-visual { background: var(--color-bg); border-radius: var(--radius-lg); padding: var(--space-sm) var(--space-md); min-height: 60px; overflow: hidden; }
+.prolif-rats { display: flex; flex-wrap: wrap; gap: 1px; font-size: 13px; line-height: 1.1; }
+.rat-icon { display: inline-block; animation: ratAppear 0.15s ease; }
+.rat-overflow { font-size: 11px; color: #C62828; font-weight: 700; display: inline-block; margin-left: 4px; vertical-align: middle; }
+@keyframes ratAppear { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+.prolif-alert { display: flex; align-items: center; gap: var(--space-sm); padding: 10px 16px; border-radius: var(--radius-lg); transition: all 0.4s; font-size: 13px; }
+.prolif-alert.level-ok { background: #E8F5E9; color: #2E7D32; }
+.prolif-alert.level-warn { background: #FFF3E0; color: #E65100; }
+.prolif-alert.level-danger { background: #FFEBEE; color: #C62828; }
+.prolif-alert.level-critical { background: #C62828; color: #fff; }
+.prolif-cta { text-align: center; margin-top: var(--space-lg); }
+
+/* ── House ── */
+.house-wrap { position: relative; max-width: 100%; }
+.house-wrap svg { width: 100%; height: auto; }
+.house-tooltip { position: absolute; background: var(--color-surface); border-radius: var(--radius-lg); padding: var(--space-md); box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 260px; font-size: 13px; display: none; z-index: 10; pointer-events: none; }
+.house-tooltip.active { display: block; }
+.house-tooltip h4 { margin: 0 0 4px; font-size: 14px; }
+
+/* ── Risk Score ── */
+.risk-check-layout { display: grid; grid-template-columns: 1fr 240px; gap: var(--space-xl); align-items: start; }
+.risk-checklist { display: flex; flex-direction: column; gap: 8px; }
+.risk-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: var(--radius-lg); border: 1px solid var(--color-gray-light); cursor: pointer; font-size: 13px; transition: all 0.2s; background: var(--color-surface); }
+.risk-check-item:hover { border-color: #C8B99A; }
+.risk-check-item input { accent-color: #F44336; width: 16px; height: 16px; cursor: pointer; }
+.risk-result-box { background: var(--color-surface); border: 1px solid var(--color-gray-light); border-radius: var(--radius-xl); padding: var(--space-xl); text-align: center; position: sticky; top: 140px; }
+.risk-score-svg { width: 200px; height: 120px; }
+.risk-verdict h3 { margin: var(--space-sm) 0 4px; }
+.risk-verdict p { font-size: 13px; color: var(--color-text-muted); }
+@media (max-width: 700px) { .risk-check-layout { grid-template-columns: 1fr; } }
+
+/* ── Calendar ── */
+.calendar-grid { display: grid; grid-template-columns: auto repeat(12, 1fr); gap: 2px; font-size: 11px; }
+.cal-cell { padding: 8px 4px; text-align: center; border-radius: var(--radius-xs); position: relative; }
+.cal-header { font-family: var(--font-primary); font-weight: 700; background: var(--color-primary-900); color: #fff; }
+.cal-label { font-family: var(--font-primary); font-weight: 700; font-size: 10px; text-align: right; padding-right: 8px; background: var(--color-bg); display: flex; align-items: center; justify-content: flex-end; }
+.cal-current { outline: 2px solid var(--color-primary-600); outline-offset: -1px; }
+.cal-tip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--color-primary-900); color: #fff; padding: 6px 12px; border-radius: var(--radius-md); font-size: 11px; white-space: nowrap; z-index: 10; pointer-events: none; }
+.cal-cell:hover .cal-tip { display: block; }
+
+/* ── France Map ── */
+.france-map-wrapper { display: grid; grid-template-columns: 3fr 2fr; gap: var(--space-lg); align-items: start; }
+.france-map-left { display: flex; flex-direction: column; gap: var(--space-md); }
+.france-map-svg { width: 100%; height: auto; }
+.france-map-svg path { cursor: pointer; stroke: #fff; stroke-width: 1.5; transition: all 0.2s ease; }
+.france-map-svg path:hover { filter: brightness(0.93); }
+.france-map-svg path.region-selected { filter: brightness(0.88); stroke: #fff; stroke-width: 3; }
+.map-legend { display: flex; gap: var(--space-lg); font-size: 12px; color: var(--color-text-muted); flex-wrap: wrap; }
+.map-legend-item { display: flex; align-items: center; gap: 6px; }
+.map-legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.08); }
+.map-detail-panel { background: var(--color-bg-sand); border-radius: var(--radius-lg); padding: var(--space-xl); position: sticky; top: 140px; transition: all 0.3s ease; }
+.map-detail-panel h4 { margin: 0 0 var(--space-xs); font-size: 18px; font-family: var(--font-primary); font-weight: 700; color: var(--color-primary-900); }
+.map-detail-level { display: inline-block; font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: var(--radius-full); margin-bottom: var(--space-sm); }
+.map-detail-level.critical { background: #D94F4F; color: #fff; }
+.map-detail-level.high { background: #F5A623; color: #fff; }
+.map-detail-level.moderate { background: #F5D76E; }
+.map-detail-text { font-size: 14px; line-height: 1.6; color: var(--color-primary-800); margin: 0; }
+@media (max-width: 700px) { .france-map-wrapper { grid-template-columns: 1fr; } .map-detail-panel { position: static; } }
+
+/* ── Methods ── */
+.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+.method-card { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); transition: all 0.3s; }
+.method-card.recommended { border-color: #22C55E; position: relative; box-shadow: 0 0 0 1px #22C55E; }
+.method-card.recommended::before { content: '✓ Recommandé'; position: absolute; top: -12px; right: 16px; background: #22C55E; color: #fff; font-size: 10px; font-weight: 700; padding: 4px 14px; border-radius: var(--radius-full); }
+.method-card h4 { margin: 0 0 var(--space-sm); font-size: 16px; }
+.method-meter { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.method-meter-label { font-size: 11px; color: var(--color-text-muted); width: 70px; flex-shrink: 0; }
+.method-meter-bar { flex: 1; height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.method-meter-fill { height: 100%; border-radius: 3px; }
+.method-filter { padding: 6px 16px; border: 2px solid var(--color-gray-light); border-radius: var(--radius-full); background: transparent; font-family: var(--font-primary); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--color-text-muted); }
+.method-filter:hover { border-color: #C8B99A; }
+.method-filter.active { border-color: var(--color-primary-900); background: var(--color-primary-900); color: #fff; }
+.method-card.dimmed { opacity: 0.3; transform: scale(0.97); }
+@media (max-width: 768px) { .methods-grid { grid-template-columns: 1fr; } }
+
+/* ── Protocol ── */
+.protocol-steps { counter-reset: step; }
+.protocol-step { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); margin-bottom: var(--space-md); transition: box-shadow 0.3s; }
+.protocol-step h4 { display: flex; align-items: center; gap: var(--space-sm); font-size: 16px; margin: 0 0 var(--space-sm); }
+.protocol-step h4::before { counter-increment: step; content: counter(step); width: 28px; height: 28px; border-radius: 50%; background: var(--color-primary-900); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.protocol-check { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--color-text-muted); cursor: pointer; }
+.protocol-check input { accent-color: var(--color-primary-600); }
+.protocol-check.checked { text-decoration: line-through; opacity: 0.5; }
+
+/* ── Cost ── */
+.cost-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.cost-highlight { text-align: center; padding: var(--space-2xl); background: linear-gradient(135deg, var(--color-primary-100) 0%, #F8F6FF 100%); border-radius: var(--radius-xl); }
+.cost-highlight .big { font-size: 56px; font-weight: var(--font-weight-bold); color: var(--color-primary-600); line-height: 1; }
+.cost-highlight .label { font-size: 14px; color: var(--color-text-muted); margin-top: 4px; }
+.cost-slider-wrap { margin-top: var(--space-lg); text-align: center; }
+.cost-slider-wrap label { font-size: 13px; font-weight: 500; display: block; margin-bottom: var(--space-sm); }
+.cost-savings { font-size: 16px; font-weight: 700; color: #22C55E; margin-top: var(--space-sm); }
+@media (max-width: 700px) { .cost-layout { grid-template-columns: 1fr; } }
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-left: 24px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--color-gray-light); }
+.tl-item { position: relative; padding: 0 0 var(--space-lg) var(--space-lg); }
+.tl-item::before { content: ''; position: absolute; left: -20px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: #C8B99A; border: 2px solid var(--color-surface); }
+.tl-year { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+.tl-text { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
+
+/* ── Final CTA ── */
+.final-cta { background: var(--color-primary-900); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-2xl); text-align: center; color: #fff; position: relative; overflow: hidden; }
+.final-cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(99,93,221,0.15) 0%, transparent 60%); pointer-events: none; }
+.final-cta h2 { color: #fff; margin: 0 0 var(--space-sm); font-size: 28px; position: relative; }
+.final-cta p { color: rgba(255,255,255,0.6); margin-bottom: var(--space-xl); position: relative; }
+.final-cta .btn-primary { background: #fff; color: var(--color-primary-900); font-size: 16px; padding: 16px 32px; position: relative; }
+.final-cta .btn-primary:hover { background: var(--color-primary-100); }
+.trust-badges { display: flex; gap: var(--space-xl); justify-content: center; margin-top: var(--space-xl); font-size: 13px; color: rgba(255,255,255,0.5); position: relative; flex-wrap: wrap; }
+
+/* ── Quiz ── */
+.quiz-container { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); }
+.quiz-progress { display: flex; gap: var(--space-xs); margin-bottom: var(--space-xl); }
+.quiz-progress .step { flex: 1; height: 4px; border-radius: var(--radius-full); background: var(--color-gray-light); }
+.quiz-progress .step.done { background: var(--color-primary-600); }
+.quiz-progress .step.current { background: var(--color-primary-400); }
+.quiz-question { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 20px; margin-bottom: var(--space-lg); }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+.quiz-option { padding: var(--space-md) var(--space-lg); border: 2px solid var(--color-gray-light); border-radius: var(--radius-xl); cursor: pointer; font-family: var(--font-primary); font-size: 15px; transition: all 0.25s; background: var(--color-surface); text-align: center; }
+.quiz-option:hover { border-color: var(--color-primary-600); background: var(--color-primary-100); transform: translateY(-2px); }
+.quiz-result { text-align: center; display: none; }
+.quiz-result.active { display: block; }
+.quiz-result .score-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-lg); font-size: 32px; font-weight: var(--font-weight-bold); color: #fff; }
+
+/* ── Anatomy ── */
+.anatomy-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: start; }
+.anatomy-visual { position: relative; display: flex; justify-content: center; }
+.anatomy-points { position: absolute; inset: 0; }
+.anat-point { position: absolute; width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--color-primary-900); background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: all 0.25s; transform: translate(-50%, -50%); z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.anat-point:not(.active) { animation: anat-pulse 2s ease-in-out infinite; }
+.anat-point:not(.active):nth-child(2) { animation-delay: 0.25s; }
+.anat-point:not(.active):nth-child(3) { animation-delay: 0.5s; }
+.anat-point:not(.active):nth-child(4) { animation-delay: 0.75s; }
+.anat-point:not(.active):nth-child(5) { animation-delay: 1s; }
+.anat-point:not(.active):nth-child(6) { animation-delay: 1.25s; }
+@keyframes anat-pulse { 0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 0 rgba(99,93,221,0.4); } 50% { box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 8px rgba(99,93,221,0); } }
+.anat-point:hover, .anat-point.active { background: var(--color-primary-900); color: #fff; transform: translate(-50%, -50%) scale(1.15); animation: none; }
+.anatomy-detail { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-2xl); border: 1px solid var(--color-gray-light); min-height: 240px; display: flex; flex-direction: column; justify-content: center; }
+.anatomy-detail h3 { margin: 0 0 var(--space-sm); }
+.anatomy-detail p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; }
+@media (max-width: 700px) { .anatomy-layout { grid-template-columns: 1fr; } }
+
+/* ── World cities ── */
+.world-cities { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); }
+.world-city { display: flex; align-items: center; gap: var(--space-sm); padding: 14px 18px; border-radius: var(--radius-xl); border: 1px solid var(--color-gray-light); background: var(--color-surface); cursor: pointer; transition: all 0.3s; }
+.world-city:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.world-city.active { border-color: var(--color-primary-900); background: var(--color-primary-100); }
+.world-city-flag { font-size: 24px; flex-shrink: 0; }
+.world-city-info strong { font-size: 14px; display: block; }
+.world-city-info span { font-size: 11px; color: var(--color-text-muted); }
+.world-detail { background: var(--color-surface); border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); margin-top: var(--space-md); min-height: 100px; }
+.world-detail h3 { margin: 0 0 var(--space-sm); }
+.world-detail p { font-size: 14px; color: var(--color-text-muted); line-height: 1.6; margin: 0; }
+
+/* ── Scroll ── */
+.fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Cohabitants ── */
+.cohabit-section { max-width: 1400px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); }
+
+/* ── Step nav ── */
+.step-nav { position: sticky; top: 72px; z-index: 90; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-gray-light); display: flex; align-items: center; overflow: visible; width: 100%; padding: 0 calc((100% - 1200px) / 2 + var(--space-lg)); }
+.step-nav-links { display: flex; align-items: center; overflow-x: auto; overflow-y: visible; flex: 1; -ms-overflow-style: none; scrollbar-width: none; }
+.step-nav-links::-webkit-scrollbar { display: none; }
+.step-nav-links a { flex-shrink: 0; padding: 12px 16px; font-size: 12px; font-family: var(--font-primary); font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+.step-nav-links a.active { color: var(--color-primary-900); border-bottom-color: var(--color-primary-900); }
+
+/* ── Hero stats ── */
+.hero-stats { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl); }
+.hero-stat { display: flex; align-items: center; gap: var(--space-sm); }
+.hero-stat-icon { width: 18px; height: 18px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; color: var(--color-primary-800); opacity: 0.45; }
+.hero-stat-icon svg { width: 100%; height: 100%; }
+.hero-stat-text { display: flex; align-items: baseline; gap: 6px; }
+.hero-stat-value { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 15px; color: var(--color-primary-900); }
+.hero-stat-label { font-size: 12px; color: var(--color-text-muted); }
+.nuisible-hero { display: flex; gap: var(--space-2xl); align-items: center; flex-wrap: wrap; }
+.nuisible-hero-img { width: 320px; max-width: 100%; border-radius: var(--radius-lg); }
+.nuisible-hero-text { flex: 1; min-width: 280px; }
+
+/* ── Intro radar ── */
+.section-inner { padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-gray-light); }
+.intro-profile { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+.intro-radar-wrap { display: flex; justify-content: center; }
+.intro-radar-wrap canvas { max-width: 220px; max-height: 220px; }
+.intro-gauges { display: flex; flex-direction: column; gap: 10px; }
+.gauge-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.gauge-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.3px; }
+.gauge-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 12px; color: var(--color-primary-900); }
+.gauge-bar { height: 6px; border-radius: 3px; background: var(--color-gray-light); overflow: hidden; }
+.gauge-fill { height: 100%; border-radius: 3px; }
+@media (max-width: 700px) { .intro-profile { grid-template-columns: 1fr; } }
+
+/* ── Cost breakdown ── */
+.cost-breakdown { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-sm); margin-bottom: var(--space-xl); }
+.cost-cell { background: var(--color-bg-sand); border-radius: var(--radius-md); padding: var(--space-md); text-align: center; }
+.cost-cell-icon { font-size: 20px; margin-bottom: 4px; }
+.cost-cell-val { font-weight: 700; font-size: 14px; color: var(--color-primary-900); }
+.cost-cell-desc { font-size: 11px; color: var(--color-text-muted); margin-top: 4px; line-height: 1.4; }
+@media (max-width: 768px) { .cost-breakdown { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>
@@ -342,13 +732,13 @@
       <a href="/nuisibles/">Nuisibles</a>
       <span class="breadcrumb-sep">›</span>
       <div class="breadcrumb-nuisible-wrap">
-      <span class="breadcrumb-current">Termites</span>
+      <span class="breadcrumb-current"><span style="display:inline-block;width:24px;height:24px;border-radius:50%;background:var(--color-pastel-mint-light, #E1F7F1);text-align:center;line-height:24px;font-size:14px;margin-right:6px;vertical-align:middle;">🪵</span>Termites</span>
       <div class="breadcrumb-dropdown">
         <a href="/nuisibles/rats/" class=""><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" class="bg-gold" alt="">Rats</a>
         <a href="/nuisibles/souris/" class=""><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" class="bg-lavender" alt="">Souris</a>
         <a href="/nuisibles/punaises-de-lit/" class=""><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" class="bg-rose" alt="">Punaises de lit</a>
         <a href="/nuisibles/cafards/" class=""><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" class="bg-mint" alt="">Cafards</a>
-        <a href="/nuisibles/guepes-frelons/" class=""><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" class="bg-gold" alt="">Guepes & Frelons</a>
+        <a href="/nuisibles/guepes-frelons/" class=""><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" class="bg-gold" alt="">Guêpes & Frelons</a>
         <a href="/nuisibles/fourmis/" class=""><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" class="bg-rose" alt="">Fourmis</a>
         <a href="/nuisibles/moustiques/" class=""><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" class="bg-blue" alt="">Moustiques</a>
         <a href="/nuisibles/pigeons/" class=""><img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" class="bg-mint" alt="">Pigeons</a>
@@ -357,67 +747,795 @@
     </nav>
   </div>
 </div>
-<section class="section" style="background: linear-gradient(135deg, var(--color-bg) 60%, var(--color-primary-100) 100%); padding-top: var(--space-3xl);">
+<nav class="step-nav" id="stepNav">
+  <div class="step-nav-links">
+    <a href="#identification" data-nav>Identification</a>
+    <a href="#dangers" data-nav>Risques</a>
+    <a href="#simulateur" data-nav>Colonie</a>
+    <a href="#zones" data-nav>Cachettes</a>
+    <a href="#evaluation" data-nav>Votre risque</a>
+    <a href="#calendrier" data-nav>Saisons</a>
+    <a href="#carte" data-nav>Régions</a>
+    <a href="#methodes" data-nav>Méthodes</a>
+    <a href="#protocole" data-nav>Protocole</a>
+    <a href="#quiz" data-nav>Quiz</a>
+    <a href="#cout" data-nav>Coûts</a>
+    <a href="#faq" data-nav>FAQ</a>
+    <a href="#action" data-nav>Agir</a>
+  </div>
+</nav>
+
+<!-- ════════ HERO ════════ -->
+<section class="section" id="hero" style="padding-top: var(--space-2xl);">
   <div class="container">
+    <div class="term-hero" style="background: var(--color-bg-sand); border-radius: var(--radius-xl); padding: var(--space-2xl); overflow: hidden; max-width: none; margin: 0 -24px;">
     <div class="nuisible-hero">
       <div class="nuisible-hero-text">
-        <span class="mono" style="color: #999;">Guide d'identification</span>
-        <h1>Termites — Identification, Dangers & Solutions</h1>
-        <p style="color: var(--color-text-muted); margin-top: var(--space-md);">Les termites souterrains (Reticulitermes flavipes) sont les plus répandus en France. Ils s'attaquent silencieusement au bois de construction et peuvent compromettre la solidité de votre habitation. Un diagnostic précoce est essentiel.</p>
+        <span class="mono" style="color: #999;">GUIDE EXPERT — RÉGLEMENTATION OBLIGATOIRE</span>
+        <h1>Termites : Identification, Dangers & Obligations Légales</h1>
+        <p style="color: var(--color-text-muted); margin-top: var(--space-md);">Les termites (ordre des Isoptères) sont des insectes xylophages sociaux qui dévorent le bois de l'intérieur — charpentes, planchers, encadrements. En France, ils causent <strong>800 millions d'euros de dégâts par an</strong> et leur déclaration en mairie est <strong>obligatoire</strong> depuis la loi du 8 juin 1999. Apprenez à les identifier avant qu'il ne soit trop tard.</p>
+        <div style="display: flex; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg);">
+          <a href="/devis/?nuisible=termites" class="btn btn-primary btn-lg">Obtenir un diagnostic termites <span class="btn-arrow"></span></a>
+          <a href="#identification" class="btn btn-outline btn-lg">Identifier l'espèce</a>
+        </div>
       </div>
-      <img src="../../assets/nuisibles/mold-spores--aspergillus--realistic-fungal-shape--.png" alt="Termite" class="nuisible-hero-img">
+      <!-- TODO Recraft : remplacer par image termite ouvrier (Reticulitermes santonensis), fond pastel mint/sand, format 600x600 -->
+      <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Termite ouvrier (Reticulitermes santonensis)" class="nuisible-hero-img">
+    </div>
+
+    <div class="hero-stats animate-in">
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="50" data-suffix="%">0</span>
+          <span class="hero-stat-label">du bois consommé en 6 mois</span>
+        </div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="84" data-suffix="">0</span>
+          <span class="hero-stat-label">départements à arrêté préfectoral</span>
+        </div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="2000" data-suffix="">0</span>
+          <span class="hero-stat-label">œufs/jour pondus par la reine</span>
+        </div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M4 14h9M18 6c1.5 0 3 1 3 4s-1.5 4-3 4h-2v4h-4V4h6c1.5 0 3 1 3 2"/></svg></span>
+        <div class="hero-stat-text">
+          <span class="hero-stat-value" data-count="800" data-suffix=" M€">0</span>
+          <span class="hero-stat-label">de dégâts/an en France</span>
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="container nuisible-section">
-    <h2>Comment reconnaître les termites ?</h2>
-    <ul>
-      <li><strong>Taille :</strong> ouvriers de 4-6 mm, blancs et mous (d'où le surnom de "fourmis blanches"). Les ailes des reproducteurs mesurent 8-10 mm.</li>
-      <li><strong>Distinction avec les fourmis :</strong> les termites ont un corps sans étranglement à la taille (contrairement aux fourmis), des antennes droites et des ailes égales.</li>
-      <li><strong>Mode de vie :</strong> coloniaux et souterrains. Ils construisent des cordonnets (tubes de boue) pour se déplacer à l'abri de la lumière entre le sol et le bois qu'ils consomment.</li>
-      <li><strong>Zones à risque :</strong> le Sud-Ouest, la façade atlantique et l'Île-de-France sont les régions les plus touchées. Un arrêté préfectoral oblige à déclarer toute infestation en mairie.</li>
-    </ul>
+<!-- ══════════════════════════════════════
+     PAGE LAYOUT — Content + Sidebar
+     ══════════════════════════════════════ -->
+<div class="page-layout">
+  <div class="page-content">
 
-    <h2>Dangers et nuisances</h2>
-    <ul>
-      <li><strong>Destruction du bois :</strong> les termites mangent le bois de l'intérieur, ne laissant qu'une fine couche de surface intacte. Les dégâts sont invisibles jusqu'à ce que la structure s'effondre.</li>
-      <li><strong>Atteinte aux structures :</strong> charpentes, poutres, planchers, escaliers, huisseries. Les réparations peuvent coûter des dizaines de milliers d'euros.</li>
-      <li><strong>Obligation légale :</strong> en zone termitée, un diagnostic termites est obligatoire avant toute vente immobilière. L'infestation doit être déclarée en mairie.</li>
-      <li><strong>Progression invisible :</strong> une colonie peut contenir plusieurs millions d'individus et progresser de plusieurs mètres par an.</li>
-    </ul>
+    <!-- ════════ INTRO SEO + RADAR ════════ -->
+    <section class="section-inner" id="intro-seo">
+      <h2 style="margin-top:0;">Le termite en France : un nuisible silencieux mais dévastateur</h2>
+      <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">Présents dans 84 départements, les termites détruisent en silence — et leur déclaration est imposée par la loi.</p>
 
-    <h2>Signes de présence</h2>
-    <ul class="checklist">
-      <li>Cordonnets de terre (tubes de boue) sur les murs, les fondations ou dans les caves</li>
-      <li>Bois qui sonne creux quand on le tape</li>
-      <li>Surface du bois gondolée ou cloquée</li>
-      <li>Essaimage de termites ailés (petits insectes noirs ailés) au printemps, souvent confondus avec des fourmis volantes</li>
-      <li>Petits amas de poussière de bois fine</li>
-    </ul>
+      <div class="intro-profile">
+        <div class="intro-radar-wrap">
+          <canvas id="ficheRadar" width="220" height="220"></canvas>
+        </div>
+        <div class="intro-gauges">
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Dégâts structurels</span><span class="gauge-val">98/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:98%;background:#C62828;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Discrétion / invisibilité</span><span class="gauge-val">95/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:95%;background:#C62828;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Reproduction / colonie</span><span class="gauge-val">90/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:90%;background:#E65100;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Persévérance</span><span class="gauge-val">85/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:85%;background:#F9A825;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Réglementation / obligation</span><span class="gauge-val">100/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:100%;background:#C62828;"></div></div></div>
+          <div class="gauge-item"><div class="gauge-header"><span class="gauge-label">Coût traitement</span><span class="gauge-val">75/100</span></div><div class="gauge-bar"><div class="gauge-fill" style="width:75%;background:#C8B99A;"></div></div></div>
+        </div>
+      </div>
 
-    <h2>Solutions</h2>
-    <ul>
-      <li><strong>Diagnostic professionnel :</strong> un diagnostic termites certifié permet d'évaluer l'étendue de l'infestation et de définir la stratégie de traitement adaptée.</li>
-      <li><strong>Barrière chimique :</strong> injection d'un produit termiticide dans le sol autour et sous le bâtiment pour créer une barrière de protection.</li>
-      <li><strong>Pièges-appâts :</strong> installation de stations d'appâtage autour du bâtiment. Les ouvriers consomment l'appât et le ramènent à la colonie, éliminant progressivement la reine et toute la population.</li>
-      <li><strong>Suivi obligatoire :</strong> la surveillance post-traitement est essentielle. Nous assurons un suivi annuel pour vérifier l'absence de recolonisation.</li>
-    </ul>
+      <p style="color:var(--color-text-muted);font-size:14px;line-height:1.7;margin-top:var(--space-lg);">Le termite est un insecte social qui vit en colonies souterraines pouvant atteindre <strong>plusieurs millions d'individus</strong>. Il dévore la cellulose du bois <em>de l'intérieur</em>, laissant la surface intacte — d'où sa dangerosité maximale. La <strong>loi du 8 juin 1999</strong> impose à tout propriétaire de déclarer en mairie la présence de termites sous peine d'amende. Le diagnostic termites est <strong>obligatoire</strong> pour toute vente immobilière en zone à risque.</p>
 
-    <div style="background: var(--color-primary-100); border-radius: var(--radius-lg); padding: var(--space-2xl); margin-top: var(--space-2xl); text-align: center;">
-      <h2 style="margin-top: 0;">Vous suspectez la présence de termites ?</h2>
-      <p style="color: var(--color-text-muted);">Plus l'intervention est précoce, moins les dégâts seront importants. Contactez-nous pour un diagnostic rapide.</p>
-      <div class="cta-double" style="justify-content: center;">
-        <a href="/devis/?nuisible=termites" class="btn btn-accent btn-lg">Intervention particulier →</a>
-        <a href="/devis/?nuisible=termites&type=pro" class="btn btn-primary btn-lg">Contrat pro →</a>
+      <div class="legal-callout">
+        <span class="legal-callout-icon">⚖️</span>
+        <div>
+          <strong>Cadre légal — Loi n°99-471 du 8 juin 1999</strong>
+          <p>Tout propriétaire d'un immeuble situé dans une zone délimitée par arrêté préfectoral et qui constate la présence de termites doit en faire la déclaration en mairie dans le mois suivant. Le diagnostic termites est obligatoire en cas de vente immobilière dans 84 départements concernés.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Anatomie ═══ -->
+    <section id="anatomie">
+      <span class="section-label fade-up">Ce qui le rend redoutable</span>
+      <h2>Anatomie du termite ouvrier</h2>
+      <p>Comprendre l'anatomie des termites permet de les distinguer des fourmis (avec qui on les confond souvent) et de mesurer leur capacité à détruire silencieusement le bois.</p>
+
+      <div class="anatomy-layout">
+        <div class="anatomy-visual">
+          <!-- TODO Recraft : générer schéma anatomique termite ouvrier (vue de profil), fond pastel sand -->
+          <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Anatomie du termite ouvrier" style="width:100%;max-width:480px;border-radius:12px;background:var(--color-bg-sand);">
+          <div class="anatomy-points">
+            <button class="anat-point" data-anat="antennes" style="top:25%;left:75%;" title="Antennes">📡</button>
+            <button class="anat-point" data-anat="mandibules" style="top:40%;left:82%;" title="Mandibules">🦷</button>
+            <button class="anat-point" data-anat="corps" style="top:55%;left:50%;" title="Corps">🧬</button>
+            <button class="anat-point" data-anat="ailes" style="top:30%;left:35%;" title="Ailes essaimants">🦋</button>
+            <button class="anat-point" data-anat="cellulose" style="top:65%;left:30%;" title="Digestion bois">🪵</button>
+            <button class="anat-point" data-anat="caste" style="top:80%;left:55%;" title="Castes">👥</button>
+          </div>
+        </div>
+        <div class="anatomy-detail" id="anatomyDetail">
+          <p style="color:#999;text-align:center;padding:var(--space-lg) 0;">Cliquez sur un point pour en savoir plus.</p>
+        </div>
+      </div>
+
+      <div class="did-you-know">
+        <span class="did-you-know-icon">💡</span>
+        <p><strong>Le saviez-vous ?</strong> Les termites possèdent dans leur intestin des <strong>protozoaires symbiotiques</strong> qui digèrent la cellulose à leur place. Sans ces micro-organismes, ils ne pourraient pas se nourrir de bois — c'est cette symbiose unique qui les rend si destructeurs.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 1 — Identification ═══ -->
+    <section id="identification">
+      <span class="section-label fade-up">Étape 1 — Identification</span>
+      <h2>Les termites présents en France</h2>
+      <p>En France métropolitaine, on distingue principalement deux genres : les termites souterrains (<em>Reticulitermes</em>) et les termites de bois sec (<em>Kalotermes</em>). L'identification de l'espèce conditionne le choix du traitement.</p>
+
+      <div class="species-compare">
+        <div class="species-card-v2 active" data-species="santonensis">
+          <div class="species-card-visual" style="background: var(--color-pastel-mint-light, #E1F7F1);">
+            <!-- TODO Recraft : image Reticulitermes santonensis -->
+            <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Termite des champs — Reticulitermes santonensis">
+            <span class="badge">85% des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Termite des champs</h3>
+            <span class="latin">Reticulitermes santonensis</span>
+            <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">★★★★★</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">4-5 mm</span><span class="spec-key">Taille</span></div>
+              <div class="spec"><span class="spec-val">Souterrain</span><span class="spec-key">Habitat</span></div>
+              <div class="spec"><span class="spec-val">15-25 ans</span><span class="spec-key">Reine</span></div>
+              <div class="spec"><span class="spec-val">2 000/j</span><span class="spec-key">Œufs</span></div>
+            </div>
+            <p class="desc">Espèce dominante en France, surtout sur la façade atlantique (Charente, Vendée, Gironde). Construit des galeries souterraines reliant le sol au bois des bâtiments. Cordonnets de terre caractéristiques.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="lucifugus">
+          <div class="species-card-visual" style="background: var(--color-pastel-mint-light, #E1F7F1);">
+            <!-- TODO Recraft : image Reticulitermes lucifugus -->
+            <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Termite de Saintonge — Reticulitermes lucifugus">
+            <span class="badge">10% des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Termite de Saintonge</h3>
+            <span class="latin">Reticulitermes lucifugus</span>
+            <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">★★★★☆</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">4-6 mm</span><span class="spec-key">Taille</span></div>
+              <div class="spec"><span class="spec-val">Souterrain</span><span class="spec-key">Habitat</span></div>
+              <div class="spec"><span class="spec-val">15 ans</span><span class="spec-key">Reine</span></div>
+              <div class="spec"><span class="spec-val">1 500/j</span><span class="spec-key">Œufs</span></div>
+            </div>
+            <p class="desc">Présent dans le Sud-Est, la vallée du Rhône et la Corse. Comportement très similaire au termite des champs. Coloniel, soldats à grosses mandibules pour défendre la colonie.</p>
+          </div>
+        </div>
+
+        <div class="species-card-v2" data-species="flavicollis">
+          <div class="species-card-visual" style="background: var(--color-pastel-mint-light, #E1F7F1);">
+            <!-- TODO Recraft : image Kalotermes flavicollis -->
+            <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Termite jaune — Kalotermes flavicollis">
+            <span class="badge">5% des cas</span>
+          </div>
+          <div class="species-card-body">
+            <h3>Termite à cou jaune</h3>
+            <span class="latin">Kalotermes flavicollis</span>
+            <div class="stars"><span class="stars-label">Dangerosité</span> <span style="color:var(--color-accent-500);">★★★☆☆</span></div>
+            <div class="species-specs">
+              <div class="spec"><span class="spec-val">5-7 mm</span><span class="spec-key">Taille</span></div>
+              <div class="spec"><span class="spec-val">Bois sec</span><span class="spec-key">Habitat</span></div>
+              <div class="spec"><span class="spec-val">10 ans</span><span class="spec-key">Reine</span></div>
+              <div class="spec"><span class="spec-val">500/j</span><span class="spec-key">Œufs</span></div>
+            </div>
+            <p class="desc">Termite de bois sec, présent en PACA et en Corse. Vit directement dans le bois sans contact avec le sol. Petites colonies (quelques milliers d'individus). Caractéristique : pronotum jaune.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="did-you-know">
+        <span class="did-you-know-icon">💡</span>
+        <p><strong>Termites vs fourmis</strong> — antennes <strong>droites</strong> (vs coudées chez les fourmis), corps <strong>cylindrique uniforme</strong> sans taille fine, <strong>2 paires d'ailes égales</strong> chez les essaimants (vs ailes inégales chez les fourmis volantes).</p>
+      </div>
+
+      <h3 style="margin-top: var(--space-xl);">Les signes qui ne trompent pas</h3>
+      <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Comparez avec ce que vous avez observé chez vous. Cliquez sur une image pour zoomer.</p>
+
+      <div class="signs-grid">
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Cordonnets de terre — tubes de boue construits par les termites" loading="lazy">
+          <h4>Cordonnets terre</h4>
+          <p>Tubes de boue le long des murs, fondations et caves.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Ailes abandonnées de termites essaimants après l'essaimage de printemps" loading="lazy">
+          <h4>Ailes au sol</h4>
+          <p>Ailes transparentes abandonnées après essaimage (avril-juin).</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Bois rongé par les termites — galeries internes" loading="lazy">
+          <h4>Bois creux</h4>
+          <p>Son creux à la percussion, surface gondolée ou cloquée.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Galeries internes dans une poutre infestée par les termites" loading="lazy">
+          <h4>Galeries internes</h4>
+          <p>Couches concentriques visibles dans le bois cassé.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Plancher qui s'affaisse — signe d'infestation termites avancée" loading="lazy">
+          <h4>Plancher mou</h4>
+          <p>Parquet qui s'affaisse sous le pas, poutres qui plient.</p>
+        </div>
+        <div class="sign-card">
+          <img class="sign-img" src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Sciure fine produite par les termites de bois sec" loading="lazy">
+          <h4>Sciure fine</h4>
+          <p>Petits amas de poussière de bois (Kalotermes uniquement).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 2 — Dangers ═══ -->
+    <section id="dangers">
+      <span class="section-label fade-up">Étape 2 — Dégâts & Réglementation</span>
+      <h2>Pourquoi les termites sont si dangereux</h2>
+      <p>Contrairement à la plupart des nuisibles, les termites ne mettent pas votre santé en danger directement — ils détruisent <strong>la structure même de votre maison</strong>. Et la loi vous tient pour responsable de leur déclaration. Trois enjeux distincts à comprendre.</p>
+
+      <div class="risk-tabs">
+        <button class="risk-tab active" data-tab="structure">🏗️ Dégâts structurels</button>
+        <button class="risk-tab" data-tab="reglementation">⚖️ Obligations légales</button>
+        <button class="risk-tab" data-tab="cout">💰 Coût pour le propriétaire</button>
+      </div>
+
+      <div class="risk-tab-content active" id="tab-structure">
+        <div class="danger-facts">
+          <div class="danger-fact">
+            <div class="danger-fact-num">50%</div>
+            <div class="danger-fact-text">
+              <strong>du bois consommé en 6 mois</strong>
+              <span>Une colonie active peut dévorer la moitié du volume d'une poutre de charpente en moins d'un semestre. Le bois reste intact en surface mais devient vide à l'intérieur.</span>
+            </div>
+          </div>
+          <div class="danger-fact">
+            <div class="danger-fact-num">∞</div>
+            <div class="danger-fact-text">
+              <strong>Activité 24h/24</strong>
+              <span>Les termites travaillent en continu, jour et nuit, sans pause hivernale. Leur progression est silencieuse, invisible — et inéluctable sans intervention.</span>
+            </div>
+          </div>
+          <div class="danger-fact">
+            <div class="danger-fact-num">3-10 ans</div>
+            <div class="danger-fact-text">
+              <strong>avant effondrement structurel</strong>
+              <span>Délai moyen entre le début de l'infestation et la défaillance d'une structure. Souvent découvert lors d'une catastrophe : plancher qui cède, poutre qui tombe.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="damage-row">
+          <div class="damage-item">
+            <span class="damage-icon">🏠</span>
+            <div><strong>Charpente</strong><span>Pannes, chevrons, fermes : la structure du toit cède. Risque d'effondrement majeur.</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">🪜</span>
+            <div><strong>Plancher & escalier</strong><span>Solives, lambourdes, marches : risque de chute important. Affaissement progressif.</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">🚪</span>
+            <div><strong>Encadrements & meubles</strong><span>Portes, fenêtres, parquets, boiseries, meubles anciens. Tout bois cellulosique est vulnérable.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-tab-content" id="tab-reglementation">
+        <div class="disease-grid">
+          <div class="disease-card critical">
+            <div class="disease-header"><span class="disease-severity">●●●</span><strong>Déclaration en mairie</strong><span class="disease-tag critical">Obligatoire</span></div>
+            <p>Loi du 8 juin 1999 : tout propriétaire constatant la présence de termites doit la déclarer en mairie dans le mois. Amende en cas de non-déclaration.</p>
+            <span class="disease-stat">Article L.133-4 du Code de la construction</span>
+          </div>
+          <div class="disease-card critical">
+            <div class="disease-header"><span class="disease-severity">●●●</span><strong>Diagnostic vente immobilière</strong><span class="disease-tag critical">Obligatoire</span></div>
+            <p>Dans les 84 départements à arrêté préfectoral, le diagnostic termites est obligatoire avant toute vente. Validité 6 mois, coût 100-300 €.</p>
+            <span class="disease-stat">Décret n°2006-1114</span>
+          </div>
+          <div class="disease-card high">
+            <div class="disease-header"><span class="disease-severity">●●○</span><strong>Travaux de démolition</strong><span class="disease-tag high">Obligatoire</span></div>
+            <p>Le bois infesté ne peut être déplacé sans incinération sur place ou traitement. Obligation d'éliminer pour éviter la propagation à d'autres bâtiments.</p>
+            <span class="disease-stat">Article L.133-5</span>
+          </div>
+          <div class="disease-card high">
+            <div class="disease-header"><span class="disease-severity">●●○</span><strong>Responsabilité du vendeur</strong><span class="disease-tag high">Risque élevé</span></div>
+            <p>Vente sans diagnostic ou avec diagnostic erroné : annulation possible de la vente, dommages-intérêts pour vice caché. Assurance habitation ne couvre pas.</p>
+            <span class="disease-stat">Jurisprudence Cour de cassation 2018</span>
+          </div>
+        </div>
+
+        <div class="legal-callout">
+          <span class="legal-callout-icon">📋</span>
+          <div>
+            <strong>Mémo propriétaire</strong>
+            <p>1° Constatez la présence (cordonnets, bois creux, ailes après essaimage). 2° Faites confirmer par un diagnostiqueur certifié. 3° Déclarez en mairie sous 1 mois. 4° Engagez un traitement professionnel. 5° Conservez les justificatifs (obligatoire en cas de revente).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-tab-content" id="tab-cout">
+        <div class="damage-row">
+          <div class="damage-item">
+            <span class="damage-icon">🔍</span>
+            <div><strong>100 - 300 €</strong><span>Diagnostic termites obligatoire (validité 6 mois)</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">🛡️</span>
+            <div><strong>800 - 3 000 €</strong><span>Traitement curatif maison 100m² (barrière chimique ou pièges-appâts)</span></div>
+          </div>
+          <div class="damage-item">
+            <span class="damage-icon">🏚️</span>
+            <div><strong>5 000 - 15 000 €</strong><span>Remplacement structurel (charpente, plancher) après dégâts avérés</span></div>
+          </div>
+        </div>
+        <p style="margin-top:var(--space-md);font-size:13px;color:var(--color-text-muted);">⚠️ <strong>L'assurance habitation ne couvre généralement PAS</strong> les dégâts dus aux termites (exclusion contractuelle pour insectes xylophages). Le coût retombe intégralement sur le propriétaire.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3 — Simulateur colonie ═══ -->
+    <section id="simulateur">
+      <span class="section-label fade-up">Étape 3 — Croissance de la colonie</span>
+      <h2>Comment évolue une colonie de termites ?</h2>
+      <p>Une reine pond jusqu'à <strong>2 000 œufs par jour</strong> et vit 15 à 25 ans. Une colonie peut atteindre plusieurs millions d'individus. Visualisez la croissance silencieuse selon votre situation.</p>
+
+      <div class="prolif-2col">
+        <div class="prolif-box-inputs">
+          <h3 style="margin:0 0 var(--space-md);font-size:15px;">Votre situation</h3>
+          <div class="prolif-config-inner">
+            <div class="prolif-config-item"><span class="prolif-config-label">Bâtiment</span><div class="prolif-pills" id="cfgLogement"><button class="prolif-pill active" data-val="maison">🏠 Maison ancienne</button><button class="prolif-pill" data-val="immeuble">🏢 Immeuble</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Région</span><div class="prolif-pills" id="cfgSecteur"><button class="prolif-pill active" data-val="atlantique">🌊 Atlantique</button><button class="prolif-pill" data-val="paca">☀️ PACA / Sud</button><button class="prolif-pill" data-val="autre">🍃 Autre zone</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Humidité bois</span><div class="prolif-pills" id="cfgFood"><button class="prolif-pill" data-val="sec">Sec</button><button class="prolif-pill active" data-val="moyen">Moyen</button><button class="prolif-pill" data-val="humide">Humide</button></div></div>
+            <div class="prolif-config-item"><span class="prolif-config-label">Détection</span><div class="prolif-pills" id="cfgInitial"><button class="prolif-pill active" data-val="1000">1 colonie</button><button class="prolif-pill" data-val="5000">2-3 colonies</button><button class="prolif-pill" data-val="20000">Établi</button></div></div>
+          </div>
+          <div style="margin-top:var(--space-lg);">
+            <span class="prolif-config-label">Projection</span>
+            <input type="range" id="prolifSlider" min="0" max="11" value="0" style="width:100%;margin-top:6px;">
+            <div class="prolif-months-bar"><span>An 1</span><span>An 3</span><span>An 6</span><span>An 9</span><span>An 12</span></div>
+          </div>
+        </div>
+
+        <div class="prolif-box-results" id="prolifResultsBox">
+          <div class="prolif-result-header">
+            <span class="prolif-month-label" id="prolifMonth">Année 1</span>
+            <span class="prolif-pop-count" id="prolifCount">1 000 termites</span>
+          </div>
+          <div class="prolif-visual" id="prolifVisual">
+            <div class="prolif-rats" id="prolifRats"></div>
+          </div>
+          <div class="prolif-stats-compact">
+            <div><strong id="pImpactCrottes">5</strong><span>kg bois/an</span></div>
+            <div><strong id="pImpactCost">200 €</strong><span>dégâts/an</span></div>
+            <div><strong id="pImpactFood">2 m²</strong><span>structure</span></div>
+          </div>
+          <div class="prolif-alert" id="prolifAlert">
+            <span class="prolif-alert-icon">✓</span>
+            <span class="prolif-alert-text">Colonie naissante — la déclaration en mairie est déjà obligatoire.</span>
+          </div>
+          <div class="prolif-cta" id="prolifCta" style="display:none;">
+            <a href="/devis/?nuisible=termites" class="btn btn-primary" style="width:100%;">Diagnostic termites <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4 — Zones d'infestation ═══ -->
+    <section id="zones">
+      <span class="section-label fade-up">Étape 4 — Votre maison</span>
+      <h2>Où se cachent les termites chez vous ?</h2>
+      <p>Les termites se concentrent dans les zones <strong>cachées et humides</strong> de votre logement : vide sanitaire, charpente, planchers bas, encadrements en contact avec le sol. Ces zones sont rarement inspectées — c'est précisément ce qui les rend dangereuses.</p>
+
+      <div class="house-wrap" id="houseWrap">
+        <svg viewBox="0 0 900 550" id="houseSvg" aria-label="Coupe de maison — zones d'infestation termites"></svg>
+        <div class="house-tooltip" id="houseTooltip"></div>
+      </div>
+
+      <div class="did-you-know">
+        <span class="did-you-know-icon">💡</span>
+        <p><strong>Le saviez-vous ?</strong> Les termites souterrains construisent des <strong>cordonnets de terre</strong> (tubes de boue) pour se déplacer à l'abri de la lumière entre le sol et le bois. Ces tubes sont <strong>le signe d'identification numéro 1</strong> — ils prouvent une infestation active.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 5 — Score de risque ═══ -->
+    <section id="evaluation">
+      <span class="section-label fade-up">Votre situation</span>
+      <h2>Votre score de risque termites</h2>
+      <p>Évaluez le niveau de vulnérabilité de votre logement face aux termites. Ce diagnostic en 8 points identifie les facteurs à risque — particulièrement importants si vous résidez dans un département à arrêté préfectoral.</p>
+      <div class="risk-check-layout">
+        <div class="risk-checklist" id="riskChecklist">
+          <label class="risk-check-item"><input type="checkbox" data-score="20" checked> Logement en zone à arrêté préfectoral termites</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="18"> Présence de cordonnets de terre sur murs / fondations</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="15"> Ailes transparentes au sol après le printemps (essaimage)</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="15"> Bois qui sonne creux à la percussion (poutres, planchers)</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="12"> Parquet, escalier ou poutre qui s'affaisse</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="10"> Voisinage avec bâtiment infesté connu</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="8"> Vide sanitaire humide ou cave non ventilée</label>
+          <label class="risk-check-item"><input type="checkbox" data-score="7"> Bâtiment ancien (avant 1948) avec charpente d'origine</label>
+        </div>
+        <div class="risk-result-box">
+          <svg class="risk-score-svg" viewBox="0 0 240 140" id="riskGauge">
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#E5E5E5" stroke-width="14" stroke-linecap="round"/>
+            <path d="M 20 120 A 100 100 0 0 1 220 120" fill="none" stroke="#4CAF50" stroke-width="14" stroke-linecap="round" id="riskArc" stroke-dasharray="314" stroke-dashoffset="314"/>
+            <text x="120" y="105" text-anchor="middle" font-size="36" font-weight="700" fill="#0E052A" id="riskScoreText">0</text>
+            <text x="120" y="125" text-anchor="middle" font-size="12" fill="#999">/100</text>
+          </svg>
+          <div class="risk-verdict">
+            <h3 id="riskVerdictTitle">Faible</h3>
+            <p id="riskVerdictDesc">Cochez les cases pour évaluer votre risque.</p>
+          </div>
+          <div id="riskCta" style="display:none;margin-top:var(--space-md);">
+            <a href="/devis/?nuisible=termites" class="btn btn-primary" style="width:100%;font-size:14px;">Diagnostic termites <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 6 — Calendrier ═══ -->
+    <section id="calendrier">
+      <span class="section-label fade-up">Saisonnalité</span>
+      <h2>Quand les termites essaiment ? Le calendrier annuel</h2>
+      <p>Les termites sont actifs <strong>toute l'année</strong> car ils vivent à l'abri du climat dans le sol et le bois. Mais l'<strong>essaimage de printemps (avril-juin)</strong> est le moment critique : c'est lors de ces vols nuptiaux que de nouvelles colonies se créent — et que les premiers signes deviennent visibles.</p>
+      <div class="calendar-grid" id="calendarGrid"></div>
+    </section>
+
+    <!-- ═══ SECTION — Carte de France ═══ -->
+    <section id="carte">
+      <span class="section-label fade-up">Géographie</span>
+      <h2>Les régions concernées par l'arrêté préfectoral termites</h2>
+      <p>En France, <strong>84 départements</strong> sont concernés par un arrêté préfectoral imposant le diagnostic termites avant vente. Cliquez sur une région pour découvrir le niveau d'infestation et les obligations locales.</p>
+      <div class="france-map-wrapper">
+        <div class="france-map-left">
+          <svg class="france-map-svg" viewBox="0 0 550 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carte de France des zones à risque termites">
+            <!-- Nouvelle-Aquitaine (zone critique) -->
+            <path data-region="nouvelle-aquitaine" fill="#D94F4F" d="M150,300 L280,300 L300,420 L240,460 L170,440 L130,380 Z"/>
+            <!-- Occitanie (zone critique) -->
+            <path data-region="occitanie" fill="#D94F4F" d="M240,460 L370,440 L380,510 L290,520 L240,500 Z"/>
+            <!-- PACA -->
+            <path data-region="paca" fill="#D94F4F" d="M380,440 L470,420 L480,500 L380,510 Z"/>
+            <!-- Auvergne-Rhône-Alpes (vallée du Rhône) -->
+            <path data-region="auvergne-rhone-alpes" fill="#F5A623" d="M340,300 L450,290 L470,420 L380,440 L340,400 Z"/>
+            <!-- Île-de-France -->
+            <path data-region="ile-de-france" fill="#F5A623" d="M280,180 L340,180 L340,220 L280,220 Z"/>
+            <!-- Pays de la Loire -->
+            <path data-region="pays-de-la-loire" fill="#F5D76E" d="M180,240 L280,240 L300,300 L200,300 Z"/>
+            <!-- Bretagne -->
+            <path data-region="bretagne" fill="#F5D76E" d="M80,220 L180,240 L160,310 L80,290 Z"/>
+            <!-- Centre-Val de Loire -->
+            <path data-region="centre-val-de-loire" fill="#F5D76E" d="M280,240 L380,240 L380,300 L300,300 Z"/>
+            <!-- Hauts-de-France -->
+            <path data-region="hauts-de-france" fill="#F5D76E" d="M250,80 L370,80 L370,160 L250,160 Z"/>
+            <!-- Normandie -->
+            <path data-region="normandie" fill="#F5D76E" d="M150,150 L280,150 L280,220 L180,220 Z"/>
+            <!-- Grand Est -->
+            <path data-region="grand-est" fill="#F5A623" d="M380,90 L500,100 L500,260 L400,250 Z"/>
+            <!-- Bourgogne-Franche-Comté -->
+            <path data-region="bourgogne-franche-comte" fill="#F5D76E" d="M380,240 L490,260 L470,330 L380,320 Z"/>
+            <!-- Corse -->
+            <path data-region="corse" fill="#D94F4F" d="M495,540 L515,540 L520,580 L500,580 Z"/>
+          </svg>
+          <div class="map-legend">
+            <div class="map-legend-item"><span class="map-legend-swatch" style="background:#D94F4F;"></span> Critique — arrêté préfectoral</div>
+            <div class="map-legend-item"><span class="map-legend-swatch" style="background:#F5A623;"></span> Élevé — surveillance</div>
+            <div class="map-legend-item"><span class="map-legend-swatch" style="background:#F5D76E;"></span> Modéré — vigilance</div>
+          </div>
+        </div>
+        <div class="map-detail-panel" id="mapDetailPanel">
+          <span class="map-detail-level critical">Critique</span>
+          <h3 id="mapDetailName">Nouvelle-Aquitaine</h3>
+          <p class="map-detail-text" id="mapDetailText">Charente, Charente-Maritime, Gironde, Landes, Pyrénées-Atlantiques, Vendée — la façade atlantique est l'épicentre historique des termites en France. Diagnostic termites obligatoire pour toute vente immobilière.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 8 — Méthodes ═══ -->
+    <section id="methodes">
+      <span class="section-label fade-up">Solutions</span>
+      <h2>Quelle méthode de traitement choisir ?</h2>
+      <p>Barrière chimique, pièges-appâts, traitement de la charpente : chaque méthode a son domaine d'application. Le choix dépend de l'espèce, de l'ampleur de l'infestation et du type de bâtiment. Comparaison objective.</p>
+
+      <div style="display:flex;gap:var(--space-sm);margin-bottom:var(--space-lg);flex-wrap:wrap;">
+        <button class="method-filter active" data-level="all" onclick="filterMethods('all')">Toutes</button>
+        <button class="method-filter" data-level="light" onclick="filterMethods('light')">Préventif</button>
+        <button class="method-filter" data-level="medium" onclick="filterMethods('medium')">Curatif léger</button>
+        <button class="method-filter" data-level="severe" onclick="filterMethods('severe')">Curatif lourd</button>
+      </div>
+
+      <div class="methods-grid">
+        <div class="method-card" data-level="light">
+          <h3>🛡️ Barrière chimique</h3>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:75%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:60%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:55%;background:#FF9800;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Injection d'un termiticide dans le sol périphérique pour créer une barrière chimique infranchissable. Garantie 10 ans.</p>
+        </div>
+        <div class="method-card recommended" data-level="medium">
+          <h4>🪤 Pièges-appâts (Sentricon, Termidor)</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:95%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:50%;background:#FF9800;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:90%;background:#4CAF50;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Stations d'appâtage avec IGR (régulateur de croissance). Les ouvriers ramènent l'appât à la colonie, éliminant la reine. Méthode de référence depuis 2008.</p>
+        </div>
+        <div class="method-card" data-level="severe">
+          <h4>🪵 Traitement charpente (xylophène pro)</h4>
+          <div class="method-meter"><span class="method-meter-label">Efficacité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:80%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Rapidité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:80%;background:#4CAF50;"></div></div></div>
+          <div class="method-meter"><span class="method-meter-label">Sécurité</span><div class="method-meter-bar"><div class="method-meter-fill" style="width:65%;background:#FF9800;"></div></div></div>
+          <p style="font-size:12px;color:var(--color-text-muted);margin-top:var(--space-sm);">Pulvérisation et injection dans le bois infesté. Indispensable pour les charpentes contaminées en surface. Combinaison fréquente avec barrière chimique.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 9 — Protocole ═══ -->
+    <section id="protocole">
+      <span class="section-label fade-up">Plan d'action</span>
+      <h2>Le protocole termites étape par étape</h2>
+      <p>Un plan d'action structuré en 5 étapes pour identifier, déclarer et traiter une infestation de termites — en respectant les obligations légales du Code de la construction.</p>
+      <div class="protocol-steps" id="protocolSteps">
+        <div class="protocol-step">
+          <h3>Diagnostiquer</h3>
+          <label class="protocol-check"><input type="checkbox"> Inspecter cordonnets de terre, son creux, ailes après essaimage</label>
+          <label class="protocol-check"><input type="checkbox"> Vérifier vide sanitaire, charpente, encadrements bois</label>
+          <label class="protocol-check"><input type="checkbox"> Identifier l'espèce (Reticulitermes / Kalotermes)</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Faire confirmer par un professionnel</h4>
+          <label class="protocol-check"><input type="checkbox"> Mandater un diagnostiqueur certifié (validité 6 mois)</label>
+          <label class="protocol-check"><input type="checkbox"> Cartographier les zones infestées</label>
+          <label class="protocol-check"><input type="checkbox"> Évaluer l'ampleur de la colonie</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Déclarer en mairie</h4>
+          <label class="protocol-check"><input type="checkbox"> Remplir la déclaration termites (Cerfa n°12010*05)</label>
+          <label class="protocol-check"><input type="checkbox"> Déposer le formulaire en mairie sous 1 mois (obligatoire)</label>
+          <label class="protocol-check"><input type="checkbox"> Conserver le récépissé (utile en cas de revente)</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Traiter</h4>
+          <label class="protocol-check"><input type="checkbox"> Choisir la méthode adaptée (barrière, appâts, charpente)</label>
+          <label class="protocol-check"><input type="checkbox"> Faire intervenir une entreprise certifiée Certibiocide</label>
+          <label class="protocol-check"><input type="checkbox"> Conserver la garantie décennale du traitement</label>
+        </div>
+        <div class="protocol-step">
+          <h4>Surveiller</h4>
+          <label class="protocol-check"><input type="checkbox"> Inspecter les pièges-appâts tous les 6 mois</label>
+          <label class="protocol-check"><input type="checkbox"> Vérifier l'absence de cordonnets chaque printemps</label>
+          <label class="protocol-check"><input type="checkbox"> Surveiller voisinage et signaler nouveau cas</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 10 — Quiz ═══ -->
+    <section id="quiz">
+      <span class="section-label fade-up">Auto-diagnostic</span>
+      <h2>Avez-vous des termites chez vous ?</h2>
+      <p>Quiz rapide en 8 questions pour évaluer la probabilité d'une infestation de termites dans votre logement. Indices visuels, signes saisonniers, contexte géographique.</p>
+      <div class="quiz-container" id="quizContainer">
+        <div class="quiz-progress" id="quizProgress"></div>
+        <div id="quizBody">
+          <p class="quiz-question" id="quizQuestion"></p>
+          <div class="quiz-options" id="quizOptions"></div>
+        </div>
+        <div class="quiz-result" id="quizResult">
+          <div class="score-circle" id="quizScoreCircle"></div>
+          <h3 id="quizVerdictTitle"></h3>
+          <p id="quizVerdictDesc"></p>
+          <div style="display:flex;gap:var(--space-md);justify-content:center;margin-top:var(--space-xl);flex-wrap:wrap;">
+            <button class="btn btn-outline" id="quizRestart">Recommencer</button>
+            <a href="/devis/?nuisible=termites" class="btn btn-primary">Diagnostic termites <span class="btn-arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 11 — Coût ═══ -->
+    <section id="cout">
+      <span class="section-label fade-up">L'enjeu financier</span>
+      <h2>Combien coûte un traitement termites ?</h2>
+      <p>En France, les termites causent <strong>800 millions d'euros</strong> de dégâts par an. La grille tarifaire ci-dessous détaille le coût de chaque type d'intervention — du diagnostic préventif au remplacement structurel.</p>
+
+      <div class="cost-breakdown">
+        <div class="cost-cell">
+          <div class="cost-cell-icon">🔍</div>
+          <div class="cost-cell-val">100 - 300 €</div>
+          <div class="cost-cell-desc">Diagnostic obligatoire<br><span style="font-size:11px;">(validité 6 mois)</span></div>
+        </div>
+        <div class="cost-cell">
+          <div class="cost-cell-icon">🛡️</div>
+          <div class="cost-cell-val">400 - 800 €</div>
+          <div class="cost-cell-desc">Traitement préventif<br><span style="font-size:11px;">(barrière + appâts)</span></div>
+        </div>
+        <div class="cost-cell">
+          <div class="cost-cell-icon">🪤</div>
+          <div class="cost-cell-val">800 - 2 000 €</div>
+          <div class="cost-cell-desc">Curatif léger 100m²<br><span style="font-size:11px;">(pièges-appâts)</span></div>
+        </div>
+        <div class="cost-cell">
+          <div class="cost-cell-icon">🪵</div>
+          <div class="cost-cell-val">2 000 - 3 000 €</div>
+          <div class="cost-cell-desc">Curatif lourd<br><span style="font-size:11px;">(charpente + barrière)</span></div>
+        </div>
+        <div class="cost-cell">
+          <div class="cost-cell-icon">🏚️</div>
+          <div class="cost-cell-val">5 000 - 15 000 €</div>
+          <div class="cost-cell-desc">Remplacement structurel<br><span style="font-size:11px;">(après dégâts)</span></div>
+        </div>
+      </div>
+
+      <div class="cost-layout">
+        <div class="sim-chart-wrap">
+          <canvas id="costChart" height="200"></canvas>
+        </div>
+        <div class="cost-highlight">
+          <div class="big" id="costRoi">25:1</div>
+          <div class="label">Retour sur investissement</div>
+          <div class="cost-slider-wrap">
+            <label>Année d'intervention : <strong id="costMonthVal">2</strong></label>
+            <input type="range" id="costMonthSlider" min="1" max="10" value="2" style="max-width:200px;">
+            <div class="cost-savings" id="costSavings">Vous économisez ~3 500 €</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 12 — Histoire ═══ -->
+    <section id="histoire">
+      <span class="section-label fade-up">Contexte historique</span>
+      <h2>L'histoire des termites en France</h2>
+      <p>Les termites ne sont pas une espèce indigène en France métropolitaine. Importés au XIXe siècle, ils ont progressivement colonisé tout le Sud-Ouest et le pourtour méditerranéen, justifiant un cadre légal strict.</p>
+      <div class="timeline">
+        <div class="tl-item"><span class="tl-year">1834</span><div class="tl-text">Première observation officielle de termites en France à <strong>La Rochelle</strong> — probablement importés via les navires marchands en provenance de Charente.</div></div>
+        <div class="tl-item"><span class="tl-year">1860</span><div class="tl-text">Diffusion progressive dans le <strong>Sud-Ouest</strong> (Bordeaux, Charentes). Les premières destructions de charpentes sont signalées.</div></div>
+        <div class="tl-item"><span class="tl-year">1947</span><div class="tl-text">Après-guerre : <strong>propagation massive</strong> facilitée par la reconstruction et la circulation accrue du bois. Apparition en région parisienne.</div></div>
+        <div class="tl-item"><span class="tl-year">1999</span><div class="tl-text"><strong>Loi du 8 juin 1999</strong> — obligation de déclaration en mairie et création des arrêtés préfectoraux délimitant les zones à risque (84 départements concernés).</div></div>
+        <div class="tl-item"><span class="tl-year">2008</span><div class="tl-text">Autorisation des <strong>IGR (régulateurs de croissance)</strong> dans les pièges-appâts. Méthode plus sûre et plus efficace que les barrières chimiques classiques.</div></div>
+        <div class="tl-item"><span class="tl-year">2014</span><div class="tl-text">Déploiement à grande échelle du <strong>système Sentricon</strong> en France — pièges-appâts professionnels permettant l'éradication complète d'une colonie.</div></div>
+        <div class="tl-item"><span class="tl-year">2024</span><div class="tl-text"><strong>Renforcement des obligations</strong> — diagnostic obligatoire systématisé en zones à risque, durcissement des sanctions en cas de non-déclaration.</div></div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION — Carte mondiale ═══ -->
+    <section id="monde">
+      <span class="section-label fade-up">Perspective mondiale</span>
+      <h2>Les termites, un fléau planétaire</h2>
+      <p>Avec plus de 2 700 espèces dans le monde, les termites causent <strong>40 milliards de dollars</strong> de dégâts par an à l'échelle mondiale. Cliquez sur une région pour découvrir l'ampleur du phénomène.</p>
+
+      <div class="world-cities" id="worldCities">
+        <div class="world-city active" data-city="usa"><span class="world-city-flag">🇺🇸</span><div class="world-city-info"><strong>États-Unis Sud</strong><span>5 Md$ de dégâts/an</span></div></div>
+        <div class="world-city" data-city="australia"><span class="world-city-flag">🇦🇺</span><div class="world-city-info"><strong>Australie</strong><span>1 maison sur 4 attaquée</span></div></div>
+        <div class="world-city" data-city="brazil"><span class="world-city-flag">🇧🇷</span><div class="world-city-info"><strong>Brésil</strong><span>Reticulitermes endémique</span></div></div>
+        <div class="world-city" data-city="india"><span class="world-city-flag">🇮🇳</span><div class="world-city-info"><strong>Inde</strong><span>300 espèces recensées</span></div></div>
+        <div class="world-city" data-city="africa"><span class="world-city-flag">🌍</span><div class="world-city-info"><strong>Afrique sub-saharienne</strong><span>Termitières Macrotermes 9 m</span></div></div>
+        <div class="world-city" data-city="asia"><span class="world-city-flag">🌏</span><div class="world-city-info"><strong>Asie du Sud-Est</strong><span>Coptotermes formosanus invasif</span></div></div>
+      </div>
+
+      <div class="world-detail" id="worldDetail">
+        <h3>🇺🇸 États-Unis Sud — Le pays du Reticulitermes flavipes</h3>
+        <p>Les États du Sud (Floride, Texas, Louisiane, Géorgie) subissent <strong>5 milliards de dollars</strong> de dégâts par an. L'espèce dominante est <em>Reticulitermes flavipes</em> (cousin du termite français). Le système Sentricon y a été inventé en 1995.</p>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION — Articles blog ═══ -->
+    <section id="articles-blog">
+      <span class="section-label fade-up">Lecture recommandée</span>
+      <h2>Tout sur les termites</h2>
+      <p>Des guides concrets pour comprendre la réglementation, identifier une infestation et choisir le bon traitement.</p>
+
+      <div class="articles-grid-3" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);margin-top:var(--space-lg);">
+        <a href="/blog/" class="article-card-compact" style="display:block;padding:var(--space-lg);background:var(--color-surface);border-radius:var(--radius-lg);border:1px solid var(--color-gray-light);text-decoration:none;color:inherit;">
+          <span class="article-card-tag" style="font-family:var(--font-secondary);font-size:10px;color:var(--color-primary-600);text-transform:uppercase;letter-spacing:0.5px;">Réglementation</span>
+          <h3 style="margin:var(--space-sm) 0;font-size:15px;">Loi termites de 1999 : ce que dit vraiment la réglementation</h3>
+          <span style="font-family:var(--font-secondary);font-size:11px;color:#999;">8 min de lecture</span>
+        </a>
+        <a href="/blog/" class="article-card-compact" style="display:block;padding:var(--space-lg);background:var(--color-surface);border-radius:var(--radius-lg);border:1px solid var(--color-gray-light);text-decoration:none;color:inherit;">
+          <span class="article-card-tag" style="font-family:var(--font-secondary);font-size:10px;color:var(--color-primary-600);text-transform:uppercase;letter-spacing:0.5px;">Diagnostic</span>
+          <h4 style="margin:var(--space-sm) 0;font-size:15px;">Diagnostic termites : prix, validité, qui le réalise ?</h4>
+          <span style="font-family:var(--font-secondary);font-size:11px;color:#999;">7 min de lecture</span>
+        </a>
+        <a href="/blog/" class="article-card-compact" style="display:block;padding:var(--space-lg);background:var(--color-surface);border-radius:var(--radius-lg);border:1px solid var(--color-gray-light);text-decoration:none;color:inherit;">
+          <span class="article-card-tag" style="font-family:var(--font-secondary);font-size:10px;color:var(--color-primary-600);text-transform:uppercase;letter-spacing:0.5px;">Identification</span>
+          <h4 style="margin:var(--space-sm) 0;font-size:15px;">Termites ou fourmis volantes : comment les distinguer ?</h4>
+          <span style="font-family:var(--font-secondary);font-size:11px;color:#999;">5 min de lecture</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION — FAQ ═══ -->
+    <section id="faq">
+      <span class="section-label fade-up">Questions fréquentes</span>
+      <h2>Les vraies réponses sur les termites</h2>
+      <p>Les questions les plus posées par nos clients sur l'identification, le diagnostic obligatoire, le coût des traitements et les responsabilités du propriétaire.</p>
+      <div class="accordion-list" id="faqAccordion">
+        <div class="accordion-item"><button class="accordion-header">Comment savoir si j'ai des termites chez moi ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Les signes les plus fréquents sont : (1) des cordonnets de terre (tubes de boue) le long des murs ou fondations, (2) du bois qui sonne creux à la percussion, (3) des ailes transparentes abandonnées au sol après l'essaimage de printemps (avril-juin), (4) des poutres ou planchers qui s'affaissent. Si vous résidez dans un département à arrêté préfectoral, faites diagnostiquer en cas de doute.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Le diagnostic termites est-il vraiment obligatoire ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Oui — dans 84 départements français concernés par un arrêté préfectoral, le diagnostic termites est <strong>obligatoire</strong> pour toute vente immobilière. Sa validité est de 6 mois et son coût varie de 100 à 300 €. Le vendeur qui ne fournit pas ce diagnostic s'expose à l'annulation de la vente et à des dommages-intérêts pour vice caché.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Combien coûte un traitement anti-termites ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Comptez entre 800 et 3 000 € pour le traitement curatif d'une maison de 100 m² (selon méthode : barrière chimique, pièges-appâts ou traitement de la charpente). En cas de dégâts structurels nécessitant un remplacement de charpente ou de plancher, le coût peut atteindre 5 000 à 15 000 €. La majorité des contrats d'assurance n'assurent pas les dégâts dus aux termites — d'où l'importance d'un traitement préventif.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Peut-on vendre une maison infestée de termites ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Oui, mais le diagnostic termites est <strong>obligatoire</strong> et l'infestation doit avoir été déclarée en mairie. La loi du 8 juin 1999 oblige le propriétaire à signaler la présence de termites sous peine d'amende et d'annulation de la vente. Les acquéreurs peuvent négocier le prix ou exiger un traitement avant signature.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">L'assurance habitation couvre-t-elle les dégâts de termites ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Non, dans la grande majorité des cas. Les contrats d'assurance habitation excluent explicitement les dégâts causés par les insectes xylophages (termites, capricornes, vrillettes). Seul un traitement préventif (barrière chimique ou pièges-appâts) permet d'éviter ces frais qui retombent intégralement sur le propriétaire.</div></div></div>
+        <div class="accordion-item"><button class="accordion-header">Combien de temps avant qu'une charpente s'effondre ? <span class="icon-toggle">+</span></button><div class="accordion-body"><div class="accordion-body-inner">Une colonie active peut consommer jusqu'à 50 % du volume d'une poutre en 6 mois. Selon l'ampleur de l'infestation, l'effondrement structurel peut survenir en 3 à 10 ans après le début de l'infestation. C'est pourquoi un diagnostic précoce est essentiel : plus l'intervention est rapide, moins les dégâts sont importants et coûteux.</div></div></div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION — CTA Final ═══ -->
+    <section id="action" style="border-bottom:none;">
+      <div class="final-cta">
+        <h2>Vous suspectez la présence de termites ? Agissez maintenant.</h2>
+        <p>Diagnostic gratuit en 2 minutes. Confirmation par un technicien certifié sous 48h. Conformité réglementaire garantie.</p>
+        <a href="/devis/?nuisible=termites" class="btn btn-primary btn-lg">Obtenir mon diagnostic termites <span class="btn-arrow"></span></a>
+        <div class="trust-badges">
+          <span>✓ Certibiocide</span>
+          <span>✓ Garantie 10 ans</span>
+          <span>✓ Conforme loi 1999</span>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.page-content -->
+
+  <!-- ══════════════════════════════════════
+       STICKY SIDEBAR
+       ══════════════════════════════════════ -->
+  <div class="sidebar-wrap">
+    <div class="sidebar-card">
+      <div class="sidebar-visual">
+        <!-- TODO Recraft : remplacer par image termite Reticulitermes santonensis -->
+        <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Termite ouvrier">
+      </div>
+      <div class="sidebar-body">
+        <h3>Termites</h3><span class="sidebar-badge">84 dépts concernés</span>
+        <span class="sidebar-latin">Reticulitermes santonensis</span>
+        <div class="sidebar-stats">
+          <div><span class="sidebar-stat-val">800 M€/an</span><span class="sidebar-stat-label">de dégâts</span></div>
+          <div><span class="sidebar-stat-val">2 000 œufs/j</span><span class="sidebar-stat-label">par reine</span></div>
+          <div><span class="sidebar-stat-val">15-25 ans</span><span class="sidebar-stat-label">durée de vie reine</span></div>
+          <div><span class="sidebar-stat-val">Loi 1999</span><span class="sidebar-stat-label">déclaration obligatoire</span></div>
+        </div>
+        <div class="sidebar-cta">
+          <a href="/devis/?nuisible=termites" class="btn btn-primary">Diagnostic termites <span class="btn-arrow"></span></a>
+          <span class="sidebar-offer"><span class="pulse-dot"></span> Conformité réglementaire</span>
+        </div>
       </div>
     </div>
+    <a href="#quiz" class="sidebar-quiz">Avez-vous des termites chez vous ? Faites le test →</a>
+  </div>
 
-    <h2>Liens utiles</h2>
-    <div class="related-links">
-      <a href="/nuisibles/fourmis/">Fiche Fourmis</a>
-      <a href="/nuisibles/">Tous les nuisibles</a>
+</div><!-- /.page-layout -->
+
+<!-- ══════════════════════════════════════
+     COHABITANTS
+     ══════════════════════════════════════ -->
+<section class="section" id="cohabitants">
+  <div class="container">
+    <h2>Les autres insectes xylophages à surveiller</h2>
+    <p style="color:var(--color-text-muted);margin-bottom:var(--space-lg);">Les termites ne sont pas seuls à s'attaquer au bois. D'autres insectes xylophages peuvent être confondus ou cohabiter avec eux.</p>
+    <div class="nuisibles-grid">
+      <a href="/nuisibles/fourmis/" class="card-nuisible pastel-rose"><div class="card-nuisible-visual"><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="Fourmi charpentière"></div><div class="card-nuisible-info"><h3>Fourmis charpentières</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><span style="font-size:48px;">🪲</span></div><div class="card-nuisible-info"><h3>Capricornes</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/" class="card-nuisible pastel-mint"><div class="card-nuisible-visual"><span style="font-size:48px;">🐛</span></div><div class="card-nuisible-info"><h3>Vrillettes</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/" class="card-nuisible pastel-peach"><div class="card-nuisible-visual"><span style="font-size:48px;">🪳</span></div><div class="card-nuisible-info"><h3>Lyctus</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
     </div>
   </div>
 </section>
@@ -588,7 +1706,7 @@
 
         <!-- ─── Column: Services particuliers ─── -->
         <details class="footer-col footer-col-accordion" open data-auto-open>
-          <summary class="footer-col-title"><h4>Services particuliers</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Services particuliers</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/deratisation/">Dératisation</a></li>
             <li><a href="/desinsectisation/">Désinsectisation</a></li>
@@ -603,7 +1721,7 @@
 
         <!-- ─── Column: Services pros ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Services pros <span class="footer-col-tag">B2B</span></h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Services pros <span class="footer-col-tag">B2B</span></h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/professionnel/">Sanalia Pro</a></li>
             <li><a href="/professionnel/#restauration">Restauration &amp; HACCP</a></li>
@@ -618,7 +1736,7 @@
 
         <!-- ─── Column: Guides nuisibles ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Guides nuisibles</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Guides nuisibles</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/nuisibles/rats/">Rats</a></li>
             <li><a href="/nuisibles/souris/">Souris</a></li>
@@ -639,7 +1757,7 @@
 
         <!-- ─── Column: Implantations ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>Implantations</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>Implantations</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/deratisation/paris/">Paris</a></li>
             <li><a href="/deratisation/lyon/">Lyon</a></li>
@@ -657,7 +1775,7 @@
 
         <!-- ─── Column: À propos ─── -->
         <details class="footer-col footer-col-accordion" open>
-          <summary class="footer-col-title"><h4>À propos</h4><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
+          <summary class="footer-col-title"><h3>À propos</h3><span class="footer-col-chevron" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></summary>
           <ul>
             <li><a href="/a-propos/">Notre histoire</a></li>
             <li><a href="/garantie/">Nos garanties</a></li>
@@ -885,6 +2003,638 @@
   </div>
 </div>
 </div>
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+
+<button class="back-to-top" id="backToTop" aria-label="Retour en haut" style="position:fixed;bottom:90px;right:24px;width:44px;height:44px;border-radius:50%;background:var(--color-primary-900);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:50;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
 <script src="/js/app.js?v=20260417j"></script>
+<script>
+/* ══════════════════════════════════════════════
+   TERMITES — Interactive Features
+   ══════════════════════════════════════════════ */
+
+function updateSliderFill(el) {
+  const pct = (el.value - el.min) / (el.max - el.min) * 100;
+  el.style.background = 'linear-gradient(to right, #C8B99A 0%, #C8B99A ' + pct + '%, #E5E5E5 ' + pct + '%, #E5E5E5 100%)';
+}
+
+const DATA = {
+  calendar: [
+    {month:'Jan',activity:3,reproduction:1,intrusion:2,treatment:'Moyen'},
+    {month:'Fév',activity:3,reproduction:1,intrusion:2,treatment:'Moyen'},
+    {month:'Mar',activity:4,reproduction:2,intrusion:3,treatment:'Bon'},
+    {month:'Avr',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},
+    {month:'Mai',activity:5,reproduction:5,intrusion:5,treatment:'Optimal'},
+    {month:'Jun',activity:5,reproduction:5,intrusion:4,treatment:'Optimal'},
+    {month:'Jul',activity:5,reproduction:3,intrusion:3,treatment:'Optimal'},
+    {month:'Aoû',activity:5,reproduction:3,intrusion:3,treatment:'Optimal'},
+    {month:'Sep',activity:4,reproduction:2,intrusion:3,treatment:'Bon'},
+    {month:'Oct',activity:4,reproduction:1,intrusion:2,treatment:'Bon'},
+    {month:'Nov',activity:3,reproduction:1,intrusion:2,treatment:'Moyen'},
+    {month:'Déc',activity:3,reproduction:1,intrusion:2,treatment:'Moyen'}
+  ],
+  quiz: [
+    {q:'Avez-vous trouvé des cordonnets de terre sur vos murs ou fondations ?',opts:['Oui','Non','Pas sûr'],scores:[3,0,1]},
+    {q:'Avez-vous vu des ailes transparentes au sol au printemps ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Du bois sonne-t-il creux à la percussion (poutre, plancher) ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Y a-t-il un parquet, escalier ou poutre qui s\'affaisse ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Votre logement est-il dans un département à arrêté préfectoral ?',opts:['Oui','Non','Je ne sais pas'],scores:[3,0,1]},
+    {q:'Avez-vous un voisin avec une infestation termites connue ?',opts:['Oui','Non'],scores:[3,0]},
+    {q:'Votre vide sanitaire est-il humide et peu ventilé ?',opts:['Oui','Non'],scores:[2,0]},
+    {q:'Le bâtiment a-t-il plus de 50 ans avec sa charpente d\'origine ?',opts:['Oui','Non'],scores:[2,0]}
+  ],
+  houseZones: [
+    {x:150,y:495,label:'Vide sanitaire humide',desc:'Le vide sanitaire est la zone N°1 d\'entrée des termites souterrains. Humidité, contact direct avec la terre, obscurité : conditions parfaites pour la colonisation.'},
+    {x:300,y:480,label:'Cordonnets sur fondations',desc:'Tubes de boue construits par les termites pour traverser les zones sans cellulose. Inspecter mensuellement les murs de fondation côté intérieur ET extérieur.'},
+    {x:520,y:470,label:'Bois en contact avec sol',desc:'Poutres, lambourdes ou planchers en contact direct avec le sol = autoroute pour les termites. Toujours surélever le bois de structure de 20 cm minimum.'},
+    {x:200,y:330,label:'Plancher rez-de-chaussée',desc:'Solives et lambourdes du plancher bas sont la cible privilégiée. Vérifier le son creux à la percussion, les affaissements, les surfaces gondolées.'},
+    {x:450,y:340,label:'Encadrements bois',desc:'Portes, fenêtres, plinthes en bois en contact avec les murs humides. Inspecter chaque année, particulièrement après l\'essaimage de printemps.'},
+    {x:680,y:320,label:'Escalier en bois',desc:'Limons, marches, contremarches : structure portante régulièrement attaquée. Tester chaque marche en tapotant — un son creux trahit l\'infestation.'},
+    {x:300,y:130,label:'Charpente — pannes & chevrons',desc:'Termites de bois sec (Kalotermes) : attaquent directement la charpente sans contact avec le sol. Trous d\'envol minuscules + sciure fine au sol.'},
+    {x:550,y:110,label:'Charpente — fermes',desc:'Les fermes principales, si infestées, peuvent provoquer l\'effondrement du toit. Inspection visuelle obligatoire tous les 2 ans en zone à risque.'},
+    {x:60,y:495,label:'Souche / arbre mort',desc:'Source de cellulose extérieure attirant les termites souterrains. Éliminer souches d\'arbres morts à moins de 5 m du bâtiment.'},
+    {x:840,y:490,label:'Bois de chauffage stocké',desc:'Tas de bois en contact avec les murs ou le sol = appel à la colonisation. Stocker à 5 m minimum du bâtiment et sur palettes surélevées.'}
+  ]
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+  initSimulator();
+  initHouseZones();
+  initAnatomy();
+  initRiskGauges();
+  initCalendar();
+  initQuiz();
+  initCostChart();
+  initCostSlider();
+  initWorldMap();
+  initProtocol();
+  initLightbox();
+  initAccordions();
+  initRiskTabs();
+  initBackToTop();
+  initStepNav();
+  if(typeof initFicheRadar==="function")initFicheRadar();
+  initHeroCounters();
+});
+
+/* ── Anatomy ── */
+function initAnatomy() {
+  const detail = document.getElementById('anatomyDetail');
+  if (!detail) return;
+  const data = {
+    antennes: {title:'Antennes droites', text:'Les termites possèdent des antennes <strong>droites en chapelet</strong> — c\'est le critère N°1 pour les distinguer des fourmis volantes (qui ont des antennes coudées). Un détail crucial lors d\'un essaimage.'},
+    mandibules: {title:'Mandibules', text:'Mandibules puissantes capables de découper la cellulose du bois. Les <strong>soldats</strong> ont des mandibules surdimensionnées (parfois plus grandes que leur tête) pour défendre la colonie contre les fourmis.'},
+    corps: {title:'Corps cylindrique', text:'Contrairement aux fourmis, le corps des termites est <strong>uniformément cylindrique</strong> — sans étranglement à la taille. Couleur blanchâtre à translucide chez les ouvriers, plus sombre chez les soldats.'},
+    ailes: {title:'Ailes des essaimants', text:'Lors de l\'essaimage (avril-juin), les futurs reproducteurs développent <strong>2 paires d\'ailes égales</strong> et transparentes. Les ailes des fourmis volantes sont d\'inégale taille — c\'est un autre critère de différenciation.'},
+    cellulose: {title:'Digestion cellulose', text:'Les termites ne digèrent pas le bois eux-mêmes : ils hébergent des <strong>protozoaires symbiotiques</strong> dans leur intestin qui décomposent la cellulose. Sans ces micro-organismes, ils mourraient en quelques jours.'},
+    caste: {title:'Castes hiérarchisées', text:'Société organisée en castes : <strong>Reine</strong> (1, 15-25 ans, 2000 œufs/jour), <strong>Soldats</strong> (5%, défense), <strong>Ouvriers</strong> (95%, alimentation). Chaque caste a un rôle strictement défini.'}
+  };
+  document.querySelectorAll('.anat-point').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.anat-point').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const d = data[btn.dataset.anat];
+      if (d) detail.innerHTML = '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
+    });
+  });
+  const defaultBtn = document.querySelector('.anat-point[data-anat="caste"]');
+  if (defaultBtn) defaultBtn.click();
+}
+
+/* ── Risk Tabs ── */
+function initRiskTabs() {
+  document.querySelectorAll('.risk-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.risk-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.risk-tab-content').forEach(c => c.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+}
+
+/* ── Simulator ── */
+function initSimulator() {
+  const slider = document.getElementById('prolifSlider');
+  if (!slider) return;
+  let cfg = { logement: 'maison', secteur: 'atlantique', food: 'moyen', initial: 1000 };
+  let population = [];
+
+  function readPills() {
+    const get = id => {
+      const a = document.querySelector('#' + id + ' .prolif-pill.active');
+      return a ? a.dataset.val : null;
+    };
+    cfg.logement = get('cfgLogement') || 'maison';
+    cfg.secteur = get('cfgSecteur') || 'atlantique';
+    cfg.food = get('cfgFood') || 'moyen';
+    cfg.initial = parseInt(get('cfgInitial')) || 1000;
+  }
+  function recompute() {
+    readPills();
+    const foodMult = {sec:0.7,moyen:1.0,humide:1.4}[cfg.food];
+    const sectorMult = {atlantique:1.3,paca:1.2,autre:0.8}[cfg.secteur];
+    const baseMult = foodMult * sectorMult;
+    population = [cfg.initial];
+    for (let y = 1; y < 12; y++) {
+      const prev = population[y - 1];
+      const growth = prev * 0.45 * baseMult;
+      population.push(Math.round(prev + growth));
+    }
+    update(+slider.value);
+  }
+
+  function update(year) {
+    const pop = population[year] || cfg.initial;
+    document.getElementById('prolifMonth').textContent = 'Année ' + (year + 1);
+    const countEl = document.getElementById('prolifCount');
+    countEl.textContent = pop.toLocaleString('fr-FR') + ' termites';
+    countEl.classList.toggle('danger', pop > 10000);
+
+    const maxIcons = 200;
+    const n = Math.min(maxIcons, Math.round(pop / 100));
+    let html = '';
+    for (let i = 0; i < n; i++) {
+      html += '<span class="rat-icon" style="animation-delay:' + (i * 0.003) + 's">🐜</span>';
+    }
+    if (pop > maxIcons * 100) {
+      html += '<span class="rat-overflow">+' + Math.round((pop - maxIcons * 100) / 1000) + 'K</span>';
+    }
+    document.getElementById('prolifRats').innerHTML = html;
+    const resBox = document.getElementById('prolifResultsBox');
+    if (resBox) resBox.classList.toggle('critical', pop > 20000);
+
+    document.getElementById('pImpactCrottes').textContent = Math.round(pop * 0.005) + ' kg';
+    document.getElementById('pImpactCost').textContent = Math.round(pop * 0.2).toLocaleString('fr-FR') + ' €';
+    document.getElementById('pImpactFood').textContent = Math.round(pop / 1000) + ' m²';
+
+    const a = document.getElementById('prolifAlert');
+    const icon = a.querySelector('.prolif-alert-icon');
+    const text = a.querySelector('.prolif-alert-text');
+    const cta = document.getElementById('prolifCta');
+
+    if (pop <= 2000) {
+      a.className = 'prolif-alert level-ok';
+      icon.textContent = '✓';
+      text.textContent = 'Colonie naissante — la déclaration en mairie est déjà obligatoire (loi 1999).';
+      cta.style.display = 'none';
+    } else if (pop <= 10000) {
+      a.className = 'prolif-alert level-warn';
+      icon.textContent = '⚠️';
+      text.textContent = pop.toLocaleString('fr-FR') + ' termites — la charpente commence à perdre en résistance. Diagnostic urgent.';
+      cta.style.display = 'block';
+    } else if (pop <= 50000) {
+      a.className = 'prolif-alert level-danger';
+      icon.textContent = '🚨';
+      text.textContent = pop.toLocaleString('fr-FR') + ' termites — dégâts structurels en cours. Risque sur la solidité du bâtiment.';
+      cta.style.display = 'block';
+    } else {
+      a.className = 'prolif-alert level-critical';
+      icon.textContent = '☠️';
+      text.textContent = pop.toLocaleString('fr-FR') + ' termites — risque d\'effondrement structurel. Intervention de dernière chance.';
+      cta.style.display = 'block';
+    }
+    updateSliderFill(slider);
+  }
+
+  document.querySelectorAll('.prolif-pills .prolif-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.prolif-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      recompute();
+    });
+  });
+  slider.addEventListener('input', () => update(+slider.value));
+  updateSliderFill(slider);
+  recompute();
+}
+
+/* ── House Zones ── */
+function initHouseZones() {
+  const svg = document.getElementById('houseSvg');
+  if (!svg) return;
+  let html = '';
+  html += '<rect x="0" y="0" width="900" height="550" fill="#F0F4F8" rx="12"/>';
+  html += '<rect x="0" y="510" width="900" height="40" fill="#C5B9A8"/>';
+
+  // Vide sanitaire (highlighted as critical zone)
+  html += '<rect x="70" y="475" width="760" height="35" fill="#A89878" opacity="0.5"/>';
+  html += '<text x="85" y="495" font-size="10" fill="#5C4D38" font-weight="700" font-family="monospace">VIDE SANITAIRE — ZONE CRITIQUE</text>';
+
+  // Cave
+  html += '<rect x="70" y="395" width="760" height="80" fill="#DDD5C5"/>';
+  html += '<rect x="70" y="395" width="20" height="80" fill="#B8AD9A"/>';
+  html += '<rect x="810" y="395" width="20" height="80" fill="#B8AD9A"/>';
+  html += '<text x="85" y="418" font-size="11" fill="#999" font-weight="700" font-family="monospace">CAVE / SOUS-SOL</text>';
+
+  // Floor between cave and RDC
+  html += '<rect x="50" y="385" width="800" height="10" fill="#A09080"/>';
+  // Wood floor highlight (vulnerable)
+  html += '<rect x="100" y="382" width="700" height="6" fill="#8B7355" opacity="0.6"/>';
+
+  // RDC
+  html += '<rect x="70" y="210" width="760" height="175" fill="#F5EFE3"/>';
+  html += '<rect x="70" y="210" width="20" height="175" fill="#D5CFC0"/>';
+  html += '<rect x="810" y="210" width="20" height="175" fill="#D5CFC0"/>';
+  html += '<rect x="340" y="210" width="8" height="175" fill="#D5CFC0"/>';
+  html += '<rect x="620" y="210" width="8" height="175" fill="#D5CFC0"/>';
+
+  // Wood encadrements (door + window frames - vulnerable)
+  html += '<rect x="180" y="240" width="80" height="120" fill="none" stroke="#8B7355" stroke-width="3"/>';
+  html += '<rect x="440" y="220" width="40" height="50" fill="#D0E8F8" stroke="#8B7355" stroke-width="3"/>';
+
+  // Wood staircase (vulnerable)
+  html += '<polygon points="640,385 700,385 700,300 640,300" fill="#C5A878" stroke="#8B7355" stroke-width="2"/>';
+  html += '<line x1="640" y1="370" x2="700" y2="370" stroke="#8B7355" stroke-width="1"/>';
+  html += '<line x1="640" y1="355" x2="700" y2="355" stroke="#8B7355" stroke-width="1"/>';
+  html += '<line x1="640" y1="340" x2="700" y2="340" stroke="#8B7355" stroke-width="1"/>';
+  html += '<line x1="640" y1="325" x2="700" y2="325" stroke="#8B7355" stroke-width="1"/>';
+  html += '<line x1="640" y1="310" x2="700" y2="310" stroke="#8B7355" stroke-width="1"/>';
+  html += '<text x="650" y="378" font-size="9" fill="#5C4D38" font-weight="700" font-family="monospace">ESCALIER</text>';
+
+  html += '<text x="100" y="232" font-size="11" fill="#999" font-weight="700" font-family="monospace">RDC</text>';
+
+  // Ceiling slab
+  html += '<rect x="50" y="200" width="800" height="10" fill="#A09080"/>';
+
+  // Combles & charpente (key vulnerable structure)
+  html += '<polygon points="450,30 60,200 840,200" fill="#E8E0D0" stroke="#B0A890" stroke-width="2"/>';
+  html += '<line x1="450" y1="40" x2="200" y2="190" stroke="#8B7355" stroke-width="8" stroke-linecap="round"/>';
+  html += '<line x1="450" y1="40" x2="700" y2="190" stroke="#8B7355" stroke-width="8" stroke-linecap="round"/>';
+  html += '<line x1="250" y1="175" x2="650" y2="175" stroke="#8B7355" stroke-width="6" stroke-linecap="round"/>';
+  html += '<line x1="350" y1="125" x2="550" y2="125" stroke="#8B7355" stroke-width="5" stroke-linecap="round"/>';
+  html += '<text x="380" y="100" font-size="11" fill="#5C4D38" font-weight="700" font-family="monospace">CHARPENTE</text>';
+
+  // Termite cordonnet visualization (line going up from soil)
+  html += '<path d="M 150 510 L 150 480 L 145 470 L 150 460 L 145 450 L 150 440" stroke="#8B5C2C" stroke-width="3" fill="none" stroke-dasharray="2,3" opacity="0.7"/>';
+
+  // Hotspots
+  DATA.houseZones.forEach((zone, i) => {
+    html += '<g class="house-hotspot" data-zone="' + i + '" tabindex="0" role="button" aria-label="' + zone.label + '">';
+    html += '<circle cx="' + zone.x + '" cy="' + zone.y + '" r="9" fill="#E53935" opacity="0.85" style="animation: hotspot-pulse 2s infinite ' + (i * 0.2) + 's"/>';
+    html += '<circle cx="' + zone.x + '" cy="' + zone.y + '" r="4" fill="#fff"/>';
+    html += '</g>';
+  });
+
+  svg.innerHTML = html;
+
+  const tooltip = document.getElementById('houseTooltip');
+  svg.querySelectorAll('.house-hotspot').forEach(g => {
+    g.addEventListener('mouseenter', () => {
+      const zone = DATA.houseZones[g.dataset.zone];
+      tooltip.innerHTML = '<h4>' + zone.label + '</h4><p>' + zone.desc + '</p>';
+      tooltip.classList.add('active');
+      const rect = svg.getBoundingClientRect();
+      const x = zone.x / 900 * rect.width;
+      const y = zone.y / 550 * rect.height;
+      tooltip.style.left = Math.min(x + 20, rect.width - 300) + 'px';
+      tooltip.style.top = (y - 40) + 'px';
+    });
+    g.addEventListener('mouseleave', () => tooltip.classList.remove('active'));
+  });
+}
+if (!document.getElementById('hotspotStyle')) {
+  const s = document.createElement('style');
+  s.id = 'hotspotStyle';
+  s.textContent = '@keyframes hotspot-pulse{0%,100%{opacity:0.6;r:7}50%{opacity:1;r:11}}';
+  document.head.appendChild(s);
+}
+
+/* ── Risk Score ── */
+function initRiskGauges() {
+  var list = document.getElementById('riskChecklist');
+  if (!list) return;
+  function updateRiskScore() {
+    var score = 0;
+    list.querySelectorAll('input:checked').forEach(function(cb) { score += +cb.dataset.score; });
+    score = Math.min(100, score);
+    document.getElementById('riskScoreText').textContent = score;
+    var arc = document.getElementById('riskArc');
+    arc.style.strokeDashoffset = 314 - (score / 100 * 314);
+    arc.style.stroke = score < 25 ? '#4CAF50' : score < 50 ? '#FF9800' : '#F44336';
+    var titles = ['Faible','Modéré','Élevé','Critique'];
+    var descs = ['Quelques facteurs à surveiller.','Diagnostic préventif recommandé.','Diagnostic termites obligatoire.','Infestation très probable — intervention urgente.'];
+    var lvl = score < 25 ? 0 : score < 50 ? 1 : score < 75 ? 2 : 3;
+    document.getElementById('riskVerdictTitle').textContent = titles[lvl];
+    document.getElementById('riskVerdictDesc').textContent = descs[lvl];
+    var cta = document.getElementById('riskCta');
+    if (cta) cta.style.display = score >= 50 ? 'block' : 'none';
+  }
+  list.addEventListener('change', updateRiskScore);
+  updateRiskScore();
+}
+
+/* ── Calendar ── */
+function initCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  if (!grid) return;
+  const colors = ['','#E8F5E9','#FFF9C4','#FFE0B2','#FFCCBC','#FFAB91'];
+  const now = new Date().getMonth();
+  const rows = ['Activité colonie','Essaimage','Détection','Traitement'];
+  const keys = ['activity','reproduction','intrusion','treatment'];
+  let html = '<div class="cal-cell cal-header"></div>';
+  DATA.calendar.forEach((m,i) => html += '<div class="cal-cell cal-header'+(i===now?' cal-current':'')+'">'+m.month+'</div>');
+  const tips = [
+    'Hiver — colonie active mais essaimage minimal',
+    'Fin d\'hiver — reprise de l\'activité',
+    'Mars — préparation de l\'essaimage',
+    'Avril — début essaimage : signe d\'alerte critique',
+    'Mai — pic d\'essaimage, ailes au sol',
+    'Juin — fin essaimage, nouvelles colonies',
+    'Été — activité maximale dans le bois',
+    'Août — colonie en pleine expansion',
+    'Septembre — essaimage secondaire possible',
+    'Octobre — moment idéal pour traiter',
+    'Novembre — activité ralentie, traitement préventif',
+    'Décembre — colonie hivernante, planifier intervention'
+  ];
+  rows.forEach((r,ri) => {
+    html += '<div class="cal-cell cal-label">'+r+'</div>';
+    DATA.calendar.forEach((m,i) => {
+      const v = ri < 3 ? m[keys[ri]] : ({'Optimal':4,'Bon':3,'Moyen':2}[m.treatment]||1);
+      const tip = ri === 0 ? '<span class="cal-tip">' + tips[i] + '</span>' : '';
+      html += '<div class="cal-cell'+(i===now?' cal-current':'')+'" style="background:'+colors[v]+'">'+tip+'</div>';
+    });
+  });
+  grid.innerHTML = html;
+}
+
+/* ── Quiz ── */
+function initQuiz() {
+  const container = document.getElementById('quizContainer');
+  if (!container) return;
+  let current = 0, score = 0;
+  const progress = document.getElementById('quizProgress');
+  const body = document.getElementById('quizBody');
+  const result = document.getElementById('quizResult');
+
+  function renderProgress() {
+    progress.innerHTML = DATA.quiz.map((_,i) => '<div class="step'+(i<current?' done':'')+(i===current?' current':'')+'"></div>').join('');
+  }
+  function renderQuestion() {
+    if (current >= DATA.quiz.length) return showResult();
+    const q = DATA.quiz[current];
+    document.getElementById('quizQuestion').textContent = q.q;
+    document.getElementById('quizOptions').innerHTML = q.opts.map((o,i) => '<div class="quiz-option" data-score="'+q.scores[i]+'">'+o+'</div>').join('');
+    document.querySelectorAll('.quiz-option').forEach(opt => {
+      opt.addEventListener('click', () => { score += +opt.dataset.score; current++; renderProgress(); renderQuestion(); });
+    });
+    renderProgress();
+  }
+  function showResult() {
+    body.style.display = 'none';
+    const pct = Math.round(score / (DATA.quiz.length * 3) * 100);
+    const circle = document.getElementById('quizScoreCircle');
+    circle.textContent = pct + '%';
+    circle.style.background = pct < 30 ? '#4CAF50' : pct < 60 ? '#FF9800' : '#F44336';
+    document.getElementById('quizVerdictTitle').textContent = pct < 30 ? 'Peu probable' : pct < 60 ? 'Possible' : 'Très probable';
+    document.getElementById('quizVerdictDesc').textContent = pct < 30 ? 'Les indices sont faibles. Restez vigilant si vous êtes en zone à risque.' : pct < 60 ? 'Plusieurs indices concordent. Un diagnostic termites professionnel est recommandé.' : 'Infestation très probable. Diagnostic obligatoire et déclaration en mairie urgents.';
+    result.classList.add('active');
+    renderProgress();
+  }
+  document.getElementById('quizRestart').addEventListener('click', () => { current=0;score=0;body.style.display='block';result.classList.remove('active');renderQuestion(); });
+  renderQuestion();
+}
+
+/* ── Cost Chart ── */
+function initCostChart() {
+  const ctx = document.getElementById('costChart');
+  if (!ctx) return;
+  const years = Array.from({length:10},(_,i)=>'An '+(i+1));
+  const damages = years.map((_,i) => Math.round(200 * Math.pow(1.5, i)));
+  const treatment = years.map(() => 1500);
+  if (typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type:'line',
+    data:{labels:years,datasets:[
+      {label:'Dégâts cumulés (sans action)',data:damages,borderColor:'#F44336',backgroundColor:'rgba(244,67,54,0.1)',fill:true,tension:0.3},
+      {label:'Coût traitement professionnel',data:treatment,borderColor:'#4CAF50',backgroundColor:'rgba(76,175,80,0.05)',fill:true,borderDash:[6,4]}
+    ]},
+    options:{responsive:true,plugins:{legend:{labels:{font:{size:11}}}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'€'}}}}
+  });
+}
+
+/* ── Cost Slider ── */
+function initCostSlider() {
+  const slider = document.getElementById('costMonthSlider');
+  if (!slider) return;
+  const monthVal = document.getElementById('costMonthVal');
+  const roi = document.getElementById('costRoi');
+  const savings = document.getElementById('costSavings');
+  function update() {
+    const year = +slider.value;
+    monthVal.textContent = year;
+    const damageAtYear = Math.round(200 * Math.pow(1.5, year));
+    const damageAt10 = Math.round(200 * Math.pow(1.5, 10));
+    const saved = damageAt10 - damageAtYear;
+    const ratio = Math.max(1, Math.round(saved / 1500));
+    roi.textContent = ratio + ':1';
+    savings.textContent = 'Vous économisez ~' + saved.toLocaleString('fr-FR') + ' €';
+    updateSliderFill(slider);
+  }
+  slider.addEventListener('input', update);
+  update();
+}
+
+/* ── Protocol ── */
+function initProtocol() {
+  const saved = JSON.parse(localStorage.getItem('termitesProtocol') || '{}');
+  document.querySelectorAll('.protocol-check input').forEach((cb, i) => {
+    if (saved[i]) { cb.checked = true; cb.parentElement.classList.add('checked'); }
+    cb.addEventListener('change', () => {
+      cb.parentElement.classList.toggle('checked', cb.checked);
+      const state = {};
+      document.querySelectorAll('.protocol-check input').forEach((c, j) => { if (c.checked) state[j] = true; });
+      localStorage.setItem('termitesProtocol', JSON.stringify(state));
+    });
+  });
+}
+
+/* ── Lightbox ── */
+function initLightbox() {
+  const lb = document.getElementById('lightbox');
+  if (!lb) return;
+  const lbImg = lb.querySelector('img');
+  document.querySelectorAll('.sign-img').forEach(img => {
+    img.addEventListener('click', () => { lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('active'); });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('active'));
+}
+
+/* ── Accordions ── */
+function initAccordions() {
+  document.querySelectorAll('.accordion-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      item.parentElement.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+      btn.querySelector('.icon-toggle').textContent = item.classList.contains('open') ? '−' : '+';
+    });
+  });
+}
+
+/* ── Method Filters ── */
+function filterMethods(level) {
+  document.querySelectorAll('.method-filter').forEach(f => f.classList.toggle('active', f.dataset.level === level));
+  document.querySelectorAll('.method-card').forEach(card => {
+    if (level === 'all') { card.classList.remove('dimmed'); }
+    else { card.classList.toggle('dimmed', card.dataset.level !== level); }
+  });
+}
+
+/* ── Scroll Animations ── */
+function initScrollAnimations() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+}
+
+/* ── Hero Counters ── */
+function initHeroCounters() {
+  const heroStats = document.querySelectorAll('.hero-stat-value[data-count]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target;
+        const target = parseInt(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        if (!target) return;
+        let current = 0;
+        const step = Math.max(1, Math.floor(target / 40));
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          el.textContent = current.toLocaleString('fr-FR') + suffix;
+        }, 30);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  heroStats.forEach(s => obs.observe(s));
+}
+
+/* ── World Map ── */
+function initWorldMap() {
+  const cities = {
+    usa: { title: '🇺🇸 États-Unis Sud — Le pays du Reticulitermes flavipes', text: 'Les États du Sud (Floride, Texas, Louisiane, Géorgie) subissent <strong>5 milliards de dollars</strong> de dégâts par an. L\'espèce dominante est <em>Reticulitermes flavipes</em> (cousin du termite français). Le système Sentricon y a été inventé en 1995.' },
+    australia: { title: '🇦🇺 Australie — 1 maison sur 4 attaquée', text: 'En Australie, <strong>une maison sur 4</strong> sera attaquée par les termites au cours de sa vie. Les espèces locales (Coptotermes acinaciformis, Mastotermes darwiniensis) sont parmi les plus destructrices au monde.' },
+    brazil: { title: '🇧🇷 Brésil — Reticulitermes endémique', text: 'Le Brésil abrite plusieurs espèces invasives de Reticulitermes. Le climat tropical permet une activité termite continue et particulièrement rapide. Les villes côtières comme Rio et Recife sont les plus touchées.' },
+    india: { title: '🇮🇳 Inde — 300 espèces recensées', text: 'L\'Inde compte <strong>plus de 300 espèces</strong> de termites. Les <em>Odontotermes</em> construisent des termitières souterraines géantes. Les structures en bois traditionnelles indiennes sont particulièrement vulnérables.' },
+    africa: { title: '🌍 Afrique sub-saharienne — Termitières géantes', text: 'En Afrique, les <em>Macrotermes</em> construisent des <strong>termitières aériennes pouvant atteindre 9 mètres de haut</strong>. Ces nids servent de système de climatisation naturel et abritent des millions d\'individus.' },
+    asia: { title: '🌏 Asie du Sud-Est — Coptotermes invasif', text: 'Le <em>Coptotermes formosanus</em>, originaire du sud de la Chine, est l\'une des espèces invasives les plus destructrices au monde. Une seule colonie peut compter <strong>5 à 10 millions d\'individus</strong>.' }
+  };
+  document.querySelectorAll('.world-city').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.world-city').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const d = cities[card.dataset.city];
+      if (d) document.getElementById('worldDetail').innerHTML = '<h3>' + d.title + '</h3><p>' + d.text + '</p>';
+    });
+  });
+}
+
+/* ── Step Nav ── */
+function initStepNav() {
+  var nav = document.getElementById('stepNav'); if (!nav) return;
+  var links = nav.querySelectorAll('[data-nav]'), sections = [];
+  links.forEach(function(l) { var el = document.getElementById(l.getAttribute('href').slice(1)); if (el) sections.push({el:el,link:l}); });
+  window.addEventListener('scroll', function() { var sy=window.scrollY,vh=window.innerHeight; sections.forEach(function(s) { var t=s.el.getBoundingClientRect().top+sy,b=t+s.el.offsetHeight; if(sy+vh*0.3>=t&&sy+vh*0.3<b){links.forEach(function(l){l.classList.remove('active')});s.link.classList.add('active');}}); }, {passive:true});
+  links.forEach(function(l) { l.addEventListener('click', function(e) { e.preventDefault(); document.getElementById(l.getAttribute('href').slice(1)).scrollIntoView({behavior:'smooth',block:'start'}); }); });
+}
+
+/* ── Fiche Radar ── */
+function initFicheRadar() {
+  const ctx = document.getElementById('ficheRadar');
+  if (!ctx || typeof Chart === 'undefined') return;
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ['Dégâts struct.', 'Discrétion', 'Reproduction', 'Persévérance', 'Réglementation', 'Coût'],
+      datasets: [{
+        data: [98, 95, 90, 85, 100, 75],
+        backgroundColor: 'rgba(200, 185, 154, 0.2)',
+        borderColor: '#C8B99A',
+        borderWidth: 2,
+        pointBackgroundColor: '#C8B99A',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 1,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true, aspectRatio: 1,
+      plugins: { legend: { display: false } },
+      scales: {
+        r: {
+          beginAtZero: true, max: 100,
+          ticks: { display: false, stepSize: 25 },
+          grid: { color: 'rgba(0,0,0,0.06)' },
+          angleLines: { color: 'rgba(0,0,0,0.06)' },
+          pointLabels: { font: { family: "'Uxum', sans-serif", size: 10, weight: '700' }, color: '#0E052A' }
+        }
+      }
+    }
+  });
+}
+
+/* ── Back to Top ── */
+function initBackToTop() {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+  window.addEventListener('scroll', () => { btn.style.display = window.scrollY > 600 ? 'flex' : 'none'; }, {passive:true});
+  btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+}
+
+/* ── France Map ── */
+(function(){
+  const regionData = {
+    'nouvelle-aquitaine': { name: 'Nouvelle-Aquitaine', level: 'critical', text: 'Charente, Charente-Maritime, Gironde, Landes, Pyrénées-Atlantiques, Vendée — la façade atlantique est l\'épicentre historique des termites en France. Diagnostic termites obligatoire pour toute vente immobilière.' },
+    'occitanie': { name: 'Occitanie', level: 'critical', text: 'Hérault, Gard, Aude, Pyrénées-Orientales, Tarn, Haute-Garonne. Diagnostic termites obligatoire dans les départements concernés. Espèces dominantes : Reticulitermes santonensis et lucifugus.' },
+    'paca': { name: 'Provence-Alpes-Côte d\'Azur', level: 'critical', text: 'Var, Bouches-du-Rhône, Vaucluse, Alpes-Maritimes — zone à très forte infestation, présence des deux espèces principales (Reticulitermes lucifugus + Kalotermes flavicollis). Diagnostic obligatoire systématique.' },
+    'corse': { name: 'Corse', level: 'critical', text: 'Corse-du-Sud et Haute-Corse. Termite jaune (Kalotermes flavicollis) particulièrement présent sur l\'île. Diagnostic obligatoire, climat favorable à l\'activité toute l\'année.' },
+    'auvergne-rhone-alpes': { name: 'Auvergne-Rhône-Alpes', level: 'high', text: 'Vallée du Rhône (Drôme, Ardèche, Rhône) : remontée progressive des termites depuis le Sud. Diagnostic obligatoire dans les départements à arrêté préfectoral, dont l\'agglomération lyonnaise.' },
+    'ile-de-france': { name: 'Île-de-France', level: 'high', text: 'Paris et certaines communes : zone à risque historique. Présence avérée depuis l\'après-guerre. Diagnostic termites obligatoire dans plusieurs arrondissements et communes limitrophes.' },
+    'pays-de-la-loire': { name: 'Pays de la Loire', level: 'moderate', text: 'Loire-Atlantique, Maine-et-Loire, Vendée. Diagnostic obligatoire dans les zones côtières. Présence en progression — surveillance accrue recommandée.' },
+    'centre-val-de-loire': { name: 'Centre-Val de Loire', level: 'moderate', text: 'Loiret, Indre-et-Loire, Loir-et-Cher. Présence ponctuelle dans certaines communes. Diagnostic recommandé dans le doute, particulièrement pour les bâtiments anciens.' },
+    'bretagne': { name: 'Bretagne', level: 'moderate', text: 'Loire-Atlantique limitrophe. Présence faible mais surveillance recommandée. Climat océanique humide propice à une éventuelle implantation.' },
+    'normandie': { name: 'Normandie', level: 'moderate', text: 'Présence ponctuelle, principalement le long du littoral. Diagnostic non systématiquement obligatoire mais recommandé pour les bâtiments anciens.' },
+    'hauts-de-france': { name: 'Hauts-de-France', level: 'moderate', text: 'Présence faible, principalement zones portuaires. Vigilance recommandée mais pas d\'arrêté préfectoral généralisé à ce jour.' },
+    'grand-est': { name: 'Grand Est', level: 'high', text: 'Présence avérée dans certaines communes. Diagnostic obligatoire localement. Climat continental moins favorable mais pas absent du risque.' },
+    'bourgogne-franche-comte': { name: 'Bourgogne-Franche-Comté', level: 'moderate', text: 'Présence ponctuelle, principalement dans les villes anciennes. Vigilance recommandée pour les charpentes anciennes.' }
+  };
+
+  const mapPaths = document.querySelectorAll('.france-map-svg path[data-region]');
+  const detailName = document.getElementById('mapDetailName');
+  const detailText = document.getElementById('mapDetailText');
+  const detailPanel = document.getElementById('mapDetailPanel');
+  if (!detailPanel) return;
+  const detailLevel = detailPanel.querySelector('.map-detail-level');
+
+  function selectRegion(regionId) {
+    mapPaths.forEach(p => p.classList.remove('region-selected'));
+    const path = document.querySelector(`path[data-region="${regionId}"]`);
+    if (path) path.classList.add('region-selected');
+    const data = regionData[regionId];
+    if (data) {
+      detailName.textContent = data.name;
+      detailText.textContent = data.text;
+      detailLevel.className = 'map-detail-level ' + data.level;
+      detailLevel.textContent = data.level === 'critical' ? 'Critique' : data.level === 'high' ? 'Élevé' : 'Modéré';
+    }
+  }
+
+  mapPaths.forEach(path => {
+    path.addEventListener('click', () => selectRegion(path.dataset.region));
+  });
+  selectRegion('nouvelle-aquitaine');
+})();
+</script>
 </body>
 </html>
