@@ -2683,11 +2683,6 @@ body.is-embed .devis-msf {
             <li><a href="/deratisation/marseille/">Marseille</a></li>
             <li><a href="/deratisation/bordeaux/">Bordeaux</a></li>
             <li><a href="/deratisation/toulouse/">Toulouse</a></li>
-            <li><a href="/deratisation/nantes/">Nantes</a></li>
-            <li><a href="/deratisation/lille/">Lille</a></li>
-            <li><a href="/deratisation/nice/">Nice</a></li>
-            <li><a href="/deratisation/montpellier/">Montpellier</a></li>
-            <li><a href="/deratisation/strasbourg/">Strasbourg</a></li>
             <li><a href="/implantations/" class="footer-col-see-all">Voir la carte →</a></li>
           </ul>
         </details>
@@ -3267,7 +3262,19 @@ body.is-embed .devis-msf {
   function applySuggestion(idx) {
     var p = banParsed[idx];
     if (!p) return;
-    addressInput.value = p.street || p.label || '';
+    var newStreet = p.street || p.label || '';
+
+    // Préserver le numéro de rue tapé par l'user si BAN retourne un type "street" sans numéro
+    // Ex : user tape "12 rue de la" → BAN suggère "Rue de la Paix" (sans 12)
+    //      → on garde le 12 en préfixe pour donner "12 Rue de la Paix"
+    var oldValue = (addressInput.value || '').trim();
+    var oldNumberMatch = oldValue.match(/^(\d+\s*(?:bis|ter|quater)?\s*)/i);
+    var newStartsWithNumber = /^\d/.test(newStreet);
+    if (oldNumberMatch && !newStartsWithNumber && newStreet) {
+      newStreet = oldNumberMatch[1].trim() + ' ' + newStreet;
+    }
+
+    addressInput.value = newStreet;
     cpInput.value = p.postcode || '';
     cityInput.value = p.city || '';
     closeSuggestions();
