@@ -2105,12 +2105,17 @@
               </label>
             </div>
 
+            <p class="devis-msf-autoadvance-hint">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              Étape suivante au clic
+            </p>
+
             <div class="devis-msf-actions">
               <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="1">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                 <span class="sr-only">Retour</span>
               </button>
-              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext2" disabled>
+              <button type="button" class="devis-msf-btn devis-msf-btn-primary" id="msfNext2" style="display:none;" disabled>
                 Continuer
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
@@ -3065,6 +3070,18 @@ body.is-embed .devis-msf {
       setTimeout(function() {
         var picked = form.querySelector('input[name="nuisible"]:checked');
         if (picked) setStep(2);
+      }, 180);
+    });
+  });
+
+  // Auto-advance step 2 ("Vous êtes…") : passer directement à l'étape suivante au clic
+  // On cible les radio[name=statut] dans le step 2 (.devis-msf-step[data-step="2"])
+  form.querySelectorAll('.devis-msf-step[data-step="2"] .devis-msf-radio').forEach(function(label) {
+    label.addEventListener('click', function() {
+      if (currentStep !== 2) return;
+      setTimeout(function() {
+        var picked = form.querySelector('input[name="statut"]:checked');
+        if (picked) setStep(3);
       }, 180);
     });
   });
