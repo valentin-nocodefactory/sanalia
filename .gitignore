@@ -1,2 +1,10 @@
 .DS_Store
 Sanalia-SEO-Strategie-Intentions-Recherche-2026.xlsx
+
+# Backup / archive HTML (anti-duplicate content SEO)
+*-backup-*.html
+*.backup.html
+*.bak
+*-old.html
+*-copy.html
+*~
