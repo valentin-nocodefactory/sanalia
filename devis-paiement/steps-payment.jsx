@@ -751,15 +751,17 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
   const [view, setView] = useState('devis');
   // États du formulaire de paiement (utilisés en vue 'payment')
   const [payEmail, setPayEmail]     = useState(state.coords?.email || '');
-  const [cardNum, setCardNum]       = useState('');
-  const [cardExp, setCardExp]       = useState('');
-  const [cardCvc, setCardCvc]       = useState('');
-  const [cardName, setCardName]     = useState(`${state.coords?.first || ''} ${state.coords?.last || ''}`.trim());
   const [promoOpen, setPromoOpen]   = useState(false);
   const [promoCode, setPromoCode]   = useState('');
   const [promoApplied, setPromoApplied] = useState(null);
   const [promoError, setPromoError] = useState('');
   const [processing, setProcessing] = useState(false);
+  // Stripe state
+  const [stripeReady, setStripeReady]     = useState(false);
+  const [stripeError, setStripeError]     = useState('');
+  const [stripeIntentId, setStripeIntentId] = useState(null);
+  const stripeMountedRef = useRef(false);
+  const stripeMountAmountRef = useRef(null); // pour re-créer un intent si le montant change (promo)
 
   const promoDiscount = promoApplied
     ? (promoApplied.type === 'percent' ? Math.round(DEPOSIT * promoApplied.discount / 100) : Math.min(promoApplied.discount, DEPOSIT))
@@ -773,27 +775,87 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
     if (found) { setPromoApplied(found); setPromoError(''); }
     else { setPromoApplied(null); setPromoError('Code promo invalide ou expiré.'); }
   }
-  function onCardNumChange(v) {
-    const digits = v.replace(/\D/g, '').slice(0, 16);
-    setCardNum(digits.replace(/(\d{4})(?=\d)/g, '$1 '));
-  }
-  function onCardExpChange(v) {
-    const digits = v.replace(/\D/g, '').slice(0, 4);
-    setCardExp(digits.length > 2 ? `${digits.slice(0,2)} / ${digits.slice(2)}` : digits);
-  }
-  function handleStripePay() {
+
+  // Initialise Stripe Payment Element à l'entrée de la vue 'payment' (et au changement de montant)
+  useEffect(() => {
+    if (view !== 'payment') {
+      stripeMountedRef.current = false;
+      stripeMountAmountRef.current = null;
+      return;
+    }
+    if (!window.SanaliaStripe) {
+      setStripeError('Stripe.js non chargé. Rafraîchissez la page.');
+      return;
+    }
+    if (stripeMountedRef.current && stripeMountAmountRef.current === finalAmount) return;
+    stripeMountedRef.current = true;
+    stripeMountAmountRef.current = finalAmount;
+    setStripeReady(false);
+    setStripeError('');
+
+    (async () => {
+      try {
+        const intent = await window.SanaliaStripe.createIntent({
+          lead_id: leadId || null,
+          amount: finalAmount * 100, // Stripe attend des cents
+          currency: 'eur',
+          email: payEmail || state.coords?.email || '',
+          name: `${state.coords?.first || ''} ${state.coords?.last || ''}`.trim(),
+          description: `Acompte devis ${quoteRef} (${state.nuisible || ''})`,
+          metadata: {
+            lead_id: leadId || '',
+            quote_ref: quoteRef,
+            nuisible: state.nuisible || '',
+            promo_code: promoApplied?.label || '',
+          },
+        });
+        setStripeIntentId(intent.paymentIntentId);
+        // Petit délai pour laisser le DOM rendre #stripe-payment-element
+        setTimeout(() => {
+          const container = document.querySelector('#stripe-payment-element');
+          if (container) {
+            window.SanaliaStripe.mountPaymentElement({
+              clientSecret: intent.clientSecret,
+              container: container,
+            });
+            setStripeReady(true);
+          }
+        }, 50);
+      } catch (err) {
+        console.error('[Stripe] createIntent failed:', err);
+        setStripeError(err.message || 'Erreur d\'initialisation du paiement');
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [view, finalAmount]);
+
+  async function handleStripePay() {
+    if (processing) return;
     setProcessing(true);
-    setTimeout(() => {
-      if (onPay) onPay('card');
-      else if (onReserve) onReserve();
+    setStripeError('');
+    try {
+      const result = await window.SanaliaStripe.confirmPayment({
+        email: payEmail || state.coords?.email || '',
+        returnUrl: window.location.href,
+      });
+      if (result.ok) {
+        if (onPay) onPay('card');
+        else if (onReserve) onReserve();
+      } else {
+        setStripeError(result.error || 'Paiement refusé');
+        setProcessing(false);
+      }
+    } catch (err) {
+      console.error('[Stripe] confirmPayment failed:', err);
+      setStripeError(err.message || 'Erreur de paiement');
       setProcessing(false);
-    }, 1300);
+    }
   }
   function handleValidate() {
     if (onValidate) onValidate(); // track event côté App (fire-and-forget)
     setView('payment');
   }
-  const canPay = payEmail && cardNum.replace(/\s/g,'').length >= 13 && cardExp.length >= 4 && cardCvc.length >= 3;
+  const canPay = stripeReady && payEmail;
 
   return (
     <div className="recap-naked">
@@ -959,11 +1021,11 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
           </div>
           </>
         ) : (
-          /* VUE PAIEMENT : remplace le devis par le formulaire CB Stripe-style */
+          /* VUE PAIEMENT : Stripe Payment Element (carte + Apple/Google Pay automatiquement) */
           <div className="stripe-card devis-stripe-card">
             <div className="stripe-card-head">
               <div className="stripe-card-title">
-                <Ic.Card width={18} height={18}/> Paiement par carte
+                <Ic.Card width={18} height={18}/> Paiement sécurisé
               </div>
               <div className="stripe-card-secured">
                 <Ic.Lock width={12} height={12}/> Stripe · 3D Secure
@@ -978,33 +1040,21 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
               </div>
             </div>
 
-            <div className="field">
-              <label className="field-label" htmlFor="dpay-card-num">Numéro de carte</label>
-              <div className="input-wrap stripe-card-input">
-                <Ic.Card className="lead"/>
-                <input id="dpay-card-num" type="text" inputMode="numeric" className="input with-icon" placeholder="1234 1234 1234 1234" value={cardNum} onChange={e=>onCardNumChange(e.target.value)} autoComplete="cc-number" maxLength={19}/>
-                <div className="stripe-card-brands" aria-hidden="true">
-                  <span className="brand-tag visa">VISA</span>
-                  <span className="brand-tag mc">MC</span>
-                  <span className="brand-tag amex">AMEX</span>
+            {/* Stripe Payment Element — monté dynamiquement, gère carte + wallets + 3DS */}
+            <div className="stripe-element-wrap">
+              {!stripeReady && !stripeError && (
+                <div className="stripe-element-loader">
+                  <span className="stripe-element-spinner"/>
+                  <span>Préparation du paiement sécurisé…</span>
                 </div>
-              </div>
-            </div>
-
-            <div className="field-row">
-              <div className="field">
-                <label className="field-label" htmlFor="dpay-card-exp">Expiration</label>
-                <input id="dpay-card-exp" type="text" inputMode="numeric" className="input" placeholder="MM / AA" value={cardExp} onChange={e=>onCardExpChange(e.target.value)} autoComplete="cc-exp" maxLength={7}/>
-              </div>
-              <div className="field">
-                <label className="field-label" htmlFor="dpay-card-cvc">CVC</label>
-                <input id="dpay-card-cvc" type="text" inputMode="numeric" className="input" placeholder="123" value={cardCvc} onChange={e=>setCardCvc(e.target.value.replace(/\D/g,'').slice(0,4))} autoComplete="cc-csc" maxLength={4}/>
-              </div>
-            </div>
-
-            <div className="field">
-              <label className="field-label" htmlFor="dpay-card-name">Titulaire de la carte</label>
-              <input id="dpay-card-name" type="text" className="input" placeholder="Camille Durand" value={cardName} onChange={e=>setCardName(e.target.value)} autoComplete="cc-name"/>
+              )}
+              {stripeError && (
+                <div className="stripe-element-error">
+                  <Ic.X width={14} height={14}/>
+                  <span>{stripeError}</span>
+                </div>
+              )}
+              <div id="stripe-payment-element" className="stripe-element-mount"/>
             </div>
 
             {/* Code promo */}

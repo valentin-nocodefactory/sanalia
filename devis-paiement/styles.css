@@ -4317,6 +4317,50 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
 .stripe-card-input .input { padding-right: 130px; }
 @media (max-width: 480px) { .stripe-card-input .input { padding-right: 16px; } }
 
+/* Stripe Payment Element — wrapper + loader/error */
+.stripe-element-wrap {
+  margin-top: 6px;
+  min-height: 60px;
+  position: relative;
+}
+.stripe-element-mount {
+  /* Stripe injecte un iframe ; juste laisser respirer */
+}
+.stripe-element-loader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+  background: var(--c-bg-off);
+  border: 1px dashed var(--c-line);
+  border-radius: 12px;
+  font-family: var(--font-uxum);
+  font-size: 13px;
+  color: var(--c-mut);
+}
+.stripe-element-spinner {
+  width: 16px; height: 16px;
+  border: 2px solid var(--c-p100);
+  border-top-color: var(--c-p600);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  flex-shrink: 0;
+}
+.stripe-element-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 14px;
+  background: rgba(220,38,38,0.06);
+  border: 1px solid rgba(220,38,38,0.25);
+  border-radius: 12px;
+  font-family: var(--font-uxum);
+  font-size: 13px;
+  color: #DC2626;
+  line-height: 1.45;
+}
+.stripe-element-error svg { color: #DC2626; flex-shrink: 0; margin-top: 1px; }
+
 /* Code promo */
 .paiement-promo {
   padding: 0 4px;

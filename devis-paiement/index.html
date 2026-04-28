@@ -30,7 +30,7 @@
   <meta name="twitter:title" content="Devis & paiement en ligne — Sanalia">
   <meta name="twitter:description" content="Simulez votre devis dératisation en 5 minutes, choisissez vos 2 créneaux et bloquez la date avec un acompte de 49 € remboursable.">
 
-  <link rel="stylesheet" href="styles.css?v=36" />
+  <link rel="stylesheet" href="styles.css?v=37" />
 </head>
 <body>
   <div id="root"></div>
@@ -42,13 +42,25 @@
 
   <!-- jsPDF (génération PDF programmatique vectorielle, ~80 KB gzipped) -->
   <script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="quote-pdf.js?v=36"></script>
+  <script src="quote-pdf.js?v=37"></script>
+
+  <!-- Stripe.js v3 (Payment Element + 3DS handling) -->
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    /* Clé publique Stripe — OK à committer (publishable, pas confidentielle).
+       En prod live, remplacer par pk_live_… (et utiliser sk_live_… côté n8n). */
+    window.STRIPE_PUBLISHABLE_KEY = 'pk_test_51PknfmCirdwkjNPliIn6TgvQyNFCoRR2K9iztCvZJxGOt4Mlpqst3F0VfyLxtG15VuAwA4J5k3erBAvnx4Q69mvH00rSt3gBRi';
+    /* URL du webhook n8n qui crée un PaymentIntent et renvoie { clientSecret, paymentIntentId, customerId }.
+       À remplacer par l'URL réelle quand le workflow n8n est en place. */
+    window.STRIPE_INTENT_WEBHOOK = 'https://n8n.srv1336530.hstgr.cloud/webhook/0fca3881-ced2-4fbd-8acf-f667f5009bcb';
+  </script>
+  <script src="stripe-payment.js?v=37"></script>
 
   <!-- Tweaks panel + app modules (variantes A/B layout, audience, densité) -->
   <script type="text/babel" src="tweaks-panel.jsx"></script>
-  <script type="text/babel" src="data.jsx?v=36"></script>
-  <script type="text/babel" src="steps-questions.jsx?v=36"></script>
-  <script type="text/babel" src="steps-payment.jsx?v=36"></script>
-  <script type="text/babel" src="app.jsx?v=36"></script>
+  <script type="text/babel" src="data.jsx?v=37"></script>
+  <script type="text/babel" src="steps-questions.jsx?v=37"></script>
+  <script type="text/babel" src="steps-payment.jsx?v=37"></script>
+  <script type="text/babel" src="app.jsx?v=37"></script>
 </body>
 </html>

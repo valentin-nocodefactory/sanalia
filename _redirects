@@ -1,3 +1,8 @@
+# Page devis : URL unique
+/contact-devis  /devis-paiement/  301
+/contact-devis/  /devis-paiement/  301
+/contact-devis/*  /devis-paiement/  301
+
 # Redirections 301 des anciennes pillar pages blog vers les fiches nuisibles
 /blog/rats-souris  /nuisibles/rats/  301
 /blog/rats-souris/  /nuisibles/rats/  301
