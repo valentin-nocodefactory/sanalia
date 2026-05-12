@@ -28,8 +28,8 @@ Schéma JSON ChatSEO attendu :
   "readingTimeMin": 10,                   # entier minutes
   "publishedAt": "2026-05-12",            # ISO date
   "modifiedAt": "2026-05-12",             # ISO date
-  "heroImage": {                          # hero générée par Recraft
-    "filename": "hero.webp",
+  "heroImage": {                          # hero générée par Recraft (Editorial style → SVG)
+    "filename": "hero.svg",
     "alt": "Description de la hero"
   },
   "introParagraphs": ["...", "..."],      # paragraphes d'intro (HTML autorisé sans balises externes)
@@ -646,7 +646,7 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
     parent_meta = cfg["parent_nuisible_map"].get(parent_nuisible, {})
 
     canonical_url = f"{cfg['prod_domain']}/blog/{slug}/"
-    hero_filename = data["heroImage"]["filename"] if data.get("heroImage") else "hero.webp"
+    hero_filename = data["heroImage"]["filename"] if data.get("heroImage") else "hero.svg"
     og_image_url = f"{cfg['prod_domain']}/assets/blog/{slug}/{hero_filename}"
 
     article_section = parent_meta.get("section", "Conseils")
