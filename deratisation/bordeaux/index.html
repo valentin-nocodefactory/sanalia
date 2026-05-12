@@ -594,6 +594,35 @@
     </div>
   </div>
 </header>
+<script>
+/* Mega-menu Guides v3 : positionne horizontalement pour ne pas déborder du viewport */
+(function() {
+  function placeGuidesMenu() {
+    var menu = document.querySelector('.mega-menu-guides-v3');
+    var item = menu && menu.parentElement;
+    if (!menu || !item) return;
+    var itemRect = item.getBoundingClientRect();
+    var menuW = menu.offsetWidth || 1040;
+    var vw = window.innerWidth;
+    var pad = 16;
+    // Idéal : menu centré sur viewport
+    var menuLeftVp = Math.max(pad, Math.min(vw - menuW - pad, (vw - menuW) / 2));
+    var offset = menuLeftVp - itemRect.left;
+    menu.style.setProperty('--guides-mega-left', offset + 'px');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', placeGuidesMenu);
+  } else {
+    placeGuidesMenu();
+  }
+  window.addEventListener('resize', placeGuidesMenu);
+  // Recompute right before hover (in case the user scrolled)
+  document.addEventListener('mouseover', function(e) {
+    var navItem = e.target && e.target.closest && e.target.closest('.nav-item');
+    if (navItem && navItem.querySelector('.mega-menu-guides-v3')) placeGuidesMenu();
+  }, true);
+})();
+</script>
 </div>
 
 <div class="breadcrumb-bar"><div class="container"><nav class="breadcrumb-nav" aria-label="Fil d'Ariane"><a href="/"><svg class="breadcrumb-home-icon" width="14" height="14" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg></a><span class="breadcrumb-sep">›</span><a href="/deratisation/" style="color:var(--color-primary-600);text-decoration:none;">Dératisation</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Bordeaux</span></nav></div></div>
