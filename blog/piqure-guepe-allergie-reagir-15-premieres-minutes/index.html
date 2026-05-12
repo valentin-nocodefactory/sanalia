@@ -143,6 +143,8 @@
 <link rel="stylesheet" href="/css/base.css?v=20260512b">
 <link rel="stylesheet" href="/css/components.css?v=20260512d">
 <link rel="stylesheet" href="/css/blog.css?v=20260417j">
+<link rel="stylesheet" href="/css/blog-rich.css?v=20260512a">
+<script src="/js/blog-rich.js?v=20260512a" defer></script>
 </head>
 <body>
 
@@ -516,9 +518,23 @@
 
 <article class="blog-content blog-body" data-article>
 
-<p><p>Vous venez d'être piqué par une guêpe, ou un proche vient de l'être, et vous vous demandez quoi faire. D'abord, respirez : sur une personne non allergique, une piqûre de guêpe provoque une douleur vive, un gonflement local et une rougeur qui disparaissent en 24 à 48 heures. C'est désagréable, mais sans danger. Selon Santé Publique France, environ 3 % des adultes présentent une allergie aux venins d'hyménoptères (guêpes, frelons, abeilles), et seules les réactions allergiques sévères nécessitent une intervention médicale urgente.</p></p>
+<aside class="emergency-banner" role="alert">
+  <div class="emergency-banner__text">
+    <span class="emergency-banner__icon" aria-hidden="true">🚨</span>
+    <div>
+      <p class="emergency-banner__title">Symptômes graves ? Appelez le 15.</p>
+      <p class="emergency-banner__desc">Gonflement du visage ou de la gorge, gêne respiratoire, vertige : ne perdez pas une minute, composez le 15 ou le 112.</p>
+    </div>
+  </div>
+  <a href="tel:15" class="emergency-banner__cta" aria-label="Appeler le 15 — SAMU">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Appeler le 15
+  </a>
+</aside>
 
-<p><p>Ce guide vous donne les bons réflexes minute par minute, vous aide à reconnaître les signes d'allergie qui imposent d'appeler le 15, et précise les cas particuliers (piqûre dans la bouche, enfants, femmes enceintes). Il complète mais ne remplace jamais un avis médical : en cas de doute, contactez le 15, le 112 ou votre médecin.</p></p>
+<p>Vous venez d'être piqué par une guêpe, ou un proche vient de l'être, et vous vous demandez quoi faire. D'abord, respirez : sur une personne non allergique, une piqûre de guêpe provoque une douleur vive, un gonflement local et une rougeur qui disparaissent en 24 à 48 heures. C'est désagréable, mais sans danger. Selon Santé Publique France, environ 3 % des adultes présentent une allergie aux venins d'hyménoptères (guêpes, frelons, abeilles), et seules les réactions allergiques sévères nécessitent une intervention médicale urgente.</p>
+
+<p>Ce guide vous donne les bons réflexes minute par minute, vous aide à reconnaître les signes d'allergie qui imposent d'appeler le 15, et précise les cas particuliers (piqûre dans la bouche, enfants, femmes enceintes). Il complète mais ne remplace jamais un avis médical : en cas de doute, contactez le 15, le 112 ou votre médecin.</p>
 
 <figure class="image-figure">
   <img src="/assets/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/hero.svg" alt="Trousse de premiers secours avec antihistaminique et compresse glacée pour piqûre de guêpe" loading="lazy" width="1456" height="816">
@@ -527,11 +543,93 @@
 
 <h2 id="premieres-minutes">1. Les 5 premières minutes : les bons gestes</h2>
 
-<p>La rapidité d'intervention conditionne le confort et limite la diffusion du venin. Voici la séquence à suivre, dans cet ordre.</p><h3>1. Vérifier la présence du dard</h3><p>Contrairement à l'abeille, la guêpe garde généralement son dard et peut piquer plusieurs fois. Vérifiez visuellement, mais dans la majorité des cas il n'y a pas de dard à retirer.</p><h3>2. Retirer le dard si présent</h3><p>Si vous voyez un dard, ne le pincez surtout pas entre vos doigts ni avec une pince à épiler classique : vous risquez de comprimer le sac à venin et d'injecter davantage de toxine. Grattez-le latéralement avec l'arête d'une carte rigide (carte bancaire, carte de visite) ou avec l'ongle.</p><h3>3. Nettoyer la zone</h3><p>Lavez la peau à l'eau tiède et au savon doux pendant 30 secondes. Cela retire la salive de l'insecte et limite le risque d'infection secondaire.</p><h3>4. Appliquer du froid</h3><p>Posez une compresse froide enveloppée dans un linge sec sur la piqûre pendant 10 à 15 minutes. Le froid réduit la douleur, ralentit la diffusion du venin et limite l'œdème. Ne jamais appliquer de glace directement sur la peau.</p><aside class="callout callout-did-you-know"><div><strong>Le saviez-vous ?</strong><p>L'idée reçue qui consiste à uriner sur une piqûre n'a aucun fondement scientifique. Le pH de l'urine est trop variable pour neutraliser le venin, qui est par ailleurs déjà injecté en profondeur.</p></div></aside>
+<p>La rapidité d'intervention conditionne le confort et limite la diffusion du venin. Voici la séquence à suivre, dans cet ordre.</p>
+
+<ol class="steps-list">
+  <li>
+    <strong>Vérifier la présence du dard</strong>
+    Contrairement à l'abeille, la guêpe garde généralement son dard et peut piquer plusieurs fois. Vérifiez visuellement, mais dans la majorité des cas il n'y a pas de dard à retirer.
+  </li>
+  <li>
+    <strong>Retirer le dard si présent</strong>
+    Si vous voyez un dard, ne le pincez surtout pas entre vos doigts ni avec une pince à épiler classique : vous risquez de comprimer le sac à venin et d'injecter davantage de toxine. Grattez-le latéralement avec l'arête d'une carte rigide (carte bancaire, carte de visite) ou avec l'ongle.
+  </li>
+  <li>
+    <strong>Nettoyer la zone</strong>
+    Lavez la peau à l'eau tiède et au savon doux pendant 30 secondes. Cela retire la salive de l'insecte et limite le risque d'infection secondaire.
+  </li>
+  <li>
+    <strong>Appliquer du froid</strong>
+    Posez une compresse froide enveloppée dans un linge sec sur la piqûre pendant 10 à 15 minutes. Le froid réduit la douleur, ralentit la diffusion du venin et limite l'œdème. Ne jamais appliquer de glace directement sur la peau.
+  </li>
+  <li>
+    <strong>Surveiller pendant 15 minutes</strong>
+    Restez attentif aux signes d'une réaction allergique (gonflement du visage, gêne respiratoire, urticaire généralisée). 90 % des réactions graves se déclarent dans le premier quart d'heure.
+  </li>
+</ol>
+
+<aside class="callout callout-did-you-know"><div><strong>Le saviez-vous ?</strong><p>L'idée reçue qui consiste à uriner sur une piqûre n'a aucun fondement scientifique. Le pH de l'urine est trop variable pour neutraliser le venin, qui est par ailleurs déjà injecté en profondeur.</p></div></aside>
 
 <h2 id="reaction-normale">2. Reconnaître une réaction normale</h2>
 
-<p>Une piqûre de guêpe sans allergie suit toujours la même évolution. Voici ce qui est normal et qui ne doit pas vous inquiéter.</p><ul><li><strong>Douleur vive immédiate</strong> qui décroît en 1 à 2 heures.</li><li><strong>Rougeur locale</strong> de 2 à 10 cm autour du point de piqûre.</li><li><strong>Gonflement (œdème)</strong> qui peut atteindre 10 cm de diamètre et persister jusqu'à 48 heures.</li><li><strong>Démangeaisons</strong> dans les heures et jours qui suivent.</li><li><strong>Petite chaleur</strong> locale sur la zone touchée.</li></ul><p>Ces symptômes correspondent à la réaction inflammatoire locale au venin. Ils sont sans gravité et disparaissent spontanément. Vous pouvez les soulager par une crème apaisante (à base d'aloe vera ou de calamine), un antiseptique cutané et, si la démangeaison gêne, un antihistaminique oral en vente libre (cf. section 4).</p><div class="stats-highlight"><div class="stats-highlight-number">3 %</div><div class="stats-highlight-label">des adultes en France présentent une allergie aux venins d'hyménoptères selon Santé Publique France</div><div class="stats-highlight-source">Source : Santé Publique France, données 2023</div></div>
+<p>Une piqûre de guêpe sans allergie suit toujours la même évolution. Voici ce qui est normal et qui ne doit pas vous inquiéter.</p>
+
+<ul>
+  <li><strong>Douleur vive immédiate</strong> qui décroît en 1 à 2 heures.</li>
+  <li><strong>Rougeur locale</strong> de 2 à 10 cm autour du point de piqûre.</li>
+  <li><strong>Gonflement (œdème)</strong> qui peut atteindre 10 cm de diamètre et persister jusqu'à 48 heures.</li>
+  <li><strong>Démangeaisons</strong> dans les heures et jours qui suivent.</li>
+  <li><strong>Petite chaleur</strong> locale sur la zone touchée.</li>
+</ul>
+
+<p>Ces symptômes correspondent à la réaction inflammatoire locale au venin. Ils sont sans gravité et disparaissent spontanément. Vous pouvez les soulager par une crème apaisante (à base d'aloe vera ou de calamine), un antiseptique cutané et, si la démangeaison gêne, un antihistaminique oral en vente libre (cf. section 4).</p>
+
+<div class="comparison-table-wrap">
+  <table class="comparison-table">
+    <caption>Tableau comparatif — réaction normale vs allergique</caption>
+    <thead>
+      <tr>
+        <th scope="col">Symptôme</th>
+        <th scope="col">Réaction normale</th>
+        <th scope="col">Réaction allergique</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Douleur, rougeur</td>
+        <td class="cell-positive">Locale, autour du point de piqûre</td>
+        <td class="cell-negative">Étendue, parfois à distance</td>
+      </tr>
+      <tr>
+        <td>Gonflement</td>
+        <td class="cell-positive">≤ 10 cm autour de la piqûre</td>
+        <td class="cell-negative">Visage, lèvres, langue, gorge</td>
+      </tr>
+      <tr>
+        <td>Urticaire</td>
+        <td class="cell-positive">Absente</td>
+        <td class="cell-negative">Plaques rouges à distance, démangeaisons</td>
+      </tr>
+      <tr>
+        <td>Respiration</td>
+        <td class="cell-positive">Normale</td>
+        <td class="cell-negative">Sifflante, oppression, toux</td>
+      </tr>
+      <tr>
+        <td>État général</td>
+        <td class="cell-positive">Conservé</td>
+        <td class="cell-negative">Vertiges, sueurs, malaise, pâleur</td>
+      </tr>
+      <tr>
+        <td>Conduite à tenir</td>
+        <td class="cell-positive">Premiers secours, surveillance 15 min</td>
+        <td class="cell-negative">Appel 15 ou 112 immédiat</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="stats-highlight"><div class="stats-highlight-number">3 %</div><div class="stats-highlight-label">des adultes en France présentent une allergie aux venins d'hyménoptères selon Santé Publique France</div><div class="stats-highlight-source">Source : Santé Publique France, données 2023</div></div>
 
 <div class="cta-inline-blog" data-variant="urgence">
   <div class="cta-inline-blog-text">
@@ -543,11 +641,117 @@
 
 <h2 id="signes-allergie">3. Les signes d'une réaction allergique grave</h2>
 
-<p>Une réaction allergique sévère (anaphylaxie) survient en moyenne dans les 15 premières minutes suivant la piqûre, parfois plus tard. Connaître ses signes peut sauver une vie.</p><h3>Œdème de Quincke</h3><p>Gonflement rapide du visage, des paupières, des lèvres ou de la langue. Sensation de gorge qui se serre. <strong>Appel immédiat au 15 ou 112.</strong></p><h3>Difficulté respiratoire</h3><p>Sifflement, essoufflement, oppression thoracique, toux soudaine. Signes que les voies respiratoires se rétrécissent. <strong>Urgence absolue.</strong></p><h3>Urticaire généralisée</h3><p>Plaques rouges qui démangent et qui apparaissent loin du site de piqûre (tronc, jambes, bras). Indique une réaction systémique.</p><h3>Choc anaphylactique</h3><p>Pâleur, sueurs, vertiges, malaise, perte de connaissance, baisse brutale de la tension artérielle. Quelques minutes seulement pour agir : <strong>appel 15 immédiat</strong> et, si la personne dispose d'un stylo auto-injecteur d'adrénaline (EpiPen, Jext, Emerade), l'utiliser sans hésiter sur le bord externe de la cuisse.</p><h3>Symptômes digestifs intenses</h3><p>Nausées violentes, vomissements, diarrhée, crampes abdominales dans les minutes qui suivent la piqûre.</p><p>Tant que ces signes sont absents, vous êtes face à une réaction locale normale. Mais dès qu'un seul de ces symptômes apparaît, surtout en cas de piqûres multiples ou si vous ne connaissez pas votre statut allergique, ne prenez pas de risque : composez le 15.</p>
+<p>Une réaction allergique sévère (anaphylaxie) survient en moyenne dans les 15 premières minutes suivant la piqûre, parfois plus tard. Connaître ses signes peut sauver une vie.</p>
+
+<aside class="callout callout-danger">
+  <div>
+    <strong>Un seul de ces signes = appel 15 immédiat.</strong>
+    <p style="margin:6px 0 0;">N'attendez pas qu'ils s'aggravent : le médecin régulateur du 15 vous orientera en quelques minutes et peut envoyer une équipe.</p>
+  </div>
+</aside>
+
+<h3>Œdème de Quincke</h3>
+<p>Gonflement rapide du visage, des paupières, des lèvres ou de la langue. Sensation de gorge qui se serre. <strong>Appel immédiat au 15 ou 112.</strong></p>
+
+<h3>Difficulté respiratoire</h3>
+<p>Sifflement, essoufflement, oppression thoracique, toux soudaine. Signes que les voies respiratoires se rétrécissent. <strong>Urgence absolue.</strong></p>
+
+<h3>Urticaire généralisée</h3>
+<p>Plaques rouges qui démangent et qui apparaissent loin du site de piqûre (tronc, jambes, bras). Indique une réaction systémique.</p>
+
+<h3>Choc anaphylactique</h3>
+<p>Pâleur, sueurs, vertiges, malaise, perte de connaissance, baisse brutale de la tension artérielle. Quelques minutes seulement pour agir : <strong>appel 15 immédiat</strong> et, si la personne dispose d'un stylo auto-injecteur d'adrénaline (EpiPen, Jext, Emerade), l'utiliser sans hésiter sur le bord externe de la cuisse.</p>
+
+<h3>Symptômes digestifs intenses</h3>
+<p>Nausées violentes, vomissements, diarrhée, crampes abdominales dans les minutes qui suivent la piqûre.</p>
+
+<p>Tant que ces signes sont absents, vous êtes face à une réaction locale normale. Mais dès qu'un seul de ces symptômes apparaît, surtout en cas de piqûres multiples ou si vous ne connaissez pas votre statut allergique, ne prenez pas de risque : composez le 15.</p>
+
+<div class="symptom-quiz" data-quiz-id="piqure-guepe-symptom-check" data-threshold-high="3" data-threshold-medium="1">
+  <p class="symptom-quiz__label">Auto-évaluation</p>
+  <h3 class="symptom-quiz__title">Suis-je en train de faire une réaction allergique ?</h3>
+  <p class="symptom-quiz__desc">Cochez les symptômes apparus dans les 15 minutes suivant la piqûre. Vous verrez aussitôt si une mise en sécurité s'impose. <strong>Ce mini-test ne remplace pas un avis médical : en cas de doute, composez le 15.</strong></p>
+  <ul class="symptom-quiz__options">
+    <li><label><input type="checkbox" data-severity="2"><span class="symptom-quiz__option-text">Mon visage, mes paupières ou mes lèvres gonflent.</span></label></li>
+    <li><label><input type="checkbox" data-severity="2"><span class="symptom-quiz__option-text">J'ai du mal à respirer, je siffle ou j'ai la gorge qui se serre.</span></label></li>
+    <li><label><input type="checkbox" data-severity="2"><span class="symptom-quiz__option-text">Des plaques rouges qui démangent apparaissent loin de la piqûre.</span></label></li>
+    <li><label><input type="checkbox" data-severity="3"><span class="symptom-quiz__option-text">Je me sens prêt à m'évanouir, je transpire, je vois flou.</span></label></li>
+    <li><label><input type="checkbox" data-severity="2"><span class="symptom-quiz__option-text">J'ai des nausées violentes ou des vomissements survenus juste après la piqûre.</span></label></li>
+    <li><label><input type="checkbox" data-severity="1"><span class="symptom-quiz__option-text">La piqûre est dans ma bouche ou ma gorge.</span></label></li>
+    <li><label><input type="checkbox" data-severity="1"><span class="symptom-quiz__option-text">J'ai reçu plus de 5 piqûres en même temps.</span></label></li>
+    <li><label><input type="checkbox" data-severity="0"><span class="symptom-quiz__option-text">Je ressens seulement douleur, rougeur et démangeaisons locales autour de la piqûre.</span></label></li>
+  </ul>
+  <div class="symptom-quiz__result" data-level="low">
+    <p class="symptom-quiz__result-title">Réaction locale probable — surveillance simple</p>
+    <p>Pas de signe d'allergie grave repéré. Appliquez les premiers gestes (carte rigide, lavage, glace 15 minutes) et restez vigilant pendant 1 à 2 heures. Si un symptôme cité plus haut apparaît, recomposez ce mini-test.</p>
+  </div>
+  <div class="symptom-quiz__result" data-level="medium">
+    <p class="symptom-quiz__result-title">Surveillance rapprochée — gardez le 15 sous la main</p>
+    <p>Un facteur de risque est présent. Prenez un antihistaminique adapté si vous en avez, restez accompagné, et surveillez l'évolution toutes les 5 minutes. Au moindre nouveau symptôme ou si vous êtes déjà connu allergique, appelez le 15 sans attendre.</p>
+    <a class="symptom-quiz__cta" href="tel:15" aria-label="Appeler le 15 — SAMU">Appeler le 15</a>
+  </div>
+  <div class="symptom-quiz__result" data-level="high">
+    <p class="symptom-quiz__result-title">Signes d'urgence — appel 15 immédiat</p>
+    <p>Plusieurs signes pointent vers une réaction allergique grave. Composez tout de suite le 15 (ou le 112). Si vous disposez d'un auto-injecteur d'adrénaline (EpiPen, Jext, Emerade), utilisez-le sur le bord externe de la cuisse pendant que vous attendez les secours.</p>
+    <a class="symptom-quiz__cta" href="tel:15" aria-label="Appeler le 15 — SAMU">Appeler le 15 maintenant</a>
+  </div>
+</div>
 
 <h2 id="antihistaminique">4. Faut-il prendre un antihistaminique ?</h2>
 
-<p>L'antihistaminique oral réduit les démangeaisons et atténue la réaction inflammatoire. Il est utile dans deux cas.</p><h3>En prévention si vous êtes connu allergique</h3><p>Si vous êtes déjà identifié comme allergique aux hyménoptères et que vous disposez d'un protocole médical, prenez votre antihistaminique selon les instructions de votre allergologue. Cela ne remplace JAMAIS l'usage de l'adrénaline auto-injectable en cas de signes graves.</p><h3>En cas de réaction locale étendue</h3><p>Si la zone gonflée dépasse 10 cm ou si les démangeaisons sont importantes, un antihistaminique oral en vente libre (cétirizine 10 mg, loratadine 10 mg, desloratadine 5 mg) pris dès la piqûre soulage efficacement. Demandez conseil à votre pharmacien.</p><h3>Ce qu'il faut éviter</h3><ul><li><strong>L'aspirine</strong> chez l'enfant et l'adolescent (risque de syndrome de Reye).</li><li><strong>Les corticoïdes en automédication</strong> sans avis médical.</li><li><strong>Les pommades à base de cortisone fortes</strong> sans prescription.</li></ul><p>Le paracétamol reste l'antalgique de première intention en cas de douleur persistante. Si la douleur reste vive au-delà de 24 heures ou si l'œdème augmente après 48 heures, consultez votre médecin.</p>
+<p>L'antihistaminique oral réduit les démangeaisons et atténue la réaction inflammatoire. Il est utile dans deux cas.</p>
+
+<h3>En prévention si vous êtes connu allergique</h3>
+<p>Si vous êtes déjà identifié comme allergique aux hyménoptères et que vous disposez d'un protocole médical, prenez votre antihistaminique selon les instructions de votre allergologue. Cela ne remplace JAMAIS l'usage de l'adrénaline auto-injectable en cas de signes graves.</p>
+
+<h3>En cas de réaction locale étendue</h3>
+<p>Si la zone gonflée dépasse 10 cm ou si les démangeaisons sont importantes, un antihistaminique oral en vente libre pris dès la piqûre soulage efficacement. Demandez conseil à votre pharmacien.</p>
+
+<div class="comparison-table-wrap">
+  <table class="comparison-table">
+    <caption>Antihistaminiques oraux en vente libre — adultes</caption>
+    <thead>
+      <tr>
+        <th scope="col">Molécule</th>
+        <th scope="col">Dose adulte</th>
+        <th scope="col">Profil</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cétirizine</td>
+        <td>10 mg, 1 fois par jour</td>
+        <td class="cell-neutral">Efficace, légère somnolence possible</td>
+      </tr>
+      <tr>
+        <td>Loratadine</td>
+        <td>10 mg, 1 fois par jour</td>
+        <td class="cell-positive">Très peu de somnolence, compatible conduite</td>
+      </tr>
+      <tr>
+        <td>Desloratadine</td>
+        <td>5 mg, 1 fois par jour</td>
+        <td class="cell-positive">Action prolongée, peu de somnolence</td>
+      </tr>
+      <tr>
+        <td>Bilastine</td>
+        <td>20 mg, 1 fois par jour à jeun</td>
+        <td class="cell-positive">Très peu de somnolence, à prendre à distance des repas</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p style="font-size:14px;color:#6b6478;margin-top:-8px;">Doses indicatives selon l'ANSM. Adaptez selon âge, grossesse, traitement en cours — demandez conseil à votre pharmacien ou médecin avant la prise.</p>
+
+<h3>Ce qu'il faut éviter</h3>
+<ul>
+  <li><strong>L'aspirine</strong> chez l'enfant et l'adolescent (risque de syndrome de Reye).</li>
+  <li><strong>Les corticoïdes en automédication</strong> sans avis médical.</li>
+  <li><strong>Les pommades à base de cortisone fortes</strong> sans prescription.</li>
+</ul>
+
+<p>Le paracétamol reste l'antalgique de première intention en cas de douleur persistante. Si la douleur reste vive au-delà de 24 heures ou si l'œdème augmente après 48 heures, consultez votre médecin.</p>
 
 <div class="cta-inline-blog" data-variant="urgence">
   <div class="cta-inline-blog-text">
@@ -563,7 +767,27 @@
 
 <h2 id="prevention-allergique">6. Prévention pour les personnes allergiques</h2>
 
-<p>Si vous avez déjà fait une réaction allergique à une piqûre, la désensibilisation (immunothérapie spécifique) prescrite par un allergologue réduit le risque de récidive grave de 80 à 90 % selon l'INSERM. En attendant ou en complément, voici les bons réflexes.</p><ul><li><strong>Trousse d'urgence personnelle</strong> : 2 stylos auto-injecteurs d'adrénaline (EpiPen, Jext, Emerade) à porter sur soi en permanence d'avril à octobre, plus antihistaminique oral et corticoïde injectable selon prescription.</li><li><strong>Carte d'allergique</strong> dans le portefeuille indiquant la nature de l'allergie, les coordonnées de votre allergologue et celles d'une personne à prévenir.</li><li><strong>Bracelet médical d'identification</strong> visible (type MedicAlert) pour les personnes très exposées.</li><li><strong>Formation des proches</strong> à l'utilisation de l'auto-injecteur, avec démonstration par votre allergologue.</li><li><strong>Repérage des nids</strong> sur votre lieu de vie et appel à un professionnel pour leur retrait (jamais soi-même).</li></ul><p>Les personnes allergiques connues doivent éviter les comportements à risque : marcher pieds nus dans l'herbe, boire dans des canettes ouvertes en extérieur, porter des parfums sucrés ou des couleurs vives en été, manipuler des fruits tombés au sol.</p>
+<p>Si vous avez déjà fait une réaction allergique à une piqûre, la désensibilisation (immunothérapie spécifique) prescrite par un allergologue réduit le risque de récidive grave de 80 à 90 % selon l'INSERM. En attendant ou en complément, voici les bons réflexes.</p>
+
+<ul class="checklist">
+  <li class="checklist-title">Ma trousse d'urgence personnelle (à porter d'avril à octobre)</li>
+  <li><strong>2 stylos auto-injecteurs d'adrénaline</strong> (EpiPen, Jext ou Emerade) — toujours par paire, jamais un seul.</li>
+  <li><strong>Antihistaminique oral</strong> (cétirizine ou loratadine) en blister non entamé.</li>
+  <li><strong>Corticoïde injectable</strong> selon prescription de votre allergologue.</li>
+  <li><strong>Carte d'allergique</strong> dans le portefeuille avec coordonnées allergologue + personne à prévenir.</li>
+  <li><strong>Bracelet médical d'identification</strong> visible (type MedicAlert) si forte exposition.</li>
+  <li><strong>Liste à jour</strong> de vos traitements et antécédents glissée avec les auto-injecteurs.</li>
+</ul>
+
+<ul class="checklist checklist--danger">
+  <li class="checklist-title">Les bons réflexes du quotidien</li>
+  <li><strong>Formez vos proches</strong> à l'utilisation de l'auto-injecteur, avec démonstration par votre allergologue.</li>
+  <li><strong>Vérifiez la date de péremption</strong> de vos stylos chaque mois et avant tout déplacement.</li>
+  <li><strong>Faites détruire les nids</strong> à moins de 10 m de chez vous par un professionnel (jamais soi-même).</li>
+  <li><strong>Évitez les comportements à risque</strong> : pieds nus dans l'herbe, canettes ouvertes en extérieur, parfums sucrés, vêtements aux couleurs vives en été, fruits tombés au sol.</li>
+</ul>
+
+<p>Les personnes allergiques connues doivent maintenir cette vigilance toute la saison estivale, et signaler systématiquement leur allergie en consultation médicale, à l'hôpital ou en cas d'hospitalisation.</p>
 
 <h2 id="quand-consulter">7. Quand consulter après la piqûre</h2>
 
