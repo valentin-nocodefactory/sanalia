@@ -189,16 +189,39 @@ Vocabulaire à utiliser DANS `articleHtml` :
    </ul>
    Variante danger (rouge) : class="checklist checklist--danger"
 
-6. Bullet lists et numbered lists CLASSIQUES restent autorisés pour les énumérations
-   simples : <ul><li>...</li></ul>, <ol><li>...</li></ol>.
+6. Carte de lien interne (maillage SEO + UX) — relie l'article à une fiche
+   complète, un service, ou un article connexe du blog Sanalia :
+   <a href="/nuisibles/<espece>/" class="internal-link-card">
+     <div class="internal-link-card-icon">🐀</div>
+     <div class="internal-link-card-body">
+       <div class="internal-link-card-label">FICHE COMPLÈTE</div>
+       <div class="internal-link-card-title">Tout savoir sur les rats : biologie, comportement, risques</div>
+       <div class="internal-link-card-desc">Schémas interactifs, simulateur de prolifération, carte des zones à risque.</div>
+     </div>
+     <div class="internal-link-card-arrow">→</div>
+   </a>
 
-7. Listes ordonnées et non ordonnées toujours autorisées pour les énumérations courtes.
+   Variations du `label` à utiliser selon la cible :
+   * `FICHE COMPLÈTE` → fiche /nuisibles/<espece>/
+   * `INTERVENTION LOCALE` → page service /deratisation/, /desinsectisation/<espece>/
+   * `ARTICLE LIÉ` → autre article du blog
+   * `RÉGLEMENTATION` → /reglementation/
+   * `URGENCE` → ligne directe ou page urgence
+
+   Icônes (emoji ou pictogramme) cohérentes avec le nuisible/service :
+   🐀 rats · 🦟 moustiques · 🐝 guêpes · 🪳 cafards · 🐜 fourmis · 📍 localisation · 🛡️ prévention · ⚠️ urgence · 📋 fiche
+
+7. Bullet lists et numbered lists CLASSIQUES restent autorisés pour les énumérations
+   simples : <ul><li>...</li></ul>, <ol><li>...</li></ol>.
 
 OBLIGATOIRE : utilise AU MINIMUM dans l'article :
 - 1 tableau comparatif (.comparison-table)
 - 1 steps-list (.steps-list) OU une checklist (.checklist)
 - 2 callouts variés (.callout-did-you-know / -warning / -danger / -tip)
 - 1 stats-highlight avec source officielle
+- 2 internal-link-card (1 vers la fiche /nuisibles/<parent>/ + 1 vers le service
+  /deratisation/ ou /desinsectisation/<parent>/ correspondant. Ajoute un 3e
+  vers un article connexe du blog si tu en connais un — sinon laisse 2.)
 
 RETOURNE UN JSON valide au schéma suivant — RIEN d'autre, pas de markdown
 autour, pas de commentaire :
