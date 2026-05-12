@@ -128,6 +128,7 @@ blog Sanalia (entreprise de dératisation et désinsectisation présente dans le
 Intent de recherche : <Intent>
 
 Inclus une section FAQ à la fin avec 6 à 8 questions.
+Inclus aussi entre 1 et 3 tableaux comparatifs (`<table>` HTML) là où c'est pertinent — c'est essentiel pour la crédibilité et la richesse de l'article.
 ```
 
 C'est tout. ChatSEO répond en HTML ou en markdown — c'est son choix de format
@@ -181,6 +182,10 @@ par `assemble_html.py` (cf. l'ancien schéma JSON).
   davantage de profondeur."
 - 5 ≤ nb de `<h2>` ≤ 12, sinon retry.
 - 6 ≤ `len(faq)` ≤ 8, sinon retry.
+- **Nombre de `<table>` ≥ 1** (compter les occurrences `<table` dans
+  `articleHtml`). Si aucun tableau → retry 1× avec consigne explicite :
+  "Ajoute entre 1 et 3 tableaux comparatifs `<table>` dans l'article (par
+  ex. comparaison espèces / méthodes / doses / coûts)."
 - Si la réponse ChatSEO est trop courte ou structurellement vide → retry 1×.
 - Si tout retry échoue → étape Erreur.
 
