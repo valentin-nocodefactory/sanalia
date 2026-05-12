@@ -1,0 +1,181 @@
+# Config skill publish-article-sanalia
+# Source de vérité unique pour les constantes utilisées par tous les scripts.
+# Modifier ici plutôt que de hard-coder dans les scripts.
+
+# ──────────────────────────────────────────────
+# Identifiants externes
+# ──────────────────────────────────────────────
+github_repo: valentin-nocodefactory/sanalia
+notion_data_source_id: 4fc6d199-2674-494a-8959-ba1008034526
+chatseo_site_id: 360b07f1-8f98-4035-8e5e-6d55d7a1285a
+cloudflare_project: sanalia
+cloudflare_pages_domain: sanalia.pages.dev
+prod_domain: https://www.sanalia.fr
+
+# ──────────────────────────────────────────────
+# Chemins repo (relatifs à la racine git)
+# ──────────────────────────────────────────────
+paths:
+  blog_root: blog
+  assets_blog_root: assets/blog
+  assets_nuisibles_root: assets/nuisibles
+  sitemap_main: sitemap.xml
+  sitemap_blog: sitemap-blog.xml
+  sitemap_index: sitemap-index.xml
+  feed_xml: blog/feed.xml
+  blog_hub: blog/index.html
+  build_script: build.sh
+  skeleton_template: .claude/skills/publish-article-sanalia/templates/article-skeleton.html
+
+# ──────────────────────────────────────────────
+# Statuts Notion (machine d'état)
+# ──────────────────────────────────────────────
+notion_statuses:
+  to_process: "Next up"
+  in_progress: "In progress"
+  to_validate: "À valider"
+  validated: "Validé"
+  published: "Publié"
+  error: "Erreur"
+
+# ──────────────────────────────────────────────
+# Mapping Intent → CTA variant
+# ──────────────────────────────────────────────
+intent_to_cta_variant:
+  informational: devis
+  prevention: devis
+  urgency: urgence
+  transactional: urgence
+  regulatory: guide
+
+# ──────────────────────────────────────────────
+# CTA templates par variant
+# Le skill génère 3 CTAs inline aux positions 25/50/80% du contenu.
+# ──────────────────────────────────────────────
+cta_templates:
+  devis:
+    href: /devis/
+    button_text: "Obtenir mon devis gratuit"
+    titles:
+      - "Besoin d'un diagnostic par un technicien Certibiocide ?"
+      - "Prêt à en finir avec ce problème ?"
+      - "Un devis gratuit en 2 minutes"
+    descs:
+      - "Devis gratuit sous 2 heures, intervention possible le jour même à Lyon et Paris."
+      - "Diagnostic offert, devis transparent sous 2 heures, intervention garantie résultat."
+      - "Technicien Certibiocide, intervention sous 24 h, résultat garanti."
+  urgence:
+    href: tel:0667464897
+    button_text: "Appeler maintenant"
+    titles:
+      - "Besoin d'une intervention aujourd'hui ?"
+      - "Situation urgente ?"
+      - "Un technicien tout de suite ?"
+    descs:
+      - "Intervention d'urgence 8h-20h, 7j/7. Un technicien peut être chez vous dans les 4 heures à Lyon et Paris."
+      - "Notre équipe peut intervenir dans la journée. 8h-20h, 7j/7."
+      - "06 67 46 48 97 — réponse immédiate, intervention rapide."
+  guide:
+    href: /devis/
+    button_text: "Demander un audit gratuit"
+    titles:
+      - "Vous devez vous mettre en conformité ?"
+      - "Audit de conformité gratuit"
+      - "Sécurisez votre obligation légale"
+    descs:
+      - "Nos experts vous accompagnent dans la mise en conformité réglementaire. Audit offert."
+      - "Audit personnalisé de vos obligations, rapport détaillé, plan d'action sur mesure."
+      - "Toutes les certifications requises, accompagnement clé en main."
+
+# ──────────────────────────────────────────────
+# Mapping Nuisible parent → tag class + picto + bg + nom
+# Aligné sur CLAUDE.md (Convention tag thématique blog)
+# ──────────────────────────────────────────────
+parent_nuisible_map:
+  rats:
+    tag_class: tag-rats
+    picto: brown-rat--realistic-body-shape--long-tail--pointe.png
+    bg_class: bg-gold
+    name: Rats
+    section: "Rats & Souris"
+  souris:
+    tag_class: tag-souris
+    picto: house-mouse--mus-musculus--realistic-body-shape--l.png
+    bg_class: bg-lavender
+    name: Souris
+    section: "Rats & Souris"
+  punaises-de-lit:
+    tag_class: tag-punaises
+    picto: bed-bug--cimex-lectularius--realistic-body-shape--.png
+    bg_class: bg-rose
+    name: Punaises de lit
+    section: "Punaises de lit"
+  cafards:
+    tag_class: tag-cafards
+    picto: cockroach--realistic-body-shape--flat-oval-body--l.png
+    bg_class: bg-mint
+    name: Cafards
+    section: "Cafards & Insectes"
+  fourmis:
+    tag_class: tag-fourmis
+    picto: black-garden-ant--lasius-niger--realistic-body-sha.png
+    bg_class: bg-rose
+    name: Fourmis
+    section: "Cafards & Insectes"
+  guepes:
+    tag_class: tag-guepes
+    picto: european-wasp--vespula-vulgaris--realistic-body-sh.png
+    bg_class: bg-gold
+    name: Guêpes
+    section: "Guêpes & Frelons"
+  moustiques:
+    tag_class: tag-moustiques
+    picto: common-mosquito--culex-pipiens--realistic-body-sha.png
+    bg_class: bg-blue
+    name: Moustiques
+    section: "Cafards & Insectes"
+  pigeons:
+    tag_class: tag-pigeons
+    picto: feral-pigeon--columba-livia--realistic-body-shape-.png
+    bg_class: bg-mint
+    name: Pigeons
+    section: "Dépigeonnage"
+
+# ──────────────────────────────────────────────
+# Recraft preset "editorial sage green Sanalia"
+# Préfixé / suffixé sur tous les prompts ChatSEO
+# ──────────────────────────────────────────────
+recraft:
+  hero_size: "1820x1024"        # ratio ~16:9 proche de 1200x630 (rééchantillonné côté front)
+  inline_size: "1456x816"       # 16:9 standard pour illustrations H2
+  hero_model: recraftv3
+  hero_style: editorial_illustration
+  inline_model: recraftv3
+  inline_style: editorial_illustration
+  prompt_suffix: ", Sanalia brand aesthetic: warm cream background (#F6F5F0), accents of soft sage green and dusty lavender, editorial illustration style with subtle textures, modern minimal composition, no text labels, no logos, no people faces, clean and reassuring tone"
+
+# ──────────────────────────────────────────────
+# Slack notification
+# ──────────────────────────────────────────────
+slack:
+  env_var: SLACK_WEBHOOK_URL
+  message_template_draft: |
+    ✅ *Article Sanalia prêt à valider*
+    • Titre : {title}
+    • Mot-clé : {keyword}
+    • Preview : {preview_url}
+    • PR : {pr_url}
+    • Notion : {notion_url}
+
+    Quand tu es ok, change le statut Notion en *Validé* — la 2ème routine s'occupera du merge.
+  message_template_published: |
+    🚀 *Article Sanalia publié en prod*
+    • Titre : {title}
+    • URL prod : {prod_url}
+    • Notion : {notion_url}
+  message_template_error: |
+    ⚠️ *Erreur publication article Sanalia*
+    • Article : {title}
+    • Étape : {step}
+    • Erreur : {error}
+    • Notion : {notion_url}
