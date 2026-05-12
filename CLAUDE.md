@@ -277,15 +277,34 @@ print('En trop :', extra or 'OK')
 ### Structure URL
 ```
 /blog/                                                  → Hub (index)
-/blog/[categorie-pillar]/                               → Pillar page (2000+ mots)
-/blog/[categorie-pillar]/[slug-article]/                → Article
+/blog/[slug-article]/                                   → Article (URL à plat, slug unique)
 /blog/feed.xml                                          → RSS feed
 /sitemap-blog.xml                                       → Sitemap blog
 ```
 
 Le sitemap racine est désormais `/sitemap-index.xml` qui agrège `/sitemap.xml` (pages non-blog) et `/sitemap-blog.xml` (blog). Le `robots.txt` pointe sur l'index.
 
-### Catégories (pillar clusters)
+### 🔴 RÈGLE D'OR — URL et breadcrumb blog (NON-NÉGOCIABLE)
+
+1. **URL article** : TOUJOURS `/blog/[slug-article]/` à plat. JAMAIS de sous-dossier de catégorie. Les anciennes URLs `/blog/rats-souris/...`, `/blog/prevention/...`, etc. sont **interdites**. Le `slug` doit être suffisamment descriptif pour éviter toute collision (ex : `comment-se-debarrasser-des-rats` plutôt que `rats`).
+
+2. **Breadcrumb (HTML + JSON-LD `BreadcrumbList`)** : 4 niveaux pour un article rattaché à un nuisible, 3 niveaux sinon. Le 3ème niveau pointe **toujours** vers la fiche `/nuisibles/[espece]/`, **jamais** vers une catégorie blog.
+   - Position 1 : `Accueil` → `/`
+   - Position 2 : `Blog` → `/blog/`
+   - Position 3 : Nom du nuisible (ex : `Rats`, `Cafards`) → `/nuisibles/[parentNuisible]/` (utiliser le champ `parentNuisible` du data model, pas le `category`)
+   - Position 4 : Titre de l'article (sans lien)
+
+   Exemple : `Accueil > Blog > Rats > Se débarrasser des rats en appartement` (URL : `/blog/comment-se-debarrasser-rats-appartement/`).
+   
+   Si l'article est strictement transverse (pas de nuisible parent identifiable), le breadcrumb a 3 niveaux : `Accueil > Blog > Titre`.
+
+3. **Maillage SEO** : le blog s'appuie sur l'arbre `/nuisibles/` plutôt que sur ses propres pillars. Les anciennes pillars `/blog/rats-souris/`, `/blog/punaises-de-lit/`, `/blog/cafards-insectes/`, `/blog/guepes-frelons/`, `/blog/prevention/` sont redirigées (301) vers `/nuisibles/[espece]/` ou `/reglementation/` dans `_redirects`. **Ne pas les recréer**.
+
+4. **Distinction `category` vs `parentNuisible`** :
+   - `category` (cluster éditorial) → tag thématique visible, classification RSS, filtre du hub. **Ne structure ni l'URL, ni le breadcrumb.**
+   - `parentNuisible` (slug d'une fiche `/nuisibles/[espece]/`) → utilisé pour le breadcrumb position 3 et pour le maillage avec la fiche nuisible. Peut être `null` si transverse.
+
+### Catégories (clusters éditoriaux — pour `category`, pas pour l'URL)
 - **rats-souris** : rongeurs (rats, souris, mulots)
 - **punaises-de-lit** : punaises de lit
 - **cafards-insectes** : cafards et autres insectes rampants
@@ -297,7 +316,9 @@ Chaque article doit porter les champs suivants (dans le `<head>` + JSON-LD + fro
 - **title** (H1 unique)
 - **metaTitle** (< 60 caractères)
 - **metaDescription** (120-155 caractères)
-- **category** (une des 5 catégories)
+- **slug** (kebab-case, descriptif, sans accents ni stopwords inutiles — c'est l'URL `/blog/[slug]/`)
+- **category** (une des 5 catégories — sert au tag thématique visible, à la classification RSS et au filtre du hub. **Ne structure ni l'URL ni le breadcrumb**.)
+- **parentNuisible** (slug d'une fiche `/nuisibles/[espece]/`, ex : `rats`, `cafards`, `punaises-de-lit` — utilisé pour le breadcrumb position 3 et le maillage. Peut être `null` si l'article est strictement transverse, le breadcrumb passe alors à 3 niveaux.)
 - **tags** (3 à 6 tags)
 - **publishedAt**, **updatedAt** (ISO 8601)
 - **readingTime** : calculé automatiquement (nombre de mots / 250, arrondi à la minute)
@@ -306,7 +327,7 @@ Chaque article doit porter les champs suivants (dans le `<head>` + JSON-LD + fro
 - **author** : toujours `Organization Sanalia` (E-E-A-T : entité morale certifiée Certibiocide)
 - **publisher** : Sanalia avec logo SVG
 - **Hero image** : 1200x630 minimum (format OG/Twitter)
-- **JSON-LD** : `Article` + `BreadcrumbList` + `FAQPage` (si FAQ présente)
+- **JSON-LD** : `Article` + `BreadcrumbList` (3ème niveau → `/nuisibles/[parentNuisible]/`) + `FAQPage` (si FAQ présente)
 
 ### Règles conversion
 - **CTA inline** déclenchés à **25%**, **50%** et **80%** du scroll (3 insertions dans l'article)
@@ -360,14 +381,19 @@ Le CSS de ces tags est défini dans `/css/blog.css` (section `.blog-hero-categor
 - `/js/blog.js` — logique partagée : table des matières (TOC) auto-générée, barre de progression de lecture, boutons de partage, affichage conditionnel des CTAs selon scroll, push des events dataLayer
 
 ### Comment ajouter un article
-1. **Créer le dossier** `/blog/[categorie]/[slug]/` (slug kebab-case, sans accents ni stopwords inutiles)
-2. **Créer `index.html`** en copiant la structure d'un article existant (ex : `/blog/rats-souris/comment-se-debarrasser-rats-appartement/index.html`)
-3. **Adapter** : `title`, `meta`, `H1`, contenu, FAQ, CTAs selon l'`intentType`, JSON-LD, dates `publishedAt` / `updatedAt`
-4. **Ajouter l'URL** dans `/sitemap-blog.xml` (priority 0.7, changefreq monthly)
-5. **Ajouter l'item** dans `/blog/feed.xml` (mettre à jour `lastBuildDate` du channel)
-6. **Linker l'article** depuis `/blog/` (hub) et depuis la pillar page de sa catégorie
-7. **Vérifier** : accents français (règle d'or), liens internes (≥ 3), alt sur images, canonical, OG/Twitter
-8. **Commit + push** (Cloudflare Pages déploie automatiquement via `build.sh`)
+1. **Créer le dossier** `/blog/[slug]/` (URL à plat, kebab-case, sans accents ni stopwords inutiles, **JAMAIS** de sous-dossier de catégorie)
+2. **Créer `index.html`** en copiant la structure d'un article existant (ex : `/blog/comment-se-debarrasser-rats-appartement/index.html`)
+3. **Adapter** : `title`, `meta`, `H1`, contenu, FAQ, CTAs selon l'`intentType`, dates `publishedAt` / `updatedAt`
+4. **Renseigner `parentNuisible`** (slug d'une fiche `/nuisibles/[espece]/`) et le refléter dans :
+   - Le breadcrumb HTML (position 3 → `<a href="/nuisibles/[parentNuisible]/">[Nom]</a>`)
+   - Le JSON-LD `BreadcrumbList` (position 3 : `"item": "https://www.sanalia.fr/nuisibles/[parentNuisible]/"`)
+   - Si `parentNuisible` est `null` (article transverse), le breadcrumb passe à 3 niveaux (Accueil > Blog > Titre)
+5. **Vérifier le canonical, og:url, twitter:image, share URLs** : tous doivent pointer vers `https://www.sanalia.fr/blog/[slug]/`
+6. **Ajouter l'URL** dans `/sitemap-blog.xml` (priority 0.7, changefreq monthly) et bumper `<lastmod>` de `/sitemap-index.xml` à la date du jour
+7. **Ajouter l'item** dans `/blog/feed.xml` (mettre à jour `lastBuildDate` du channel)
+8. **Linker l'article** depuis `/blog/` (hub) et, si pertinent, depuis la fiche `/nuisibles/[parentNuisible]/` (section "À lire également" ou bloc conseils) ou un autre article du même thème
+9. **Vérifier** : accents français (règle d'or n°9), liens internes (≥ 3), `alt` sur images, canonical avec `https://www.sanalia.fr` (avec www), OG/Twitter complets, breadcrumb cohérent HTML ↔ JSON-LD
+10. **Commit + push** (Cloudflare Pages déploie automatiquement via `build.sh`)
 
 ## Sync Figma ↔ Code
 1. User dit "update from Figma" → `get_variable_defs` / `get_design_context`
