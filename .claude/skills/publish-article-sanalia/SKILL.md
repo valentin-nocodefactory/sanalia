@@ -111,15 +111,20 @@ Stocker `notion_page_id` et `notion_page_url` pour la suite.
    ```
    Si exit code ≠ 0 → étape Erreur avec le `reason` retourné par le script.
 
-### Étape 4 — Générer le contenu via ChatSEO en JSON structuré
+### Étape 4 — Générer le contenu via ChatSEO en mode HTML enrichi
 
 Appel MCP ChatSEO `send_message` avec `siteId =
 360b07f1-8f98-4035-8e5e-6d55d7a1285a` et le prompt suivant (à adapter avec les
-valeurs Notion) :
+valeurs Notion).
+
+**Important** : on demande à ChatSEO un HTML **directement formaté avec les
+classes Sanalia** plutôt qu'un JSON strict avec un schéma complexe. Plus
+robuste, moins sujet aux timeouts ChatSEO, et permet d'exploiter pleinement
+les composants visuels enrichis (tableau, steps-list, callouts, checklist).
 
 ```
 Rédige un article SEO complet pour ranker sur "<Mot-clé principal>" sur le blog
-Sanalia.
+Sanalia (entreprise de dératisation / désinsectisation à Lyon et Paris).
 
 CONTEXTE :
 - Catégorie : <Catégorie>
@@ -133,21 +138,77 @@ CONTEXTE :
 CONTRAINTES SEO :
 - Mot-clé principal dans le H1, le metaTitle (< 60 chars), le metaDescription
   (120-155 chars) et 2-3 H2.
-- Sections H2 numérotées avec ancres kebab-case.
+- 5-8 sections H2 numérotées avec ancres kebab-case (id="ancre-kebab").
 - 6-8 questions FAQ alignées avec le contenu.
-- Sources officielles citées dans le corps si pertinent : ameli.fr, gouv.fr,
-  ARS, DGCCRF, INRS, CS3D, ANSES, Santé Publique France.
+- Sources officielles citées : ameli.fr, gouv.fr, ARS, DGCCRF, INRS, CS3D,
+  ANSES, Santé Publique France, INSERM, Institut Pasteur.
 - Pas de promesses excessives, pas d'allégations médicales non sourcées.
 
-RETOURNE UN JSON STRICT au schéma suivant — RIEN d'autre, pas de markdown
+DESIGN SYSTEM SANALIA — utilise CES classes CSS dès que le contenu s'y prête.
+C'est CRUCIAL : un article rendu juste avec `<p>` et `<ul>` est trop pauvre
+visuellement. Tu DOIS varier les composants.
+
+Vocabulaire à utiliser DANS `articleHtml` :
+
+1. Listes d'étapes ordonnées (gestes, méthodes, procédure pas-à-pas) →
+   <ol class="steps-list">
+     <li><strong>Titre étape</strong> Description détaillée.</li>
+     ...
+   </ol>
+
+2. Tableau comparatif (réaction normale vs allergique, doses, méthodes,
+   produits) →
+   <div class="comparison-table-wrap">
+     <table class="comparison-table">
+       <caption>Titre tableau (mono, gris)</caption>
+       <thead><tr><th>Critère</th><th>Option A</th><th>Option B</th></tr></thead>
+       <tbody>
+         <tr><td>Ligne 1</td><td class="cell-positive">Bon</td><td class="cell-negative">Mauvais</td></tr>
+       </tbody>
+     </table>
+   </div>
+
+3. Encadrés contextuels :
+   <aside class="callout callout-did-you-know"><div><strong>Le saviez-vous ?</strong><p>Anecdote ou info chiffrée surprenante.</p></div></aside>
+   <aside class="callout callout-warning"><div><strong>Attention.</strong><p>Précaution importante.</p></div></aside>
+   <aside class="callout callout-danger"><div><strong>Urgence.</strong><p>Signe imposant l'appel 15 ou intervention pro.</p></div></aside>
+   <aside class="callout callout-tip"><div><strong>Astuce.</strong><p>Conseil pratique utile.</p></div></aside>
+
+4. Statistique marquante avec source officielle →
+   <div class="stats-highlight">
+     <div class="stats-highlight-number">+47 %</div>
+     <div class="stats-highlight-label">Description du chiffre</div>
+     <div class="stats-highlight-source">Source : Organisme, année</div>
+   </div>
+
+5. Checklist visuelle (trousse, gestes hebdo/annuels, prévention) →
+   <ul class="checklist">
+     <li class="checklist-title">Titre court de la checklist (en mono uppercase)</li>
+     <li><strong>Item 1</strong> Description complémentaire.</li>
+     <li><strong>Item 2</strong> Description complémentaire.</li>
+   </ul>
+   Variante danger (rouge) : class="checklist checklist--danger"
+
+6. Bullet lists et numbered lists CLASSIQUES restent autorisés pour les énumérations
+   simples : <ul><li>...</li></ul>, <ol><li>...</li></ol>.
+
+7. Listes ordonnées et non ordonnées toujours autorisées pour les énumérations courtes.
+
+OBLIGATOIRE : utilise AU MINIMUM dans l'article :
+- 1 tableau comparatif (.comparison-table)
+- 1 steps-list (.steps-list) OU une checklist (.checklist)
+- 2 callouts variés (.callout-did-you-know / -warning / -danger / -tip)
+- 1 stats-highlight avec source officielle
+
+RETOURNE UN JSON valide au schéma suivant — RIEN d'autre, pas de markdown
 autour, pas de commentaire :
 
 {
   "title": "string (H1 complet, max 80 chars)",
   "metaTitle": "string (<= 60 chars)",
   "metaDescription": "string (120-155 chars)",
-  "heroSubtitle": "string (1-2 phrases sous le H1)",
-  "breadcrumbLabel": "string (label court breadcrumb position 4)",
+  "heroSubtitle": "string (1-2 phrases rassurantes sous le H1)",
+  "breadcrumbLabel": "string (label court breadcrumb position 4, max 50 chars)",
   "parentNuisible": "<Nuisible parent>",
   "intentType": "<Intent>",
   "wordCount": <entier total approximatif>,
@@ -156,60 +217,67 @@ autour, pas de commentaire :
   "modifiedAt": "<aujourd'hui YYYY-MM-DD>",
   "heroImage": {
     "filename": "hero.webp",
-    "alt": "string (alt descriptif, contient le mot-clé)",
-    "prompt": "string EN (prompt Recraft pour la hero)"
+    "alt": "string FR (alt descriptif, contient le mot-clé)",
+    "caption": "string FR (légende courte)",
+    "prompt": "string EN (prompt Recraft pour la hero, editorial, palette sage green + warm cream)"
   },
-  "introParagraphs": ["<p HTML>", "<p HTML>"],
-  "sections": [
-    {
-      "h2": "1. Titre de section",
-      "anchor": "ancre-kebab",
-      "tocLabel": "Label court pour la TOC",
-      "html": "<p>...</p><h3>...</h3><p>...</p><ul>...</ul>",
-      "image": null OR {
-        "filename": "nom-fichier.webp",
-        "alt": "alt FR",
-        "caption": "légende FR courte",
-        "prompt": "prompt EN pour Recraft"
-      }
-    }
-    // 5 à 8 sections
-  ],
+  "introHtml": "<p>Intro paragraphe 1...</p><p>Intro paragraphe 2...</p>",
+  "articleHtml": "<h2 id=\"section-1\">1. Titre</h2><p>...</p><ol class=\"steps-list\">...</ol><h2 id=\"section-2\">2. Titre</h2>...",
   "ctaInserts": [
-    { "afterSectionIndex": <N>, "variant": "devis|urgence|guide", "titleOverride": null, "descOverride": null },
-    { "afterSectionIndex": <N>, "variant": "...", ... },
-    { "afterSectionIndex": <N>, "variant": "...", ... }
+    {"afterSectionIndex": <N>, "variant": "devis|urgence|guide", "titleOverride": null, "descOverride": null},
+    {"afterSectionIndex": <N>, "variant": "..."},
+    {"afterSectionIndex": <N>, "variant": "..."}
   ],
   "faq": [
-    { "q": "Question ?", "a": "Réponse 2-4 phrases factuelles." }
+    {"q": "Question ?", "a": "Réponse 2-4 phrases factuelles."}
     // 6 à 8 paires
   ],
   "related": {
     "url": "/blog/<autre-slug>/",
     "title": "Titre article connexe",
-    "category": "Prévention",
+    "category": "Catégorie",
     "readingTime": "9 min"
-  }
+  },
+  "emergencyBanner": null  // facultatif (mais le pipeline en ajoute une automatiquement si intentType=urgency)
 }
 
 RÈGLES :
-- afterSectionIndex 0-indexed. Les 3 CTAs doivent être placés respectivement
-  vers 25% / 50% / 80% du nombre total de sections.
+- afterSectionIndex 0-indexed sur la liste des H2 dans `articleHtml`.
+  Les 3 CTAs aux positions ~25 %, ~50 %, ~80 % du nombre total de sections.
 - Variant CTA :
-  * informational/prevention → "devis" (2 sur 3 CTAs)
-  * urgency/transactional → "urgence" (2 sur 3, dont au moins 1)
+  * informational/prevention → "devis" (2 sur 3)
+  * urgency/transactional → "urgence" (≥ 2 sur 3, en téléphone)
   * regulatory → "guide"
-- 3-5 images au total (1 hero + 2-4 sections). Pas plus.
-- Prompts Recraft EN, sans personne reconnaissable, sans texte dans l'image.
-- HTML autorisé dans `html` des sections : <p>, <h3>, <h4>, <ul>/<ol>/<li>,
-  <strong>, <em>, <aside class="callout callout-did-you-know"> avec
-  <div><strong>Le saviez-vous ?</strong><p>...</p></div>,
-  <div class="stats-highlight"> avec stats-highlight-number /
-  stats-highlight-label / stats-highlight-source.
-- PAS de <h1>, PAS de <h2> dans le `html` (le H2 est géré par `h2`).
+- TOUS les H2 dans `articleHtml` doivent avoir un attribut `id="<ancre-kebab>"`.
+  Sinon la TOC sidebar ne sera pas générée correctement.
+- PAS de `<h1>` dans `articleHtml` (déjà géré par le hero).
+- PAS de `<h2 id="faq">` ni de bloc FAQ dans `articleHtml` (la FAQ est ajoutée
+  automatiquement à la fin, depuis le champ `faq`).
 - Tous les textes en français avec accents corrects (é è à ç ù ê ô î…).
-- Pas d'emoji.
+- Pas d'emoji (sauf 🚨 dans la emergencyBanner, géré automatiquement).
+- Sources des chiffres EXPLICITES dans les blocs `.stats-highlight`.
+
+Retourne UNIQUEMENT le JSON, rien d'autre.
 ```
+
+Récupérer la réponse, parser le JSON. En cas d'échec de parsing → retry 1×
+avec "PREVIOUS RESPONSE WAS NOT VALID JSON, RESTART AND PRODUCE ONLY JSON.".
+Si toujours invalide → étape Erreur "ChatSEO JSON invalide après retry".
+
+Validation :
+- `wordCount` ≥ 800 (retry si moins)
+- 5 ≤ nombre de H2 dans `articleHtml` ≤ 10 (compter `<h2 ` substrings)
+- 6 ≤ `len(faq)` ≤ 8
+- `len(ctaInserts) == 3`
+- Présence d'au moins 1 `comparison-table`, 1 `steps-list` ou `checklist`,
+  2 `callout`, 1 `stats-highlight` dans `articleHtml`. Si insuffisant, retry 1×
+  avec consigne "AJOUTE PLUS DE COMPOSANTS VISUELS ENRICHIS (tableau, callouts,
+  stats) — un article tout en `<p>` est insuffisant."
+
+Sauvegarder le JSON dans `/tmp/chatseo-output-<slug>.json`.
+
+> Note : `assemble_html.py` détecte automatiquement le mode (HTML si
+> `articleHtml` présent, JSON legacy si `sections` présent à la place).
 
 Récupérer la réponse. Parser le JSON :
 - Si parsing échoue → retry 1× avec ajout en tête du prompt "PREVIOUS RESPONSE

@@ -245,6 +245,196 @@ def gen_toc_list(sections: list) -> str:
     return "\n".join(items)
 
 
+# ──────────────────────────────────────────────────────────────────────
+# HTML mode (ChatSEO produit directement un HTML structuré)
+# ──────────────────────────────────────────────────────────────────────
+
+H2_PATTERN = re.compile(r'<h2[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>', re.S | re.I)
+
+
+def extract_h2s_from_html(html: str) -> list:
+    """Extrait les H2 (ancre + label) d'un HTML pour construire la TOC.
+
+    Retourne une liste de dicts {anchor, label, start_pos, end_pos}.
+    `start_pos` = index du `<h2` dans la string source.
+    """
+    h2s = []
+    for m in H2_PATTERN.finditer(html):
+        anchor = m.group(1)
+        # Strip HTML tags from H2 inner text for the TOC label
+        label_html = m.group(2)
+        label = re.sub(r"<[^>]+>", "", label_html).strip()
+        h2s.append({
+            "anchor": anchor,
+            "label": label,
+            "start_pos": m.start(),
+            "end_pos": m.end(),
+        })
+    return h2s
+
+
+def gen_toc_list_from_h2s(h2s: list) -> str:
+    """Comme gen_toc_list mais à partir des H2 extraits du HTML."""
+    items = []
+    for h in h2s:
+        items.append(f'        <li><a href="#{h["anchor"]}">{html_escape(h["label"])}</a></li>')
+    items.append('        <li><a href="#faq">Questions fréquentes</a></li>')
+    return "\n".join(items)
+
+
+def insert_ctas_in_html(article_html: str, h2s: list, cta_inserts: list, cfg: dict) -> tuple:
+    """Insère les CTAs `cta-inline-blog` dans `article_html` aux positions
+    indiquées par `afterSectionIndex` (0-indexed sur la liste des H2).
+
+    Retourne (html_modifié, cta_counter_final).
+    """
+    # Trie les inserts par section index décroissant pour préserver les offsets
+    inserts_sorted = sorted(cta_inserts, key=lambda c: c["afterSectionIndex"], reverse=True)
+
+    cta_counter = len(inserts_sorted)  # numéro initial décroissant pour gen_cta_inline
+    # On veut counter 0,1,2,... dans l'ordre original ; on les pré-calcule
+    order_map = {id(c): i for i, c in enumerate(cta_inserts)}
+
+    result = article_html
+    for cta in inserts_sorted:
+        idx = cta["afterSectionIndex"]
+        # On insère APRÈS la section N → juste avant le H2 (N+1) s'il existe,
+        # sinon à la fin de l'article (avant la FAQ qu'on ajoutera après).
+        if idx + 1 < len(h2s):
+            insert_pos = h2s[idx + 1]["start_pos"]
+        else:
+            insert_pos = len(result)
+
+        cta_html = gen_cta_inline(
+            cta["variant"], cfg, order_map[id(cta)],
+            title_override=cta.get("titleOverride"),
+            desc_override=cta.get("descOverride"),
+        )
+        result = result[:insert_pos] + "\n\n" + cta_html + "\n\n" + result[insert_pos:]
+
+    return result, len(cta_inserts)
+
+
+def gen_emergency_banner(data: dict) -> str:
+    """Génère la bannière urgence si data.emergencyBanner présent
+    OU si intentType = 'urgency'."""
+    eb = data.get("emergencyBanner")
+    if not eb and data.get("intentType") == "urgency":
+        eb = {
+            "title": "Symptômes graves ? Appelez le 15.",
+            "desc": "Au moindre signe d'urgence (gonflement visage/gorge, gêne respiratoire, malaise), composez le 15 ou le 112 sans attendre.",
+        }
+    if not eb:
+        return ""
+    return (
+        '<aside class="emergency-banner" role="alert">\n'
+        '  <div class="emergency-banner__text">\n'
+        '    <span class="emergency-banner__icon" aria-hidden="true">🚨</span>\n'
+        '    <div>\n'
+        f'      <p class="emergency-banner__title">{html_escape(eb["title"])}</p>\n'
+        f'      <p class="emergency-banner__desc">{html_escape(eb["desc"])}</p>\n'
+        '    </div>\n'
+        '  </div>\n'
+        '  <a href="tel:15" class="emergency-banner__cta" aria-label="Appeler le 15 — SAMU">\n'
+        '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>\n'
+        '    Appeler le 15\n'
+        '  </a>\n'
+        '</aside>'
+    )
+
+
+def gen_article_body_from_html(data: dict, slug: str, canonical_url: str, cfg: dict) -> tuple:
+    """Variante HTML mode : prend `articleHtml` brut (avec <h2 id=...>),
+    insère bannière urgence + intro + hero + CTAs + FAQ + reste.
+
+    Retourne (body_html, h2_list pour TOC).
+    """
+    parts = []
+
+    # 1. Emergency banner (urgency only)
+    eb_html = gen_emergency_banner(data)
+    if eb_html:
+        parts.append(eb_html)
+
+    # 2. Intro paragraphs
+    intro = data.get("introHtml", "")
+    if intro:
+        parts.append(intro)
+    else:
+        for p in data.get("introParagraphs", []):
+            parts.append(f"<p>{p}</p>")
+
+    # 3. Hero image
+    if data.get("heroImage"):
+        parts.append(gen_image_figure(slug, data["heroImage"]))
+
+    # 4. Article HTML + CTAs insérés aux indices section
+    article_html = data["articleHtml"]
+    h2s = extract_h2s_from_html(article_html)
+    cta_inserts = data.get("ctaInserts", [])
+    article_with_ctas, cta_counter = insert_ctas_in_html(article_html, h2s, cta_inserts, cfg)
+    parts.append(article_with_ctas)
+
+    # 5. FAQ accordion (aligné JSONLD)
+    parts.append('<h2 id="faq">Questions fréquentes</h2>')
+    accordion_items = []
+    for fq in data["faq"]:
+        accordion_items.append(
+            f'  <div class="accordion-item">\n'
+            f'    <button class="accordion-header">{html_escape(fq["q"])} <span class="icon-toggle">+</span></button>\n'
+            f'    <div class="accordion-body">\n'
+            f'      <div class="accordion-body-inner">{html_escape(fq["a"])}</div>\n'
+            f'    </div>\n'
+            f'  </div>'
+        )
+    parts.append(
+        '<div class="accordion-list" id="faqAccordion">\n' +
+        "\n".join(accordion_items) +
+        '\n</div>'
+    )
+
+    # 6. CTA final
+    parts.append(gen_cta_inline("devis", cfg, cta_counter))
+
+    # 7. Author card
+    parts.append(
+        '<div class="author-card">\n'
+        '  <div class="author-card-avatar">S</div>\n'
+        '  <div>\n'
+        '    <div class="author-card-name">Équipe Sanalia</div>\n'
+        '    <div class="author-card-bio">Collectif de techniciens Certibiocide basés à Lyon et Paris. 3 000+ interventions réalisées par an, spécialisés en habitat collectif et restauration. Tous nos contenus sont relus par un référent scientifique.</div>\n'
+        '  </div>\n'
+        '</div>'
+    )
+
+    # 8. Share bar inline (slot {{CANONICAL_URL}} substitué plus bas)
+    parts.append(
+        '<div class="share-bar-inline">\n'
+        '  <span class="share-bar-inline-label">Partager cet article</span>\n'
+        '  <a href="https://twitter.com/intent/tweet?url={{CANONICAL_URL}}" target="_blank" rel="noopener" class="share-bar-btn" aria-label="Partager sur X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg></a>\n'
+        '  <a href="https://www.linkedin.com/sharing/share-offsite/?url={{CANONICAL_URL}}" target="_blank" rel="noopener" class="share-bar-btn" aria-label="Partager sur LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>\n'
+        '  <a href="https://www.facebook.com/sharer/sharer.php?u={{CANONICAL_URL}}" target="_blank" rel="noopener" class="share-bar-btn" aria-label="Partager sur Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>\n'
+        '  <a href="#" class="share-bar-btn share-bar-copy" aria-label="Copier le lien"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></a>\n'
+        '</div>'
+    )
+
+    # 9. Newsletter
+    parts.append(
+        '<div class="newsletter-cta">\n'
+        '  <h3>Recevez nos guides prévention</h3>\n'
+        '  <p>Un e-mail par mois, sans spam. Conseils d\'experts, saisonnalité des nuisibles, check-lists pratiques.</p>\n'
+        '  <form class="newsletter-form" action="#" method="post">\n'
+        '    <input type="email" placeholder="votre@email.fr" required aria-label="Votre email">\n'
+        '    <button type="submit">S\'inscrire</button>\n'
+        '  </form>\n'
+        '</div>'
+    )
+
+    body = "\n\n".join(parts)
+    body = body.replace("{{CANONICAL_URL}}", canonical_url)
+    return body, h2s
+
+
 def gen_sidebar_widget(intent: str, cfg: dict) -> str:
     """Génère le bloc interne de la sidebar widget."""
     variant = cfg["intent_to_cta_variant"].get(intent, "devis")
@@ -342,7 +532,15 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
 
     breadcrumb_label = data.get("breadcrumbLabel", data["title"])
 
-    article_body = gen_article_body(data, slug, canonical_url, cfg)
+    # Mode auto : si `articleHtml` est présent (sortie ChatSEO HTML),
+    # on passe en mode HTML. Sinon mode JSON legacy (sections list).
+    use_html_mode = bool(data.get("articleHtml"))
+    if use_html_mode:
+        article_body, h2s = gen_article_body_from_html(data, slug, canonical_url, cfg)
+        toc_html = gen_toc_list_from_h2s(h2s)
+    else:
+        article_body = gen_article_body(data, slug, canonical_url, cfg)
+        toc_html = gen_toc_list(data["sections"])
 
     replacements = {
         "{{META_TITLE}}": data["metaTitle"],
@@ -369,7 +567,7 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
         "{{MODIFIED_DATE_HUMAN}}": iso_to_human(data["modifiedAt"]),
         "{{READING_TIME}}": str(data["readingTimeMin"]),
         "{{ARTICLE_BODY_HTML}}": article_body,
-        "{{TOC_LIST}}": gen_toc_list(data["sections"]),
+        "{{TOC_LIST}}": toc_html,
         "{{SIDEBAR_WIDGET_INNER}}": gen_sidebar_widget(data["intentType"], cfg),
         "{{RELATED_CARDS_HTML}}": gen_related_cards(data, parent_nuisible, cfg),
     }
