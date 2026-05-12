@@ -113,68 +113,75 @@ Stocker `notion_page_id` et `notion_page_url` pour la suite.
 
 ### Étape 4 — Générer le contenu via ChatSEO
 
-ChatSEO est un agent SEO autonome qui fait sa propre recherche SERP, identifie
-les bonnes structures pour le mot-clé, et écrit l'article. **Ne lui dicte pas
-le format** — laisse-le faire son métier. Le pipeline post-traite ensuite
-le HTML reçu (classes Sanalia, CTAs, internal-link-cards, etc.).
+ChatSEO est un agent SEO autonome : il fait sa propre recherche SERP, choisit
+l'angle et la structure qui rankent pour le mot-clé. **Ne lui dicte rien**
+au-delà du mot-clé et de l'intent. Tout le reste — angle, ton, longueur,
+format, structure — il sait mieux que toi.
 
 Appel MCP ChatSEO `send_message` avec `siteId =
-360b07f1-8f98-4035-8e5e-6d55d7a1285a` et ce prompt **minimaliste** :
+360b07f1-8f98-4035-8e5e-6d55d7a1285a` et ce prompt **3 lignes** :
 
 ```
 Rédige un article SEO optimisé pour ranker sur "<Mot-clé principal>" sur le
-blog Sanalia (entreprise de dératisation / désinsectisation à Lyon et Paris).
+blog Sanalia (entreprise de dératisation et désinsectisation à Lyon et Paris).
 
 Intent de recherche : <Intent>
-Angle éditorial : <Angle / Notes>
-Ton : rassurant, factuel, jamais anxiogène — lecteur stressé par un problème
-de nuisibles.
 
-Réponds uniquement avec un objet JSON :
-
-{
-  "title": "H1 complet",
-  "metaTitle": "<= 60 caractères",
-  "metaDescription": "120-155 caractères",
-  "heroSubtitle": "1-2 phrases d'accroche sous le H1",
-  "articleHtml": "Le corps de l'article en HTML sémantique propre. H2 numérotés avec id='ancre-kebab'. Pas de <h1>. Pas de section FAQ ici. Utilise les éléments HTML qui te semblent les plus pertinents pour le sujet (tableaux, listes, encadrés, paragraphes, figures, etc.).",
-  "faq": [{"q": "...", "a": "..."}]
-}
-
-Pas de markdown autour, juste le JSON.
+Inclus une section FAQ à la fin avec 6 à 8 questions.
 ```
 
-C'est tout. ChatSEO :
-- choisit la longueur et la structure adaptées au mot-clé,
-- sourcera ce qu'il faut sourcer,
-- variera tableau/listes/encadrés selon ce qui marche pour ranker.
+C'est tout. ChatSEO répond en HTML ou en markdown — c'est son choix de format
+natif. Pas de JSON imposé, pas de schéma, pas de schématisation forcée.
 
-#### Post-réception : calcul des champs dérivés (côté orchestrateur)
+#### Post-réception : parsing intelligent par l'orchestrateur
 
-ChatSEO retourne 6 champs. Le skill ajoute les champs nécessaires à
-`assemble_html.py` en les déduisant :
+À toi (Claude orchestrateur) d'extraire et de structurer la réponse ChatSEO.
+La réponse peut être en HTML, en markdown, ou un mix. Procède ainsi :
+
+**1. Détecte le format et convertis si besoin**
+
+Si la réponse contient `<h1>`, `<h2>`, etc. → HTML, garde tel quel.
+Si la réponse contient `#`, `##` en début de ligne → markdown :
+```bash
+python3 -c "import markdown; print(markdown.markdown('''<RESPONSE>''', extensions=['tables','fenced_code']))"
+```
+
+**2. Extrais les champs depuis le HTML obtenu**
+
+| Champ | Comment l'extraire |
+|---|---|
+| `title` | Texte du premier `<h1>` (ou de la 1ère ligne `# ...` en markdown) |
+| `metaTitle` | Si meta title fourni par ChatSEO, l'utiliser. Sinon prendre `title` et tronquer à 60 chars sur un mot complet. |
+| `metaDescription` | Si fournie, utiliser. Sinon dériver du 1er paragraphe : compresser à 120-155 chars. |
+| `heroSubtitle` | Le 1er paragraphe après le H1 (ou le résumé / lede s'il y en a un explicite). |
+| `articleHtml` | Tout le contenu APRÈS le H1 et AVANT la section FAQ. Ajouter `id="<ancre-kebab>"` à chaque `<h2>` qui n'en a pas (slugifier le texte du H2). |
+| `faq` | Repérer la section dont le titre contient "FAQ" ou "Questions fréquentes" ou "Questions courantes". Extraire les `<h3>/<h4>` / `<dt>` / `**...**` comme questions, le contenu suivant comme réponse. Retourner une liste `[{q,a}, ...]`. RETIRER cette section de `articleHtml` (gérée séparément). |
+
+**3. Calcule les champs dérivés (Notion + computed)**
 
 | Champ | Calcul |
 |---|---|
-| `parentNuisible` | Champ Notion `Nuisible parent` (ou fallback dérivé de `Catégorie`) |
+| `parentNuisible` | Champ Notion `Nuisible parent` (clé du `parent_nuisible_map` dans CONFIG.yaml — ex : `guepes`) |
 | `intentType` | Champ Notion `Intent` (lowercase EN) |
-| `breadcrumbLabel` | Tronque `title` à 50 chars (couper sur le dernier mot complet) |
-| `publishedAt` | `Date de parution` Notion (ou aujourd'hui si vide) |
-| `modifiedAt` | Aujourd'hui (ISO) |
-| `wordCount` | `len(re.sub(r"<[^>]+>", " ", articleHtml).split())` — décompte des mots après strip HTML |
-| `readingTimeMin` | `max(1, round(wordCount / 220))` — environ 220 mots/minute |
-| `heroImage` | `{filename: "hero.webp", alt: "<title>", caption: "<title>", prompt: "Editorial illustration of <topic-EN>, soft natural light, no people, warm cream + sage green palette, no text"}` (prompt EN dérivé du mot-clé via Claude) |
-| `ctaInserts` | 3 positions sur les H2 (extraits via regex), aux indices `round(0.25*N)`, `round(0.5*N)`, `round(0.8*N)` (0-indexed, N = nb H2). Variant mappé via `CONFIG.intent_to_cta_variant`. Pour `urgency`/`transactional` : 2 sur 3 en `urgence`, 1 en `devis`. Pour `regulatory` : tous en `guide`. Sinon : tous en `devis`. |
-| `related` | Si tu connais un article connexe pertinent du `/blog/`, propose-le. Sinon `{url: "/blog/", title: "Voir tous les articles du blog Sanalia", category: "Blog", readingTime: "Hub articles"}`. |
+| `breadcrumbLabel` | `title` tronqué à 50 chars sur le dernier mot complet |
+| `publishedAt` | Notion `Date de parution`, fallback aujourd'hui ISO |
+| `modifiedAt` | Aujourd'hui ISO |
+| `wordCount` | `len(re.sub(r"<[^>]+>", " ", articleHtml).split())` |
+| `readingTimeMin` | `max(1, round(wordCount / 220))` |
+| `heroImage` | `{filename: "hero.webp", alt: title, caption: title, prompt: <prompt EN dérivé du KW, palette Sanalia sage green + warm cream>}` |
+| `ctaInserts` | 3 positions sur les `<h2>` (extraits via regex), aux indices `round(0.25*N)`, `round(0.5*N)`, `round(0.8*N)`. Variant via `CONFIG.intent_to_cta_variant` : `urgency`/`transactional` → 2 × `urgence` + 1 × `devis` ; `regulatory` → 3 × `guide` ; autres → 3 × `devis`. |
+| `related` | Si tu connais un article connexe du `/blog/`, propose-le. Sinon `{url: "/blog/", title: "Voir tous les articles du blog Sanalia", category: "Blog", readingTime: "Hub articles"}`. |
 
-Sauvegarder le JSON enrichi dans `/tmp/chatseo-output-<slug>.json`.
+**4. Sauvegarde** dans `/tmp/chatseo-output-<slug>.json` au format consommé
+par `assemble_html.py` (cf. l'ancien schéma JSON).
 
 #### Validations
 
-- `wordCount` ≥ 800 sinon retry 1× avec "Article trop court : vise N mots."
-- 5 ≤ nb de `<h2 ` dans `articleHtml` ≤ 12, sinon retry.
+- `wordCount` ≥ 800 sinon retry ChatSEO 1× avec "Article trop court, vise
+  davantage de profondeur."
+- 5 ≤ nb de `<h2>` ≤ 12, sinon retry.
 - 6 ≤ `len(faq)` ≤ 8, sinon retry.
-- Parsing JSON échoue → retry 1× avec "Réponds UNIQUEMENT en JSON valide."
+- Si la réponse ChatSEO est trop courte ou structurellement vide → retry 1×.
 - Si tout retry échoue → étape Erreur.
 
 ### Étape 4bis — Injecter les internal-link-cards (orchestrateur Claude)
