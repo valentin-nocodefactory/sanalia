@@ -111,120 +111,71 @@ Stocker `notion_page_id` et `notion_page_url` pour la suite.
    ```
    Si exit code ≠ 0 → étape Erreur avec le `reason` retourné par le script.
 
-### Étape 4 — Générer le contenu via ChatSEO (HTML sémantique pur)
+### Étape 4 — Générer le contenu via ChatSEO
 
-**Séparation des responsabilités** :
-- **ChatSEO = expert SEO / sémantique / contenu** → produit un article HTML
-  sémantique propre, sans aucune classe CSS Sanalia. C'est son métier.
-- **Le skill = expert dev / design system** → applique les classes Sanalia
-  via `transform_semantic_to_sanalia()` dans `assemble_html.py`, puis injecte
-  les internal-link-cards de maillage interne au bon endroit.
+ChatSEO est un agent SEO autonome qui fait sa propre recherche SERP, identifie
+les bonnes structures pour le mot-clé, et écrit l'article. **Ne lui dicte pas
+le format** — laisse-le faire son métier. Le pipeline post-traite ensuite
+le HTML reçu (classes Sanalia, CTAs, internal-link-cards, etc.).
 
 Appel MCP ChatSEO `send_message` avec `siteId =
-360b07f1-8f98-4035-8e5e-6d55d7a1285a` et ce prompt **court** :
+360b07f1-8f98-4035-8e5e-6d55d7a1285a` et ce prompt **minimaliste** :
 
 ```
-Rédige un article SEO complet pour ranker sur "<Mot-clé principal>" sur le blog
-Sanalia (entreprise de dératisation / désinsectisation à Lyon et Paris).
+Rédige un article SEO optimisé pour ranker sur "<Mot-clé principal>" sur le
+blog Sanalia (entreprise de dératisation / désinsectisation à Lyon et Paris).
 
-CONTEXTE :
-- Catégorie : <Catégorie>
-- Nuisible parent : <Nuisible parent>
-- Intent : <Intent>
-- Angle éditorial : <Angle / Notes>
-- Longueur visée : <Temps de lecture × 250> mots environ
-- Lecteur cible : particuliers stressés cherchant à résoudre un problème de
-  nuisibles. Ton rassurant, factuel, jamais anxiogène.
+Intent de recherche : <Intent>
+Angle éditorial : <Angle / Notes>
+Ton : rassurant, factuel, jamais anxiogène — lecteur stressé par un problème
+de nuisibles.
 
-CONTRAINTES SEO :
-- Mot-clé principal dans le H1, le metaTitle (< 60 chars), le metaDescription
-  (120-155 chars) et 2-3 H2.
-- 5-8 sections H2 numérotées avec ancres kebab-case (id="ancre-kebab").
-- 6-8 questions FAQ alignées avec le contenu de l'article.
-- Sources officielles citées : ameli.fr, gouv.fr, ARS, DGCCRF, INRS, CS3D,
-  ANSES, Santé Publique France, INSERM, Institut Pasteur — selon pertinence.
-- Pas de promesses excessives, pas d'allégations médicales non sourcées.
-
-QUALITÉ ÉDITORIALE — varie les éléments HTML pour rendre l'article riche :
-- Tableaux comparatifs <table> (avec <thead> + <tbody>) quand tu compares
-  espèces, méthodes, doses, options.
-- Listes d'étapes <ol><li><strong>Titre étape</strong> Description.</li></ol>
-  pour les procédures pas-à-pas (gestes premiers secours, protocole, etc.).
-- Encadrés <aside> pour les anecdotes ("Le saviez-vous ?"), précautions
-  ("Attention"), urgences ("Danger : appel 15"), astuces ("Conseil pratique").
-  Commence chaque <aside> par un <strong> qui annonce la nature de l'encadré.
-- Listes <ul> et <ol> classiques pour les énumérations simples.
-- <figure>/<figcaption> pour les visuels avec légende.
-
-PRODUIS du HTML sémantique propre. NE METS PAS de classes CSS personnalisées —
-le pipeline de post-traitement applique automatiquement les classes du design
-system Sanalia (.comparison-table, .steps-list, .callout-*, etc.).
-
-RETOURNE UN JSON valide au schéma suivant — RIEN d'autre, pas de markdown
-autour, pas de commentaire :
+Réponds uniquement avec un objet JSON :
 
 {
-  "title": "string (H1 complet, max 80 chars)",
-  "metaTitle": "string (<= 60 chars)",
-  "metaDescription": "string (120-155 chars)",
-  "heroSubtitle": "string (1-2 phrases rassurantes sous le H1)",
-  "breadcrumbLabel": "string (label court breadcrumb position 4, max 50 chars)",
-  "parentNuisible": "<Nuisible parent>",
-  "intentType": "<Intent>",
-  "wordCount": <entier total approximatif>,
-  "readingTimeMin": <Temps de lecture (min)>,
-  "publishedAt": "<Date de parution YYYY-MM-DD>",
-  "modifiedAt": "<aujourd'hui YYYY-MM-DD>",
-  "heroImage": {
-    "filename": "hero.webp",
-    "alt": "string FR (alt descriptif, contient le mot-clé)",
-    "caption": "string FR (légende courte)",
-    "prompt": "string EN (prompt Recraft pour la hero, editorial, palette sage green + warm cream)"
-  },
-  "introHtml": "<p>Intro paragraphe 1...</p><p>Intro paragraphe 2...</p>",
-  "articleHtml": "<h2 id=\"section-1\">1. Titre</h2><p>...</p><table><thead>...</thead><tbody>...</tbody></table><h2 id=\"section-2\">2. Titre</h2>...",
-  "ctaInserts": [
-    {"afterSectionIndex": <N>, "variant": "devis|urgence|guide"},
-    {"afterSectionIndex": <N>, "variant": "..."},
-    {"afterSectionIndex": <N>, "variant": "..."}
-  ],
-  "faq": [
-    {"q": "Question ?", "a": "Réponse 2-4 phrases factuelles."}
-  ],
-  "related": {
-    "url": "/blog/<autre-slug>/",
-    "title": "Titre article connexe",
-    "category": "Catégorie",
-    "readingTime": "9 min"
-  }
+  "title": "H1 complet",
+  "metaTitle": "<= 60 caractères",
+  "metaDescription": "120-155 caractères",
+  "heroSubtitle": "1-2 phrases d'accroche sous le H1",
+  "articleHtml": "Le corps de l'article en HTML sémantique propre. H2 numérotés avec id='ancre-kebab'. Pas de <h1>. Pas de section FAQ ici. Utilise les éléments HTML qui te semblent les plus pertinents pour le sujet (tableaux, listes, encadrés, paragraphes, figures, etc.).",
+  "faq": [{"q": "...", "a": "..."}]
 }
 
-RÈGLES :
-- afterSectionIndex 0-indexed sur la liste des H2 dans `articleHtml`.
-  Les 3 CTAs aux positions ~25 %, ~50 %, ~80 % du nombre total de sections.
-- Variant CTA : informational/prevention → "devis" ; urgency/transactional →
-  "urgence" (≥ 2 sur 3) ; regulatory → "guide".
-- TOUS les H2 dans `articleHtml` doivent avoir un attribut `id="<ancre-kebab>"`.
-- PAS de `<h1>` ni de section "FAQ" dans `articleHtml` (ajoutés en post-process).
-- Accents français corrects (é è à ç ù ê ô î…). Pas d'emoji dans le contenu.
-
-Retourne UNIQUEMENT le JSON, rien d'autre.
+Pas de markdown autour, juste le JSON.
 ```
 
-Récupérer la réponse, parser le JSON. En cas d'échec parsing → retry 1× avec
-"PREVIOUS RESPONSE WAS NOT VALID JSON, RESTART AND PRODUCE ONLY JSON.".
+C'est tout. ChatSEO :
+- choisit la longueur et la structure adaptées au mot-clé,
+- sourcera ce qu'il faut sourcer,
+- variera tableau/listes/encadrés selon ce qui marche pour ranker.
 
-Validation post-parsing (côté Claude orchestrateur, après que le transformer
-Python ait appliqué les classes — cf. étape 4bis) :
-- `wordCount` ≥ 800 (retry ChatSEO si moins)
-- 5 ≤ nombre de H2 ≤ 10
-- 6 ≤ `len(faq)` ≤ 8
-- `len(ctaInserts) == 3`
-- Au moins 1 `<table>` avec `<thead>`, 1 `<ol>` d'étapes, 2 `<aside>` dans
-  `articleHtml`. Si insuffisant, retry 1× avec consigne "Enrichis le contenu :
-  ajoute au moins 1 tableau comparatif et 2 encadrés <aside> distincts."
+#### Post-réception : calcul des champs dérivés (côté orchestrateur)
 
-Sauvegarder le JSON dans `/tmp/chatseo-output-<slug>.json`.
+ChatSEO retourne 6 champs. Le skill ajoute les champs nécessaires à
+`assemble_html.py` en les déduisant :
+
+| Champ | Calcul |
+|---|---|
+| `parentNuisible` | Champ Notion `Nuisible parent` (ou fallback dérivé de `Catégorie`) |
+| `intentType` | Champ Notion `Intent` (lowercase EN) |
+| `breadcrumbLabel` | Tronque `title` à 50 chars (couper sur le dernier mot complet) |
+| `publishedAt` | `Date de parution` Notion (ou aujourd'hui si vide) |
+| `modifiedAt` | Aujourd'hui (ISO) |
+| `wordCount` | `len(re.sub(r"<[^>]+>", " ", articleHtml).split())` — décompte des mots après strip HTML |
+| `readingTimeMin` | `max(1, round(wordCount / 220))` — environ 220 mots/minute |
+| `heroImage` | `{filename: "hero.webp", alt: "<title>", caption: "<title>", prompt: "Editorial illustration of <topic-EN>, soft natural light, no people, warm cream + sage green palette, no text"}` (prompt EN dérivé du mot-clé via Claude) |
+| `ctaInserts` | 3 positions sur les H2 (extraits via regex), aux indices `round(0.25*N)`, `round(0.5*N)`, `round(0.8*N)` (0-indexed, N = nb H2). Variant mappé via `CONFIG.intent_to_cta_variant`. Pour `urgency`/`transactional` : 2 sur 3 en `urgence`, 1 en `devis`. Pour `regulatory` : tous en `guide`. Sinon : tous en `devis`. |
+| `related` | Si tu connais un article connexe pertinent du `/blog/`, propose-le. Sinon `{url: "/blog/", title: "Voir tous les articles du blog Sanalia", category: "Blog", readingTime: "Hub articles"}`. |
+
+Sauvegarder le JSON enrichi dans `/tmp/chatseo-output-<slug>.json`.
+
+#### Validations
+
+- `wordCount` ≥ 800 sinon retry 1× avec "Article trop court : vise N mots."
+- 5 ≤ nb de `<h2 ` dans `articleHtml` ≤ 12, sinon retry.
+- 6 ≤ `len(faq)` ≤ 8, sinon retry.
+- Parsing JSON échoue → retry 1× avec "Réponds UNIQUEMENT en JSON valide."
+- Si tout retry échoue → étape Erreur.
 
 ### Étape 4bis — Injecter les internal-link-cards (orchestrateur Claude)
 
