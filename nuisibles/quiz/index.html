@@ -402,6 +402,35 @@
     </div>
   </div>
 </header>
+<script>
+/* Mega-menu Guides v3 : positionne horizontalement pour ne pas déborder du viewport */
+(function() {
+  function placeGuidesMenu() {
+    var menu = document.querySelector('.mega-menu-guides-v3');
+    var item = menu && menu.parentElement;
+    if (!menu || !item) return;
+    var itemRect = item.getBoundingClientRect();
+    var menuW = menu.offsetWidth || 1040;
+    var vw = window.innerWidth;
+    var pad = 16;
+    // Idéal : menu centré sur viewport
+    var menuLeftVp = Math.max(pad, Math.min(vw - menuW - pad, (vw - menuW) / 2));
+    var offset = menuLeftVp - itemRect.left;
+    menu.style.setProperty('--guides-mega-left', offset + 'px');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', placeGuidesMenu);
+  } else {
+    placeGuidesMenu();
+  }
+  window.addEventListener('resize', placeGuidesMenu);
+  // Recompute right before hover (in case the user scrolled)
+  document.addEventListener('mouseover', function(e) {
+    var navItem = e.target && e.target.closest && e.target.closest('.nav-item');
+    if (navItem && navItem.querySelector('.mega-menu-guides-v3')) placeGuidesMenu();
+  }, true);
+})();
+</script>
 </div>
 
 <main>
@@ -1016,18 +1045,20 @@ const state = {
 
 function $(s) { return document.querySelector(s); }
 
-function render() {
+function render(opts) {
+  opts = opts || {};
   const app = document.getElementById('quizApp');
   if (state.step < QUESTIONS.length) {
-    renderQuestion(app);
+    renderQuestion(app, opts);
   } else {
     renderResult(app);
   }
 }
 
-function renderHero(html) {
-  return `
-  <section class="quiz-hero">
+function renderHeroOnce(app) {
+  if (document.getElementById('quizHero')) return;
+  app.innerHTML = `
+  <section class="quiz-hero" id="quizHero">
     <span class="mgv3-step-label" style="color:var(--color-primary-600);font-size:11px;letter-spacing:.08em;">Étape par étape · 2 minutes</span>
     <h1>Quiz d'identification des nuisibles</h1>
     <p>Vous voyez quelque chose chez vous mais vous ne savez pas exactement quel nuisible vous concerne ? 8 questions rapides et notre algorithme vous oriente vers la bonne espèce.</p>
@@ -1036,44 +1067,52 @@ function renderHero(html) {
       <span>Résultat immédiat</span>
       <span>Devis gratuit</span>
     </div>
-  </section>${html}`;
+  </section>
+  <div class="quiz-shell" id="quizShell"></div>`;
 }
 
-function renderQuestion(app) {
+function hasAnswerFor(sel, isMulti) {
+  if (isMulti) return sel instanceof Set && sel.size > 0;
+  return sel !== null && sel !== undefined;
+}
+
+function renderQuestion(app, opts) {
   const q = QUESTIONS[state.step];
   const isMulti = !!q.multi;
-  const sel = state.answers[state.step] || (isMulti ? new Set() : null);
-  const progress = (state.step / QUESTIONS.length) * 100;
+  const sel = state.answers[state.step] !== undefined ? state.answers[state.step] : (isMulti ? new Set() : null);
+  const progress = ((state.step + 1) / QUESTIONS.length) * 100;
+
+  // Ensure hero + shell exist (only painted once)
+  renderHeroOnce(app);
+  const shell = document.getElementById('quizShell');
 
   const optionsHTML = q.options.map((opt, i) => {
-    const isSelected = isMulti ? sel.has(i) : sel === i;
-    return `<button type="button" class="quiz-option ${isSelected ? 'selected' : ''}" data-i="${i}">
+    const isSelected = isMulti ? (sel instanceof Set && sel.has(i)) : sel === i;
+    return `<button type="button" class="quiz-option${isSelected ? ' selected' : ''}" data-i="${i}">
       <span class="quiz-option-emoji" aria-hidden="true">${opt.emoji}</span>
       <span>${opt.text}</span>
     </button>`;
   }).join('');
 
-  app.innerHTML = renderHero(`
-    <div class="quiz-shell">
-      <div class="quiz-progress">
-        <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress}%;"></div></div>
-        <span class="quiz-progress-step">${state.step + 1} / ${QUESTIONS.length}</span>
-      </div>
-      <div class="quiz-card">
-        <span class="quiz-card-label">${q.label}</span>
-        <h2>${q.question}</h2>
-        ${q.hint ? `<p class="quiz-card-hint">${q.hint}</p>` : ''}
-        <div class="quiz-options ${q.options.length > 6 ? '' : 'single-col-md'}" id="quizOptions">${optionsHTML}</div>
-        <div class="quiz-actions">
-          ${state.step > 0 ? `<button type="button" class="quiz-btn quiz-btn-secondary" id="quizBack">← Précédent</button>` : '<span></span>'}
-          <button type="button" class="quiz-btn quiz-btn-primary" id="quizNext" disabled>${state.step === QUESTIONS.length - 1 ? 'Voir le résultat →' : 'Suivant →'}</button>
-        </div>
+  shell.innerHTML = `
+    <div class="quiz-progress">
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress}%;"></div></div>
+      <span class="quiz-progress-step">${state.step + 1} / ${QUESTIONS.length}</span>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <span class="quiz-card-label">${q.label}</span>
+      <h2>${q.question}</h2>
+      ${q.hint ? `<p class="quiz-card-hint">${q.hint}</p>` : ''}
+      <div class="quiz-options" id="quizOptions">${optionsHTML}</div>
+      <div class="quiz-actions">
+        ${state.step > 0 ? `<button type="button" class="quiz-btn quiz-btn-secondary" id="quizBack">← Précédent</button>` : '<span></span>'}
+        <button type="button" class="quiz-btn quiz-btn-primary" id="quizNext"${!hasAnswerFor(sel, isMulti) ? ' disabled' : ''}>${state.step === QUESTIONS.length - 1 ? 'Voir le résultat →' : 'Suivant →'}</button>
       </div>
     </div>
-  `);
+  `;
 
-  // Bind clicks
-  document.querySelectorAll('.quiz-option').forEach(btn => {
+  // Bind option clicks (event delegation on the shell)
+  shell.querySelectorAll('.quiz-option').forEach(btn => {
     btn.addEventListener('click', () => {
       const i = +btn.dataset.i;
       const cur = state.answers[state.step];
@@ -1084,26 +1123,36 @@ function renderQuestion(app) {
       } else {
         state.answers[state.step] = i;
       }
-      render();
+      render({ keepScroll: true });
     });
   });
   const nextBtn = document.getElementById('quizNext');
-  const hasAnswer = isMulti ? (sel instanceof Set && sel.size > 0) : (sel !== null && sel !== undefined);
   if (nextBtn) {
-    nextBtn.disabled = !hasAnswer;
     nextBtn.addEventListener('click', () => {
+      if (nextBtn.disabled) return;
       if (q.storeAs === 'urgency') state.urgency = state.answers[state.step];
       state.step++;
-      render();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      render({ scrollToCard: true });
     });
   }
   const backBtn = document.getElementById('quizBack');
   if (backBtn) backBtn.addEventListener('click', () => {
     state.step--;
-    render();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    render({ scrollToCard: true });
   });
+
+  // Scroll behaviour : never jump to top. On next/back, ensure the card
+  // is visible; on option click, keep scroll exactly where it is.
+  if (opts.scrollToCard) {
+    const card = document.getElementById('quizCard');
+    if (card) {
+      const cardRect = card.getBoundingClientRect();
+      if (cardRect.top < 80 || cardRect.top > window.innerHeight * 0.3) {
+        const top = cardRect.top + window.pageYOffset - 100;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      }
+    }
+  }
 }
 
 function computeScores() {

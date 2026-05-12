@@ -378,6 +378,35 @@
     </div>
   </div>
 </header>
+<script>
+/* Mega-menu Guides v3 : positionne horizontalement pour ne pas déborder du viewport */
+(function() {
+  function placeGuidesMenu() {
+    var menu = document.querySelector('.mega-menu-guides-v3');
+    var item = menu && menu.parentElement;
+    if (!menu || !item) return;
+    var itemRect = item.getBoundingClientRect();
+    var menuW = menu.offsetWidth || 1040;
+    var vw = window.innerWidth;
+    var pad = 16;
+    // Idéal : menu centré sur viewport
+    var menuLeftVp = Math.max(pad, Math.min(vw - menuW - pad, (vw - menuW) / 2));
+    var offset = menuLeftVp - itemRect.left;
+    menu.style.setProperty('--guides-mega-left', offset + 'px');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', placeGuidesMenu);
+  } else {
+    placeGuidesMenu();
+  }
+  window.addEventListener('resize', placeGuidesMenu);
+  // Recompute right before hover (in case the user scrolled)
+  document.addEventListener('mouseover', function(e) {
+    var navItem = e.target && e.target.closest && e.target.closest('.nav-item');
+    if (navItem && navItem.querySelector('.mega-menu-guides-v3')) placeGuidesMenu();
+  }, true);
+})();
+</script>
 </div>
 
 <!-- Breadcrumb -->
