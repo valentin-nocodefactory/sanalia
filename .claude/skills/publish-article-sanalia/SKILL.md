@@ -239,9 +239,45 @@ Mapping service : rats/souris → `/deratisation/<slug>/` ; tous les insectes
 et hyménoptères → `/desinsectisation/<slug>/`. Le slug doit être le `url_slug`
 du `parent_nuisible_map` dans CONFIG.yaml (ex : `guepes` → `guepes-frelons`).
 
-Si tu connais un article connexe pertinent du blog Sanalia, tu peux ajouter
-une 3ème card avec `INTERVENTION LOCALE → ARTICLE LIÉ` (label) — mais reste à
-2 cards si rien de pertinent ne te vient.
+#### 4bis.2 — Maillage interne vers d'autres articles du blog (OBLIGATOIRE)
+
+En plus des 2 cards `FICHE COMPLÈTE` + `INTERVENTION LOCALE`, **ajoute entre
+1 et 3 internal-link-cards qui pointent vers d'AUTRES articles du blog**
+(`/blog/<slug>/`). C'est crucial pour le maillage interne SEO et le linkage
+sémantique entre articles.
+
+**Comment identifier les candidats :**
+
+```bash
+# Liste les articles existants sous /blog/<slug>/
+ls -d blog/*/index.html | grep -v '^blog/index.html$' | sed 's|blog/||;s|/index.html||'
+```
+
+Pour chaque candidat, lis son `<h1>` et son `<meta description>` pour évaluer
+la pertinence avec le sujet de l'article courant. Sélectionne 1 à 3 articles
+les plus connexes (par thème, par nuisible commun, par intent complémentaire).
+
+**Pattern HTML pour chaque card :**
+
+```html
+<a href="/blog/<autre-article-slug>/" class="internal-link-card">
+  <div class="internal-link-card-icon"><EMOJI></div>
+  <div class="internal-link-card-body">
+    <div class="internal-link-card-label">ARTICLE LIÉ</div>
+    <div class="internal-link-card-title"><Titre court de l'article cible></div>
+    <div class="internal-link-card-desc"><Description courte du contenu — 1 phrase></div>
+  </div>
+  <div class="internal-link-card-arrow">→</div>
+</a>
+```
+
+**Placement :** dispersées dans le corps de l'article, à des emplacements
+sémantiques logiques (par ex. après une section qui mentionne le sujet de
+l'article lié). Évite de les empiler — espace-les d'au moins 1 H2.
+
+**Si aucun article connexe** dans `/blog/` (parce que le hub est encore
+quasi-vide), ajoute au moins 1 card vers le hub `/blog/` avec label
+`HUB BLOG` et description "Tous les guides Sanalia sur les nuisibles".
 
 > Note : `assemble_html.py` détecte automatiquement le mode (HTML si
 > `articleHtml` présent, JSON legacy si `sections` présent à la place) et
@@ -355,6 +391,30 @@ python3 .claude/skills/publish-article-sanalia/scripts/assemble_html.py \
 
 Le script va échouer si un slot reste non remplacé (sanity check intégré). Si
 échec → étape Erreur avec le détail des slots manquants.
+
+### Étape 6bis — Post-process (OBLIGATOIRE)
+
+L'`assemble_html.py` applique déjà `transform_semantic_to_sanalia()` sur
+`articleHtml`. Mais si tu as édité manuellement le HTML final (ajout
+d'internal-link-cards, retouches), les éléments sémantiques natifs (`<table>`,
+`<aside>`, `<ol>` strong-led) ajoutés après coup peuvent NE PAS avoir leurs
+classes Sanalia.
+
+**Lance toujours ce post-process** sur le fichier final avant de commit :
+
+```
+python3 .claude/skills/publish-article-sanalia/scripts/post_process_article.py \
+  blog/<slug>/index.html
+```
+
+Le script :
+- Repère le bloc `<article class="blog-content blog-body">...</article>`
+- Applique le transformer Sanalia (`<table>` → `.comparison-table-wrap`,
+  `<ol>` strong-led → `.steps-list`, `<aside>` → `.callout-X`)
+- Idempotent : ne touche pas aux éléments déjà classés
+- Logue les ajouts (`+N tables, +N callouts, +N steps`)
+
+Si tu ré-édites encore le HTML après cette étape, relance ce script.
 
 ### Étape 7 — Mettre à jour les index
 
@@ -474,6 +534,20 @@ git checkout main
      --template draft \
      --vars '{"title":"<title>","keyword":"<kw>","preview_url":"<preview>","pr_url":"<pr>","notion_url":"<notion>"}'
    ```
+
+   > ⚠️ **`SLACK_WEBHOOK_URL` doit être disponible dans l'environnement de la
+   > routine cron.** Le repo est public, donc ne JAMAIS commiter cette URL.
+   > Configuration possibles :
+   >   - Variable d'env à l'init du job cron (depuis le settings de la
+   >     scheduled-task), OU
+   >   - Source d'un `.env` non commité avant le run, OU
+   >   - Lire depuis `.claude/settings.local.json` (présent localement uniquement)
+   >
+   > Si l'env var est absente, `notify_slack.py` log un warning et exit 0
+   > (le pipeline continue, mais aucune notif n'est envoyée).
+   >
+   > Si la routine tourne et ne reçoit rien sur Slack, vérifie que `echo
+   > $SLACK_WEBHOOK_URL` retourne bien la valeur attendue au début de la run.
 
 4. Log final : `✅ Article prêt à valider : <PREVIEW_URL>`.
 
