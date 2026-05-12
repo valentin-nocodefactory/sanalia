@@ -61,7 +61,7 @@ cta_templates:
       - "Prêt à en finir avec ce problème ?"
       - "Un devis gratuit en 2 minutes"
     descs:
-      - "Devis gratuit sous 2 heures, intervention possible le jour même à Lyon et Paris."
+      - "Devis gratuit sous 2 heures, intervention possible le jour même dans les plus grandes villes de France."
       - "Diagnostic offert, devis transparent sous 2 heures, intervention garantie résultat."
       - "Technicien Certibiocide, intervention sous 24 h, résultat garanti."
   urgence:
@@ -72,7 +72,7 @@ cta_templates:
       - "Situation urgente ?"
       - "Un technicien tout de suite ?"
     descs:
-      - "Intervention d'urgence 8h-20h, 7j/7. Un technicien peut être chez vous dans les 4 heures à Lyon et Paris."
+      - "Intervention d'urgence 8h-20h, 7j/7. Un technicien peut être chez vous dans les heures qui suivent, partout en France."
       - "Notre équipe peut intervenir dans la journée. 8h-20h, 7j/7."
       - "06 67 46 48 97 — réponse immédiate, intervention rapide."
   guide:

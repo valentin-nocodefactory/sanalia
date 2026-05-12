@@ -200,7 +200,7 @@ def gen_article_body(data: dict, slug: str, canonical_url: str, cfg: dict) -> st
         '  <div class="author-card-avatar">S</div>\n'
         '  <div>\n'
         '    <div class="author-card-name">Équipe Sanalia</div>\n'
-        '    <div class="author-card-bio">Collectif de techniciens Certibiocide basés à Lyon et Paris. 3 000+ interventions réalisées par an, spécialisés en habitat collectif et restauration. Tous nos contenus sont relus par un référent scientifique.</div>\n'
+        '    <div class="author-card-bio">Collectif de techniciens Certibiocide présent dans les plus grandes villes de France (Paris, Lyon, Marseille, Toulouse, Nice, Bordeaux, Lille, Nantes, Strasbourg, Montpellier). 3 000+ interventions réalisées par an, spécialisés en habitat collectif et restauration. Tous nos contenus sont relus par un référent scientifique.</div>\n'
         '  </div>\n'
         '</div>'
     )
@@ -523,7 +523,7 @@ def gen_article_body_from_html(data: dict, slug: str, canonical_url: str, cfg: d
         '  <div class="author-card-avatar">S</div>\n'
         '  <div>\n'
         '    <div class="author-card-name">Équipe Sanalia</div>\n'
-        '    <div class="author-card-bio">Collectif de techniciens Certibiocide basés à Lyon et Paris. 3 000+ interventions réalisées par an, spécialisés en habitat collectif et restauration. Tous nos contenus sont relus par un référent scientifique.</div>\n'
+        '    <div class="author-card-bio">Collectif de techniciens Certibiocide présent dans les plus grandes villes de France (Paris, Lyon, Marseille, Toulouse, Nice, Bordeaux, Lille, Nantes, Strasbourg, Montpellier). 3 000+ interventions réalisées par an, spécialisés en habitat collectif et restauration. Tous nos contenus sont relus par un référent scientifique.</div>\n'
         '  </div>\n'
         '</div>'
     )

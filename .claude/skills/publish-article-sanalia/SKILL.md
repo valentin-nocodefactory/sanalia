@@ -123,7 +123,7 @@ Appel MCP ChatSEO `send_message` avec `siteId =
 
 ```
 Rédige un article SEO optimisé pour ranker sur "<Mot-clé principal>" sur le
-blog Sanalia (entreprise de dératisation et désinsectisation à Lyon et Paris).
+blog Sanalia (entreprise de dératisation et désinsectisation présente dans les plus grandes villes de France : Paris, Lyon, Marseille, Toulouse, Nice, Bordeaux, Lille, Nantes, Strasbourg, Montpellier).
 
 Intent de recherche : <Intent>
 
@@ -220,7 +220,7 @@ Et juste avant la dernière `<h2>` de `articleHtml` :
   <div class="internal-link-card-icon">📍</div>
   <div class="internal-link-card-body">
     <div class="internal-link-card-label">INTERVENTION LOCALE</div>
-    <div class="internal-link-card-title"><Action> à Lyon et Paris</div>
+    <div class="internal-link-card-title"><Action> dans toute la France</div>
     <div class="internal-link-card-desc">Technicien Certibiocide, intervention sous 24 h, garantie résultat.</div>
   </div>
   <div class="internal-link-card-arrow">→</div>
