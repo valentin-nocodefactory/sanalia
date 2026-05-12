@@ -123,10 +123,11 @@ parent_nuisible_map:
     name: Fourmis
     section: "Cafards & Insectes"
   guepes:
+    url_slug: guepes-frelons   # /nuisibles/guepes-frelons/ (la fiche existante)
     tag_class: tag-guepes
     picto: european-wasp--vespula-vulgaris--realistic-body-sh.png
     bg_class: bg-gold
-    name: Guêpes
+    name: Guêpes & Frelons
     section: "Guêpes & Frelons"
   moustiques:
     tag_class: tag-moustiques

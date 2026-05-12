@@ -260,8 +260,10 @@ def gen_sidebar_widget(intent: str, cfg: dict) -> str:
 def gen_related_cards(data: dict, parent_nuisible: str, cfg: dict) -> str:
     """Génère les 3 cartes related-articles."""
     related = data.get("related", {})
-    fiche_url = f"/nuisibles/{parent_nuisible}/" if parent_nuisible else "/nuisibles/"
     parent_meta = cfg["parent_nuisible_map"].get(parent_nuisible, {})
+    # url_slug peut différer de la clé Notion (ex : guepes → guepes-frelons)
+    fiche_slug = parent_meta.get("url_slug", parent_nuisible)
+    fiche_url = f"/nuisibles/{fiche_slug}/" if fiche_slug else "/nuisibles/"
     parent_name = parent_meta.get("name", "Nuisibles")
 
     cards = []
@@ -297,8 +299,9 @@ def gen_breadcrumb_jsonld_level34(parent_nuisible: str, article_title: str, cfg:
     """Génère les positions 3 et 4 du BreadcrumbList JSON-LD."""
     parent_meta = cfg["parent_nuisible_map"].get(parent_nuisible, {})
     parent_name = parent_meta.get("name", "Nuisibles")
+    fiche_slug = parent_meta.get("url_slug", parent_nuisible)
     if parent_nuisible:
-        level3 = f'        {{ "@type": "ListItem", "position": 3, "name": "{json_escape(parent_name)}", "item": "https://www.sanalia.fr/nuisibles/{parent_nuisible}/" }},'
+        level3 = f'        {{ "@type": "ListItem", "position": 3, "name": "{json_escape(parent_name)}", "item": "https://www.sanalia.fr/nuisibles/{fiche_slug}/" }},'
     else:
         # Transverse : pas de position 3 vers /nuisibles/<x>/ mais on garde 3 niveaux (skip)
         return f'        {{ "@type": "ListItem", "position": 3, "name": "{json_escape(article_title)}" }}'
@@ -354,7 +357,7 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
         "{{WORD_COUNT}}": str(data["wordCount"]),
         "{{JSONLD_BREADCRUMB_LEVEL3_AND_4}}": gen_breadcrumb_jsonld_level34(parent_nuisible, data["title"], cfg),
         "{{JSONLD_FAQ_ITEMS}}": gen_faq_jsonld(data["faq"]),
-        "{{PARENT_NUISIBLE_SLUG}}": parent_nuisible or "rats",
+        "{{PARENT_NUISIBLE_SLUG}}": parent_meta.get("url_slug", parent_nuisible) or "rats",
         "{{PARENT_NUISIBLE_PICTO}}": parent_meta.get("picto", ""),
         "{{PARENT_NUISIBLE_BG_CLASS}}": parent_meta.get("bg_class", "bg-gold"),
         "{{PARENT_NUISIBLE_NAME}}": parent_meta.get("name", "Nuisibles"),
