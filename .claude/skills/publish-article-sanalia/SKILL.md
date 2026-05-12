@@ -64,8 +64,16 @@ Via MCP Notion (tools `mcp__*__notion-*`), query la data source
 - Tri : `Date de parution` ASC
 - Limite : 1
 
-**Si vide** : log "Aucun article Next up aujourd'hui" et exit 0 (succès silencieux,
-pas d'alerte Slack — c'est normal certains jours).
+**Si vide** : envoyer une alerte Slack pour prévenir que le pipeline est vide
+(le user doit ajouter un brief dans Notion), puis exit 0.
+
+```bash
+python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
+  --template empty_pipeline \
+  --vars "$(python3 -c 'import json,datetime; print(json.dumps({"today": datetime.date.today().isoformat(), "notion_url": "https://www.notion.so/7cf0a638f2a34caeabc023ed7d4e8481"}))')"
+```
+
+Puis log "Aucun article Next up aujourd'hui, alerte Slack envoyée" et exit 0.
 
 **Si trouvé** : extraire les champs (cf. NOTION-SCHEMA.md) :
 - `Titre`, `Mot-clé principal`, `Angle / Notes`, `Catégorie`,

@@ -5,9 +5,10 @@ Usage :
   python3 notify_slack.py --template draft --vars '{"title":"...","preview_url":"...",...}'
 
 Templates disponibles (alignés sur CONFIG.yaml `slack.message_template_*`) :
-  - draft       : article créé en preview, en attente de validation
-  - published   : article mergé et déployé en prod
-  - error       : abort skill avec erreur
+  - draft          : article créé en preview, en attente de validation
+  - published      : article mergé et déployé en prod
+  - error          : abort skill avec erreur
+  - empty_pipeline : aucun article "Next up" trouvé en Notion ce matin
 
 Si SLACK_WEBHOOK_URL est absent ou vide, le script log un warning et exit 0
 (ne casse pas le pipeline, mais alerte que la notif n'est pas partie).
@@ -44,6 +45,14 @@ TEMPLATES = {
         "• Erreur : {error}\n"
         "• Notion : {notion_url}"
     ),
+    "empty_pipeline": (
+        "📭 *Pipeline blog Sanalia vide aujourd'hui*\n"
+        "Aucun article au statut « Next up » dans Notion pour aujourd'hui ({today}).\n"
+        "Pour relancer la publication automatique, ajoute un brief dans la base "
+        "« Articles blog à rédiger » et passe-le à « Next up » avec une Date de "
+        "parution ≤ aujourd'hui.\n"
+        "Notion : {notion_url}"
+    ),
 }
 
 
@@ -68,7 +77,7 @@ def send(text: str, webhook_url: str) -> bool:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--template", required=True, choices=TEMPLATES.keys())
+    ap.add_argument("--template", required=True, choices=list(TEMPLATES.keys()))
     ap.add_argument("--vars", required=True, help="JSON string des variables")
     args = ap.parse_args()
 
@@ -79,7 +88,7 @@ def main():
 
     vars_dict = json.loads(args.vars)
     # Valeurs par défaut pour éviter les KeyError
-    for k in ("title", "keyword", "preview_url", "pr_url", "notion_url", "prod_url", "step", "error"):
+    for k in ("title", "keyword", "preview_url", "pr_url", "notion_url", "prod_url", "step", "error", "today"):
         vars_dict.setdefault(k, "—")
 
     text = TEMPLATES[args.template].format(**vars_dict)
