@@ -132,30 +132,55 @@ generate "$SIGN/termite-sciure-fine.jpg" \
   "Realistic photograph of a small pile of very fine pale wood frass (looking like coarse sand or coffee grounds) on a dark wooden floor below a small exit hole in a wooden beam, close-up, soft natural light, no text, photorealistic" \
   "realistic_image" "natural_light" "1820x1024"
 
-echo "━━━ Signes de présence — MITES ALIMENTAIRES (photo réaliste) ━━━"
+echo "━━━ Signes de présence — MITES ALIMENTAIRES (photo réaliste documentaire) ━━━"
 generate "$SIGN/mite-papillons-cuisine.jpg" \
-  "Realistic photograph of small Indian meal moths flying and resting on a modern French kitchen ceiling near a cupboard, soft warm evening light, motion blur on a couple of moths, others resting near the ceiling-wall corner, no text, photorealistic" \
-  "realistic_image" "natural_light" "1820x1024"
+  "Documentary smartphone photograph, shot on iPhone 15 Pro, of two small grey-brown Indian meal moths (Plodia interpunctella, wingspan 1cm) resting flat on a white kitchen ceiling near the corner of a wooden cupboard, one moth slightly motion-blurred mid-flight, warm evening incandescent light, slight grain, real amateur photo aesthetic, not stylized, raw photo, no text, no watermark" \
+  "realistic_image" "hard_flash" "1820x1024"
 
 generate "$SIGN/mite-fils-soie-farine.jpg" \
-  "Realistic photograph of an opened paper flour bag in a kitchen pantry, showing fine white silk webbing strands binding the flour into clumps, a few tiny caterpillar trails visible, close-up, soft natural light, no text, photorealistic" \
+  "Documentary close-up smartphone photograph of an opened paper bag of white wheat flour sitting on a wooden kitchen shelf, with visible fine spider-web-like silk strands binding the flour surface into a cottony patch, one tiny cream-colored caterpillar (5mm) visible on the silk, shallow depth of field, natural daylight from a kitchen window, real photo not AI, slight grain, no text" \
   "realistic_image" "natural_light" "1820x1024"
 
 generate "$SIGN/mite-larves-plafond.jpg" \
-  "Realistic photograph of several small white-cream caterpillar larvae crawling on a white ceiling near the corner of a kitchen cupboard, sharp focus, soft natural light, no text, photorealistic" \
+  "Documentary smartphone macro photograph of three small cream-white caterpillar larvae (Plodia interpunctella, 1cm long) crawling on a textured white plaster ceiling near the corner where a kitchen wall meets the ceiling, slight shadows visible, sharp focus, natural afternoon daylight, real candid photo, no text, no watermark" \
   "realistic_image" "natural_light" "1820x1024"
 
 generate "$SIGN/mite-cocons-placard.jpg" \
-  "Realistic photograph of small silk cocoons of pantry moth larvae lodged in the upper corner of a wooden kitchen cupboard, dust and tiny pupal cases visible, close-up, soft natural light, no text, photorealistic" \
+  "Documentary smartphone close-up photograph of three tiny brown silk cocoons (5mm each) of pantry moth larvae stuck in the upper interior corner of a wooden kitchen cupboard, fine dust visible, sharp focus on cocoons, slightly soft background, warm tungsten cupboard light, real candid photo, no text, no AI artifacts" \
   "realistic_image" "natural_light" "1820x1024"
 
 generate "$SIGN/mite-grumeaux-farine.jpg" \
-  "Realistic photograph of clumps and lumps inside an opened bag of wheat flour bound by silk threads from pantry moth larvae infestation, close-up overhead view, soft natural kitchen light, no text, photorealistic" \
+  "Overhead documentary smartphone photograph of an opened French paper flour bag laid on a wooden countertop, white flour visibly clumped together by silk threads from pantry moth larvae, irregular pale lumps and a faint webbing texture across the surface, daylight from above, real raw photo, slight noise, no text, no logos" \
   "realistic_image" "natural_light" "1820x1024"
 
 generate "$SIGN/mite-trous-emballages.jpg" \
-  "Realistic photograph of a cardboard cereal box and a paper rice bag in a French pantry, both showing small irregular holes chewed through by pantry moth larvae, close-up, soft natural light, no text, photorealistic" \
+  "Documentary smartphone photograph of a plain kraft-paper cereal box sitting on a wooden kitchen shelf, showing several small irregular 2-3mm holes punched through the paper near the bottom edge by pantry moth larvae, fine flour dust spilling out, natural daylight, real candid amateur photo, no brand logos visible, no text" \
   "realistic_image" "natural_light" "1820x1024"
+
+echo "━━━ Signes de présence — CHENILLES PROCESSIONNAIRES (photo réaliste documentaire) ━━━"
+generate "$SIGN/chenille-pontes.jpg" \
+  "Documentary close-up smartphone photograph of a silvery-grey egg mass cylinder (Thaumetopoea pityocampa pontes), 4cm long, wrapped around two adjacent green pine needles, summer afternoon natural light, sharp focus on the patterned scaled egg sleeve, real candid amateur photo, no text, no watermark" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/chenille-nid-cocon.jpg" \
+  "Documentary smartphone photograph of a large white silken cocoon nest (25cm diameter) hanging from a pine tree branch in a French garden, winter season, sun shining through the silk fibres, blue sky background, real candid photo, slight grain, photorealistic, no text, no AI artefact" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/chenille-procession-sol.jpg" \
+  "Documentary smartphone photograph from low angle of a long single-file line of approximately 50 brown and orange-tufted processionary caterpillars (Thaumetopoea pityocampa, 4cm each) crawling head-to-tail across gravel ground in a sunlit pine forest, shallow depth of field, spring daylight, real candid photo, no text" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/chenille-defoliation.jpg" \
+  "Documentary smartphone photograph of a Mediterranean pine tree with its upper crown visibly thinned and partially defoliated by processionary caterpillars, browning needles and bare branches near the top, blue sky background, real outdoor candid photo, no text, no AI artefact" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/chenille-plaques-soie.jpg" \
+  "Documentary smartphone macro photograph of a textured silver-grey silk patch (8cm wide) covering a strip of greyish-brown oak tree bark, fine fibres visible, late spring daylight, sharp focus on the silk, real candid amateur photo, no text, no watermark" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/chenille-papillons-nuit.jpg" \
+  "Documentary smartphone photograph of two small drab grey-brown adult moths (Thaumetopoea pityocampa adults, 4cm wingspan) resting flat against a stucco exterior wall lit by a warm yellow outdoor lamp at night, summer evening, slight motion blur on one moth, real candid amateur photo, no text, no watermark" \
+  "realistic_image" "hard_flash" "1820x1024"
 
 echo
 echo "━━━ Terminé. Vérifie le contenu de :"

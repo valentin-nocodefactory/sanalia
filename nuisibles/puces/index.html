@@ -2003,14 +2003,19 @@ const DATA = {
     {q:'Plusieurs personnes du foyer sont-elles piquées ?',opts:['Oui','Non'],scores:[3,0]}
   ],
   france: {
-    paca: { name:'PACA & Corse', level:'critical', text:'Climat méditerranéen doux toute l\'année : les puces ne connaissent pas de pause hivernale. Forte densité d\'animaux domestiques et présence importante d\'animaux errants. Marseille, Nice, Toulon et Ajaccio concentrent les interventions.' },
-    occitanie: { name:'Occitanie', level:'critical', text:'Climat méditerranéen et continental chaud. Toulouse, Montpellier, Perpignan : forte concentration urbaine + présence importante d\'animaux. Saison étendue de mars à novembre.' },
-    ndf: { name:'Île-de-France', level:'high', text:'Forte densité urbaine, beaucoup d\'animaux domestiques en appartements chauffés. Saison continue dans les logements. Réinfestations fréquentes liées aux mouvements (déménagements, vacances).' },
-    ara: { name:'Auvergne-Rhône-Alpes', level:'high', text:'Lyon et Grenoble en zones urbaines denses. Climat plus tempéré au nord, méditerranéen au sud. Pic d\'activité estival marqué.' },
-    naq: { name:'Nouvelle-Aquitaine', level:'high', text:'Bordeaux, La Rochelle et zones rurales agricoles. Présence de bétail (vecteur supplémentaire). Climat océanique doux qui favorise un cycle long.' },
-    bretagne: { name:'Bretagne', level:'moderate', text:'Climat océanique humide. Pics estivaux moins marqués mais activité quasi continue dans les logements. Forte tradition de chats domestiques.' },
-    grandest: { name:'Grand Est', level:'moderate', text:'Strasbourg, Reims, Nancy. Climat continental — les hivers freinent les puces extérieures, mais les logements chauffés restent infestables toute l\'année.' },
-    hdf: { name:'Hauts-de-France', level:'moderate', text:'Lille et bassin minier. Climat plus frais. Pics estivaux courts (juillet-août) mais infestations résidentielles persistantes en hiver.' }
+    'paca': { name:'PACA', level:'critical', text:'Climat méditerranéen doux toute l\'année : les puces ne connaissent pas de pause hivernale. Forte densité d\'animaux domestiques et présence importante d\'animaux errants. Marseille, Nice, Toulon concentrent les interventions.' },
+    'occitanie': { name:'Occitanie', level:'critical', text:'Climat méditerranéen et continental chaud. Toulouse, Montpellier, Perpignan : forte concentration urbaine + présence importante d\'animaux. Saison étendue de mars à novembre.' },
+    'corse': { name:'Corse', level:'critical', text:'Climat insulaire chaud toute l\'année. Forte densité d\'animaux domestiques et errants. Ajaccio, Bastia : interventions concentrées sur les zones urbaines et touristiques.' },
+    'ile-de-france': { name:'Île-de-France', level:'high', text:'Forte densité urbaine, beaucoup d\'animaux domestiques en appartements chauffés. Saison continue dans les logements. Réinfestations fréquentes liées aux mouvements (déménagements, vacances).' },
+    'auvergne-rhone-alpes': { name:'Auvergne-Rhône-Alpes', level:'high', text:'Lyon et Grenoble en zones urbaines denses. Climat plus tempéré au nord, méditerranéen au sud. Pic d\'activité estival marqué.' },
+    'nouvelle-aquitaine': { name:'Nouvelle-Aquitaine', level:'high', text:'Bordeaux, La Rochelle et zones rurales agricoles. Présence de bétail (vecteur supplémentaire). Climat océanique doux qui favorise un cycle long.' },
+    'bretagne': { name:'Bretagne', level:'moderate', text:'Climat océanique humide. Pics estivaux moins marqués mais activité quasi continue dans les logements. Forte tradition de chats domestiques.' },
+    'grand-est': { name:'Grand Est', level:'moderate', text:'Strasbourg, Reims, Nancy. Climat continental — les hivers freinent les puces extérieures, mais les logements chauffés restent infestables toute l\'année.' },
+    'hauts-de-france': { name:'Hauts-de-France', level:'moderate', text:'Lille et bassin minier. Climat plus frais. Pics estivaux courts (juillet-août) mais infestations résidentielles persistantes en hiver.' },
+    'normandie': { name:'Normandie', level:'moderate', text:'Rouen, Le Havre, Caen. Climat océanique frais. Activité des puces principalement estivale, mais les logements chauffés restent infestables toute l\'année.' },
+    'pays-de-la-loire': { name:'Pays de la Loire', level:'moderate', text:'Nantes, Angers, Le Mans. Climat océanique doux. Mix urbain-rural avec présence de bétail. Activité notable d\'avril à octobre.' },
+    'centre-val-de-loire': { name:'Centre-Val de Loire', level:'moderate', text:'Tours, Orléans, Bourges. Climat tempéré océanique. Zones agricoles et résidentielles, infestations modérées mais persistantes.' },
+    'bourgogne-franche-comte': { name:'Bourgogne-Franche-Comté', level:'moderate', text:'Dijon, Besançon, Belfort. Climat semi-continental. Activité réduite l\'hiver à l\'extérieur, mais infestations résidentielles fréquentes toute l\'année.' }
   },
   world: {
     madagascar: { title:'🇲🇬 Madagascar — Foyer mondial de la peste', text:'Madagascar concentre encore aujourd\'hui plus de 70 % des cas de peste mondiaux. La puce du rat (Xenopsylla cheopis) y prospère dans les hauts plateaux, où la peste bubonique réémerge chaque année (août-novembre).' },
@@ -2251,16 +2256,24 @@ function initCalendar() {
 
 /* ── France Map ── */
 function initFranceMap() {
-  document.querySelectorAll('.france-region-row').forEach(row => {
-    row.addEventListener('click', () => {
-      document.querySelectorAll('.france-region-row').forEach(r => r.classList.remove('active'));
-      row.classList.add('active');
-      const data = DATA.france[row.dataset.region];
-      if (!data) return;
-      const panel = document.getElementById('mapDetailPanel');
-      panel.innerHTML = '<span class="map-detail-level '+data.level+'">'+(data.level === 'critical' ? 'Critique' : data.level === 'high' ? 'Élevé' : 'Modéré')+'</span><h4>'+data.name+'</h4><p class="map-detail-text">'+data.text+'</p>';
-    });
+  const paths = document.querySelectorAll('.france-map-svg path[data-region]');
+  const panel = document.getElementById('mapDetailPanel');
+  if (!paths.length || !panel) return;
+
+  function selectRegion(regionId) {
+    paths.forEach(p => p.classList.remove('region-selected'));
+    const path = document.querySelector('.france-map-svg path[data-region="' + regionId + '"]');
+    if (path) path.classList.add('region-selected');
+    const data = DATA.france[regionId];
+    if (!data) return;
+    const levelLabel = data.level === 'critical' ? 'Critique' : data.level === 'high' ? 'Élevé' : 'Modéré';
+    panel.innerHTML = '<span class="map-detail-level '+data.level+'">'+levelLabel+'</span><h4>'+data.name+'</h4><p class="map-detail-text">'+data.text+'</p>';
+  }
+
+  paths.forEach(path => {
+    path.addEventListener('click', () => selectRegion(path.dataset.region));
   });
+  selectRegion('paca');
 }
 
 /* ── Quiz ── */
