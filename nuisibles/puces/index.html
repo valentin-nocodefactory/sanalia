@@ -128,34 +128,7 @@ html { scroll-padding-top: 130px; }
 .did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
 
 /* ── Espèces compare ── */
-.species-table-wrap { background: #fff; border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); }
-.species-table-tbl { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
-.species-table-tbl th, .species-table-tbl td { padding: var(--space-md) var(--space-sm); text-align: left; vertical-align: middle; border-bottom: 1px solid rgba(14,5,42,0.06); }
-.species-table-tbl thead th { position: sticky; top: 130px; background: #fff; z-index: 3; border-bottom: none; vertical-align: bottom; padding: var(--space-md) var(--space-xs); }
-.species-table-tbl thead th:first-child { padding: 0; width: 100px; }
-.species-table-tbl tbody tr:last-child th, .species-table-tbl tbody tr:last-child td { border-bottom: none; }
-.st-card { background: var(--color-pastel-lavender-light, #FBF2FF); border-radius: var(--radius-lg); padding: var(--space-sm); position: relative; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-sm); }
-.st-card img { width: 100%; height: 100%; object-fit: contain; }
-.st-badge { position: absolute; top: 8px; right: 8px; font-family: var(--font-secondary); font-weight: 700; font-size: 10px; text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-full); letter-spacing: 0.04em; white-space: nowrap; line-height: 1.4; }
-.st-badge-dark { background: var(--color-primary-900); color: #fff; }
-.st-badge-orange { background: var(--color-accent-500); color: #fff; }
-.st-badge-violet { background: var(--color-primary-600); color: #fff; }
-.st-badge-gray { background: #DCDCE5; color: #555; }
-.st-name { display: block; font-family: var(--font-primary); font-weight: 700; font-size: 16px; color: var(--color-primary-900); margin-bottom: 2px; line-height: 1.25; }
-.st-latin { display: block; font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; font-style: italic; }
-.species-table-tbl .row-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; text-transform: uppercase; color: #999; letter-spacing: 0.06em; padding-left: 0; padding-right: var(--space-sm); }
-.species-table-tbl .cell-val { font-family: var(--font-primary); font-weight: 700; font-size: 14px; color: var(--color-primary-900); }
-.species-table-tbl .row-highlight th.row-label, .species-table-tbl .row-highlight td.cell-val { background: var(--color-pastel-lavender-light, #FBF2FF); border-bottom: none; }
-.species-table-tbl .row-highlight th.row-label { padding-left: var(--space-sm); border-radius: var(--radius-md) 0 0 var(--radius-md); }
-.species-table-tbl .row-highlight td.cell-val:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
-.st-stars { color: var(--color-accent-500); letter-spacing: 2px; font-size: 15px; }
-.st-stars .empty { color: #D5D2E0; }
-.species-table-tbl .cell-desc { font-family: var(--font-primary); font-weight: 400; font-size: 12.5px; line-height: 1.5; color: var(--color-primary-900); }
-@media (max-width: 900px) {
-  .species-table-wrap { overflow-x: auto; padding: var(--space-lg) var(--space-md); }
-  .species-table-tbl { min-width: 720px; }
-  .species-table-tbl thead th { position: static; }
-}
+
 .spec { padding: 14px 8px; text-align: center; border-right: 1px solid var(--color-gray-light); }
 .spec:last-child { border-right: none; }
 .spec-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
@@ -916,7 +889,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
       <h2>Les 4 puces les plus fréquentes en France</h2>
       <p>Puce du chat, du chien, de l'homme ou du rat ? Près de 95 % des cas concernent <em>Ctenocephalides felis</em>, contrairement à ce que son nom suggère. Voici comment les différencier pour adapter le traitement.</p>
 
-      <div class="species-table-wrap">
+      <div class="species-table-wrap" style="--species-pastel: var(--color-pastel-lavender-light);">
         <table class="species-table-tbl">
           <thead>
             <tr>
