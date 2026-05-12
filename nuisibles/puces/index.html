@@ -128,30 +128,34 @@ html { scroll-padding-top: 130px; }
 .did-you-know p { font-size: 13px; color: var(--color-primary-900); line-height: 1.6; margin: 0; }
 
 /* ── Espèces compare ── */
-.species-table-wrap { background: var(--color-bg-sand); border-radius: var(--radius-xl); padding: var(--space-2xl) var(--space-xl); overflow-x: auto; }
-.species-table-tbl { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 820px; }
-.species-table-tbl th, .species-table-tbl td { padding: var(--space-md) var(--space-lg); text-align: left; vertical-align: middle; border-bottom: 1px solid rgba(14,5,42,0.06); }
-.species-table-tbl thead th { border-bottom: none; vertical-align: bottom; padding-bottom: var(--space-md); }
-.species-table-tbl thead th:first-child { padding: 0; }
+.species-table-wrap { background: #fff; border-radius: var(--radius-xl); padding: var(--space-xl); border: 1px solid var(--color-gray-light); }
+.species-table-tbl { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+.species-table-tbl th, .species-table-tbl td { padding: var(--space-md) var(--space-sm); text-align: left; vertical-align: middle; border-bottom: 1px solid rgba(14,5,42,0.06); }
+.species-table-tbl thead th { position: sticky; top: 130px; background: #fff; z-index: 3; border-bottom: none; vertical-align: bottom; padding: var(--space-md) var(--space-xs); }
+.species-table-tbl thead th:first-child { padding: 0; width: 100px; }
 .species-table-tbl tbody tr:last-child th, .species-table-tbl tbody tr:last-child td { border-bottom: none; }
-.st-card { background: var(--color-pastel-lavender-light, #FBF2FF); border-radius: var(--radius-lg); padding: var(--space-lg); position: relative; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-md); }
-.st-card img { width: 100%; max-width: 130px; height: auto; object-fit: contain; }
-.st-badge { position: absolute; top: 12px; right: 12px; font-family: var(--font-secondary); font-weight: 700; font-size: 10px; text-transform: uppercase; padding: 4px 10px; border-radius: var(--radius-full); letter-spacing: 0.06em; white-space: nowrap; line-height: 1.4; }
+.st-card { background: var(--color-pastel-lavender-light, #FBF2FF); border-radius: var(--radius-lg); padding: var(--space-sm); position: relative; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-sm); }
+.st-card img { width: 100%; height: 100%; object-fit: contain; }
+.st-badge { position: absolute; top: 8px; right: 8px; font-family: var(--font-secondary); font-weight: 700; font-size: 10px; text-transform: uppercase; padding: 3px 8px; border-radius: var(--radius-full); letter-spacing: 0.04em; white-space: nowrap; line-height: 1.4; }
 .st-badge-dark { background: var(--color-primary-900); color: #fff; }
 .st-badge-orange { background: var(--color-accent-500); color: #fff; }
 .st-badge-violet { background: var(--color-primary-600); color: #fff; }
 .st-badge-gray { background: #DCDCE5; color: #555; }
-.st-name { display: block; font-family: var(--font-primary); font-weight: 700; font-size: 19px; color: var(--color-primary-900); margin-bottom: 4px; }
-.st-latin { display: block; font-family: var(--font-secondary); font-weight: 400; font-size: 12px; color: #999; font-style: italic; }
-.species-table-tbl .row-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; text-transform: uppercase; color: #999; letter-spacing: 0.06em; min-width: 130px; }
-.species-table-tbl .cell-val { font-family: var(--font-primary); font-weight: 700; font-size: 15px; color: var(--color-primary-900); }
+.st-name { display: block; font-family: var(--font-primary); font-weight: 700; font-size: 16px; color: var(--color-primary-900); margin-bottom: 2px; line-height: 1.25; }
+.st-latin { display: block; font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: #999; font-style: italic; }
+.species-table-tbl .row-label { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; text-transform: uppercase; color: #999; letter-spacing: 0.06em; padding-left: 0; padding-right: var(--space-sm); }
+.species-table-tbl .cell-val { font-family: var(--font-primary); font-weight: 700; font-size: 14px; color: var(--color-primary-900); }
 .species-table-tbl .row-highlight th.row-label, .species-table-tbl .row-highlight td.cell-val { background: var(--color-pastel-lavender-light, #FBF2FF); border-bottom: none; }
-.species-table-tbl .row-highlight th.row-label { border-radius: var(--radius-md) 0 0 var(--radius-md); }
+.species-table-tbl .row-highlight th.row-label { padding-left: var(--space-sm); border-radius: var(--radius-md) 0 0 var(--radius-md); }
 .species-table-tbl .row-highlight td.cell-val:last-child { border-radius: 0 var(--radius-md) var(--radius-md) 0; }
-.st-stars { color: var(--color-accent-500); letter-spacing: 3px; font-size: 16px; }
+.st-stars { color: var(--color-accent-500); letter-spacing: 2px; font-size: 15px; }
 .st-stars .empty { color: #D5D2E0; }
-.species-table-tbl .cell-desc { font-family: var(--font-primary); font-weight: 400; font-size: 13px; line-height: 1.55; color: var(--color-primary-900); }
-@media (max-width: 900px) { .species-table-wrap { padding: var(--space-lg) var(--space-md); } }
+.species-table-tbl .cell-desc { font-family: var(--font-primary); font-weight: 400; font-size: 12.5px; line-height: 1.5; color: var(--color-primary-900); }
+@media (max-width: 900px) {
+  .species-table-wrap { overflow-x: auto; padding: var(--space-lg) var(--space-md); }
+  .species-table-tbl { min-width: 720px; }
+  .species-table-tbl thead th { position: static; }
+}
 .spec { padding: 14px 8px; text-align: center; border-right: 1px solid var(--color-gray-light); }
 .spec:last-child { border-right: none; }
 .spec-val { font-family: var(--font-primary); font-weight: var(--font-weight-bold); font-size: 13px; color: var(--color-primary-900); display: block; }
@@ -162,6 +166,7 @@ html { scroll-padding-top: 130px; }
 .signs-grid { display: grid; grid-template-columns: repeat(auto-fill, 112px); gap: var(--space-md); margin-top: var(--space-lg); justify-content: start; }
 .sign-card { cursor: pointer; text-align: center; display: flex; flex-direction: column; background: transparent; border: none; padding: 0; transition: transform 0.2s; }
 .sign-card:hover { transform: translateY(-2px); }
+.sign-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: var(--radius-xl); margin-bottom: var(--space-sm); background: var(--color-pastel-lavender-light, #FBF2FF); transition: opacity 0.3s; cursor: zoom-in; }
 .sign-img-fallback { width: 100%; aspect-ratio: 1; background: var(--color-pastel-lavender-light, #FBF2FF); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: var(--space-sm); }
 .sign-card h4 { font-size: 12px; margin: 0 0 4px; font-weight: 700; line-height: 1.3; color: var(--color-primary-900); }
 .sign-card p { font-size: 11px; color: var(--color-text-muted); margin: 0; line-height: 1.4; }
@@ -975,12 +980,12 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
       <p style="color: var(--color-text-muted); margin-bottom: var(--space-lg);">Comparez avec ce que vous observez chez vous. Plus vous cumulez d'indices, plus l'infestation est avancée.</p>
 
       <div class="signs-grid">
-        <div class="sign-card"><div class="sign-img-fallback">🦟</div><h4>Piqûres groupées</h4><p>Chevilles, mollets, en lignes ou triplets de 3.</p></div>
-        <div class="sign-card"><div class="sign-img-fallback">🐕</div><h4>Animal qui se gratte</h4><p>Chien ou chat qui se gratte sans arrêt.</p></div>
-        <div class="sign-card"><div class="sign-img-fallback">⚫</div><h4>Crottes noires</h4><p>Petits points noirs sur la literie.</p></div>
-        <div class="sign-card"><div class="sign-img-fallback">🥚</div><h4>Œufs blancs</h4><p>Minuscules grains blancs dans le pelage.</p></div>
-        <div class="sign-card"><div class="sign-img-fallback">🧦</div><h4>Test chaussette</h4><p>Marchez en chaussettes blanches : puces visibles.</p></div>
-        <div class="sign-card"><div class="sign-img-fallback">🪲</div><h4>Adultes au sol</h4><p>Petits insectes bruns qui sautent.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/puce-piqures-cheville.jpg" alt="Piqûres de puces groupées sur cheville" loading="lazy"><h4>Piqûres groupées</h4><p>Chevilles, mollets, en lignes ou triplets de 3.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/puce-animal-gratte.jpg" alt="Chien se grattant intensément" loading="lazy"><h4>Animal qui se gratte</h4><p>Chien ou chat qui se gratte sans arrêt.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/puce-crottes-noires.jpg" alt="Crottes noires de puces sur literie blanche" loading="lazy"><h4>Crottes noires</h4><p>Petits points noirs sur la literie.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/puce-oeufs-pelage.jpg" alt="Œufs blancs de puces dans le pelage d'un animal" loading="lazy"><h4>Œufs blancs</h4><p>Minuscules grains blancs dans le pelage.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/puce-test-chaussette.jpg" alt="Test chaussette : puces visibles sur chaussettes blanches" loading="lazy"><h4>Test chaussette</h4><p>Marchez en chaussettes blanches : puces visibles.</p></div>
+        <div class="sign-card"><img class="sign-img" src="/assets/nuisibles/signs/puce-adultes-sol.jpg" alt="Puces adultes au sol sur tapis" loading="lazy"><h4>Adultes au sol</h4><p>Petits insectes bruns qui sautent.</p></div>
       </div>
     </section>
 
@@ -1497,7 +1502,7 @@ input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius
       <a href="/nuisibles/punaises-de-lit/" class="card-nuisible pastel-rose"><div class="card-nuisible-visual"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="Punaise de lit"></div><div class="card-nuisible-info"><h3>Punaises de lit</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
       <a href="/nuisibles/cafards/" class="card-nuisible pastel-mint"><div class="card-nuisible-visual"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="Cafard"></div><div class="card-nuisible-info"><h3>Cafards</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
       <a href="/nuisibles/rats/" class="card-nuisible pastel-gold"><div class="card-nuisible-visual"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="Rat"></div><div class="card-nuisible-info"><h3>Rats</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
-      <a href="/nuisibles/mites-alimentaires/" class="card-nuisible pastel-lavender"><div class="card-nuisible-visual"><div style="font-size:48px;">🦋</div></div><div class="card-nuisible-info"><h3>Mites</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
+      <a href="/nuisibles/mites-alimentaires/" class="card-nuisible pastel-peach"><div class="card-nuisible-visual"><img src="/assets/nuisibles/pantry-moth--plodia-interpunctella--realistic-bo.png" alt="Mite alimentaire"></div><div class="card-nuisible-info"><h3>Mites</h3><span class="card-nuisible-cta">En savoir plus →</span></div></a>
     </div>
   </div>
 </section>
