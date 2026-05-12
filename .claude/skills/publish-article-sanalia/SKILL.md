@@ -260,10 +260,14 @@ Le script va échouer si un slot reste non remplacé (sanity check intégré). S
 python3 .claude/skills/publish-article-sanalia/scripts/update_indexes.py \
   --slug <slug> \
   --title "<title>" \
+  --title-short "<titre court pour fiche nuisible>" \
   --description "<metaDescription>" \
   --published <publishedAt> \
-  --category <Catégorie> \
+  --category <Catégorie slug : rats-souris | punaises-de-lit | cafards-insectes | guepes-frelons | prevention> \
   --reading-time <readingTimeMin> \
+  --parent-nuisible-slug <url_slug de la fiche nuisible, ex: guepes-frelons> \
+  --intent <intentType> \
+  --hero-filename <nom du fichier hero, ex: hero.svg> \
   --repo-root "$(pwd)"
 ```
 
@@ -271,7 +275,10 @@ Effets :
 - `sitemap-blog.xml` : ajout `<url>` priority 0.7, monthly
 - `sitemap-index.xml` : bump `<lastmod>` de l'entrée sitemap-blog
 - `blog/feed.xml` : ajout `<item>` en tête + refresh `<lastBuildDate>`
-- `blog/index.html` : insertion d'une carte article en tête de la grille
+- `blog/index.html` : insertion d'une carte `<article class="card-article">` après le marqueur `<!-- Articles secondaires -->`
+- `nuisibles/<parent_nuisible_slug>/index.html` : remplacement de l'item position 01 de la section "À lire aussi" (si placeholder pointant vers `/blog/`), ou insertion en tête sinon
+
+Le `--parent-nuisible-slug` est l'`url_slug` du mapping `parent_nuisible_map` dans CONFIG.yaml (peut différer de la clé Notion : ex `guepes` → `guepes-frelons`).
 
 ### Étape 8 — Build, commit, push, PR
 
