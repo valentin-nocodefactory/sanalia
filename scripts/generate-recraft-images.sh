@@ -182,6 +182,31 @@ generate "$SIGN/chenille-papillons-nuit.jpg" \
   "Documentary smartphone photograph of two small drab grey-brown adult moths (Thaumetopoea pityocampa adults, 4cm wingspan) resting flat against a stucco exterior wall lit by a warm yellow outdoor lamp at night, summer evening, slight motion blur on one moth, real candid amateur photo, no text, no watermark" \
   "realistic_image" "hard_flash" "1820x1024"
 
+echo "━━━ Signes de présence — PUCES (photo réaliste documentaire) ━━━"
+generate "$SIGN/puce-piqures-cheville.jpg" \
+  "Documentary close-up smartphone photograph of a human ankle and lower calf showing 6 small red bite marks grouped in lines and triplets, sharp focus on the bites, natural daylight, real candid photo, no AI artefacts, no text, no watermark" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/puce-animal-gratte.jpg" \
+  "Documentary smartphone photograph of a brown short-haired dog sitting on a wooden floor in a French living room, scratching its neck and shoulder vigorously with its hind paw, mid-motion blur on the paw, candid afternoon daylight, real photo, no text, no AI artefacts" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/puce-crottes-noires.jpg" \
+  "Documentary macro smartphone photograph of small dark brown-black coarse crumbs (flea droppings, 0.5mm each) scattered on a clean white bedsheet near a pillow, sharp focus on the dark grains, soft natural morning daylight, real candid amateur photo, no text" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/puce-oeufs-pelage.jpg" \
+  "Documentary macro smartphone photograph of small white oval eggs (0.5mm each) visible at the base of brown short fur of a dog, fingers parting the fur, very sharp focus on the white eggs against the fur, soft daylight, real candid amateur photo, no text" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/puce-test-chaussette.jpg" \
+  "Documentary smartphone photograph from above of a pair of white cotton socks worn on feet standing on a beige carpet, two tiny dark brown specks visible on the white sock (fleas), natural living-room daylight, sharp focus on socks, real candid amateur photo, no text" \
+  "realistic_image" "natural_light" "1820x1024"
+
+generate "$SIGN/puce-adultes-sol.jpg" \
+  "Documentary macro smartphone photograph at floor level of two tiny dark brown fleas (3mm each) on a beige carpet fibre, one in mid-jump motion blur, sharp focus, natural ambient daylight, real candid amateur photo, no text, no AI artefacts" \
+  "realistic_image" "natural_light" "1820x1024"
+
 echo
 echo "━━━ Terminé. Vérifie le contenu de :"
 echo "  $ANAT"
