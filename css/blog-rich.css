@@ -4,6 +4,123 @@
    Aligne sur tokens.css (Sanalia design system).
    ============================================================ */
 
+/* ─── 0. Listes ul/ol classiques (style par défaut Sanalia) ─── */
+
+.blog-content > ul,
+.blog-body > ul,
+.blog-content > ol,
+.blog-body > ol {
+  margin: 24px 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.blog-content > ul > li,
+.blog-body > ul > li {
+  position: relative;
+  padding: 6px 0 6px 28px;
+  font-family: 'Uxum', sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #34285a;
+}
+
+.blog-content > ul > li::before,
+.blog-body > ul > li::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 16px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #635ddd;
+}
+
+.blog-content > ol > li,
+.blog-body > ol > li {
+  position: relative;
+  padding: 6px 0 6px 36px;
+  font-family: 'Uxum', sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #34285a;
+  counter-increment: blog-ol;
+}
+
+.blog-content > ol,
+.blog-body > ol {
+  counter-reset: blog-ol;
+}
+
+.blog-content > ol > li::before,
+.blog-body > ol > li::before {
+  content: counter(blog-ol) ".";
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  font-weight: 400;
+  color: #635ddd;
+  min-width: 24px;
+}
+
+.blog-content > ul > li > strong:first-child,
+.blog-body > ul > li > strong:first-child,
+.blog-content > ol > li > strong:first-child,
+.blog-body > ol > li > strong:first-child {
+  color: #0e052a;
+  font-weight: 700;
+}
+
+/* Listes imbriquées : style plus discret */
+.blog-content > ul ul,
+.blog-content > ul ol,
+.blog-content > ol ul,
+.blog-content > ol ol,
+.blog-body > ul ul,
+.blog-body > ul ol,
+.blog-body > ol ul,
+.blog-body > ol ol {
+  margin: 8px 0 8px 12px;
+}
+
+.blog-content > ul ul > li::before,
+.blog-body > ul ul > li::before {
+  width: 6px;
+  height: 6px;
+  background: #8781f3;
+}
+
+/* Surcharge stricte : .steps-list garde son rendu numéroté de l'item 4 */
+.blog-content > ol.steps-list,
+.blog-body > ol.steps-list {
+  list-style: none;
+}
+.blog-content > ol.steps-list > li,
+.blog-body > ol.steps-list > li {
+  padding-left: 80px;  /* override de l'OL classique */
+}
+.blog-content > ol.steps-list > li::before,
+.blog-body > ol.steps-list > li::before {
+  content: counter(steps);  /* override : le styling .steps-list reprend la main */
+  left: 20px;
+  top: 20px;
+  width: 44px;
+  height: 44px;
+  min-width: auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #635ddd 0%, #8781f3 100%);
+  color: #fff;
+  font-family: 'Space Mono', monospace;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 /* ─── 1. Variantes callout ─────────────────────────────────── */
 
 .callout-warning {
