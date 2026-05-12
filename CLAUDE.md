@@ -304,6 +304,65 @@ Le sitemap racine est désormais `/sitemap-index.xml` qui agrège `/sitemap.xml`
    - `category` (cluster éditorial) → tag thématique visible, classification RSS, filtre du hub. **Ne structure ni l'URL, ni le breadcrumb.**
    - `parentNuisible` (slug d'une fiche `/nuisibles/[espece]/`) → utilisé pour le breadcrumb position 3 et pour le maillage avec la fiche nuisible. Peut être `null` si transverse.
 
+### 🔴 RÈGLE D'OR — Template article (NON-NÉGOCIABLE)
+
+Tout nouvel article de blog DOIT reproduire **fidèlement** la structure visuelle et technique de `/blog/comment-se-debarrasser-rats-appartement/index.html` — c'est le **template de référence canonique**.
+
+#### Composants obligatoires (dans l'ordre du DOM)
+
+1. **`<head>` complet** :
+   - Meta SEO : `<title>` < 60 car, `<meta description>` 120-155 car, `<link rel="canonical">` avec `https://www.sanalia.fr/blog/[slug]/`
+   - Open Graph complet : `og:title`, `og:description`, `og:type=article`, `og:url`, `og:image` (1200×630), `og:locale=fr_FR`, `article:published_time`, `article:modified_time`, `article:section`
+   - Twitter Card complet : `summary_large_image`, `twitter:title`, `twitter:description`, `twitter:image`
+   - JSON-LD `@graph` avec **3 entités obligatoires** :
+     - `Article` (author = `Organization Sanalia`, publisher avec logo SVG, `wordCount`, `inLanguage=fr-FR`, `datePublished`, `dateModified`)
+     - `BreadcrumbList` 4 niveaux (position 3 → `/nuisibles/[parentNuisible]/`, cf règle d'or breadcrumb ci-dessus)
+     - `FAQPage` (au minimum 6 paires question/réponse alignées avec la section FAQ visible)
+2. `<div class="reading-progress">` — barre de progression de lecture (top fixed)
+3. **Header** inliné via `data-component="header"`
+4. `<div class="breadcrumb-bar">` — breadcrumb sticky avec dropdown nuisibles (`.breadcrumb-nuisible-wrap`)
+5. `<section class="blog-hero">` — hero comportant :
+   - `.blog-hero-category.tag-[nuisible]` (picto + nom catégorie selon mapping ci-dessous)
+   - H1 unique avec le keyword cible
+   - méta : auteur, date publication, `readingTime`
+   - image hero 1200×630
+6. **Layout 2 colonnes** `.page-layout` :
+   - `<aside class="blog-share-col">` — share buttons fixes (colonne gauche desktop)
+   - `<article>` — corps principal
+   - `<aside class="blog-sidebar">` avec `.sidebar-sticky` contenant :
+     - `<nav class="blog-toc">` — table des matières auto-générée depuis les H2 numérotés
+     - `.cta-sidebar-widget` — bloc CTA (mono label + titre + texte + bouton "Devis gratuit")
+7. **Corps article** (`<article>`) :
+   - Sections **H2 numérotées** (`1. Identifier…`, `2. Comprendre…`, etc.) avec **ancres `id`** correspondant aux entrées du TOC
+   - Sous-sections H3
+   - **Callouts contextuels** (`.callout.callout-did-you-know` minimum) — au moins 1 par article
+   - **3 CTAs inline** `<div class="cta-inline-blog" data-variant="…">` insérés à environ **25 %**, **50 %** et **80 %** du contenu (cf règles conversion). Le `data-variant` s'aligne sur `intentType`.
+   - Section finale **H2 « Questions fréquentes »** avec **accordéon** (`<button class="accordion-header">…<span class="icon-toggle">+</span></button>`) — Q/A strictement alignées avec le JSON-LD `FAQPage`
+8. **Sticky share bar bottom** (`.share-bar-btn` X, LinkedIn, Facebook + bouton copier le lien)
+9. `<section class="related-articles">` — exactement **3 cartes** :
+   - 1 article connexe du même thème
+   - 1 fiche `/nuisibles/[parentNuisible]/`
+   - 1 lien vers `/blog/` (hub)
+10. **Footer + certifications** inlinés via `data-component` (jamais réécrire ici, modifier `components/`)
+11. **Tracking dataLayer** : tous les events `blog_*` listés en section *Tracking* doivent être câblés via `/js/blog.js`
+
+#### Interdictions
+
+- ❌ Inventer de nouveaux composants ou layouts non présents dans le template
+- ❌ Omettre une section sans justification éditoriale documentée et alignement avec un autre article validé
+- ❌ Renommer ou modifier les classes CSS canoniques (`.blog-hero`, `.cta-inline-blog`, `.blog-toc`, `.cta-sidebar-widget`, `.related-articles`, `.callout-*`, `.share-bar-btn`, etc.)
+- ❌ Inliner des styles spécifiques à l'article : tout passe par `/css/blog.css`
+- ❌ Réécrire `header.html`, `footer.html`, `certifications.html`, `mobile-sticky-cta.html` directement dans l'article (ils sont injectés par `build.sh` depuis `components/`)
+- ❌ Omettre une des 3 entités JSON-LD (Article + BreadcrumbList + FAQPage)
+
+#### Variations autorisées
+
+- Le **nombre de sections H2** peut varier (5 à 10 selon le sujet) tant qu'elles restent numérotées et ancrées dans le TOC
+- Le **`data-variant` des CTAs inline** s'adapte à `intentType` (`devis` / `urgence` / `guide`)
+- Plusieurs types de **callouts contextuels** sont possibles (`callout-did-you-know`, `callout-warning`, etc.) tant que la classe existe dans `blog.css`
+- Le **`readingTime`** reflète le contenu réel (`wordCount` ÷ 250, arrondi à la minute)
+- Le **tag pastel** suit le mapping `parentNuisible` → couleur (cf section *Convention tag thématique blog*)
+
 ### Catégories (clusters éditoriaux — pour `category`, pas pour l'URL)
 - **rats-souris** : rongeurs (rats, souris, mulots)
 - **punaises-de-lit** : punaises de lit
@@ -382,8 +441,8 @@ Le CSS de ces tags est défini dans `/css/blog.css` (section `.blog-hero-categor
 
 ### Comment ajouter un article
 1. **Créer le dossier** `/blog/[slug]/` (URL à plat, kebab-case, sans accents ni stopwords inutiles, **JAMAIS** de sous-dossier de catégorie)
-2. **Créer `index.html`** en copiant la structure d'un article existant (ex : `/blog/comment-se-debarrasser-rats-appartement/index.html`)
-3. **Adapter** : `title`, `meta`, `H1`, contenu, FAQ, CTAs selon l'`intentType`, dates `publishedAt` / `updatedAt`
+2. **Créer `index.html`** en **copiant intégralement** le template canonique `/blog/comment-se-debarrasser-rats-appartement/index.html`, puis adapter le contenu. Cf **« 🔴 RÈGLE D'OR — Template article »** : aucun composant ne doit être omis ni réinventé.
+3. **Adapter** : `title`, `meta`, `H1`, sections H2 numérotées + ancres, callouts, 3 CTAs inline (variant aligné sur `intentType`), FAQ HTML + JSON-LD FAQPage, dates `publishedAt` / `updatedAt`, `wordCount`, `readingTime`
 4. **Renseigner `parentNuisible`** (slug d'une fiche `/nuisibles/[espece]/`) et le refléter dans :
    - Le breadcrumb HTML (position 3 → `<a href="/nuisibles/[parentNuisible]/">[Nom]</a>`)
    - Le JSON-LD `BreadcrumbList` (position 3 : `"item": "https://www.sanalia.fr/nuisibles/[parentNuisible]/"`)
