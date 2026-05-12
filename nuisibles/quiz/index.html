@@ -20,8 +20,8 @@
 <meta name="twitter:title" content="Quiz d'identification des nuisibles — Sanalia">
 <meta name="twitter:description" content="Identifiez en 2 min le nuisible présent chez vous. Résultat + devis gratuit.">
 <link rel="stylesheet" href="/tokens.css">
-<link rel="stylesheet" href="/css/base.css?v=20260512a">
-<link rel="stylesheet" href="/css/components.css?v=20260512a">
+<link rel="stylesheet" href="/css/base.css?v=20260512b">
+<link rel="stylesheet" href="/css/components.css?v=20260512b">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -45,11 +45,47 @@
 }
 </script>
 <style>
-.quiz-hero { background: var(--color-bg-sand); border-radius: var(--radius-xl); padding: var(--space-3xl) var(--space-2xl); max-width: 1100px; margin: var(--space-2xl) auto var(--space-xl); text-align: center; }
-.quiz-hero h1 { font-family: var(--font-primary); font-weight: 700; font-size: clamp(28px, 4vw, 44px); margin: 0 0 var(--space-md); color: var(--color-primary-900); letter-spacing: -0.01em; line-height: 1.1; }
-.quiz-hero p { font-size: 16px; color: var(--color-primary-800); max-width: 620px; margin: 0 auto var(--space-lg); line-height: 1.55; }
-.quiz-hero .quiz-hero-bullets { display: inline-flex; gap: var(--space-xl); flex-wrap: wrap; justify-content: center; font-family: var(--font-secondary); font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.06em; }
-.quiz-hero-bullets span::before { content: '✓ '; color: var(--color-primary-600); }
+/* Quiz Start (landing) */
+.quiz-start { max-width: 1180px; margin: var(--space-2xl) auto var(--space-xl); padding: 0 var(--space-md); }
+.quiz-start-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--space-3xl); align-items: center; background: linear-gradient(135deg, #fff 0%, var(--color-primary-100) 100%); border-radius: var(--radius-xl); border: 1px solid var(--color-primary-200); padding: var(--space-3xl) var(--space-2xl); position: relative; overflow: hidden; }
+.quiz-start-grid::before { content: ''; position: absolute; top: -120px; right: -120px; width: 320px; height: 320px; background: radial-gradient(circle, var(--color-pastel-lavender-light) 0%, transparent 70%); pointer-events: none; }
+.quiz-start-left { position: relative; z-index: 1; }
+.quiz-start-eyebrow { font-family: var(--font-secondary); font-weight: 400; font-size: 11px; color: var(--color-primary-600); text-transform: uppercase; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--color-surface); border: 1px solid var(--color-primary-200); border-radius: var(--radius-full); }
+.quiz-start-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary-600); box-shadow: 0 0 0 4px rgba(99, 93, 221, 0.2); }
+.quiz-start-left h1 { font-family: var(--font-primary); font-weight: 700; font-size: clamp(28px, 3.6vw, 44px); color: var(--color-primary-900); margin: var(--space-md) 0 var(--space-md); letter-spacing: -0.02em; line-height: 1.08; }
+.quiz-start-lead { font-size: 16px; color: var(--color-primary-800); margin: 0 0 var(--space-xl); line-height: 1.55; max-width: 540px; }
+.quiz-start-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); margin-bottom: var(--space-xl); padding: var(--space-md) 0; border-top: 1px solid var(--color-primary-200); border-bottom: 1px solid var(--color-primary-200); }
+.qs-stat { display: flex; flex-direction: column; gap: 2px; }
+.qs-stat strong { font-family: var(--font-primary); font-weight: 700; font-size: 22px; color: var(--color-primary-900); line-height: 1.1; }
+.qs-stat span { font-family: var(--font-secondary); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: #999; }
+.quiz-start-actions { display: flex; align-items: center; gap: var(--space-lg); flex-wrap: wrap; margin-bottom: var(--space-md); }
+.quiz-start-cta { padding: 16px 32px; font-size: 16px; }
+.quiz-start-cta span { transition: transform 0.2s; display: inline-block; }
+.quiz-start-cta:hover span { transform: translateX(4px); }
+.quiz-start-skip { font-family: var(--font-primary); font-size: 13px; color: var(--color-text-muted); text-decoration: underline; transition: color 0.15s; }
+.quiz-start-skip:hover { color: var(--color-primary-900); }
+.quiz-start-trust { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-lg); flex-wrap: wrap; }
+.quiz-start-trust li { font-family: var(--font-secondary); font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.05em; padding-left: 18px; position: relative; }
+.quiz-start-trust li::before { content: '✓'; position: absolute; left: 0; top: -1px; color: var(--color-primary-600); font-weight: 700; }
+
+.quiz-start-right { position: relative; z-index: 1; }
+.qstart-showcase { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 4px; }
+.qstart-chip { aspect-ratio: 1; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; padding: 8px; transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+.qstart-chip:hover { transform: translateY(-3px) rotate(-2deg); }
+.qstart-chip:nth-child(2n):hover { transform: translateY(-3px) rotate(2deg); }
+.qstart-chip img { width: 100%; height: 100%; object-fit: contain; }
+.qstart-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: var(--space-md); padding: 8px 14px; background: var(--color-surface); border: 1px solid var(--color-primary-200); border-radius: var(--radius-full); font-family: var(--font-secondary); font-size: 11px; color: var(--color-primary-800); text-transform: uppercase; letter-spacing: 0.06em; }
+.qstart-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary-600); animation: qsPulse 2s infinite; }
+@keyframes qsPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
+
+@media (max-width: 960px) {
+  .quiz-start-grid { grid-template-columns: 1fr; padding: var(--space-2xl) var(--space-xl); gap: var(--space-2xl); }
+  .quiz-start-right { display: none; }
+  .quiz-start-stats { grid-template-columns: repeat(3, 1fr); }
+  .quiz-start-actions { flex-direction: column; align-items: stretch; }
+  .quiz-start-cta { justify-content: center; }
+  .quiz-start-skip { text-align: center; }
+}
 
 .quiz-shell { max-width: 760px; margin: 0 auto var(--space-3xl); padding: 0 var(--space-md); }
 .quiz-progress { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
@@ -1038,6 +1074,7 @@ const QUESTIONS = [
 ];
 
 const state = {
+  started: false,
   step: 0,
   answers: [],     // index of selected option (single) OR Set of indices (multi)
   urgency: null,
@@ -1048,27 +1085,81 @@ function $(s) { return document.querySelector(s); }
 function render(opts) {
   opts = opts || {};
   const app = document.getElementById('quizApp');
-  if (state.step < QUESTIONS.length) {
+  if (!state.started) {
+    renderStart(app);
+  } else if (state.step < QUESTIONS.length) {
     renderQuestion(app, opts);
   } else {
     renderResult(app);
   }
 }
 
-function renderHeroOnce(app) {
-  if (document.getElementById('quizHero')) return;
+function renderStart(app) {
+  const showcase = [
+    { key:'punaises',    name:'Punaises de lit' },
+    { key:'rats',        name:'Rats' },
+    { key:'cafards',     name:'Cafards' },
+    { key:'puces',       name:'Puces' },
+    { key:'fourmis',     name:'Fourmis' },
+    { key:'guepes',      name:'Guêpes' },
+    { key:'moustiques',  name:'Moustiques' },
+    { key:'souris',      name:'Souris' },
+    { key:'mites',       name:'Mites' },
+    { key:'termites',    name:'Termites' },
+    { key:'pigeons',     name:'Pigeons' },
+    { key:'chenilles',   name:'Chenilles' },
+  ].map(s => {
+    const sp = SPECIES[s.key];
+    return `<div class="qstart-chip" style="background:${sp.bg};" title="${s.name}"><img src="${sp.img}" alt="${s.name}" loading="lazy"></div>`;
+  }).join('');
+
   app.innerHTML = `
-  <section class="quiz-hero" id="quizHero">
-    <span class="mgv3-step-label" style="color:var(--color-primary-600);font-size:11px;letter-spacing:.08em;">Étape par étape · 2 minutes</span>
-    <h1>Quiz d'identification des nuisibles</h1>
-    <p>Vous voyez quelque chose chez vous mais vous ne savez pas exactement quel nuisible vous concerne ? 8 questions rapides et notre algorithme vous oriente vers la bonne espèce.</p>
-    <div class="quiz-hero-bullets">
-      <span>2 minutes</span>
-      <span>Résultat immédiat</span>
-      <span>Devis gratuit</span>
-    </div>
-  </section>
-  <div class="quiz-shell" id="quizShell"></div>`;
+    <section class="quiz-start">
+      <div class="quiz-start-grid">
+        <div class="quiz-start-left">
+          <span class="quiz-start-eyebrow">Outil gratuit · Aucune inscription</span>
+          <h1>Identifiez le nuisible présent chez vous en 2 minutes</h1>
+          <p class="quiz-start-lead">8 questions simples sur ce que vous observez (indices, taille, lieu, saison). Notre algorithme compare avec les 13 nuisibles courants en France et vous oriente vers le bon guide — plus un devis si un pro doit intervenir.</p>
+          <div class="quiz-start-stats">
+            <div class="qs-stat"><strong>13</strong><span>espèces couvertes</span></div>
+            <div class="qs-stat"><strong>8 questions</strong><span>environ 2 minutes</span></div>
+            <div class="qs-stat"><strong>Top 3</strong><span>résultats classés</span></div>
+          </div>
+          <div class="quiz-start-actions">
+            <button type="button" class="quiz-btn quiz-btn-primary quiz-start-cta" id="quizStartBtn">Commencer le quiz <span aria-hidden="true">→</span></button>
+            <a href="/nuisibles/" class="quiz-start-skip">Je sais déjà quel nuisible, accéder aux guides</a>
+          </div>
+          <ul class="quiz-start-trust">
+            <li>Anonyme, aucun email demandé</li>
+            <li>Résultat immédiat</li>
+            <li>Devis pro gratuit en option</li>
+          </ul>
+        </div>
+        <div class="quiz-start-right" aria-hidden="true">
+          <div class="qstart-showcase">${showcase}</div>
+          <div class="qstart-badge">
+            <span class="qstart-badge-dot"></span>
+            13 nuisibles que nous traitons
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+  const btn = document.getElementById('quizStartBtn');
+  if (btn) btn.addEventListener('click', () => {
+    state.started = true;
+    state.step = 0;
+    render({ scrollToCard: true });
+  });
+}
+
+function ensureShell(app) {
+  let shell = document.getElementById('quizShell');
+  if (!shell) {
+    app.innerHTML = `<div class="quiz-shell" id="quizShell"></div>`;
+    shell = document.getElementById('quizShell');
+  }
+  return shell;
 }
 
 function hasAnswerFor(sel, isMulti) {
@@ -1082,9 +1173,8 @@ function renderQuestion(app, opts) {
   const sel = state.answers[state.step] !== undefined ? state.answers[state.step] : (isMulti ? new Set() : null);
   const progress = ((state.step + 1) / QUESTIONS.length) * 100;
 
-  // Ensure hero + shell exist (only painted once)
-  renderHeroOnce(app);
-  const shell = document.getElementById('quizShell');
+  // Ensure shell exists (paint once, then update inner)
+  const shell = ensureShell(app);
 
   const optionsHTML = q.options.map((opt, i) => {
     const isSelected = isMulti ? (sel instanceof Set && sel.has(i)) : sel === i;
@@ -1250,11 +1340,18 @@ function renderResult(app) {
     </div>
   `;
   document.getElementById('quizRestart').addEventListener('click', () => {
+    state.started = false;
     state.step = 0;
     state.answers = [];
     state.urgency = null;
     render();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Scroll vers le haut du résultat dès l'affichage (juste après Q8)
+  requestAnimationFrame(() => {
+    const top = app.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
   });
 }
 
