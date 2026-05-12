@@ -252,6 +252,123 @@ def gen_toc_list(sections: list) -> str:
 H2_PATTERN = re.compile(r'<h2[^>]*\sid="([^"]+)"[^>]*>(.*?)</h2>', re.S | re.I)
 
 
+# ──────────────────────────────────────────────────────────────────────
+# Semantic → Sanalia transformer
+# Convertit du HTML sémantique propre (sortie ChatSEO) en HTML avec
+# les classes Sanalia (.comparison-table, .steps-list, .callout-*, etc.)
+# ──────────────────────────────────────────────────────────────────────
+
+# Mots-clés dans le contenu d'un <aside> qui orientent vers la classe callout-*
+ASIDE_KEYWORDS = [
+    # (regex pour matcher dans le strong/intro, classe à appliquer)
+    (re.compile(r"saviez[\s-]vous|saviezvous|le saviez", re.I), "callout-did-you-know"),
+    (re.compile(r"urgence|appel(er)?\s*(le)?\s*(15|112)|anaphyla|d[ée]tresse", re.I), "callout-danger"),
+    (re.compile(r"danger\b|attention danger|risque mortel|toxique|grave", re.I), "callout-danger"),
+    (re.compile(r"attention|précaution|à éviter|ne (jamais|surtout)", re.I), "callout-warning"),
+    (re.compile(r"astuce|conseil|tip|bon\s*à\s*savoir|pratique", re.I), "callout-tip"),
+]
+
+
+def _classify_aside(inner_html: str) -> str:
+    """Retourne la classe callout-* adaptée selon le contenu de l'aside."""
+    # On regarde surtout les 200 premiers chars (souvent le strong intro)
+    sample = re.sub(r"<[^>]+>", " ", inner_html[:300])
+    for pattern, cls in ASIDE_KEYWORDS:
+        if pattern.search(sample):
+            return cls
+    return "callout-did-you-know"  # fallback neutre, prend la palette violet/sand
+
+
+def _transform_aside(match) -> str:
+    """Remplace un <aside> sémantique par un <aside class='callout callout-X'>."""
+    attrs = match.group(1) or ""
+    inner = match.group(2)
+    # Skip si déjà classé Sanalia
+    if "callout" in attrs:
+        return match.group(0)
+    cls = _classify_aside(inner)
+    # Si pas de <div> wrapper, on en ajoute un pour matcher le markup attendu
+    if "<div" not in inner[:50]:
+        inner = f"<div>{inner.strip()}</div>"
+    return f'<aside class="callout {cls}">{inner}</aside>'
+
+
+def _transform_table(match) -> str:
+    """Wrap les <table> sémantiques (avec thead et 2+ colonnes) en comparison-table."""
+    attrs = match.group(1) or ""
+    inner = match.group(2)
+    # Skip si déjà classé Sanalia
+    if "comparison-table" in attrs or "comparison-table-wrap" in match.group(0):
+        return match.group(0)
+    # Exiger un <thead> pour considérer un tableau comme comparatif
+    if "<thead" not in inner.lower():
+        return match.group(0)
+    # Ajoute la classe et wrap dans le div
+    new_attrs = f'{attrs.strip()} class="comparison-table"' if attrs.strip() else 'class="comparison-table"'
+    return f'<div class="comparison-table-wrap"><table {new_attrs}>{inner}</table></div>'
+
+
+def _transform_ol_to_steps(match) -> str:
+    """Convertit un <ol> en steps-list si chaque <li> commence par <strong>."""
+    attrs = match.group(1) or ""
+    inner = match.group(2)
+    if "steps-list" in attrs:
+        return match.group(0)
+    # Compter les <li> qui commencent par <strong>
+    li_iter = re.finditer(r"<li[^>]*>\s*(.*?)\s*</li>", inner, re.S | re.I)
+    li_list = list(li_iter)
+    if len(li_list) < 2:
+        return match.group(0)
+    strong_led = sum(1 for li in li_list if re.match(r"\s*<strong\b", li.group(1)))
+    if strong_led < len(li_list) * 0.7:  # 70 % au moins
+        return match.group(0)
+    new_attrs = f'{attrs.strip()} class="steps-list"' if attrs.strip() else 'class="steps-list"'
+    return f'<ol {new_attrs}>{inner}</ol>'
+
+
+def transform_semantic_to_sanalia(html: str) -> str:
+    """Applique les transformations Sanalia sur un HTML sémantique propre.
+
+    Idempotent : si une classe Sanalia est déjà présente, le bloc est laissé tel quel.
+
+    Règles :
+    - <table> avec <thead> → wrap .comparison-table-wrap + class .comparison-table
+    - <ol> où ≥ 70 % des <li> commencent par <strong> → class .steps-list
+    - <aside> → class callout callout-X (X classé selon mots-clés du contenu)
+
+    Pas géré (laissé à l'orchestrateur Claude ou à un futur run) :
+    - .checklist (besoin de contexte sémantique trop subtil)
+    - .stats-highlight (idem)
+    - .internal-link-card (placement intelligent par l'orchestrateur)
+    - .emergency-banner (déjà géré par gen_emergency_banner selon intent)
+    """
+    # Tables : matcher <table ...>contenu</table> non-greedy
+    html = re.sub(
+        r"<table\b([^>]*)>(.*?)</table>",
+        _transform_table,
+        html,
+        flags=re.S | re.I,
+    )
+
+    # Ordered lists
+    html = re.sub(
+        r"<ol\b([^>]*)>(.*?)</ol>",
+        _transform_ol_to_steps,
+        html,
+        flags=re.S | re.I,
+    )
+
+    # Asides (en dernier pour ne pas interférer avec les nested asides dans tables)
+    html = re.sub(
+        r"<aside\b([^>]*)>(.*?)</aside>",
+        _transform_aside,
+        html,
+        flags=re.S | re.I,
+    )
+
+    return html
+
+
 def extract_h2s_from_html(html: str) -> list:
     """Extrait les H2 (ancre + label) d'un HTML pour construire la TOC.
 
@@ -368,8 +485,12 @@ def gen_article_body_from_html(data: dict, slug: str, canonical_url: str, cfg: d
     if data.get("heroImage"):
         parts.append(gen_image_figure(slug, data["heroImage"]))
 
-    # 4. Article HTML + CTAs insérés aux indices section
+    # 4. Article HTML : transformation sémantique → Sanalia, puis insertion CTAs
     article_html = data["articleHtml"]
+    # Skip la transformation si data.skipTransform=true (utile pour les articles
+    # déjà adaptés manuellement, ou en mode legacy avec classes déjà appliquées).
+    if not data.get("skipTransform"):
+        article_html = transform_semantic_to_sanalia(article_html)
     h2s = extract_h2s_from_html(article_html)
     cta_inserts = data.get("ctaInserts", [])
     article_with_ctas, cta_counter = insert_ctas_in_html(article_html, h2s, cta_inserts, cfg)

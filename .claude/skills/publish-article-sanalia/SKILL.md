@@ -111,16 +111,17 @@ Stocker `notion_page_id` et `notion_page_url` pour la suite.
    ```
    Si exit code ≠ 0 → étape Erreur avec le `reason` retourné par le script.
 
-### Étape 4 — Générer le contenu via ChatSEO en mode HTML enrichi
+### Étape 4 — Générer le contenu via ChatSEO (HTML sémantique pur)
+
+**Séparation des responsabilités** :
+- **ChatSEO = expert SEO / sémantique / contenu** → produit un article HTML
+  sémantique propre, sans aucune classe CSS Sanalia. C'est son métier.
+- **Le skill = expert dev / design system** → applique les classes Sanalia
+  via `transform_semantic_to_sanalia()` dans `assemble_html.py`, puis injecte
+  les internal-link-cards de maillage interne au bon endroit.
 
 Appel MCP ChatSEO `send_message` avec `siteId =
-360b07f1-8f98-4035-8e5e-6d55d7a1285a` et le prompt suivant (à adapter avec les
-valeurs Notion).
-
-**Important** : on demande à ChatSEO un HTML **directement formaté avec les
-classes Sanalia** plutôt qu'un JSON strict avec un schéma complexe. Plus
-robuste, moins sujet aux timeouts ChatSEO, et permet d'exploiter pleinement
-les composants visuels enrichis (tableau, steps-list, callouts, checklist).
+360b07f1-8f98-4035-8e5e-6d55d7a1285a` et ce prompt **court** :
 
 ```
 Rédige un article SEO complet pour ranker sur "<Mot-clé principal>" sur le blog
@@ -139,89 +140,25 @@ CONTRAINTES SEO :
 - Mot-clé principal dans le H1, le metaTitle (< 60 chars), le metaDescription
   (120-155 chars) et 2-3 H2.
 - 5-8 sections H2 numérotées avec ancres kebab-case (id="ancre-kebab").
-- 6-8 questions FAQ alignées avec le contenu.
+- 6-8 questions FAQ alignées avec le contenu de l'article.
 - Sources officielles citées : ameli.fr, gouv.fr, ARS, DGCCRF, INRS, CS3D,
-  ANSES, Santé Publique France, INSERM, Institut Pasteur.
+  ANSES, Santé Publique France, INSERM, Institut Pasteur — selon pertinence.
 - Pas de promesses excessives, pas d'allégations médicales non sourcées.
 
-DESIGN SYSTEM SANALIA — utilise CES classes CSS dès que le contenu s'y prête.
-C'est CRUCIAL : un article rendu juste avec `<p>` et `<ul>` est trop pauvre
-visuellement. Tu DOIS varier les composants.
+QUALITÉ ÉDITORIALE — varie les éléments HTML pour rendre l'article riche :
+- Tableaux comparatifs <table> (avec <thead> + <tbody>) quand tu compares
+  espèces, méthodes, doses, options.
+- Listes d'étapes <ol><li><strong>Titre étape</strong> Description.</li></ol>
+  pour les procédures pas-à-pas (gestes premiers secours, protocole, etc.).
+- Encadrés <aside> pour les anecdotes ("Le saviez-vous ?"), précautions
+  ("Attention"), urgences ("Danger : appel 15"), astuces ("Conseil pratique").
+  Commence chaque <aside> par un <strong> qui annonce la nature de l'encadré.
+- Listes <ul> et <ol> classiques pour les énumérations simples.
+- <figure>/<figcaption> pour les visuels avec légende.
 
-Vocabulaire à utiliser DANS `articleHtml` :
-
-1. Listes d'étapes ordonnées (gestes, méthodes, procédure pas-à-pas) →
-   <ol class="steps-list">
-     <li><strong>Titre étape</strong> Description détaillée.</li>
-     ...
-   </ol>
-
-2. Tableau comparatif (réaction normale vs allergique, doses, méthodes,
-   produits) →
-   <div class="comparison-table-wrap">
-     <table class="comparison-table">
-       <caption>Titre tableau (mono, gris)</caption>
-       <thead><tr><th>Critère</th><th>Option A</th><th>Option B</th></tr></thead>
-       <tbody>
-         <tr><td>Ligne 1</td><td class="cell-positive">Bon</td><td class="cell-negative">Mauvais</td></tr>
-       </tbody>
-     </table>
-   </div>
-
-3. Encadrés contextuels :
-   <aside class="callout callout-did-you-know"><div><strong>Le saviez-vous ?</strong><p>Anecdote ou info chiffrée surprenante.</p></div></aside>
-   <aside class="callout callout-warning"><div><strong>Attention.</strong><p>Précaution importante.</p></div></aside>
-   <aside class="callout callout-danger"><div><strong>Urgence.</strong><p>Signe imposant l'appel 15 ou intervention pro.</p></div></aside>
-   <aside class="callout callout-tip"><div><strong>Astuce.</strong><p>Conseil pratique utile.</p></div></aside>
-
-4. Statistique marquante avec source officielle →
-   <div class="stats-highlight">
-     <div class="stats-highlight-number">+47 %</div>
-     <div class="stats-highlight-label">Description du chiffre</div>
-     <div class="stats-highlight-source">Source : Organisme, année</div>
-   </div>
-
-5. Checklist visuelle (trousse, gestes hebdo/annuels, prévention) →
-   <ul class="checklist">
-     <li class="checklist-title">Titre court de la checklist (en mono uppercase)</li>
-     <li><strong>Item 1</strong> Description complémentaire.</li>
-     <li><strong>Item 2</strong> Description complémentaire.</li>
-   </ul>
-   Variante danger (rouge) : class="checklist checklist--danger"
-
-6. Carte de lien interne (maillage SEO + UX) — relie l'article à une fiche
-   complète, un service, ou un article connexe du blog Sanalia :
-   <a href="/nuisibles/<espece>/" class="internal-link-card">
-     <div class="internal-link-card-icon">🐀</div>
-     <div class="internal-link-card-body">
-       <div class="internal-link-card-label">FICHE COMPLÈTE</div>
-       <div class="internal-link-card-title">Tout savoir sur les rats : biologie, comportement, risques</div>
-       <div class="internal-link-card-desc">Schémas interactifs, simulateur de prolifération, carte des zones à risque.</div>
-     </div>
-     <div class="internal-link-card-arrow">→</div>
-   </a>
-
-   Variations du `label` à utiliser selon la cible :
-   * `FICHE COMPLÈTE` → fiche /nuisibles/<espece>/
-   * `INTERVENTION LOCALE` → page service /deratisation/, /desinsectisation/<espece>/
-   * `ARTICLE LIÉ` → autre article du blog
-   * `RÉGLEMENTATION` → /reglementation/
-   * `URGENCE` → ligne directe ou page urgence
-
-   Icônes (emoji ou pictogramme) cohérentes avec le nuisible/service :
-   🐀 rats · 🦟 moustiques · 🐝 guêpes · 🪳 cafards · 🐜 fourmis · 📍 localisation · 🛡️ prévention · ⚠️ urgence · 📋 fiche
-
-7. Bullet lists et numbered lists CLASSIQUES restent autorisés pour les énumérations
-   simples : <ul><li>...</li></ul>, <ol><li>...</li></ol>.
-
-OBLIGATOIRE : utilise AU MINIMUM dans l'article :
-- 1 tableau comparatif (.comparison-table)
-- 1 steps-list (.steps-list) OU une checklist (.checklist)
-- 2 callouts variés (.callout-did-you-know / -warning / -danger / -tip)
-- 1 stats-highlight avec source officielle
-- 2 internal-link-card (1 vers la fiche /nuisibles/<parent>/ + 1 vers le service
-  /deratisation/ ou /desinsectisation/<parent>/ correspondant. Ajoute un 3e
-  vers un article connexe du blog si tu en connais un — sinon laisse 2.)
+PRODUIS du HTML sémantique propre. NE METS PAS de classes CSS personnalisées —
+le pipeline de post-traitement applique automatiquement les classes du design
+system Sanalia (.comparison-table, .steps-list, .callout-*, etc.).
 
 RETOURNE UN JSON valide au schéma suivant — RIEN d'autre, pas de markdown
 autour, pas de commentaire :
@@ -245,62 +182,109 @@ autour, pas de commentaire :
     "prompt": "string EN (prompt Recraft pour la hero, editorial, palette sage green + warm cream)"
   },
   "introHtml": "<p>Intro paragraphe 1...</p><p>Intro paragraphe 2...</p>",
-  "articleHtml": "<h2 id=\"section-1\">1. Titre</h2><p>...</p><ol class=\"steps-list\">...</ol><h2 id=\"section-2\">2. Titre</h2>...",
+  "articleHtml": "<h2 id=\"section-1\">1. Titre</h2><p>...</p><table><thead>...</thead><tbody>...</tbody></table><h2 id=\"section-2\">2. Titre</h2>...",
   "ctaInserts": [
-    {"afterSectionIndex": <N>, "variant": "devis|urgence|guide", "titleOverride": null, "descOverride": null},
+    {"afterSectionIndex": <N>, "variant": "devis|urgence|guide"},
     {"afterSectionIndex": <N>, "variant": "..."},
     {"afterSectionIndex": <N>, "variant": "..."}
   ],
   "faq": [
     {"q": "Question ?", "a": "Réponse 2-4 phrases factuelles."}
-    // 6 à 8 paires
   ],
   "related": {
     "url": "/blog/<autre-slug>/",
     "title": "Titre article connexe",
     "category": "Catégorie",
     "readingTime": "9 min"
-  },
-  "emergencyBanner": null  // facultatif (mais le pipeline en ajoute une automatiquement si intentType=urgency)
+  }
 }
 
 RÈGLES :
 - afterSectionIndex 0-indexed sur la liste des H2 dans `articleHtml`.
   Les 3 CTAs aux positions ~25 %, ~50 %, ~80 % du nombre total de sections.
-- Variant CTA :
-  * informational/prevention → "devis" (2 sur 3)
-  * urgency/transactional → "urgence" (≥ 2 sur 3, en téléphone)
-  * regulatory → "guide"
+- Variant CTA : informational/prevention → "devis" ; urgency/transactional →
+  "urgence" (≥ 2 sur 3) ; regulatory → "guide".
 - TOUS les H2 dans `articleHtml` doivent avoir un attribut `id="<ancre-kebab>"`.
-  Sinon la TOC sidebar ne sera pas générée correctement.
-- PAS de `<h1>` dans `articleHtml` (déjà géré par le hero).
-- PAS de `<h2 id="faq">` ni de bloc FAQ dans `articleHtml` (la FAQ est ajoutée
-  automatiquement à la fin, depuis le champ `faq`).
-- Tous les textes en français avec accents corrects (é è à ç ù ê ô î…).
-- Pas d'emoji (sauf 🚨 dans la emergencyBanner, géré automatiquement).
-- Sources des chiffres EXPLICITES dans les blocs `.stats-highlight`.
+- PAS de `<h1>` ni de section "FAQ" dans `articleHtml` (ajoutés en post-process).
+- Accents français corrects (é è à ç ù ê ô î…). Pas d'emoji dans le contenu.
 
 Retourne UNIQUEMENT le JSON, rien d'autre.
 ```
 
-Récupérer la réponse, parser le JSON. En cas d'échec de parsing → retry 1×
-avec "PREVIOUS RESPONSE WAS NOT VALID JSON, RESTART AND PRODUCE ONLY JSON.".
-Si toujours invalide → étape Erreur "ChatSEO JSON invalide après retry".
+Récupérer la réponse, parser le JSON. En cas d'échec parsing → retry 1× avec
+"PREVIOUS RESPONSE WAS NOT VALID JSON, RESTART AND PRODUCE ONLY JSON.".
 
-Validation :
-- `wordCount` ≥ 800 (retry si moins)
-- 5 ≤ nombre de H2 dans `articleHtml` ≤ 10 (compter `<h2 ` substrings)
+Validation post-parsing (côté Claude orchestrateur, après que le transformer
+Python ait appliqué les classes — cf. étape 4bis) :
+- `wordCount` ≥ 800 (retry ChatSEO si moins)
+- 5 ≤ nombre de H2 ≤ 10
 - 6 ≤ `len(faq)` ≤ 8
 - `len(ctaInserts) == 3`
-- Présence d'au moins 1 `comparison-table`, 1 `steps-list` ou `checklist`,
-  2 `callout`, 1 `stats-highlight` dans `articleHtml`. Si insuffisant, retry 1×
-  avec consigne "AJOUTE PLUS DE COMPOSANTS VISUELS ENRICHIS (tableau, callouts,
-  stats) — un article tout en `<p>` est insuffisant."
+- Au moins 1 `<table>` avec `<thead>`, 1 `<ol>` d'étapes, 2 `<aside>` dans
+  `articleHtml`. Si insuffisant, retry 1× avec consigne "Enrichis le contenu :
+  ajoute au moins 1 tableau comparatif et 2 encadrés <aside> distincts."
 
 Sauvegarder le JSON dans `/tmp/chatseo-output-<slug>.json`.
 
+### Étape 4bis — Injecter les internal-link-cards (orchestrateur Claude)
+
+Le transformer Python `transform_semantic_to_sanalia()` (intégré à
+`assemble_html.py`) applique automatiquement :
+- `<table>` (avec thead) → `.comparison-table` wrappé dans `.comparison-table-wrap`
+- `<ol>` strong-led → `.steps-list`
+- `<aside>` → `.callout callout-{did-you-know|warning|danger|tip}` selon contenu
+
+**Ce que le transformer NE FAIT PAS — à toi de l'ajouter dans `articleHtml`
+avant l'appel à `assemble_html.py`** : 2 cartes `.internal-link-card` de
+maillage interne. Place chaque carte à un endroit logique : la 1ère vers le
+milieu de l'article (transition vers la fiche complète du nuisible) et la
+2ème en fin (transition vers le service correspondant).
+
+Pattern HTML à insérer dans `articleHtml` (à un emplacement pertinent, entre
+deux blocs sémantiques) :
+
+```html
+<a href="/nuisibles/<parent_nuisible_url_slug>/" class="internal-link-card">
+  <div class="internal-link-card-icon"><EMOJI></div>
+  <div class="internal-link-card-body">
+    <div class="internal-link-card-label">FICHE COMPLÈTE</div>
+    <div class="internal-link-card-title">Tout savoir sur les <NUISIBLE> : biologie, comportement, risques</div>
+    <div class="internal-link-card-desc">Schémas interactifs, simulateur de prolifération, carte des zones à risque.</div>
+  </div>
+  <div class="internal-link-card-arrow">→</div>
+</a>
+```
+
+Et juste avant la dernière `<h2>` de `articleHtml` :
+
+```html
+<a href="/<service>/<parent_nuisible_url_slug>/" class="internal-link-card">
+  <div class="internal-link-card-icon">📍</div>
+  <div class="internal-link-card-body">
+    <div class="internal-link-card-label">INTERVENTION LOCALE</div>
+    <div class="internal-link-card-title"><Action> à Lyon et Paris</div>
+    <div class="internal-link-card-desc">Technicien Certibiocide, intervention sous 24 h, garantie résultat.</div>
+  </div>
+  <div class="internal-link-card-arrow">→</div>
+</a>
+```
+
+Mapping emoji ↔ nuisible : 🐀 rats · 🐭 souris · 🐝 guêpes · 🪳 cafards ·
+🐜 fourmis · 🦟 moustiques · 🛏️ punaises-de-lit · 🕊️ pigeons · 📍 localisation.
+
+Mapping service : rats/souris → `/deratisation/<slug>/` ; tous les insectes
+et hyménoptères → `/desinsectisation/<slug>/`. Le slug doit être le `url_slug`
+du `parent_nuisible_map` dans CONFIG.yaml (ex : `guepes` → `guepes-frelons`).
+
+Si tu connais un article connexe pertinent du blog Sanalia, tu peux ajouter
+une 3ème card avec `INTERVENTION LOCALE → ARTICLE LIÉ` (label) — mais reste à
+2 cards si rien de pertinent ne te vient.
+
 > Note : `assemble_html.py` détecte automatiquement le mode (HTML si
-> `articleHtml` présent, JSON legacy si `sections` présent à la place).
+> `articleHtml` présent, JSON legacy si `sections` présent à la place) et
+> applique `transform_semantic_to_sanalia()` sur `articleHtml` avant
+> assemblage. Si tu fournis du HTML déjà classé Sanalia (ex : ré-traitement
+> d'un article), passe `skipTransform: true` dans le JSON pour bypasser.
 
 Récupérer la réponse. Parser le JSON :
 - Si parsing échoue → retry 1× avec ajout en tête du prompt "PREVIOUS RESPONSE
