@@ -336,13 +336,15 @@ Validation du JSON :
 
 Sauvegarder le JSON dans `/tmp/chatseo-output-<slug>.json`.
 
-### Étape 5 — Générer les images via Recraft (hotlink URL)
+### Étape 5 — Générer les images via Recraft (download + self-host)
 
-> ⚠️ **Le sandbox réseau Claude Cron bloque tous les hosts non whitelist**
-> (`img.recraft.ai`, `n8n.*`, etc.). Curl, urllib ET WebFetch échouent tous.
-> Tentative de download = perte de temps. **On hotlink directement la
-> Recraft URL signée comme `<img src>`.** Le navigateur du visiteur charge
-> l'image depuis Recraft CDN. Pas de download, pas de sandbox.
+> ℹ️ **Les calls sortants sont autorisés** depuis la routine Claude Cron
+> (autorisation explicite du user). curl peut atteindre `img.recraft.ai`
+> directement. On télécharge et self-host les images pour rester cohérent
+> avec le reste du site (`/assets/...` partout, pas de dépendance CDN tiers).
+
+> ⚠️ **Recraft style `Editorial` = SVG vectoriel** (pas raster). Extension
+> obligatoire `.svg`.
 
 #### 5.1. Générer l'image
 
@@ -356,49 +358,67 @@ Appel MCP Recraft `generate_image` :
 
 Récupérer l'URL signée dans `image_urls[0]`.
 
-#### 5.2. Stocker l'URL dans le JSON (pas de download)
+#### 5.2. Télécharger via le helper Python
 
-Dans le JSON intermédiaire passé à `assemble_html.py`, mets l'URL Recraft
-directement dans le champ `url` de `heroImage` (et pareil pour les images
-de section si tu en génères) :
+```bash
+python3 .claude/skills/publish-article-sanalia/scripts/download_recraft_svg.py \
+  "<recraft_url>" \
+  "assets/blog/<slug>/<filename>.svg"
+```
+
+Le helper :
+- Lance `curl -sL -o <target> --max-time 30 <url>`
+- Valide : taille ≥ 1 ko, début `<svg`, fin contient `</svg>`
+- Détecte les erreurs sandbox (`Host not in allowlist`)
+- Exit 0 si SVG valide ; exit 1 sinon (logs détaillés stderr)
+
+#### 5.3. Référencer dans le JSON
+
+Dans le JSON passé à `assemble_html.py`, le `heroImage` utilise un
+**filename relatif** (pas une URL externe) :
 
 ```json
 {
   "heroImage": {
-    "url": "https://img.recraft.ai/XXXXX/rs:fit:1820:1024:0/raw:1/plain/abs://external/images/UUID",
-    "alt": "Texte alternatif descriptif",
+    "filename": "hero.svg",
+    "alt": "Texte alternatif descriptif (contient le mot-clé)",
     "caption": "Légende courte"
   }
 }
 ```
 
-`assemble_html.py` détecte automatiquement les URLs externes (commencent
-par `http(s)://`) et les met dans `<img src="...">` directement, sans
-préfixer par `/assets/blog/<slug>/`.
+`assemble_html.py` génère automatiquement `<img src="/assets/blog/<slug>/hero.svg">`.
 
-#### 5.3. Pas de fallback download
+#### 5.4. Fallback si Recraft échoue
 
-Avant on essayait curl puis WebFetch. **Plus la peine** : on hotlink. Si
-la génération Recraft échoue (rare), fallback à un SVG placeholder local :
+Si `generate_image` lève une exception ou si `download_recraft_svg.py` exit
+1 (curl timeout, fichier corrompu, etc.) → fallback à un placeholder local :
 
 ```bash
-# Si Recraft generate_image échoue (exception MCP), utilise un placeholder
 mkdir -p assets/blog/<slug>/
 cp assets/blog/placeholders/<theme>.svg assets/blog/<slug>/hero.svg
-# Puis dans le JSON :
-# "heroImage": {"filename": "hero.svg", "alt": "...", "caption": "..."}
 ```
 
-Placeholders disponibles : `nid-guepes.svg`, `piqure-allergie.svg`,
-`cafards-cuisine.svg`, `cafards-cycle.svg`, `rat-vs-souris.svg`,
-`rats-souris-pillar.svg`, `fourmis-maison.svg`, `frelon-asiatique.svg`,
-`moustique-tigre.svg`, `traitement-thermique.svg`, etc.
+Placeholders disponibles :
+- Rats/souris : `rats-souris-pillar.svg`, `rat-vs-souris.svg`, `maladies-rats.svg`
+- Guêpes/frelons : `nid-guepes.svg`, `frelon-asiatique.svg`, `piqure-allergie.svg`
+- Cafards : `cafards-cuisine.svg`, `cafards-cycle.svg`
+- Fourmis : `fourmis-maison.svg`
+- Moustiques : `moustique-tigre.svg`
+- Punaises : `punaises-detection.svg`, `punaises-voyage.svg`, `loi-punaises.svg`
+- Autres : `boucher-entrees.svg`, `calendrier-nuisibles.svg`, `certibiocide.svg`, `traitement-thermique.svg`
 
-> **Note long terme** : les URLs Recraft sont des signed URLs. Selon
-> Recraft, elles peuvent expirer après plusieurs mois. Pour les articles
-> à long-tail SEO important, prévoir un job de "permanence" qui télécharge
-> et self-host les images Recraft une fois le sandbox cron résolu (ou via
-> un job GitHub Actions externe).
+#### 5.5. Validation finale
+
+```bash
+test "$(stat -f%z 'assets/blog/<slug>/hero.svg')" -gt 1000 && \
+  head -c 4 'assets/blog/<slug>/hero.svg' | grep -q '<svg'
+```
+
+Si même le placeholder échoue → étape Erreur.
+
+Garde-fou : au moins 1 fichier SVG (Recraft ou placeholder) dans
+`assets/blog/<slug>/`.
 
 ### Étape 6 — Assembler le HTML
 
