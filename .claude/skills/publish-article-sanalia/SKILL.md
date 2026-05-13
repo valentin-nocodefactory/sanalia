@@ -134,6 +134,42 @@ Inclus aussi entre 1 et 3 tableaux comparatifs (`<table>` HTML) là où c'est pe
 C'est tout. ChatSEO répond en HTML ou en markdown — c'est son choix de format
 natif. Pas de JSON imposé, pas de schéma, pas de schématisation forcée.
 
+#### ⚠️ Pattern "send + poll" — ChatSEO timeout en sync
+
+**ChatSEO timeout très souvent en mode synchrone** (`Tool call timed out` ou
+`MCP server connection lost`) sur des prompts qui demandent de la rédaction
+longue. MAIS la conversation continue à tourner côté serveur ChatSEO. Il faut
+donc **récupérer le résultat APRÈS coup** dans la conversation initiée.
+
+Procédure obligatoire :
+
+1. **Note l'instant T0** juste avant `send_message` (ex.
+   `T0 = $(date -u +%Y-%m-%dT%H:%M:%SZ)`).
+
+2. **Appelle `send_message`** avec siteId + le prompt 3 lignes.
+
+3. **Si la réponse arrive (rare pour les longs articles)** :
+   - Garde le `conversationId` et le contenu retourné, passe au parsing.
+
+4. **Si timeout / connection lost (cas fréquent)** :
+   - Liste les conversations récentes via `list_conversations` (sort by
+     createdAt desc, limit ~10).
+   - Trouve la conversation créée APRÈS `T0` correspondant à ce siteId.
+     C'est ton `conversationId`.
+
+5. **Poll `get_conversation_messages`** avec `include_details=true` :
+   - Attends 60 s avant le 1er poll.
+   - Re-poll toutes les 60 s, max **6 tentatives** (= jusqu'à 6 min total).
+   - Sortie OK quand le dernier message de l'assistant contient soit :
+     - un `artifact` (ChatSEO crée souvent un artifact pour les longs articles),
+     - OU un contenu texte de longueur substantielle (> 2000 chars).
+
+6. **Extrais le contenu** :
+   - Si artifact présent → `get_artifact(<artifactId>)` pour récupérer le contenu intégral.
+   - Sinon → utilise le `content` du dernier message assistant.
+
+7. **Logue le `conversationId` final** pour traçabilité dans les logs cron.
+
 #### Post-réception : parsing intelligent par l'orchestrateur
 
 À toi (Claude orchestrateur) d'extraire et de structurer la réponse ChatSEO.
