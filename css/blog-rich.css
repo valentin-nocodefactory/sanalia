@@ -93,14 +93,19 @@
   background: #8781f3;
 }
 
-/* Surcharge stricte : .steps-list garde son rendu numéroté de l'item 4 */
+/* Surcharge stricte : .steps-list garde son rendu numéroté de l'item 4.
+   Important : on remet counter-reset/-increment sur le compteur "steps"
+   parce que les rules .blog-content > ol/li ci-dessus auraient écrasé
+   les counter-reset:steps / counter-increment:steps de l'item 4. */
 .blog-content > ol.steps-list,
 .blog-body > ol.steps-list {
   list-style: none;
+  counter-reset: steps;
 }
 .blog-content > ol.steps-list > li,
 .blog-body > ol.steps-list > li {
   padding-left: 80px;  /* override de l'OL classique */
+  counter-increment: steps;
 }
 .blog-content > ol.steps-list > li::before,
 .blog-body > ol.steps-list > li::before {
@@ -338,11 +343,14 @@
   justify-content: center;
 }
 .steps-list > li strong:first-child {
-  display: block;
-  font-size: 18px;
+  /* Inline pour supporter les 2 patterns :
+     - <strong>Titre</strong> Description (legacy rats article)
+     - <strong>Titre</strong> : Description (ChatSEO actuel)
+     Le numéro à gauche assure déjà la hiérarchie visuelle. */
+  font-size: 17px;
   font-weight: 700;
   color: #0e052a;
-  margin-bottom: 6px;
+  margin-right: 4px;
 }
 .steps-list > li > *:last-child { margin-bottom: 0; }
 .steps-list--danger > li::before {
