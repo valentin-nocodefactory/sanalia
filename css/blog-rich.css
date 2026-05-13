@@ -346,11 +346,12 @@
   /* Inline pour supporter les 2 patterns :
      - <strong>Titre</strong> Description (legacy rats article)
      - <strong>Titre</strong> : Description (ChatSEO actuel)
-     Le numéro à gauche assure déjà la hiérarchie visuelle. */
+     Le numéro à gauche assure déjà la hiérarchie visuelle.
+     Pas de margin-right : l'espace naturel " : " ou " " suffit
+     (sinon double-espacement visible). */
   font-size: 17px;
   font-weight: 700;
   color: #0e052a;
-  margin-right: 4px;
 }
 .steps-list > li > *:last-child { margin-bottom: 0; }
 .steps-list--danger > li::before {
