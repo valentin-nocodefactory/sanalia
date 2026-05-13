@@ -166,7 +166,8 @@ def gen_article_body(data: dict, slug: str, canonical_url: str, cfg: dict) -> st
     # 2. Hero image (figure)
     if data.get("heroImage"):
         parts.append(gen_image_figure(slug, {
-            "filename": data["heroImage"]["filename"],
+            "url": data["heroImage"].get("url", ""),
+            "filename": data["heroImage"].get("filename", ""),
             "alt": data["heroImage"].get("alt", ""),
             "caption": data["heroImage"].get("caption", ""),
         }))
