@@ -288,6 +288,8 @@ Le sitemap racine est désormais `/sitemap-index.xml` qui agrège `/sitemap.xml`
 
 1. **URL article** : TOUJOURS `/blog/[slug-article]/` à plat. JAMAIS de sous-dossier de catégorie. Les anciennes URLs `/blog/rats-souris/...`, `/blog/prevention/...`, etc. sont **interdites**. Le `slug` doit être suffisamment descriptif pour éviter toute collision (ex : `comment-se-debarrasser-des-rats` plutôt que `rats`).
 
+   **🔴 INTERDICTION ABSOLUE — Jamais d'année dans le slug.** Aucun slug d'URL (blog OU n'importe quelle autre page du site) ne doit contenir une année (`2024`, `2025`, `2026`, etc.). Cela vaut aussi pour les versions courtes (`-24`, `-25`). Raison : un slug avec année rend l'URL périssable, vieillit le contenu aux yeux de Google et oblige à des redirects 301 chaque année. Le contenu doit être **evergreen**. L'année peut figurer dans le `<title>`, le H1 et le corps de l'article (ex : « Pièges à rats : lesquels choisir en 2026 ? ») et être mise à jour à chaque revue, mais **JAMAIS dans l'URL**. Exemples : `/blog/hantavirus-rats-symptomes-prevention/` ✅ et non `/blog/hantavirus-rats-symptomes-prevention-france-2026/` ❌ ; `/blog/calendrier-nuisibles-france/` ✅ et non `/blog/calendrier-nuisibles-2026/` ❌.
+
 2. **Breadcrumb (HTML + JSON-LD `BreadcrumbList`)** : 4 niveaux pour un article rattaché à un nuisible, 3 niveaux sinon. Le 3ème niveau pointe **toujours** vers la fiche `/nuisibles/[espece]/`, **jamais** vers une catégorie blog.
    - Position 1 : `Accueil` → `/`
    - Position 2 : `Blog` → `/blog/`
