@@ -341,16 +341,17 @@ Sauvegarder le JSON dans `/tmp/chatseo-output-<slug>.json`.
 > ⚠️ **Recraft style Editorial = SVG vectoriel** (pas raster). Extension
 > obligatoire `.svg`. C'est aligné avec les SVGs existants des autres articles.
 
-> ⚠️ **Le sandbox réseau de Claude Code bloque `curl` et `urllib`** pour
-> `img.recraft.ai` en contexte routine cron. Tu obtiendrais "Host not in
-> allowlist" (21 octets) au lieu de l'image. **N'utilise PAS curl, N'utilise
-> PAS python urllib/requests pour télécharger.** Utilise UNIQUEMENT le tool
-> `WebFetch` qui passe par l'API Claude, hors sandbox.
+#### Méthode de téléchargement : pourquoi curl et pas WebFetch
 
-Pour chaque brief image (au minimum 1 hero, optionnellement 1-3 images de
-section) :
+Deux méthodes possibles, **curl est OBLIGATOIRE** :
 
-#### 5.1. Générer
+| Méthode | Pourquoi | Limites |
+|---|---|---|
+| **`curl`** | Téléchargement verbatim, rapide, fidèle | Nécessite `img.recraft.ai` autorisé dans `.claude/settings.json` (déjà fait). |
+| ~~`WebFetch`~~ | **À NE PAS UTILISER** : la couche LLM de WebFetch SUMMARIZE/tronque les longs SVG (centaines de `<path>` perdus). En plus, Recraft CDN renvoie souvent **403** sur l'IP Anthropic-WebFetch. | — |
+| ~~urllib/requests~~ | Idem que curl mais sans permission spécifique | Même comportement que curl, sans bénéfice. |
+
+#### 5.1. Générer l'image
 
 Appel MCP Recraft `generate_image` :
 - `prompt` = prompt EN dérivé du titre/KW + suffixe Sanalia (cf.
@@ -360,59 +361,55 @@ Appel MCP Recraft `generate_image` :
 - `image_size` = `16:9`
 - `n` = 1
 
-Récupérer l'URL dans `image_urls[0]`.
+Récupérer l'URL signée dans `image_urls[0]`.
 
-#### 5.2. Télécharger avec WebFetch (méthode obligatoire)
-
-```
-WebFetch:
-  url    = <recraft_url>
-  prompt = "Return the SVG content verbatim. The response should start with <svg and end with </svg>. No explanation, no commentary."
-```
-
-WebFetch retourne le contenu SVG. **Si le contenu fait > 2 ko, il est
-automatiquement sauvegardé dans un fichier temporaire** dont le chemin est
-indiqué dans les métadonnées de la réponse (`output-file: /Users/.../tool-results/<id>.txt`).
-
-#### 5.3. Extraire le SVG propre et sauver
-
-Le fichier WebFetch peut contenir des fences markdown (```xml ... ```) autour
-du SVG. Utilise le helper pour extraire le contenu propre :
+#### 5.2. Télécharger via le helper Python (curl prioritaire)
 
 ```bash
-mkdir -p assets/blog/<slug>/
-python3 .claude/skills/publish-article-sanalia/scripts/save_svg_from_webfetch.py \
-  "<webfetch-output-file>" \
+python3 .claude/skills/publish-article-sanalia/scripts/download_recraft_svg.py \
+  "<recraft_url>" \
   "assets/blog/<slug>/<filename>.svg"
 ```
 
 Le helper :
-- Strip les fences markdown (```...```)
-- Extrait du premier `<svg` au dernier `</svg>`
-- Vérifie que la taille est ≥ 1 ko
-- Sauve dans le chemin cible
-- Exit 0 si OK, 1 sinon
+- Lance `curl -sL -o <target> --max-time 30 <url>`
+- Vérifie : taille ≥ 1 ko, début `<svg`, fin contient `</svg>`
+- Détecte le message d'erreur `Host not in allowlist` (sandbox bloquant)
+- Exit 0 si SVG valide ; exit 1 sinon (logs détaillés sur stderr)
+
+#### 5.3. Fallback si curl échoue (exit ≠ 0)
+
+Si le helper échoue avec exit ≠ 0 :
+
+1. **Vérifie le message d'erreur** sur stderr :
+   - Si `Host not in allowlist` → le sandbox bloque img.recraft.ai. Vérifie
+     que `.claude/settings.json` contient bien les patterns
+     `Bash(curl ... https://img.recraft.ai/*)`. Si oui mais bloqué quand
+     même, c'est un problème côté Anthropic sandbox réseau → utilise un
+     SVG placeholder.
+   - Si `curl timeout` → réessaie une fois avec un délai de 5 s.
+   - Sinon → log l'erreur et passe au fallback placeholder.
+
+2. **Fallback SVG placeholder** :
+   ```bash
+   # Choisir un placeholder selon le thème (parent_nuisible)
+   cp assets/blog/placeholders/<theme>.svg assets/blog/<slug>/<filename>.svg
+   ```
+   Placeholders disponibles : `nid-guepes.svg`, `piqure-allergie.svg`,
+   `cafards-cuisine.svg`, `cafards-cycle.svg`, `rat-vs-souris.svg`,
+   `rats-souris-pillar.svg`, `fourmis-maison.svg`, `frelon-asiatique.svg`,
+   `moustique-tigre.svg`, `traitement-thermique.svg`, etc.
 
 #### 5.4. Validation finale
 
 ```bash
-test "$(stat -f%z 'assets/blog/<slug>/<filename>.svg')" -gt 5000 && \
+test "$(stat -f%z 'assets/blog/<slug>/<filename>.svg')" -gt 1000 && \
   head -c 4 'assets/blog/<slug>/<filename>.svg' | grep -q '<svg'
 ```
 
-Si échec → retry étape 5.1 (1×) avec prompt simplifié.
+Si même le placeholder échoue → étape Erreur.
 
-#### 5.5. Fallback final (après 2 échecs)
-
-- **Hero** → copier un SVG placeholder approprié :
-  ```bash
-  cp assets/blog/placeholders/<parent_nuisible_picture>.svg \
-     assets/blog/<slug>/hero.svg
-  ```
-  (par ex. `nid-guepes.svg`, `piqure-allergie.svg`, etc. selon le thème)
-- **Images de section** → omettre, ne pas abort.
-
-Garde-fou final : au moins 1 image (hero ou placeholder) dans
+Garde-fou final : au moins 1 fichier SVG (Recraft ou placeholder) dans
 `assets/blog/<slug>/`.
 
 ### Étape 6 — Assembler le HTML
