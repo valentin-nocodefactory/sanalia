@@ -116,8 +116,23 @@ def gen_cta_inline(variant: str, cfg: dict, idx: int, title_override=None, desc_
 
 
 def gen_image_figure(slug: str, image: dict) -> str:
-    """Génère une <figure> pour une image d'article."""
-    src = f"/assets/blog/{slug}/{image['filename']}"
+    """Génère une <figure> pour une image d'article.
+
+    Source de l'image, par ordre de priorité :
+    1. `url` (string) : URL externe directe (https://img.recraft.ai/... etc.)
+       — utilisé quand le sandbox cron empêche le download local.
+    2. `filename` commençant par http(s):// : idem, traité comme externe.
+    3. `filename` simple : /assets/blog/<slug>/<filename> (asset local).
+    """
+    url = image.get("url", "")
+    fn = image.get("filename", "")
+    if url and (url.startswith("http://") or url.startswith("https://")):
+        src = url
+    elif fn.startswith("http://") or fn.startswith("https://"):
+        src = fn
+    else:
+        src = f"/assets/blog/{slug}/{fn}"
+
     alt = html_escape(image.get("alt", ""))
     caption = image.get("caption", "")
     fig_caption = f'\n  <figcaption>{html_escape(caption)}</figcaption>' if caption else ""
@@ -646,8 +661,17 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
     parent_meta = cfg["parent_nuisible_map"].get(parent_nuisible, {})
 
     canonical_url = f"{cfg['prod_domain']}/blog/{slug}/"
-    hero_filename = data["heroImage"]["filename"] if data.get("heroImage") else "hero.svg"
-    og_image_url = f"{cfg['prod_domain']}/assets/blog/{slug}/{hero_filename}"
+    hero = data.get("heroImage") or {}
+    hero_url_field = hero.get("url", "")
+    hero_filename = hero.get("filename", "hero.svg")
+    # Si heroImage.url est une URL externe (Recraft, etc.), on l'utilise tel quel.
+    # Sinon si filename est une URL, idem. Sinon, asset local.
+    if hero_url_field and hero_url_field.startswith(("http://", "https://")):
+        og_image_url = hero_url_field
+    elif hero_filename.startswith(("http://", "https://")):
+        og_image_url = hero_filename
+    else:
+        og_image_url = f"{cfg['prod_domain']}/assets/blog/{slug}/{hero_filename}"
 
     article_section = parent_meta.get("section", "Conseils")
 

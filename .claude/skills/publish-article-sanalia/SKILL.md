@@ -336,20 +336,13 @@ Validation du JSON :
 
 Sauvegarder le JSON dans `/tmp/chatseo-output-<slug>.json`.
 
-### Étape 5 — Générer les images via Recraft
+### Étape 5 — Générer les images via Recraft (hotlink URL)
 
-> ⚠️ **Recraft style Editorial = SVG vectoriel** (pas raster). Extension
-> obligatoire `.svg`. C'est aligné avec les SVGs existants des autres articles.
-
-#### Méthode de téléchargement : pourquoi curl et pas WebFetch
-
-Deux méthodes possibles, **curl est OBLIGATOIRE** :
-
-| Méthode | Pourquoi | Limites |
-|---|---|---|
-| **`curl`** | Téléchargement verbatim, rapide, fidèle | Nécessite `img.recraft.ai` autorisé dans `.claude/settings.json` (déjà fait). |
-| ~~`WebFetch`~~ | **À NE PAS UTILISER** : la couche LLM de WebFetch SUMMARIZE/tronque les longs SVG (centaines de `<path>` perdus). En plus, Recraft CDN renvoie souvent **403** sur l'IP Anthropic-WebFetch. | — |
-| ~~urllib/requests~~ | Idem que curl mais sans permission spécifique | Même comportement que curl, sans bénéfice. |
+> ⚠️ **Le sandbox réseau Claude Cron bloque tous les hosts non whitelist**
+> (`img.recraft.ai`, `n8n.*`, etc.). Curl, urllib ET WebFetch échouent tous.
+> Tentative de download = perte de temps. **On hotlink directement la
+> Recraft URL signée comme `<img src>`.** Le navigateur du visiteur charge
+> l'image depuis Recraft CDN. Pas de download, pas de sandbox.
 
 #### 5.1. Générer l'image
 
@@ -363,54 +356,49 @@ Appel MCP Recraft `generate_image` :
 
 Récupérer l'URL signée dans `image_urls[0]`.
 
-#### 5.2. Télécharger via le helper Python (curl prioritaire)
+#### 5.2. Stocker l'URL dans le JSON (pas de download)
 
-```bash
-python3 .claude/skills/publish-article-sanalia/scripts/download_recraft_svg.py \
-  "<recraft_url>" \
-  "assets/blog/<slug>/<filename>.svg"
+Dans le JSON intermédiaire passé à `assemble_html.py`, mets l'URL Recraft
+directement dans le champ `url` de `heroImage` (et pareil pour les images
+de section si tu en génères) :
+
+```json
+{
+  "heroImage": {
+    "url": "https://img.recraft.ai/XXXXX/rs:fit:1820:1024:0/raw:1/plain/abs://external/images/UUID",
+    "alt": "Texte alternatif descriptif",
+    "caption": "Légende courte"
+  }
+}
 ```
 
-Le helper :
-- Lance `curl -sL -o <target> --max-time 30 <url>`
-- Vérifie : taille ≥ 1 ko, début `<svg`, fin contient `</svg>`
-- Détecte le message d'erreur `Host not in allowlist` (sandbox bloquant)
-- Exit 0 si SVG valide ; exit 1 sinon (logs détaillés sur stderr)
+`assemble_html.py` détecte automatiquement les URLs externes (commencent
+par `http(s)://`) et les met dans `<img src="...">` directement, sans
+préfixer par `/assets/blog/<slug>/`.
 
-#### 5.3. Fallback si curl échoue (exit ≠ 0)
+#### 5.3. Pas de fallback download
 
-Si le helper échoue avec exit ≠ 0 :
-
-1. **Vérifie le message d'erreur** sur stderr :
-   - Si `Host not in allowlist` → le sandbox bloque img.recraft.ai. Vérifie
-     que `.claude/settings.json` contient bien les patterns
-     `Bash(curl ... https://img.recraft.ai/*)`. Si oui mais bloqué quand
-     même, c'est un problème côté Anthropic sandbox réseau → utilise un
-     SVG placeholder.
-   - Si `curl timeout` → réessaie une fois avec un délai de 5 s.
-   - Sinon → log l'erreur et passe au fallback placeholder.
-
-2. **Fallback SVG placeholder** :
-   ```bash
-   # Choisir un placeholder selon le thème (parent_nuisible)
-   cp assets/blog/placeholders/<theme>.svg assets/blog/<slug>/<filename>.svg
-   ```
-   Placeholders disponibles : `nid-guepes.svg`, `piqure-allergie.svg`,
-   `cafards-cuisine.svg`, `cafards-cycle.svg`, `rat-vs-souris.svg`,
-   `rats-souris-pillar.svg`, `fourmis-maison.svg`, `frelon-asiatique.svg`,
-   `moustique-tigre.svg`, `traitement-thermique.svg`, etc.
-
-#### 5.4. Validation finale
+Avant on essayait curl puis WebFetch. **Plus la peine** : on hotlink. Si
+la génération Recraft échoue (rare), fallback à un SVG placeholder local :
 
 ```bash
-test "$(stat -f%z 'assets/blog/<slug>/<filename>.svg')" -gt 1000 && \
-  head -c 4 'assets/blog/<slug>/<filename>.svg' | grep -q '<svg'
+# Si Recraft generate_image échoue (exception MCP), utilise un placeholder
+mkdir -p assets/blog/<slug>/
+cp assets/blog/placeholders/<theme>.svg assets/blog/<slug>/hero.svg
+# Puis dans le JSON :
+# "heroImage": {"filename": "hero.svg", "alt": "...", "caption": "..."}
 ```
 
-Si même le placeholder échoue → étape Erreur.
+Placeholders disponibles : `nid-guepes.svg`, `piqure-allergie.svg`,
+`cafards-cuisine.svg`, `cafards-cycle.svg`, `rat-vs-souris.svg`,
+`rats-souris-pillar.svg`, `fourmis-maison.svg`, `frelon-asiatique.svg`,
+`moustique-tigre.svg`, `traitement-thermique.svg`, etc.
 
-Garde-fou final : au moins 1 fichier SVG (Recraft ou placeholder) dans
-`assets/blog/<slug>/`.
+> **Note long terme** : les URLs Recraft sont des signed URLs. Selon
+> Recraft, elles peuvent expirer après plusieurs mois. Pour les articles
+> à long-tail SEO important, prévoir un job de "permanence" qui télécharge
+> et self-host les images Recraft une fois le sandbox cron résolu (ou via
+> un job GitHub Actions externe).
 
 ### Étape 6 — Assembler le HTML
 
@@ -561,28 +549,23 @@ git checkout main
    - `PR GitHub` → `<PR_URL>`
    - `URL preview Cloudflare` → `<PREVIEW_URL>`
 
-3. Slack :
-   ```
-   python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
-     --template draft \
-     --vars '{"title":"<title>","keyword":"<kw>","preview_url":"<preview>","pr_url":"<pr>","notion_url":"<notion>"}'
-   ```
+3. **Slack** : **NE TENTE PAS** d'appeler le webhook n8n depuis la routine.
+   Le sandbox réseau Claude Cron bloque `n8n.srv1336530.hstgr.cloud` (et tout
+   host non-whitelist). Le call échoue systématiquement.
 
-   > ⚠️ **`SLACK_WEBHOOK_URL` doit être disponible dans l'environnement de la
-   > routine cron.** Le repo est public, donc ne JAMAIS commiter cette URL.
-   > Configuration possibles :
-   >   - Variable d'env à l'init du job cron (depuis le settings de la
-   >     scheduled-task), OU
-   >   - Source d'un `.env` non commité avant le run, OU
-   >   - Lire depuis `.claude/settings.local.json` (présent localement uniquement)
-   >
-   > Si l'env var est absente, `notify_slack.py` log un warning et exit 0
-   > (le pipeline continue, mais aucune notif n'est envoyée).
-   >
-   > Si la routine tourne et ne reçoit rien sur Slack, vérifie que `echo
-   > $SLACK_WEBHOOK_URL` retourne bien la valeur attendue au début de la run.
+   La notification Slack est déclenchée automatiquement par une **GitHub
+   Action** (`.github/workflows/notify-slack-on-draft-pr.yml`) qui se lance
+   à la création de la PR. Le runner GitHub a un accès réseau complet et
+   POST au webhook sans souci.
 
-4. Log final : `✅ Article prêt à valider : <PREVIEW_URL>`.
+   Setup user (1 fois) : ajouter `SLACK_WEBHOOK_URL` dans les secrets GitHub
+   du repo (Settings → Secrets and variables → Actions).
+
+   La routine se contente donc de créer la PR via `gh pr create`. La suite
+   est automatique côté GitHub Action.
+
+4. Log final : `✅ Article prêt à valider : <PREVIEW_URL>` (Slack arrivera
+   dans les 30 s via la GitHub Action).
 
 ## Gestion d'erreur (étape Erreur)
 
