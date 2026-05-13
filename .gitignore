@@ -9,6 +9,8 @@ Sanalia-SEO-Strategie-Intentions-Recherche-2026.xlsx
 *-copy.html
 *~
 node_modules/
+__pycache__/
+*.pyc
 
 # Claude Code local settings & secrets
 .claude/settings.local.json
