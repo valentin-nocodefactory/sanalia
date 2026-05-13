@@ -18,6 +18,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
+import subprocess
 import sys
 import urllib.request
 import urllib.error
@@ -56,23 +58,87 @@ TEMPLATES = {
 }
 
 
-def send(text: str, webhook_url: str) -> bool:
+# User-Agent reconnaissable (utile si le serveur webhook filtre les UA "bot")
+USER_AGENT = "Sanalia-Cron/1.0 (publish-article-sanalia)"
+
+
+def send_via_urllib(text: str, webhook_url: str) -> tuple[bool, str]:
+    """Tente d'envoyer via Python urllib. Retourne (ok, diagnostic)."""
     payload = json.dumps({"text": text}).encode("utf-8")
     req = urllib.request.Request(
         webhook_url,
         data=payload,
-        headers={"Content-Type": "application/json"},
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json,*/*",
+        },
         method="POST",
     )
     try:
         with urllib.request.urlopen(req, timeout=10) as resp:
-            return 200 <= resp.status < 300
+            body = resp.read(500).decode("utf-8", errors="replace")
+            return 200 <= resp.status < 300, f"HTTP {resp.status} — {body[:200]}"
     except urllib.error.HTTPError as e:
-        print(f"⚠ HTTP {e.code} envoyant Slack : {e.reason}", file=sys.stderr)
-        return False
+        # Lit le body de la réponse pour aider au diagnostic
+        try:
+            body = e.read(500).decode("utf-8", errors="replace")
+        except Exception:
+            body = ""
+        return False, f"HTTP {e.code} {e.reason} — body: {body[:200]}"
     except Exception as e:
-        print(f"⚠ Erreur Slack : {e}", file=sys.stderr)
-        return False
+        return False, f"Exception : {type(e).__name__} : {e}"
+
+
+def send_via_curl(text: str, webhook_url: str) -> tuple[bool, str]:
+    """Fallback : utilise curl en subprocess. Peut passer là où urllib échoue
+    (par ex. si le sandbox cron filtre urllib mais autorise curl, ou si le
+    serveur webhook filtre les UA python)."""
+    curl = shutil.which("curl")
+    if not curl:
+        return False, "curl introuvable dans PATH"
+
+    payload = json.dumps({"text": text})
+    cmd = [
+        curl, "-sS", "-o", "/dev/null", "-w", "%{http_code}",
+        "-X", "POST",
+        "-H", "Content-Type: application/json",
+        "-H", f"User-Agent: {USER_AGENT}",
+        "-d", payload,
+        "--max-time", "10",
+        webhook_url,
+    ]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15)
+        http_code = result.stdout.strip()
+        ok = http_code.startswith("2")
+        return ok, f"HTTP {http_code} (via curl) — stderr: {result.stderr[:200]}"
+    except subprocess.TimeoutExpired:
+        return False, "curl timeout"
+    except Exception as e:
+        return False, f"curl Exception : {type(e).__name__} : {e}"
+
+
+def send(text: str, webhook_url: str) -> bool:
+    """Envoie via urllib puis fallback curl si échec.
+
+    Retourne True si au moins une méthode a réussi.
+    """
+    # Tentative 1 : urllib
+    ok, diag = send_via_urllib(text, webhook_url)
+    if ok:
+        print(f"✓ Slack notifié via urllib ({diag})", file=sys.stderr)
+        return True
+    print(f"⚠ urllib échec : {diag}", file=sys.stderr)
+
+    # Tentative 2 : curl en fallback (souvent passe là où urllib bloque)
+    ok, diag = send_via_curl(text, webhook_url)
+    if ok:
+        print(f"✓ Slack notifié via curl fallback ({diag})", file=sys.stderr)
+        return True
+    print(f"⚠ curl échec : {diag}", file=sys.stderr)
+
+    return False
 
 
 def main():
