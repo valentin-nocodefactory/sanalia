@@ -196,7 +196,7 @@ def gen_article_body(data: dict, slug: str, canonical_url: str, cfg: dict) -> st
             f'  <div class="accordion-item">\n'
             f'    <button class="accordion-header">{html_escape(fq["q"])} <span class="icon-toggle">+</span></button>\n'
             f'    <div class="accordion-body">\n'
-            f'      <div class="accordion-body-inner">{html_escape(fq["a"])}</div>\n'
+            f'      <div class="accordion-body-inner">{fq["a"]}</div>\n'
             f'    </div>\n'
             f'  </div>'
         )
@@ -519,7 +519,7 @@ def gen_article_body_from_html(data: dict, slug: str, canonical_url: str, cfg: d
             f'  <div class="accordion-item">\n'
             f'    <button class="accordion-header">{html_escape(fq["q"])} <span class="icon-toggle">+</span></button>\n'
             f'    <div class="accordion-body">\n'
-            f'      <div class="accordion-body-inner">{html_escape(fq["a"])}</div>\n'
+            f'      <div class="accordion-body-inner">{fq["a"]}</div>\n'
             f'    </div>\n'
             f'  </div>'
         )
@@ -636,16 +636,24 @@ def gen_breadcrumb_jsonld_level34(parent_nuisible: str, article_title: str, cfg:
 
 
 def gen_faq_jsonld(faq: list) -> str:
-    """Génère les entries JSON du FAQPage mainEntity."""
+    """Génère les entries JSON du FAQPage mainEntity.
+
+    Strip les balises HTML de la réponse (le JSON-LD FAQPage attend du plain
+    text). L'affichage HTML de la FAQ conserve le formatage via le rendu
+    accordion.
+    """
     items = []
     for fq in faq:
+        # Plain text answer : strip toutes balises HTML, normalise whitespace
+        answer_plain = re.sub(r"<[^>]+>", "", fq["a"])
+        answer_plain = re.sub(r"\s+", " ", answer_plain).strip()
         items.append(
             '        {\n'
             '          "@type": "Question",\n'
             f'          "name": "{json_escape(fq["q"])}",\n'
             '          "acceptedAnswer": {\n'
             '            "@type": "Answer",\n'
-            f'            "text": "{json_escape(fq["a"])}"\n'
+            f'            "text": "{json_escape(answer_plain)}"\n'
             '          }\n'
             '        }'
         )
