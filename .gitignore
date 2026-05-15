@@ -15,3 +15,4 @@ node_modules/
 .claude/worktrees/
 .env
 .env.local
+.claude/skills/publish-article-sanalia/scripts/__pycache__/
