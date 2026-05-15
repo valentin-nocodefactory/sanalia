@@ -41,6 +41,7 @@ Outils Python du skill (chemins relatifs depuis la racine repo) :
 - `.claude/skills/publish-article-sanalia/scripts/assemble_html.py`
 - `.claude/skills/publish-article-sanalia/scripts/update_indexes.py`
 - `.claude/skills/publish-article-sanalia/scripts/notify_slack.py`
+- `.claude/skills/publish-article-sanalia/scripts/cloudflare_preview_url.py`
 
 Template : `.claude/skills/publish-article-sanalia/templates/article-skeleton.html`
 
@@ -750,26 +751,52 @@ git checkout main
 
 ### Étape 9 — Récupérer l'URL preview Cloudflare + update Notion + Slack
 
-1. Récupérer l'URL preview canonique. Tentative en 2 temps :
-   - Construire l'URL par défaut :
-     `https://claude-draft-<slug-sans-slashes>.sanalia.pages.dev`
-     (les `/` du nom de branche sont remplacés par `-`)
-   - Poll 6× toutes les 10s pour récupérer l'URL canonique depuis le commentaire
-     du bot Cloudflare sur la PR :
-     ```
-     gh pr view <BRANCH> --json comments \
-       -q '.comments[] | select(.author.login | contains("cloudflare")) | .body' \
-       | grep -oE 'https://[a-z0-9-]+\.sanalia\.pages\.dev' | head -1
-     ```
-   - Si récupérée → utiliser cette URL. Sinon → utiliser l'URL par défaut
-     construite ci-dessus.
+1. **Construire l'URL preview localement** (source de vérité, déterministe) :
 
-2. Update Notion via MCP `notion-update-page` :
+   ```bash
+   PREVIEW_URL=$(python3 .claude/skills/publish-article-sanalia/scripts/cloudflare_preview_url.py "$BRANCH")
+   ```
+
+   Le helper applique exactement la règle de Cloudflare Pages :
+   lowercase → remplace tout caractère non `[a-z0-9]` par `-` → collapse les
+   `-` consécutifs → strip leading/trailing `-` → tronque à **28 caractères**
+   → re-strip trailing `-`.
+
+   **Pourquoi ne pas se contenter de** `https://claude-draft-<slug>.sanalia.pages.dev` **?**
+   Cloudflare tronque les alias de branche > 28 chars. Pour un slug long
+   (ex : `terre-de-diatomee-punaise-de-lit`) la branche devient
+   `claude/draft/terre-de-diatomee-punaise-de-lit`, et l'alias réel servi par
+   Cloudflare est `claude-draft-terre-de-diatom` — pas la chaîne complète.
+   Construire l'URL « naïvement » envoie sur Notion / Slack un lien 404.
+
+2. **Optionnel — vérifier que le déploiement est en ligne** via le commentaire
+   du bot Cloudflare sur la PR. C'est de la vérification, pas de l'extraction
+   d'URL (l'URL canonique est déjà calculée à l'étape 1) :
+
+   ```bash
+   for i in 1 2 3 4 5 6; do
+     CF_COMMENT=$(gh pr view "$BRANCH" --json comments \
+       -q '.comments[] | select(.author.login | contains("cloudflare")) | .body' \
+       | head -1)
+     if [ -n "$CF_COMMENT" ]; then
+       echo "Cloudflare deploy posted on PR — preview prête."
+       break
+     fi
+     sleep 10
+   done
+   ```
+
+   Le déploiement Cloudflare peut prendre 1 à 3 minutes après le push. Ne pas
+   bloquer la routine si le commentaire n'est pas arrivé : l'URL reste valide
+   dès que le build aboutit, et le user verra la page disponible quelques
+   minutes plus tard.
+
+3. Update Notion via MCP `notion-update-page` :
    - `Statut` → `À valider`
    - `PR GitHub` → `<PR_URL>`
-   - `URL preview Cloudflare` → `<PREVIEW_URL>`
+   - `URL preview Cloudflare` → `<PREVIEW_URL>` (celui calculé à l'étape 1)
 
-3. **Slack** : **NE TENTE PAS** d'appeler le webhook n8n depuis la routine.
+4. **Slack** : **NE TENTE PAS** d'appeler le webhook n8n depuis la routine.
    Le sandbox réseau Claude Cron bloque `n8n.srv1336530.hstgr.cloud` (et tout
    host non-whitelist). Le call échoue systématiquement.
 
@@ -784,7 +811,7 @@ git checkout main
    La routine se contente donc de créer la PR via `gh pr create`. La suite
    est automatique côté GitHub Action.
 
-4. Log final : `✅ Article prêt à valider : <PREVIEW_URL>` (Slack arrivera
+5. Log final : `✅ Article prêt à valider : <PREVIEW_URL>` (Slack arrivera
    dans les 30 s via la GitHub Action).
 
 ## Gestion d'erreur (étape Erreur)
