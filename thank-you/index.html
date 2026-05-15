@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merci — Votre demande a bien été reçue | Sanalia</title>
+  <meta name="description" content="Votre demande de devis a bien été reçue par Sanalia. Un conseiller vous rappelle sous 30 minutes.">
+  <link rel="canonical" href="https://www.sanalia.fr/thank-you/">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Open Graph (cohérence si partage involontaire) -->
+  <meta property="og:title" content="Merci — Votre demande a bien été reçue | Sanalia">
+  <meta property="og:description" content="Votre demande de devis a bien été reçue par Sanalia. Un conseiller vous rappelle sous 30 minutes.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.sanalia.fr/thank-you/">
+  <meta property="og:locale" content="fr_FR">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Fonts -->
+  <link rel="preload" href="/fonts/uxumbold.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="/fonts/uxumregular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400&display=swap">
+
+  <!-- Google Tag (gtag.js) — Ads conversion tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18163028507"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-18163028507');
+
+    // Lead conversion event (URL match: /thank-you sert de signal Google Ads)
+    gtag('event', 'page_view', {
+      page_title: 'Thank You — Lead Generated',
+      page_location: window.location.href,
+      page_path: '/thank-you/',
+    });
+    // Note : la conversion principale est déjà déclenchée côté LP via gtag('event', 'generate_lead', …)
+    // avant la redirection. Cette page sert de signal d'arrivée + URL de match Google Ads.
+  </script>
+
+  <style>
+    @font-face {
+      font-family: 'Uxum';
+      src: url('/fonts/uxumbold.otf') format('opentype');
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Uxum';
+      src: url('/fonts/uxumregular.otf') format('opentype');
+      font-weight: 400;
+      font-display: swap;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Uxum', sans-serif;
+      background: #F6F5F0;
+      color: #0E052A;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      min-height: 100vh;
+    }
+    .ty-logo {
+      margin-bottom: 48px;
+    }
+    .ty-logo img { width: 140px; height: auto; display: block; }
+    .ty-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(14,5,42,0.06);
+      border: 1px solid #E5E5E5;
+    }
+    .ty-icon {
+      width: 80px; height: 80px;
+      background: #C8EBB3;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .ty-icon svg { width: 40px; height: 40px; color: #1F8A5B; }
+    .ty-eyebrow {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 16px;
+    }
+    .ty-card h1 {
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .ty-card h1 .accent {
+      color: #635DDD;
+    }
+    .ty-card p {
+      font-size: 16px;
+      line-height: 1.55;
+      color: #666;
+      margin-bottom: 28px;
+    }
+    .ty-next {
+      background: #E9E8FF;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      text-align: left;
+    }
+    .ty-next-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #635DDD;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .ty-next p {
+      font-size: 15px;
+      color: #0E052A;
+      margin: 0;
+    }
+    .ty-next strong { font-weight: 700; }
+    .ty-phone {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: #635DDD;
+      color: #fff;
+      border-radius: 100px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: filter 0.15s ease;
+    }
+    .ty-phone:hover { filter: brightness(1.05); }
+    .ty-phone svg { width: 18px; height: 18px; }
+    .ty-meta {
+      margin-top: 32px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .ty-meta a { color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc; }
+    @media (max-width: 480px) {
+      .ty-card { padding: 36px 24px; }
+      .ty-icon { width: 64px; height: 64px; }
+      .ty-icon svg { width: 32px; height: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ty-logo">
+    <img src="/logo-sanalia.svg" alt="Sanalia" width="140">
+  </div>
+
+  <main class="ty-card">
+    <div class="ty-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <span class="ty-eyebrow">Demande reçue</span>
+    <h1>Merci, votre demande est <span class="accent">en route</span>.</h1>
+    <p>Un conseiller Sanalia Lyon va analyser votre situation et vous rappeler <strong>sous 30 minutes</strong> (8 h – 20 h, 7 j/7).</p>
+
+    <div class="ty-next">
+      <span class="ty-next-label">Prochaine étape</span>
+      <p>Préparez un descriptif rapide de ce que vous avez observé (où, depuis quand) — ça permettra à notre technicien de cibler immédiatement le bon protocole.</p>
+    </div>
+
+    <a href="tel:0667464897" class="ty-phone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+      </svg>
+      Urgence ? Appelez le 06 67 46 48 97
+    </a>
+
+    <div class="ty-meta">
+      <span>Certibiocide</span>
+      <span>·</span>
+      <span>RC Pro AXA</span>
+      <span>·</span>
+      <span>4,9/5 · 217 avis Google</span>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -41,13 +41,55 @@ Chaque LP est **un seul fichier HTML autonome** dans `/lp/[slug]/index.html` :
 
 **Pas de composants inlinés** par `build.sh` : les LP **ne dépendent pas** de `components/header.html` ou `components/footer.html`. Header et footer sont écrits en dur dans la LP, en version minimale (juste logo + tel + obligations légales). C'est volontaire pour la performance et l'isolation.
 
-### 3. Tracking
+### 3. Tracking & conversion
 
 - **Google Tag (gtag.js)** AW-18163028507 dans le `<head>` (déjà sur toutes les pages du site)
 - Le `<form>` du hero POST vers le webhook **n8n** existant : `https://n8n.srv1336530.hstgr.cloud/webhook/alerte-val` (variable `SANALIA_LEAD_ENDPOINT` overridable via `window.SANALIA_LEAD_ENDPOINT`)
-- Sur succès formulaire : déclencher un `gtag('event', 'conversion', {...})` avec le label de conversion correspondant à la campagne (à fournir à chaque nouvelle LP)
-- Téléphone : `tel:0667464897` (le numéro Sanalia)
-- Page de remerciement : `/merci/` (déjà existante, `noindex,follow`)
+- Sur succès du formulaire :
+  1. **Fire** `gtag('event', 'generate_lead', { send_to: 'AW-18163028507', event_callback: redirectToThankYou, event_timeout: 2000, … })` — l'`event_callback` garantit que la conversion est envoyée à Google AVANT la navigation
+  2. **Fire-and-forget** le POST n8n avec `keepalive: true` (la requête survit à la navigation)
+  3. **Redirect** vers `/thank-you/` après confirmation du callback gtag (ou fallback 2,2 s si gtag bloqué)
+- **`/thank-you/`** est la page de remerciement DÉDIÉE aux landings Ads (distincte de `/merci/` qui sert le trafic organique). Elle est en `noindex,nofollow` et son URL est le **signal de conversion** que Google Ads matche pour les goals (destination URL contains `/thank-you`).
+- Téléphone affiché : `tel:0667464897`
+- **Ne PAS** appeler `showStep('success')` ou afficher une confirmation in-place — toujours rediriger pour que le tracking côté Ads voie bien la navigation.
+
+#### Pattern JS canonique pour le submit (à copier-coller)
+
+```js
+var hasRedirected = false;
+function redirectToThankYou() {
+  if (hasRedirected) return;
+  hasRedirected = true;
+  window.location.href = '/thank-you/';
+}
+
+// 1. Conversion event + redirect callback (idéal côté Ads)
+if (typeof gtag === 'function') {
+  gtag('event', 'generate_lead', {
+    send_to: 'AW-18163028507',
+    event_callback: redirectToThankYou,
+    event_timeout: 2000,
+    nuisible: payload.nuisible,
+    ville: payload.ville,
+    // … autres params payload utiles à la segmentation
+  });
+  setTimeout(redirectToThankYou, 2200);  // fallback si gtag bloqué
+} else {
+  setTimeout(redirectToThankYou, 400);   // pas de gtag (ad blocker)
+}
+
+// 2. Lead vers n8n en parallèle (keepalive = survit au redirect)
+if (N8N_LEAD_ENDPOINT) {
+  fetch(N8N_LEAD_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    keepalive: true,
+  }).catch(function (err) {
+    console.error('Lead submit failed (n8n will retry from queue):', err);
+  });
+}
+```
 
 ---
 
@@ -248,7 +290,9 @@ Toujours présentes :
 - [ ] **Aucun** lien interne depuis une page publique du site vers la LP
 - [ ] Formulaire câblé sur le webhook n8n
 - [ ] Google Tag AW-18163028507 présent
-- [ ] Tracking de conversion gtag en cas de success form
+- [ ] Tracking de conversion gtag (`generate_lead` event) en cas de success form
+- [ ] **Redirect vers `/thank-you/`** au lieu d'un `showStep('success')` in-place (essentiel pour le match Google Ads conversion URL)
+- [ ] `/thank-you/` existe et répond HTTP 200 (`curl -I https://www.sanalia.fr/thank-you/`)
 - [ ] Hero 2-col vérifié à 1280 px (form au-dessus de la ligne de flottaison)
 - [ ] Stack 1-col vérifié à 768 px et 375 px
 - [ ] Countdown band cliquable → ancre `#heroForm` smooth scroll

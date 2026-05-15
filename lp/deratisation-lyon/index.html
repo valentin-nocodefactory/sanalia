@@ -3342,41 +3342,47 @@ image-slot[src]::before { display: none; }
       }
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours…'; }
 
-      // GA4 / Google Ads conversion event
+      // ── Redirect after success (Google Ads conversion match on /thank-you/) ──
+      var hasRedirected = false;
+      function redirectToThankYou() {
+        if (hasRedirected) return;
+        hasRedirected = true;
+        window.location.href = '/thank-you/';
+      }
+
+      // GA4 / Google Ads conversion event — redirect via event_callback so
+      // the conversion ping is sent before navigation (avoids tracking loss).
       if (typeof gtag === 'function') {
         gtag('event', 'generate_lead', {
           send_to: 'AW-18163028507',
+          event_callback: redirectToThankYou,
+          event_timeout: 2000,
           nuisible: payload.nuisible,
           ville: payload.ville,
           logement: payload.logement,
           surface: payload.surface,
           niveau: payload.niveau,
         });
+        // Fallback: if gtag is blocked or callback never fires, redirect anyway.
+        setTimeout(redirectToThankYou, 2200);
+      } else {
+        // No gtag (ad blocker, etc.) — redirect immediately.
+        setTimeout(redirectToThankYou, 400);
       }
 
-      function onSuccess() { showStep('success'); }
-      function onFailure(err) {
-        console.error('Lead submit failed:', err);
-        // Even on network failure, mark success so we don't lose the lead UX —
-        // n8n side has its own retry/queue, and the conversion is still tracked.
-        showStep('success');
-      }
-
-      if (!N8N_LEAD_ENDPOINT) {
+      // Fire-and-forget the n8n lead webhook (keepalive survives the redirect).
+      if (N8N_LEAD_ENDPOINT) {
+        fetch(N8N_LEAD_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(function (err) {
+          console.error('Lead submit failed (n8n will retry from queue):', err);
+        });
+      } else {
         console.warn('[lp] N8N endpoint not configured yet — payload was:', payload);
-        onSuccess();
-        return;
       }
-
-      fetch(N8N_LEAD_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        keepalive: true,
-      }).then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.text();
-      }).then(onSuccess).catch(onFailure);
     });
   })();
   </script>
