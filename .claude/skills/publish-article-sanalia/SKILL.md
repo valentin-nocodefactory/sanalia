@@ -56,6 +56,43 @@ Template : `.claude/skills/publish-article-sanalia/templates/article-skeleton.ht
 3. `git fetch origin && git checkout main && git pull origin main`. Toute la
    suite part de `main` à jour.
 4. Charger CONFIG.yaml.
+5. **Preflight Recraft MCP — fail fast avant toute mutation Notion**.
+
+   La connexion MCP Recraft est instable (auth token qui expire,
+   `MCP server connection lost`, 401 silencieux). Le run précédent a publié
+   un article avec un hero placeholder parce qu'on s'en est aperçu trop tard
+   (Étape 5). On vérifie donc **maintenant**, avant tout le reste, qu'on peut
+   parler à Recraft :
+
+   - Appeler `mcp__*__get_user` (récupère l'utilisateur Recraft + le crédit
+     restant — call léger, ne coûte pas de crédit image).
+   - **Si l'appel renvoie une réponse valide** (l'objet contient `email` ou
+     `credits` ou équivalent) : logger
+     `✓ Étape 0 — Recraft MCP OK (crédits restants : <N>)` et continuer.
+   - **Si l'appel échoue** (timeout, 401, `MCP server connection lost`,
+     exception réseau, payload vide ou inattendu) : **retry**.
+
+   **Stratégie de retry** : jusqu'à **3 tentatives** au total, avec backoff
+   `10s → 30s → 60s` entre chaque appel. À chaque retry, re-appeler
+   `mcp__*__get_user`. Logger chaque tentative avec sa cause d'échec.
+
+   **Si toujours KO après les 3 tentatives** :
+   - Logger `[Étape 0] Recraft MCP indisponible après 3 retry — abort`.
+   - Envoyer une alerte Slack via le template `error` :
+     ```bash
+     python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
+       --template error \
+       --vars '{"title":"(préflight)","step":"Étape 0 — Recraft preflight","error":"Recraft MCP indisponible après 3 tentatives (10s/30s/60s). Auth token à renouveler ou serveur down ?","notion_url":"https://www.notion.so/7cf0a638f2a34caeabc023ed7d4e8481"}'
+     ```
+   - **Abort la routine immédiatement (exit 1)** — NE PAS lire Notion, NE PAS
+     marquer le brief `In progress`, NE PAS appeler ChatSEO. Le statut Notion
+     reste `Next up` → la prochaine exécution cron re-tentera proprement.
+
+   **Pourquoi ce check est en Étape 0 et pas juste avant l'Étape 5** :
+   (a) éviter une mutation Notion `In progress` qu'on n'arrivera pas à
+   finir, (b) éviter un appel ChatSEO long (3-6 min de poll, plusieurs k
+   tokens) pour un article qui n'aura pas de visuels exploitables, (c)
+   préserver un état Notion propre pour le prochain run.
 
 ### Étape 1 — Récupérer l'article "Next up" du jour depuis Notion
 
@@ -849,6 +886,7 @@ git checkout main
 Format clair pour les routines :
 ```
 [publish-article-sanalia] ▶ Démarrage
+[publish-article-sanalia] ✓ Étape 0 — Recraft MCP OK (crédits restants : N)
 [publish-article-sanalia] ✓ Étape 1 — Article Notion récupéré : "<title>"
 [publish-article-sanalia] ✓ Étape 2 — Statut → In progress
 [publish-article-sanalia] ✓ Étape 3 — Slug "<slug>", anti-cannib OK
