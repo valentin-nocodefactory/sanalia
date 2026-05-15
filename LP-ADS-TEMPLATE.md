@@ -277,10 +277,90 @@ Toujours présentes :
    - Données de localité (ville, arrondissements, code postal)
    - Logos pros dans la trust-strip (adapter à la cible : copros pour Lyon, hôtellerie pour Paris, etc.)
    - Verbatims clients (les 3 reviews) avec prénom + arrondissement + type de logement cohérents
-4. **Générer** les 6 images pain-points via Recraft ou Nano Banana (style cohérent avec les existantes, prompts dans `/lp/punaises-de-lit-lyon/img/` à adapter)
+4. **Générer** les 6 images pain-points via Recraft (cf. section dédiée ci-dessous)
 5. **Tester** sur `python3 -m http.server 8000` puis vérifier à 375/768/1024/1280
 6. **Cocher** la checklist ci-dessus
 7. **Commit** sur la branche worktree, **merge ff-only** sur main, **push** → Cloudflare auto-deploy
+
+---
+
+## 🎨 Brief Recraft — génération des 6 pain-points
+
+Les 6 visuels des pain-points sont **toujours générés via le MCP Recraft** (`mcp__…__generate_image`), JAMAIS importés de stock ou recyclés d'une autre LP. Une régénération coûte 6 crédits Recraft (1 par image).
+
+### Paramètres de génération (toujours les mêmes)
+
+| Paramètre | Valeur | Pourquoi |
+|---|---|---|
+| `model` | `recraftv3` | Compatible avec le style "Photorealism" (que `recraftv4_1` ne supporte pas) |
+| `input_style` | `Photorealism` | Look documentaire/photo-réel, cohérent avec le ton empathique de la marque |
+| `image_size` | `3:2` | Format paysage qui s'aligne avec l'aire d'affichage des cards (~320×220) |
+| `n` | `1` (défaut) | On valide une image à la fois ; si insatisfaisant, on régénère |
+
+### Direction artistique (NON-NÉGOCIABLE)
+
+La marque Sanalia est **rassurante**, pas anxiogène (cf. CLAUDE.md → règles de direction artistique). Les visuels pain-points doivent suivre ces principes :
+
+✅ **À faire**
+- **Photographie documentaire candide** (35 mm look, profondeur de champ peu profonde, lumière naturelle)
+- **Centrage humain quand pertinent** (personne inquiète, mère/enfant, geste de protection)
+- **Décors français cohérents** : parquet bois, plinthe blanche, métro tile, fenêtres haussmanniennes, cuisine 10–15 m²
+- **Suggestion plutôt que démonstration** : un homme qui écoute des bruits (pas le rat) ; une mère inquiète (pas l'enfant malade)
+- **Lumière émotionnelle** : moonlight froid pour la nuit, golden hour pour les scènes diurnes
+- **Format paysage 3:2** strictement
+
+❌ **À éviter**
+- Insectes/rongeurs en gros plan menaçants (sauf cas exceptionnel : la card "reproduction" peut montrer 1–2 sujets, suggérant le groupe)
+- Plaies, blessures, sang, croûtes — JAMAIS de gore
+- Personnes en panique extrême (cris, larmes visibles) — privilégier l'inquiétude sourde
+- Imagerie médicale clinique (gants chirurgicaux, blouses) — la LP n'est pas un site santé
+- Styles cartoon / illustration / 3D — toujours photo-réel
+
+### Prompts canoniques (à adapter par nuisible)
+
+Les 6 cards de pain-points suivent toujours la même grille narrative : **(1) bruit/présence**, **(2) traces visibles**, **(3) dégât matériel**, **(4) contamination alimentaire**, **(5) risque sanitaire/famille**, **(6) propagation**. Les prompts ci-dessous sont les patterns référence (LP `deratisation-lyon`), à adapter sémantiquement au nuisible cible.
+
+| # | Slug suggéré | Pattern de prompt | Adaptations par nuisible |
+|---|---|---|---|
+| 1 | `pain-noise.png` | *"Photorealistic image of a worried person lying awake in a dark bedroom at night, listening intently to [signal sonore], slight frown of concern, soft moonlight through curtains, warm bedside lamp glow, [pas du nuisible visible], documentary candid photography, French apartment interior, cinematic atmospheric lighting, 35mm lens look"* | Rats : *"noises in the walls or ceiling"* — Cafards : *"scratching sounds at night"* — Souris : *"scurrying in the walls"* |
+| 2 | `pain-droppings.png` (ou `pain-traces.png`) | *"Photorealistic forensic close-up of [trace caractéristique] on a wooden kitchen floor near a white baseboard, [détails spécifiques], French apartment kitchen, natural overhead lighting, documentary style, slightly unsettling but not gory, shallow depth of field"* | Rats : *"small dark rat droppings, grain-of-rice shaped pellets, faint grease smudge"* — Punaises : *"small black dots on bed sheet seam, blood smear traces"* — Cafards : *"dark cockroach droppings, oily smudge"* |
+| 3 | `pain-damage.png` | *"Photorealistic forensic close-up of [dégât matériel typique], beige plaster wall behind, harsh natural lighting, documentary inspection photography style, sharp focus, professional pest control documentation"* | Rats : *"damaged electrical cable with exposed copper wires, gnawed plastic insulation showing teeth marks"* — Termites : *"hollow wooden beam with frass and sawdust"* — Mites : *"holed wool sweater"* |
+| 4 | `pain-food.png` | *"Photorealistic image of a French pantry shelf with [aliment endommagé], signs of [nuisible] damage, white tiled wall behind, soft natural daylight, documentary style, sharp focus on damaged packaging, candid kitchen scene, no [nuisible] visible"* | Rats/souris : *"torn open paper bag of pasta, scattered dry pasta spilling out, punctured cereal box"* — Cafards : *"opened cereal box with brown stains, contamination"* |
+| 5 | `pain-disease.png` (ou `pain-family.png`) | *"Photorealistic candid image of a young [parent French / personne âgée], [contexte familial/intime] with a concerned worried expression, looking down toward [zone à risque] with subtle anxiety, soft natural daylight through window, warm domestic atmosphere, intimate documentary style, no [nuisible] or pest visible"* | Adapter le contexte : mère/bébé pour pathogènes touchant l'enfant, personne âgée pour les maladies systémiques, adulte solo pour la honte/isolement |
+| 6 | `pain-spread.png` | *"Photorealistic dim [pièce typique : grenier, cave, cloison], showing a glimpse of [1–2 spécimens du nuisible] partially hidden among [objets de contexte], suggestion of more beyond, dramatic side lighting from [source : skylight, prise de courant, fissure], documentary wildlife style, slightly menacing but not graphic, French residential setting, shallow depth of field"* | Rats : *"two brown rats among old cardboard boxes and yellow insulation in an attic"* — Punaises : *"a few bedbugs along a mattress seam, hint of others underneath"* — Cafards : *"two cockroaches near a sink drain, others suggested in the shadow"* |
+
+### Conversion WebP → PNG (obligatoire)
+
+Recraft renvoie en réalité du **WebP renommé `.png`** (`file *.png` → `RIFF Web/P image`). C'est OK pour les navigateurs modernes, mais on convertit en PNG natif pour la cohérence avec les autres LP du site et éviter les surprises CDN/cache. Sur macOS :
+
+```bash
+cd lp/[slug]/img && \
+  for f in *.png; do
+    sips -s format png "$f" --out "${f}.tmp" && mv "${f}.tmp" "$f"
+  done && \
+  file *.png  # vérifie "PNG image data, …"
+```
+
+Taille finale typique : **2.2–2.4 MB par image en 1536×1024**. Acceptable car `loading="lazy"` est activé sur tous les `<img>` du pain section. Si le poids global dépasse 15 MB cumulé, prévoir une compression `pngquant` ou un downsizing à 1200×800.
+
+### Workflow Recraft pas à pas
+
+1. Vérifier le crédit dispo via `mcp__…__get_user` (compter ~6 crédits = ~10 c€)
+2. Générer les 6 images en parallèle (un seul message avec 6 appels `generate_image` simultanés)
+3. Récupérer les `image_urls` depuis chaque output JSON
+4. `curl -sL [url] -o lp/[slug]/img/pain-[slot].png` (6 téléchargements)
+5. Convertir WebP → PNG via `sips` (cf. ci-dessus)
+6. Si une image n'est pas convaincante : régénérer **uniquement celle-là** (ne pas refaire les 5 autres pour rien)
+7. Vérifier dans le preview que les 6 `complete: true` et `naturalWidth > 0`
+
+### Itération si rendu insatisfaisant
+
+Si une image ne respecte pas la direction artistique (rat trop menaçant, personne trop dramatique, intérieur non-français, etc.) :
+
+1. **Identifier le problème** précis : composition / sujet / éclairage / décor
+2. **Ajuster le prompt** en ciblant l'écart : ajouter "no fear visible", "soft lighting", "French Haussmann style"
+3. Régénérer **seulement la card concernée** (1 crédit)
+4. NE PAS empiler 6 régénérations à l'aveugle — analyser puis ajuster.
 
 ---
 
