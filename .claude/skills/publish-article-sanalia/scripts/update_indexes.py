@@ -129,7 +129,7 @@ CATEGORY_TAG_COLOR = {
 }
 
 
-def update_blog_hub(path: Path, slug: str, title: str, category: str, reading_time: int, hero_filename: str = "hero.svg") -> None:
+def update_blog_hub(path: Path, slug: str, title: str, category: str, reading_time: int, hero_filename: str = "hero.webp") -> None:
     """Insère une carte `<article class="card-article">` dans la grille du hub blog,
     juste après le marqueur `<!-- Articles secondaires -->`.
 
@@ -273,7 +273,7 @@ def main():
     ap.add_argument("--reading-time", type=int, default=10)
     ap.add_argument("--parent-nuisible-slug", default=None, help="ex: guepes-frelons (pour màj fiche nuisible)")
     ap.add_argument("--intent", default="informational", help="urgency | informational | ...")
-    ap.add_argument("--hero-filename", default="hero.svg")
+    ap.add_argument("--hero-filename", default="hero.webp")
     ap.add_argument("--repo-root", required=True)
     args = ap.parse_args()
 
