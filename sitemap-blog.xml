@@ -65,4 +65,11 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://www.sanalia.fr/blog/crotte-de-souris/</loc>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

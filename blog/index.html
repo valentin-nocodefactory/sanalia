@@ -585,6 +585,15 @@
             <h3 class="bv2-latest-title">Les dernières publications</h3>
             <ul class="bv2-latest-list" role="list">
               <!-- BLOG-HUB-SLOT: latest-publication (max 10 items, push le plus ancien si surcapacité) -->
+              <li><a href="/blog/crotte-de-souris/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-souris">
+                  <img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="">
+                </span>
+                <div>
+                  <h4>Crotte de souris&nbsp;: reconnaître, dangers et nettoyage sécurisé</h4>
+                  <p>ÉQUIPE SANALIA · 10 MIN · 15 MAI 2026</p>
+                </div>
+              </a></li>
               <li><a href="/blog/punaises-de-lit-voyage-hotel/" class="bv2-latest-item">
                 <span class="bv2-latest-avatar bg-punaises">
                   <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="">
@@ -778,8 +787,7 @@
         </div>
       </div>
 
-      <!-- BLOG-HUB-SLOT: species-group / souris (HIDDEN — 0 article, réactiver dès qu'un article souris est publié) -->
-      <!--
+      <!-- BLOG-HUB-SLOT: species-group / souris (1 article) -->
       <div class="bv2-species-block" data-nuisible="souris">
         <header class="bv2-species-row-head">
           <div class="bv2-species-id">
@@ -788,16 +796,19 @@
             </span>
             <div>
               <h3 class="bv2-species-name">Souris</h3>
-              <span class="bv2-species-count">N ARTICLES</span>
+              <span class="bv2-species-count">1 ARTICLE</span>
             </div>
           </div>
           <a href="/nuisibles/souris/" class="bv2-species-tous">Tous <span>→</span></a>
         </header>
         <div class="bv2-species-row">
-          [insérer ici les bv2-mcard du nuisible souris]
+          <a href="/blog/crotte-de-souris/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">IDENTIFICATION</span>
+            <h4 class="bv2-mcard-title">Crotte de souris : comment la reconnaître, les dangers et quoi faire</h4>
+            <div class="bv2-mcard-foot"><span>10 min</span><span>15 mai 2026</span></div>
+          </a>
         </div>
       </div>
-      -->
 
       <!-- BLOG-HUB-SLOT: species-group / punaises-de-lit (1 article) -->
       <div class="bv2-species-block" data-nuisible="punaises-de-lit">
@@ -973,9 +984,9 @@
   <div class="bv2-filter">
     <div class="bv2-filter-inner">
       <nav class="bv2-filter-pills" aria-label="Filtrer par catégorie">
-        <a href="#cat-species" class="bv2-fp is-active" data-target="all">Tout <span class="bv2-fp-count">8</span></a>
+        <a href="#cat-species" class="bv2-fp is-active" data-target="all">Tout <span class="bv2-fp-count">9</span></a>
         <a href="#cat-prevention" class="bv2-fp" data-target="cat-prevention">Prévention <span class="bv2-fp-count">4</span></a>
-        <a href="#cat-identification" class="bv2-fp" data-target="cat-identification">Identification <span class="bv2-fp-count">1</span></a>
+        <a href="#cat-identification" class="bv2-fp" data-target="cat-identification">Identification <span class="bv2-fp-count">2</span></a>
         <a href="#cat-traitements" class="bv2-fp" data-target="cat-traitements">Traitements <span class="bv2-fp-count">2</span></a>
         <a href="#cat-actu" class="bv2-fp" data-target="cat-actu">Actu <span class="bv2-fp-count">1</span></a>
       </nav>
@@ -1076,10 +1087,24 @@
         </div>
         <div class="bv2-cat-count">
           <span class="bv2-cat-count-label">ARTICLES PUBLIÉS</span>
-          <strong>1</strong>
+          <strong>2</strong>
         </div>
       </header>
       <div class="bv2-grid">
+        <a href="/blog/crotte-de-souris/" class="bv2-card">
+          <div class="bv2-card-illu bg-souris">
+            <span class="bv2-card-pill">Rats &amp; Souris</span>
+            <img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Crotte de souris&nbsp;: reconnaître, dangers et nettoyage sécurisé</h3>
+            <p class="bv2-card-excerpt">Comment identifier des crottes de souris, évaluer l'ampleur de l'infestation et nettoyer sans risque pour la santé.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">10 MIN · 15 MAI 2026</span>
+            </div>
+          </div>
+        </a>
         <a href="/blog/hantavirus-rats-symptomes-prevention/" class="bv2-card">
           <div class="bv2-card-illu bg-rats">
             <span class="bv2-card-pill">Rats &amp; Souris</span>
