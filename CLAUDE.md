@@ -124,6 +124,16 @@ Blue #B0D5F5/#E6F3FF, Lavender #EFDFF6/#FBF2FF, Rose #FFD4CF/#FFECE9, Peach #FFD
 - Après toute modification d'un composant, **lancer `./build.sh`** pour synchroniser toutes les pages
 - Le build est aussi lancé automatiquement par Cloudflare Pages au déploiement
 
+## Analytics & tracking — règle globale (toutes pages)
+
+Toute page HTML servie au public DOIT inclure dans son `<head>`, en plus du Google Tag (AW-18163028507) :
+
+- **PostHog** (product analytics + session replay + feature flags) — projet `phc_nTQgS3rYkMRsEDNZWcimNoRSieRGkGMsPxyxFQAzEci9`, host `https://eu.i.posthog.com` (EU pour conformité RGPD), `defaults: '2026-01-30'`, `person_profiles: 'identified_only'`. Le snippet d'init complet est présent en commentaire `<!-- PostHog -->` juste avant `</head>` dans toutes les pages.
+
+Le snippet PostHog est **idempotent** (test `window.posthog.__loaded`) et `async` — il ne bloque pas le rendu. Pour ajouter PostHog à de nouvelles pages, copier exactement le bloc présent dans une page existante (ex : `/index.html` ou `/lp/punaises-de-lit-lyon/index.html`).
+
+Composants partagés (header, footer…) ne nécessitent **pas** PostHog : le snippet est dans le `<head>` de chaque page qui les inline, donc déjà chargé au moment où ces composants sont rendus.
+
 ## Landing Pages Google Ads — Modèle dédié
 Pour toute nouvelle landing page destinée à du **trafic payant** (Google Ads, Meta, Bing), le modèle canonique est documenté dans [`LP-ADS-TEMPLATE.md`](LP-ADS-TEMPLATE.md). Reproduire la structure de [`/lp/punaises-de-lit-lyon/index.html`](lp/punaises-de-lit-lyon/index.html) (15 sections, hero 2-col avec form au-dessus de la ligne de flottaison, protocole 5 étapes en scroll horizontal full-bleed, badges Trustpilot/Google inline). Toutes les LP sont obligatoirement `noindex,nofollow` + bloquées par `robots.txt` (`Disallow: /lp/`) et NE doivent JAMAIS apparaître dans le sitemap ni être linkées depuis une page publique du site.
 

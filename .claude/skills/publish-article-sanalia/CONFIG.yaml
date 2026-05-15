@@ -143,17 +143,36 @@ parent_nuisible_map:
     section: "Dépigeonnage"
 
 # ──────────────────────────────────────────────
-# Recraft preset "editorial sage green Sanalia"
-# Préfixé / suffixé sur tous les prompts ChatSEO
+# Recraft — 2 presets distincts
+#
+# 1. `photo` : photos réalistes, ambiance "expert dératiseur sur le terrain".
+#    Format raster (WebP). Sert pour la hero ET la plupart des images inline.
+# 2. `diagram` : schémas explicatifs vectoriels (cycle de vie, anatomie,
+#    coupe maison, flux d'intervention). Format SVG. Réservé à 1 ou 2 images
+#    par article quand le contenu s'y prête vraiment.
+#
+# Les `prompt_suffix` sont concaténés au prompt principal généré par
+# l'orchestrateur. Garder leur ton générique (pas de mention article-specific).
 # ──────────────────────────────────────────────
 recraft:
-  hero_size: "1820x1024"        # ratio ~16:9 proche de 1200x630 (rééchantillonné côté front)
-  inline_size: "1456x816"       # 16:9 standard pour illustrations H2
-  hero_model: recraftv3
-  hero_style: editorial_illustration
-  inline_model: recraftv3
-  inline_style: editorial_illustration
-  prompt_suffix: ", Sanalia brand aesthetic: warm cream background (#F6F5F0), accents of soft sage green and dusty lavender, editorial illustration style with subtle textures, modern minimal composition, no text labels, no logos, no people faces, clean and reassuring tone"
+  # Modèle commun — recraftv3 est le plus polyvalent (compatible avec tous
+  # les styles photo + vector listés ci-dessous).
+  model: recraftv3
+
+  photo:
+    style: "Natural light"       # photo doc terrain, lumière naturelle, ton journalistique
+    style_fallback: "Photorealism"  # si Natural light produit un résultat trop posé, retry avec ce style
+    hero_size: "16:9"            # ratio 16:9 (Recraft produit du WebP ~2048×1152)
+    inline_size: "16:9"
+    extension: webp              # raster
+    prompt_suffix: ", shot as professional pest-control field documentation by an expert exterminator, candid documentary realism, natural daylight or warm interior light, French residential / commercial setting (Haussmannian apartment, modern flat, restaurant kitchen, attic, basement, courtyard — pick what fits the scene), shallow depth of field, photo-real textures, no people faces visible (hands and uniforms OK), no on-image text, no watermarks, no logos, no cartoon style, no illustration style, color story matching Sanalia: warm cream walls, accents of soft sage green and dusty lavender props where natural"
+
+  diagram:
+    style: "Chemistry"           # "Scientific diagram illustration aesthetic" — parfait pour didactique
+    style_fallback: "Roundish flat"  # alternative plus moderne flat si Chemistry trop austère
+    size: "16:9"
+    extension: svg               # vectoriel
+    prompt_suffix: ", didactic educational diagram in the visual style of a science textbook infographic, clear labeled arrows and zones, minimal flat composition, generous white space, palette Sanalia: warm cream background #F6F5F0, soft sage green and dusty lavender accents, dark plum stroke #0E052A, no photographic textures, legible icons, all on-image text in clear French — keep text minimal (3 to 6 short labels max), no logos, no watermarks"
 
 # ──────────────────────────────────────────────
 # Slack notification
