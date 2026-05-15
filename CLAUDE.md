@@ -466,9 +466,85 @@ Le CSS de ces tags est défini dans `/css/blog.css` (section `.blog-hero-categor
 5. **Vérifier le canonical, og:url, twitter:image, share URLs** : tous doivent pointer vers `https://www.sanalia.fr/blog/[slug]/`
 6. **Ajouter l'URL** dans `/sitemap-blog.xml` (priority 0.7, changefreq monthly) et bumper `<lastmod>` de `/sitemap-index.xml` à la date du jour
 7. **Ajouter l'item** dans `/blog/feed.xml` (mettre à jour `lastBuildDate` du channel)
-8. **Linker l'article** depuis `/blog/` (hub) et, si pertinent, depuis la fiche `/nuisibles/[parentNuisible]/` (section "À lire également" ou bloc conseils) ou un autre article du même thème
-9. **Vérifier** : accents français (règle d'or n°9), liens internes (≥ 3), `alt` sur images, canonical avec `https://www.sanalia.fr` (avec www), OG/Twitter complets, breadcrumb cohérent HTML ↔ JSON-LD
-10. **Commit + push** (Cloudflare Pages déploie automatiquement via `build.sh`)
+8. **Insérer l'article dans le hub `/blog/index.html`** — cf **« 🔴 RÈGLE D'OR — Insertion d'un article dans le hub »** ci-dessous. Le hub utilise un système de slots HTML annotés `<!-- BLOG-HUB-SLOT: ... -->` ; chaque nouvel article doit être inséré dans les slots du meilleur emplacement (À la une / Dernières publications / Saison / Par espèce / Cluster).
+9. **Linker l'article** depuis la fiche `/nuisibles/[parentNuisible]/` (section "À lire également" ou bloc conseils) et/ou depuis un autre article du même thème (≥ 1 lien interne entrant en plus du hub).
+10. **Vérifier** : accents français (règle d'or n°9), liens internes (≥ 3), `alt` sur images, canonical avec `https://www.sanalia.fr` (avec www), OG/Twitter complets, breadcrumb cohérent HTML ↔ JSON-LD
+11. **Commit + push** (Cloudflare Pages déploie automatiquement via `build.sh`)
+
+### 🔴 RÈGLE D'OR — Insertion d'un article dans le hub `/blog/index.html` (NON-NÉGOCIABLE)
+
+**Tout article publié DOIT être inséré dans le hub `/blog/index.html` au moment de sa publication.** Le hub utilise des **markers HTML annotés `<!-- BLOG-HUB-SLOT: ... -->`** pour identifier les zones d'insertion. Le hub n'est PAS une vitrine statique : c'est un index vivant qui doit refléter en temps réel les articles publiés.
+
+Le CSS et le HTML utilisent le préfixe **`bv2-`** (Blog v2). Les sections sans aucun article publié sont **commentées en HTML** (encore présentes dans le DOM source mais invisibles côté rendu) pour préserver le SEO ; il suffit de les décommenter dès qu'un premier article du thème est publié.
+
+#### Slots du hub et règles d'attribution
+
+Le hub contient **5 zones** dans lesquelles un article doit potentiellement apparaître. Pour chaque nouvel article, vérifier les 5 zones et insérer là où c'est pertinent (la plupart des articles iront dans **2 à 4 zones** simultanément).
+
+| Zone | Marker | Capacité | Quand y insérer | Action |
+|------|--------|----------|-----------------|--------|
+| **« À la une »** (`.bv2-feat-left`) | `<!-- BLOG-HUB-SLOT: featured-big -->` (×1) et `<!-- BLOG-HUB-SLOT: featured-small -->` (×2) | 3 cards (1 big + 2 small) | Article pillar / long-form OU sélection éditoriale exceptionnelle. Le big = dossier de référence (8+ min), les 2 small = articles forts récents. Faire tourner : remplacer le plus ancien des 3 si le nouveau est éligible. | Adapter `href`, classe `.bv2-fcard-illu .bg-*`, `.bv2-fcard-pill`, `<img src>`, `.bv2-fcard-illu-label strong + span`, `.bv2-fcard-kicker` (catégorie · min), `.bv2-fcard-title`, `.bv2-fcard-excerpt`, `.bv2-fcard-foot` (auteur · date). |
+| **« Les dernières publications »** (`.bv2-latest-list`) | `<!-- BLOG-HUB-SLOT: latest-publication -->` | 10 items max | **TOUJOURS** : tout nouvel article doit être inséré en tête de liste. Supprimer le 10ᵉ item (le plus ancien) si la liste est déjà pleine. | Insérer `<li><a class="bv2-latest-item">` avec `.bv2-latest-avatar.bg-[nuisible]` + img, `<h4>` titre, `<p>` "ÉQUIPE SANALIA · N MIN · JJ MMM YYYY". |
+| **« Dossier saison »** (`.bv2-dossier-grid`) | `<!-- BLOG-HUB-SLOT: season-summer / season-spring / season-autumn / season-winter -->` | 6 cards par saison | Si l'article est saisonnier (moustiques/guêpes en été, rongeurs en hiver/automne, fourmis/frelons au printemps). Le titre du dossier change selon la saison courante. | Insérer un `<a class="bv2-dcard">` avec `.bv2-dcard-avatar.bg-[nuisible]` + img, `.bv2-dcard-cat` (catégorie uppercase), `.bv2-dcard-title`, `.bv2-dcard-foot` (min · date). |
+| **« Guides terrain, par espèce »** (`.bv2-species-row`) | `<!-- BLOG-HUB-SLOT: species-group / [nuisible] -->` (1 par nuisible) | 1 row horizontal scroll par nuisible (Rats / Souris / Punaises de lit / Cafards & blattes / Guêpes & frelons / Moustiques / Pigeons / Fourmis / Taupes) | **TOUJOURS si `parentNuisible` ≠ null** : insérer dans le groupe `parentNuisible`. Si le groupe est **commenté HTML** (`<!-- ... -->`), le décommenter d'abord (premier article du nuisible). | Insérer `<a class="bv2-mcard">` au début du `.bv2-species-row` du bon groupe avec `.bv2-mcard-kicker` (type article uppercase), `.bv2-mcard-title`, `.bv2-mcard-foot` (min · date). Bumper `.bv2-species-count` (N ARTICLES). |
+| **Clusters** (`.bv2-grid` dans `section.bv2-cat`) | `<!-- BLOG-HUB-SLOT: cluster / cat-[name] -->` (1 par cluster) | 5 clusters : `cat-prevention`, `cat-identification`, `cat-traitements`, `cat-pratiques`, `cat-actu` | **TOUJOURS** : mapper l'`intentType` au cluster (voir mapping ci-dessous). Si le cluster est commenté HTML, le décommenter d'abord. | Insérer `<a class="bv2-card">` dans `.bv2-grid` avec `.bv2-card-illu.bg-[nuisible]` + `.bv2-card-pill` + img, `.bv2-card-title`, `.bv2-card-excerpt`, `.bv2-card-foot` (auteur + min · date). Bumper `.bv2-cat-count strong` ET le `.bv2-fp-count` de la pill correspondante dans `.bv2-filter-pills` ET le compteur total `data-target="all"`. |
+
+#### Mapping `intentType` → cluster
+
+| `intentType` | Cluster cible (id) | Eyebrow |
+|--------------|--------------------|---------|
+| `prevention` | `cat-prevention` | GESTES · ROUTINES · BARRIÈRES |
+| `informational` (identification, biologie, signes) | `cat-identification` | RECONNAÎTRE · TRACES · INDICES |
+| `transactional` (méthodes, protocoles, comparatifs) | `cat-traitements` | PROTOCOLES · MÉTHODES · TERRAIN |
+| `regulatory` (loi, démarches, modèles, HACCP) | `cat-pratiques` | DÉMARCHES · DROIT · OUTILS |
+| `urgency`, actu, enquête, données saison, tribune | `cat-actu` | ENQUÊTES · DONNÉES · SAISON |
+
+#### Mapping `parentNuisible` → classe pastel `.bg-*`
+
+Utilisée pour les fonds illustrations / avatars / pills :
+
+| `parentNuisible` | Classe bg |
+|------------------|-----------|
+| `rats` | `bg-rats` (gold) |
+| `souris` | `bg-souris` (lavender) |
+| `punaises-de-lit` | `bg-punaises` (rose) |
+| `cafards` | `bg-cafards` (mint) |
+| `guepes-frelons` | `bg-guepes` (gold) |
+| `moustiques` | `bg-moustiques` (blue) |
+| `pigeons` | `bg-pigeons` (mint) |
+| `fourmis` | `bg-fourmis` (rose) |
+| `taupes` | `bg-taupes` (peach) |
+| transverse / prévention | `bg-default` (sand) |
+
+#### Procédure d'insertion (algorithmique)
+
+Pour chaque nouvel article :
+
+1. **Identifier les zones cibles** :
+   - Zone "Dernières publications" (TOUJOURS)
+   - Zone "Par espèce" (si `parentNuisible` ≠ null, sinon skip)
+   - Cluster correspondant à `intentType` (TOUJOURS)
+   - Dossier saison (si saisonnier ET la saison courante)
+   - À la une (uniquement si dossier pillar long-form ou validation éditoriale)
+
+2. **Pour chaque zone cible** :
+   - Trouver le marker `<!-- BLOG-HUB-SLOT: ... -->` correspondant
+   - Si le slot est commenté en HTML (`<!-- ... -->`) car 0 article précédemment : **le décommenter** (suppression des `<!--` et `-->` + remplacement des `[insérer ici les ...]` et `N` placeholder par le vrai contenu)
+   - Insérer le nouveau bloc HTML conforme au template du slot (voir tableau ci-dessus)
+
+3. **Mettre à jour TOUS les compteurs** impactés :
+   - `.bv2-species-count` (N ARTICLES) du groupe nuisible
+   - `.bv2-cat-count strong` (N) du cluster
+   - `.bv2-fp-count` (N) de la pill filter correspondante dans `.bv2-filter-pills`
+   - Pill "Tout" `data-target="all"` (somme totale)
+
+4. **Choisir le bon `.bg-*`** selon le `parentNuisible` (voir mapping ci-dessus).
+
+5. **Vérifier en preview** : pas de placeholder visible, compteurs cohérents, layout respecté.
+
+#### Sanction
+
+Tout commit qui crée un article sans mettre à jour le hub `/blog/index.html` doit être amendé immédiatement. Le hub est la **vitrine principale du blog** : un nouvel article qui n'y figure pas est invisible aux yeux de Google (zéro lien interne entrant depuis la page la plus linkée du site).
 
 ## Sync Figma ↔ Code
 1. User dit "update from Figma" → `get_variable_defs` / `get_design_context`

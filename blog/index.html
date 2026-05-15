@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="/css/base.css?v=20260512b">
 <link rel="stylesheet" href="/css/components.css?v=20260512d">
 <link rel="stylesheet" href="/css/blog.css?v=20260417j">
+<link rel="stylesheet" href="/css/blog-hub.css?v=20260515a">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -406,653 +407,966 @@
   </div>
 </div>
 
-<main class="blog-hub">
+<main class="blog-hub-v2 bv2-body">
+<!-- ═══════════════════════════════════════════════════════
+       HEADER (sticky brand bar — reusable shell)
+       ═══════════════════════════════════════════════════════ -->
+  
 
-  <!-- ═══════ HUB HERO ═══════ -->
-  <section class="blog-hub-hero">
-    <div class="container">
-      
-      <span class="mono-label">LE BLOG SANALIA</span>
-      <h1 class="blog-hub-title">Le blog Sanalia</h1>
-      <p class="blog-hub-sub">Guides d'experts pour protéger votre logement et votre entreprise contre les nuisibles du quotidien.</p>
+  <!-- ═══════════════════════════════════════════════════════
+       BREADCRUMB
+       ═══════════════════════════════════════════════════════ -->
+  
 
-      <form class="blog-search" role="search" onsubmit="return false;">
-        <svg class="blog-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════════════════ -->
+  <section class="bv2-hero" data-screen-label="01 Hero">
+    <div class="bv2-wrap">
+      <p class="bv2-eyebrow">LE BLOG SANALIA</p>
+      <h1 class="bv2-h1">Le blog Sanalia</h1>
+      <p class="bv2-lede">
+        Guides d'experts pour protéger votre logement et votre entreprise contre
+        les nuisibles du quotidien.
+      </p>
+
+      <!-- Search ─────────────────────────────────────────── -->
+      <form class="bv2-search blog-search" onsubmit="event.preventDefault()" role="search">
+        <span class="bv2-search-icon blog-search-icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        </span>
         <input type="search" placeholder="Rechercher un article, un nuisible, un conseil…" aria-label="Rechercher sur le blog">
-        <button type="submit" class="btn btn-primary btn-sm">Rechercher</button>
+        <button type="submit" class="bv2-search-btn">Rechercher</button>
       </form>
 
-      <div class="blog-hub-pills">
-        <a href="#cat-prevention" class="pill pill-neutral"><span class="pill-icon pill-icon-emoji">🛡️</span>Prévention</a>
-        <!-- TODO: Réactiver les pills quand les catégories auront au moins un article rédigé (voir table Notion) -->
-        <!--
-        <a href="#cat-rats" class="pill pill-gold"><span class="pill-icon"><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="" width="28" height="28"></span>Rats & Souris</a>
-        <a href="#cat-punaises" class="pill pill-rose"><span class="pill-icon"><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="" width="28" height="28"></span>Punaises de lit</a>
-        <a href="#cat-cafards" class="pill pill-mint"><span class="pill-icon"><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="" width="28" height="28"></span>Cafards & Insectes</a>
-        <a href="#cat-guepes" class="pill pill-gold"><span class="pill-icon"><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="" width="28" height="28"></span>Guêpes & Frelons</a>
-        -->
-      </div>
-    </div>
-  </section>
+      <!-- Category tags ──────────────────────────────────── -->
+      <ul class="bv2-tags" role="list">
 
-  <!-- ═══════ WRAPPER 2 COLONNES ═══════ -->
-  <div class="blog-hub-wrapper">
-  <div class="blog-hub-main">
-
-  <!-- ═══════ À LA UNE ═══════ -->
-  <section class="blog-featured">
-    <div class="container">
-      <header class="blog-section-head">
-        <h2>À la une</h2>
-        <span class="mono-label">SÉLECTION DE LA RÉDACTION</span>
-      </header>
-
-      <div class="blog-featured-grid">
-        <!-- Article principal featured -->
-        <article class="card-featured" data-pillar="rats-souris">
-          <a href="/nuisibles/rats/" class="card-featured-link">
-            <div class="card-featured-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/rats-souris-pillar.svg" alt="Guide complet rats et souris 2026" loading="lazy">
-              <span class="card-tag tag-gold">Rats & Souris</span>
-            </div>
-            <div class="card-featured-body">
-              <span class="mono-label">DOSSIER PILIER · 15 MIN</span>
-              <h3>Rats & Souris : le guide complet 2026 pour identifier, éliminer et prévenir</h3>
-              <p>Espèces françaises, signes d'infestation, risques sanitaires, méthodes comparées et protocole de prévention durable. Tout ce qu'il faut savoir dans un seul dossier.</p>
-              <div class="card-meta">
-                <span class="card-author"><span class="author-dot"></span>Équipe Sanalia</span>
-                <span class="card-date">Mis à jour le 12 avril 2026</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- Articles secondaires -->
-        <article class="card-article" data-pillar="rats-souris">
-          <a href="/blog/hantavirus-rats-symptomes-prevention/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/hantavirus-rats-symptomes-prevention/hero.webp" alt="Hantavirus transmis par les rats : ce que vous devez vraiment savoir" loading="lazy">
-              <span class="card-tag tag-gold">Rats et souris</span>
-            </div>
-            <div class="card-body">
-              <h3>Hantavirus transmis par les rats : ce que vous devez vraiment savoir</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>7 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="card-article" data-pillar="prevention">
-          <a href="/blog/moustiques-jardin/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-lavender-light);">
-              <img src="/assets/blog/moustiques-jardin/hero.svg" alt="Moustiques au jardin : 7 solutions pour enfin profiter de vos soirées" loading="lazy">
-              <span class="card-tag tag-lavender">Prévention</span>
-            </div>
-            <div class="card-body">
-              <h3>Moustiques au jardin : 7 solutions pour enfin profiter de vos soirées</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>6 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="card-article" data-pillar="cafards-insectes">
-          <a href="/blog/moustique-tigre-jardin/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-mint-light);">
-              <img src="/assets/blog/moustique-tigre-jardin/hero.svg" alt="Moustique tigre au jardin : comment s'en débarrasser vraiment ?" loading="lazy">
-              <span class="card-tag tag-mint">Cafards & Insectes</span>
-            </div>
-            <div class="card-body">
-              <h3>Moustique tigre au jardin : comment s'en débarrasser vraiment ?</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>11 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="card-article" data-pillar="guepes-frelons">
-          <a href="/blog/nid-guepes-toiture/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/nid-guepes-toiture/hero.svg" alt="Nid de guêpes dans la toiture : pourquoi ne jamais le déloger soi-même" loading="lazy">
-              <span class="card-tag tag-gold">Guêpes & Frelons</span>
-            </div>
-            <div class="card-body">
-              <h3>Nid de guêpes dans la toiture : pourquoi ne jamais le déloger soi-même</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>8 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="card-article" data-pillar="guepes-frelons">
-          <a href="/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/hero.svg" alt="Piqûre de guêpe et allergie : premiers secours" loading="lazy">
-              <span class="card-tag tag-gold">Guêpes & Frelons</span>
-            </div>
-            <div class="card-body">
-              <h3>Piqûre de guêpe et allergie : premiers secours et réflexes 2026</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>8 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="card-article" data-pillar="rats-souris">
-          <a href="/blog/comment-se-debarrasser-rats-appartement/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/rats-souris-pillar.svg" alt="Se débarrasser des rats dans un appartement" loading="lazy">
-              <span class="card-tag tag-gold">Rats & Souris</span>
-            </div>
-            <div class="card-body">
-              <h3>Comment se débarrasser des rats dans un appartement : le guide complet 2026</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>12 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="card-article" data-pillar="prevention">
-          <a href="/blog/prevenir-cafards-cuisine/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-mint-light);">
-              <img src="/assets/blog/placeholders/cafards-cuisine.svg" alt="Prévenir les cafards dans la cuisine" loading="lazy">
-              <span class="card-tag tag-mint">Prévention</span>
-            </div>
-            <div class="card-body">
-              <h3>Prévenir les cafards dans la cuisine : 12 gestes efficaces</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>9 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <!-- TODO: Articles secondaires additionnels à ajouter après rédaction (voir table Notion) -->
-        <!--
-        <article class="card-article" data-pillar="punaises-de-lit">
-          <a href="/blog/punaises-de-lit/detecter-precocement/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-rose-light);">
-              <img src="/assets/blog/placeholders/punaises-detection.svg" alt="Détecter les punaises de lit précocement" loading="lazy">
-              <span class="card-tag tag-rose">Punaises de lit</span>
-            </div>
-            <div class="card-body">
-              <h3>Les 7 signes précoces d'une infestation de punaises de lit</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>8 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="card-article" data-pillar="cafards-insectes">
-          <a href="/blog/cafards-insectes/cycle-vie-cafard/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-mint-light);">
-              <img src="/assets/blog/placeholders/cafards-cycle.svg" alt="Cycle de vie du cafard" loading="lazy">
-              <span class="card-tag tag-mint">Cafards</span>
-            </div>
-            <div class="card-body">
-              <h3>Cycle de vie du cafard : pourquoi ils reviennent malgré les traitements</h3>
-              <div class="card-meta">
-                <span>Équipe Sanalia</span>
-                <span>·</span>
-                <span>6 min</span>
-              </div>
-            </div>
-          </a>
-        </article>
-        -->
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ CAT 1 — RATS & SOURIS (MASQUÉE : articles à rédiger, voir table Notion) ═══════ -->
-  <!--
-  <section class="blog-category" id="cat-rats">
-    <div class="container">
-      <header class="blog-section-head">
-        <div>
-          <span class="mono-label">CATÉGORIE · GOLD</span>
-          <h2>Rats & Souris</h2>
-        </div>
-        <a href="/nuisibles/rats/" class="link-arrow">Voir tout le dossier →</a>
-      </header>
-      <div class="blog-grid-3">
-        <article class="card-article" data-pillar="rats-souris">
-          <a href="/blog/rats-souris/difference-rat-souris/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/rat-vs-souris.svg" alt="Différences entre rat et souris" loading="lazy">
-              <span class="card-tag tag-gold">Rats & Souris</span>
-            </div>
-            <div class="card-body">
-              <h3>Rat ou souris ? 9 différences pour les reconnaître en 30 secondes</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>5 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="rats-souris">
-          <a href="/blog/rats-souris/boucher-entrees-rongeurs/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/boucher-entrees.svg" alt="Boucher les entrées des rongeurs" loading="lazy">
-              <span class="card-tag tag-gold">Prévention</span>
-            </div>
-            <div class="card-body">
-              <h3>Comment boucher durablement les entrées des rongeurs dans une maison</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>7 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="rats-souris">
-          <a href="/blog/rats-souris/maladies-transmises-rats/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/maladies-rats.svg" alt="Maladies transmises par les rats" loading="lazy">
-              <span class="card-tag tag-gold">Santé</span>
-            </div>
-            <div class="card-body">
-              <h3>Leptospirose, hantavirus, salmonellose : les maladies transmises par les rats</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>9 min</span></div>
-            </div>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-  -->
-
-  <!-- ═══════ CAT 2 — PUNAISES DE LIT (MASQUÉE : articles à rédiger, voir table Notion) ═══════ -->
-  <!--
-  <section class="blog-category" id="cat-punaises">
-    <div class="container">
-      <header class="blog-section-head">
-        <div>
-          <span class="mono-label">CATÉGORIE · ROSE</span>
-          <h2>Punaises de lit</h2>
-        </div>
-        <a href="/nuisibles/punaises-de-lit/" class="link-arrow">Voir tout le dossier →</a>
-      </header>
-      <div class="blog-grid-3">
-        <article class="card-article" data-pillar="punaises-de-lit">
-          <a href="/blog/punaises-de-lit/traitement-thermique-vs-chimique/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-rose-light);">
-              <img src="/assets/blog/placeholders/traitement-thermique.svg" alt="Traitement thermique punaises de lit" loading="lazy">
-              <span class="card-tag tag-rose">Traitement</span>
-            </div>
-            <div class="card-body">
-              <h3>Thermique ou chimique ? Comparatif des traitements contre les punaises de lit</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>10 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="punaises-de-lit">
-          <a href="/blog/punaises-de-lit/punaises-voyage-hotel/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-rose-light);">
-              <img src="/assets/blog/placeholders/punaises-voyage.svg" alt="Éviter les punaises de lit en voyage" loading="lazy">
-              <span class="card-tag tag-rose">Prévention</span>
-            </div>
-            <div class="card-body">
-              <h3>Voyage et hôtel : 10 réflexes pour ne pas ramener de punaises de lit chez vous</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>6 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="punaises-de-lit">
-          <a href="/blog/punaises-de-lit/piqures-identifier/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-rose-light);">
-              <img src="/assets/blog/placeholders/piqures-punaises.svg" alt="Identifier les piqûres de punaises de lit" loading="lazy">
-              <span class="card-tag tag-rose">Identification</span>
-            </div>
-            <div class="card-body">
-              <h3>Piqûres de punaises de lit : comment les distinguer des autres insectes</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>7 min</span></div>
-            </div>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-  -->
-
-  <!-- ═══════ NEWSLETTER CTA ═══════ -->
-  <section class="blog-newsletter">
-    <div class="container">
-      <div class="newsletter-card">
-        <div class="newsletter-text">
-          <span class="mono-label">NEWSLETTER MENSUELLE</span>
-          <h2>Un conseil d'expert chaque mois dans votre boîte mail</h2>
-          <p>Détection précoce, traitements, réglementation, saisonnalité : recevez les guides Sanalia avant tout le monde. Zéro spam, désabonnement en un clic.</p>
-        </div>
-        <form class="newsletter-form" onsubmit="return false;">
-          <label class="visually-hidden" for="newsletter-email">Adresse e-mail</label>
-          <input id="newsletter-email" type="email" placeholder="votre@email.fr" required>
-          <button type="submit" class="btn btn-primary">S'abonner</button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ CAT 3 — CAFARDS & INSECTES (MASQUÉE : articles à rédiger, voir table Notion) ═══════ -->
-  <!--
-  <section class="blog-category" id="cat-cafards">
-    <div class="container">
-      <header class="blog-section-head">
-        <div>
-          <span class="mono-label">CATÉGORIE · MINT</span>
-          <h2>Cafards & Insectes</h2>
-        </div>
-        <a href="/nuisibles/cafards/" class="link-arrow">Voir tout le dossier →</a>
-      </header>
-      <div class="blog-grid-3">
-        <article class="card-article" data-pillar="cafards-insectes">
-          <a href="/blog/cafards-insectes/cafards-cuisine-restaurant/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-mint-light);">
-              <img src="/assets/blog/placeholders/cafards-cuisine.svg" alt="Cafards en cuisine professionnelle" loading="lazy">
-              <span class="card-tag tag-mint">Pro</span>
-            </div>
-            <div class="card-body">
-              <h3>Cafards en cuisine professionnelle : risques HACCP et obligations légales</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>9 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="cafards-insectes">
-          <a href="/blog/cafards-insectes/fourmis-maison-colonies/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-mint-light);">
-              <img src="/assets/blog/placeholders/fourmis-maison.svg" alt="Colonies de fourmis dans la maison" loading="lazy">
-              <span class="card-tag tag-mint">Fourmis</span>
-            </div>
-            <div class="card-body">
-              <h3>Fourmis dans la maison : remonter à la colonie sans la disperser</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>6 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="cafards-insectes">
-          <a href="/blog/cafards-insectes/moustique-tigre-jardin/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-mint-light);">
-              <img src="/assets/blog/placeholders/moustique-tigre.svg" alt="Moustique tigre dans le jardin" loading="lazy">
-              <span class="card-tag tag-mint">Moustiques</span>
-            </div>
-            <div class="card-body">
-              <h3>Moustique tigre : 12 gestes pour priver votre jardin de larves</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>7 min</span></div>
-            </div>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-  -->
-
-  <!-- ═══════ CAT 4 — GUÊPES & FRELONS (MASQUÉE : articles à rédiger, voir table Notion) ═══════ -->
-  <!--
-  <section class="blog-category" id="cat-guepes">
-    <div class="container">
-      <header class="blog-section-head">
-        <div>
-          <span class="mono-label">CATÉGORIE · GOLD</span>
-          <h2>Guêpes & Frelons</h2>
-        </div>
-        <a href="/nuisibles/guepes-frelons/" class="link-arrow">Voir tout le dossier →</a>
-      </header>
-      <div class="blog-grid-3">
-        <article class="card-article" data-pillar="guepes-frelons">
-          <a href="/blog/guepes-frelons/frelon-asiatique-reconnaitre/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/frelon-asiatique.svg" alt="Reconnaître le frelon asiatique" loading="lazy">
-              <span class="card-tag tag-gold">Identification</span>
-            </div>
-            <div class="card-body">
-              <h3>Frelon asiatique ou européen : 5 critères pour les différencier à coup sûr</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>5 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="guepes-frelons">
-          <a href="/blog/guepes-frelons/nid-guepes-toiture/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/nid-guepes.svg" alt="Nid de guêpes dans la toiture" loading="lazy">
-              <span class="card-tag tag-gold">Intervention</span>
-            </div>
-            <div class="card-body">
-              <h3>Nid de guêpes dans la toiture : pourquoi ne jamais le déloger soi-même</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>6 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="guepes-frelons">
-          <a href="/blog/guepes-frelons/piqure-allergie-reagir/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-gold-light);">
-              <img src="/assets/blog/placeholders/piqure-allergie.svg" alt="Réagir à une piqûre allergique" loading="lazy">
-              <span class="card-tag tag-gold">Santé</span>
-            </div>
-            <div class="card-body">
-              <h3>Piqûre de guêpe et allergie : réagir dans les 15 premières minutes</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>8 min</span></div>
-            </div>
-          </a>
-        </article>
-      </div>
-    </div>
-  </section>
-  -->
-
-  <!-- ═══════ CAT 5 — PRÉVENTION & RÉGLEMENTATION ═══════ -->
-  <section class="blog-category" id="cat-prevention">
-    <div class="container">
-      <header class="blog-section-head">
-        <div>
-          <span class="mono-label">CATÉGORIE · NEUTRE</span>
-          <h2>Prévention & Réglementation</h2>
-        </div>
-        <a href="/reglementation/" class="link-arrow">Voir tout le dossier →</a>
-      </header>
-      <div class="blog-grid-3">
-        <article class="card-article" data-pillar="prevention">
-          <a href="/blog/prevenir-cafards-cuisine/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-pastel-mint-light);">
-              <img src="/assets/blog/placeholders/cafards-cuisine.svg" alt="Prévenir les cafards dans la cuisine" loading="lazy">
-              <span class="card-tag tag-mint">Prévention</span>
-            </div>
-            <div class="card-body">
-              <h3>Prévenir les cafards dans la cuisine : 12 gestes efficaces</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>9 min</span></div>
-            </div>
-          </a>
-        </article>
-        <!-- TODO: Articles Prévention & Réglementation additionnels à rédiger (voir table Notion) -->
-        <!--
-        <article class="card-article" data-pillar="prevention">
-          <a href="/blog/prevention/loi-punaises-locataires/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-bg-sand);">
-              <img src="/assets/blog/placeholders/loi-punaises.svg" alt="Loi punaises de lit locataires" loading="lazy">
-              <span class="card-tag tag-neutral">Réglementation</span>
-            </div>
-            <div class="card-body">
-              <h3>Punaises de lit : qui doit payer entre locataire et propriétaire en 2026 ?</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>8 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="prevention">
-          <a href="/blog/prevention/certibiocide-artisans/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-bg-sand);">
-              <img src="/assets/blog/placeholders/certibiocide.svg" alt="Certibiocide artisans" loading="lazy">
-              <span class="card-tag tag-neutral">Pro</span>
-            </div>
-            <div class="card-body">
-              <h3>Certibiocide : que vérifier avant de choisir son désinsectiseur ?</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>5 min</span></div>
-            </div>
-          </a>
-        </article>
-        <article class="card-article" data-pillar="prevention">
-          <a href="/blog/prevention/calendrier-nuisibles-france/" class="card-article-link">
-            <div class="card-media" style="background: var(--color-bg-sand);">
-              <img src="/assets/blog/placeholders/calendrier-nuisibles.svg" alt="Calendrier des nuisibles" loading="lazy">
-              <span class="card-tag tag-neutral">Saisonnalité</span>
-            </div>
-            <div class="card-body">
-              <h3>Calendrier 2026 des nuisibles en France : à quoi s'attendre chaque mois</h3>
-              <div class="card-meta"><span>Équipe Sanalia</span><span>·</span><span>7 min</span></div>
-            </div>
-          </a>
-        </article>
-        -->
-      </div>
-    </div>
-  </section>
-
-  </div><!-- /.blog-hub-main -->
-
-  <aside class="blog-hub-sidebar" aria-label="Colonne latérale blog">
-    <div class="blog-sidebar-widget blog-latest">
-      <h3 class="blog-sidebar-title">Derniers articles</h3>
-      <ul class="blog-latest-list">
-        <li class="blog-latest-item">
-          <a href="/blog/comment-se-debarrasser-rats-appartement/">
-            <span class="blog-latest-tag tag-gold">Rats & Souris</span>
-            <h4 class="blog-latest-title">Comment se débarrasser des rats dans un appartement</h4>
-            <time class="blog-latest-date">14 avril 2026</time>
+        <li>
+          <a href="#cat-prevention" class="bv2-tag" data-cat="prevention">
+            <span class="bv2-tag-icon" aria-hidden="true">
+              <!-- shield -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2l8 3v6c0 5-3.5 9.3-8 11-4.5-1.7-8-6-8-11V5l8-3z" fill="#FFE5CF" stroke="#F66C24" stroke-width="1.6"></path>
+                <path d="M9.5 12l2 2 3.5-4" stroke="#0E052A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <span class="bv2-tag-label">Prévention</span>
           </a>
         </li>
-        <li class="blog-latest-item">
-          <a href="/blog/prevenir-cafards-cuisine/">
-            <span class="blog-latest-tag tag-mint">Prévention</span>
-            <h4 class="blog-latest-title">Prévenir les cafards dans la cuisine : 12 gestes efficaces</h4>
-            <time class="blog-latest-date">10 avril 2026</time>
+
+        <li>
+          <a href="#cat-identification" class="bv2-tag" data-cat="identification">
+            <span class="bv2-tag-icon" aria-hidden="true">
+              <!-- magnifier on dot -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="6.5" fill="#EFDFF6" stroke="#635DDD" stroke-width="1.6"></circle>
+                <circle cx="11" cy="11" r="1.8" fill="#0E052A"></circle>
+                <path d="M16 16l4 4" stroke="#0E052A" stroke-width="1.8" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            <span class="bv2-tag-label">Identification</span>
           </a>
         </li>
-        <!-- TODO: Items additionnels à réactiver après rédaction des articles (voir table Notion) -->
-        <!--
-        <li class="blog-latest-item">
-          <a href="/blog/punaises-de-lit/detecter-precocement/">
-            <span class="blog-latest-tag tag-rose">Punaises de lit</span>
-            <h4 class="blog-latest-title">Les 7 signes précoces d'une infestation de punaises de lit</h4>
-            <time class="blog-latest-date">12 avril 2026</time>
+
+        <li>
+          <a href="#cat-traitements" class="bv2-tag" data-cat="traitements">
+            <span class="bv2-tag-icon" aria-hidden="true">
+              <!-- drop -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3c-3.5 5-6 8-6 11a6 6 0 0 0 12 0c0-3-2.5-6-6-11z" fill="#ABE0D1" stroke="#0E052A" stroke-width="1.6"></path>
+                <path d="M9 14a3 3 0 0 0 3 3" stroke="#0E052A" stroke-width="1.5" stroke-linecap="round" fill="none"></path>
+              </svg>
+            </span>
+            <span class="bv2-tag-label">Traitements</span>
           </a>
         </li>
-        <li class="blog-latest-item">
-          <a href="/blog/cafards-insectes/cycle-vie-cafard/">
-            <span class="blog-latest-tag tag-mint">Cafards</span>
-            <h4 class="blog-latest-title">Cycle de vie du cafard : pourquoi ils reviennent</h4>
-            <time class="blog-latest-date">10 avril 2026</time>
+
+        <li>
+          <a href="#cat-infos" class="bv2-tag" data-cat="infos">
+            <span class="bv2-tag-icon" aria-hidden="true">
+              <!-- doc -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6 3h8l4 4v14H6z" fill="#FFFAE7" stroke="#0E052A" stroke-width="1.6" stroke-linejoin="round"></path>
+                <path d="M14 3v4h4" stroke="#0E052A" stroke-width="1.6" stroke-linejoin="round" fill="none"></path>
+                <path d="M9 12h6M9 15h6M9 18h4" stroke="#0E052A" stroke-width="1.4" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            <span class="bv2-tag-label">Infos pratiques</span>
           </a>
         </li>
-        <li class="blog-latest-item">
-          <a href="/blog/guepes-frelons/frelon-asiatique-reconnaitre/">
-            <span class="blog-latest-tag tag-gold">Guêpes & Frelons</span>
-            <h4 class="blog-latest-title">Frelon asiatique ou européen : 5 critères pour les différencier</h4>
-            <time class="blog-latest-date">8 avril 2026</time>
+
+        <li>
+          <a href="#cat-actu" class="bv2-tag" data-cat="actu">
+            <span class="bv2-tag-icon" aria-hidden="true">
+              <!-- lightning -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z" fill="#B0D5F5" stroke="#0E052A" stroke-width="1.6" stroke-linejoin="round"></path>
+              </svg>
+            </span>
+            <span class="bv2-tag-label">Actu</span>
           </a>
         </li>
-        <li class="blog-latest-item">
-          <a href="/blog/prevention/loi-punaises-locataires/">
-            <span class="blog-latest-tag tag-neutral">Réglementation</span>
-            <h4 class="blog-latest-title">Punaises de lit : qui paie entre locataire et propriétaire ?</h4>
-            <time class="blog-latest-date">5 avril 2026</time>
-          </a>
-        </li>
-        <li class="blog-latest-item">
-          <a href="/blog/rats-souris/maladies-transmises-rats/">
-            <span class="blog-latest-tag tag-gold">Santé</span>
-            <h4 class="blog-latest-title">Leptospirose, hantavirus : les maladies transmises par les rats</h4>
-            <time class="blog-latest-date">2 avril 2026</time>
-          </a>
-        </li>
-        <li class="blog-latest-item">
-          <a href="/blog/cafards-insectes/fourmis-maison-colonies/">
-            <span class="blog-latest-tag tag-mint">Fourmis</span>
-            <h4 class="blog-latest-title">Fourmis dans la maison : remonter à la colonie sans la disperser</h4>
-            <time class="blog-latest-date">29 mars 2026</time>
-          </a>
-        </li>
-        <li class="blog-latest-item">
-          <a href="/blog/punaises-de-lit/traitement-thermique-vs-chimique/">
-            <span class="blog-latest-tag tag-rose">Traitement</span>
-            <h4 class="blog-latest-title">Thermique ou chimique ? Comparatif des traitements punaises</h4>
-            <time class="blog-latest-date">25 mars 2026</time>
-          </a>
-        </li>
-        <li class="blog-latest-item">
-          <a href="/blog/prevention/calendrier-nuisibles-france/">
-            <span class="blog-latest-tag tag-neutral">Saisonnalité</span>
-            <h4 class="blog-latest-title">Calendrier 2026 des nuisibles en France</h4>
-            <time class="blog-latest-date">20 mars 2026</time>
-          </a>
-        </li>
-        <li class="blog-latest-item">
-          <a href="/blog/guepes-frelons/nid-guepes-toiture/">
-            <span class="blog-latest-tag tag-gold">Intervention</span>
-            <h4 class="blog-latest-title">Nid de guêpes dans la toiture : ne jamais le déloger soi-même</h4>
-            <time class="blog-latest-date">15 mars 2026</time>
-          </a>
-        </li>
-        -->
+
       </ul>
-    </div>
 
-    <div class="blog-sidebar-widget blog-newsletter-mini">
-      <h3 class="blog-sidebar-title">Notre newsletter</h3>
-      <p>Les meilleurs conseils anti-nuisibles, une fois par mois. Zéro spam.</p>
-      <form class="blog-newsletter-form-mini" onsubmit="return false;">
-        <label class="visually-hidden" for="sidebar-newsletter-email">Adresse e-mail</label>
-        <input id="sidebar-newsletter-email" type="email" placeholder="votre@email.fr" required>
-        <button type="submit" class="btn btn-primary btn-sm">S'inscrire</button>
+      <!-- ─── À LA UNE (juste sous les tags) ────────────── -->
+      <div class="bv2-feat">
+        <header class="bv2-feat-head">
+          <h2 class="bv2-feat-title">À la une</h2>
+          <span class="bv2-feat-eyebrow">SÉLECTION DE LA RÉDACTION</span>
+        </header>
+
+        <div class="bv2-feat-grid">
+
+          <!-- ── LEFT : 3 featured (1 big + 2 small) ── -->
+          <div class="bv2-feat-left">
+
+            <!-- BLOG-HUB-SLOT: featured-big (1 slot) — pillar/long-form ou sélection éditoriale -->
+            <a href="/blog/comment-se-debarrasser-rats-appartement/" class="bv2-fcard bv2-fcard-big">
+              <div class="bv2-fcard-illu bg-rats">
+                <span class="bv2-fcard-pill">Rats &amp; Souris</span>
+                <img class="bv2-fcard-img" src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+                <div class="bv2-fcard-illu-label">
+                  <strong>Rats en appartement</strong>
+                  <span>Sanalia</span>
+                </div>
+              </div>
+              <div class="bv2-fcard-body">
+                <p class="bv2-fcard-kicker">GUIDE COMPLET · 8 MIN</p>
+                <h3 class="bv2-fcard-title">Se débarrasser des rats dans un appartement&nbsp;: guide 2026</h3>
+                <p class="bv2-fcard-excerpt">Signes d'infestation, méthodes éprouvées et protocole étape par étape pour reprendre la main sur son logement, en copropriété comme en location.</p>
+                <p class="bv2-fcard-foot"><span class="bv2-fcard-dot"></span>Équipe Sanalia · Mis à jour le 10 avril 2026</p>
+              </div>
+            </a>
+
+            <!-- ── Stack of 2 smaller features ── -->
+            <div class="bv2-fcard-stack">
+
+              <!-- BLOG-HUB-SLOT: featured-small (1 slot) -->
+              <a href="/blog/moustiques-jardin/" class="bv2-fcard">
+                <div class="bv2-fcard-illu bg-moustiques">
+                  <span class="bv2-fcard-pill" style="background:#EFDFF6">Moustiques</span>
+                  <img class="bv2-fcard-img" src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+                  <div class="bv2-fcard-illu-label">
+                    <strong>Moustiques jardin</strong>
+                    <span>Sanalia</span>
+                  </div>
+                </div>
+                <div class="bv2-fcard-body">
+                  <h3 class="bv2-fcard-title">Moustiques au jardin&nbsp;: 7 solutions anti-moustiques efficaces</h3>
+                  <p class="bv2-fcard-excerpt">Les 7 méthodes testées par nos techniciens pour reprendre vos soirées en terrasse sans envahisseurs ailés.</p>
+                  <p class="bv2-fcard-foot">Équipe Sanalia · 5 min</p>
+                </div>
+              </a>
+
+              <!-- BLOG-HUB-SLOT: featured-small (1 slot) -->
+              <a href="/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/" class="bv2-fcard">
+                <div class="bv2-fcard-illu bg-guepes">
+                  <span class="bv2-fcard-pill" style="background:#F4E9C1">Guêpes &amp; Frelons</span>
+                  <img class="bv2-fcard-img" src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+                  <div class="bv2-fcard-illu-label">
+                    <strong>Piqûre & allergie</strong>
+                    <span>Sanalia</span>
+                  </div>
+                </div>
+                <div class="bv2-fcard-body">
+                  <h3 class="bv2-fcard-title">Piqûre de guêpe et allergie&nbsp;: premiers secours</h3>
+                  <p class="bv2-fcard-excerpt">Reconnaître les signes d'allergie sévère, agir dans les 15 premières minutes et savoir quand appeler le 15.</p>
+                  <p class="bv2-fcard-foot">Équipe Sanalia · 8 min</p>
+                </div>
+              </a>
+
+            </div>
+          </div>
+
+          <!-- ── Latest publications (right column) ── -->
+          <aside class="bv2-latest">
+            <h3 class="bv2-latest-title">Les dernières publications</h3>
+            <ul class="bv2-latest-list" role="list">
+              <!-- BLOG-HUB-SLOT: latest-publication (max 10 items, push le plus ancien si surcapacité) -->
+              <li><a href="/blog/hantavirus-rats-symptomes-prevention/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-rats">
+                  <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+                </span>
+                <div>
+                  <h4>Hantavirus et rats&nbsp;: transmission, symptômes, prévention</h4>
+                  <p>ÉQUIPE SANALIA · 6 MIN · 13 MAI 2026</p>
+                </div>
+              </a></li>
+              <li><a href="/blog/moustique-tigre-jardin/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-moustiques">
+                  <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+                </span>
+                <div>
+                  <h4>Moustique tigre au jardin&nbsp;: prévention et solutions</h4>
+                  <p>ÉQUIPE SANALIA · 10 MIN · 13 MAI 2026</p>
+                </div>
+              </a></li>
+              <li><a href="/blog/moustiques-jardin/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-moustiques">
+                  <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+                </span>
+                <div>
+                  <h4>Moustiques au jardin&nbsp;: 7 solutions anti-moustiques efficaces</h4>
+                  <p>ÉQUIPE SANALIA · 5 MIN · 13 MAI 2026</p>
+                </div>
+              </a></li>
+              <li><a href="/blog/nid-guepes-toiture/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-guepes">
+                  <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+                </span>
+                <div>
+                  <h4>Nid de guêpes en toiture&nbsp;: dangers et solution pro</h4>
+                  <p>ÉQUIPE SANALIA · 7 MIN · 13 MAI 2026</p>
+                </div>
+              </a></li>
+              <li><a href="/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-guepes">
+                  <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+                </span>
+                <div>
+                  <h4>Piqûre de guêpe et allergie&nbsp;: premiers secours</h4>
+                  <p>ÉQUIPE SANALIA · 8 MIN · 12 MAI 2026</p>
+                </div>
+              </a></li>
+              <li><a href="/blog/comment-se-debarrasser-rats-appartement/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-rats">
+                  <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+                </span>
+                <div>
+                  <h4>Se débarrasser des rats dans un appartement&nbsp;: guide 2026</h4>
+                  <p>ÉQUIPE SANALIA · 8 MIN · 10 AVR 2026</p>
+                </div>
+              </a></li>
+              <li><a href="/blog/prevenir-cafards-cuisine/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-cafards">
+                  <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="">
+                </span>
+                <div>
+                  <h4>Prévenir les cafards dans la cuisine&nbsp;: 12 gestes efficaces</h4>
+                  <p>ÉQUIPE SANALIA · 7 MIN · 08 AVR 2026</p>
+                </div>
+              </a></li>
+              <!-- /BLOG-HUB-SLOT -->
+            </ul>
+          </aside>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION — DOSSIER SPÉCIAL (Été 2026)
+       BLOG-HUB-SLOT: season-summer (max 6 articles été)
+       ═══════════════════════════════════════════════════════ -->
+  <section id="cat-dossier" class="bv2-dossier">
+    <div class="bv2-wrap">
+      <header class="bv2-dossier-head">
+        <div class="bv2-dossier-head-text">
+          <p class="bv2-dossier-eyebrow">SAISON · ÉTÉ 2026</p>
+          <h2 class="bv2-dossier-title"><em>Juillet-août&nbsp;:</em> à quoi se préparer</h2>
+          <p class="bv2-dossier-sub">
+            Moustiques tigres en avance, guêpes qui nidifient haut, allergies en hausse. Toute notre couverture
+            de l'été en un coup d'œil.
+          </p>
+        </div>
+        <div class="bv2-dossier-art" aria-hidden="true">
+          <svg viewBox="0 0 120 120" width="160" height="160">
+            <g stroke="#F66C24" stroke-width="6" stroke-linecap="round">
+              <line x1="60" y1="6" x2="60" y2="22"></line>
+              <line x1="60" y1="98" x2="60" y2="114"></line>
+              <line x1="6" y1="60" x2="22" y2="60"></line>
+              <line x1="98" y1="60" x2="114" y2="60"></line>
+              <line x1="20" y1="20" x2="32" y2="32"></line>
+              <line x1="88" y1="88" x2="100" y2="100"></line>
+              <line x1="100" y1="20" x2="88" y2="32"></line>
+              <line x1="32" y1="88" x2="20" y2="100"></line>
+            </g>
+            <circle cx="60" cy="60" r="26" fill="#FFC44F"></circle>
+            <circle cx="60" cy="60" r="26" fill="none" stroke="#F66C24" stroke-width="3"></circle>
+          </svg>
+        </div>
+      </header>
+
+      <div class="bv2-dossier-grid">
+        <a href="/blog/moustique-tigre-jardin/" class="bv2-dcard">
+          <span class="bv2-dcard-avatar bg-moustiques">
+            <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+          </span>
+          <p class="bv2-dcard-cat">MOUSTIQUES</p>
+          <h3 class="bv2-dcard-title">Moustique tigre au jardin : prévention et solutions</h3>
+          <div class="bv2-dcard-foot"><span>10 min</span><span>·</span><span>13 mai 2026</span></div>
+        </a>
+        <a href="/blog/moustiques-jardin/" class="bv2-dcard">
+          <span class="bv2-dcard-avatar bg-moustiques">
+            <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+          </span>
+          <p class="bv2-dcard-cat">MOUSTIQUES</p>
+          <h3 class="bv2-dcard-title">Moustiques au jardin : 7 solutions anti-moustiques efficaces</h3>
+          <div class="bv2-dcard-foot"><span>5 min</span><span>·</span><span>13 mai 2026</span></div>
+        </a>
+        <a href="/blog/nid-guepes-toiture/" class="bv2-dcard">
+          <span class="bv2-dcard-avatar bg-guepes">
+            <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+          </span>
+          <p class="bv2-dcard-cat">GUÊPES & FRELONS</p>
+          <h3 class="bv2-dcard-title">Nid de guêpes en toiture : dangers et solution pro</h3>
+          <div class="bv2-dcard-foot"><span>7 min</span><span>·</span><span>13 mai 2026</span></div>
+        </a>
+        <a href="/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/" class="bv2-dcard">
+          <span class="bv2-dcard-avatar bg-guepes">
+            <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+          </span>
+          <p class="bv2-dcard-cat">GUÊPES & FRELONS</p>
+          <h3 class="bv2-dcard-title">Piqûre de guêpe et allergie : premiers secours</h3>
+          <div class="bv2-dcard-foot"><span>8 min</span><span>·</span><span>12 mai 2026</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SECTION — GUIDES PAR ESPÈCE
+       BLOG-HUB-SLOT: species-group (1 block par nuisible, 9 nuisibles)
+       ═══════════════════════════════════════════════════════ -->
+  <section id="cat-species" class="bv2-species">
+    <div class="bv2-wrap">
+      <header class="bv2-species-head">
+        <div>
+          <p class="bv2-cat-eyebrow">PAR NUISIBLE</p>
+          <h2 class="bv2-species-title">Guides terrain, par espèce</h2>
+        </div>
+        <a href="/nuisibles/" class="bv2-species-all">Voir tous les guides <span>→</span></a>
+      </header>
+
+      <!-- BLOG-HUB-SLOT: species-group / rats (2 articles) -->
+      <div class="bv2-species-block" data-nuisible="rats">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-rats">
+              <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Rats</h3>
+              <span class="bv2-species-count">2 ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/rats/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          <a href="/blog/comment-se-debarrasser-rats-appartement/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">GUIDE COMPLET</span>
+            <h4 class="bv2-mcard-title">Se débarrasser des rats dans un appartement : guide 2026</h4>
+            <div class="bv2-mcard-foot"><span>8 min</span><span>10 avr 2026</span></div>
+          </a>
+          <a href="/blog/hantavirus-rats-symptomes-prevention/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">SANTÉ</span>
+            <h4 class="bv2-mcard-title">Hantavirus et rats : transmission, symptômes, prévention</h4>
+            <div class="bv2-mcard-foot"><span>6 min</span><span>13 mai 2026</span></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- BLOG-HUB-SLOT: species-group / souris (HIDDEN — 0 article, réactiver dès qu'un article souris est publié) -->
+      <!--
+      <div class="bv2-species-block" data-nuisible="souris">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-souris">
+              <img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Souris</h3>
+              <span class="bv2-species-count">N ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/souris/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          [insérer ici les bv2-mcard du nuisible souris]
+        </div>
+      </div>
+      -->
+
+      <!-- BLOG-HUB-SLOT: species-group / punaises-de-lit (HIDDEN — 0 article, réactiver dès qu'un article punaises-de-lit est publié) -->
+      <!--
+      <div class="bv2-species-block" data-nuisible="punaises-de-lit">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-punaises">
+              <img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Punaises de lit</h3>
+              <span class="bv2-species-count">N ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/punaises-de-lit/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          [insérer ici les bv2-mcard du nuisible punaises-de-lit]
+        </div>
+      </div>
+      -->
+
+      <!-- BLOG-HUB-SLOT: species-group / cafards (1 article) -->
+      <div class="bv2-species-block" data-nuisible="cafards">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-cafards">
+              <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Cafards &amp; blattes</h3>
+              <span class="bv2-species-count">1 ARTICLE</span>
+            </div>
+          </div>
+          <a href="/nuisibles/cafards/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          <a href="/blog/prevenir-cafards-cuisine/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">PRÉVENTION</span>
+            <h4 class="bv2-mcard-title">Prévenir les cafards dans la cuisine : 12 gestes efficaces</h4>
+            <div class="bv2-mcard-foot"><span>7 min</span><span>08 avr 2026</span></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- BLOG-HUB-SLOT: species-group / guepes-frelons (2 articles) -->
+      <div class="bv2-species-block" data-nuisible="guepes-frelons">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-guepes">
+              <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Guêpes &amp; frelons</h3>
+              <span class="bv2-species-count">2 ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/guepes-frelons/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          <a href="/blog/nid-guepes-toiture/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">TRAITEMENT</span>
+            <h4 class="bv2-mcard-title">Nid de guêpes en toiture : dangers et solution pro</h4>
+            <div class="bv2-mcard-foot"><span>7 min</span><span>13 mai 2026</span></div>
+          </a>
+          <a href="/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">SANTÉ</span>
+            <h4 class="bv2-mcard-title">Piqûre de guêpe et allergie : premiers secours</h4>
+            <div class="bv2-mcard-foot"><span>8 min</span><span>12 mai 2026</span></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- BLOG-HUB-SLOT: species-group / moustiques (2 articles) -->
+      <div class="bv2-species-block" data-nuisible="moustiques">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-moustiques">
+              <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Moustiques</h3>
+              <span class="bv2-species-count">2 ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/moustiques/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          <a href="/blog/moustique-tigre-jardin/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">PRÉVENTION</span>
+            <h4 class="bv2-mcard-title">Moustique tigre au jardin : prévention et solutions</h4>
+            <div class="bv2-mcard-foot"><span>10 min</span><span>13 mai 2026</span></div>
+          </a>
+          <a href="/blog/moustiques-jardin/" class="bv2-mcard">
+            <span class="bv2-mcard-kicker">PRÉVENTION</span>
+            <h4 class="bv2-mcard-title">Moustiques au jardin : 7 solutions anti-moustiques efficaces</h4>
+            <div class="bv2-mcard-foot"><span>5 min</span><span>13 mai 2026</span></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- BLOG-HUB-SLOT: species-group / pigeons (HIDDEN — 0 article, réactiver dès qu'un article pigeons est publié) -->
+      <!--
+      <div class="bv2-species-block" data-nuisible="pigeons">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-pigeons">
+              <img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Pigeons</h3>
+              <span class="bv2-species-count">N ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/pigeons/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          [insérer ici les bv2-mcard du nuisible pigeons]
+        </div>
+      </div>
+      -->
+
+      <!-- BLOG-HUB-SLOT: species-group / fourmis (HIDDEN — 0 article, réactiver dès qu'un article fourmis est publié) -->
+      <!--
+      <div class="bv2-species-block" data-nuisible="fourmis">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-fourmis">
+              <img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Fourmis</h3>
+              <span class="bv2-species-count">N ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/fourmis/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          [insérer ici les bv2-mcard du nuisible fourmis]
+        </div>
+      </div>
+      -->
+
+      <!-- BLOG-HUB-SLOT: species-group / taupes (HIDDEN — 0 article, réactiver dès qu'un article taupes est publié) -->
+      <!--
+      <div class="bv2-species-block" data-nuisible="taupes">
+        <header class="bv2-species-row-head">
+          <div class="bv2-species-id">
+            <span class="bv2-species-avatar bg-taupes">
+              <img src="/assets/nuisibles/european-mole--talpa-europaea--realistic-body-shap.png" alt="">
+            </span>
+            <div>
+              <h3 class="bv2-species-name">Taupes</h3>
+              <span class="bv2-species-count">N ARTICLES</span>
+            </div>
+          </div>
+          <a href="/nuisibles/taupes/" class="bv2-species-tous">Tous <span>→</span></a>
+        </header>
+        <div class="bv2-species-row">
+          [insérer ici les bv2-mcard du nuisible taupes]
+        </div>
+      </div>
+      -->
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STICKY FILTER BAR (n'affiche que les clusters actifs)
+       ═══════════════════════════════════════════════════════ -->
+  <div class="bv2-filter">
+    <div class="bv2-filter-inner">
+      <nav class="bv2-filter-pills" aria-label="Filtrer par catégorie">
+        <a href="#cat-species" class="bv2-fp is-active" data-target="all">Tout <span class="bv2-fp-count">7</span></a>
+        <a href="#cat-prevention" class="bv2-fp" data-target="cat-prevention">Prévention <span class="bv2-fp-count">3</span></a>
+        <a href="#cat-identification" class="bv2-fp" data-target="cat-identification">Identification <span class="bv2-fp-count">1</span></a>
+        <a href="#cat-traitements" class="bv2-fp" data-target="cat-traitements">Traitements <span class="bv2-fp-count">2</span></a>
+        <a href="#cat-actu" class="bv2-fp" data-target="cat-actu">Actu <span class="bv2-fp-count">1</span></a>
+      </nav>
+      <form class="bv2-fs" role="search" onsubmit="event.preventDefault()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+        <input type="search" placeholder="Rechercher un article…" aria-label="Rechercher">
       </form>
     </div>
+  </div>
 
-    <div class="blog-sidebar-widget">
-      <h3 class="blog-sidebar-title">Catégories populaires</h3>
-      <ul class="blog-sidebar-cats">
-        <li><a href="/nuisibles/rats/"><span class="cat-dot dot-gold"></span>Rats & Souris <span class="cat-count">12</span></a></li>
-        <li><a href="/nuisibles/punaises-de-lit/"><span class="cat-dot dot-rose"></span>Punaises de lit <span class="cat-count">9</span></a></li>
-        <li><a href="/nuisibles/cafards/"><span class="cat-dot dot-mint"></span>Cafards & Insectes <span class="cat-count">8</span></a></li>
-        <li><a href="/nuisibles/guepes-frelons/"><span class="cat-dot dot-gold"></span>Guêpes & Frelons <span class="cat-count">6</span></a></li>
-        <li><a href="/reglementation/"><span class="cat-dot dot-neutral"></span>Prévention & Réglementation <span class="cat-count">11</span></a></li>
-      </ul>
-    </div>
-  </aside>
-
-  </div><!-- /.blog-hub-wrapper -->
-
-  <!-- ═══════ CTA FINAL ═══════ -->
-  <section class="blog-final-cta">
-    <div class="container">
-      <div class="final-cta-card">
-        <h2>Un doute, une urgence, une infestation ?</h2>
-        <p>Nos techniciens certifiés interviennent à Lyon, Paris et alentours sous 2 heures.</p>
-        <div class="final-cta-actions">
-          <a href="/devis/" class="btn btn-primary">Demander un devis gratuit <span class="btn-arrow"></span></a>
-          <a href="tel:0667464897" class="btn btn-outline">06 67 46 48 97</a>
+  <!-- ═══════════════════════════════════════════════════════
+       CLUSTERS (par intent / catégorie éditoriale)
+       BLOG-HUB-SLOT: cluster (1 section par cluster, 5 clusters)
+       ═══════════════════════════════════════════════════════ -->
+  <!-- BLOG-HUB-SLOT: cluster / cat-prevention (3 articles) -->
+  <section id="cat-prevention" class="bv2-cat">
+    <div class="bv2-wrap">
+      <header class="bv2-cat-head">
+        <div class="bv2-cat-head-left">
+          <p class="bv2-cat-eyebrow">GESTES · ROUTINES · BARRIÈRES</p>
+          <h2 class="bv2-cat-title">Prévention</h2>
+          <p class="bv2-cat-desc">Les gestes, les routines et les barrières qui évitent l'infestation. Avant d'avoir besoin d'un traitement.</p>
         </div>
+        <div class="bv2-cat-count">
+          <span class="bv2-cat-count-label">ARTICLES PUBLIÉS</span>
+          <strong>3</strong>
+        </div>
+      </header>
+      <div class="bv2-grid">
+        <a href="/blog/moustique-tigre-jardin/" class="bv2-card">
+          <div class="bv2-card-illu bg-moustiques">
+            <span class="bv2-card-pill">Moustiques</span>
+            <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Moustique tigre au jardin&nbsp;: prévention et solutions</h3>
+            <p class="bv2-card-excerpt">Identifier le moustique tigre, détruire ses gîtes larvaires et choisir les solutions qui marchent vraiment au jardin.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">10 MIN · 13 MAI 2026</span>
+            </div>
+          </div>
+        </a>
+        <a href="/blog/moustiques-jardin/" class="bv2-card">
+          <div class="bv2-card-illu bg-moustiques">
+            <span class="bv2-card-pill">Moustiques</span>
+            <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Moustiques au jardin&nbsp;: 7 solutions anti-moustiques efficaces</h3>
+            <p class="bv2-card-excerpt">Les 7 méthodes testées par nos techniciens pour reprendre vos soirées en terrasse sans envahisseurs ailés.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">5 MIN · 13 MAI 2026</span>
+            </div>
+          </div>
+        </a>
+        <a href="/blog/prevenir-cafards-cuisine/" class="bv2-card">
+          <div class="bv2-card-illu bg-cafards">
+            <span class="bv2-card-pill">Prévention</span>
+            <img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Prévenir les cafards dans la cuisine&nbsp;: 12 gestes efficaces</h3>
+            <p class="bv2-card-excerpt">12 gestes simples du quotidien pour priver les cafards de leurs trois besoins essentiels et garder une cuisine saine.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">7 MIN · 08 AVR 2026</span>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
+
+  <!-- BLOG-HUB-SLOT: cluster / cat-identification (1 article) -->
+  <section id="cat-identification" class="bv2-cat">
+    <div class="bv2-wrap">
+      <header class="bv2-cat-head">
+        <div class="bv2-cat-head-left">
+          <p class="bv2-cat-eyebrow">RECONNAÎTRE · TRACES · INDICES</p>
+          <h2 class="bv2-cat-title">Identification</h2>
+          <p class="bv2-cat-desc">Reconnaître un nuisible, lire ses traces, déchiffrer les bruits dans les murs. Les guides qu'utilisent nos techniciens sur le terrain.</p>
+        </div>
+        <div class="bv2-cat-count">
+          <span class="bv2-cat-count-label">ARTICLES PUBLIÉS</span>
+          <strong>1</strong>
+        </div>
+      </header>
+      <div class="bv2-grid">
+        <a href="/blog/hantavirus-rats-symptomes-prevention/" class="bv2-card">
+          <div class="bv2-card-illu bg-rats">
+            <span class="bv2-card-pill">Rats &amp; Souris</span>
+            <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Hantavirus et rats&nbsp;: transmission, symptômes, prévention</h3>
+            <p class="bv2-card-excerpt">Le point sur la transmission, les premiers symptômes à reconnaître et les gestes barrières en cas d'infestation par les rongeurs.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">6 MIN · 13 MAI 2026</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG-HUB-SLOT: cluster / cat-traitements (2 articles) -->
+  <section id="cat-traitements" class="bv2-cat">
+    <div class="bv2-wrap">
+      <header class="bv2-cat-head">
+        <div class="bv2-cat-head-left">
+          <p class="bv2-cat-eyebrow">PROTOCOLES · MÉTHODES · TERRAIN</p>
+          <h2 class="bv2-cat-title">Traitements</h2>
+          <p class="bv2-cat-desc">Les protocoles qui marchent et ceux qu'on a abandonnés. Méthodes douces, méthodes lourdes, calendriers de retour.</p>
+        </div>
+        <div class="bv2-cat-count">
+          <span class="bv2-cat-count-label">ARTICLES PUBLIÉS</span>
+          <strong>2</strong>
+        </div>
+      </header>
+      <div class="bv2-grid">
+        <a href="/blog/comment-se-debarrasser-rats-appartement/" class="bv2-card">
+          <div class="bv2-card-illu bg-rats">
+            <span class="bv2-card-pill">Rats &amp; Souris</span>
+            <img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Se débarrasser des rats dans un appartement&nbsp;: guide 2026</h3>
+            <p class="bv2-card-excerpt">Signes d'infestation, méthodes éprouvées et protocole étape par étape pour reprendre la main sur son logement, en copropriété comme en location.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">8 MIN · 10 AVR 2026</span>
+            </div>
+          </div>
+        </a>
+        <a href="/blog/nid-guepes-toiture/" class="bv2-card">
+          <div class="bv2-card-illu bg-guepes">
+            <span class="bv2-card-pill">Guêpes &amp; Frelons</span>
+            <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Nid de guêpes en toiture&nbsp;: dangers et solution pro</h3>
+            <p class="bv2-card-excerpt">Pourquoi ne jamais déloger un nid en toiture seul, et comment se passe une intervention par un professionnel certifié.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">7 MIN · 13 MAI 2026</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG-HUB-SLOT: cluster / cat-pratiques (HIDDEN — 0 article, réactiver dès qu'un article Infos pratiques est publié) -->
+  <!--
+  <section id="cat-pratiques" class="bv2-cat">
+    <div class="bv2-wrap">
+      <header class="bv2-cat-head">
+        <div class="bv2-cat-head-left">
+          <p class="bv2-cat-eyebrow">DÉMARCHES · DROIT · OUTILS</p>
+          <h2 class="bv2-cat-title">Infos pratiques</h2>
+          <p class="bv2-cat-desc">Démarches, réglementation, modèles de documents. Les outils qui font gagner du temps aux pros, aux syndics et aux particuliers.</p>
+        </div>
+        <div class="bv2-cat-count">
+          <span class="bv2-cat-count-label">ARTICLES PUBLIÉS</span>
+          <strong>N</strong>
+        </div>
+      </header>
+      <div class="bv2-grid">
+        [insérer ici les bv2-card du cluster Infos pratiques]
+      </div>
+    </div>
+  </section>
+  -->
+
+  <!-- BLOG-HUB-SLOT: cluster / cat-actu (1 article) -->
+  <section id="cat-actu" class="bv2-cat">
+    <div class="bv2-wrap">
+      <header class="bv2-cat-head">
+        <div class="bv2-cat-head-left">
+          <p class="bv2-cat-eyebrow">ENQUÊTES · DONNÉES · SAISON</p>
+          <h2 class="bv2-cat-title">Actu</h2>
+          <p class="bv2-cat-desc">Enquêtes longues, données saisonnières, tribunes. Ce que le terrain raconte du moment.</p>
+        </div>
+        <div class="bv2-cat-count">
+          <span class="bv2-cat-count-label">ARTICLES PUBLIÉS</span>
+          <strong>1</strong>
+        </div>
+      </header>
+      <div class="bv2-grid">
+        <a href="/blog/piqure-guepe-allergie-reagir-15-premieres-minutes/" class="bv2-card">
+          <div class="bv2-card-illu bg-guepes">
+            <span class="bv2-card-pill">Guêpes &amp; Frelons</span>
+            <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">Piqûre de guêpe et allergie&nbsp;: premiers secours</h3>
+            <p class="bv2-card-excerpt">Reconnaître les signes d'allergie sévère, agir dans les 15 premières minutes et savoir quand appeler le 15.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">8 MIN · 12 MAI 2026</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TEAM + SIDEBAR (CTA Sanalia) — MASQUÉE temporairement
+       BLOG-HUB-SLOT: team-area (hidden, réactiver en retirant display:none)
+       ═══════════════════════════════════════════════════════ -->
+  <section id="cat-team" class="bv2-team-area" data-screen-label="10 Équipe &amp; CTA" style="display:none">
+    <div class="bv2-wrap">
+      <div class="bv2-team-grid">
+        <!-- ─── LEFT : équipe ─── -->
+        <div class="bv2-team-col">
+          <p class="bv2-team-eyebrow">L'ÉQUIPE ÉDITORIALE</p>
+          <h2 class="bv2-team-title">Qui écrit ce blog&nbsp;?</h2>
+
+          <div class="bv2-team-cards">
+            <article class="bv2-author">
+              <span class="bv2-author-avatar" style="background:#EFDFF6">CV</span>
+              <div class="bv2-author-body">
+                <h3>Claire Vidal</h3>
+                <p class="bv2-author-meta">RÉDACTRICE EN CHEF · 24 ARTICLES</p>
+                <p class="bv2-author-bio">Journaliste, ex-Mediacités. Couvre la santé publique depuis 2015.</p>
+              </div>
+            </article>
+
+            <article class="bv2-author">
+              <span class="bv2-author-avatar" style="background:#F4E9C1">TR</span>
+              <div class="bv2-author-body">
+                <h3>Thomas Renard</h3>
+                <p class="bv2-author-meta">TECHNICIEN SENIOR · 18 ARTICLES</p>
+                <p class="bv2-author-bio">12 ans d'interventions. Certibiocide. Spécialiste rongeurs urbains.</p>
+              </div>
+            </article>
+
+            <article class="bv2-author">
+              <span class="bv2-author-avatar" style="background:#ABE0D1">MV</span>
+              <div class="bv2-author-body">
+                <h3>Dr. Marc Vasseur</h3>
+                <p class="bv2-author-meta">BIOLOGISTE · 9 ARTICLES</p>
+                <p class="bv2-author-bio">PhD entomologie. Conseille Sanalia sur les protocoles depuis 2019.</p>
+              </div>
+            </article>
+
+            <article class="bv2-author">
+              <span class="bv2-author-avatar" style="background:#FFD4CF">LB</span>
+              <div class="bv2-author-body">
+                <h3>Léa Bonnet</h3>
+                <p class="bv2-author-meta">PRÉVENTION · 14 ARTICLES</p>
+                <p class="bv2-author-bio">Forme nos techniciens à la pédagogie client. Anime les ateliers grand public.</p>
+              </div>
+            </article>
+
+            <article class="bv2-author">
+              <span class="bv2-author-avatar" style="background:#FFD4A7">SM</span>
+              <div class="bv2-author-body">
+                <h3>Sophie Maillard</h3>
+                <p class="bv2-author-meta">B2B &amp; HACCP · 11 ARTICLES</p>
+                <p class="bv2-author-bio">Ex-restauration. Pilote les contrats hôtellerie-restauration depuis 2022.</p>
+              </div>
+            </article>
+
+            <article class="bv2-author">
+              <span class="bv2-author-avatar" style="background:#B0D5F5">HP</span>
+              <div class="bv2-author-body">
+                <h3>Maître Hélène Pasquier</h3>
+                <p class="bv2-author-meta">AVOCATE · DROIT IMMO · 6 ARTICLES</p>
+                <p class="bv2-author-bio">Conseil juridique externe sur tout ce qui touche à la copropriété.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ─── RIGHT : sidebar (newsletter + CTA business) ─── -->
+        <aside class="bv2-side">
+
+          <!-- Business CTA -->
+          <div class="bv2-side-box bv2-side-cta">
+            <p class="bv2-side-cta-eyebrow">SANALIA · INTERVENTION</p>
+            <h3 class="bv2-side-cta-title">Un nuisible chez vous&nbsp;?</h3>
+            <p class="bv2-side-cta-text">Devis gratuit en 2 min. Intervention sous 24h, par un technicien certifié Certibiocide.</p>
+
+            <ul class="bv2-side-cta-trust" role="list">
+              <li>
+                <span class="bv2-side-cta-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="#F66C24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+                </span>
+                <strong>4.9/5</strong> · 200+ avis Google
+              </li>
+              <li>
+                <span class="bv2-side-cta-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F66C24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                </span>
+                Intervention 8h-20h, 7j/7
+              </li>
+              <li>
+                <span class="bv2-side-cta-icon" aria-hidden="true">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F66C24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><path d="M12 2l8 3v6c0 5-3.5 9.3-8 11-4.5-1.7-8-6-8-11V5z"></path></svg>
+                </span>
+                Résultat garanti
+              </li>
+            </ul>
+
+            <a href="#" class="bv2-side-cta-btn">Demander un devis <span>→</span></a>
+            <a href="tel:0667464897" class="bv2-side-cta-phone">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              06 67 46 48 97
+            </a>
+          </div>
+
+        </aside>
+      </div>
+    </div>
+  </section>
+  <!-- Scroll-spy : met à jour le pill actif dans la barre filtre -->
+  <script>
+    (function() {
+      // ── Drag-to-scroll pour les carrousels par espèce (comme mobile) ──
+      document.querySelectorAll('.bv2-species-row').forEach(row => {
+        let isDown = false, startX = 0, scrollLeft = 0, moved = 0;
+        row.addEventListener('mousedown', (e) => {
+          isDown = true; moved = 0;
+          row.classList.add('is-dragging');
+          startX = e.pageX - row.offsetLeft;
+          scrollLeft = row.scrollLeft;
+        });
+        ['mouseleave','mouseup'].forEach(evt => row.addEventListener(evt, () => {
+          isDown = false;
+          row.classList.remove('is-dragging');
+        }));
+        row.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - row.offsetLeft;
+          const walk = (x - startX) * 1.4;
+          moved = Math.abs(walk);
+          row.scrollLeft = scrollLeft - walk;
+        });
+        // Empêche l'ouverture du lien si on a draggé
+        row.addEventListener('click', (e) => {
+          if (moved > 5) { e.preventDefault(); e.stopPropagation(); }
+        }, true);
+      });
+    })();
+  </script>
+
+  <!-- Scroll-spy : met à jour le pill actif dans la barre filtre -->
+  <script>
+    (function() {
+      const pills = document.querySelectorAll('.bv2-fp');
+      const sections = document.querySelectorAll('section.bv2-cat');
+      const map = new Map();
+      pills.forEach(p => map.set(p.dataset.target, p));
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            pills.forEach(p => p.classList.remove('is-active'));
+            const pill = map.get(e.target.id);
+            if (pill) pill.classList.add('is-active');
+          }
+        });
+      }, { rootMargin: '-30% 0px -55% 0px' });
+
+      sections.forEach(s => io.observe(s));
+
+      // "Tout" : activé quand au-dessus de la 1ère section
+      window.addEventListener('scroll', () => {
+        const first = document.getElementById('cat-prevention');
+        if (!first) return;
+        const top = first.getBoundingClientRect().top;
+        if (top > 200) {
+          pills.forEach(p => p.classList.remove('is-active'));
+          map.get('all').classList.add('is-active');
+        }
+      }, { passive: true });
+
+      // Détection sticky du filter pour ombre is-pinned
+      const filter = document.querySelector('.bv2-filter');
+      if (filter) {
+        const STICKY_OFFSET = 73; // top du filter sticky (= hauteur header Sanalia)
+        const checkSticky = () => {
+          const r = filter.getBoundingClientRect();
+          if (r.top <= STICKY_OFFSET + 1) {
+            filter.classList.add('is-pinned');
+          } else {
+            filter.classList.remove('is-pinned');
+          }
+        };
+        window.addEventListener('scroll', checkSticky, { passive: true });
+        checkSticky();
+      }
+    })();
+  </script>
 
 </main>
-
 <div data-component="footer">
 <footer class="footer footer-v2">
 
