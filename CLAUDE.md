@@ -106,6 +106,7 @@ Blue #B0D5F5/#E6F3FF, Lavender #EFDFF6/#FBF2FF, Rose #FFD4CF/#FFECE9, Peach #FFD
 ├── SEO-ARCHITECTURE.md             # Architecture SEO complete : double arbre, URLs, maillage, anti-duplicate
 ├── SEO-INTENTIONS-RECHERCHE.md     # Intentions de recherche par page : questions DOIT/INTERDIT
 ├── SEO-PAGES-LISTE-GLOBALE.md      # Liste globale pages : URLs, H1, KW, volumes, KD, TP
+├── LP-ADS-TEMPLATE.md              # Template canonique des landings Google Ads (/lp/*)
 ├── build.sh                        # Script de build : synchronise les composants
 ├── components/
 │   ├── header.html                 # SOURCE du header (modifier ici)
@@ -122,6 +123,9 @@ Blue #B0D5F5/#E6F3FF, Lavender #EFDFF6/#FBF2FF, Rose #FFD4CF/#FFECE9, Peach #FFD
 - **JAMAIS modifier le header/footer directement dans une page** — toujours modifier le fichier source dans `components/`
 - Après toute modification d'un composant, **lancer `./build.sh`** pour synchroniser toutes les pages
 - Le build est aussi lancé automatiquement par Cloudflare Pages au déploiement
+
+## Landing Pages Google Ads — Modèle dédié
+Pour toute nouvelle landing page destinée à du **trafic payant** (Google Ads, Meta, Bing), le modèle canonique est documenté dans [`LP-ADS-TEMPLATE.md`](LP-ADS-TEMPLATE.md). Reproduire la structure de [`/lp/punaises-de-lit-lyon/index.html`](lp/punaises-de-lit-lyon/index.html) (15 sections, hero 2-col avec form au-dessus de la ligne de flottaison, protocole 5 étapes en scroll horizontal full-bleed, badges Trustpilot/Google inline). Toutes les LP sont obligatoirement `noindex,nofollow` + bloquées par `robots.txt` (`Disallow: /lp/`) et NE doivent JAMAIS apparaître dans le sitemap ni être linkées depuis une page publique du site.
 
 ## Template Page Nuisible — Structure de référence
 La page `/nuisibles/rats/index.html` est le **modèle à suivre** pour TOUTES les fiches nuisibles. Chaque nouvelle page nuisible DOIT reproduire cette structure exacte.
