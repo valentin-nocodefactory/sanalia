@@ -205,7 +205,7 @@ python3 -c "import markdown; print(markdown.markdown('''<RESPONSE>''', extension
 | `modifiedAt` | Aujourd'hui ISO |
 | `wordCount` | `len(re.sub(r"<[^>]+>", " ", articleHtml).split())` |
 | `readingTimeMin` | `max(1, round(wordCount / 220))` |
-| `heroImage` | `{filename: "hero.webp", alt: title, caption: title, prompt: <prompt EN dérivé du KW, palette Sanalia sage green + warm cream>}` |
+| `heroImage` | `{filename: "hero.webp", alt: <alt court FR descriptif contenant le mot-clé>, caption: <légende FR courte ancrant la photo dans un contexte terrain>, prompt: <brief EN photo réaliste cf. étape 5.2>}`. Format obligatoirement raster (`.webp`) sauf fallback placeholder (cf. 5.6). |
 | `ctaInserts` | 3 positions sur les `<h2>` (extraits via regex), aux indices `round(0.25*N)`, `round(0.5*N)`, `round(0.8*N)`. Variant via `CONFIG.intent_to_cta_variant` : `urgency`/`transactional` → 2 × `urgence` + 1 × `devis` ; `regulatory` → 3 × `guide` ; autres → 3 × `devis`. |
 | `related` | Si tu connais un article connexe du `/blog/`, propose-le. Sinon `{url: "/blog/", title: "Voir tous les articles du blog Sanalia", category: "Blog", readingTime: "Hub articles"}`. |
 
@@ -336,70 +336,253 @@ Validation du JSON :
 
 Sauvegarder le JSON dans `/tmp/chatseo-output-<slug>.json`.
 
-### Étape 5 — Générer les images via Recraft (download + self-host)
+### Étape 5 — Générer les visuels via Recraft (photos réalistes + schémas)
 
 > ℹ️ **Les calls sortants sont autorisés** depuis la routine Claude Cron
 > (autorisation explicite du user). curl peut atteindre `img.recraft.ai`
-> directement. On télécharge et self-host les images pour rester cohérent
+> directement. On télécharge et self-host les visuels pour rester cohérent
 > avec le reste du site (`/assets/...` partout, pas de dépendance CDN tiers).
 
-> ⚠️ **Recraft style `Editorial` = SVG vectoriel** (pas raster). Extension
-> obligatoire `.svg`.
+> 🎯 **Doctrine visuelle Sanalia (NON-NÉGOCIABLE)** :
+> - **Photos réalistes** par défaut, comme prises sur le terrain par un
+>   expert dératiseur professionnel. Aucune illustration vectorielle de type
+>   "editorial flat" ou "Pixar". Le lecteur doit ressentir le terrain :
+>   appartement haussmannien, cuisine de restaurant, sous-pente, sous-sol,
+>   cour d'immeuble, etc.
+> - **Schémas explicatifs** (1 à 2 max par article, parfois 0) : vectoriels,
+>   didactiques, type "manuel scientifique". UNIQUEMENT quand le contenu
+>   s'y prête vraiment et qu'un schéma apporte une valeur pédagogique
+>   irremplaçable.
 
-#### 5.1. Générer l'image
+#### 5.1. Décider du plan visuel de l'article
 
-Appel MCP Recraft `generate_image` :
-- `prompt` = prompt EN dérivé du titre/KW + suffixe Sanalia (cf.
-  `CONFIG.recraft.prompt_suffix`)
-- `model` = `recraftv3`
-- `input_style` = `Editorial`
+Avant d'appeler Recraft, lis l'`articleHtml` produit par ChatSEO et dresse
+un plan visuel structuré : **1 hero photo (obligatoire) + 2 à 4 photos
+inline + 0 à 2 schémas explicatifs**.
+
+**Photos inline — où les placer ?** Une par section H2 majeure (pas toutes),
+en privilégiant les sections qui décrivent :
+- des **signes concrets** d'infestation (déjections, traces, dégâts visibles)
+- une **scène d'intervention** (technicien au travail, équipement)
+- un **lieu type** mentionné dans la section (cuisine, cave, comble, etc.)
+- une **conséquence visuelle** (matériaux endommagés, denrées contaminées)
+
+**Schémas explicatifs — quand en ajouter ?** Inclus 1 schéma SI **au moins
+un** de ces critères est rempli, 2 schémas SI **deux ou plus** sont remplis :
+
+| Critère | Type de schéma typique |
+|---|---|
+| L'article décrit un **cycle de vie / reproduction** (œufs → larve → adulte) | Cycle illustré en boucle |
+| L'article décompose une **anatomie** ou **morphologie** distinctive | Schéma anatomique légendé |
+| L'article compare **2+ entités structurées** (rat vs souris, méthodes A vs B) | Diagramme comparatif côte-à-côte |
+| L'article décrit une **coupe / cartographie** (maison, immeuble, restaurant, jardin) | Coupe en élévation avec zones marquées |
+| L'article décompose un **processus en 4+ étapes** (intervention, mécanisme d'action) | Flux pas-à-pas avec flèches |
+| L'article présente une **saisonnalité / calendrier** | Frise temporelle 12 mois |
+
+Si **aucun** de ces critères n'est rempli (ex : article d'opinion, billet
+réglementaire pur, FAQ courte) → **0 schéma**, uniquement des photos.
+
+**Sortie attendue** : une liste interne de visuels avec, pour chacun, le
+type (`photo` | `diagram`), l'ancre de section où l'insérer, et un brief
+Recraft en anglais déjà rédigé. Cette liste pilote les sous-étapes 5.2–5.4.
+
+#### 5.2. Générer chaque photo réaliste
+
+Pour le hero ET chaque image inline de type `photo` :
+
+Appel MCP Recraft `generate_image` avec :
+- `model` = `recraftv3` (cf. `CONFIG.recraft.model`)
+- `input_style` = `Natural light` (cf. `CONFIG.recraft.photo.style`)
 - `image_size` = `16:9`
 - `n` = 1
+- `prompt` = **brief EN précis** + `CONFIG.recraft.photo.prompt_suffix`
 
-Récupérer l'URL signée dans `image_urls[0]`.
+**Structure du brief EN (à composer toi-même pour chaque image)** :
 
-#### 5.2. Télécharger via le helper Python
+1. **Sujet précis** : ce qu'on voit au premier plan. Évite l'abstraction.
+   Mauvais : *"rat infestation problem"*.
+   Bon : *"close-up of small fresh brown rat droppings on a hardwood
+   kitchen floor next to a wooden cabinet baseboard, scattered crumbs
+   nearby"*.
+
+2. **Cadrage / focal** : *"close-up"*, *"medium shot"*, *"overhead top-down
+   view"*, *"low-angle wide shot"*. Tu peux mentionner *"shallow depth of
+   field"*, *"selective focus on the trail of droppings"*.
+
+3. **Contexte / lieu** : précis et français. *"in a Parisian Haussmannian
+   apartment kitchen"*, *"in a restaurant stainless-steel back kitchen"*,
+   *"in a damp basement laundry room"*, *"in an attic crawl space with
+   insulation"*. Évite les setups américains (placards en chêne massif
+   Texan, etc.).
+
+4. **Ambiance / lumière** : *"soft natural daylight from a window"*,
+   *"warm tungsten interior light"*, *"early-morning indirect light"*.
+
+5. **Indice "professionnel terrain"** : ajoute un détail qui ancre la photo
+   comme document pro. *"a gloved hand pointing with a metal probe"*,
+   *"a UV blacklight revealing urine trails"*, *"a pest-control inspector's
+   clipboard in soft background blur"*, *"a numbered evidence marker placed
+   next to the gnaw marks"*.
+
+6. **Suffixe Sanalia** : ajouté automatiquement (`prompt_suffix` du config).
+   Tu n'as PAS besoin de le retaper, il est concaténé côté code.
+
+**Exemple complet de prompt (sans le suffixe)** :
+
+> *"Overhead close-up of small fresh dark-brown rat droppings scattered
+> along the baseboard of a Parisian Haussmannian apartment kitchen, next
+> to a half-open under-sink cabinet door, soft natural morning light from
+> a side window, shallow depth of field, a pest-control inspector's gloved
+> hand visible in soft background blur holding a small flashlight, photo
+> taken as field documentation evidence by a Certibiocide-certified
+> technician."*
+
+**Format reçu** : Recraft renvoie un fichier **raster** (WebP) pour ces
+styles photo. Extension cible : `.webp`.
+
+#### 5.3. Générer chaque schéma explicatif (si pertinent)
+
+Pour chaque image inline de type `diagram` (0 à 2 par article) :
+
+Appel MCP Recraft `generate_image` avec :
+- `model` = `recraftv3`
+- `input_style` = `Chemistry` (cf. `CONFIG.recraft.diagram.style`) — c'est
+  le style Recraft "scientific diagram illustration aesthetic", parfait pour
+  un rendu manuel scientifique propre
+- `image_size` = `16:9`
+- `n` = 1
+- `prompt` = **brief EN didactique** + `CONFIG.recraft.diagram.prompt_suffix`
+
+**Structure du brief EN diagram** :
+
+1. **Type de schéma** : *"life cycle diagram"*, *"anatomical labeled
+   diagram"*, *"side-by-side comparative diagram"*, *"cross-section
+   illustration of a typical French apartment with marked infestation
+   zones"*, *"timeline frieze of 12 months showing seasonal activity"*.
+
+2. **Sujet biologique / technique** précis : *"life cycle of Cimex
+   lectularius (common bed bug) from egg to adult, 5 stages, in a loop
+   with arrows"*.
+
+3. **Légendes textuelles** : indique 3 à 6 courtes étiquettes FR
+   maximum. Recraft peut produire du texte mais introduit parfois des
+   coquilles — garde le texte minimal. *"labels in French: «Œuf»,
+   «Nymphe stade 1», ..., kept short and legible"*.
+
+4. **Composition** : *"flat illustration style, generous white space,
+   numbered steps, clear arrows, no photographic textures"*.
+
+5. **Suffixe Sanalia** : ajouté automatiquement (palette + contraintes
+   no-logo / no-watermark).
+
+**Exemple complet** :
+
+> *"Side-by-side comparative anatomical diagram showing a brown rat
+> (Rattus norvegicus) on the left and a house mouse (Mus musculus) on
+> the right, both in profile view, with leader lines pointing to 5 key
+> distinguishing features each (snout shape, ear size, tail length
+> ratio, body length, droppings size shown as inset), labels in clean
+> short French («Museau», «Oreilles», «Queue», «Taille», «Crottes»),
+> flat textbook style, generous warm-cream background."*
+
+**Format reçu** : Recraft renvoie un **SVG vectoriel** pour le style
+`Chemistry` (et la plupart des styles "vector use cases"). Extension
+cible : `.svg`.
+
+#### 5.4. Télécharger via le helper Python
+
+Pour chaque visuel généré, télécharge via le helper unifié qui gère raster
+ET SVG :
 
 ```bash
-python3 .claude/skills/publish-article-sanalia/scripts/download_recraft_svg.py \
+# Photo (extension .webp)
+python3 .claude/skills/publish-article-sanalia/scripts/download_recraft_image.py \
   "<recraft_url>" \
-  "assets/blog/<slug>/<filename>.svg"
+  "assets/blog/<slug>/<filename>.webp" \
+  webp
+
+# Schéma (extension .svg)
+python3 .claude/skills/publish-article-sanalia/scripts/download_recraft_image.py \
+  "<recraft_url>" \
+  "assets/blog/<slug>/<filename>.svg" \
+  svg
 ```
 
-Le helper :
+Le helper `download_recraft_image.py` :
 - Lance `curl -sL -o <target> --max-time 30 <url>`
-- Valide : taille ≥ 1 ko, début `<svg`, fin contient `</svg>`
+- **Sniff les magic bytes** : détecte SVG (`<svg`), PNG (`\x89PNG`),
+  JPEG (`\xFFD8FF`), WebP (`RIFF....WEBP`)
+- Valide la taille minimale (≥ 1 ko)
+- Pour SVG : vérifie aussi la présence de `</svg>` en fin de fichier
 - Détecte les erreurs sandbox (`Host not in allowlist`)
-- Exit 0 si SVG valide ; exit 1 sinon (logs détaillés stderr)
+- Si tu passes un format attendu en 3ᵉ argument (`svg` / `webp` / `png` /
+  `jpg`), un mismatch déclenche exit 1 — pratique pour détecter qu'un
+  style censé être raster a en fait retourné du SVG ou inversement
+- Exit 0 si OK ; exit 1 sinon (logs détaillés stderr)
 
-#### 5.3. Référencer dans le JSON
+#### 5.5. Référencer dans le JSON
 
-Dans le JSON passé à `assemble_html.py`, le `heroImage` utilise un
-**filename relatif** (pas une URL externe) :
+Dans le JSON passé à `assemble_html.py`, la hero est obligatoire et les
+inline sont placées via le champ `image` de chaque section (mode legacy
+`sections`) OU directement dans `articleHtml` via une balise `<figure>`
+contenant `<img src="/assets/blog/<slug>/<filename>">` (mode HTML).
 
 ```json
 {
   "heroImage": {
-    "filename": "hero.svg",
-    "alt": "Texte alternatif descriptif (contient le mot-clé)",
-    "caption": "Légende courte"
+    "filename": "hero.webp",
+    "alt": "Inspecteur Sanalia documentant des traces de rats dans un appartement haussmannien parisien (texte alt court, descriptif, contenant le mot-clé)",
+    "caption": "Inspection de terrain — appartement 6ᵉ arrondissement, Paris."
   }
 }
 ```
 
-`assemble_html.py` génère automatiquement `<img src="/assets/blog/<slug>/hero.svg">`.
+Pour les inline en mode HTML : insère directement dans `articleHtml` une
+`<figure class="image-figure">` au bon endroit (juste après le paragraphe
+descriptif qui appelle l'image). Exemple :
 
-#### 5.4. Fallback si Recraft échoue
+```html
+<figure class="image-figure">
+  <img src="/assets/blog/<slug>/signes-rongeurs-cuisine.webp" alt="Déjections de rats fraîches le long d'une plinthe de cuisine" loading="lazy" width="1456" height="816">
+  <figcaption>Déjections fraîches le long d'une plinthe — signe d'un passage récent.</figcaption>
+</figure>
 
-Si `generate_image` lève une exception ou si `download_recraft_svg.py` exit
-1 (curl timeout, fichier corrompu, etc.) → fallback à un placeholder local :
-
-```bash
-mkdir -p assets/blog/<slug>/
-cp assets/blog/placeholders/<theme>.svg assets/blog/<slug>/hero.svg
+<figure class="image-figure">
+  <img src="/assets/blog/<slug>/cycle-vie-punaise.svg" alt="Schéma du cycle de vie de la punaise de lit : œuf, 5 stades nymphaux, adulte" loading="lazy" width="1456" height="816">
+  <figcaption>Cycle de vie complet de <em>Cimex lectularius</em> — environ 35 jours à 25 °C.</figcaption>
+</figure>
 ```
 
-Placeholders disponibles :
+`assemble_html.py` résout les `src` relatifs automatiquement, donc tu
+peux soit pré-coder le `/assets/blog/<slug>/...` complet (recommandé)
+soit laisser un `filename` simple dans un objet `image` structuré.
+
+#### 5.6. Fallback si Recraft échoue
+
+Si `generate_image` lève une exception OU si `download_recraft_image.py`
+exit 1 (curl timeout, fichier corrompu, format inattendu, etc.) :
+
+1. **Retry 1 fois** avec le style de secours (`style_fallback` du config).
+   - Photo : `Natural light` → fallback `Photorealism`
+   - Diagram : `Chemistry` → fallback `Roundish flat`
+
+2. Si toujours en échec **pour le hero uniquement** → fallback à un
+   placeholder SVG local :
+
+   ```bash
+   mkdir -p assets/blog/<slug>/
+   cp assets/blog/placeholders/<theme>.svg assets/blog/<slug>/hero.svg
+   ```
+
+   Et ajuste le `filename` dans le JSON à `hero.svg` au lieu de
+   `hero.webp`.
+
+3. Si **un visuel inline** (photo OU schéma) échoue après retry → **abandonne
+   cet emplacement précis** (retire la `<figure>` de `articleHtml`) et
+   continue. Ne JAMAIS bloquer la publication entière sur un visuel inline
+   manquant. Logue un warning explicite.
+
+Placeholders disponibles (pour hero uniquement) :
 - Rats/souris : `rats-souris-pillar.svg`, `rat-vs-souris.svg`, `maladies-rats.svg`
 - Guêpes/frelons : `nid-guepes.svg`, `frelon-asiatique.svg`, `piqure-allergie.svg`
 - Cafards : `cafards-cuisine.svg`, `cafards-cycle.svg`
@@ -408,17 +591,31 @@ Placeholders disponibles :
 - Punaises : `punaises-detection.svg`, `punaises-voyage.svg`, `loi-punaises.svg`
 - Autres : `boucher-entrees.svg`, `calendrier-nuisibles.svg`, `certibiocide.svg`, `traitement-thermique.svg`
 
-#### 5.5. Validation finale
+#### 5.7. Validation finale
 
 ```bash
-test "$(stat -f%z 'assets/blog/<slug>/hero.svg')" -gt 1000 && \
-  head -c 4 'assets/blog/<slug>/hero.svg' | grep -q '<svg'
+# Vérifie la hero (raster OU SVG selon le filename)
+HERO="assets/blog/<slug>/<hero-filename>"
+test "$(stat -f%z "$HERO")" -gt 1000 || { echo "Hero trop petite"; exit 1; }
+case "$HERO" in
+  *.svg)  head -c 4 "$HERO" | grep -q '<svg' || { echo "SVG invalide"; exit 1; } ;;
+  *.webp) head -c 4 "$HERO" | xxd | grep -q '5249 4646' || { echo "WebP invalide"; exit 1; } ;;
+  *.png)  head -c 4 "$HERO" | xxd | grep -q '8950 4e47' || { echo "PNG invalide"; exit 1; } ;;
+esac
+
+# Compte le total des visuels (hero + inline) — minimum 1, recommandé 3-6
+ls -1 assets/blog/<slug>/*.{webp,svg,png,jpg} 2>/dev/null | wc -l
 ```
 
-Si même le placeholder échoue → étape Erreur.
-
-Garde-fou : au moins 1 fichier SVG (Recraft ou placeholder) dans
-`assets/blog/<slug>/`.
+Garde-fous :
+- **AU MOINS 1** fichier visuel (Recraft hero ou placeholder) dans
+  `assets/blog/<slug>/`. Sinon → étape Erreur.
+- **AU MOINS 1 PHOTO réaliste** (raster) idéalement présente (la hero
+  compte). Si pour une raison X tout l'article ne contient que des
+  schémas SVG → log un warning mais ne bloque pas.
+- **AU PLUS 2 SCHÉMAS** par article. Si l'orchestrateur a planifié plus,
+  c'est une erreur de plan visuel — re-prioriser et garder les 2 plus
+  pertinents.
 
 ### Étape 6 — Assembler le HTML
 
@@ -527,7 +724,10 @@ Article généré automatiquement par **publish-article-sanalia-daily**.
 ## Checklist de validation
 - [ ] Contenu factuel et cohérent avec l'angle Notion
 - [ ] 3 CTAs inline présents et adaptés à l'intent
-- [ ] Visuels pertinents (1 hero + 2-4 illustrations)
+- [ ] 1 hero **photo réaliste** (style « expert dératiseur sur le terrain »)
+- [ ] 2 à 4 photos inline réalistes pertinentes pour chaque section visuellement riche
+- [ ] 0 à 2 schémas explicatifs (cycle de vie, anatomie, coupe, comparatif…) UNIQUEMENT si le contenu s'y prête vraiment
+- [ ] Aucune photo ne montre de visage humain identifiable, aucun logo/marque tiers visible
 - [ ] FAQ alignée HTML ↔ JSON-LD
 - [ ] Breadcrumb position 3 → /nuisibles/<parent>/ correct
 - [ ] Pas d'hallucination dans les chiffres/sources
@@ -606,7 +806,9 @@ git checkout main
 - Ne JAMAIS push sur `main` directement
 - Ne JAMAIS merger la PR (c'est le job de `merge-article-sanalia`)
 - Ne JAMAIS publier si `wordCount` < 800
-- Ne JAMAIS publier si zéro image (au moins la hero obligatoire)
+- Ne JAMAIS publier si zéro image (au moins la hero photo réaliste obligatoire)
+- Ne JAMAIS dépasser 2 schémas explicatifs par article (re-prioriser si plus)
+- Ne JAMAIS générer une hero en style illustration vectorielle (Editorial / Vector art) — la hero est TOUJOURS une photo réaliste
 - Ne JAMAIS écraser un article existant (anti_cannib_check le détecte)
 - Ne JAMAIS modifier d'autres fichiers que ceux explicitement listés en
   étape 8
@@ -624,7 +826,7 @@ Format clair pour les routines :
 [publish-article-sanalia] ✓ Étape 2 — Statut → In progress
 [publish-article-sanalia] ✓ Étape 3 — Slug "<slug>", anti-cannib OK
 [publish-article-sanalia] ✓ Étape 4 — ChatSEO JSON OK (N sections, N FAQ, wordCount N)
-[publish-article-sanalia] ✓ Étape 5 — N images générées et téléchargées
+[publish-article-sanalia] ✓ Étape 5 — N photos + M schémas générés et téléchargés (1 hero + N-1 inline photos + M diagrams)
 [publish-article-sanalia] ✓ Étape 6 — HTML assemblé : blog/<slug>/index.html
 [publish-article-sanalia] ✓ Étape 7 — Index mis à jour (sitemap, feed, hub)
 [publish-article-sanalia] ✓ Étape 8 — Branche claude/draft/<slug> poussée + PR draft #N
