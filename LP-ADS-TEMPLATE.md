@@ -416,3 +416,4 @@ Si une image ne respecte pas la direction artistique (rat trop menaçant, person
 |---|---|---|---|
 | `punaises-de-lit-lyon` | [/lp/punaises-de-lit-lyon/](https://www.sanalia.fr/lp/punaises-de-lit-lyon/) | ✅ Online (depuis 2026-05-15) | AW-18163028507 |
 | `deratisation-lyon` | [/lp/deratisation-lyon/](https://www.sanalia.fr/lp/deratisation-lyon/) | ✅ Online (depuis 2026-05-15) | AW-18163028507 |
+| `cafards-lyon` | [/lp/cafards-lyon/](https://www.sanalia.fr/lp/cafards-lyon/) | ✅ Online (depuis 2026-05-15) | AW-18163028507 |
