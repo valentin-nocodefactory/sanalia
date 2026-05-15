@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 13 May 2026 18:57:24 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 17:07:21 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Punaises de lit à l'hôtel : comment s'en protéger avant, pendant et après votre séjour</title>
+      <link>https://www.sanalia.fr/blog/punaises-de-lit-voyage-hotel/</link>
+      <description>Protégez-vous des punaises de lit à l'hôtel : inspection à l'arrivée, réflexes pendant le séjour et protocole de retour. Guide expert Sanalia.</description>
+      <pubDate>Fri, 15 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/punaises-de-lit-voyage-hotel/</guid>
+      <category>Punaises de lit</category>
+    </item>
+
     <item>
       <title>Hantavirus transmis par les rats : ce que vous devez vraiment savoir</title>
       <link>https://www.sanalia.fr/blog/hantavirus-rats-symptomes-prevention/</link>
