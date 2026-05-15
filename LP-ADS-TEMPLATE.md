@@ -44,6 +44,7 @@ Chaque LP est **un seul fichier HTML autonome** dans `/lp/[slug]/index.html` :
 ### 3. Tracking & conversion
 
 - **Google Tag (gtag.js)** AW-18163028507 dans le `<head>` (déjà sur toutes les pages du site)
+- **PostHog** (product analytics + session replay) dans le `<head>` — projet `phc_nTQgS3rYkMRsEDNZWcimNoRSieRGkGMsPxyxFQAzEci9`, host `https://eu.i.posthog.com`. Le snippet est commun à toutes les pages du site (cf. CLAUDE.md → section "Analytics & tracking"). Pour une nouvelle LP, copier-coller le bloc tel quel depuis `/lp/punaises-de-lit-lyon/index.html`.
 - Le `<form>` du hero POST vers le webhook **n8n** existant : `https://n8n.srv1336530.hstgr.cloud/webhook/alerte-val` (variable `SANALIA_LEAD_ENDPOINT` overridable via `window.SANALIA_LEAD_ENDPOINT`)
 - Sur succès du formulaire :
   1. **Fire** `gtag('event', 'generate_lead', { send_to: 'AW-18163028507', event_callback: redirectToThankYou, event_timeout: 2000, … })` — l'`event_callback` garantit que la conversion est envoyée à Google AVANT la navigation
@@ -290,6 +291,7 @@ Toujours présentes :
 - [ ] **Aucun** lien interne depuis une page publique du site vers la LP
 - [ ] Formulaire câblé sur le webhook n8n
 - [ ] Google Tag AW-18163028507 présent
+- [ ] PostHog snippet présent dans le `<head>` (eu.i.posthog.com, project key `phc_nTQgS3rYkMRsEDNZWcimNoRSieRGkGMsPxyxFQAzEci9`)
 - [ ] Tracking de conversion gtag (`generate_lead` event) en cas de success form
 - [ ] **Redirect vers `/thank-you/`** au lieu d'un `showStep('success')` in-place (essentiel pour le match Google Ads conversion URL)
 - [ ] `/thank-you/` existe et répond HTTP 200 (`curl -I https://www.sanalia.fr/thank-you/`)
