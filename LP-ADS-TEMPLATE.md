@@ -289,3 +289,4 @@ Toujours présentes :
 | Slug | URL prod | Statut | Campagne Google Ads |
 |---|---|---|---|
 | `punaises-de-lit-lyon` | [/lp/punaises-de-lit-lyon/](https://www.sanalia.fr/lp/punaises-de-lit-lyon/) | ✅ Online (depuis 2026-05-15) | AW-18163028507 |
+| `deratisation-lyon` | [/lp/deratisation-lyon/](https://www.sanalia.fr/lp/deratisation-lyon/) | ✅ Online (depuis 2026-05-15) — ⚠️ images pain-points à régénérer | AW-18163028507 |
