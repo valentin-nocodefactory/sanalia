@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /merci/
+Disallow: /lp/
 
 Sitemap: https://www.sanalia.fr/sitemap-index.xml
