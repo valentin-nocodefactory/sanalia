@@ -118,21 +118,31 @@ def gen_cta_inline(variant: str, cfg: dict, idx: int, title_override=None, desc_
 def gen_image_figure(slug: str, image: dict) -> str:
     """Génère une <figure> pour une image d'article.
 
-    Source de l'image, par ordre de priorité :
-    1. `url` (string) : URL externe directe (https://img.recraft.ai/... etc.)
-       — utilisé quand le sandbox cron empêche le download local.
-    2. `filename` commençant par http(s):// : idem, traité comme externe.
-    3. `filename` simple : /assets/blog/<slug>/<filename> (asset local).
-    """
-    url = image.get("url", "")
-    fn = image.get("filename", "")
-    if url and (url.startswith("http://") or url.startswith("https://")):
-        src = url
-    elif fn.startswith("http://") or fn.startswith("https://"):
-        src = fn
-    else:
-        src = f"/assets/blog/{slug}/{fn}"
+    Doctrine Sanalia : toutes les images sont self-hostées dans
+    /assets/blog/<slug>/<filename>. Aucune URL externe n'est tolérée
+    (Recraft, CDN tiers, etc.) — les images doivent être téléchargées
+    via download_recraft_image.py AVANT l'assemblage.
 
+    Lève RuntimeError si `filename` est une URL http(s):// ou si le
+    champ legacy `url` est encore présent — c'était l'ancien fallback
+    "hotlink Recraft" qui a causé des articles avec hero cassé une fois
+    l'URL Recraft expirée.
+    """
+    if image.get("url"):
+        raise RuntimeError(
+            f"heroImage.url externe interdit (legacy 'hotlink Recraft'). "
+            f"Télécharge l'image via download_recraft_image.py et passe "
+            f"'filename' à la place. Slug={slug}, url={image['url'][:80]}"
+        )
+    fn = image.get("filename", "")
+    if fn.startswith("http://") or fn.startswith("https://"):
+        raise RuntimeError(
+            f"heroImage.filename ne doit pas être une URL externe. "
+            f"Télécharge l'image dans assets/blog/{slug}/ et passe juste "
+            f"le nom de fichier (ex: 'hero.webp'). Reçu : {fn[:80]}"
+        )
+
+    src = f"/assets/blog/{slug}/{fn}"
     alt = html_escape(image.get("alt", ""))
     caption = image.get("caption", "")
     fig_caption = f'\n  <figcaption>{html_escape(caption)}</figcaption>' if caption else ""
@@ -165,12 +175,7 @@ def gen_article_body(data: dict, slug: str, canonical_url: str, cfg: dict) -> st
 
     # 2. Hero image (figure)
     if data.get("heroImage"):
-        parts.append(gen_image_figure(slug, {
-            "url": data["heroImage"].get("url", ""),
-            "filename": data["heroImage"].get("filename", ""),
-            "alt": data["heroImage"].get("alt", ""),
-            "caption": data["heroImage"].get("caption", ""),
-        }))
+        parts.append(gen_image_figure(slug, data["heroImage"]))
 
     # 3. Sections avec 3 CTAs intercalés
     sections = data["sections"]
@@ -671,16 +676,13 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
 
     canonical_url = f"{cfg['prod_domain']}/blog/{slug}/"
     hero = data.get("heroImage") or {}
-    hero_url_field = hero.get("url", "")
     hero_filename = hero.get("filename", "hero.svg")
-    # Si heroImage.url est une URL externe (Recraft, etc.), on l'utilise tel quel.
-    # Sinon si filename est une URL, idem. Sinon, asset local.
-    if hero_url_field and hero_url_field.startswith(("http://", "https://")):
-        og_image_url = hero_url_field
-    elif hero_filename.startswith(("http://", "https://")):
-        og_image_url = hero_filename
-    else:
-        og_image_url = f"{cfg['prod_domain']}/assets/blog/{slug}/{hero_filename}"
+    if hero.get("url") or hero_filename.startswith(("http://", "https://")):
+        raise RuntimeError(
+            f"heroImage doit pointer vers un asset local (filename simple). "
+            f"URLs externes (Recraft etc.) interdites. Slug={slug}"
+        )
+    og_image_url = f"{cfg['prod_domain']}/assets/blog/{slug}/{hero_filename}"
 
     article_section = parent_meta.get("section", "Conseils")
 
@@ -734,6 +736,22 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
     leftover = re.findall(r"\{\{[A-Z0-9_]+\}\}", html)
     if leftover:
         raise RuntimeError(f"Slots non remplacés : {set(leftover)}")
+
+    # Sanity check : aucune <img> hotlinkée sur un CDN externe.
+    # Cause racine du bug 'hero hantavirus pointant sur img.recraft.ai'
+    # après expiration de l'URL Recraft. Toutes les images doivent vivre
+    # sous /assets/blog/<slug>/ (cf. doctrine SKILL.md § 5).
+    external_imgs = re.findall(
+        r'<img\b[^>]*\ssrc="(https?://[^"]+)"',
+        html,
+    )
+    forbidden = [u for u in external_imgs if "/assets/" not in u]
+    if forbidden:
+        raise RuntimeError(
+            f"<img> externes interdites dans le HTML final ({len(forbidden)}): "
+            f"{forbidden[:3]}. Télécharge ces images en local via "
+            f"download_recraft_image.py et référence-les en /assets/blog/{slug}/..."
+        )
 
     return html
 
