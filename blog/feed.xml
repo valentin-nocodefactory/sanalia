@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Fri, 15 May 2026 17:07:21 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 May 2026 06:32:12 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Frelon asiatique : tout savoir pour le reconnaître, l'éviter et agir efficacement</title>
+      <link>https://www.sanalia.fr/blog/frelon-asiatique/</link>
+      <description>Frelon asiatique en France depuis 2004 : comment l'identifier, les vrais risques et que faire si vous découvrez un nid. Guide expert Sanalia.</description>
+      <pubDate>Sat, 16 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/frelon-asiatique/</guid>
+      <category>Guêpes & Frelons</category>
+    </item>
+
     <item>
       <title>Punaises de lit à l'hôtel : comment s'en protéger avant, pendant et après votre séjour</title>
       <link>https://www.sanalia.fr/blog/punaises-de-lit-voyage-hotel/</link>
