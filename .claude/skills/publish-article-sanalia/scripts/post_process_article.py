@@ -125,6 +125,15 @@ def fix_link_cards(html: str) -> tuple:
     return cleaned_html, n_inner
 
 
+def check_no_external_images(html: str) -> list:
+    """Détecte les <img> hotlinkées sur un CDN externe.
+    Retourne la liste des URLs incriminées (vide si tout est local).
+    Cf. SKILL.md § 5 — toutes les images doivent vivre sous /assets/blog/<slug>/.
+    """
+    external_imgs = re.findall(r'<img\b[^>]*\ssrc="(https?://[^"]+)"', html)
+    return [u for u in external_imgs if "/assets/" not in u]
+
+
 def post_process(path: Path) -> bool:
     """Retourne True si le fichier a été modifié, False sinon."""
     if not path.exists():
@@ -132,6 +141,18 @@ def post_process(path: Path) -> bool:
         return False
 
     html = path.read_text()
+
+    # Garde-fou : aucune <img> ne doit pointer vers un CDN externe.
+    forbidden = check_no_external_images(html)
+    if forbidden:
+        print(
+            f"✗ <img> externes détectées ({len(forbidden)}): {forbidden[:3]}\n"
+            f"  → télécharge ces images via download_recraft_image.py et "
+            f"référence-les en /assets/blog/<slug>/...",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     m = ARTICLE_BODY_RE.search(html)
     if not m:
         print(f"✗ <article class='blog-content blog-body'> introuvable dans {path}",
