@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Sun, 17 May 2026 06:29:31 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 06:34:09 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Maladies transmises par les rats : lesquelles, comment, et comment s'en protéger</title>
+      <link>https://www.sanalia.fr/blog/maladies-transmises-rats/</link>
+      <description>Les rats transmettent au moins 13 maladies : leptospirose, hantavirus, salmonellose. Guide complet sur les risques, les symptômes et la prévention.</description>
+      <pubDate>Tue, 19 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/maladies-transmises-rats/</guid>
+      <category>Rats et souris</category>
+    </item>
+
     <item>
       <title>Terre de diatomée contre les punaises de lit : ce que ça fait vraiment</title>
       <link>https://www.sanalia.fr/blog/terre-de-diatomee-punaise-de-lit/</link>
