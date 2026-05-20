@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Sun, 17 May 2026 06:29:31 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 May 2026 06:35:49 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Cycle de vie du cafard : comprendre pour mieux éliminer</title>
+      <link>https://www.sanalia.fr/blog/cycle-vie-cafard/</link>
+      <description>Œuf, nymphe, adulte : découvrez le cycle de vie du cafard et pourquoi une infestation peut exploser en quelques semaines. Conseils d'experts Sanalia.</description>
+      <pubDate>Wed, 20 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/cycle-vie-cafard/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Terre de diatomée contre les punaises de lit : ce que ça fait vraiment</title>
       <link>https://www.sanalia.fr/blog/terre-de-diatomee-punaise-de-lit/</link>
