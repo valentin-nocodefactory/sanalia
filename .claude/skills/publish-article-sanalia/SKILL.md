@@ -833,23 +833,31 @@ git checkout main
    - `PR GitHub` → `<PR_URL>`
    - `URL preview Cloudflare` → `<PREVIEW_URL>` (celui calculé à l'étape 1)
 
-4. **Slack** : **NE TENTE PAS** d'appeler le webhook n8n depuis la routine.
-   Le sandbox réseau Claude Cron bloque `n8n.srv1336530.hstgr.cloud` (et tout
-   host non-whitelist). Le call échoue systématiquement.
+4. **Slack** : appeler `notify_slack.py` directement depuis la routine.
 
-   La notification Slack est déclenchée automatiquement par une **GitHub
-   Action** (`.github/workflows/notify-slack-on-draft-pr.yml`) qui se lance
-   à la création de la PR. Le runner GitHub a un accès réseau complet et
-   POST au webhook sans souci.
+   ```bash
+   python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
+     --template draft \
+     --vars "$(python3 -c "import json; print(json.dumps({
+       'title': '<title>',
+       'keyword': '<Mot-clé principal>',
+       'preview_url': '<PREVIEW_URL>',
+       'pr_url': '<PR_URL>',
+       'notion_url': '<notion_page_url>'
+     }))")"
+   ```
 
-   Setup user (1 fois) : ajouter `SLACK_WEBHOOK_URL` dans les secrets GitHub
-   du repo (Settings → Secrets and variables → Actions).
+   **Pré-requis** : la variable d'environnement `SLACK_WEBHOOK_URL` doit
+   être déclarée dans la config de la routine cron (settings Claude →
+   variables d'environnement). Le webhook lui-même est un secret (path n8n
+   avec UUID) — il ne doit JAMAIS être committé. Si la variable est
+   absente, `notify_slack.py` exit 1 avec un log explicite, mais cela
+   n'aborte pas la routine de publication (déjà commit + PR créés).
 
-   La routine se contente donc de créer la PR via `gh pr create`. La suite
-   est automatique côté GitHub Action.
+   Les calls sortants vers `n8n.srv1336530.hstgr.cloud` sont autorisés
+   depuis la routine Claude Cron (cf. allowlist `.claude/settings.json`).
 
-5. Log final : `✅ Article prêt à valider : <PREVIEW_URL>` (Slack arrivera
-   dans les 30 s via la GitHub Action).
+5. Log final : `✅ Article prêt à valider : <PREVIEW_URL>` + `✓ Slack notifié`.
 
 ## Gestion d'erreur (étape Erreur)
 

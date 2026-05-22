@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Envoie une notification au webhook Slack/n8n défini dans SLACK_WEBHOOK_URL.
+"""Envoie une notification au webhook Slack défini dans `SLACK_WEBHOOK_URL`.
 
 Usage :
   python3 notify_slack.py --template draft --vars '{"title":"...","preview_url":"...",...}'
@@ -10,8 +10,10 @@ Templates disponibles (alignés sur CONFIG.yaml `slack.message_template_*`) :
   - error          : abort skill avec erreur
   - empty_pipeline : aucun article "Next up" trouvé en Notion ce matin
 
-Si SLACK_WEBHOOK_URL est absent ou vide, le script log un warning et exit 0
-(ne casse pas le pipeline, mais alerte que la notif n'est pas partie).
+`SLACK_WEBHOOK_URL` doit être configuré dans l'environnement de la routine
+cron (cf. SKILL.md § 9). Si absent, le script log un message visible et
+exit 1 — la routine continue, mais l'absence de notif sera visible dans
+les logs cron, plutôt qu'un échec silencieux comme avant.
 """
 from __future__ import annotations
 
@@ -149,8 +151,13 @@ def main():
 
     url = os.environ.get("SLACK_WEBHOOK_URL", "").strip()
     if not url:
-        print("⚠ SLACK_WEBHOOK_URL absent, notification ignorée", file=sys.stderr)
-        sys.exit(0)
+        print(
+            "✗ SLACK_WEBHOOK_URL absent — notif Slack NON envoyée.\n"
+            "  → configure cette variable dans l'env de la routine cron "
+            "(cf. SKILL.md § Étape 9).",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     vars_dict = json.loads(args.vars)
     # Valeurs par défaut pour éviter les KeyError
