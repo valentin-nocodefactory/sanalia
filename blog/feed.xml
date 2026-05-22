@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 20 May 2026 06:29:56 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 May 2026 06:34:56 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Rat ou souris : comment les différencier (et pourquoi ça change tout)</title>
+      <link>https://www.sanalia.fr/blog/difference-rat-souris/</link>
+      <description>Taille, crottes, queue, comportement : 9 critères pour distinguer un rat d'une souris en 30 secondes. Guide Sanalia avec tableaux comparatifs.</description>
+      <pubDate>Fri, 22 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/difference-rat-souris/</guid>
+      <category>Rats et souris</category>
+    </item>
+
     <item>
       <title>Piège à rat : quel type choisir et comment l'utiliser ?</title>
       <link>https://www.sanalia.fr/blog/pieges-rats-lesquels-choisir/</link>
