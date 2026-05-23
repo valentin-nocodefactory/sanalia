@@ -530,32 +530,11 @@ function App() {
       {!useExternalNavbar && (
         <header className={'appbar' + (showCover ? ' appbar-cover' : '')}>
           <a href="/" className="appbar-logo" aria-label="Retour à l'accueil Sanalia"><SanaliaLogo height={32}/></a>
-          <div style={{display:'flex',alignItems:'center',gap:14}}>
-            {!showCover && (
-              <div className="stepdots">
-                {STEPS.map((s, i) => (
-                  <div key={s.id} className={'stepdot' + (i < step ? ' done' : i === step ? ' active' : '')} title={s.label}/>
-                ))}
-              </div>
-            )}
-            <a className="appbar-phone" href="tel:0667464897" aria-label="Appeler Sanalia au 06 67 46 48 97">
-              <span className="appbar-phone-dot"><Ic.Phone width={14} height={14}/></span>
-              <span className="appbar-phone-num">06 67 46 48 97</span>
-            </a>
-          </div>
+          <a className="appbar-phone" href="tel:0667464897" aria-label="Appeler Sanalia au 06 67 46 48 97">
+            <span className="appbar-phone-dot"><Ic.Phone width={14} height={14}/></span>
+            <span className="appbar-phone-num">06 67 46 48 97</span>
+          </a>
         </header>
-      )}
-
-      {/* Step dots compacts dans le header traditionnel */}
-      {useExternalNavbar && step < STEPS.length && (
-        <div className="app-embed-dots">
-          <div className="stepdots">
-            {STEPS.map((s, i) => (
-              <div key={s.id} className={'stepdot' + (i < step ? ' done' : i === step ? ' active' : '')} title={s.label}/>
-            ))}
-          </div>
-          <span className="app-embed-dots-meta">{step + 1} / {STEPS.length}</span>
-        </div>
       )}
 
       {/* Shell */}
