@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Devis & paiement en ligne — Sanalia</title>
   <meta name="description" content="Simulez votre devis dératisation en 5 minutes, choisissez vos 2 créneaux et bloquez la date avec un acompte de 49 € remboursable. 1ère intervention offerte.">
-  <link rel="canonical" href="https://www.sanalia.fr/devis-paiement/">
+  <link rel="canonical" href="https://www.sanalia.fr/devis-interactif/">
   <!-- Test page : non indexable tant que la variante n'est pas validée -->
   <meta name="robots" content="noindex, follow">
   <meta name="format-detection" content="telephone=no, address=no, date=no, email=no">
@@ -23,7 +23,7 @@
   <meta property="og:title" content="Devis & paiement en ligne — Sanalia">
   <meta property="og:description" content="Simulez votre devis dératisation en 5 minutes, choisissez vos 2 créneaux et bloquez la date avec un acompte de 49 € remboursable.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.sanalia.fr/devis-paiement/">
+  <meta property="og:url" content="https://www.sanalia.fr/devis-interactif/">
   <meta property="og:locale" content="fr_FR">
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
@@ -32,7 +32,12 @@
 
   <link rel="stylesheet" href="styles.css?v=63" />
 <!-- GCLID capture (Google Ads attribution) — stocke le gclid en sessionStorage
-     pour qu'il soit envoyé dans le payload du lead côté back. -->
+     pour qu'il soit envoyé dans le payload du lead côté back du funnel
+     interactif. Idempotent. -->
+<!-- Note : ce script est aussi présent dans components/header.html, donc
+     les utilisateurs qui arrivent via une autre page du site l'auront déjà
+     déclenché. On le garde aussi ici parce que /devis-interactif/ n'inline
+     pas le header partagé (c'est une React app). -->
 <script>
   (function() {
     try {
@@ -53,7 +58,7 @@
   gtag('js', new Date());
 
   gtag('config', 'AW-18163028507');
-  // Pixel Google Ads dédié aux conversions du funnel /devis-paiement/
+  // Pixel Google Ads dédié aux conversions du funnel /devis-interactif/
   gtag('config', 'AW-8873739082');
 </script>
   <!-- PostHog (Product analytics, session replay, feature flags) -->

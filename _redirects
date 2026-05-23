@@ -1,7 +1,11 @@
-# Page devis : URL unique
-/contact-devis  /devis-paiement/  301
-/contact-devis/  /devis-paiement/  301
-/contact-devis/*  /devis-paiement/  301
+# Page devis interactif : URL unique
+/contact-devis  /devis-interactif/  301
+/contact-devis/  /devis-interactif/  301
+/contact-devis/*  /devis-interactif/  301
+# Ancien chemin /devis-paiement/ (renommé en /devis-interactif/) → 301
+/devis-paiement  /devis-interactif/  301
+/devis-paiement/  /devis-interactif/  301
+/devis-paiement/*  /devis-interactif/:splat  301
 
 # Redirections 301 des anciens articles blog (sous-dossier categorie) vers le nouveau pattern URL à plat
 # Ces règles doivent rester avant les wildcards pillars ci-dessous
