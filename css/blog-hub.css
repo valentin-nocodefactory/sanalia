@@ -1392,3 +1392,102 @@
   background: rgba(255,255,255,0.06);
   border-color: rgba(255,255,255,0.35);
 }
+
+/* ─── RESPONSIVE — tablette & mobile ────────────────────────── */
+
+@media (max-width: 1024px) {
+  .bv2-wrap { padding: 0 28px; }
+  .bv2-shell-header { padding: 18px 28px; }
+  /* "À la une" : on remet le big au-dessus de la colonne droite */
+  .bv2-feat-grid { grid-template-columns: 1fr; gap: 28px; }
+  /* Team area passe en 1 colonne */
+  .bv2-team-grid { grid-template-columns: 1fr; gap: 32px; }
+  .bv2-team-area { padding: 64px 0 72px; }
+  /* Dossier saison : 2 colonnes intermédiaires */
+  .bv2-dossier-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Species row : padding qui suit la nouvelle marge du wrap */
+  .bv2-species-row { padding: 4px 28px 22px; margin: 0 -28px; scroll-padding-left: 28px; }
+  .bv2-species-row::-webkit-scrollbar-track { margin: 0 28px; }
+}
+
+@media (max-width: 768px) {
+  .bv2-wrap { padding: 0 20px; }
+  .bv2-shell-header { padding: 16px 20px; gap: 16px; }
+  /* Hero : on réduit le souffle vertical */
+  .bv2-hero { padding: 48px 0 32px; }
+  .bv2-eyebrow { margin-bottom: 20px; }
+  .bv2-h1 { font-size: clamp(34px, 8vw, 44px); }
+  .bv2-lede { font-size: 18px; margin-bottom: 32px; }
+  .bv2-search { padding: 6px 6px 6px 18px; margin-bottom: 24px; }
+  .bv2-search input { font-size: 15px; padding: 10px 0; }
+  .bv2-search-btn { padding: 10px 18px; font-size: 13px; }
+  .bv2-tags { gap: 8px; }
+  .bv2-tag { padding: 8px 16px 8px 10px; font-size: 14px; }
+  /* "À la une" : header en colonne + cards en colonne (illu au-dessus) */
+  .bv2-feat { margin-top: 48px; }
+  .bv2-feat-head { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 20px; }
+  .bv2-feat-left .bv2-fcard { flex-direction: column; min-height: 0; }
+  .bv2-feat-left .bv2-fcard-illu,
+  .bv2-feat-left .bv2-fcard-big .bv2-fcard-illu { flex: 0 0 auto; padding: 20px; min-height: 180px; }
+  .bv2-feat-left .bv2-fcard-body { padding: 20px 22px 22px; }
+  /* Dernières publications : on resserre le padding */
+  .bv2-latest { padding: 18px 18px 10px; }
+  /* Dossier saison : head qui passe en colonne + grid 1 col */
+  .bv2-dossier-head { flex-direction: column; gap: 16px; margin-bottom: 32px; }
+  .bv2-dossier-title { font-size: clamp(32px, 8.5vw, 44px); margin-bottom: 14px; }
+  .bv2-dossier-eyebrow { margin-bottom: 12px; }
+  .bv2-dossier-art { margin: 0; align-self: flex-end; }
+  .bv2-dossier-art svg, .bv2-dossier-art img { width: 96px; height: auto; }
+  .bv2-dossier-grid { grid-template-columns: 1fr; gap: 14px; }
+  /* Species section */
+  .bv2-species { padding: 48px 0 64px; }
+  .bv2-species-head { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 32px; }
+  .bv2-species-block { padding: 22px 0 8px; }
+  .bv2-species-row-head { flex-wrap: wrap; gap: 12px; }
+  .bv2-species-row { padding: 4px 20px 22px; margin: 0 -20px; scroll-padding-left: 20px; }
+  .bv2-species-row::-webkit-scrollbar-track { margin: 0 20px; }
+  .bv2-mcard { flex: 0 0 240px; min-height: 160px; }
+  /* Clusters (.bv2-cat) : on réduit le padding */
+  .bv2-cat { padding: 56px 0 56px; }
+  .bv2-cat-head { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 28px; }
+  .bv2-cat-count { align-self: flex-start; }
+  /* Filter bar sticky : la search input du filter est cachée
+     (déjà présente dans le hero), les pills scrollent horizontalement
+     pour conserver une sticky bar fine */
+  .bv2-filter { padding: 10px 20px; }
+  .bv2-filter-inner { gap: 0; }
+  .bv2-fs { display: none; }
+  .bv2-filter-pills {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 8px;
+    padding: 2px 20px 4px;
+    margin: -2px -20px -4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .bv2-filter-pills::-webkit-scrollbar { display: none; }
+  .bv2-fp { flex-shrink: 0; font-size: 13px; padding: 8px 14px; }
+  /* Team area */
+  .bv2-team-area { padding: 48px 0 64px; }
+  .bv2-team-title { margin-bottom: 24px; }
+  .bv2-team-cards { grid-template-columns: 1fr; }
+  /* Compact list 2-col → 1 col */
+  .bv2-list { grid-template-columns: 1fr; gap: 0; }
+}
+
+@media (max-width: 480px) {
+  .bv2-wrap { padding: 0 16px; }
+  .bv2-shell-header { padding: 14px 16px; }
+  .bv2-hero { padding: 32px 0 24px; }
+  .bv2-h1 { font-size: 32px; line-height: 1.05; }
+  /* Search en mode "icône + input + bouton compact" */
+  .bv2-search-btn { padding: 9px 14px; font-size: 12px; }
+  /* Featured big illu plus petite */
+  .bv2-feat-left .bv2-fcard-illu { min-height: 160px; padding: 18px; }
+  /* Species row : marges qui suivent le wrap 16px */
+  .bv2-species-row { padding: 4px 16px 22px; margin: 0 -16px; scroll-padding-left: 16px; }
+  .bv2-species-row::-webkit-scrollbar-track { margin: 0 16px; }
+  .bv2-mcard { flex: 0 0 220px; }
+}

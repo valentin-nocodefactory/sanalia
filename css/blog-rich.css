@@ -266,6 +266,27 @@
   font-size: 15px;
   line-height: 1.5;
 }
+/* Sur petits écrans, on garantit le scroll horizontal du wrap pour les
+   tableaux à 4+ colonnes (sinon les cellules se compressent et deviennent
+   illisibles). Le wrap a déjà overflow-x: auto.
+   On force display: table pour restaurer l'algo de layout natif
+   (un reset global `table { display: block; overflow-x: auto; }` est
+   appliqué à 768px sur tout le site mais casse max-content). */
+@media (max-width: 640px) {
+  .comparison-table-wrap { -webkit-overflow-scrolling: touch; }
+  .comparison-table {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    overflow-x: visible;
+    font-size: 14px;
+  }
+  .comparison-table thead th,
+  .comparison-table tbody td { padding: 12px 14px; white-space: nowrap; }
+  /* La première colonne reste en wrap pour ne pas dépasser 220px */
+  .comparison-table tbody td:first-child,
+  .comparison-table thead th:first-child { white-space: normal; max-width: 220px; }
+}
 .comparison-table caption {
   caption-side: top;
   text-align: left;
