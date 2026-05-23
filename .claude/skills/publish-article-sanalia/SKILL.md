@@ -260,6 +260,22 @@ par `assemble_html.py` (cf. l'ancien schéma JSON).
   `articleHtml`). Si aucun tableau → retry 1× avec consigne explicite :
   "Ajoute entre 1 et 3 tableaux comparatifs `<table>` dans l'article (par
   ex. comparaison espèces / méthodes / doses / coûts)."
+- **Aucune classe Bootstrap-like sur les `<table>`** : si `articleHtml`
+  contient `class="table"`, `class="table-bordered"`, `class="table-striped"`,
+  `class="table-responsive"` ou un mélange (`class="table table-bordered ..."`),
+  les **retirer** avant assemble_html.py. ChatSEO ne doit livrer que du
+  HTML sémantique nu (`<table><thead>...`) ; le styling Sanalia est appliqué
+  par le transformer (`.comparison-table` + wrap `.comparison-table-wrap`).
+  Bug historique : double attribut `class="…" class="comparison-table"`
+  (HTML invalide, seul le 1er attribut est honoré → tableau sans style).
+  Le transformer fusionne désormais les classes correctement, mais il faut
+  malgré tout supprimer les classes Bootstrap à la source (elles polluent le
+  DOM final et le diff côté reviewer).
+- **Aucun tag ne doit avoir deux attributs `class="…"`** dans `articleHtml`.
+  Un `grep -E '<[a-z][^>]*\bclass=[^>]*\bclass='` doit retourner zéro match
+  avant d'envoyer à `assemble_html.py`. Le garde-fou `fix_double_class_attrs`
+  dans `post_process_article.py` rattrape les cas résiduels, mais l'absence
+  de classes Bootstrap à la source est la vraie défense.
 - Si la réponse ChatSEO est trop courte ou structurellement vide → retry 1×.
 - Si tout retry échoue → étape Erreur.
 
