@@ -49,15 +49,11 @@ function InterventionPicker({ idx, dayKey, slotKey, value, onChange, minOffset =
   }
 
   function setDay(iso)  {
-    if (idx === 0) {
-      // When picking intervention 1, also seed intervention 2 to ~15 days later so the second picker opens with a sensible default
-      const target = new Date(iso);
-      target.setDate(target.getDate() + 15);
-      const day2Iso = target.toISOString().slice(0,10);
-      onChange({ ...value, [dayKey]: iso, [slotKey]: null, day2: day2Iso, slot2: null });
-    } else {
-      onChange({ ...value, [dayKey]: iso, [slotKey]: null });
-    }
+    // On NE PRÉ-SÉLECTIONNE PAS day2 quand l'utilisateur choisit day1 : sinon
+    // les horaires de la 2ᵉ intervention apparaissent automatiquement avant
+    // que l'utilisateur ait réellement choisi sa date, ce qui défait l'effet
+    // "reveal après pick" voulu (cf .slots-reveal).
+    onChange({ ...value, [dayKey]: iso, [slotKey]: null });
   }
   function setSlot(s)   { onChange({ ...value, [slotKey]: s }); }
 
