@@ -134,6 +134,59 @@ def check_no_external_images(html: str) -> list:
     return [u for u in external_imgs if "/assets/" not in u]
 
 
+# Détecte une balise ouvrante avec deux attributs class= (HTML invalide :
+# seul le premier est honoré par le parser, le second est silencieusement
+# ignoré → CSS qui ne s'applique pas).
+DOUBLE_CLASS_RE = re.compile(
+    r'<([a-zA-Z][a-zA-Z0-9-]*)\b([^>]*?\sclass\s*=\s*"[^"]*")([^>]*?\sclass\s*=\s*"[^"]*")([^>]*)>',
+)
+
+
+def fix_double_class_attrs(html: str) -> tuple:
+    """Fusionne tout `<tag class="A" ... class="B">` en `<tag ... class="A B">`.
+
+    Bug observé en cron : ChatSEO renvoyait `<table class="table table-bordered
+    table-striped">`, le transformer ajoutait un second `class="comparison-table"`,
+    le navigateur ne gardait que le premier → tableaux sans style Sanalia.
+
+    Retourne (html_fixé, n_corrections).
+    """
+    count = [0]
+
+    def _merge(m: "re.Match") -> str:
+        tag = m.group(1)
+        first_attr = m.group(2)  # commence par un espace
+        second_attr = m.group(3)
+        tail = m.group(4)
+        # Extraire les deux listes de classes
+        first_classes = re.search(r'class\s*=\s*"([^"]*)"', first_attr).group(1).split()
+        second_classes = re.search(r'class\s*=\s*"([^"]*)"', second_attr).group(1).split()
+        # Fusionner en préservant l'ordre + dédupliquer
+        merged_tokens: list = []
+        for t in first_classes + second_classes:
+            if t and t not in merged_tokens:
+                merged_tokens.append(t)
+        merged = " ".join(merged_tokens)
+        # Reconstruire : on remplace le class= du first_attr, on retire celui du second_attr
+        new_first = re.sub(
+            r'class\s*=\s*"[^"]*"', f'class="{merged}"', first_attr, count=1
+        )
+        new_second = re.sub(
+            r'\sclass\s*=\s*"[^"]*"', "", second_attr, count=1
+        )
+        count[0] += 1
+        return f"<{tag}{new_first}{new_second}{tail}>"
+
+    # Application en boucle : un même tag peut avoir 3+ class= (rare mais possible)
+    new_html = html
+    for _ in range(5):  # garde-fou anti-boucle infinie
+        next_html = DOUBLE_CLASS_RE.sub(_merge, new_html)
+        if next_html == new_html:
+            break
+        new_html = next_html
+    return new_html, count[0]
+
+
 def post_process(path: Path) -> bool:
     """Retourne True si le fichier a été modifié, False sinon."""
     if not path.exists():
@@ -175,6 +228,11 @@ def post_process(path: Path) -> bool:
     # 3. Fix les &lt;strong&gt; échappés dans la FAQ
     transformed, n_unesc = unescape_inline_html_in_faq(transformed)
 
+    # 4. Garde-fou : fusionner tout `<tag class="A" class="B">` résiduel
+    # (HTML invalide → seul le premier class est honoré, le CSS Sanalia
+    # est silencieusement ignoré). Cf. bug `/blog/pieges-rats-lesquels-choisir/`.
+    transformed, n_dup_class = fix_double_class_attrs(transformed)
+
     # Stats après
     after_tables = transformed.count("comparison-table-wrap")
     after_callouts = transformed.count("callout-")
@@ -196,6 +254,8 @@ def post_process(path: Path) -> bool:
         msg += f", {n_lifted} link-card(s) nettoyée(s)"
     if n_unesc:
         msg += f", {n_unesc} FAQ unescape(s)"
+    if n_dup_class:
+        msg += f", {n_dup_class} class= dupliqué(s) fusionné(s)"
     print(msg)
     return True
 

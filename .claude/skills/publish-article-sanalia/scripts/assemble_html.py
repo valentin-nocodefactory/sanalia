@@ -300,6 +300,26 @@ def _classify_aside(inner_html: str) -> str:
     return "callout-did-you-know"  # fallback neutre, prend la palette violet/sand
 
 
+def _merge_class_attr(attrs: str, classname: str) -> str:
+    """Renvoie une chaîne d'attributs (préfixée d'un espace si non vide) où
+    `classname` est ajouté au `class="..."` existant — au lieu d'introduire
+    un second attribut `class=` (HTML invalide : seul le premier serait honoré).
+    Idempotent : ne duplique pas `classname` s'il est déjà présent.
+    """
+    attrs = attrs.strip()
+    if not attrs:
+        return f' class="{classname}"'
+    m = re.search(r'\bclass\s*=\s*"([^"]*)"', attrs)
+    if not m:
+        return f' {attrs} class="{classname}"'
+    tokens = m.group(1).split()
+    if classname in tokens:
+        return f' {attrs}'
+    merged = (m.group(1).rstrip() + " " + classname).strip()
+    new_attrs = attrs[: m.start(1)] + merged + attrs[m.end(1):]
+    return f' {new_attrs}'
+
+
 def _transform_aside(match) -> str:
     """Remplace un <aside> sémantique par un <aside class='callout callout-X'>."""
     attrs = match.group(1) or ""
@@ -324,9 +344,9 @@ def _transform_table(match) -> str:
     # Exiger un <thead> pour considérer un tableau comme comparatif
     if "<thead" not in inner.lower():
         return match.group(0)
-    # Ajoute la classe et wrap dans le div
-    new_attrs = f'{attrs.strip()} class="comparison-table"' if attrs.strip() else 'class="comparison-table"'
-    return f'<div class="comparison-table-wrap"><table {new_attrs}>{inner}</table></div>'
+    # Fusionne la classe dans l'attribut existant (jamais un second class=)
+    new_attrs = _merge_class_attr(attrs, "comparison-table")
+    return f'<div class="comparison-table-wrap"><table{new_attrs}>{inner}</table></div>'
 
 
 def _transform_ol_to_steps(match) -> str:
@@ -343,8 +363,8 @@ def _transform_ol_to_steps(match) -> str:
     strong_led = sum(1 for li in li_list if re.match(r"\s*<strong\b", li.group(1)))
     if strong_led < len(li_list) * 0.7:  # 70 % au moins
         return match.group(0)
-    new_attrs = f'{attrs.strip()} class="steps-list"' if attrs.strip() else 'class="steps-list"'
-    return f'<ol {new_attrs}>{inner}</ol>'
+    new_attrs = _merge_class_attr(attrs, "steps-list")
+    return f'<ol{new_attrs}>{inner}</ol>'
 
 
 def transform_semantic_to_sanalia(html: str) -> str:
