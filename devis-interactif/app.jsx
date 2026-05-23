@@ -378,7 +378,7 @@ function App() {
         conversionSentRef.current = true;
         try {
           window.gtag('event', 'conversion', {
-            send_to: 'AW-8873739082/GntqCMmDmLIcEJuk59RD',
+            send_to: 'AW-18163028507/GntqCMmDmLIcEJuk59RD',
           });
         } catch (err) {
           console.warn('[Sanalia gtag conversion]', err);
