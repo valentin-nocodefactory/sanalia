@@ -4660,6 +4660,10 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   padding-top: 28px;
   overflow: hidden;
   min-width: 0;
+  /* Centre verticalement la copy dans sa row de grid pour qu'elle s'aligne
+     avec le milieu de la carte form (qui est plus dense au top avec son
+     badge + progress + H1 + grille). */
+  align-self: center;
 }
 .shell.layout-cover .cover-copy {
   opacity: 1;
