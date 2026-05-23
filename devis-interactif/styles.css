@@ -1096,6 +1096,19 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   min-width: 0;
 }
+
+/* Slots reveal : apparition douce après sélection du jour pour limiter la
+   surcharge visuelle sur la step créneau. */
+.slots-reveal {
+  animation: slotsRevealIn .3s cubic-bezier(.22, .9, .35, 1);
+}
+@keyframes slotsRevealIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slots-reveal { animation: none; }
+}
 @media (max-width: 520px) { .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .slot-btn {
   position: relative;

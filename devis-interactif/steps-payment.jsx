@@ -109,20 +109,27 @@ function InterventionPicker({ idx, dayKey, slotKey, value, onChange, minOffset =
               <Ic.ArrowR width={16} height={16}/>
             </button>
           </div>
-          <div className="intervention-step-label" style={{marginTop:14}}>Choisissez l'horaire</div>
-          <div className="slots">
-            {SLOTS.map((s, i) => {
-              const isLast = i === 2 && idx === 0;
-              return (
-                <button key={s.id} type="button"
-                  className={'slot-btn' + (value[slotKey] === s.id ? ' selected' : '') + (isLast ? ' last-spot' : '')}
-                  onClick={() => setSlot(s.id)}>
-                  {s.label}
-                  <small>{s.meta}</small>
-                </button>
-              );
-            })}
-          </div>
+          {/* Choix de l'horaire : n'apparaît qu'une fois le jour sélectionné
+              pour limiter la surcharge visuelle. Petite anim fade-in pour la
+              transition jour → horaire. */}
+          {selectedDay && (
+            <div className="slots-reveal">
+              <div className="intervention-step-label" style={{marginTop:14}}>Choisissez l'horaire</div>
+              <div className="slots">
+                {SLOTS.map((s, i) => {
+                  const isLast = i === 2 && idx === 0;
+                  return (
+                    <button key={s.id} type="button"
+                      className={'slot-btn' + (value[slotKey] === s.id ? ' selected' : '') + (isLast ? ' last-spot' : '')}
+                      onClick={() => setSlot(s.id)}>
+                      {s.label}
+                      <small>{s.meta}</small>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
