@@ -4608,3 +4608,278 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   .btn-pay-final { padding: 14px 16px; font-size: 13.5px; flex: 1; }
   .pay-sticky-info { display: none; }
 }
+
+/* =========================================================
+   PAGE DE GARDE (cover) — étape 0, aucun nuisible sélectionné
+   Layout 2 colonnes : copy marketing à gauche, carte formulaire à droite.
+   Au 1er clic sur un nuisible, transition 420ms (slide-left + fade copy)
+   puis bascule sur le layout standard (.layout-sidebar).
+   ========================================================= */
+
+/* Shell : grille 3-tracks pour permettre la transition fluide cover → sidebar.
+   - .layout-cover (état initial) : col1 = copy (1.05fr), col2 = form (1fr), col3 = rail (0px)
+   - .layout-cover.is-cover-leaving (transition) : col1 → 0px, col3 → 380px, gap → 28px
+   - .layout-sidebar (état final) : col1 = form (1fr), col2 = rail (380px), 2 tracks
+   La transition CSS sur grid-template-columns + gap fait glisser le form bloc
+   naturellement de la col2 vers la position de la col1 ; la copy se rétracte ;
+   la rail s'étend. Aucun transform ni position absolue à gérer. */
+.shell {
+  transition: grid-template-columns .46s cubic-bezier(.22, .9, .35, 1),
+              gap .46s cubic-bezier(.22, .9, .35, 1);
+}
+.shell.layout-cover {
+  grid-template-columns: 1.05fr 1fr 0px;
+  gap: 56px;
+  align-items: start;
+  padding-top: 24px;
+}
+.shell.layout-cover.is-cover-leaving {
+  grid-template-columns: 0px 1fr 380px;
+  gap: 28px;
+}
+.shell.layout-cover .step-card {
+  padding: 22px 24px 18px;
+}
+
+/* Colonne marketing (gauche) — H1, bullets, ratings.
+   Occupe col1 ; opacité contrôlée par .is-cover-leaving (fade-out pendant le slide). */
+.cover-copy {
+  grid-column: 1;
+  display: flex; flex-direction: column;
+  gap: 18px;
+  padding-top: 28px;
+  overflow: hidden;
+  min-width: 0;
+  opacity: 1;
+  transition: opacity .28s cubic-bezier(.22, .9, .35, 1);
+}
+.shell.is-cover-leaving .cover-copy {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cover-ratings {
+  display: flex; align-items: center; gap: 22px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.cover-rating {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-uxum);
+  font-size: 14px;
+  color: var(--c-p900);
+}
+.cover-rating strong { font-weight: 700; }
+.cover-rating-score {
+  color: var(--c-mut);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.cover-rating-star,
+.cover-rating-glogo {
+  width: 18px; height: 18px;
+  display: inline-grid; place-items: center;
+}
+.cover-rating-star svg,
+.cover-rating-glogo svg { width: 100%; height: 100%; }
+
+h1.cover-title {
+  font-family: var(--font-uxum); font-weight: 700;
+  font-size: clamp(32px, 4.2vw, 52px);
+  line-height: 1.04; letter-spacing: -0.025em;
+  color: var(--c-p900);
+  margin: 4px 0 2px;
+}
+.cover-title-accent { color: var(--c-p500); }
+
+.cover-subtitle {
+  font-size: 16px; line-height: 1.55;
+  color: var(--c-mut);
+  margin: 0 0 6px;
+  max-width: 480px;
+}
+
+.cover-bullets {
+  list-style: none; padding: 0; margin: 8px 0 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cover-bullets li {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-uxum); font-size: 15px;
+  color: var(--c-p900);
+}
+.cover-bullets li svg {
+  width: 18px; height: 18px; flex-shrink: 0;
+  background: rgba(34,197,94,.12);
+  border-radius: 50%;
+  padding: 2px;
+}
+.cover-bullets li strong { font-weight: 700; }
+.cover-bullets li sup { font-size: 0.7em; }
+
+/* Carte formulaire (droite en cover, gauche en sidebar) — sa position est gérée
+   uniquement par la grille (col2 dans les deux layouts). Le slide est intégral
+   à la transition de grid-template-columns. */
+.shell.layout-cover .step-card-cover {
+  background: #fff;
+  border: 1px solid var(--c-line-softer);
+  border-radius: 22px;
+  box-shadow: var(--shadow-float);
+}
+
+/* Badge "Jusqu'au [date] · 1ère intervention offerte" */
+.cover-offer-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(34,197,94,0.08);
+  color: var(--c-success-d);
+  font-family: var(--font-uxum);
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 7px 14px 7px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(34,197,94,0.2);
+  letter-spacing: 0.01em;
+  opacity: 1;
+  transition: opacity .24s cubic-bezier(.22, .9, .35, 1);
+}
+/* Pendant le slide, le badge et le footer s'effacent en douceur pour préparer
+   l'arrivée du contenu de l'étape suivante (logement). */
+.is-cover-leaving .cover-offer-badge,
+.is-cover-leaving .cover-card-foot,
+.is-cover-leaving .cover-card-hint {
+  opacity: 0;
+  pointer-events: none;
+}
+.cover-offer-badge strong { font-weight: 700; color: var(--c-success-d); }
+.cover-offer-badge sup { font-size: 0.75em; }
+.cover-offer-badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--c-success);
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+  animation: coverPulse 1.8s ease-out infinite;
+  flex-shrink: 0;
+}
+@keyframes coverPulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(34,197,94,0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(34,197,94,0.05); }
+}
+
+/* Headline plus serré sur la cover (la carte est plus étroite que le step normal) */
+h1.headline-cover {
+  font-size: 24px;
+  margin-bottom: 4px;
+  letter-spacing: -0.015em;
+}
+h1.headline-cover em { color: var(--c-p600); font-style: normal; }
+
+/* Grid nuisibles compact en mode cover — 3 cols pour matcher la capture */
+.nuisible-grid-cover {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 10px;
+}
+.nuisible-grid-cover .nuisible-card {
+  padding: 12px 8px 10px;
+}
+.nuisible-grid-cover .nuisible-img {
+  width: 48px; height: 48px;
+  margin: 0 auto 6px;
+  border-radius: 12px;
+}
+.nuisible-grid-cover .nuisible-name {
+  font-size: 12.5px;
+}
+
+/* Hint "→ Étape suivante au clic" sous la grid */
+.cover-card-hint {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 14px 0 0;
+  font-family: var(--font-uxum); font-style: italic;
+  font-size: 13px;
+  color: var(--c-p600);
+  opacity: 1;
+  transition: opacity .24s cubic-bezier(.22, .9, .35, 1);
+}
+.cover-card-hint svg {
+  width: 12px; height: 12px;
+}
+
+/* Footer reassurance (3 items checkmark) — séparateur top */
+.cover-card-foot {
+  display: flex; align-items: center; justify-content: center;
+  gap: 22px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-line-softer);
+  font-family: var(--font-uxum);
+  font-size: 12.5px;
+  color: var(--c-p900);
+  flex-wrap: wrap;
+  opacity: 1;
+  transition: opacity .24s cubic-bezier(.22, .9, .35, 1);
+}
+.cover-card-foot span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.cover-card-foot svg {
+  width: 14px; height: 14px;
+  color: var(--c-success);
+}
+
+/* Rail (col 3 en cover, col 2 en sidebar) — opacité contrôlée par layout-cover.
+   En cover non-leaving : largeur 0 + opacité 0 (invisible).
+   En leaving : largeur croît à 380px + opacité fade-in (apparition douce à droite).
+   En sidebar : visible normal. */
+.shell.layout-cover .recap-rail {
+  grid-column: 3;
+  overflow: hidden;
+  min-width: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .32s cubic-bezier(.22, .9, .35, 1) .12s;
+}
+.shell.layout-cover.is-cover-leaving .recap-rail {
+  opacity: 1;
+  pointer-events: auto;
+}
+.shell.layout-cover .recap-inline { display: none !important; }
+/* Pas de progress meta longue ("01 / 09") sur la cover — on garde uniquement la barre */
+.shell.layout-cover .progress-meta {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+}
+
+/* Tablet & mobile — on stack tout (1 col), pas de slide horizontal */
+@media (max-width: 980px) {
+  .shell.layout-cover,
+  .shell.layout-cover.is-cover-leaving {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 16px 16px 100px;
+  }
+  .shell.layout-cover .cover-copy { grid-column: auto; }
+  .shell.layout-cover .recap-rail { grid-column: auto; }
+  .cover-copy {
+    padding-top: 4px;
+    gap: 12px;
+  }
+  h1.cover-title { font-size: clamp(26px, 7vw, 36px); }
+  .cover-subtitle { font-size: 15px; }
+  .cover-bullets { gap: 9px; }
+  .cover-bullets li { font-size: 14px; }
+  .nuisible-grid-cover { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 480px) {
+  .nuisible-grid-cover { grid-template-columns: repeat(2, 1fr) !important; }
+  .cover-card-foot { gap: 14px; font-size: 11.5px; }
+  .cover-offer-badge { font-size: 11.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .cover-copy,
+  .recap-rail,
+  .step-card-cover { transition: none !important; }
+}

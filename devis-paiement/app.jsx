@@ -331,16 +331,23 @@ function App() {
     }
   }
 
-  // Auto-avance après sélection d'un nuisible (clic = signal d'intention claire).
-  // Évite les soucis de closure stale du setTimeout(onAdvance) côté StepNuisible.
+  // Auto-avance après sélection d'un nuisible : déclenché UNIQUEMENT quand la
+  // valeur change réellement (clic = nouvelle sélection). Sans ce garde,
+  // appuyer sur "Précédent" depuis l'étape 2 ferait rebondir l'utilisateur
+  // immédiatement vers l'étape 2 (nuisible déjà set → re-fire).
+  // En cover, on laisse le useEffect du cover gérer l'avance synchronisée à la fin de l'anim.
+  const prevNuisibleRef = useRef(nuisible);
   useEffect(() => {
-    if (STEPS[step]?.id === 'nuisible' && nuisible) {
+    const isNewSelection = prevNuisibleRef.current !== nuisible;
+    prevNuisibleRef.current = nuisible;
+    if (showCover) return;
+    if (STEPS[step]?.id === 'nuisible' && nuisible && isNewSelection) {
       const t = setTimeout(() => {
         setStep(s => s === step ? s + 1 : s);
       }, 320);
       return () => clearTimeout(t);
     }
-  }, [nuisible, step]);
+  }, [nuisible, step, showCover]);
 
   function next() {
     const s = stateRef.current;
@@ -432,10 +439,55 @@ function App() {
   // URL partageable qui restitue tout l'état du devis (étape 8 pour le destinataire)
   const shareUrl = buildShareUrl({ audience, nuisible, logement, surface, statut, adresse, creneau, coords, variant: tweaks.recapVariant, quoteRequested: quoteRequestedManual || (sidNow === 'recap' || sidNow === 'paiement') });
 
+  // "Cover" = page de garde : étape 0 (nuisible) tant qu'aucun nuisible n'a été choisi.
+  // Layout 2 colonnes : copy + ratings + bullets à gauche, carte formulaire à droite.
+  // Au 1er clic sur un nuisible, on lance une transition (copy fade-out + card slide-left)
+  // d'environ 400ms avant de démonter la cover et de laisser le layout standard prendre place.
+  //
+  // - showCover : pilote le rendu du DOM (la cover reste montée pendant la transition)
+  // - coverLeaving : ajoute la classe CSS qui déclenche la transition de sortie
+  const dataIsCover = step === 0 && !nuisible;
+  const [showCover, setShowCover] = useState(dataIsCover);
+  const [coverLeaving, setCoverLeaving] = useState(false);
+  // Pendant la transition CSS (~460ms), le contenu de la carte reste celui de
+  // l'étape nuisible (badge, footer, grille) pour éviter tout flash. On commit
+  // showCover=false + step=1 dans le même render à la fin de la transition,
+  // synchronisé sur l'event "transitionend" de grid-template-columns du shell
+  // (plus fiable qu'un setTimeout que React 18 + Babel peuvent retarder).
+  // Un fallback setTimeout de 700ms évite tout blocage si l'event ne tire pas.
+  const shellRef = useRef(null);
+  useEffect(() => {
+    if (showCover && !dataIsCover) {
+      setCoverLeaving(true);
+      let done = false;
+      const commit = () => {
+        if (done) return; done = true;
+        setShowCover(false);
+        setCoverLeaving(false);
+        setStep(s => s === 0 ? 1 : s);
+      };
+      const onEnd = (e) => {
+        if (e.target === shellRef.current && e.propertyName === 'grid-template-columns') {
+          commit();
+        }
+      };
+      const shell = shellRef.current;
+      shell?.addEventListener('transitionend', onEnd);
+      const fallback = setTimeout(commit, 700);
+      return () => {
+        shell?.removeEventListener('transitionend', onEnd);
+        clearTimeout(fallback);
+      };
+    }
+    if (!showCover && dataIsCover) {
+      setShowCover(true);
+    }
+  }, [showCover, dataIsCover]);
+
   // Active step renderer
   let stepNode = null;
   const sid = STEPS[step]?.id;
-  if (sid === 'nuisible') stepNode = <StepNuisible value={nuisible} audience={audience} onAudience={handleAudience} onChange={setNuisible} onAdvance={next}/>;
+  if (sid === 'nuisible') stepNode = <StepNuisible value={nuisible} audience={audience} onAudience={handleAudience} onChange={setNuisible} onAdvance={next} coverMode={showCover || coverLeaving}/>;
   else if (sid === 'logement') stepNode = <StepLogement value={logement} onChange={setLogement}/>;
   else if (sid === 'surface')  stepNode = <StepSurface surface={surface} onSurface={setSurface}/>;
   else if (sid === 'statut')   stepNode = <StepStatut value={statut} logement={logement} onChange={setStatut}/>;
@@ -454,20 +506,22 @@ function App() {
   const useExternalNavbar = window.__SANALIA_USE_TRADITIONAL_NAVBAR === true;
 
   return (
-    <div className={'app density-' + tweaks.density + (useExternalNavbar ? ' app-embed' : '')}>
+    <div className={'app density-' + tweaks.density + (useExternalNavbar ? ' app-embed' : '') + (showCover ? ' is-cover' : '') + (coverLeaving ? ' is-cover-leaving' : '')}>
       {/* Topbar interne — masquée quand on utilise la navbar traditionnelle Sanalia */}
       {!useExternalNavbar && (
-        <header className="appbar">
-          <div className="appbar-logo"><SanaliaLogo height={30}/></div>
+        <header className={'appbar' + (showCover ? ' appbar-cover' : '')}>
+          <a href="/" className="appbar-logo" aria-label="Retour à l'accueil Sanalia"><SanaliaLogo height={32}/></a>
           <div style={{display:'flex',alignItems:'center',gap:14}}>
-            <div className="stepdots">
-              {STEPS.map((s, i) => (
-                <div key={s.id} className={'stepdot' + (i < step ? ' done' : i === step ? ' active' : '')} title={s.label}/>
-              ))}
-            </div>
-            <a className="appbar-phone" href="tel:0102030405">
+            {!showCover && (
+              <div className="stepdots">
+                {STEPS.map((s, i) => (
+                  <div key={s.id} className={'stepdot' + (i < step ? ' done' : i === step ? ' active' : '')} title={s.label}/>
+                ))}
+              </div>
+            )}
+            <a className="appbar-phone" href="tel:0667464897" aria-label="Appeler Sanalia au 06 67 46 48 97">
               <span className="appbar-phone-dot"><Ic.Phone width={14} height={14}/></span>
-              <span className="appbar-phone-num">01 02 03 04 05</span>
+              <span className="appbar-phone-num">06 67 46 48 97</span>
             </a>
           </div>
         </header>
@@ -487,9 +541,40 @@ function App() {
 
       {/* Shell */}
       <main
-        className={'shell layout-' + (inSuccess ? 'fullwidth' : tweaks.layout) + ((showRail && sid !== 'recap' && sid !== 'paiement') ? '' : ' no-rail')}
-        style={{maxWidth: inSuccess ? 720 : (tweaks.layout === 'fullwidth' ? 760 : (sid === 'recap' || sid === 'paiement' ? 1140 : (showRail ? 1200 : 980)))}}
+        ref={shellRef}
+        className={'shell ' + (showCover ? 'layout-cover' : 'layout-' + (inSuccess ? 'fullwidth' : tweaks.layout)) + (coverLeaving ? ' is-cover-leaving' : '') + ((!showCover && !coverLeaving && showRail && sid !== 'recap' && sid !== 'paiement') ? '' : ' no-rail')}
+        style={{maxWidth: (showCover || coverLeaving) ? 1200 : (inSuccess ? 720 : (tweaks.layout === 'fullwidth' ? 760 : (sid === 'recap' || sid === 'paiement' ? 1140 : (showRail ? 1200 : 980))))}}
       >
+        {/* Page de garde : colonne gauche marketing (ratings + H1 + bullets).
+            On garde la copy montée pendant toute la transition (coverLeaving)
+            pour que sa colonne de grille se rétracte en douceur. */}
+        {(showCover || coverLeaving) && (
+          <div className="cover-copy">
+            <div className="cover-ratings">
+              <div className="cover-rating">
+                <span className="cover-rating-star" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="#22C55E"><path d="M12 2l2.4 7.2H22l-6 4.5 2.4 7.3L12 16.5 5.6 21l2.4-7.3-6-4.5h7.6z"/></svg>
+                </span>
+                <strong>Excellent</strong> <span className="cover-rating-score">4.9/5</span>
+              </div>
+              <div className="cover-rating">
+                <span className="cover-rating-glogo" aria-hidden="true">
+                  <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2c-2 1.5-4.5 2.4-7.2 2.4-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C40.3 37.6 44 31.5 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>
+                </span>
+                <strong>Google</strong> <span className="cover-rating-score">4,9/5</span>
+              </div>
+            </div>
+            <h1 className="cover-title">Votre devis gratuit,<br/><span className="cover-title-accent">en 60 secondes.</span></h1>
+            <p className="cover-subtitle">Un technicien certifié vous rappelle sous 2h avec un devis ferme. Sans engagement.</p>
+            <ul className="cover-bullets">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <strong>1<sup>re</sup> intervention offerte</strong></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Devis sous 2h par un technicien</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Suivi WhatsApp jusqu'à éradication</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Certibiocide · CS3D · QualiPro 3D</li>
+            </ul>
+          </div>
+        )}
+
         <div>
           {!inSuccess && (
             <div className="recap-inline">
@@ -527,17 +612,35 @@ function App() {
           )}
 
           {!inSuccess && sid !== 'recap' && sid !== 'paiement' && (
-            <div className="step-card">
+            // Le badge "1ère intervention offerte" et le footer reassurance restent
+            // visibles pendant toute la transition (showCover || coverLeaving) pour
+            // que la carte ait l'air stable pendant le slide. Au commit final
+            // (showCover=false, step=1), le contenu bascule sur l'étape logement.
+            <div className={'step-card' + ((showCover || coverLeaving) ? ' step-card-cover' : '')}>
+              {(showCover || coverLeaving) && <CoverOfferBadge/>}
               <div className="progress">
                 <div className="progress-track">
                   <div className="progress-fill" style={{width: `${((step + 0.5) / STEPS.length) * 100}%`}}/>
                 </div>
-                <div className="progress-meta">{step + 1} / {STEPS.length}</div>
+                <div className="progress-meta">Étape {step + 1}/{STEPS.length}</div>
               </div>
               {stepNode}
-              {sid !== 'nuisible' && (
+              {(showCover || coverLeaving) && (
+                <div className="cover-card-foot">
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Devis sous 2h</span>
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Sans engagement</span>
+                  <span><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Données confidentielles</span>
+                </div>
+              )}
+              {/* Nav buttons : présents partout sauf en cover (où le clic sur un nuisible auto-avance).
+                  Sur step 1 post-cover, on garde Continuer pour que l'utilisateur puisse valider
+                  son choix sans avoir à re-cliquer une nouvelle carte. Pas de Précédent en step 1
+                  (premier de la file). */}
+              {!showCover && !coverLeaving && (
                 <div className="step-nav">
-                  <button className="btn btn-ghost" onClick={prev}><Ic.ArrowL width={16} height={16}/> Précédent</button>
+                  {sid !== 'nuisible' && (
+                    <button className="btn btn-ghost" onClick={prev}><Ic.ArrowL width={16} height={16}/> Précédent</button>
+                  )}
                   {sid === 'coords' ? (
                     <button className="btn btn-primary" onClick={next} disabled={!canAdvance}>
                       Recevoir mon devis <Ic.ArrowR width={16} height={16}/>
@@ -566,8 +669,10 @@ function App() {
             <h3>Votre devis en temps réel</h3>
             <p className="rsub">Se construit étape par étape — sans engagement.</p>
 
-            {/* Étape 0 (nuisible) : pas encore de réponse → état vide */}
-            {step === 0 && (
+            {/* Empty state — visible uniquement quand aucun nuisible choisi
+                (pas seulement step=0 : pendant le slide, nuisible est set alors
+                que step est encore 0, et on veut déjà voir le bloc prestation). */}
+            {!nuisible && (
               <div className="recap-empty-state">
                 <div className="recap-empty-icon"><Ic.Sparkles width={22} height={22}/></div>
                 <div className="recap-empty-title">Votre devis se construit ici</div>
@@ -575,8 +680,9 @@ function App() {
               </div>
             )}
 
-            {/* Bloc PRESTATION : nuisible (step≥1) + logement (step≥2) + surface (step≥3) */}
-            {step >= 1 && nuisible && quote && (
+            {/* Bloc PRESTATION : visible dès qu'un nuisible est sélectionné
+                (même pendant le slide, step=0). Logement (step≥2) + surface (step≥3). */}
+            {nuisible && quote && (
               <div className="recap-block recap-block-anim">
                 <div className="recap-block-label">Nuisible</div>
                 <div className="recap-block-body">
@@ -749,6 +855,23 @@ function App() {
           </div>
         </TweakSection>
       </TweaksPanel>
+    </div>
+  );
+}
+
+// "Jusqu'au [J+3] · 1ère intervention offerte" — badge vert pulsant affiché en haut
+// de la carte formulaire sur la page de garde. Date recalculée à chaque render
+// (auj. + 3 jours) pour rester toujours pertinente.
+function CoverOfferBadge() {
+  const dateLabel = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 3);
+    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    return `${d.getDate()} ${months[d.getMonth()]}`;
+  }, []);
+  return (
+    <div className="cover-offer-badge">
+      Jusqu'au <strong>{dateLabel}</strong> · 1<sup>ère</sup> intervention offerte
     </div>
   );
 }
