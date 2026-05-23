@@ -3714,23 +3714,30 @@ image-slot[src]::before { display: none; }
       };
 
       // ─── CTA inline en fin de chaque section (auto-injecté) ───
-      // 7 sections sans CTA propre : on en ajoute un qui ouvre le sheet
-      // sur mobile / scrolle vers le hero form sur desktop.
-      var sectionLabels = [
-        '03 Certifications',
-        '04 Pain points',
-        '04 Protocole',
-        '05 Pourquoi Sanalia',
-        '06 Avis',
-        '09 FAQ'
+      // Wordings variés pour éviter la répétition. Les 4 premières
+      // sections ouvrent le form, les 2 dernières (après social proof
+      // + FAQ) proposent le tel direct pour les profils plus chauds.
+      var SVG_ARROW = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:8px;"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>';
+      var SVG_PHONE = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:8px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>';
+      var sectionCTAs = [
+        { label: '03 Certifications',   cta: 'Devis gratuit en 2 min',   action: 'form' },
+        { label: '04 Pain points',      cta: 'Estimer le coût',          action: 'form' },
+        { label: '04 Protocole',        cta: 'Devis gratuit en 2 min',   action: 'form' },
+        { label: '05 Pourquoi Sanalia', cta: 'Estimer le coût',          action: 'form' },
+        { label: '06 Avis',             cta: 'Appeler un professionnel', action: 'tel'  },
+        { label: '09 FAQ',              cta: 'Appeler un professionnel', action: 'tel'  }
       ];
-      sectionLabels.forEach(function (label) {
-        var section = document.querySelector('[data-screen-label="' + label + '"]');
+      sectionCTAs.forEach(function (entry) {
+        var section = document.querySelector('[data-screen-label="' + entry.label + '"]');
         if (!section) return;
         var wrap = section.querySelector('.wrap') || section;
         var row = document.createElement('div');
         row.className = 'section-cta-row';
-        row.innerHTML = '<button type="button" class="btn btn-primary btn-lg" data-open-form>Recevoir mon devis<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:8px;"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></button>';
+        if (entry.action === 'tel') {
+          row.innerHTML = '<a href="tel:0667464897" class="btn btn-primary btn-lg" data-cta-tel>' + entry.cta + SVG_PHONE + '</a>';
+        } else {
+          row.innerHTML = '<button type="button" class="btn btn-primary btn-lg" data-open-form>' + entry.cta + SVG_ARROW + '</button>';
+        }
         wrap.appendChild(row);
       });
 
