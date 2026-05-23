@@ -75,6 +75,14 @@
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+/* On verrouille la page à 100vh / 100dvh pour qu'il n'y ait JAMAIS de scroll
+   au niveau du document. Les cartes internes (form + rail) peuvent scroller
+   à l'intérieur de leur conteneur si leur contenu dépasse, mais la page
+   reste fixe — c'est un funnel, pas un long article. */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
 body {
   font-family: var(--font-uxum);
   color: var(--c-text);
@@ -82,7 +90,6 @@ body {
   background-image:
     radial-gradient(circle at 88% 0%, rgba(206,204,252,0.45), transparent 38%),
     radial-gradient(circle at 8% 92%, rgba(244,233,193,0.4), transparent 36%);
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -91,8 +98,10 @@ a { color: inherit; }
 
 /* ---------- App shell ---------- */
 .app {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex; flex-direction: column;
+  overflow: hidden;
 }
 /* Mode embarqué : navbar Sanalia traditionnelle au-dessus, pas d'appbar interne */
 .app.app-embed {
@@ -173,9 +182,34 @@ a { color: inherit; }
 /* ---------- Container / layout ---------- */
 .shell {
   flex: 1;
+  min-height: 0; /* permet au flex-item de shrink en-dessous de son contenu */
   width: 100%; max-width: 1200px;
-  margin: 0 auto; padding: 28px 36px 80px;
+  margin: 0 auto; padding: 20px 36px 24px;
   display: grid; grid-template-columns: 1fr; gap: 28px;
+  align-items: start;
+  overflow: hidden; /* aucun scroll au niveau du shell — les cartes internes gèrent leur scroll */
+}
+
+/* Les cartes internes peuvent scroller à l'intérieur si leur contenu dépasse
+   la hauteur disponible. La page entière reste verrouillée à 100vh. */
+.shell .step-card,
+.shell .recap-rail {
+  max-height: 100%;
+  overflow-y: auto;
+  /* Subtle scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14,5,42,0.15) transparent;
+}
+.shell .step-card::-webkit-scrollbar,
+.shell .recap-rail::-webkit-scrollbar { width: 6px; }
+.shell .step-card::-webkit-scrollbar-thumb,
+.shell .recap-rail::-webkit-scrollbar-thumb {
+  background: rgba(14,5,42,0.12);
+  border-radius: 999px;
+}
+.shell .step-card::-webkit-scrollbar-thumb:hover,
+.shell .recap-rail::-webkit-scrollbar-thumb:hover {
+  background: rgba(14,5,42,0.22);
 }
 
 /* SIDEBAR layout (default): question (left) + sticky récap (right).
