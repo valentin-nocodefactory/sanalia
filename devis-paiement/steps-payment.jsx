@@ -738,6 +738,27 @@ function SendQuoteModal({ shareUrl, quoteRef, nuisibleLabel, defaultEmail, defau
 }
 
 function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownload, onShare, onReserve, onGoto, onValidate, onPay, layout }) {
+  // Null guard : si computeQuote a renvoyé null (par exemple parce que l'URL
+  // de partage a un nuisible id qui n'existe pas, ou que le state est incomplet),
+  // on affiche un message explicite plutôt que de crasher (quote.ht / quote.ttc
+  // sur null faisait planter tout le composant et le devis n'apparaissait pas).
+  if (!quote) {
+    return (
+      <div className="recap-empty" style={{padding:'48px 24px', textAlign:'center', maxWidth:560, margin:'0 auto'}}>
+        <h2 style={{fontFamily:'var(--font-uxum)', fontWeight:700, fontSize:22, color:'var(--c-p900)', margin:'0 0 12px'}}>
+          Devis indisponible
+        </h2>
+        <p style={{color:'var(--c-mut)', lineHeight:1.5, margin:'0 0 24px'}}>
+          Le lien semble incomplet ou expiré. Recommencez votre demande depuis le début
+          pour générer un devis personnalisé.
+        </p>
+        <a href={window.location.pathname} className="btn btn-primary" style={{textDecoration:'none', display:'inline-flex'}}>
+          Démarrer un nouveau devis <Ic.ArrowR width={16} height={16}/>
+        </a>
+      </div>
+    );
+  }
+
   const isPro = state.audience === 'pro';
   const adresseFull = [state.adresse.line, state.adresse.cp, state.adresse.city].filter(Boolean).join(' · ');
   const dayLabel = state.creneau.day ? new Date(state.creneau.day).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long' }) : '—';
@@ -1195,6 +1216,22 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
 
 // ----- Variant: Mission Brief (visual + actionable) -----
 function StepRecapMission({ state, quote, hasCoords, quoteRef, onDownload, onShare, onReserve }) {
+  if (!quote) {
+    return (
+      <div className="recap-empty" style={{padding:'48px 24px', textAlign:'center', maxWidth:560, margin:'0 auto'}}>
+        <h2 style={{fontFamily:'var(--font-uxum)', fontWeight:700, fontSize:22, color:'var(--c-p900)', margin:'0 0 12px'}}>
+          Devis indisponible
+        </h2>
+        <p style={{color:'var(--c-mut)', lineHeight:1.5, margin:'0 0 24px'}}>
+          Le lien semble incomplet ou expiré. Recommencez votre demande depuis le début
+          pour générer un devis personnalisé.
+        </p>
+        <a href={window.location.pathname} className="btn btn-primary" style={{textDecoration:'none', display:'inline-flex'}}>
+          Démarrer un nouveau devis <Ic.ArrowR width={16} height={16}/>
+        </a>
+      </div>
+    );
+  }
   const isPro = state.audience === 'pro';
   const adresseFull = [state.adresse.line, state.adresse.cp, state.adresse.city].filter(Boolean).join(' · ');
   const dayLabel = state.creneau.day ? new Date(state.creneau.day).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long' }) : '—';

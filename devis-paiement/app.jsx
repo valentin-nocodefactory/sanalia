@@ -487,12 +487,17 @@ function App() {
     }
   }, [showCover, step]);
 
-  // Backward — quand step revient à 0 (Précédent depuis step 2), on rétablit
-  // l'état initial pristine : cover réactivée + nuisible reset. La grille
-  // morphe automatiquement via CSS, le contenu de la carte bascule en cover
-  // variant en simultané.
+  // Backward — quand step revient à 0 DEPUIS une étape > 0 (Précédent), on
+  // rétablit l'état initial pristine : cover réactivée + nuisible reset.
+  // Important : ne PAS fire au tout premier render (sinon une URL de partage
+  // step=0 + nuisible avec un id invalide réinitialiserait le state à vide).
+  // On tracke le step précédent via une ref pour distinguer "back navigation"
+  // d'un load initial.
+  const prevStepRef = useRef(step);
   useEffect(() => {
-    if (!showCover && step === 0) {
+    const prev = prevStepRef.current;
+    prevStepRef.current = step;
+    if (prev > 0 && step === 0 && !showCover) {
       setShowCover(true);
       setNuisible('');
     }
