@@ -187,6 +187,16 @@ function App() {
       });
     } catch (e) {}
 
+    // GCLID Google Ads — depuis sessionStorage (capturé via le script inline
+    // dans le <head> ou via le header.html partagé sur les autres pages).
+    // Fallback : l'URL courante au cas où l'utilisateur arrive directement.
+    let gclid = '';
+    try {
+      const fromUrl = (new URLSearchParams(window.location.search)).get('gclid');
+      const fromStorage = sessionStorage.getItem('sanalia_gclid');
+      gclid = fromUrl || fromStorage || '';
+    } catch (e) {}
+
     return {
       // Lead ID (présent dès le 2e événement, null au tout 1er)
       lead_id: leadIdRef.current || null,
@@ -228,6 +238,7 @@ function App() {
       page_url: window.location.href,
       share_url: buildShareUrl({ audience, nuisible, logement, surface, statut, adresse, creneau, coords, variant: tweaks.recapVariant, quoteRequested: true }),
       utm,
+      gclid,
     };
   }
 
@@ -349,14 +360,30 @@ function App() {
     }
   }, [nuisible, step, showCover]);
 
+  // Drapeau pour ne tirer la conversion Google Ads qu'UNE SEULE FOIS par session,
+  // même si l'utilisateur revient en arrière et re-soumet ses infos.
+  const conversionSentRef = useRef(false);
+
   function next() {
     const s = stateRef.current;
     if (!isStepValid(s.step, s) || s.step >= STEPS.length - 1) return;
     // Sur "Recevoir mon devis" (coords → recap) : on dévoile le prix
     // ET on crée le lead côté back (POST + récupère leadId pour les events suivants).
+    // ET on tire la conversion Google Ads (lead = coordonnées soumises).
     if (STEPS[s.step]?.id === 'coords') {
       setQuoteRequestedManual(true);
       submitLead(); // fire-and-forget côté UX, mais await en interne pour stocker leadId
+      // Google Ads conversion — une seule fois par session
+      if (!conversionSentRef.current && typeof window.gtag === 'function') {
+        conversionSentRef.current = true;
+        try {
+          window.gtag('event', 'conversion', {
+            send_to: 'AW-8873739082/GntqCMmDmLIcEJuk59RD',
+          });
+        } catch (err) {
+          console.warn('[Sanalia gtag conversion]', err);
+        }
+      }
     }
     setStep(s.step + 1);
   }

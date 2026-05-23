@@ -2035,7 +2035,7 @@
 
       <!-- Right : formulaire multi-step -->
       <div class="devis-simple-right">
-        <form class="devis-msf" id="devisForm" action="/merci/" method="POST" novalidate>
+        <form class="devis-msf" id="devisForm" action="/thank-you/" method="POST" novalidate>
           <!-- Availability badge -->
           <div class="devis-msf-availability-badge">
             Jusqu'au <span id="msfOfferDate">—</span> · 1<sup>ère</sup> intervention offerte
@@ -3200,9 +3200,9 @@ body.is-embed .devis-msf {
     }
   }
 
-  // ═══ SUBMIT → n8n webhook + redirect /merci/ ═══
+  // ═══ SUBMIT → n8n webhook + redirect /thank-you/ ═══
   var WEBHOOK_URL = 'https://n8n.srv1336530.hstgr.cloud/webhook/e0762f14-4aee-4f37-bdfa-d17c2e45ec1d';
-  var SUCCESS_URL = '/merci/';
+  var SUCCESS_URL = '/thank-you/';
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -3224,6 +3224,16 @@ body.is-embed .devis-msf {
       ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k) {
         var v = p.get(k); if (v) payload.utm[k] = v;
       });
+    } catch(err) {}
+    // GCLID Google Ads — récupéré depuis sessionStorage (capturé sur la
+    // landing page si l'utilisateur arrive via une annonce Google Ads).
+    try {
+      var gclidStored = sessionStorage.getItem('sanalia_gclid');
+      var gclidUrl = (new URLSearchParams(window.location.search)).get('gclid');
+      var gclid = gclidUrl || gclidStored;
+      if (gclid) {
+        payload.gclid = gclid;
+      }
     } catch(err) {}
 
     // Disable button + loading state
@@ -3769,7 +3779,7 @@ if (proLeadForm) {
       submittedAt: new Date().toISOString(),
     };
     console.log('[Sanalia Pro Lead]', payload);
-    window.location.href = '/merci/';
+    window.location.href = '/thank-you/';
   });
 }
 
@@ -4002,7 +4012,7 @@ document.addEventListener('DOMContentLoaded', function() {
              & validate(telF, v => /^[+\d\s().-]{8,}$/.test(v.trim()))
              & validate(emailF, v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()));
     if (!ok) return;
-    window.location.href = '/merci/';
+    window.location.href = '/thank-you/';
   });
 });
 </script>
