@@ -478,11 +478,11 @@ function App() {
     }
   }, [showCover, nuisible, step]);
 
-  // Phase B forward — après ~260ms (le temps que le content swap s'affiche
+  // Phase B forward — après ~220ms (le temps que le content swap s'affiche
   // proprement avec son fade-in), on retire .is-cover → la grille morphe.
   useEffect(() => {
     if (showCover && step >= 1) {
-      const t = setTimeout(() => setShowCover(false), 260);
+      const t = setTimeout(() => setShowCover(false), 220);
       return () => clearTimeout(t);
     }
   }, [showCover, step]);

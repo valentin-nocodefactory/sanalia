@@ -178,14 +178,16 @@ a { color: inherit; }
   display: grid; grid-template-columns: 1fr; gap: 28px;
 }
 
-/* SIDEBAR layout (default): question (left) + sticky récap (right) */
+/* SIDEBAR layout (default): question (left) + sticky récap (right).
+   La grille a 3 tracks pour permettre la transition fluide avec layout-cover
+   (qui en a aussi 3). Voir la règle complète plus bas (section "PAGE DE GARDE").
+   Ici on garde uniquement align-items et les règles internes. */
 .shell.layout-sidebar {
-  grid-template-columns: minmax(0, 1fr) 380px;
   align-items: start;
 }
 .shell.layout-sidebar .recap-rail { display: block; position: sticky; top: 96px; }
 .shell.layout-sidebar .recap-inline { display: none; }
-.shell.layout-sidebar.no-rail { grid-template-columns: 1fr; }
+.shell.layout-sidebar.no-rail { grid-template-columns: 0px 1fr 0px; }
 
 /* FULLWIDTH layout: stacked, recap as inline summary at top + drawer */
 .shell.layout-fullwidth { grid-template-columns: 1fr; max-width: 760px; }
@@ -4622,11 +4624,12 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
    - .layout-sidebar : col1 = cover-copy (0px),    col2 = form (1fr), col3 = rail (380px)
    La form-card reste TOUJOURS en col2 — elle glisse naturellement quand col1
    se rétracte (forward) ou s'étend (backward). cover-copy + rail sont montés
-   en permanence (opacité 0/1 contrôlée par layout), pas de mount/unmount =
-   pas de track-count snap = pas de glitch. */
+   en permanence ; leur VISIBILITY est masquée pendant le morph pour éviter
+   tout texte qui overflow / qui se squishe quand la colonne est en train de
+   changer de taille. */
 .shell {
-  transition: grid-template-columns .5s cubic-bezier(.22, .9, .35, 1),
-              gap .5s cubic-bezier(.22, .9, .35, 1);
+  transition: grid-template-columns .42s cubic-bezier(.22, .9, .35, 1),
+              gap .42s cubic-bezier(.22, .9, .35, 1);
 }
 .shell.layout-cover {
   grid-template-columns: 1.05fr 1fr 0px;
@@ -4642,14 +4645,15 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   padding: 22px 24px 18px;
 }
 
-/* Colonne marketing (gauche) — H1, bullets, ratings. Toujours montée, opacity
-   pilotée par le layout. Pour un effet séquentiel propre :
-     - FORWARD (cover → sidebar) : la cover-copy fade-out RAPIDEMENT (sans
-       délai) pour libérer l'espace au début de la transition, le morph
-       continue ensuite.
-     - BACKWARD (sidebar → cover) : la cover-copy fade-in AVEC DÉLAI, pour
-       qu'elle apparaisse une fois que le grid morph a fait place à la col 1.
-   Chaque direction a sa propre règle de transition. */
+/* Colonne marketing (gauche) — H1, bullets, ratings. Toujours montée.
+   Visibility masquée hors layout-cover pour bloquer toute peinture pendant
+   que la colonne morphe (zéro overflow visible).
+     - FORWARD (cover → sidebar) : fade-out instant + visibility:hidden →
+       la colonne se rétracte SANS contenu visible qui squishe.
+     - BACKWARD (sidebar → cover) : fade-in DÉLAYÉ pour démarrer une fois
+       que la col 1 a fini de s'étendre (450ms morph + 30ms buffer).
+   La transition visibility 0s avec délai s'aligne sur l'opacity pour que
+   l'élément soit complètement painted-out / painted-in proprement. */
 .cover-copy {
   grid-column: 1;
   display: flex; flex-direction: column;
@@ -4660,13 +4664,16 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
 }
 .shell.layout-cover .cover-copy {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
-  transition: opacity .3s cubic-bezier(.22, .9, .35, 1) .22s;
+  transition: opacity .25s cubic-bezier(.22, .9, .35, 1) .42s,
+              visibility 0s linear .42s;
 }
 .shell.layout-sidebar .cover-copy {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity .22s cubic-bezier(.22, .9, .35, 1);
+  transition: opacity 0s, visibility 0s;
 }
 
 .cover-ratings {
@@ -4845,12 +4852,12 @@ h1.headline-cover em { color: var(--c-p600); font-style: normal; }
   color: var(--c-success);
 }
 
-/* Rail (col 3 toujours) — visibilité contrôlée par le layout. Comme la
-   cover-copy mais en symétrie inverse :
-     - FORWARD (cover → sidebar) : fade-in AVEC DÉLAI pour apparaître une fois
-       que le grid a fini de morpher (sinon contenu squishé pendant le morph).
-     - BACKWARD (sidebar → cover) : fade-out RAPIDE sans délai pour libérer
-       la droite au début de la transition. */
+/* Rail (col 3 toujours) — comme cover-copy mais en symétrie inverse :
+     - FORWARD (cover → sidebar) : fade-in + visibility:visible DÉLAYÉS pour
+       n'apparaître qu'une fois la col 3 stabilisée à 380px. Évite tout
+       contenu squishé pendant que la colonne grandit.
+     - BACKWARD (sidebar → cover) : fade-out INSTANT + visibility:hidden
+       immédiat pour que la col 3 se rétracte sans contenu visible. */
 .recap-rail {
   grid-column: 3;
   overflow: hidden;
@@ -4858,13 +4865,16 @@ h1.headline-cover em { color: var(--c-p600); font-style: normal; }
 }
 .shell.layout-cover .recap-rail {
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity .22s cubic-bezier(.22, .9, .35, 1);
+  transition: opacity 0s, visibility 0s;
 }
 .shell.layout-sidebar .recap-rail {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
-  transition: opacity .3s cubic-bezier(.22, .9, .35, 1) .22s;
+  transition: opacity .25s cubic-bezier(.22, .9, .35, 1) .42s,
+              visibility 0s linear .42s;
 }
 .shell.layout-cover .recap-inline { display: none !important; }
 /* Pas de progress meta longue ("01 / 09") sur la cover — on garde uniquement la barre */
