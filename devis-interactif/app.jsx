@@ -321,6 +321,26 @@ function App() {
   const stateRef = useRef();
   stateRef.current = { nuisible, logement, surface, statut, adresse, creneau, coords, audience, step };
 
+  // Auto-submitLead quand on arrive sur la page via une share URL.
+  // Sans ça, le StepRecap reste bloqué sur "Préparation de votre devis…"
+  // (leadId null → loading state) parce que submitLead n'est appelé que
+  // dans next() au clic "Recevoir mon devis", flux qu'un visiteur arrivant
+  // direct sur l'étape recap ne déclenche pas. On le tire UNE FOIS au mount
+  // si : l'URL initiale était déjà à l'étape recap/paiement, l'état est complet
+  // (nuisible + coords), et qu'on n'a pas encore de leadId.
+  const sharedSubmitCalledRef = useRef(false);
+  const RECAP_STEP_IDX = STEPS.findIndex(s => s.id === 'recap');
+  useEffect(() => {
+    if (sharedSubmitCalledRef.current) return;
+    if (leadId) return;
+    const arrivedAtRecap = __INITIAL.step >= RECAP_STEP_IDX;
+    const stateComplete = !!(nuisible && coords.first && coords.last && coords.email && coords.phone);
+    if (arrivedAtRecap && stateComplete) {
+      sharedSubmitCalledRef.current = true;
+      submitLead();
+    }
+  }, [leadId, nuisible, coords]);
+
   function isStepValid(stepIdx, s) {
     switch (STEPS[stepIdx]?.id) {
       case 'nuisible': return !!s.nuisible;
