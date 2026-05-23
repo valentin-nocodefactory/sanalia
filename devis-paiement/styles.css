@@ -197,6 +197,11 @@ a { color: inherit; }
   .shell { grid-template-columns: 1fr !important; padding: 16px 16px 100px; }
   .shell .recap-rail { display: none !important; position: static; }
   .shell .recap-inline { display: block !important; }
+  /* Mobile sidebar : pas de slide animation (layout stacké), donc on peut
+     retirer complètement la cover-copy du flow quand on n'est pas en cover.
+     Sinon elle reste en visibility:hidden mais occupe un track plein dans
+     le grid 1fr → grosse zone vide en haut. */
+  .shell.layout-sidebar .cover-copy { display: none !important; }
 }
 
 /* ---------- Density ---------- */
