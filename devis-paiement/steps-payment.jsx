@@ -7,8 +7,10 @@
 // ===========================================================
 function InterventionPicker({ idx, dayKey, slotKey, value, onChange, minOffset = 0 }) {
   const days = useMemo(() => {
-    // 14 jours pour la 1ère intervention, ~21 jours pour la 2ᵉ (à partir de J+minOffset).
-    const count = minOffset > 0 ? minOffset + 21 : 14;
+    // 1ère intervention : 60 jours dispo dans le scroll (J+0 à J+59).
+    // 2ᵉ intervention : ~21 jours à partir de J+minOffset (la 2ᵉ vient quelques
+    // semaines après la 1ère).
+    const count = minOffset > 0 ? minOffset + 21 : 60;
     return buildDays(count, false).filter(d => {
       const today = new Date(); today.setHours(0,0,0,0);
       const dDate = new Date(d.iso);

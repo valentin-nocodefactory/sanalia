@@ -4651,8 +4651,10 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
 }
 .shell.layout-cover {
   grid-template-columns: 1.05fr 1fr 0px;
+  grid-auto-rows: min-content;
   gap: 56px;
   align-items: start;
+  align-content: start;
   padding-top: 24px;
 }
 .shell.layout-sidebar {
@@ -4886,10 +4888,13 @@ h1.headline-cover em { color: var(--c-p600); font-style: normal; }
   min-width: 0;
 }
 .shell.layout-cover .recap-rail {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0s, visibility 0s;
+  /* display:none plutôt que visibility:hidden : la rail fait ~947px de
+     hauteur quand son contenu est plein (Devis + perks + certifs) ; en
+     visibility:hidden elle reste dans le layout et fait gonfler la row
+     de la grid → cover-copy "align-self:center" se retrouve centrée
+     dans une row énorme = visuellement très bas. display:none la sort
+     du flow et la row se cale sur cover-copy + form-card uniquement. */
+  display: none;
 }
 .shell.layout-sidebar .recap-rail {
   opacity: 1;
