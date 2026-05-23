@@ -885,7 +885,7 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
       <div className="recap-naked-head">
         <div className="recap-naked-meta">
           <div className="eyebrow"><span className="dot"></span>Étape 8 · Votre devis</div>
-          <h1 className="headline">Votre devis est <em>prêt</em></h1>
+          <h1 className="headline">Votre <em>devis</em></h1>
           {view === 'payment' && (
             <p className="subhead">Saisissez vos infos de carte pour valider le paiement de l'acompte de <strong style={{color:'var(--c-p900)'}}>{fmtEur(DEPOSIT)}</strong> et bloquer votre créneau.</p>
           )}
