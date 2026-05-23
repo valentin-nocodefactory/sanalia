@@ -439,87 +439,68 @@ function App() {
   // URL partageable qui restitue tout l'état du devis (étape 8 pour le destinataire)
   const shareUrl = buildShareUrl({ audience, nuisible, logement, surface, statut, adresse, creneau, coords, variant: tweaks.recapVariant, quoteRequested: quoteRequestedManual || (sidNow === 'recap' || sidNow === 'paiement') });
 
-  // "Cover" = page de garde : étape 0 (nuisible) tant qu'aucun nuisible n'a été choisi.
-  // Layout 2 colonnes : copy + ratings + bullets à gauche, carte formulaire à droite.
-  // Au 1er clic sur un nuisible, on lance une transition (copy fade-out + card slide-left)
-  // d'environ 400ms avant de démonter la cover et de laisser le layout standard prendre place.
+  // ─── Transition cover ↔ sidebar : grille unifiée 3 tracks, morphée par CSS ──
   //
-  // - showCover : pilote le rendu du DOM (la cover reste montée pendant la transition)
-  // - coverLeaving : ajoute la classe CSS qui déclenche la transition de sortie
+  // Le shell utilise TOUJOURS une grille 3 colonnes :
+  //   - .is-cover  : 1.05fr 1fr 0px  (cover-copy left, form middle, rail collapsed)
+  //   - default    : 0px 1fr 380px   (cover-copy collapsed, form left, rail right)
+  // grid-template-columns + gap sont animés par CSS (.5s ease) — la carte
+  // form, qui reste toujours en col 2, glisse naturellement quand col 1 et
+  // col 3 morphent. cover-copy + rail sont TOUJOURS montés (visibilité via
+  // opacity uniquement) pour éviter tout snap de track.
+  //
+  // FORWARD (cover → sidebar) :
+  //   1. Click nuisible → Phase A : step 0 → 1. Le contenu de la col 2 passe
+  //      de StepNuisible (cover variant, badge + footer) à StepLogement.
+  //      Une key React + CSS @keyframes fait fade-in du nouveau contenu.
+  //   2. Après ~260ms → Phase B : showCover=false → .is-cover disparaît →
+  //      la grille morphe (col 1 1.05fr→0, col 3 0→380px, gap 56→28). La
+  //      cover-copy fade-out, la rail fade-in, la carte form glisse vers la
+  //      gauche (toujours en col 2, mais col 1 se rétracte).
+  //
+  // BACKWARD (sidebar → cover) :
+  //   1. Click Précédent → setStep(0) + reset nuisible.
+  //   2. useEffect "back to cover" remet showCover=true → .is-cover revient
+  //      → la grille morphe en sens inverse, cover-copy fade-in, rail
+  //      fade-out, form glisse vers la droite. Le contenu de la carte
+  //      bascule en simultané sur la cover-variant de StepNuisible.
+  //
+  // Toutes les transitions CSS partagent le même easing et des durées
+  // coordonnées (300-500ms) pour donner l'effet ultra smooth type Vue.js.
   const dataIsCover = step === 0 && !nuisible;
   const [showCover, setShowCover] = useState(dataIsCover);
-  const [coverLeaving, setCoverLeaving] = useState(false);
-  // Transition cover → sidebar en 2 phases pour éviter le glitch du content-swap
-  // simultané au slide visuel :
-  //
-  //   Phase A (≈300ms) — Content swap dans le volet droit
-  //     Au 1er clic sur un nuisible, on avance step=0 → 1 IMMÉDIATEMENT. Le form
-  //     en col 2 (toujours layout cover, donc à droite) change de contenu :
-  //     badge + footer + headline cover disparaissent, l'étape logement prend
-  //     leur place. La copy gauche est encore visible (pas de slide).
-  //
-  //   Phase B (≈450ms) — Slide visuel du shell
-  //     Après ~280ms (le temps que le content swap se stabilise), on bascule
-  //     coverLeaving=true → CSS anime grid-template-columns de 1.05fr/1fr/0
-  //     vers 0/1fr/380px. Le form glisse de col 2 vers col 1, la cover-copy
-  //     se rétracte, la rail apparaît à droite.
-  //
-  //   Commit final
-  //     Sur transitionend (ou fallback 700ms), showCover=false → shell passe
-  //     en layout-sidebar (2 cols), équivalent visuel exact de l'état final
-  //     du slide.
   const shellRef = useRef(null);
 
-  // Phase A — avance step quand un nuisible est choisi pendant la cover.
+  // Phase A forward — avance step quand un nuisible est choisi pendant la cover.
   useEffect(() => {
     if (showCover && nuisible && step === 0) {
       setStep(1);
     }
   }, [showCover, nuisible, step]);
 
-  // Phase B — déclenche le slide ~280ms après que step est passé à 1 (le content
-  // swap a eu le temps de s'afficher).
+  // Phase B forward — après ~260ms (le temps que le content swap s'affiche
+  // proprement avec son fade-in), on retire .is-cover → la grille morphe.
   useEffect(() => {
-    if (showCover && step >= 1 && !coverLeaving) {
-      const t = setTimeout(() => setCoverLeaving(true), 280);
+    if (showCover && step >= 1) {
+      const t = setTimeout(() => setShowCover(false), 260);
       return () => clearTimeout(t);
     }
-  }, [showCover, step, coverLeaving]);
+  }, [showCover, step]);
 
-  // Commit final — au transitionend de grid-template-columns du shell, ou via
-  // fallback 700ms si l'event ne tire pas (browsers sans transition fluide
-  // sur grid-template-columns, ex : Firefox derrière son flag).
+  // Backward — quand step revient à 0 (Précédent depuis step 2), on rétablit
+  // l'état initial pristine : cover réactivée + nuisible reset. La grille
+  // morphe automatiquement via CSS, le contenu de la carte bascule en cover
+  // variant en simultané.
   useEffect(() => {
-    if (!coverLeaving) return;
-    const shell = shellRef.current;
-    let done = false;
-    const commit = () => {
-      if (done) return; done = true;
-      setShowCover(false);
-      setCoverLeaving(false);
-    };
-    const onEnd = (e) => {
-      if (e.target === shell && e.propertyName === 'grid-template-columns') {
-        commit();
-      }
-    };
-    shell?.addEventListener('transitionend', onEnd);
-    const fallback = setTimeout(commit, 700);
-    return () => {
-      shell?.removeEventListener('transitionend', onEnd);
-      clearTimeout(fallback);
-    };
-  }, [coverLeaving]);
+    if (!showCover && step === 0) {
+      setShowCover(true);
+      setNuisible('');
+    }
+  }, [showCover, step]);
 
-  // Reset propre vers la cover (cas reset manuel)
-  useEffect(() => {
-    if (!showCover && dataIsCover) setShowCover(true);
-  }, [showCover, dataIsCover]);
-
-  // Indique si la carte form doit afficher le variant cover (badge + footer +
-  // grille nuisibles compacte) : uniquement quand on est ENCORE sur l'étape 0
-  // ET que la cover est active. Dès que step passe à 1 (Phase A), le variant
-  // bascule en standard même si showCover reste true (slide pas encore lancé).
+  // Variant cover sur la carte form (badge + footer + grille compacte) :
+  // uniquement quand on est encore SUR l'étape 0 ET en cover layout.
+  // Dès que step passe à 1 (Phase A), le variant bascule en standard.
   const coverFormVariant = step === 0 && showCover;
 
   // Active step renderer
@@ -544,7 +525,7 @@ function App() {
   const useExternalNavbar = window.__SANALIA_USE_TRADITIONAL_NAVBAR === true;
 
   return (
-    <div className={'app density-' + tweaks.density + (useExternalNavbar ? ' app-embed' : '') + (showCover ? ' is-cover' : '') + (coverLeaving ? ' is-cover-leaving' : '')}>
+    <div className={'app density-' + tweaks.density + (useExternalNavbar ? ' app-embed' : '') + (showCover ? ' is-cover' : '')}>
       {/* Topbar interne — masquée quand on utilise la navbar traditionnelle Sanalia */}
       {!useExternalNavbar && (
         <header className={'appbar' + (showCover ? ' appbar-cover' : '')}>
@@ -580,13 +561,14 @@ function App() {
       {/* Shell */}
       <main
         ref={shellRef}
-        className={'shell ' + (showCover ? 'layout-cover' : 'layout-' + (inSuccess ? 'fullwidth' : tweaks.layout)) + (coverLeaving ? ' is-cover-leaving' : '') + ((!showCover && !coverLeaving && showRail && sid !== 'recap' && sid !== 'paiement') ? '' : ' no-rail')}
-        style={{maxWidth: (showCover || coverLeaving) ? 1200 : (inSuccess ? 720 : (tweaks.layout === 'fullwidth' ? 760 : (sid === 'recap' || sid === 'paiement' ? 1140 : (showRail ? 1200 : 980))))}}
+        className={'shell ' + (showCover ? 'layout-cover' : 'layout-' + (inSuccess ? 'fullwidth' : tweaks.layout)) + ((!showCover && showRail && sid !== 'recap' && sid !== 'paiement') ? '' : ' no-rail')}
+        style={{maxWidth: showCover ? 1200 : (inSuccess ? 720 : (tweaks.layout === 'fullwidth' ? 760 : (sid === 'recap' || sid === 'paiement' ? 1140 : (showRail ? 1200 : 980))))}}
       >
         {/* Page de garde : colonne gauche marketing (ratings + H1 + bullets).
-            On garde la copy montée pendant toute la transition (coverLeaving)
-            pour que sa colonne de grille se rétracte en douceur. */}
-        {(showCover || coverLeaving) && (
+            Toujours montée — la visibilité est pilotée par opacity via la classe
+            .is-cover du shell. Permet une transition CSS pure (pas de mount/unmount
+            qui pourrait causer un glitch). */}
+        {!inSuccess && (
           <div className="cover-copy">
             <div className="cover-ratings">
               <div className="cover-rating">
@@ -650,33 +632,47 @@ function App() {
           )}
 
           {!inSuccess && sid !== 'recap' && sid !== 'paiement' && (
-            // step-card-cover : utilise les styles compacts cover pendant TOUTE la
-            //   période cover-or-leaving (Phase A + B), pour que la carte reste
-            //   cohérente avec la taille du volet droit jusqu'au commit final.
+            // step-card-cover : styles compacts pour la cover ; utilisé tant que
+            //   la cover est active (showCover=true). En Phase A (step=1 + cover),
+            //   on garde la même taille de carte pour que le morphing soit fluide.
             // CoverOfferBadge / cover-card-foot : visibles UNIQUEMENT en variant
-            //   cover réel (step=0 ET showCover) ; disparaissent dès le step
-            //   advance de Phase A (le volet droit "change de page" en premier).
-            <div className={'step-card' + ((showCover || coverLeaving) ? ' step-card-cover' : '')}>
-              {coverFormVariant && <CoverOfferBadge/>}
+            //   cover réel (step=0 ET showCover). Disparaissent dès le step advance
+            //   de Phase A — le volet droit "change de page" avant le slide.
+            // step-content-wrap : reçoit une key qui change à chaque step pour
+            //   déclencher l'animation @keyframes contentSwap (fade-in + slide
+            //   léger). Donne l'effet ultra smooth attendu.
+            <div className={'step-card' + (showCover ? ' step-card-cover' : '')}>
+              {/* Badge + footer : rendus tant que showCover=true (incluant Phase A
+                  où step a déjà avancé). La classe is-fading ajoutée quand on
+                  n'est plus en variant cover réel déclenche un fade-out CSS
+                  smooth avant l'unmount final (qui n'arrive que quand showCover
+                  bascule à false). */}
+              {showCover && (
+                <div className={'cover-offer-badge-slot' + (coverFormVariant ? '' : ' is-fading')}>
+                  <CoverOfferBadge/>
+                </div>
+              )}
               <div className="progress">
                 <div className="progress-track">
                   <div className="progress-fill" style={{width: `${((step + 0.5) / STEPS.length) * 100}%`}}/>
                 </div>
                 <div className="progress-meta">Étape {step + 1}/{STEPS.length}</div>
               </div>
-              {stepNode}
-              {coverFormVariant && (
-                <div className="cover-card-foot">
+              <div className="step-content-wrap" key={'step-' + step + '-' + (coverFormVariant ? 'cv' : 'std')}>
+                {stepNode}
+              </div>
+              {showCover && (
+                <div className={'cover-card-foot' + (coverFormVariant ? '' : ' is-fading')}>
                   <span><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Devis sous 2h</span>
                   <span><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Sans engagement</span>
                   <span><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Données confidentielles</span>
                 </div>
               )}
-              {/* Nav buttons : présents partout sauf en cover (où le clic sur un nuisible auto-avance).
-                  Sur step 1 post-cover, on garde Continuer pour que l'utilisateur puisse valider
-                  son choix sans avoir à re-cliquer une nouvelle carte. Pas de Précédent en step 1
-                  (premier de la file). */}
-              {!showCover && !coverLeaving && (
+              {/* Nav buttons : présents partout sauf en cover réelle (showCover=true).
+                  En Phase A (step=1 + cover), on les affiche déjà : le volet droit
+                  "change de page" et présente le contenu logement complet, incluant
+                  Continuer + (pas de Précédent car step=1). */}
+              {(!showCover || step >= 1) && (
                 <div className="step-nav">
                   {sid !== 'nuisible' && (
                     <button className="btn btn-ghost" onClick={prev}><Ic.ArrowL width={16} height={16}/> Précédent</button>

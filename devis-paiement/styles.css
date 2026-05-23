@@ -4616,16 +4616,17 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
    puis bascule sur le layout standard (.layout-sidebar).
    ========================================================= */
 
-/* Shell : grille 3-tracks pour permettre la transition fluide cover → sidebar.
-   - .layout-cover (état initial) : col1 = copy (1.05fr), col2 = form (1fr), col3 = rail (0px)
-   - .layout-cover.is-cover-leaving (transition) : col1 → 0px, col3 → 380px, gap → 28px
-   - .layout-sidebar (état final) : col1 = form (1fr), col2 = rail (380px), 2 tracks
-   La transition CSS sur grid-template-columns + gap fait glisser le form bloc
-   naturellement de la col2 vers la position de la col1 ; la copy se rétracte ;
-   la rail s'étend. Aucun transform ni position absolue à gérer. */
+/* Shell : grille unifiée 3 tracks pour permettre la transition cover ↔ sidebar
+   ULTRA smooth dans les deux directions.
+   - .layout-cover  : col1 = cover-copy (1.05fr), col2 = form (1fr), col3 = rail (0px)
+   - .layout-sidebar : col1 = cover-copy (0px),    col2 = form (1fr), col3 = rail (380px)
+   La form-card reste TOUJOURS en col2 — elle glisse naturellement quand col1
+   se rétracte (forward) ou s'étend (backward). cover-copy + rail sont montés
+   en permanence (opacité 0/1 contrôlée par layout), pas de mount/unmount =
+   pas de track-count snap = pas de glitch. */
 .shell {
-  transition: grid-template-columns .46s cubic-bezier(.22, .9, .35, 1),
-              gap .46s cubic-bezier(.22, .9, .35, 1);
+  transition: grid-template-columns .5s cubic-bezier(.22, .9, .35, 1),
+              gap .5s cubic-bezier(.22, .9, .35, 1);
 }
 .shell.layout-cover {
   grid-template-columns: 1.05fr 1fr 0px;
@@ -4633,7 +4634,7 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   align-items: start;
   padding-top: 24px;
 }
-.shell.layout-cover.is-cover-leaving {
+.shell.layout-sidebar {
   grid-template-columns: 0px 1fr 380px;
   gap: 28px;
 }
@@ -4641,8 +4642,14 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   padding: 22px 24px 18px;
 }
 
-/* Colonne marketing (gauche) — H1, bullets, ratings.
-   Occupe col1 ; opacité contrôlée par .is-cover-leaving (fade-out pendant le slide). */
+/* Colonne marketing (gauche) — H1, bullets, ratings. Toujours montée, opacity
+   pilotée par le layout. Pour un effet séquentiel propre :
+     - FORWARD (cover → sidebar) : la cover-copy fade-out RAPIDEMENT (sans
+       délai) pour libérer l'espace au début de la transition, le morph
+       continue ensuite.
+     - BACKWARD (sidebar → cover) : la cover-copy fade-in AVEC DÉLAI, pour
+       qu'elle apparaisse une fois que le grid morph a fait place à la col 1.
+   Chaque direction a sa propre règle de transition. */
 .cover-copy {
   grid-column: 1;
   display: flex; flex-direction: column;
@@ -4650,12 +4657,16 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   padding-top: 28px;
   overflow: hidden;
   min-width: 0;
-  opacity: 1;
-  transition: opacity .28s cubic-bezier(.22, .9, .35, 1);
 }
-.shell.is-cover-leaving .cover-copy {
+.shell.layout-cover .cover-copy {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity .3s cubic-bezier(.22, .9, .35, 1) .22s;
+}
+.shell.layout-sidebar .cover-copy {
   opacity: 0;
   pointer-events: none;
+  transition: opacity .22s cubic-bezier(.22, .9, .35, 1);
 }
 
 .cover-ratings {
@@ -4743,11 +4754,17 @@ h1.cover-title {
   opacity: 1;
   transition: opacity .24s cubic-bezier(.22, .9, .35, 1);
 }
-/* Pendant le slide, le badge et le footer s'effacent en douceur pour préparer
-   l'arrivée du contenu de l'étape suivante (logement). */
-.is-cover-leaving .cover-offer-badge,
-.is-cover-leaving .cover-card-foot,
-.is-cover-leaving .cover-card-hint {
+/* Badge + footer wrapper : rendus tant que showCover est true. Quand on quitte
+   le variant cover réel (step ≥ 1 en Phase A), .is-fading déclenche un
+   fade-out CSS smooth de 220ms. Le shell maintient showCover=true pendant
+   ce temps, puis bascule en sidebar 280ms+ plus tard quand le fade-out est
+   bien fini. Ainsi pas d'unmount instantané = pas de glitch visible. */
+.cover-offer-badge-slot {
+  opacity: 1;
+  transition: opacity .22s cubic-bezier(.22, .9, .35, 1);
+}
+.cover-offer-badge-slot.is-fading,
+.cover-card-foot.is-fading {
   opacity: 0;
   pointer-events: none;
 }
@@ -4828,27 +4845,65 @@ h1.headline-cover em { color: var(--c-p600); font-style: normal; }
   color: var(--c-success);
 }
 
-/* Rail (col 3 en cover, col 2 en sidebar) — opacité contrôlée par layout-cover.
-   En cover non-leaving : largeur 0 + opacité 0 (invisible).
-   En leaving : largeur croît à 380px + opacité fade-in (apparition douce à droite).
-   En sidebar : visible normal. */
-.shell.layout-cover .recap-rail {
+/* Rail (col 3 toujours) — visibilité contrôlée par le layout. Comme la
+   cover-copy mais en symétrie inverse :
+     - FORWARD (cover → sidebar) : fade-in AVEC DÉLAI pour apparaître une fois
+       que le grid a fini de morpher (sinon contenu squishé pendant le morph).
+     - BACKWARD (sidebar → cover) : fade-out RAPIDE sans délai pour libérer
+       la droite au début de la transition. */
+.recap-rail {
   grid-column: 3;
   overflow: hidden;
   min-width: 0;
+}
+.shell.layout-cover .recap-rail {
   opacity: 0;
   pointer-events: none;
-  transition: opacity .32s cubic-bezier(.22, .9, .35, 1) .12s;
+  transition: opacity .22s cubic-bezier(.22, .9, .35, 1);
 }
-.shell.layout-cover.is-cover-leaving .recap-rail {
+.shell.layout-sidebar .recap-rail {
   opacity: 1;
   pointer-events: auto;
+  transition: opacity .3s cubic-bezier(.22, .9, .35, 1) .22s;
 }
 .shell.layout-cover .recap-inline { display: none !important; }
 /* Pas de progress meta longue ("01 / 09") sur la cover — on garde uniquement la barre */
 .shell.layout-cover .progress-meta {
   font-size: 10.5px;
   letter-spacing: 0.08em;
+}
+
+/* Step content wrap — animation fade-in à chaque changement de step (via key
+   React qui remount le wrapper). Donne le crossfade façon Vue.js entre les
+   étapes (nuisible cover → logement → surface → etc.). */
+.step-content-wrap {
+  animation: stepContentIn .4s cubic-bezier(.22, .9, .35, 1);
+}
+@keyframes stepContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Step-nav (Précédent + Continuer) — fade-in à l'apparition. Comme c'est un
+   élément conditionnel (mounted/unmounted selon showCover), CSS animation
+   run-once à chaque nouveau mount. */
+.step-nav {
+  animation: stepNavIn .35s cubic-bezier(.22, .9, .35, 1) .1s both;
+}
+@keyframes stepNavIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-content-wrap,
+  .step-nav { animation: none; }
 }
 
 /* Tablet & mobile — on stack tout (1 col), pas de slide horizontal */
