@@ -1325,12 +1325,23 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
 .recap-inline-price .pu { font-family: var(--font-mono); font-size: 11px; color: var(--c-mut-2); text-transform: uppercase; }
 
 /* ---------- Nav ---------- */
+/* Sticky en bas de la step-card. Le z-index + le fond solid + les margins
+   négatives étendent le fond jusqu'aux bords arrondis de la carte pour que,
+   pendant le scroll, les boutons forment une "barre" propre qui obscurcit
+   complètement le contenu qui passe derrière (pas de texte visible à travers). */
 .step-nav {
   display: flex; align-items: center; justify-content: space-between;
-  margin-top: 24px;
-  padding: 14px 0 0;
-  border-top: 1px solid var(--c-line-soft);
   gap: 12px;
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  background: #fff;
+  /* Étend le fond jusqu'aux bords latéraux de la step-card */
+  margin: 24px calc(-1 * var(--pad-card-x)) calc(-1 * var(--pad-card)) calc(-1 * var(--pad-card-x));
+  padding: 16px var(--pad-card-x) var(--pad-card);
+  border-top: 1px solid var(--c-line-soft);
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
 }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
