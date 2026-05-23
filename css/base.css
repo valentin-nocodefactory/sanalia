@@ -28,7 +28,14 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
-  /* NE JAMAIS mettre overflow-x: hidden sur html — casse position: sticky */
+  /* NE JAMAIS mettre overflow-x: hidden sur html — casse position: sticky.
+     overflow-x: clip est sûr : il clippe horizontalement sans créer de
+     scroll container (contrairement à hidden), donc position: sticky reste
+     fonctionnel. Indispensable parce que `body { overflow-x: clip }` ne
+     contient pas les éléments en position: fixed (sticky CTA mobile, drawers,
+     mega-menus offscreen) qui peuvent déborder à droite et créer un scroll
+     horizontal sur mobile. */
+  overflow-x: clip;
 }
 body {
   font-family: var(--font-primary);
