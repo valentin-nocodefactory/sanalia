@@ -954,9 +954,9 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
             <div className="quote-brand">
               <SanaliaLogo height={28}/>
               <div className="quote-brand-co">
-                Sanalia · Dératisation en ligne<br/>
-                12 rue des Innovateurs · 75011 Paris<br/>
-                SIRET 891 234 567 00012 · TVA FR 98 891 234 567
+                Sanalia · Dératisation et désinfection<br/>
+                53 Rue Villeroy · 69003 Lyon<br/>
+                SIRET 890 704 406 00010 · TVA FR07890704406
               </div>
             </div>
             <div className="quote-meta">

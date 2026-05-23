@@ -71,9 +71,9 @@
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.setTextColor.apply(doc, C_MUT);
-    doc.text('Sanalia - Deratisation en ligne', marginX, 24);
-    doc.text('12 rue des Innovateurs, 75011 Paris', marginX, 28);
-    doc.text('SIRET 891 234 567 00012  -  TVA FR 98 891 234 567', marginX, 32);
+    doc.text('Sanalia - Deratisation et desinfection', marginX, 24);
+    doc.text('53 Rue Villeroy, 69003 Lyon', marginX, 28);
+    doc.text('SIRET 890 704 406 00010  -  TVA FR07890704406', marginX, 32);
 
     // Bloc meta à droite — stack vertical (label petit au-dessus, value bold en dessous)
     var metaX = W - marginX;
@@ -132,12 +132,12 @@
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor.apply(doc, C_MUT);
-    doc.text('12 rue des Innovateurs', leftColX, y);
+    doc.text('53 Rue Villeroy', leftColX, y);
     var addrLine = (state.adresse && state.adresse.line) || '-';
     doc.text(addrLine, rightColX, y, { maxWidth: contentW / 2 - 4 });
     y += 4.5;
 
-    doc.text('75011 Paris', leftColX, y);
+    doc.text('69003 Lyon', leftColX, y);
     var addrCity = ((state.adresse && state.adresse.cp) || '') + ' ' + ((state.adresse && state.adresse.city) || '');
     doc.text(addrCity.trim() || '-', rightColX, y);
     y += 4.5;
@@ -303,7 +303,7 @@
 
     doc.setFontSize(7);
     doc.setTextColor.apply(doc, C_MUT2);
-    doc.text('Devis emis le ' + new Date().toLocaleDateString('fr-FR') + ' - Sanalia, SIRET 891 234 567 00012',
+    doc.text('Devis emis le ' + new Date().toLocaleDateString('fr-FR') + ' - Sanalia, SIRET 890 704 406 00010',
       W / 2, H - 6, { align: 'center' });
 
     var dataUri = doc.output('datauristring');
