@@ -75,6 +75,14 @@
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+/* On verrouille la page à 100vh / 100dvh pour qu'il n'y ait JAMAIS de scroll
+   au niveau du document. Les cartes internes (form + rail) peuvent scroller
+   à l'intérieur de leur conteneur si leur contenu dépasse, mais la page
+   reste fixe — c'est un funnel, pas un long article. */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
 body {
   font-family: var(--font-uxum);
   color: var(--c-text);
@@ -82,7 +90,6 @@ body {
   background-image:
     radial-gradient(circle at 88% 0%, rgba(206,204,252,0.45), transparent 38%),
     radial-gradient(circle at 8% 92%, rgba(244,233,193,0.4), transparent 36%);
-  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -91,8 +98,10 @@ a { color: inherit; }
 
 /* ---------- App shell ---------- */
 .app {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
   display: flex; flex-direction: column;
+  overflow: hidden;
 }
 /* Mode embarqué : navbar Sanalia traditionnelle au-dessus, pas d'appbar interne */
 .app.app-embed {
@@ -173,19 +182,46 @@ a { color: inherit; }
 /* ---------- Container / layout ---------- */
 .shell {
   flex: 1;
+  min-height: 0; /* permet au flex-item de shrink en-dessous de son contenu */
   width: 100%; max-width: 1200px;
-  margin: 0 auto; padding: 28px 36px 80px;
+  margin: 0 auto; padding: 20px 36px 24px;
   display: grid; grid-template-columns: 1fr; gap: 28px;
+  align-items: start;
+  overflow: hidden; /* aucun scroll au niveau du shell — les cartes internes gèrent leur scroll */
 }
 
-/* SIDEBAR layout (default): question (left) + sticky récap (right) */
+/* Les cartes internes peuvent scroller à l'intérieur si leur contenu dépasse
+   la hauteur disponible. La page entière reste verrouillée à 100vh. */
+.shell .step-card,
+.shell .recap-rail {
+  max-height: 100%;
+  overflow-y: auto;
+  /* Subtle scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(14,5,42,0.15) transparent;
+}
+.shell .step-card::-webkit-scrollbar,
+.shell .recap-rail::-webkit-scrollbar { width: 6px; }
+.shell .step-card::-webkit-scrollbar-thumb,
+.shell .recap-rail::-webkit-scrollbar-thumb {
+  background: rgba(14,5,42,0.12);
+  border-radius: 999px;
+}
+.shell .step-card::-webkit-scrollbar-thumb:hover,
+.shell .recap-rail::-webkit-scrollbar-thumb:hover {
+  background: rgba(14,5,42,0.22);
+}
+
+/* SIDEBAR layout (default): question (left) + sticky récap (right).
+   La grille a 3 tracks pour permettre la transition fluide avec layout-cover
+   (qui en a aussi 3). Voir la règle complète plus bas (section "PAGE DE GARDE").
+   Ici on garde uniquement align-items et les règles internes. */
 .shell.layout-sidebar {
-  grid-template-columns: minmax(0, 1fr) 380px;
   align-items: start;
 }
 .shell.layout-sidebar .recap-rail { display: block; position: sticky; top: 96px; }
 .shell.layout-sidebar .recap-inline { display: none; }
-.shell.layout-sidebar.no-rail { grid-template-columns: 1fr; }
+.shell.layout-sidebar.no-rail { grid-template-columns: 0px 1fr 0px; }
 
 /* FULLWIDTH layout: stacked, recap as inline summary at top + drawer */
 .shell.layout-fullwidth { grid-template-columns: 1fr; max-width: 760px; }
@@ -4607,4 +4643,342 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
 @media (max-width: 480px) {
   .btn-pay-final { padding: 14px 16px; font-size: 13.5px; flex: 1; }
   .pay-sticky-info { display: none; }
+}
+
+/* =========================================================
+   PAGE DE GARDE (cover) — étape 0, aucun nuisible sélectionné
+   Layout 2 colonnes : copy marketing à gauche, carte formulaire à droite.
+   Au 1er clic sur un nuisible, transition 420ms (slide-left + fade copy)
+   puis bascule sur le layout standard (.layout-sidebar).
+   ========================================================= */
+
+/* Shell : grille unifiée 3 tracks pour permettre la transition cover ↔ sidebar
+   ULTRA smooth dans les deux directions.
+   - .layout-cover  : col1 = cover-copy (1.05fr), col2 = form (1fr), col3 = rail (0px)
+   - .layout-sidebar : col1 = cover-copy (0px),    col2 = form (1fr), col3 = rail (380px)
+   La form-card reste TOUJOURS en col2 — elle glisse naturellement quand col1
+   se rétracte (forward) ou s'étend (backward). cover-copy + rail sont montés
+   en permanence ; leur VISIBILITY est masquée pendant le morph pour éviter
+   tout texte qui overflow / qui se squishe quand la colonne est en train de
+   changer de taille. */
+.shell {
+  transition: grid-template-columns .42s cubic-bezier(.22, .9, .35, 1),
+              gap .42s cubic-bezier(.22, .9, .35, 1);
+}
+.shell.layout-cover {
+  grid-template-columns: 1.05fr 1fr 0px;
+  gap: 56px;
+  align-items: start;
+  padding-top: 24px;
+}
+.shell.layout-sidebar {
+  grid-template-columns: 0px 1fr 380px;
+  gap: 28px;
+}
+.shell.layout-cover .step-card {
+  padding: 22px 24px 18px;
+}
+
+/* Colonne marketing (gauche) — H1, bullets, ratings. Toujours montée.
+   Visibility masquée hors layout-cover pour bloquer toute peinture pendant
+   que la colonne morphe (zéro overflow visible).
+     - FORWARD (cover → sidebar) : fade-out instant + visibility:hidden →
+       la colonne se rétracte SANS contenu visible qui squishe.
+     - BACKWARD (sidebar → cover) : fade-in DÉLAYÉ pour démarrer une fois
+       que la col 1 a fini de s'étendre (450ms morph + 30ms buffer).
+   La transition visibility 0s avec délai s'aligne sur l'opacity pour que
+   l'élément soit complètement painted-out / painted-in proprement. */
+.cover-copy {
+  grid-column: 1;
+  display: flex; flex-direction: column;
+  gap: 18px;
+  padding-top: 28px;
+  overflow: hidden;
+  min-width: 0;
+}
+.shell.layout-cover .cover-copy {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity .25s cubic-bezier(.22, .9, .35, 1) .42s,
+              visibility 0s linear .42s;
+}
+.shell.layout-sidebar .cover-copy {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0s, visibility 0s;
+}
+
+.cover-ratings {
+  display: flex; align-items: center; gap: 22px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.cover-rating {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-uxum);
+  font-size: 14px;
+  color: var(--c-p900);
+}
+.cover-rating strong { font-weight: 700; }
+.cover-rating-score {
+  color: var(--c-mut);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.cover-rating-star,
+.cover-rating-glogo {
+  width: 18px; height: 18px;
+  display: inline-grid; place-items: center;
+}
+.cover-rating-star svg,
+.cover-rating-glogo svg { width: 100%; height: 100%; }
+
+h1.cover-title {
+  font-family: var(--font-uxum); font-weight: 700;
+  font-size: clamp(32px, 4.2vw, 52px);
+  line-height: 1.04; letter-spacing: -0.025em;
+  color: var(--c-p900);
+  margin: 4px 0 2px;
+}
+.cover-title-accent { color: var(--c-p500); }
+
+.cover-subtitle {
+  font-size: 16px; line-height: 1.55;
+  color: var(--c-mut);
+  margin: 0 0 6px;
+  max-width: 480px;
+}
+
+.cover-bullets {
+  list-style: none; padding: 0; margin: 8px 0 0;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.cover-bullets li {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-uxum); font-size: 15px;
+  color: var(--c-p900);
+}
+.cover-bullets li svg {
+  width: 18px; height: 18px; flex-shrink: 0;
+  background: rgba(34,197,94,.12);
+  border-radius: 50%;
+  padding: 2px;
+}
+.cover-bullets li strong { font-weight: 700; }
+.cover-bullets li sup { font-size: 0.7em; }
+
+/* Carte formulaire (droite en cover, gauche en sidebar) — sa position est gérée
+   uniquement par la grille (col2 dans les deux layouts). Le slide est intégral
+   à la transition de grid-template-columns. */
+.shell.layout-cover .step-card-cover {
+  background: #fff;
+  border: 1px solid var(--c-line-softer);
+  border-radius: 22px;
+  box-shadow: var(--shadow-float);
+}
+
+/* Badge "Jusqu'au [date] · 1ère intervention offerte" */
+.cover-offer-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(34,197,94,0.08);
+  color: var(--c-success-d);
+  font-family: var(--font-uxum);
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 7px 14px 7px 12px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(34,197,94,0.2);
+  letter-spacing: 0.01em;
+  opacity: 1;
+  transition: opacity .24s cubic-bezier(.22, .9, .35, 1);
+}
+/* Badge + footer wrapper : rendus tant que showCover est true. Quand on quitte
+   le variant cover réel (step ≥ 1 en Phase A), .is-fading déclenche un
+   fade-out CSS smooth de 220ms. Le shell maintient showCover=true pendant
+   ce temps, puis bascule en sidebar 280ms+ plus tard quand le fade-out est
+   bien fini. Ainsi pas d'unmount instantané = pas de glitch visible. */
+.cover-offer-badge-slot {
+  opacity: 1;
+  transition: opacity .22s cubic-bezier(.22, .9, .35, 1);
+}
+.cover-offer-badge-slot.is-fading,
+.cover-card-foot.is-fading {
+  opacity: 0;
+  pointer-events: none;
+}
+.cover-offer-badge strong { font-weight: 700; color: var(--c-success-d); }
+.cover-offer-badge sup { font-size: 0.75em; }
+.cover-offer-badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--c-success);
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+  animation: coverPulse 1.8s ease-out infinite;
+  flex-shrink: 0;
+}
+@keyframes coverPulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(34,197,94,0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(34,197,94,0.05); }
+}
+
+/* Headline plus serré sur la cover (la carte est plus étroite que le step normal) */
+h1.headline-cover {
+  font-size: 24px;
+  margin-bottom: 4px;
+  letter-spacing: -0.015em;
+}
+h1.headline-cover em { color: var(--c-p600); font-style: normal; }
+
+/* Grid nuisibles compact en mode cover — 3 cols pour matcher la capture */
+.nuisible-grid-cover {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 10px;
+}
+.nuisible-grid-cover .nuisible-card {
+  padding: 12px 8px 10px;
+}
+.nuisible-grid-cover .nuisible-img {
+  width: 48px; height: 48px;
+  margin: 0 auto 6px;
+  border-radius: 12px;
+}
+.nuisible-grid-cover .nuisible-name {
+  font-size: 12.5px;
+}
+
+/* Hint "→ Étape suivante au clic" sous la grid */
+.cover-card-hint {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 14px 0 0;
+  font-family: var(--font-uxum); font-style: italic;
+  font-size: 13px;
+  color: var(--c-p600);
+  opacity: 1;
+  transition: opacity .24s cubic-bezier(.22, .9, .35, 1);
+}
+.cover-card-hint svg {
+  width: 12px; height: 12px;
+}
+
+/* Footer reassurance (3 items checkmark) — séparateur top */
+.cover-card-foot {
+  display: flex; align-items: center; justify-content: center;
+  gap: 22px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--c-line-softer);
+  font-family: var(--font-uxum);
+  font-size: 12.5px;
+  color: var(--c-p900);
+  flex-wrap: wrap;
+  opacity: 1;
+  transition: opacity .24s cubic-bezier(.22, .9, .35, 1);
+}
+.cover-card-foot span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.cover-card-foot svg {
+  width: 14px; height: 14px;
+  color: var(--c-success);
+}
+
+/* Rail (col 3 toujours) — comme cover-copy mais en symétrie inverse :
+     - FORWARD (cover → sidebar) : fade-in + visibility:visible DÉLAYÉS pour
+       n'apparaître qu'une fois la col 3 stabilisée à 380px. Évite tout
+       contenu squishé pendant que la colonne grandit.
+     - BACKWARD (sidebar → cover) : fade-out INSTANT + visibility:hidden
+       immédiat pour que la col 3 se rétracte sans contenu visible. */
+.recap-rail {
+  grid-column: 3;
+  overflow: hidden;
+  min-width: 0;
+}
+.shell.layout-cover .recap-rail {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0s, visibility 0s;
+}
+.shell.layout-sidebar .recap-rail {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity .25s cubic-bezier(.22, .9, .35, 1) .42s,
+              visibility 0s linear .42s;
+}
+.shell.layout-cover .recap-inline { display: none !important; }
+/* Pas de progress meta longue ("01 / 09") sur la cover — on garde uniquement la barre */
+.shell.layout-cover .progress-meta {
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+}
+
+/* Step content wrap — animation fade-in à chaque changement de step (via key
+   React qui remount le wrapper). Donne le crossfade façon Vue.js entre les
+   étapes (nuisible cover → logement → surface → etc.). */
+.step-content-wrap {
+  animation: stepContentIn .4s cubic-bezier(.22, .9, .35, 1);
+}
+@keyframes stepContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Step-nav (Précédent + Continuer) — fade-in à l'apparition. Comme c'est un
+   élément conditionnel (mounted/unmounted selon showCover), CSS animation
+   run-once à chaque nouveau mount. */
+.step-nav {
+  animation: stepNavIn .35s cubic-bezier(.22, .9, .35, 1) .1s both;
+}
+@keyframes stepNavIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-content-wrap,
+  .step-nav { animation: none; }
+}
+
+/* Tablet & mobile — on stack tout (1 col), pas de slide horizontal */
+@media (max-width: 980px) {
+  .shell.layout-cover,
+  .shell.layout-cover.is-cover-leaving {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 16px 16px 100px;
+  }
+  .shell.layout-cover .cover-copy { grid-column: auto; }
+  .shell.layout-cover .recap-rail { grid-column: auto; }
+  .cover-copy {
+    padding-top: 4px;
+    gap: 12px;
+  }
+  h1.cover-title { font-size: clamp(26px, 7vw, 36px); }
+  .cover-subtitle { font-size: 15px; }
+  .cover-bullets { gap: 9px; }
+  .cover-bullets li { font-size: 14px; }
+  .nuisible-grid-cover { grid-template-columns: repeat(3, 1fr) !important; }
+}
+@media (max-width: 480px) {
+  .nuisible-grid-cover { grid-template-columns: repeat(2, 1fr) !important; }
+  .cover-card-foot { gap: 14px; font-size: 11.5px; }
+  .cover-offer-badge { font-size: 11.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell,
+  .cover-copy,
+  .recap-rail,
+  .step-card-cover { transition: none !important; }
 }

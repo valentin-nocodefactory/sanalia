@@ -29,36 +29,58 @@ const Ic = {
 
 // ===========================================================
 // Step 1 — Quel nuisible ?
+//   coverMode = true → copy court "Quel nuisible rencontrez-vous ?" + hint en
+//   bas "Étape suivante au clic" pour matcher la page de garde. Pas d'audience
+//   toggle (cachée sur la cover, l'utilisateur la verra à l'étape 2).
 // ===========================================================
-function StepNuisible({ value, audience, onAudience, onChange, onAdvance }) {
+function StepNuisible({ value, audience, onAudience, onChange, onAdvance, coverMode }) {
   return (
     <div>
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,marginBottom:14,flexWrap:'wrap'}}>
-        <div className="eyebrow"><span className="dot"></span>Étape 1 · Le nuisible</div>
-        <div className="audience-toggle">
-          <button className={audience==='particulier'?'active':''} onClick={()=>onAudience('particulier')}>Particulier</button>
-          <button className={audience==='pro'?'active':''} onClick={()=>onAudience('pro')}>Professionnel</button>
+      {!coverMode && (
+        <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',gap:12,marginBottom:14,flexWrap:'wrap'}}>
+          <div className="eyebrow"><span className="dot"></span>Étape 1 · Le nuisible</div>
+          <div className="audience-toggle">
+            <button className={audience==='particulier'?'active':''} onClick={()=>onAudience('particulier')}>Particulier</button>
+            <button className={audience==='pro'?'active':''} onClick={()=>onAudience('pro')}>Professionnel</button>
+          </div>
         </div>
-      </div>
-      <h1 className="headline">De quel nuisible souhaitez-vous <em>vous débarrasser</em> ?</h1>
-      <p className="subhead">Choisissez ce que vous avez identifié. Si vous hésitez, prenez celui qui ressemble le plus — notre technicien confirmera sur place.</p>
-      <div className="nuisible-grid">
+      )}
+      {coverMode ? (
+        <>
+          <h1 className="headline headline-cover">Quel nuisible rencontrez-vous&nbsp;?</h1>
+          <p className="subhead">Un clic suffit pour passer à l'étape suivante.</p>
+        </>
+      ) : (
+        <>
+          <h1 className="headline">De quel nuisible souhaitez-vous <em>vous débarrasser</em> ?</h1>
+          <p className="subhead">Choisissez ce que vous avez identifié. Si vous hésitez, prenez celui qui ressemble le plus — notre technicien confirmera sur place.</p>
+        </>
+      )}
+      <div className={'nuisible-grid' + (coverMode ? ' nuisible-grid-cover' : '')}>
         {NUISIBLES.map(n => (
           <button
             key={n.id}
             type="button"
             className={'nuisible-card' + (value === n.id ? ' selected' : '')}
             style={{'--glow': n.glow}}
-            onClick={() => { onChange(n.id); setTimeout(onAdvance, 350); }}
+            onClick={() => { onChange(n.id); /* L'avance de step est gérée par useEffect côté App :
+              - cover : transition de 460ms puis setStep(1)
+              - post-cover : auto-advance 320ms après changement de sélection */ }}
           >
             <div className="nuisible-img" style={{background: n.bg}}>
               <img src={n.img} alt={n.label} />
             </div>
             <div className="nuisible-name">{n.label}</div>
-            <div className="nuisible-hint">{n.hint}</div>
+            {!coverMode && <div className="nuisible-hint">{n.hint}</div>}
           </button>
         ))}
       </div>
+      {coverMode && (
+        <p className="cover-card-hint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          Étape suivante au clic
+        </p>
+      )}
     </div>
   );
 }
