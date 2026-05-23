@@ -1310,8 +1310,225 @@ body[data-accent="orange"] .offer h2 .accent { color: var(--color-pastel-peach);
 .sticky-cta-tel svg { width: 20px; height: 20px; }
 
 /* ============================================================
-   RESPONSIVE
+   MOBILE BOTTOM-SHEET FORM (LP only, ≤880px)
+   Remplace le sticky-cta legacy : le formulaire est toujours
+   visible en bas (teaser collapsed), tap → slide-up vers le
+   sheet expanded. Le contenu de la page reste scrollable au-
+   dessus, sans backdrop, pour respecter la demande "voir la
+   page en scrollant en haut".
    ============================================================ */
+.form-mobile-stack { display: none; }
+
+@media (max-width: 880px) {
+  /* On planque l'ancien hero-form-card (dans le hero-grid) et
+     l'ancien sticky-cta : le bottom-sheet prend leur place. */
+  .hero-form-card { display: none !important; }
+  .sticky-cta { display: none !important; }
+
+  .form-mobile-stack {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    background: #fff;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    box-shadow: 0 -16px 40px rgba(14,5,42,0.18);
+    max-height: 76px;
+    transition: max-height .35s cubic-bezier(.32,.72,.32,1);
+    will-change: max-height;
+    overscroll-behavior: contain;
+  }
+  .form-mobile-stack[data-state="expanded"] {
+    max-height: min(72vh, 620px);
+  }
+
+  /* ── Teaser (always visible, the "obvious form entry") ── */
+  .form-mobile-teaser {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    column-gap: 10px;
+    padding: 14px 14px 14px 18px;
+    cursor: pointer;
+    background: var(--color-primary-900);
+    color: #fff;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    min-height: 76px;
+    flex: 0 0 76px;
+    position: relative;
+    overflow: hidden;
+    transition: background .25s ease, color .25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .form-mobile-teaser::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.22);
+    transition: background .2s;
+  }
+  .form-mobile-stack[data-state="expanded"] .form-mobile-teaser {
+    background: #fff;
+    color: var(--color-text);
+  }
+  .form-mobile-stack[data-state="expanded"] .form-mobile-teaser::before {
+    background: rgba(14,5,42,0.16);
+  }
+
+  .form-mobile-teaser-text {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    line-height: 1.15;
+  }
+  .form-mobile-teaser-kicker {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .form-mobile-teaser-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(99,93,221,0.42);
+    pointer-events: none; /* le teaser entier est le hit-target */
+    transition: background .25s ease, color .25s ease;
+  }
+  body[data-accent="orange"] .form-mobile-teaser-arrow {
+    box-shadow: 0 6px 18px rgba(246,108,36,0.42);
+  }
+  .form-mobile-teaser-arrow svg {
+    width: 20px;
+    height: 20px;
+    transition: transform .3s ease;
+  }
+  .form-mobile-stack[data-state="expanded"] .form-mobile-teaser-arrow {
+    background: rgba(14,5,42,0.08);
+    color: var(--color-text);
+    box-shadow: none;
+  }
+  .form-mobile-stack[data-state="expanded"] .form-mobile-teaser-arrow svg {
+    transform: rotate(180deg); /* chevron down when expanded */
+  }
+
+  .form-mobile-teaser-tel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    transition: background .2s, color .2s;
+  }
+  .form-mobile-teaser-tel svg { width: 18px; height: 18px; }
+  .form-mobile-stack[data-state="expanded"] .form-mobile-teaser-tel {
+    background: var(--color-bg-sand);
+    color: var(--color-text);
+  }
+
+  /* Sweep/shimmer pour attirer l'œil sur le teaser collapsed.
+     Désactivé en expanded pour ne pas distraire pendant la saisie. */
+  .form-mobile-stack[data-state="collapsed"] .form-mobile-teaser::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -40%;
+    width: 40%;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      rgba(255,255,255,0.10) 35%,
+      rgba(255,255,255,0.28) 50%,
+      rgba(255,255,255,0.10) 65%,
+      transparent 100%
+    );
+    transform: skewX(-18deg);
+    pointer-events: none;
+    animation: teaserSweep 3.6s cubic-bezier(.45,.05,.55,.95) 1.2s infinite;
+  }
+  @keyframes teaserSweep {
+    0%        { left: -40%; }
+    40%, 100% { left: 140%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .form-mobile-stack[data-state="collapsed"] .form-mobile-teaser::after {
+      animation: none;
+    }
+  }
+
+  /* ── Sheet body (le formulaire complet, scrollable interne) ── */
+  .form-mobile-sheet {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    padding: 8px 20px 24px;
+    background: #fff;
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .form-mobile-stack[data-state="expanded"] .form-mobile-sheet {
+    opacity: 1;
+    transition: opacity .25s ease .1s;
+  }
+  .form-mobile-stack[data-state="collapsed"] .form-mobile-sheet {
+    pointer-events: none;
+  }
+
+  /* Le hero-form-card déplacé dans le sheet → on enlève sa coque */
+  .form-mobile-sheet .hero-form-card {
+    display: block !important;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+  }
+  .form-mobile-sheet .hero-form-head h2 { font-size: 19px; }
+  .form-mobile-sheet .hero-form-head { margin-bottom: 14px; padding-top: 0; }
+
+  /* Compensation : la page doit pouvoir scroller au-delà du teaser. */
+  body { padding-bottom: 88px !important; }
+}
+
+/* ============================================================
+   CTA inline en fin de chaque section — auto-injecté par JS,
+   ouvre le bottom-sheet (mobile) ou scrolle vers #heroForm (desktop).
+   ============================================================ */
+.section-cta-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+.section-cta-row .btn { box-shadow: 0 12px 28px rgba(99,93,221,0.28); }
+@media (max-width: 640px) {
+  .section-cta-row { margin-top: 32px; }
+}
+
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .hero-visual { max-width: 380px; margin: 0 auto; }
@@ -1337,8 +1554,7 @@ body[data-accent="orange"] .offer h2 .accent { color: var(--color-pastel-peach);
   .offer-price-now { font-size: 40px; }
   .hero-card { display: none; }
   .header-phone-text small { display: none; }
-  .sticky-cta { display: flex; }
-  body { padding-bottom: 80px; }
+  /* .sticky-cta legacy : remplacé par .form-mobile-stack (cf. règle ≤880px) */
   .topbar-tabs-hidden { display: none; }
 }
 
@@ -2439,11 +2655,6 @@ image-slot[src]::before { display: none; }
         <!-- ─── Form column (v2) ─── -->
         <div class="hero-form-card" data-screen-label="hero form">
 
-          <div class="hero-form-head">
-            <h2>Recevez votre devis gratuit en 2 min</h2>
-            <p>Réponse d'un conseiller Lyon sous 30&nbsp;min · sans engagement</p>
-          </div>
-
           <div class="hero-form-progress" id="hfProgress">
             <div class="hero-form-progress-dot is-current"></div>
             <div class="hero-form-progress-dot"></div>
@@ -2481,9 +2692,9 @@ image-slot[src]::before { display: none; }
               </div>
               <div class="hf-options hf-options-4" style="grid-template-columns:repeat(4,1fr);">
                 <button type="button" class="hf-option" data-field="surface" data-value="&lt;30">&lt; 30 m²</button>
-                <button type="button" class="hf-option" data-field="surface" data-value="30-60">30 – 60</button>
-                <button type="button" class="hf-option" data-field="surface" data-value="60-100">60 – 100</button>
-                <button type="button" class="hf-option" data-field="surface" data-value="&gt;100">&gt; 100</button>
+                <button type="button" class="hf-option" data-field="surface" data-value="30-60">30–60 m²</button>
+                <button type="button" class="hf-option" data-field="surface" data-value="60-100">60–100 m²</button>
+                <button type="button" class="hf-option" data-field="surface" data-value="&gt;100">&gt; 100 m²</button>
               </div>
               <div class="hf-label" style="margin-top:18px;">
                 Niveau d'infestation ressenti
@@ -2545,15 +2756,15 @@ image-slot[src]::before { display: none; }
           <div class="hf-trust">
             <span class="hf-trust-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              100 % gratuit
+              Devis en 2 min
             </span>
             <span class="hf-trust-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Sans engagement
+              1ʳᵉ intervention offerte
             </span>
             <span class="hf-trust-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              Données protégées
+              Dispo 7 j/7
             </span>
           </div>
         </div>
@@ -3217,7 +3428,7 @@ image-slot[src]::before { display: none; }
     </div>
   </footer>
 
-  <!-- ─── Mobile sticky CTA ─── -->
+  <!-- ─── Mobile sticky CTA (legacy, planqué à ≤880px) ─── -->
   <div class="sticky-cta">
     <a href="/devis/" class="sticky-cta-main">
       Mon devis gratuit
@@ -3228,7 +3439,25 @@ image-slot[src]::before { display: none; }
     </a>
   </div>
 
-  
+  <!-- ─── Mobile bottom-sheet form (LP only, ≤880px) ─── -->
+  <div class="form-mobile-stack" id="formMobileStack" data-state="collapsed" aria-hidden="true">
+    <div class="form-mobile-teaser" id="formMobileTeaser" role="button" tabindex="0" aria-expanded="false" aria-controls="formMobileSheet" aria-label="Ouvrir le formulaire de devis gratuit">
+      <div class="form-mobile-teaser-text">
+        <span class="form-mobile-teaser-kicker">Devis gratuit en 2 min</span>
+      </div>
+      <span class="form-mobile-teaser-arrow" id="formMobileTeaserArrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 15 12 9 18 15"></polyline></svg>
+      </span>
+      <a href="tel:0667464897" class="form-mobile-teaser-tel" aria-label="Appeler Sanalia Lyon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      </a>
+    </div>
+    <div class="form-mobile-sheet" id="formMobileSheet" role="dialog" aria-label="Devis gratuit Sanalia">
+      <!-- Le .hero-form-card est déplacé ici par JS sur mobile -->
+    </div>
+  </div>
+
+
 
   <!-- ════════ Countdown + Form JS ════════ -->
   <script>
@@ -3394,6 +3623,132 @@ image-slot[src]::before { display: none; }
         console.warn('[lp] N8N endpoint not configured yet — payload was:', payload);
       }
     });
+
+    // ─── MOBILE BOTTOM-SHEET (LP only, ≤880px) ───
+    // Déplace .hero-form-card depuis le hero-grid vers le sheet sur mobile,
+    // gère l'ouverture/fermeture du sheet et la synchro du teaser avec le state du form.
+    (function setupMobileSheet() {
+      var stack = document.getElementById('formMobileStack');
+      var teaserEl = document.getElementById('formMobileTeaser');
+      var sheetEl = document.getElementById('formMobileSheet');
+      if (!stack || !teaserEl || !sheetEl) return;
+
+      var heroCard = form.closest('.hero-form-card');
+      if (!heroCard) return;
+      var originalParent = heroCard.parentNode;
+      var originalNextSibling = heroCard.nextSibling;
+      var bp = window.matchMedia('(max-width: 880px)');
+
+      function moveToSheet() {
+        if (heroCard.parentNode !== sheetEl) sheetEl.appendChild(heroCard);
+      }
+      function moveBackToHero() {
+        if (heroCard.parentNode === originalParent) return;
+        if (originalNextSibling && originalNextSibling.parentNode === originalParent) {
+          originalParent.insertBefore(heroCard, originalNextSibling);
+        } else {
+          originalParent.appendChild(heroCard);
+        }
+        closeSheet();
+      }
+      function applyBreakpoint() {
+        if (bp.matches) moveToSheet();
+        else moveBackToHero();
+      }
+      applyBreakpoint();
+      if (bp.addEventListener) bp.addEventListener('change', applyBreakpoint);
+      else if (bp.addListener) bp.addListener(applyBreakpoint);
+
+      function openSheet() {
+        if (!bp.matches) return;
+        stack.dataset.state = 'expanded';
+        teaserEl.setAttribute('aria-expanded', 'true');
+        stack.setAttribute('aria-hidden', 'false');
+        // Donne le focus au 1er bouton/champ actif pour pousser à interagir
+        setTimeout(function () {
+          var activeStep = heroCard.querySelector('.hf-step.is-active');
+          if (!activeStep) return;
+          var firstFocusable = activeStep.querySelector('.hf-option, .hf-field, .hf-submit');
+          if (firstFocusable && typeof firstFocusable.focus === 'function') {
+            try { firstFocusable.focus({ preventScroll: true }); } catch (_) { firstFocusable.focus(); }
+          }
+        }, 280);
+      }
+      function closeSheet() {
+        stack.dataset.state = 'collapsed';
+        teaserEl.setAttribute('aria-expanded', 'false');
+      }
+      function toggleSheet() {
+        if (stack.dataset.state === 'expanded') closeSheet();
+        else openSheet();
+      }
+      teaserEl.addEventListener('click', function (e) {
+        // Le tel doit garder son comportement natif
+        if (e.target.closest('.form-mobile-teaser-tel')) return;
+        toggleSheet();
+      });
+      teaserEl.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleSheet();
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && stack.dataset.state === 'expanded') closeSheet();
+      });
+
+      // Hook showStep pour auto-ouvrir le sheet quand le user lance la step 2,
+      // et pour masquer le teaser après succès du submit.
+      var _showStep = showStep;
+      showStep = function (n) {
+        _showStep(n);
+        if (bp.matches && stack.dataset.state === 'collapsed' && typeof n === 'number' && n > 1) {
+          openSheet();
+        }
+        if (n === 'success') {
+          stack.style.display = 'none';
+        }
+      };
+
+      // ─── CTA inline en fin de chaque section (auto-injecté) ───
+      // 7 sections sans CTA propre : on en ajoute un qui ouvre le sheet
+      // sur mobile / scrolle vers le hero form sur desktop.
+      var sectionLabels = [
+        'trust strip',
+        '03 Certifications',
+        '04 Pain points',
+        '04 Protocole',
+        '05 Pourquoi Sanalia',
+        '06 Avis',
+        '09 FAQ'
+      ];
+      sectionLabels.forEach(function (label) {
+        var section = document.querySelector('[data-screen-label="' + label + '"]');
+        if (!section) return;
+        var wrap = section.querySelector('.wrap') || section;
+        var row = document.createElement('div');
+        row.className = 'section-cta-row';
+        row.innerHTML = '<button type="button" class="btn btn-primary btn-lg" data-open-form>Recevoir mon devis<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:8px;"><path d="M5 12h14M13 5l7 7-7 7"></path></svg></button>';
+        wrap.appendChild(row);
+      });
+
+      // Handler global : tout [data-open-form] ouvre le sheet (mobile)
+      // ou scrolle vers #heroForm (desktop), avec un tracking dataLayer.
+      document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-open-form]');
+        if (!btn) return;
+        e.preventDefault();
+        if (typeof window !== 'undefined' && window.dataLayer) {
+          window.dataLayer.push({ event: 'lp_section_cta_click', section: btn.closest('[data-screen-label]') ? btn.closest('[data-screen-label]').getAttribute('data-screen-label') : null });
+        }
+        if (bp.matches) {
+          openSheet();
+        } else {
+          var heroForm = document.getElementById('heroForm');
+          if (heroForm) heroForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+    })();
   })();
   </script>
 
