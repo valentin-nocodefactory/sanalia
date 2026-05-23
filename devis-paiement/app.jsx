@@ -503,6 +503,19 @@ function App() {
   // Dès que step passe à 1 (Phase A), le variant bascule en standard.
   const coverFormVariant = step === 0 && showCover;
 
+  // Auto-scroll vers le haut à chaque changement d'étape — sinon, après un
+  // Continuer sur un step long (créneaux par ex.), l'utilisateur reste en
+  // bas de page et doit re-scroller manuellement pour voir le contenu de
+  // l'étape suivante.
+  const firstRenderRef = useRef(true);
+  useEffect(() => {
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [step]);
+
   // Active step renderer
   let stepNode = null;
   const sid = STEPS[step]?.id;
