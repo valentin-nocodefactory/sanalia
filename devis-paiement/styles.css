@@ -75,14 +75,6 @@
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-/* On verrouille la page à 100vh / 100dvh pour qu'il n'y ait JAMAIS de scroll
-   au niveau du document. Les cartes internes (form + rail) peuvent scroller
-   à l'intérieur de leur conteneur si leur contenu dépasse, mais la page
-   reste fixe — c'est un funnel, pas un long article. */
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
 body {
   font-family: var(--font-uxum);
   color: var(--c-text);
@@ -90,6 +82,7 @@ body {
   background-image:
     radial-gradient(circle at 88% 0%, rgba(206,204,252,0.45), transparent 38%),
     radial-gradient(circle at 8% 92%, rgba(244,233,193,0.4), transparent 36%);
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -98,10 +91,8 @@ a { color: inherit; }
 
 /* ---------- App shell ---------- */
 .app {
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
   display: flex; flex-direction: column;
-  overflow: hidden;
 }
 /* Mode embarqué : navbar Sanalia traditionnelle au-dessus, pas d'appbar interne */
 .app.app-embed {
@@ -182,46 +173,18 @@ a { color: inherit; }
 /* ---------- Container / layout ---------- */
 .shell {
   flex: 1;
-  min-height: 0; /* permet au flex-item de shrink en-dessous de son contenu */
   width: 100%; max-width: 1200px;
-  margin: 0 auto; padding: 20px 36px 24px;
-  /* minmax(0, 1fr) sur la row force le track à ne PAS grow en fonction du
-     contenu. Sans le minmax(0,...), `1fr` est résolu comme max(1fr, min-content)
-     ce qui laisse le track déborder de la shell quand le contenu est long. */
-  display: grid; grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr); gap: 28px;
-  align-items: stretch; /* les cartes occupent toute la hauteur de la row */
-  overflow: hidden; /* aucun scroll au niveau du shell — les cartes internes gèrent leur scroll */
-}
-
-/* Les cartes internes peuvent scroller à l'intérieur si leur contenu dépasse
-   la hauteur disponible. La page entière reste verrouillée à 100vh. */
-.shell .step-card,
-.shell .recap-rail {
-  min-height: 0; /* indispensable pour que overflow-y:auto fonctionne en grid */
-  max-height: 100%;
-  overflow-y: auto;
-  /* Subtle scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(14,5,42,0.15) transparent;
-}
-.shell .step-card::-webkit-scrollbar,
-.shell .recap-rail::-webkit-scrollbar { width: 6px; }
-.shell .step-card::-webkit-scrollbar-thumb,
-.shell .recap-rail::-webkit-scrollbar-thumb {
-  background: rgba(14,5,42,0.12);
-  border-radius: 999px;
-}
-.shell .step-card::-webkit-scrollbar-thumb:hover,
-.shell .recap-rail::-webkit-scrollbar-thumb:hover {
-  background: rgba(14,5,42,0.22);
+  margin: 0 auto; padding: 28px 36px 80px;
+  display: grid; grid-template-columns: 1fr; gap: 28px;
 }
 
 /* SIDEBAR layout (default): question (left) + sticky récap (right).
    La grille a 3 tracks pour permettre la transition fluide avec layout-cover
-   (qui en a aussi 3). align-items: stretch hérité du .shell de base (les
-   cartes form + rail occupent toute la hauteur du viewport pour scroller
-   à l'intérieur si besoin). */
-.shell.layout-sidebar .recap-rail { display: block; }
+   (qui en a aussi 3). align-items: start pour que les cartes prennent leur
+   hauteur naturelle ; la page peut scroller normalement quand le contenu
+   dépasse, et la rail reste sticky en haut pendant le scroll. */
+.shell.layout-sidebar { align-items: start; }
+.shell.layout-sidebar .recap-rail { display: block; position: sticky; top: 96px; }
 .shell.layout-sidebar .recap-inline { display: none; }
 .shell.layout-sidebar.no-rail { grid-template-columns: 0px 1fr 0px; }
 
@@ -1368,24 +1331,6 @@ h1.headline em { font-style: normal; color: var(--c-p600); }
   padding: 14px 0 0;
   border-top: 1px solid var(--c-line-soft);
   gap: 12px;
-  /* Sticky : reste visible en bas du scroll de la step-card. Fond solid
-     (pas de translucide) pour que le contenu qui passe derrière soit
-     totalement masqué — sinon ça donnait une impression de "Continuer
-     qui passe devant le bas de la carte". */
-  position: sticky;
-  bottom: 0;
-  z-index: 30;
-  background: #fff;
-  /* Étend le fond hors du padding latéral du step-card pour matcher
-     les bords arrondis de la carte. */
-  margin-left: calc(-1 * var(--pad-card-x));
-  margin-right: calc(-1 * var(--pad-card-x));
-  padding-left: var(--pad-card-x);
-  padding-right: var(--pad-card-x);
-  margin-bottom: calc(-1 * var(--pad-card));
-  padding-bottom: var(--pad-card);
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
 }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
