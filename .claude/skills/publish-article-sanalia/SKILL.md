@@ -740,8 +740,12 @@ Le `--parent-nuisible-slug` est l'`url_slug` du mapping `parent_nuisible_map` da
 # Inline les composants header/footer/etc.
 ./build.sh
 
-# Créer la branche depuis main
-BRANCH="claude/draft/<slug>"
+# Créer la branche depuis main.
+# Préfixe court "b/" : alias Cloudflare = "b-<slug>" ≤ 28 chars (2 + 26).
+# "claude/draft/<slug>" donnait un alias de 13 + len(slug) chars → tronqué
+# par Cloudflare dès que le slug dépasse 15 chars, URL preview 404.
+SLUG_PART=$(echo "<slug>" | cut -c1-26 | sed 's/-*$//')
+BRANCH="b/${SLUG_PART}"
 git checkout -b "$BRANCH"
 
 # Stage uniquement les fichiers touchés
@@ -918,7 +922,7 @@ Format clair pour les routines :
 [publish-article-sanalia] ✓ Étape 5 — N photos + M schémas générés et téléchargés (1 hero + N-1 inline photos + M diagrams)
 [publish-article-sanalia] ✓ Étape 6 — HTML assemblé : blog/<slug>/index.html
 [publish-article-sanalia] ✓ Étape 7 — Index mis à jour (sitemap, feed, hub)
-[publish-article-sanalia] ✓ Étape 8 — Branche claude/draft/<slug> poussée + PR draft #N
+[publish-article-sanalia] ✓ Étape 8 — Branche b/<slug-26> poussée + PR draft #N
 [publish-article-sanalia] ✓ Étape 9 — Notion → À valider + Slack envoyé
 [publish-article-sanalia] ✅ Article prêt : <PREVIEW_URL>
 ```

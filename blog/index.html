@@ -604,6 +604,15 @@
             <h3 class="bv2-latest-title">Les dernières publications</h3>
             <ul class="bv2-latest-list" role="list">
               <!-- BLOG-HUB-SLOT: latest-publication (max 10 items, push le plus ancien si surcapacité) -->
+              <li><a href="/blog/tva-deratisation-desinsectisation-taux/" class="bv2-latest-item">
+                <span class="bv2-latest-avatar bg-default">
+                  <span style="font-size:1.4rem">⚖️</span>
+                </span>
+                <div>
+                  <h4>TVA dératisation : quel taux s'applique à vos interventions ?</h4>
+                  <p>ÉQUIPE SANALIA · 7 MIN · 24 MAI 2026</p>
+                </div>
+              </a></li>
               <li><a href="/blog/piqure-frelon/" class="bv2-latest-item">
                 <span class="bv2-latest-avatar bg-guepes">
                   <img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" alt="">
@@ -683,15 +692,6 @@
                 <div>
                   <h4>Hantavirus et rats&nbsp;: transmission, symptômes, prévention</h4>
                   <p>ÉQUIPE SANALIA · 6 MIN · 13 MAI 2026</p>
-                </div>
-              </a></li>
-              <li><a href="/blog/moustique-tigre-jardin/" class="bv2-latest-item">
-                <span class="bv2-latest-avatar bg-moustiques">
-                  <img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" alt="">
-                </span>
-                <div>
-                  <h4>Moustique tigre au jardin&nbsp;: prévention et solutions</h4>
-                  <p>ÉQUIPE SANALIA · 10 MIN · 13 MAI 2026</p>
                 </div>
               </a></li>
               <!-- /BLOG-HUB-SLOT -->
@@ -1050,10 +1050,11 @@
   <div class="bv2-filter">
     <div class="bv2-filter-inner">
       <nav class="bv2-filter-pills" aria-label="Filtrer par catégorie">
-        <a href="#cat-species" class="bv2-fp is-active" data-target="all">Tout <span class="bv2-fp-count">15</span></a>
+        <a href="#cat-species" class="bv2-fp is-active" data-target="all">Tout <span class="bv2-fp-count">16</span></a>
         <a href="#cat-prevention" class="bv2-fp" data-target="cat-prevention">Prévention <span class="bv2-fp-count">5</span></a>
         <a href="#cat-identification" class="bv2-fp" data-target="cat-identification">Identification <span class="bv2-fp-count">6</span></a>
         <a href="#cat-traitements" class="bv2-fp" data-target="cat-traitements">Traitements <span class="bv2-fp-count">4</span></a>
+        <a href="#cat-pratiques" class="bv2-fp" data-target="cat-pratiques">Pratiques <span class="bv2-fp-count">1</span></a>
         <a href="#cat-actu" class="bv2-fp" data-target="cat-actu">Actu <span class="bv2-fp-count">1</span></a>
       </nav>
       <form class="bv2-fs" role="search" onsubmit="event.preventDefault()">
@@ -1320,8 +1321,7 @@
     </div>
   </section>
 
-  <!-- BLOG-HUB-SLOT: cluster / cat-pratiques (HIDDEN — 0 article, réactiver dès qu'un article Infos pratiques est publié) -->
-  <!--
+  <!-- BLOG-HUB-SLOT: cluster / cat-pratiques (1 article) -->
   <section id="cat-pratiques" class="bv2-cat">
     <div class="bv2-wrap">
       <header class="bv2-cat-head">
@@ -1332,15 +1332,27 @@
         </div>
         <div class="bv2-cat-count">
           <span class="bv2-cat-count-label">ARTICLES PUBLIÉS</span>
-          <strong>N</strong>
+          <strong>1</strong>
         </div>
       </header>
       <div class="bv2-grid">
-        [insérer ici les bv2-card du cluster Infos pratiques]
+        <a href="/blog/tva-deratisation-desinsectisation-taux/" class="bv2-card">
+          <div class="bv2-card-illu bg-default">
+            <span class="bv2-card-pill">Réglementation</span>
+            <span style="font-size:3rem;line-height:1;display:block;text-align:center;padding-top:0.5rem">⚖️</span>
+          </div>
+          <div class="bv2-card-body">
+            <h3 class="bv2-card-title">TVA dératisation : quel taux s'applique à vos interventions ?</h3>
+            <p class="bv2-card-excerpt">Logement, local commercial, propriétaire bailleur, copropriété : deux taux de TVA coexistent pour la dératisation. Ce guide explique lequel s'applique à votre situation.</p>
+            <div class="bv2-card-foot">
+              <span class="bv2-card-author">Équipe Sanalia</span>
+              <span class="bv2-card-meta">7 MIN · 24 MAI 2026</span>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </section>
-  -->
 
   <!-- BLOG-HUB-SLOT: cluster / cat-actu (1 article) -->
   <section id="cat-actu" class="bv2-cat">
