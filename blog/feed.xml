@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Sat, 23 May 2026 06:27:30 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 06:29:17 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>TVA dératisation : quel taux s'applique à vos interventions ?</title>
+      <link>https://www.sanalia.fr/blog/tva-deratisation-desinsectisation-taux/</link>
+      <description>Découvrez quel taux de TVA s'applique à vos interventions de dératisation et désinsectisation : 10 % ou 20 % selon votre situation. Crédit d'impôt SAP, déduction charges, FAQ.</description>
+      <pubDate>Sun, 24 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/tva-deratisation-desinsectisation-taux/</guid>
+      <category>Prévention</category>
+    </item>
+
     <item>
       <title>Piqûre de frelon : symptômes, dangers et bons réflexes</title>
       <link>https://www.sanalia.fr/blog/piqure-frelon/</link>
