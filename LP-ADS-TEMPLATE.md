@@ -125,7 +125,7 @@ if (N8N_LEAD_ENDPOINT) {
   - `.hero-bullets` : **3 arguments concrets** maximum (Efficacité / Devis / Disponibilité), `<strong>` en `display: inline !important`
   - `.hero-cta-row` : bouton principal violet + bouton ghost téléphone
 - **Hero form** (droite) `.hero-form-card` :
-  - 3 steps : (1) type logement, (2) surface + niveau infestation, (3) prénom + tel + CP
+  - 3 steps : (1) type logement, (2) surface + niveau infestation, (3) prénom + tel + email + CP (les 4 champs sont **obligatoires** — `required` HTML + validation JS bloquante)
   - Progress bar fine en haut
   - Bouton submit "Recevoir mon devis"
   - Pas de ribbon "Offre Lyon" ici (déjà dans le countdown band)

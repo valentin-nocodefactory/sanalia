@@ -2731,6 +2731,7 @@ image-slot[src]::before { display: none; }
               </div>
               <input class="hf-field" type="text" name="prenom" placeholder="Prénom" autocomplete="given-name" required="">
               <input class="hf-field" type="tel" name="tel" placeholder="Téléphone — ex. 06 12 34 56 78" autocomplete="tel" inputmode="tel" required="">
+              <input class="hf-field" type="email" name="email" placeholder="Email — pour recevoir le devis" autocomplete="email" inputmode="email" required="">
               <input class="hf-field" type="text" name="cp" placeholder="Code postal — ex. 69003" autocomplete="postal-code" inputmode="numeric" maxlength="5" required="">
               <div class="hf-actions">
                 <button type="button" class="hf-back" data-back="">← Retour</button>
@@ -3559,6 +3560,7 @@ image-slot[src]::before { display: none; }
         niveau: state.niveau,
         prenom: data.get('prenom'),
         tel: data.get('tel'),
+        email: data.get('email'),
         cp: data.get('cp'),
         nuisible: 'punaises-de-lit',
         ville: 'lyon',
@@ -3576,7 +3578,7 @@ image-slot[src]::before { display: none; }
         gclid: new URLSearchParams(window.location.search).get('gclid'),
       };
       // Validate basic fields
-      if (!payload.prenom || !payload.tel || !payload.cp) {
+      if (!payload.prenom || !payload.tel || !payload.email || !payload.cp) {
         return;
       }
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours…'; }
