@@ -127,7 +127,12 @@ Si une PR n'est pas mergeable :
 - Ne JAMAIS forcer le merge (`--admin`, `-f`, etc.).
 - Ne JAMAIS merger une PR qui n'a pas été créée par
   `publish-article-sanalia-daily` (vérifier que la branche source matche
-  `claude/draft/*`).
+  `b/*` ou `claude/draft/*`).
+  > **Pourquoi deux patterns ?** Le skill `publish-article-sanalia` utilise
+  > `b/<slug>` depuis que `claude/draft/<slug>` dépassait 28 chars et que
+  > Cloudflare tronquait l'alias de preview (URL 404). Les deux patterns
+  > sont valides ; seules les branches hors de ces deux préfixes sont
+  > suspectes et doivent être rejetées.
 - Ne JAMAIS toucher aux PRs sans tag Notion "Validé".
 - Ne JAMAIS supprimer une branche locale (juste la distante via
   `--delete-branch`).
