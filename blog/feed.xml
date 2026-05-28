@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 26 May 2026 06:32:09 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 May 2026 06:33:13 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Propriétaire bailleur : déduire les frais de dératisation et désinsectisation de vos revenus fonciers</title>
+      <link>https://www.sanalia.fr/blog/deduction-fiscale-deratisation-proprietaire-bailleur/</link>
+      <description>Dératisation déductible des impôts : TVA à 10 %, revenus fonciers (ligne 224), charges pro. Calculez votre avantage fiscal selon votre profil.</description>
+      <pubDate>Thu, 28 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/deduction-fiscale-deratisation-proprietaire-bailleur/</guid>
+      <category>Prévention</category>
+    </item>
+
     <item>
       <title>Guêpe ou abeille : comment les différencier (et quoi faire selon l'espèce)</title>
       <link>https://www.sanalia.fr/blog/guepe-abeille/</link>
