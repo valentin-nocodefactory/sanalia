@@ -647,6 +647,56 @@ def gen_related_cards(data: dict, parent_nuisible: str, cfg: dict) -> str:
     return "\n".join(cards)
 
 
+def gen_breadcrumb_html(parent_nuisible: str, parent_meta: dict) -> str:
+    """Génère le bloc HTML breadcrumb niveau 2 (+3 si nuisible).
+
+    - parentNuisible présent → Accueil > Nuisibles > [nuisible dropdown] > Titre
+    - parentNuisible absent  → Accueil > Blog > Titre  (3 niveaux)
+    """
+    if parent_nuisible:
+        slug = parent_meta.get("url_slug", parent_nuisible)
+        picto = parent_meta.get("picto", "")
+        bg = parent_meta.get("bg_class", "bg-gold")
+        name = parent_meta.get("name", "Nuisibles")
+        return (
+            f'      <a href="/nuisibles/">Nuisibles</a>\n'
+            f'      <span class="breadcrumb-sep">›</span>\n'
+            f'      <div class="breadcrumb-nuisible-wrap">\n'
+            f'      <a href="/nuisibles/{slug}/" style="display:inline-flex;align-items:center;gap:4px;">'
+            f'<img src="/assets/nuisibles/{picto}" class="breadcrumb-icon {bg}" alt="">{name}</a>\n'
+            f'      <div class="breadcrumb-dropdown">\n'
+            f'        <a href="/nuisibles/rats/" class=""><img src="/assets/nuisibles/brown-rat--realistic-body-shape--long-tail--pointe.png" class="bg-gold" alt="">Rats</a>\n'
+            f'        <a href="/nuisibles/souris/" class=""><img src="/assets/nuisibles/house-mouse--mus-musculus--realistic-body-shape--l.png" class="bg-lavender" alt="">Souris</a>\n'
+            f'        <a href="/nuisibles/punaises-de-lit/" class=""><img src="/assets/nuisibles/bed-bug--cimex-lectularius--realistic-body-shape--.png" class="bg-rose" alt="">Punaises de lit</a>\n'
+            f'        <a href="/nuisibles/cafards/" class=""><img src="/assets/nuisibles/cockroach--realistic-body-shape--flat-oval-body--l.png" class="bg-mint" alt="">Cafards</a>\n'
+            f'        <a href="/nuisibles/guepes-frelons/" class=""><img src="/assets/nuisibles/european-wasp--vespula-vulgaris--realistic-body-sh.png" class="bg-gold" alt="">Guepes &amp; Frelons</a>\n'
+            f'        <a href="/nuisibles/fourmis/" class=""><img src="/assets/nuisibles/black-garden-ant--lasius-niger--realistic-body-sha.png" class="bg-rose" alt="">Fourmis</a>\n'
+            f'        <a href="/nuisibles/moustiques/" class=""><img src="/assets/nuisibles/common-mosquito--culex-pipiens--realistic-body-sha.png" class="bg-blue" alt="">Moustiques</a>\n'
+            f'        <a href="/nuisibles/pigeons/" class=""><img src="/assets/nuisibles/feral-pigeon--columba-livia--realistic-body-shape-.png" class="bg-mint" alt="">Pigeons</a>\n'
+            f'      </div>\n'
+            f'    </div>\n'
+            f'      <span class="breadcrumb-sep">›</span>'
+        )
+    else:
+        return (
+            '      <a href="/blog/">Blog</a>\n'
+            '      <span class="breadcrumb-sep">›</span>'
+        )
+
+
+def gen_tag_picto_html(parent_nuisible: str, parent_meta: dict) -> str:
+    """Génère le picto du tag catégorie hero.
+
+    - parentNuisible présent → <img src="/assets/nuisibles/[picto]" class="pill-icon" alt="">
+    - parentNuisible absent  → emoji 🛡️ dans un <span>
+    """
+    if parent_nuisible:
+        picto = parent_meta.get("picto", "")
+        return f'<img src="/assets/nuisibles/{picto}" class="pill-icon" alt="">'
+    else:
+        return '<span class="pill-icon-emoji" aria-hidden="true">🛡️</span>'
+
+
 def gen_breadcrumb_jsonld_level34(parent_nuisible: str, article_title: str, cfg: dict) -> str:
     """Génère les positions 3 et 4 du BreadcrumbList JSON-LD."""
     parent_meta = cfg["parent_nuisible_map"].get(parent_nuisible, {})
@@ -731,10 +781,8 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
         "{{WORD_COUNT}}": str(data["wordCount"]),
         "{{JSONLD_BREADCRUMB_LEVEL3_AND_4}}": gen_breadcrumb_jsonld_level34(parent_nuisible, data["title"], cfg),
         "{{JSONLD_FAQ_ITEMS}}": gen_faq_jsonld(data["faq"]),
-        "{{PARENT_NUISIBLE_SLUG}}": parent_meta.get("url_slug", parent_nuisible) or "rats",
-        "{{PARENT_NUISIBLE_PICTO}}": parent_meta.get("picto", ""),
-        "{{PARENT_NUISIBLE_BG_CLASS}}": parent_meta.get("bg_class", "bg-gold"),
-        "{{PARENT_NUISIBLE_NAME}}": parent_meta.get("name", "Nuisibles"),
+        "{{BREADCRUMB_NUISIBLE_HTML}}": gen_breadcrumb_html(parent_nuisible, parent_meta),
+        "{{TAG_PICTO_HTML}}": gen_tag_picto_html(parent_nuisible, parent_meta),
         "{{TAG_NUISIBLE_CLASS}}": parent_meta.get("tag_class", "tag-prevention"),
         "{{BREADCRUMB_CURRENT_LABEL}}": breadcrumb_label,
         "{{H1}}": data["title"],
