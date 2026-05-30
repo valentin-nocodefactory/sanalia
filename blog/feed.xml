@@ -7,7 +7,7 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Fri, 29 May 2026 06:35:24 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Jun 2026 06:00:00 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
@@ -15,12 +15,21 @@
       <link>https://www.sanalia.fr/blog/</link>
     </image>
     <item>
+      <title>Dératisation en entreprise : comment déduire vos frais et optimiser votre fiscalité</title>
+      <link>https://www.sanalia.fr/blog/deratisation-entreprise-tva-deduction-fiscale/</link>
+      <description>Déduisez vos frais de dératisation en entreprise, récupérez la TVA et optimisez votre fiscalité. Guide complet avec exemples chiffrés.</description>
+      <pubDate>Sat, 30 May 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/deratisation-entreprise-tva-deduction-fiscale/</guid>
+      <category>Prévention</category>
+    </item>
+
+    <item>
       <title>Répulsif guêpe : les solutions naturelles et efficaces pour éloigner les guêpes</title>
       <link>https://www.sanalia.fr/blog/repulsif-guepe/</link>
       <description>Découvrez les répulsifs naturels contre les guêpes : huiles essentielles, plantes, vinaigre blanc. Guide pratique pour une terrasse sans guêpes cet été.</description>
       <pubDate>Fri, 29 May 2026 09:00:00 +0200</pubDate>
       <guid isPermaLink="true">https://www.sanalia.fr/blog/repulsif-guepe/</guid>
-      <category>Guêpes & Frelons</category>
+      <category>Guêpes &amp; Frelons</category>
     </item>
 
     <item>
