@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Mon, 01 Jun 2026 08:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2026 06:32:05 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Bouton de punaise de lit : à quoi ça ressemble et comment réagir</title>
+      <link>https://www.sanalia.fr/blog/bouton-punaise-de-lit/</link>
+      <description>Bouton de punaise de lit en ligne ou en grappe ? Apprenez à identifier, distinguer et soigner les piqûres. 3 tableaux comparatifs pour agir vite.</description>
+      <pubDate>Wed, 03 Jun 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/bouton-punaise-de-lit/</guid>
+      <category>Punaises de lit</category>
+    </item>
+
     <item>
       <title>Piqûre de punaise de lit : reconnaître, soigner et détecter une infestation</title>
       <link>https://www.sanalia.fr/blog/piqure-punaise-de-lit/</link>
