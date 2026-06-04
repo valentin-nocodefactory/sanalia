@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Mon, 01 Jun 2026 08:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2026 06:28:54 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Cafard de jardin (Ectobius) : identification, dangers et solutions</title>
+      <link>https://www.sanalia.fr/blog/cafard-de-jardin/</link>
+      <description>Cafard de jardin ou blatte de jardin ? Identification des espèces, dangers réels, causes d'invasion et solutions efficaces - naturelles ou professionnelles. Guide complet.</description>
+      <pubDate>Thu, 04 Jun 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/cafard-de-jardin/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Piqûre de punaise de lit : reconnaître, soigner et détecter une infestation</title>
       <link>https://www.sanalia.fr/blog/piqure-punaise-de-lit/</link>
