@@ -166,6 +166,17 @@
   <url>
     <loc>https://www.sanalia.fr/blog/cafard-de-jardin/</loc>
     <lastmod>2026-06-04</lastmod>
+    <loc>https://www.sanalia.fr/blog/bouton-punaise-de-lit/</loc>
+    <lastmod>2026-06-03</lastmod>
+    <loc>https://www.sanalia.fr/blog/reine-guepe/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.sanalia.fr/blog/nid-de-guepe/</loc>
+    <lastmod>2026-06-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
