@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Mon, 01 Jun 2026 08:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2026 06:26:39 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Piège à mouche : quel type choisir et comment en fabriquer un maison ?</title>
+      <link>https://www.sanalia.fr/blog/piege-a-mouche/</link>
+      <description>Quel piège à mouche choisir ? Comparatif des 5 types, 3 recettes DIY faciles et conseils de placement par les experts Sanalia.</description>
+      <pubDate>Sat, 06 Jun 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/piege-a-mouche/</guid>
+      <category>Prévention</category>
+    </item>
+
     <item>
       <title>Piqûre de punaise de lit : reconnaître, soigner et détecter une infestation</title>
       <link>https://www.sanalia.fr/blog/piqure-punaise-de-lit/</link>
