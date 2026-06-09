@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Sat, 06 Jun 2026 06:26:39 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jun 2026 06:23:27 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Fourmis dans la maison : pourquoi elles envahissent et comment les empêcher de revenir</title>
+      <link>https://www.sanalia.fr/blog/fourmis-maison-colonies/</link>
+      <description>Fourmis dans la maison ? Identifiez l'espèce et découvrez les solutions pour les empêcher de revenir. Guide complet : espèces, prévention, traitement.</description>
+      <pubDate>Tue, 09 Jun 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/fourmis-maison-colonies/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Piège à mouche : quel type choisir et comment en fabriquer un maison ?</title>
       <link>https://www.sanalia.fr/blog/piege-a-mouche/</link>
