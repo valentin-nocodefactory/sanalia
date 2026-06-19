@@ -227,12 +227,6 @@
       sub: "Biocides Certibiocide TP14/TP18, pieges, postes d'appatage securises",
       qty: 1, pu: fmtMoney(quote.products || 32), total: fmtMoney(quote.products || 32),
     });
-    drawLine({
-      title: 'Remise - 1ere intervention offerte',
-      sub: 'Offre de bienvenue Sanalia, valable sur le 1er passage',
-      qty: 1, pu: '-' + fmtMoney(quote.discount), total: '-' + fmtMoney(quote.discount),
-      color: C_ACC,
-    });
 
     y += 4;
 
@@ -254,8 +248,6 @@
       y += 5.5;
     }
 
-    drawTotalRow('Sous-total HT', fmtMoney(quote.subtotalBefore));
-    drawTotalRow('Remise 1ere intervention', '-' + fmtMoney(quote.discount), { lblColor: C_ACC, valColor: C_ACC });
     drawTotalRow('Total HT', fmtMoney(quote.ht));
     if (state.audience !== 'pro') {
       drawTotalRow('TVA 20%', fmtMoney(quote.tva));
@@ -285,7 +277,6 @@
     doc.setFontSize(8.5);
     var perks = [
       "Annulation gratuite jusqu'a 48 h avant",
-      '1ere intervention offerte',
       'Devis valable 7 jours',
       'Techniciens certifies Certibiocide',
     ];

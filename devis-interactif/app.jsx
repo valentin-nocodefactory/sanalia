@@ -631,7 +631,6 @@ function App() {
             <h1 className="cover-title">Votre devis gratuit,<br/><span className="cover-title-accent">en 60 secondes.</span></h1>
             <p className="cover-subtitle">Un technicien certifié vous rappelle sous 2h avec un devis ferme. Sans engagement.</p>
             <ul className="cover-bullets">
-              <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> <strong>1<sup>re</sup> intervention offerte</strong></li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Devis sous 2h par un technicien</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Suivi WhatsApp jusqu'à éradication</li>
               <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Certibiocide · CS3D · QualiPro 3D</li>
@@ -686,16 +685,6 @@ function App() {
             //   déclencher l'animation @keyframes contentSwap (fade-in + slide
             //   léger). Donne l'effet ultra smooth attendu.
             <div className={'step-card' + (showCover ? ' step-card-cover' : '')}>
-              {/* Badge + footer : rendus tant que showCover=true (incluant Phase A
-                  où step a déjà avancé). La classe is-fading ajoutée quand on
-                  n'est plus en variant cover réel déclenche un fade-out CSS
-                  smooth avant l'unmount final (qui n'arrive que quand showCover
-                  bascule à false). */}
-              {showCover && (
-                <div className={'cover-offer-badge-slot' + (coverFormVariant ? '' : ' is-fading')}>
-                  <CoverOfferBadge/>
-                </div>
-              )}
               <div className="progress">
                 <div className="progress-track">
                   <div className="progress-fill" style={{width: `${((step + 0.5) / STEPS.length) * 100}%`}}/>
@@ -821,7 +810,6 @@ function App() {
 
             <div className="recap-perks">
               <div className="recap-perk"><Ic.Check/><span><strong>Annulation gratuite</strong> jusqu'à 48h avant</span></div>
-              <div className="recap-perk"><Ic.Check/><span><strong>1<sup>ère</sup> intervention offerte</strong> !</span></div>
               <div className="recap-perk"><Ic.Check/><span>Techniciens <strong>certifiés Certibiocide</strong></span></div>
             </div>
 
@@ -935,23 +923,6 @@ function App() {
           </div>
         </TweakSection>
       </TweaksPanel>
-    </div>
-  );
-}
-
-// "Jusqu'au [J+3] · 1ère intervention offerte" — badge vert pulsant affiché en haut
-// de la carte formulaire sur la page de garde. Date recalculée à chaque render
-// (auj. + 3 jours) pour rester toujours pertinente.
-function CoverOfferBadge() {
-  const dateLabel = useMemo(() => {
-    const d = new Date();
-    d.setDate(d.getDate() + 3);
-    const months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-    return `${d.getDate()} ${months[d.getMonth()]}`;
-  }, []);
-  return (
-    <div className="cover-offer-badge">
-      Jusqu'au <strong>{dateLabel}</strong> · 1<sup>ère</sup> intervention offerte
     </div>
   );
 }

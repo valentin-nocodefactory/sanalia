@@ -111,11 +111,11 @@ function computeQuote(state) {
   const surfaceLine = Math.round(base * (surfaceMult - 1) * logMult);
   const interventionUnit = traitement + Math.max(0, surfaceLine);
 
-  // 2 interventions: 1st offered (full discount on intervention 1)
-  const intervention1 = interventionUnit;   // shown then deducted
+  // 2 interventions, toutes deux facturées (offre de bienvenue retirée)
+  const intervention1 = interventionUnit;
   const intervention2 = interventionUnit;
   const subtotalBefore = diag + intervention1 + intervention2 + products;
-  const discount = intervention1; // "1ère intervention offerte"
+  const discount = 0; // offre retirée — la 1ère intervention est désormais facturée
   const subtotal = subtotalBefore - discount;
 
   const ht = subtotal;

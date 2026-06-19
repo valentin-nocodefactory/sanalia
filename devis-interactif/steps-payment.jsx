@@ -71,7 +71,6 @@ function InterventionPicker({ idx, dayKey, slotKey, value, onChange, minOffset =
               : <>Vérification de l'efficacité ~15 jours plus tard, complément si nécessaire.</>}
           </div>
         </div>
-        {idx === 0 && <span className="intervention-badge free">OFFERTE</span>}
       </div>
       <div className="intervention-body">
         <div className="intervention-step-label">Choisissez le jour</div>
@@ -174,7 +173,6 @@ function StepCreneau({ value, onChange }) {
           <span className="creneau-tab-body">
             <span className="creneau-tab-title">
               1<sup>ʳᵉ</sup> intervention
-              <span className="creneau-tab-badge">Offerte</span>
             </span>
             <span className="creneau-tab-detail">
               {intervention1Done
@@ -1014,20 +1012,9 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
             <div className="lup">{fmtEur2(quote.products)}</div>
             <div className="lt">{fmtEur2(quote.products)}</div>
           </div>
-          <div className="quote-line discount">
-            <div className="ldesc">
-              <span>Remise — 1<sup>ère</sup> intervention offerte</span>
-              <small>Offre de bienvenue Sanalia, valable sur le 1<sup>er</sup> passage</small>
-            </div>
-            <div className="lqty">1</div>
-            <div className="lup">−{fmtEur2(quote.discount)}</div>
-            <div className="lt">−{fmtEur2(quote.discount)}</div>
-          </div>
         </div>
 
         <div className="quote-totals">
-          <div className="quote-totals-row"><div className="k">Sous-total HT</div><div className="v">{fmtEur2(quote.subtotalBefore)}</div></div>
-          <div className="quote-totals-row discount"><div className="k">Remise 1<sup>ère</sup> intervention</div><div className="v">−{fmtEur2(quote.discount)}</div></div>
           <div className="quote-totals-row"><div className="k">Total HT</div><div className="v">{hasCoords ? fmtEur2(quote.ht) : '— —'}</div></div>
           {!isPro && <div className="quote-totals-row"><div className="k">TVA 20%</div><div className="v">{hasCoords ? fmtEur2(quote.tva) : '— —'}</div></div>}
           <div className="quote-totals-row grand"><div className="k">{isPro ? 'Total HT' : 'Total TTC'}</div><div className="v">{hasCoords ? (isPro ? fmtEur2(quote.ht) : fmtEur2(quote.ttc)) : 'à partir de 149€'}</div></div>
@@ -1036,7 +1023,6 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
         <div className="quote-footer">
           <div className="quote-footer-perks">
             <span className="quote-footer-perk"><Ic.Check/> Annulation gratuite jusqu'à 48h avant</span>
-            <span className="quote-footer-perk"><Ic.Check/> 1<sup>ère</sup> intervention offerte</span>
             <span className="quote-footer-perk"><Ic.Check/> Devis valable 7 jours</span>
           </div>
           <div className="quote-certs">
@@ -1208,7 +1194,6 @@ function StepRecapInvoice({ state, quote, hasCoords, quoteRef, leadId, onDownloa
             <ul className="pay-card-trust-list">
               <li><Ic.Check width={13} height={13}/> Annulation gratuite jusqu'à 48 h avant</li>
               <li><Ic.Shield width={13} height={13}/> Paiement sécurisé Stripe · 3D Secure</li>
-              <li><Ic.Sparkles width={13} height={13}/> 1<sup>ʳᵉ</sup> intervention offerte</li>
             </ul>
           </div>
         </aside>
@@ -1294,19 +1279,6 @@ function StepRecapMission({ state, quote, hasCoords, quoteRef, onDownload, onSha
                 : <span style={{fontSize:22}}>à partir de 149€</span>}
             </div>
             {!isPro && hasCoords && <div className="mission-price-sub">TTC · TVA incluse</div>}
-            <div className="mission-price-divider"></div>
-            <div className="mission-price-savings">
-              <div className="mission-price-saved">
-                <span className="mission-price-strike">{fmtEur2(quote.subtotalBefore)}</span>
-                <span className="mission-price-arrow">→</span>
-              </div>
-              <div className="mission-price-discount-pill">
-                Économie {fmtEur2(quote.discount)}
-              </div>
-            </div>
-            <div className="mission-price-note">
-              <Ic.Check/> 1<sup>ère</sup> intervention offerte
-            </div>
           </div>
         </div>
       </div>
@@ -1330,7 +1302,6 @@ function StepRecapMission({ state, quote, hasCoords, quoteRef, onDownload, onSha
                 <div className="mission-step-when">{dayLabel}</div>
                 <div className="mission-step-title">Intervention n°1 — Traitement {quote.nuisible.label.toLowerCase()}</div>
               </div>
-              <div className="mission-step-tag free">OFFERTE</div>
             </div>
             <div className="mission-step-meta">
               <span className="mission-step-pill"><Ic.Clock width={12} height={12}/> {slot ? slot.label : '—'} · {slot?.meta}</span>
@@ -1389,13 +1360,6 @@ function StepRecapMission({ state, quote, hasCoords, quoteRef, onDownload, onSha
             <small>Vérification + complément si nécessaire</small>
           </div>
           <div className="mission-pricing-amount">{fmtEur2(quote.intervention2)}</div>
-        </div>
-        <div className="mission-pricing-row discount">
-          <div className="mission-pricing-name">
-            <span>Remise — 1<sup>ère</sup> intervention offerte</span>
-            <small>Offre de bienvenue Sanalia</small>
-          </div>
-          <div className="mission-pricing-amount">−{fmtEur2(quote.discount)}</div>
         </div>
         <div className="mission-pricing-totals">
           <div className="mission-pricing-trow"><span>Total HT</span><span>{hasCoords ? fmtEur2(quote.ht) : '— —'}</span></div>

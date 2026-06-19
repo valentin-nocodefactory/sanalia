@@ -119,7 +119,7 @@ if (N8N_LEAD_ENDPOINT) {
 - **Layout** : grid `minmax(0, 1.05fr) minmax(0, 0.95fr)` avec `gap: 40px` et `align-items: start` (form aligné au top, pas centré)
 - **Breakpoint stack** : `@media (max-width: 880px)` → 1 colonne (form sous le copy)
 - **Hero copy** (gauche) :
-  - `.hero-promo` pill : "OFFRE LYON · Première intervention offerte !"
+  - `.hero-promo` pill : "Lyon & agglo · Intervention sous 24h"
   - `<h1>` : 2 lignes, max ~5-6 mots par ligne, l'accent violet sur le mot-clé bénéfice (ex : "en finir")
   - `.hero-lead` : 2 phrases courtes, bullets en `<strong>` pour le scan
   - `.hero-bullets` : **3 arguments concrets** maximum (Efficacité / Devis / Disponibilité), `<strong>` en `display: inline !important`

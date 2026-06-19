@@ -1032,7 +1032,7 @@
   box-shadow: 0 2px 8px rgba(14,5,42,0.1);
 }
 
-/* Ribbon : 1ère intervention offerte */
+/* Ribbon */
 .form-ribbon {
   position: absolute;
   top: -14px; left: 24px; right: 24px;
@@ -2042,7 +2042,7 @@
         <h1 class="devis-simple-title">Votre devis gratuit,<br><span class="accent">en 60 secondes.</span></h1>
         <p class="devis-simple-subtitle">Un technicien certifié vous rappelle sous 2h avec un devis ferme. Sans engagement.</p>
         <ul class="devis-simple-bullets">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> <strong>1<sup>re</sup> intervention offerte</strong></li>
+          
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Devis sous 2h par un technicien</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Suivi WhatsApp jusqu'à éradication</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Certibiocide · CS3D · QualiPro 3D</li>
@@ -2052,10 +2052,6 @@
       <!-- Right : formulaire multi-step -->
       <div class="devis-simple-right">
         <form class="devis-msf" id="devisForm" action="/thank-you/" method="POST" novalidate>
-          <!-- Availability badge -->
-          <div class="devis-msf-availability-badge">
-            Jusqu'au <span id="msfOfferDate">—</span> · 1<sup>ère</sup> intervention offerte
-          </div>
 
           <!-- Progress indicator -->
           <div class="devis-msf-progress-text">Étape <span id="msfStepCurrent">1</span>/<span id="msfStepTotal">4</span></div>
