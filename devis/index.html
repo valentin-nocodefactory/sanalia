@@ -435,6 +435,22 @@
   box-shadow: 0 0 0 3px rgba(99,93,221,0.12);
 }
 
+/* Champs obligatoires invalides (prénom, nom, téléphone, email) */
+.devis-msf-field input.is-invalid,
+.devis-msf-field .phone-input-group.is-invalid {
+  border-color: #dc2626 !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+.devis-msf-error {
+  display: none;
+  margin: 12px 0 0;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.devis-msf-error.is-visible { display: block; }
+
 /* Phone input widget — CSS in /css/components.css */
 
 /* "Je ne connais pas l'adresse" link */
@@ -2293,12 +2309,14 @@
               <input type="email" id="msf-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
             </div>
 
+            <p class="devis-msf-error" id="msfContactError" role="alert">Merci de renseigner votre prénom, votre nom, votre téléphone et votre email pour recevoir le devis.</p>
+
             <div class="devis-msf-actions">
               <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="auto">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
                 <span class="sr-only">Retour</span>
               </button>
-              <button type="submit" class="devis-msf-btn devis-msf-btn-primary" id="msfSubmit">
+              <button type="submit" class="devis-msf-btn devis-msf-btn-primary" id="msfSubmit" disabled>
                 <span class="msfSubmitLabel">Recevoir mon devis</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
               </button>
@@ -3001,6 +3019,9 @@ body.is-embed .devis-msf {
 
     currentStep = n;
 
+    // Garde le bouton "Recevoir mon devis" cohérent avec l'état des champs contact
+    validateContact();
+
     // Update submit button label for pro
     if (submitBtn) {
       var lbl = submitBtn.querySelector('.msfSubmitLabel');
@@ -3043,15 +3064,87 @@ body.is-embed .devis-msf {
     if (nextPro) nextPro.disabled = !(secteur && demande);
   }
 
+  // Step 4 (contact) : prénom, nom, téléphone et email OBLIGATOIRES.
+  // Le <form> est en novalidate → la validation HTML native ne se déclenche pas.
+  // C'est donc ici (gating du bouton) ET dans le handler submit (garde dure)
+  // qu'on garantit qu'aucun lead ne part sans coordonnées.
+  function getPhoneDigits() {
+    var phoneEl = form.querySelector('#msf-phone');
+    return ((phoneEl && phoneEl.value) || '').replace(/\D/g, '');
+  }
+  function phoneMinDigits() {
+    var countryEl = form.querySelector('[name="phone_country"]');
+    var iso = countryEl ? countryEl.value : 'FR';
+    return iso === 'FR' ? 9 : 6; // FR = 9 chiffres (sans le 0), sinon minimum prudent
+  }
+  function validateContact() {
+    var fn = (form.querySelector('#msf-firstname').value || '').trim();
+    var ln = (form.querySelector('#msf-lastname').value || '').trim();
+    var emailEl = form.querySelector('#msf-email');
+    var emailOk = emailEl.value.trim() !== '' && emailEl.checkValidity();
+    var phoneOk = getPhoneDigits().length >= phoneMinDigits();
+    var ok = fn.length >= 1 && ln.length >= 1 && phoneOk && emailOk;
+    if (submitBtn) submitBtn.disabled = !ok;
+    return ok;
+  }
+  function clearContactErrors() {
+    ['#msf-firstname', '#msf-lastname', '#msf-phone', '#msf-email'].forEach(function(sel) {
+      var el = form.querySelector(sel);
+      if (el) el.classList.remove('is-invalid');
+    });
+    var pg = form.querySelector('.phone-input-group');
+    if (pg) pg.classList.remove('is-invalid');
+    var errEl = document.getElementById('msfContactError');
+    if (errEl) errEl.classList.remove('is-visible');
+  }
+  function showContactErrors() {
+    clearContactErrors();
+    var firstInvalid = null;
+    function mark(el) {
+      if (!el) return;
+      el.classList.add('is-invalid');
+      if (!firstInvalid) firstInvalid = el;
+    }
+    if (!(form.querySelector('#msf-firstname').value || '').trim()) mark(form.querySelector('#msf-firstname'));
+    if (!(form.querySelector('#msf-lastname').value || '').trim()) mark(form.querySelector('#msf-lastname'));
+    if (getPhoneDigits().length < phoneMinDigits()) {
+      mark(form.querySelector('#msf-phone'));
+      var pg = form.querySelector('.phone-input-group');
+      if (pg) pg.classList.add('is-invalid');
+    }
+    var emailEl = form.querySelector('#msf-email');
+    if (!(emailEl.value.trim() !== '' && emailEl.checkValidity())) mark(emailEl);
+    var errEl = document.getElementById('msfContactError');
+    if (errEl) errEl.classList.add('is-visible');
+    if (firstInvalid) { try { firstInvalid.focus(); } catch (e) {} }
+  }
+
   form.addEventListener('change', function() {
     validateStep1();
     validateStep2();
     validateStep3();
     validateStepPro();
+    validateContact();
   });
   form.querySelector('#msf-address').addEventListener('input', validateStep3);
   form.querySelector('#msf-postalcode').addEventListener('input', validateStep3);
   form.querySelector('#msf-city').addEventListener('input', validateStep3);
+  // Revalide le contact en direct + efface l'erreur d'un champ dès qu'il est corrigé
+  ['#msf-firstname', '#msf-lastname', '#msf-phone', '#msf-email'].forEach(function(sel) {
+    var el = form.querySelector(sel);
+    if (!el) return;
+    el.addEventListener('input', function() {
+      el.classList.remove('is-invalid');
+      if (sel === '#msf-phone') {
+        var pg = form.querySelector('.phone-input-group');
+        if (pg) pg.classList.remove('is-invalid');
+      }
+      if (validateContact()) {
+        var errEl = document.getElementById('msfContactError');
+        if (errEl) errEl.classList.remove('is-visible');
+      }
+    });
+  });
 
   next1.addEventListener('click', function(e) { e.preventDefault(); setStep(2); });
   next2.addEventListener('click', function(e) { e.preventDefault(); setStep(3); });
@@ -3206,6 +3299,14 @@ body.is-embed .devis-msf {
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
+
+    // ── GARDE : coordonnées obligatoires (prénom, nom, téléphone, email) ──
+    // Bloque tout envoi de lead incomplet vers le webhook (cause des leads vides).
+    if (!validateContact()) {
+      if (currentStep !== 4) setStep(4);
+      showContactErrors();
+      return;
+    }
 
     // Gather all form data
     var fd = new FormData(form);
