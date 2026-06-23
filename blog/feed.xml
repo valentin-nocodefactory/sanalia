@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 10 Jun 2026 06:38:26 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2026 13:35:38 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Traitement thermique vs chimique punaises de lit : lequel choisir ?</title>
+      <link>https://www.sanalia.fr/blog/thermique-chimique-comparatif-traitements-contre-punaises-lit/</link>
+      <description>Traitement thermique ou chimique contre les punaises de lit ? Comparatif complet, tableau des prix et conseils d'expert pour choisir le bon protocole.</description>
+      <pubDate>Tue, 23 Jun 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/thermique-chimique-comparatif-traitements-contre-punaises-lit/</guid>
+      <category>Punaises de lit</category>
+    </item>
+
     <item>
       <title>Frelon asiatique ou européen : comment les reconnaître et quoi faire</title>
       <link>https://www.sanalia.fr/blog/frelon-asiatique-reconnaitre/</link>
