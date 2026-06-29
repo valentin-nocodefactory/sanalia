@@ -11,6 +11,12 @@
 
   <!-- Articles -->
   <url>
+    <loc>https://www.sanalia.fr/blog/maladies-transmises-rats/</loc>
+    <lastmod>2026-06-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.sanalia.fr/blog/comment-se-debarrasser-rats-appartement/</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>monthly</changefreq>
