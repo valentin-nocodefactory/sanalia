@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Sun, 29 Jun 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 06:26:30 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Durée de vie d'un moustique : combien de temps vit-il vraiment ?</title>
+      <link>https://www.sanalia.fr/blog/duree-de-vie-moustique/</link>
+      <description>Durée de vie d'un moustique : de 7 jours pour le mâle à plus de 2 mois pour la femelle. Espèces, facteurs, cycle de vie et conseils pratiques.</description>
+      <pubDate>Tue, 30 Jun 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/duree-de-vie-moustique/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Maladies transmises par les rats : lesquelles, comment, et comment s'en protéger</title>
       <link>https://www.sanalia.fr/blog/maladies-transmises-rats/</link>
