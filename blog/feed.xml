@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 30 Jun 2026 06:26:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2026 06:31:11 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Signes Infestation Punaises de Lit : les 5 Indices qui ne Trompent Pas</title>
+      <link>https://www.sanalia.fr/blog/detecter-precocement/</link>
+      <description>Signes infestation punaises de lit : piqûres alignées, taches noires, mues, odeur. Comment les reconnaître à l'œil nu et où les chercher chez vous.</description>
+      <pubDate>Wed, 01 Jul 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/detecter-precocement/</guid>
+      <category>Punaises de lit</category>
+    </item>
+
     <item>
       <title>Durée de vie d'un moustique : combien de temps vit-il vraiment ?</title>
       <link>https://www.sanalia.fr/blog/duree-de-vie-moustique/</link>
@@ -29,6 +38,15 @@
       <description>Les rats transmettent au moins 13 maladies : leptospirose, hantavirus, salmonellose. Guide complet sur les risques, les symptômes et la prévention.</description>
       <pubDate>Mon, 19 May 2026 09:00:00 +0200</pubDate>
       <guid isPermaLink="true">https://www.sanalia.fr/blog/maladies-transmises-rats/</guid>
+      <category>Rats et souris</category>
+    </item>
+
+    <item>
+      <title>Boucher les entrées des rongeurs : matériaux, zones critiques et méthode étape par étape</title>
+      <link>https://www.sanalia.fr/blog/comment-boucher-durablement-entrees-rongeurs-maison/</link>
+      <description>Bouchez définitivement les accès rats et souris : zones critiques, matériaux (laine d'acier, mousse, mastic), protocole étape par étape et erreurs à éviter.</description>
+      <pubDate>Thu, 11 Jun 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/comment-boucher-durablement-entrees-rongeurs-maison/</guid>
       <category>Rats et souris</category>
     </item>
 

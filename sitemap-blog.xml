@@ -213,8 +213,22 @@
   </url>
 
   <url>
-    <loc>https://www.sanalia.fr/blog/duree-de-vie-moustique/</loc>
+    <loc>https://www.sanalia.fr/blog/comment-boucher-durablement-entrees-rongeurs-maison/</loc>
     <lastmod>2026-06-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.sanalia.fr/blog/detecter-precocement/</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.sanalia.fr/blog/duree-de-vie-moustique/</loc>
+    <lastmod>2026-07-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
