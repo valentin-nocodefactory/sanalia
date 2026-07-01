@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Mon, 30 Jun 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2026 06:31:11 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Signes Infestation Punaises de Lit : les 5 Indices qui ne Trompent Pas</title>
+      <link>https://www.sanalia.fr/blog/detecter-precocement/</link>
+      <description>Signes infestation punaises de lit : piqûres alignées, taches noires, mues, odeur. Comment les reconnaître à l'œil nu et où les chercher chez vous.</description>
+      <pubDate>Wed, 01 Jul 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/detecter-precocement/</guid>
+      <category>Punaises de lit</category>
+    </item>
+
     <item>
       <title>Maladies transmises par les rats : lesquelles, comment, et comment s'en protéger</title>
       <link>https://www.sanalia.fr/blog/maladies-transmises-rats/</link>
