@@ -1,0 +1,28 @@
+#!/bin/bash
+# ══════════════════════════════════════════
+# SANALIA — Hook pre-commit : garde-fou « pages ville »
+# ------------------------------------------------------------------------
+# Bloque le commit si les pages service × ville sont désynchronisées du
+# modèle typé (content/villes/*) ou franchissent les seuils de duplication /
+# unicité / intention (signal doorway du Google Spam Update juin 2026).
+#
+# Installation (une fois) :
+#   git config core.hooksPath scripts/hooks
+# ou :
+#   ln -sf ../../scripts/hooks/pre-commit .git/hooks/pre-commit
+# ══════════════════════════════════════════
+set -e
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "⚠ node introuvable — audit pages ville non exécuté (commit autorisé)."
+  exit 0
+fi
+
+# Ne lance l'audit que si le cluster ville (contenu, scripts ou pages) change.
+if git diff --cached --name-only | grep -qE '^(content/villes/|scripts/(render|audit)-villes|deratisation/|professionnel/deratisation/|desinsectisation/punaises-de-lit/)'; then
+  echo "→ [pre-commit] Contrôle du cluster pages ville…"
+  node scripts/render-villes.mjs --check
+  node scripts/audit-villes.mjs
+fi

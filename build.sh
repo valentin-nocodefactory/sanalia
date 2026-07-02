@@ -89,3 +89,18 @@ echo ""
 echo "══════════════════════════════════════"
 echo "✅ $count pages synchronisées"
 echo "══════════════════════════════════════"
+
+# ══════════════════════════════════════════
+# Garde-fou anti-régression « pages ville » (SEO / spam update juin 2026)
+# Vérifie que les pages service × ville sont en phase avec le modèle typé
+# (content/villes/*) et respectent les seuils duplication / unicité / intention.
+# exit ≠ 0 → build rouge (déploiement bloqué). Ignoré si node est absent.
+# ══════════════════════════════════════════
+if command -v node >/dev/null 2>&1; then
+  echo ""
+  echo "→ Contrôle du cluster pages ville…"
+  node scripts/render-villes.mjs --check
+  node scripts/audit-villes.mjs
+else
+  echo "⚠ node introuvable — audit pages ville ignoré (à lancer en local avant push)."
+fi
