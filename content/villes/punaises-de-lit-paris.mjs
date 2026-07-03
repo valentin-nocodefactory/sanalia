@@ -6,7 +6,7 @@ export default {
   departement: 'Paris (75)',
   serviceIntentionPrimaire: 'desinsectisation',
 
-  metaTitle: 'Traitement punaises de lit Paris — sous 24h | Sanalia',
+  metaTitle: 'Traitement punaises de lit Paris, sous 24h | Sanalia',
   metaDescription: "Traitement punaises de lit à Paris : diagnostic, thermique ou chimique, intervention 24h intra-muros. Certibiocide. Devis gratuit : 06 67 46 48 97.",
   h1: 'Traitement des punaises de lit à Paris : intervention rapide intra-muros',
 
@@ -19,8 +19,8 @@ export default {
     "plinthes et les gaines techniques qui relient les appartements d'un même palier. Les petites surfaces, " +
     "chambres de bonne et locations meublées à fort turn-over aggravent le phénomène. L'auto-traitement, très " +
     "répandu à Paris, échoue le plus souvent et disperse l'infestation vers les logements voisins. Nos " +
-    "techniciens Certibiocide posent un diagnostic précis, puis appliquent le protocole adapté — thermique ou " +
-    "chimique ciblé — avec un contrôle de suivi, en intervenant sous 24h dans Paris intra-muros.",
+    "techniciens Certibiocide posent un diagnostic précis, puis appliquent le protocole adapté (thermique ou " +
+    "chimique ciblé) avec un contrôle de suivi, en intervenant sous 24h dans Paris intra-muros.",
 
   zonesCouvertes: [
     'Paris Centre (1er–4e)', 'Quartier latin (5e)', 'Saint-Germain (6e)', 'Grands Boulevards (9e–10e)',

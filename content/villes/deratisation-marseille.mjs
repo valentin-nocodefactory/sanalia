@@ -6,7 +6,7 @@ export default {
   departement: 'Bouches-du-Rhône (13)',
   serviceIntentionPrimaire: 'deratisation',
 
-  metaTitle: 'Dératisation Marseille — rats & souris 24h | Sanalia',
+  metaTitle: 'Dératisation Marseille, rats & souris 24h | Sanalia',
   metaDescription: "Rat noir dans les combles, surmulot près du port ? Dératisation à Marseille et sa métropole sous 24h. Devis gratuit : 06 67 46 48 97.",
   h1: 'Dératisation à Marseille : rats noirs et surmulots traités sur les 16 arrondissements',
   heroLead:
@@ -17,8 +17,8 @@ export default {
   introLocale:
     "Marseille présente une particularité que peu de villes françaises partagent : le rat noir " +
     "(Rattus rattus) y reste très présent, aux côtés du surmulot. Cité portuaire millénaire, la ville a " +
-    "toujours été une porte d'entrée pour cette espèce grimpeuse, qui préfère les hauteurs — combles, " +
-    "faux plafonds, toitures-terrasses — aux caves qu'affectionne le rat brun. Dans les immeubles anciens " +
+    "toujours été une porte d'entrée pour cette espèce grimpeuse, qui préfère les hauteurs (combles, " +
+    "faux plafonds, toitures-terrasses) aux caves qu'affectionne le rat brun. Dans les immeubles anciens " +
     "du Panier, de Noailles ou du centre, ce comportement se conjugue à un climat méditerranéen aux hivers " +
     "doux : la reproduction ne s'interrompt quasiment jamais, et l'activité des rongeurs se maintient toute " +
     "l'année. Le relief marseillais, ses collines et ses vallons, multiplie par ailleurs les vides sous " +
@@ -35,7 +35,7 @@ export default {
 
   contexteLocal: [
     "Rat noir (Rattus rattus) : espèce grimpeuse encore fréquente dans les villes portuaires du sud, elle " +
-      "colonise combles, faux plafonds et toitures plutôt que les caves — ce qui change complètement les " +
+      "colonise combles, faux plafonds et toitures plutôt que les caves, ce qui change complètement les " +
       "points d'appâtage par rapport au reste de la France.",
     "Climat méditerranéen à hivers doux : la reproduction des rongeurs ne marque pas de vraie pause " +
       "hivernale, d'où une pression continue et des infestations qui repartent vite sans suivi.",

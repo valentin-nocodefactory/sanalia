@@ -6,7 +6,7 @@ export default {
   departement: 'Rhône (69)',
   serviceIntentionPrimaire: 'desinsectisation',
 
-  metaTitle: 'Traitement punaises de lit Lyon — sous 48h | Sanalia',
+  metaTitle: 'Traitement punaises de lit Lyon, sous 48h | Sanalia',
   metaDescription: "Traitement punaises de lit à Lyon : thermique, chimique ou vapeur, sous 48h. Techniciens Certibiocide, discrétion garantie. Devis gratuit 06 67 46 48 97.",
   h1: 'Traitement des punaises de lit à Lyon : intervention sous 48h, discrétion garantie',
 
@@ -20,7 +20,7 @@ export default {
     "anciens de la Croix-Rousse, les cloisons, plinthes et gaines partagées facilitent le passage d'un " +
     "appartement à l'autre. Face à un insecte aussi résistant, l'auto-traitement échoue presque toujours et " +
     "disperse le foyer. Nos techniciens Certibiocide établissent d'abord un diagnostic précis, puis appliquent " +
-    "le protocole adapté — thermique, vapeur ou chimique ciblé — avec un contrôle de suivi pour confirmer " +
+    "le protocole adapté (thermique, vapeur ou chimique ciblé) avec un contrôle de suivi pour confirmer " +
     "l'éradication.",
 
   zonesCouvertes: [

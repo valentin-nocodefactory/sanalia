@@ -6,7 +6,7 @@ export default {
   departement: 'Paris (75)',
   serviceIntentionPrimaire: 'deratisation',
 
-  metaTitle: 'Dératisation Paris — rats & souris sous 24h | Sanalia',
+  metaTitle: 'Dératisation Paris, rats & souris sous 24h | Sanalia',
   metaDescription: "Rats dans les caves, souris dans les logements haussmanniens ? Dératisation à Paris et petite couronne sous 24h. Devis gratuit : 06 67 46 48 97.",
   h1: 'Dératisation à Paris : rats et souris sous contrôle dans les 20 arrondissements',
   heroLead:

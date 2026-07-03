@@ -6,7 +6,7 @@ export default {
   departement: 'Rhône (69)',
   serviceIntentionPrimaire: 'pro',
 
-  metaTitle: 'Dératisation Pro Lyon — contrat HACCP annuel | Sanalia',
+  metaTitle: 'Dératisation Pro Lyon, contrat HACCP annuel | Sanalia',
   metaDescription: "Contrat de dératisation pro à Lyon : passages planifiés, rapports DDPP, conformité HACCP. Restaurants, hôtels, copropriétés. Devis : 06 67 46 48 97.",
   h1: 'Dératisation professionnelle à Lyon : contrat annuel, conformité HACCP et rapports pour la DDPP',
 

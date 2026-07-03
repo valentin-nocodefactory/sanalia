@@ -6,17 +6,17 @@ export default {
   departement: 'Paris (75)',
   serviceIntentionPrimaire: 'pro',
 
-  metaTitle: 'Dératisation Pro Paris — contrat HACCP annuel | Sanalia',
+  metaTitle: 'Dératisation Pro Paris, contrat HACCP annuel | Sanalia',
   metaDescription: "Contrat de dératisation professionnel à Paris : passages planifiés, rapports DDPP, conformité HACCP. Restaurants, hôtels, bureaux. Devis : 06 67 46 48 97.",
   h1: 'Dératisation professionnelle à Paris : contrat annuel, conformité HACCP et rapports pour la DDPP',
 
   introLocale:
     "Première destination touristique mondiale, Paris aligne la plus forte densité d'établissements de " +
-    "restauration et d'hôtellerie du pays — des palaces aux dark kitchens, des brasseries de quartier aux " +
+    "restauration et d'hôtellerie du pays, des palaces aux dark kitchens, des brasseries de quartier aux " +
     "cantines de La Défense. Cette concentration, doublée d'un sous-sol haussmannien où les caves " +
     "communiquent d'un immeuble à l'autre, expose les professionnels à un risque élevé de fermeture lors " +
-    "d'une inspection. Ici, mieux vaut prévenir : un dispositif formalisé — postes cartographiés, registre " +
-    "tenu à jour, comptes rendus archivés — fait la différence le jour du contrôle. Sanalia bâtit avec vous " +
+    "d'une inspection. Ici, mieux vaut prévenir : un dispositif formalisé (postes cartographiés, registre " +
+    "tenu à jour, comptes rendus archivés) fait la différence le jour du contrôle. Sanalia bâtit avec vous " +
     "un abonnement calibré sur votre activité et votre saisonnalité, avec des visites hors présence clientèle " +
     "et des documents prêts pour l'audit. Du bistrot familial à l'enseigne à plusieurs adresses, nos équipes " +
     "certifiées Certibiocide couvrent la capitale et sa proche banlieue, dans la plus grande discrétion.",

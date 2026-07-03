@@ -478,6 +478,31 @@ function buildProJsonLd(page) {
   return `<script type="application/ld+json">\n${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2)}\n</script>`;
 }
 
+// Convertit les tirets quadratins (—) en ponctuation française naturelle.
+// Le — n'apparaît qu'en texte / littéral de chaîne, jamais dans la syntaxe HTML/JS ;
+// les règles bornées ne franchissent pas une frontière de chaîne. Protège
+// <style>/<svg>/commentaires. Idempotent (pas de — → no-op).
+function deDash(html) {
+  const store = [];
+  const keep = (m) => { store.push(m); return `@@KEEP${store.length - 1}@@`; };
+  html = html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, keep);
+  html = html.replace(/<svg[^>]*>[\s\S]*?<\/svg>/gi, keep);
+  html = html.replace(/<!--[\s\S]*?-->/g, keep);
+
+  html = html.replace(/&mdash;/g, '—');
+  html = html.replace(/&nbsp;—&nbsp;/g, '&nbsp;à&nbsp;');           // plage horaire
+  html = html.replace(/(\d)\s*—\s*(\d)/g, '$1–$2');                 // plage numérique
+  html = html.replace(/\bFAQ\s*—\s*/g, 'FAQ : ');                   // titre FAQ
+  html = html.replace(/\b(Étape|Phase|Jour|Niveau|Semaine|Mois|Point)\s+([\dIVX]+)\s*—\s*/g, '$1 $2 : ');
+  html = html.replace(/(['"])\s*—\s+/g, '$1');                      // tiret de citation en tête
+  html = html.replace(/ — ([^—.'"+<>{}]{1,90}?) — /g, ' ($1) ');    // incise appairée
+  html = html.replace(/ — /g, ', ');                               // tiret simple
+  html = html.replace(/—/g, ', ');                                 // résiduel
+  html = html.replace(/\(\s+/g, '(').replace(/\s+\)/g, ')').replace(/\s+,/g, ',').replace(/,\s*,/g, ',');
+
+  return html.replace(/@@KEEP(\d+)@@/g, (_, i) => store[+i]);
+}
+
 // Insère les marqueurs VILLE-CONTENT autour de HERO … certifications (idempotent).
 function ensureMarkers(html) {
   if (/<!--\s*VILLE-CONTENT:START\s*-->/.test(html)) return html;
@@ -593,7 +618,7 @@ ${contexteCardsHtml(page)}
   html = html.replace(/Demandez un audit gratuit de vos locaux\./g, 'Demandez un devis gratuit pour vos locaux.');
 
   html = ensureMarkers(html);
-  return { htmlPath, html };
+  return { htmlPath, html: deDash(html) };
 }
 
 // ── Rendu LÉGER (punaises) : meta + H1 + marqueurs, corps conservé ────────
@@ -603,7 +628,7 @@ function renderLight(page) {
   html = applyMeta(html, page);
   html = replaceOnce(html, /<h1>[\s\S]*?<\/h1>/, `<h1>${esc(page.h1)}</h1>`);
   html = ensureMarkers(html);
-  return { htmlPath, html };
+  return { htmlPath, html: deDash(html) };
 }
 
 // ── Splice dans le fichier existant ──────────────────────────────────────
@@ -638,7 +663,7 @@ function render(page) {
     html = html.slice(0, start) + body + '\n' + html.slice(end);
   }
 
-  return { htmlPath, html };
+  return { htmlPath, html: deDash(html) };
 }
 
 function replaceOnce(s, re, rep) {

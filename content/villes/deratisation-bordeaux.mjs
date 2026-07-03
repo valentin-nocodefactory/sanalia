@@ -6,7 +6,7 @@ export default {
   departement: 'Gironde (33)',
   serviceIntentionPrimaire: 'deratisation',
 
-  metaTitle: 'Dératisation Bordeaux — rats & souris sous 24h | Sanalia',
+  metaTitle: 'Dératisation Bordeaux, rats & souris sous 24h | Sanalia',
   metaDescription: "Surmulot le long de la Garonne, souris dans les échoppes en pierre ? Dératisation à Bordeaux et métropole sous 24h. Devis gratuit : 06 67 46 48 97.",
   h1: 'Dératisation à Bordeaux : rongeurs éliminés des échoppes aux quais de la Garonne',
   heroLead:
@@ -18,8 +18,8 @@ export default {
     "Bordeaux combine deux facteurs qui plaisent aux rongeurs : un fleuve à marée et une architecture " +
     "de pierre truffée de caves. La Garonne, dont le niveau monte et descend au rythme des marées, pousse " +
     "régulièrement le surmulot hors des berges et du réseau d'assainissement vers les quais et les " +
-    "immeubles riverains du centre historique classé. Le bâti bordelais — immeubles en pierre calcaire " +
-    "blonde, caves voûtées, et surtout les échoppes, ces maisons basses de plain-pied si caractéristiques — " +
+    "immeubles riverains du centre historique classé. Le bâti bordelais, immeubles en pierre calcaire " +
+    "blonde, caves voûtées, et surtout les échoppes, ces maisons basses de plain-pied si caractéristiques, " +
     "multiplie les vides sous plancher et les soupiraux par lesquels rats et souris s'introduisent. Le " +
     "climat océanique, doux et humide, entretient une activité soutenue une large partie de l'année. Dans " +
     "les quartiers en forte densification (Chartrons, Bacalan, Euratlantique), chantiers et rénovations " +
@@ -78,7 +78,7 @@ export default {
     {
       q: 'La dératisation bordelaise est-elle garantie ?',
       a: "Oui, sur plusieurs mois. Sur le bâti bordelais, la garantie s'accompagne d'un point sur les accès " +
-         "rebouchés — soupiraux et joints de pierre, souvent rouverts après des travaux ; toute réapparition " +
+         "rebouchés, soupiraux et joints de pierre, souvent rouverts après des travaux ; toute réapparition " +
          "dans le délai couvert est reprise sans nouveau frais de déplacement.",
     },
   ],

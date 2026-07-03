@@ -6,7 +6,7 @@ export default {
   departement: 'Haute-Garonne (31)',
   serviceIntentionPrimaire: 'deratisation',
 
-  metaTitle: 'Dératisation Toulouse — rats & souris 24h | Sanalia',
+  metaTitle: 'Dératisation Toulouse, rats & souris 24h | Sanalia',
   metaDescription: "Rongeurs près de la Garonne, souris dans le bâti en brique rose ? Dératisation à Toulouse et métropole sous 24h. Devis gratuit : 06 67 46 48 97.",
   h1: 'Dératisation à Toulouse : rats et souris traités dans la ville rose',
   heroLead:

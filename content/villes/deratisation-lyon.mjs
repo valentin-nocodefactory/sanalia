@@ -6,7 +6,7 @@ export default {
   departement: 'Rhône (69)',
   serviceIntentionPrimaire: 'deratisation',
 
-  metaTitle: 'Dératisation Lyon — rats & souris sous 24h | Sanalia',
+  metaTitle: 'Dératisation Lyon, rats & souris sous 24h | Sanalia',
   metaDescription: 'Rats dans les caves, souris dans le bâti ancien ? Dératisation à Lyon et sa métropole, techniciens Certibiocide sous 24h. Devis gratuit : 06 67 46 48 97.',
   h1: 'Dératisation à Lyon : en finir avec les rats et les souris, du sous-sol au 9ᵉ',
   heroLead:
@@ -19,7 +19,7 @@ export default {
     "Le surmulot (rat brun) remonte des berges et du réseau d'assainissement vers les caves " +
     "profondes des immeubles de la Presqu'île et du Vieux-Lyon, dont les murs en pisé et les " +
     "pierres descellées lui laissent d'innombrables passages. Sur les pentes de la Croix-Rousse, " +
-    "les anciens ateliers de canuts — hauts plafonds, planchers bois, gaines techniques verticales — " +
+    "les anciens ateliers de canuts (hauts plafonds, planchers bois, gaines techniques verticales) " +
     "facilitent la circulation des souris grises d'un étage à l'autre. Les traboules, ces passages " +
     "couverts qui relient les immeubles, prolongent encore ces cheminements d'une cour à la suivante. " +
     "À la Part-Dieu comme à Gerland, les sous-sols de commerces et de bureaux, chauffés toute l'année, " +
