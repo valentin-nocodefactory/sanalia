@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 01 Jul 2026 06:31:11 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2026 06:33:17 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Piège à frelon asiatique : quel modèle choisir et comment bien l'installer</title>
+      <link>https://www.sanalia.fr/blog/piege-frelon-asiatique/</link>
+      <description>Piège à frelon asiatique : quel modèle choisir, quel appât, où l'installer. Guide pratique et sélectif, avec limites face à un nid déjà formé.</description>
+      <pubDate>Sun, 05 Jul 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/piege-frelon-asiatique/</guid>
+      <category>Guêpes & Frelons</category>
+    </item>
+
     <item>
       <title>Signes Infestation Punaises de Lit : les 5 Indices qui ne Trompent Pas</title>
       <link>https://www.sanalia.fr/blog/detecter-precocement/</link>
