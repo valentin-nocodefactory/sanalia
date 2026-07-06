@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 01 Jul 2026 06:31:11 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 07:05:45 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Piqûre de moustique : symptômes, remèdes efficaces et signes qui doivent alerter</title>
+      <link>https://www.sanalia.fr/blog/piqure-moustique/</link>
+      <description>Piqûre de moustique : symptômes normaux vs infectés, remèdes efficaces, moustique tigre et quand consulter un médecin. Guide par un expert Certibiocide.</description>
+      <pubDate>Mon, 06 Jul 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/piqure-moustique/</guid>
+      <category>Prévention</category>
+    </item>
+
     <item>
       <title>Signes Infestation Punaises de Lit : les 5 Indices qui ne Trompent Pas</title>
       <link>https://www.sanalia.fr/blog/detecter-precocement/</link>
