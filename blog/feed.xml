@@ -7,7 +7,7 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Mon, 06 Jul 2026 07:05:45 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2026 10:00:00 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
@@ -21,6 +21,15 @@
       <pubDate>Mon, 06 Jul 2026 09:00:00 +0200</pubDate>
       <guid isPermaLink="true">https://www.sanalia.fr/blog/piqure-moustique/</guid>
       <category>Prévention</category>
+    </item>
+
+    <item>
+      <title>Piège à frelon asiatique : quel modèle choisir et comment bien l'installer</title>
+      <link>https://www.sanalia.fr/blog/piege-frelon-asiatique/</link>
+      <description>Piège à frelon asiatique : quel modèle choisir, quel appât, où l'installer. Guide pratique et sélectif, avec limites face à un nid déjà formé.</description>
+      <pubDate>Sun, 05 Jul 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/piege-frelon-asiatique/</guid>
+      <category>Guêpes & Frelons</category>
     </item>
 
     <item>
