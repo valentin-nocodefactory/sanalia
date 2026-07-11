@@ -299,7 +299,7 @@
           </span>
         </label>
         <button type="button" class="btn" id="confirm-btn" disabled>
-          <span id="confirm-btn-label">Confirmer mon intervention</span>
+          <span id="confirm-btn-label">Confirmer et procéder au paiement</span>
         </button>
         <div class="trust-row">
           <span><span class="tk">✓</span> Techniciens certifiés Certibiocide</span>
@@ -345,6 +345,24 @@
     function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
     function capFirst(s){ s=String(s||''); return s.charAt(0).toUpperCase()+s.slice(1); }
     function track(name,props){ try{ if(window.posthog&&posthog.capture) posthog.capture(name,props||{}); }catch(e){} try{ window.dataLayer=window.dataLayer||[]; window.dataLayer.push(Object.assign({event:name},props||{})); }catch(e){} }
+
+    // Extrait un lien de paiement (Stripe) de la réponse du webhook.
+    // Tolère : JSON {url|paymentUrl|...}, tableau [ {...} ], objet imbriqué (data/result),
+    // ou une réponse texte contenant directement l'URL.
+    function extractPaymentUrl(text){
+      if(!text) return null;
+      var data = null;
+      try { data = JSON.parse(text); } catch(e){}
+      var KEYS = ['paymentUrl','paymentLink','paymentLinkUrl','payment_url','stripeUrl','stripe_url','checkoutUrl','checkout_url','hostedInvoiceUrl','url','link'];
+      function pick(o){ if(!o||typeof o!=='object') return null; for(var i=0;i<KEYS.length;i++){ var v=o[KEYS[i]]; if(typeof v==='string' && /^https?:\/\//.test(v)) return v; } return null; }
+      if(data){
+        if(Array.isArray(data)) data = data[0] || {};
+        var found = pick(data) || pick(data.data) || pick(data.result) || pick(data.response) || pick(data.body);
+        if(found) return found;
+      }
+      var m = String(text).match(/https?:\/\/[^\s"'<>]+/);
+      return m ? m[0] : null;
+    }
 
     function fail(title,msg){
       hide('state-loading'); hide('state-app'); hide('state-success');
@@ -604,8 +622,17 @@
         body: JSON.stringify(payload)
       })
       .then(function(r){ if(!r.ok) throw new Error('booking '+r.status); return r.text(); })
-      .then(function(){
+      .then(function(text){
         track('intervention_confirmed', { contactId: contactId, start: selectedSlot.start });
+        var payUrl = extractPaymentUrl(text);
+        if(payUrl){
+          // Le webhook a renvoyé un lien de paiement Stripe : on y redirige le lead.
+          track('intervention_redirect_payment', { contactId: contactId });
+          btn.innerHTML = '<span class="spin"></span><span>Redirection vers le paiement sécurisé…</span>';
+          window.location.assign(payUrl);
+          return;
+        }
+        // Aucun lien de paiement renvoyé : on affiche la confirmation classique.
         renderSuccess(payload);
       })
       .catch(function(err){
