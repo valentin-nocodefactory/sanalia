@@ -37,7 +37,7 @@
 
   <style>
     /* ============================================================
-       SANALIA — Page confirmation d'intervention
+       SANALIA — Page confirmation d'intervention (wizard 2 étapes)
        Design system : Uxum + Space Mono, violet, pastel rassurant
        ============================================================ */
 
@@ -71,66 +71,43 @@
     html{scroll-behavior:smooth}
     body{
       font-family:var(--font-primary);font-weight:400;color:var(--color-text);
-      background:var(--color-bg);line-height:1.6;-webkit-font-smoothing:antialiased;
-      min-height:100vh;
+      background:var(--color-bg);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;
     }
 
     .mono{font-family:var(--font-system);font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:11px;color:var(--color-text-light)}
 
     /* Header */
-    .site-header{
-      background:var(--color-surface);border-bottom:1px solid var(--color-gray-light);
-      padding:14px 20px;position:sticky;top:0;z-index:20;
-    }
-    .site-header .inner{max-width:920px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .site-header{background:var(--color-surface);border-bottom:1px solid var(--color-gray-light);padding:14px 20px;position:sticky;top:0;z-index:20}
+    .site-header .inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .site-header img{height:30px;width:auto;display:block}
-    .header-badge{
-      display:inline-flex;align-items:center;gap:7px;font-family:var(--font-system);
-      font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);
-    }
+    .header-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-system);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted)}
     .header-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary-600)}
 
     /* Layout */
-    .wrap{max-width:920px;margin:0 auto;padding:32px 20px 120px}
-    .card{
-      background:var(--color-surface);border:1px solid var(--color-gray-light);
-      border-radius:var(--radius-xl);padding:26px;box-shadow:var(--shadow-sm);margin-bottom:20px;
-    }
+    .wrap{max-width:760px;margin:0 auto;padding:28px 20px 120px}
+    .card{background:var(--color-surface);border:1px solid var(--color-gray-light);border-radius:var(--radius-xl);padding:26px;box-shadow:var(--shadow-sm);margin-bottom:20px}
 
-    h1{font-size:30px;font-weight:700;line-height:1.2;letter-spacing:-.01em;margin-bottom:8px}
+    h1{font-size:28px;font-weight:700;line-height:1.2;letter-spacing:-.01em;margin-bottom:8px}
     h1 .accent{color:var(--color-primary-600)}
-    .lead{font-size:17px;color:var(--color-text-muted);max-width:60ch}
+    .lead{font-size:16px;color:var(--color-text-muted);max-width:60ch}
     .section-title{font-size:20px;font-weight:700;margin-bottom:4px}
     .section-sub{font-size:14px;color:var(--color-text-muted);margin-bottom:20px}
 
-    .eyebrow{
-      display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;
-      background:var(--color-primary-100);color:var(--color-primary-600);
-      padding:6px 12px;border-radius:var(--radius-full);
-      font-family:var(--font-system);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
-    }
-
-    /* Recap */
-    .recap-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
-    .nuisible-badge{
-      display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:var(--radius-full);
-      font-weight:700;font-size:14px;color:var(--color-primary-900);
-    }
-    .nuisible-badge .ico{font-size:16px;line-height:1}
-    .recap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 26px}
-    .recap-item{display:flex;flex-direction:column;gap:3px}
-    .recap-item .label{font-family:var(--font-system);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-light)}
-    .recap-item .value{font-size:15px;font-weight:400;color:var(--color-text);word-break:break-word}
-    .recap-note{margin-top:18px;font-size:13px;color:var(--color-text-muted)}
-    .recap-note a{color:var(--color-primary-600);font-weight:700;text-decoration:none}
+    /* Stepper */
+    .stepper{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+    .step{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+    .step .num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;background:var(--color-surface);border:2px solid var(--color-gray-light);color:var(--color-text-light);transition:all .2s ease}
+    .step .lbl{font-family:var(--font-system);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-light)}
+    .step.active .num{background:var(--color-primary-600);border-color:var(--color-primary-600);color:#fff}
+    .step.active .lbl{color:var(--color-primary-600)}
+    .step.done .num{background:var(--color-primary-100);border-color:var(--color-primary-200);color:var(--color-primary-600)}
+    .step.done .lbl{color:var(--color-text-muted)}
+    .step-line{flex:1 1 auto;height:2px;background:var(--color-gray-light);border-radius:2px}
+    .step-line.done{background:var(--color-primary-200)}
 
     /* Day selector */
     .day-scroller{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
-    .day-pill{
-      flex:0 0 auto;min-width:78px;text-align:center;cursor:pointer;
-      background:var(--color-bg-offwhite);border:1.5px solid var(--color-gray-light);
-      border-radius:var(--radius-lg);padding:12px 10px;transition:all .15s ease;user-select:none;
-    }
+    .day-pill{flex:0 0 auto;min-width:78px;text-align:center;cursor:pointer;background:var(--color-bg-offwhite);border:1.5px solid var(--color-gray-light);border-radius:var(--radius-lg);padding:12px 10px;transition:all .15s ease;user-select:none}
     .day-pill:hover{border-color:var(--color-primary-400)}
     .day-pill.active{background:var(--color-primary-600);border-color:var(--color-primary-600);color:#fff;box-shadow:var(--shadow-md)}
     .day-pill .dow{font-family:var(--font-system);font-size:10px;text-transform:uppercase;letter-spacing:.05em;opacity:.75}
@@ -141,30 +118,32 @@
     /* Time grid */
     .times-wrap{margin-top:18px}
     .times-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
-    .time-slot{
-      cursor:pointer;text-align:center;background:var(--color-bg-offwhite);
-      border:1.5px solid var(--color-gray-light);border-radius:var(--radius-md);
-      padding:12px 8px;font-weight:700;font-size:15px;transition:all .12s ease;user-select:none;
-    }
+    .time-slot{cursor:pointer;text-align:center;background:var(--color-bg-offwhite);border:1.5px solid var(--color-gray-light);border-radius:var(--radius-md);padding:12px 8px;font-weight:700;font-size:15px;transition:all .12s ease;user-select:none}
     .time-slot small{display:block;font-family:var(--font-system);font-weight:400;font-size:10px;color:var(--color-text-light);text-transform:none;margin-top:2px}
     .time-slot:hover{border-color:var(--color-primary-400);transform:translateY(-1px)}
     .time-slot.active{background:var(--color-primary-600);border-color:var(--color-primary-600);color:#fff}
     .time-slot.active small{color:rgba(255,255,255,.8)}
 
-    /* Confirmation bar / card */
-    .confirm-card{border:1.5px solid var(--color-primary-200);background:linear-gradient(180deg,var(--color-primary-100) 0%,var(--color-surface) 55%)}
-    .selected-slot{
-      display:flex;align-items:center;gap:14px;background:var(--color-surface);
-      border:1px solid var(--color-primary-200);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:18px;
-    }
-    .selected-slot .cal-ico{
-      width:46px;height:46px;flex:0 0 auto;border-radius:12px;background:var(--color-primary-600);
-      color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;
-    }
+    /* Selected slot summary */
+    .selected-slot{display:flex;align-items:center;gap:14px;background:var(--color-surface);border:1px solid var(--color-primary-200);border-radius:var(--radius-lg);padding:16px 18px}
+    .selected-slot .cal-ico{width:46px;height:46px;flex:0 0 auto;border-radius:12px;background:var(--color-primary-600);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px}
     .selected-slot .st-day{font-weight:700;font-size:16px}
     .selected-slot .st-time{font-size:14px;color:var(--color-text-muted)}
     .selected-slot .st-edit{margin-left:auto;font-family:var(--font-system);font-size:11px;text-transform:uppercase;color:var(--color-primary-600);background:none;border:none;cursor:pointer;letter-spacing:.05em}
 
+    /* Recap */
+    .recap-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+    .nuisible-badge{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:var(--radius-full);font-weight:700;font-size:14px;color:var(--color-primary-900)}
+    .nuisible-badge .ico{font-size:16px;line-height:1}
+    .recap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 26px}
+    .recap-item{display:flex;flex-direction:column;gap:3px}
+    .recap-item .label{font-family:var(--font-system);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-light)}
+    .recap-item .value{font-size:15px;font-weight:400;color:var(--color-text);word-break:break-word}
+    .recap-note{margin-top:18px;font-size:13px;color:var(--color-text-muted)}
+    .recap-note a{color:var(--color-primary-600);font-weight:700;text-decoration:none}
+
+    /* Confirmation */
+    .confirm-card{border:1.5px solid var(--color-primary-200);background:linear-gradient(180deg,var(--color-primary-100) 0%,var(--color-surface) 55%)}
     .check-row{display:flex;gap:12px;align-items:flex-start;cursor:pointer;padding:14px;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-gray-light);margin-bottom:18px}
     .check-row input{margin-top:3px;width:20px;height:20px;flex:0 0 auto;accent-color:var(--color-primary-600);cursor:pointer}
     .check-row .ct{font-size:15px;line-height:1.5}
@@ -172,30 +151,26 @@
     .check-row .ct small{display:block;color:var(--color-text-muted);font-size:13px;margin-top:3px}
 
     /* Buttons */
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;
-      font-family:var(--font-primary);font-weight:700;font-size:16px;
-      padding:16px 24px;border-radius:var(--radius-md);border:none;cursor:pointer;
-      background:var(--color-primary-900);color:#fff;transition:all .15s ease;
-    }
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;font-family:var(--font-primary);font-weight:700;font-size:16px;padding:16px 24px;border-radius:var(--radius-md);border:none;cursor:pointer;background:var(--color-primary-900);color:#fff;transition:all .15s ease}
     .btn:hover:not(:disabled){background:var(--color-primary-800);transform:translateY(-1px);box-shadow:var(--shadow-md)}
     .btn:disabled{opacity:.4;cursor:not-allowed}
     .btn .spin{width:17px;height:17px;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
+    .btn-ghost{background:var(--color-primary-100);color:var(--color-primary-600)}
+    .btn-ghost:hover:not(:disabled){background:var(--color-primary-200)}
+    .btn-back{background:none;border:none;color:var(--color-text-muted);font-family:var(--font-primary);font-weight:400;font-size:14px;cursor:pointer;padding:10px;display:inline-flex;align-items:center;gap:6px}
+    .btn-back:hover{color:var(--color-primary-600)}
 
     .trust-row{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:16px}
     .trust-row span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-muted)}
     .trust-row .tk{color:var(--color-primary-600);font-weight:700}
 
-    /* States: loading / error / success */
+    /* States */
     .state{max-width:560px;margin:60px auto;text-align:center;padding:0 20px}
-    .state .big-ico{
-      width:72px;height:72px;margin:0 auto 22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;
-    }
+    .state .big-ico{width:72px;height:72px;margin:0 auto 22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px}
     .state h2{font-size:26px;font-weight:700;margin-bottom:10px}
     .state p{color:var(--color-text-muted);font-size:16px;margin-bottom:8px}
     .loader-ring{width:46px;height:46px;border:4px solid var(--color-primary-100);border-top-color:var(--color-primary-600);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 22px}
-
     .success .big-ico{background:var(--color-pastel-green-light);color:#3a9d4e}
     .error .big-ico{background:var(--color-pastel-rose-light);color:#d0453b}
     .success-recap{background:var(--color-surface);border:1px solid var(--color-gray-light);border-radius:var(--radius-lg);padding:20px;margin:24px auto 0;text-align:left;max-width:460px}
@@ -205,21 +180,17 @@
     .success-recap .sr-t{font-size:14px}
     .success-recap .sr-t b{font-weight:700}
 
-    .btn-ghost{background:var(--color-primary-100);color:var(--color-primary-600)}
-    .btn-ghost:hover:not(:disabled){background:var(--color-primary-200)}
-
     .hidden{display:none!important}
-    .fade-in{animation:fade .35s ease}
+    .step-pane{animation:fade .3s ease}
     @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-
     .empty-note{text-align:center;color:var(--color-text-muted);padding:30px;font-size:15px}
 
-    /* Sticky mobile confirm helper */
     @media(max-width:640px){
-      h1{font-size:25px}
+      h1{font-size:24px}
       .recap-grid{grid-template-columns:1fr}
       .wrap{padding:22px 16px 100px}
       .card{padding:20px}
+      .step .lbl{display:none}
     }
   </style>
 
@@ -248,7 +219,7 @@
   <div id="state-loading" class="state">
     <div class="loader-ring"></div>
     <h2>Un instant…</h2>
-    <p>Nous récupérons vos informations et les prochaines disponibilités.</p>
+    <p>Nous récupérons les prochaines disponibilités.</p>
   </div>
 
   <!-- ÉTAT : Erreur -->
@@ -259,63 +230,86 @@
     <p style="margin-top:18px">Besoin d'aide ? <a href="tel:0667464897" style="color:var(--color-primary-600);font-weight:700;text-decoration:none">Appelez-nous au 06 67 46 48 97</a></p>
   </div>
 
-  <!-- ÉTAT : Application -->
+  <!-- ÉTAT : Application (wizard) -->
   <main id="state-app" class="wrap hidden">
 
-    <div style="margin-bottom:26px">
-      <span class="eyebrow">Votre intervention</span>
-      <h1 id="greeting">Choisissez votre <span class="accent">créneau d'intervention</span></h1>
-      <p class="lead">Vérifiez vos informations, sélectionnez le moment qui vous arrange, puis confirmez. Un technicien certifié Sanalia interviendra à la date choisie.</p>
+    <!-- Stepper -->
+    <div class="stepper">
+      <div class="step active" id="stp-1"><span class="num">1</span><span class="lbl">Créneau</span></div>
+      <div class="step-line" id="stp-line"></div>
+      <div class="step" id="stp-2"><span class="num">2</span><span class="lbl">Confirmation</span></div>
     </div>
 
-    <!-- Récapitulatif contact -->
-    <section class="card" id="recap-card">
-      <div class="recap-head">
-        <span class="section-title">Vos informations</span>
-        <span id="nuisible-badge" class="nuisible-badge"></span>
+    <!-- ÉTAPE 1 : Choix du créneau -->
+    <section id="step-1" class="step-pane">
+      <div style="margin-bottom:22px">
+        <h1 id="greeting">Choisissez votre <span class="accent">créneau d’intervention</span></h1>
+        <p class="lead">Sélectionnez le jour et l'horaire qui vous arrangent. Un technicien certifié Sanalia interviendra à la date choisie.</p>
       </div>
-      <div class="recap-grid" id="recap-grid"></div>
-      <p class="recap-note">Une information est incorrecte ? <a href="https://www.sanalia.fr/#contact">Contactez-nous</a> avant de confirmer.</p>
-    </section>
 
-    <!-- Sélecteur de créneau -->
-    <section class="card">
-      <div class="section-title">Choisissez votre créneau</div>
-      <div class="section-sub">Fuseau horaire : Paris (heure française). Créneaux de 30 minutes.</div>
-      <div id="day-scroller" class="day-scroller"></div>
-      <div id="times-wrap" class="times-wrap"></div>
-    </section>
+      <section class="card">
+        <div class="section-title">Disponibilités</div>
+        <div class="section-sub">Fuseau horaire : Paris (heure française). Créneaux de 30 minutes.</div>
+        <div id="day-scroller" class="day-scroller"></div>
+        <div id="times-wrap" class="times-wrap"></div>
+      </section>
 
-    <!-- Confirmation -->
-    <section class="card confirm-card" id="confirm-card">
-      <div class="section-title" style="margin-bottom:16px">Confirmez votre rendez-vous</div>
-
-      <div id="selected-slot" class="selected-slot hidden">
-        <div class="cal-ico">📅</div>
-        <div>
-          <div class="st-day" id="ss-day">—</div>
-          <div class="st-time" id="ss-time">—</div>
-        </div>
-        <button type="button" class="st-edit" id="ss-edit">Modifier</button>
-      </div>
-      <p id="no-slot-hint" class="empty-note" style="padding:14px 0">Sélectionnez d'abord un créneau ci-dessus.</p>
-
-      <label class="check-row" id="check-row" style="display:none">
-        <input type="checkbox" id="confirm-check" />
-        <span class="ct">
-          <strong>Je valide le devis et je confirme mon intervention.</strong>
-          <small>Je reconnais avoir pris connaissance du devis transmis par Sanalia et j'accepte la prise de rendez-vous à la date sélectionnée.</small>
-        </span>
-      </label>
-
-      <button type="button" class="btn" id="confirm-btn" disabled>
-        <span id="confirm-btn-label">Confirmer mon intervention</span>
+      <button type="button" class="btn" id="continue-btn" disabled>
+        <span>Continuer</span> <span aria-hidden="true">→</span>
       </button>
+    </section>
 
-      <div class="trust-row">
-        <span><span class="tk">✓</span> Techniciens certifiés Certibiocide</span>
-        <span><span class="tk">✓</span> Sans engagement au-delà du devis</span>
-        <span><span class="tk">✓</span> Confirmation immédiate</span>
+    <!-- ÉTAPE 2 : Récap infos + confirmation -->
+    <section id="step-2" class="step-pane hidden">
+      <div style="margin-bottom:22px">
+        <h1>Vérifiez et <span class="accent">confirmez</span></h1>
+        <p class="lead">Un dernier coup d'œil sur vos informations, puis validez votre rendez-vous.</p>
+      </div>
+
+      <!-- Créneau choisi -->
+      <section class="card" style="padding:18px">
+        <div class="selected-slot">
+          <div class="cal-ico">📅</div>
+          <div>
+            <div class="st-day" id="ss-day">—</div>
+            <div class="st-time" id="ss-time">—</div>
+          </div>
+          <button type="button" class="st-edit" id="ss-edit">Modifier</button>
+        </div>
+      </section>
+
+      <!-- Récap contact -->
+      <section class="card" id="recap-card">
+        <div class="recap-head">
+          <span class="section-title">Vos informations</span>
+          <span id="nuisible-badge" class="nuisible-badge"></span>
+        </div>
+        <div class="recap-grid" id="recap-grid"></div>
+        <p class="recap-note">Une information est incorrecte ? <a href="tel:0667464897">Appelez-nous au 06 67 46 48 97</a> avant de confirmer.</p>
+      </section>
+
+      <!-- Confirmation -->
+      <section class="card confirm-card">
+        <div class="section-title" style="margin-bottom:16px">Confirmez votre rendez-vous</div>
+        <label class="check-row">
+          <input type="checkbox" id="confirm-check" />
+          <span class="ct">
+            <strong>Je valide le devis et je confirme mon intervention.</strong>
+            <small>Je reconnais avoir pris connaissance du devis transmis par Sanalia et j'accepte la prise de rendez-vous à la date sélectionnée.</small>
+          </span>
+        </label>
+        <button type="button" class="btn" id="confirm-btn" disabled>
+          <span id="confirm-btn-label">Confirmer mon intervention</span>
+        </button>
+        <div class="trust-row">
+          <span><span class="tk">✓</span> Techniciens certifiés Certibiocide</span>
+          <span><span class="tk">✓</span> Sans engagement au-delà du devis</span>
+          <span><span class="tk">✓</span> Confirmation immédiate</span>
+        </div>
+      </section>
+
+      <div style="text-align:center">
+        <button type="button" class="btn-back" id="back-btn"><span aria-hidden="true">←</span> Revenir au choix du créneau</button>
       </div>
     </section>
   </main>
@@ -340,11 +334,11 @@
     var AVAIL_ENDPOINT   = 'https://availabilities.valentin7732.workers.dev/';
     var BOOKING_ENDPOINT = 'https://n8n.srv1336530.hstgr.cloud/webhook/96360312-33bc-4798-9b10-163141e3c4cc';
 
-    // ---- Récupération du contactId (plusieurs alias tolérés) ----
+    // ---- contactId (alias tolérés) ----
     var qs = new URLSearchParams(window.location.search);
     var contactId = qs.get('contactId') || qs.get('contactid') || qs.get('id') || qs.get('contact') || qs.get('recordId');
 
-    // ---- Helpers DOM ----
+    // ---- Helpers ----
     function $(id){ return document.getElementById(id); }
     function show(id){ $(id).classList.remove('hidden'); }
     function hide(id){ $(id).classList.add('hidden'); }
@@ -364,9 +358,9 @@
       return;
     }
 
-    // ---- Formatage dates (Europe/Paris, fr-FR) ----
+    // ---- Formatage (Europe/Paris, fr-FR) ----
     var TZ = 'Europe/Paris';
-    var fmtDayKey = new Intl.DateTimeFormat('fr-CA',{ timeZone:TZ, year:'numeric', month:'2-digit', day:'2-digit' }); // 2026-07-13
+    var fmtDayKey = new Intl.DateTimeFormat('fr-CA',{ timeZone:TZ, year:'numeric', month:'2-digit', day:'2-digit' });
     var fmtDow    = new Intl.DateTimeFormat('fr-FR',{ timeZone:TZ, weekday:'short' });
     var fmtDnum   = new Intl.DateTimeFormat('fr-FR',{ timeZone:TZ, day:'numeric' });
     var fmtMon    = new Intl.DateTimeFormat('fr-FR',{ timeZone:TZ, month:'short' });
@@ -375,35 +369,27 @@
 
     // ---- Nuisible : label + couleur pastel + picto ----
     var NUISIBLES = {
-      rats:        {label:'Rats',              bg:'--color-pastel-gold-light',    dot:'--color-pastel-gold',     ico:'🐀'},
-      rat:         {label:'Rats',              bg:'--color-pastel-gold-light',    dot:'--color-pastel-gold',     ico:'🐀'},
-      souris:      {label:'Souris',            bg:'--color-pastel-lavender-light',dot:'--color-pastel-lavender', ico:'🐁'},
-      punaises:    {label:'Punaises de lit',   bg:'--color-pastel-rose-light',    dot:'--color-pastel-rose',     ico:'🛏️'},
-      'punaises-de-lit':{label:'Punaises de lit',bg:'--color-pastel-rose-light',  dot:'--color-pastel-rose',     ico:'🛏️'},
-      cafards:     {label:'Cafards',           bg:'--color-pastel-mint-light',    dot:'--color-pastel-mint',     ico:'🪳'},
-      blattes:     {label:'Cafards',           bg:'--color-pastel-mint-light',    dot:'--color-pastel-mint',     ico:'🪳'},
-      guepes:      {label:'Guêpes & frelons',  bg:'--color-pastel-gold-light',    dot:'--color-pastel-gold',     ico:'🐝'},
-      frelons:     {label:'Frelons',           bg:'--color-pastel-gold-light',    dot:'--color-pastel-gold',     ico:'🐝'},
-      fourmis:     {label:'Fourmis',           bg:'--color-pastel-rose-light',    dot:'--color-pastel-rose',     ico:'🐜'},
-      moustiques:  {label:'Moustiques',        bg:'--color-pastel-blue-light',    dot:'--color-pastel-blue',     ico:'🦟'},
-      pigeons:     {label:'Pigeons',           bg:'--color-pastel-mint-light',    dot:'--color-pastel-mint',     ico:'🐦'},
-      puces:       {label:'Puces',             bg:'--color-pastel-peach-light',   dot:'--color-pastel-peach',    ico:'🪲'},
-      _default:    {label:'Nuisibles',         bg:'--color-primary-100',          dot:'--color-primary-200',     ico:'🔎'}
+      rats:{label:'Rats',bg:'--color-pastel-gold-light',dot:'--color-pastel-gold',ico:'🐀'},
+      rat:{label:'Rats',bg:'--color-pastel-gold-light',dot:'--color-pastel-gold',ico:'🐀'},
+      souris:{label:'Souris',bg:'--color-pastel-lavender-light',dot:'--color-pastel-lavender',ico:'🐁'},
+      punaises:{label:'Punaises de lit',bg:'--color-pastel-rose-light',dot:'--color-pastel-rose',ico:'🛏️'},
+      'punaises-de-lit':{label:'Punaises de lit',bg:'--color-pastel-rose-light',dot:'--color-pastel-rose',ico:'🛏️'},
+      cafards:{label:'Cafards',bg:'--color-pastel-mint-light',dot:'--color-pastel-mint',ico:'🪳'},
+      blattes:{label:'Cafards',bg:'--color-pastel-mint-light',dot:'--color-pastel-mint',ico:'🪳'},
+      guepes:{label:'Guêpes & frelons',bg:'--color-pastel-gold-light',dot:'--color-pastel-gold',ico:'🐝'},
+      frelons:{label:'Frelons',bg:'--color-pastel-gold-light',dot:'--color-pastel-gold',ico:'🐝'},
+      fourmis:{label:'Fourmis',bg:'--color-pastel-rose-light',dot:'--color-pastel-rose',ico:'🐜'},
+      moustiques:{label:'Moustiques',bg:'--color-pastel-blue-light',dot:'--color-pastel-blue',ico:'🦟'},
+      pigeons:{label:'Pigeons',bg:'--color-pastel-mint-light',dot:'--color-pastel-mint',ico:'🐦'},
+      puces:{label:'Puces',bg:'--color-pastel-peach-light',dot:'--color-pastel-peach',ico:'🪲'},
+      _default:{label:'Nuisibles',bg:'--color-primary-100',dot:'--color-primary-200',ico:'🔎'}
     };
-    function nuisibleMeta(n){
-      if(!n) return NUISIBLES._default;
-      var k = String(n).toLowerCase().trim();
-      return NUISIBLES[k] || NUISIBLES._default;
-    }
-
+    function nuisibleMeta(n){ if(!n) return NUISIBLES._default; var k=String(n).toLowerCase().trim(); return NUISIBLES[k]||NUISIBLES._default; }
     var STATUTS = { proprietaire:'Propriétaire', locataire:'Locataire', syndic:'Syndic', gestionnaire:'Gestionnaire', professionnel:'Professionnel' };
 
     // ---- State ----
-    var contact = null;      // infos normalisées
-    var slotsByDay = {};     // { '2026-07-13': [ {start,end,libres} ] }
-    var dayKeys = [];        // clés triées
-    var activeDay = null;
-    var selectedSlot = null;
+    var contact = null;
+    var slotsByDay = {}, dayKeys = [], activeDay = null, selectedSlot = null, currentStep = 1;
 
     // ---- Fetch parallèle ----
     Promise.all([ fetchContact(), fetchAvailabilities() ])
@@ -412,7 +398,7 @@
           fail('Aucune disponibilité', "Aucun créneau n'est disponible pour le moment. Nous vous recontactons rapidement pour fixer une date.");
           return;
         }
-        renderContact();
+        renderContact();   // pré-rempli l'étape 2 (cachée)
         renderDays();
         selectDay(dayKeys[0]);
         hide('state-loading');
@@ -432,22 +418,21 @@
           var p = {};
           try { p = typeof data.payload === 'string' ? JSON.parse(data.payload) : (data.payload || {}); } catch(e){ p = {}; }
           contact = {
-            id:         data.id || contactId,
-            firstname:  p.firstname || data.firstName || '',
-            lastname:   p.lastname  || data.lastName  || '',
-            email:      p.email     || data.email     || '',
-            phone:      p.phone_full|| data.phone     || p.phone || '',
-            address:    p.address   || data.adress    || data.address || '',
-            city:       p.city      || data.city      || '',
-            postalcode: p.postalcode|| data.postalCode|| '',
-            nuisible:   p.nuisible  || data.nuisible  || '',
-            statut:     p.statut    || data.status    || '',
-            company:    p.company   || '',
-            is_pro:     !!p.is_pro
+            id: data.id || contactId,
+            firstname: p.firstname || data.firstName || '',
+            lastname:  p.lastname  || data.lastName  || '',
+            email:     p.email     || data.email     || '',
+            phone:     p.phone_full|| data.phone     || p.phone || '',
+            address:   p.address   || data.adress    || data.address || '',
+            city:      p.city      || data.city      || '',
+            postalcode:p.postalcode|| data.postalCode|| '',
+            nuisible:  p.nuisible  || data.nuisible  || '',
+            statut:    p.statut    || data.status    || '',
+            company:   p.company   || '',
+            is_pro:    !!p.is_pro
           };
         })
         .catch(function(e){
-          // Le contact peut échouer sans bloquer : on garde un récap minimal.
           console.warn('Contact indisponible', e);
           contact = { id:contactId, firstname:'', lastname:'', email:'', phone:'', address:'', city:'', postalcode:'', nuisible:'', statut:'', company:'', is_pro:false };
         });
@@ -461,7 +446,7 @@
           var now = Date.now();
           slots.forEach(function(s){
             var d = new Date(s.start);
-            if(isNaN(d) || d.getTime() <= now) return; // on ignore le passé
+            if(isNaN(d) || d.getTime() <= now) return;
             var key = fmtDayKey.format(d);
             (slotsByDay[key] = slotsByDay[key] || []).push(s);
           });
@@ -472,7 +457,7 @@
 
     function countSlots(){ var n=0; dayKeys.forEach(function(k){ n+=slotsByDay[k].length; }); return n; }
 
-    // ---- Rendu récap contact ----
+    // ---- Étape 2 : récap contact (pré-rendu) ----
     function renderContact(){
       var meta = nuisibleMeta(contact.nuisible);
       var badge = $('nuisible-badge');
@@ -480,15 +465,13 @@
       badge.style.border = '1px solid var('+meta.dot+')';
       badge.innerHTML = '<span class="ico">'+meta.ico+'</span> '+esc(meta.label);
 
-      // Salutation personnalisée
       if(contact.firstname){
         $('greeting').innerHTML = 'Bonjour '+esc(contact.firstname)+', choisissez votre <span class="accent">créneau d’intervention</span>';
       }
 
       var fullName = [contact.firstname, contact.lastname].filter(Boolean).join(' ');
-      var addr = contact.address ? esc(contact.address) : '';
       var cityLine = [contact.postalcode, contact.city].filter(Boolean).join(' ');
-      var fullAddr = [addr, esc(cityLine)].filter(Boolean).join(', ') || '—';
+      var fullAddr = [contact.address ? esc(contact.address) : '', esc(cityLine)].filter(Boolean).join(', ') || '—';
       var statutLabel = contact.statut ? (STATUTS[String(contact.statut).toLowerCase()] || contact.statut) : '';
 
       var items = [
@@ -505,7 +488,7 @@
       }).join('');
     }
 
-    // ---- Rendu jours ----
+    // ---- Étape 1 : jours + horaires ----
     function renderDays(){
       $('day-scroller').innerHTML = dayKeys.map(function(k){
         var d = new Date(slotsByDay[k][0].start);
@@ -549,25 +532,37 @@
     function selectSlot(key, idx){
       selectedSlot = slotsByDay[key][idx];
       renderTimes(key);
+      $('continue-btn').disabled = false;
+      track('intervention_slot_selected', { contactId: contactId, start: selectedSlot.start });
+    }
+
+    // ---- Navigation entre étapes ----
+    function goStep(n){
+      currentStep = n;
+      $('step-1').classList.toggle('hidden', n!==1);
+      $('step-2').classList.toggle('hidden', n!==2);
+      // stepper
+      $('stp-1').className = 'step ' + (n===1 ? 'active' : 'done');
+      $('stp-2').className = 'step ' + (n===2 ? 'active' : '');
+      $('stp-line').className = 'step-line' + (n===2 ? ' done' : '');
+      window.scrollTo({ top:0, behavior:'smooth' });
+      track('intervention_step_view', { contactId: contactId, step: n });
+    }
+
+    $('continue-btn').addEventListener('click', function(){
+      if(!selectedSlot) return;
       var d = new Date(selectedSlot.start);
       $('ss-day').textContent = capFirst(fmtFull.format(d));
       $('ss-time').textContent = fmtTime.format(d) + ' – ' + fmtTime.format(new Date(selectedSlot.end));
-      hide('no-slot-hint');
-      show('selected-slot');
-      $('check-row').style.display = 'flex';
-      updateConfirmBtn();
-      track('intervention_slot_selected', { contactId: contactId, start: selectedSlot.start });
-      $('confirm-card').scrollIntoView({ behavior:'smooth', block:'center' });
-    }
-
-    $('ss-edit').addEventListener('click', function(){
-      document.querySelector('.day-scroller').scrollIntoView({ behavior:'smooth', block:'center' });
+      goStep(2);
     });
 
-    $('confirm-check').addEventListener('change', updateConfirmBtn);
-    function updateConfirmBtn(){
+    $('back-btn').addEventListener('click', function(){ goStep(1); });
+    $('ss-edit').addEventListener('click', function(){ goStep(1); });
+
+    $('confirm-check').addEventListener('change', function(){
       $('confirm-btn').disabled = !(selectedSlot && $('confirm-check').checked);
-    }
+    });
 
     // ---- Soumission ----
     var submitting = false;
@@ -591,7 +586,7 @@
           calendar: (selectedSlot.libres && selectedSlot.libres[0]) || null,
           timeZone: TZ
         },
-        slotLabel: fmtFull.format(d) + ' à ' + fmtTime.format(d),
+        slotLabel: capFirst(fmtFull.format(d)) + ' à ' + fmtTime.format(d),
         contact: {
           firstname: contact.firstname, lastname: contact.lastname,
           email: contact.email, phone: contact.phone,
