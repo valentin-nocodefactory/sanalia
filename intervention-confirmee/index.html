@@ -235,6 +235,7 @@
     'use strict';
 
     var DETAILS_ENDPOINT = 'https://n8n.srv1336530.hstgr.cloud/webhook/e1cd5266-6698-47fc-a67b-b2cef21c1431';
+    var CONTACT_ENDPOINT = 'https://n8n.srv1336530.hstgr.cloud/webhook/e6669e64-5f6d-4218-a1f2-ca890fe4d9e9';
 
     var qs = new URLSearchParams(window.location.search);
     var interventionId = qs.get('interventionId') || qs.get('interventionid') || qs.get('id') || qs.get('intervention');
@@ -266,13 +267,19 @@
     if(!interventionId){ fallback(); return; }
 
     fetch(DETAILS_ENDPOINT + '?interventionId=' + encodeURIComponent(interventionId), { method:'GET' })
-      .then(function(r){ if(!r.ok) throw new Error('details '+r.status); return r.json(); })
-      .then(function(data){
+      .then(function(r){ if(!r.ok) throw new Error('details '+r.status); return r.text(); })
+      .then(function(txt){
+        var data = null; try{ data = JSON.parse(txt); }catch(e){}
+        if(!data || (typeof data==='object' && !Array.isArray(data) && Object.keys(data).length===0)) throw new Error('intervention introuvable');
         var iv = normalize(data);
-        var start = new Date(iv.start);
-        if(isNaN(start.getTime())){ throw new Error('start invalide'); }
-        render(iv, start);
+        if(isNaN(new Date(iv.start).getTime())) throw new Error('date invalide');
+        // Enrichissement via la fiche contact (adresse, nuisible, nom structurés)
+        if(iv.contactId){
+          return fetchContact(iv.contactId).then(function(c){ return mergeContact(iv, c); }).catch(function(){ return iv; });
+        }
+        return iv;
       })
+      .then(function(iv){ render(iv, new Date(iv.start)); })
       .catch(function(err){ console.warn('Détails indisponibles', err); fallback(); });
 
     // Normalisation défensive : accepte de nombreuses formes de réponse
@@ -281,11 +288,20 @@
       var p = {}; try{ p = typeof data.payload==='string' ? JSON.parse(data.payload) : (data.payload||{}); }catch(e){}
       var slot = data.slot || p.slot || {};
       var c = data.contact || p.contact || {};
+      var contactId = firstDefined(
+        (Array.isArray(data.Contact) ? data.Contact[0] : data.Contact),
+        (Array.isArray(data.contact) ? data.contact[0] : ''),
+        data.contactId, p.contactId, (c && c.id)
+      );
+      // nuisible : depuis le champ "Name" ("punaises - email - date") en dernier recours
+      var nameGuess = '';
+      if(typeof data.Name==='string' && data.Name.indexOf(' - ')!==-1){ nameGuess = data.Name.split(' - ')[0].trim(); }
       return {
         interventionId: firstDefined(data.interventionId, data.id, interventionId),
-        start: firstDefined(slot.start, data.start, data.startTime, data.start_time, data.datetime, data.dateTime, data.date, p.start),
+        contactId: contactId,
+        start: firstDefined(data.Date, slot.start, data.start, data.startTime, data.start_time, data.datetime, data.dateTime, data.date, p.start),
         end:   firstDefined(slot.end, data.end, data.endTime, data.end_time, p.end),
-        nuisible: firstDefined(data.nuisible, p.nuisible, c.nuisible),
+        nuisible: firstDefined(data.nuisible, p.nuisible, c.nuisible, nameGuess),
         firstname: firstDefined(data.firstname, data.firstName, p.firstname, c.firstname),
         lastname:  firstDefined(data.lastname, data.lastName, p.lastname, c.lastname),
         address:   firstDefined(data.address, data.adress, p.address, c.address),
@@ -296,17 +312,48 @@
       };
     }
 
+    // Récupère la fiche contact structurée (adresse, nuisible, nom, téléphone)
+    function fetchContact(cid){
+      return fetch(CONTACT_ENDPOINT + '?contactId=' + encodeURIComponent(cid), { method:'GET' })
+        .then(function(r){ if(!r.ok) throw new Error('contact '+r.status); return r.json(); })
+        .then(function(data){
+          if(Array.isArray(data)) data = data[0] || {};
+          var p = {}; try{ p = typeof data.payload==='string' ? JSON.parse(data.payload) : (data.payload||{}); }catch(e){}
+          return {
+            firstname: firstDefined(p.firstname, data.firstName, ''),
+            lastname:  firstDefined(p.lastname, data.lastName, ''),
+            address:   firstDefined(p.address, data.adress, data.address, ''),
+            city:      firstDefined(p.city, data.city, ''),
+            postalcode:firstDefined(p.postalcode, data.postalCode, ''),
+            phone:     firstDefined(p.phone_full, data.phone, p.phone, ''),
+            email:     firstDefined(p.email, data.email, ''),
+            nuisible:  firstDefined(p.nuisible, data.nuisible, '')
+          };
+        });
+    }
+    function mergeContact(iv, c){
+      iv.firstname  = firstDefined(c.firstname, iv.firstname);
+      iv.lastname   = firstDefined(c.lastname, iv.lastname);
+      iv.address    = firstDefined(c.address, iv.address);
+      iv.city       = firstDefined(c.city, iv.city);
+      iv.postalcode = firstDefined(c.postalcode, iv.postalcode);
+      iv.phone      = firstDefined(c.phone, iv.phone);
+      iv.email      = firstDefined(c.email, iv.email);
+      iv.nuisible   = firstDefined(iv.nuisible, c.nuisible);
+      return iv;
+    }
+
     function render(iv, start){
       var meta = nuisibleMeta(iv.nuisible);
-      var end = new Date(iv.end);
-      if(isNaN(end.getTime())) end = new Date(start.getTime() + 60*60*1000); // défaut : +1 h
+      var hasEnd = iv.end && !isNaN(new Date(iv.end).getTime());
+      var end = hasEnd ? new Date(iv.end) : new Date(start.getTime() + 60*60*1000); // agenda : +1 h par défaut
 
       // Hero perso
       if(iv.firstname){ $('hero-sub').innerHTML = 'Merci '+esc(iv.firstname)+', votre paiement a bien été reçu. Voici les détails de votre rendez-vous.'; }
 
       // Date / heure
       $('dt-date').textContent = capFirst(fmtFull.format(start));
-      $('dt-time').textContent = 'à ' + fmtTime.format(start) + ' – ' + fmtTime.format(end);
+      $('dt-time').textContent = hasEnd ? ('à ' + fmtTime.format(start) + ' – ' + fmtTime.format(end)) : ('à ' + fmtTime.format(start));
       $('dt-badge').innerHTML = meta.ico + ' ' + esc(meta.label);
 
       // Détails
