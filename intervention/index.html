@@ -99,6 +99,32 @@
     .cb-devis svg{width:15px;height:15px;flex:0 0 auto}
     .cb-devis-txt-short{display:none}
 
+    /* Panneau latéral (drawer) du devis PDF */
+    .devis-overlay{position:fixed;inset:0;z-index:100;visibility:hidden;pointer-events:none}
+    .devis-overlay.open{visibility:visible;pointer-events:auto}
+    .devis-backdrop{position:absolute;inset:0;background:rgba(14,5,42,.45);opacity:0;transition:opacity .24s ease}
+    .devis-overlay.open .devis-backdrop{opacity:1}
+    .devis-drawer{position:absolute;top:0;right:0;height:100%;width:min(580px,94vw);background:var(--color-surface);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .26s cubic-bezier(.22,1,.36,1);box-shadow:-18px 0 48px rgba(14,5,42,.20);will-change:transform}
+    .devis-overlay.open .devis-drawer{transform:none}
+    .dd-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--color-gray-light);flex:0 0 auto}
+    .dd-title{font-weight:700;font-size:17px;line-height:1.2}
+    .dd-sub{font-family:var(--font-system);font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-light);margin-top:3px;max-width:34ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .dd-close{width:38px;height:38px;flex:0 0 auto;border-radius:var(--radius-md);border:1px solid var(--color-gray-light);background:var(--color-surface);color:var(--color-text);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s ease}
+    .dd-close:hover{background:var(--color-bg-sand)}
+    .dd-close:focus-visible{outline:2px solid var(--color-primary-400);outline-offset:2px}
+    .dd-body{flex:1 1 auto;position:relative;background:var(--color-bg-sand);min-height:0}
+    .dd-body iframe{position:absolute;inset:0;width:100%;height:100%;border:none;display:block}
+    .dd-foot{flex:0 0 auto;padding:12px 20px;border-top:1px solid var(--color-gray-light);display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--color-bg-offwhite)}
+    .dd-foot .dd-hint{font-size:12px;color:var(--color-text-muted)}
+    .dd-foot a{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:14px;color:var(--color-primary-600);text-decoration:none;white-space:nowrap}
+    .dd-foot a:hover{text-decoration:underline}
+    body.no-scroll{overflow:hidden}
+    @media(max-width:560px){
+      .devis-drawer{width:100vw}
+      .dd-foot{flex-direction:column;align-items:stretch;gap:8px}
+      .dd-foot .dd-hint{text-align:center}
+    }
+
     /* Layout */
     .wrap{max-width:760px;margin:0 auto;padding:28px 20px 120px}
     .card{background:var(--color-surface);border:1px solid var(--color-gray-light);border-radius:var(--radius-xl);padding:26px;box-shadow:var(--shadow-sm);margin-bottom:20px}
@@ -248,11 +274,11 @@
           <span class="cb-prestation" id="cb-prestation"></span>
           <span class="cb-price hidden" id="cb-price"><span class="lbl">Devis</span> <span class="amt" id="cb-amount"></span></span>
         </div>
-        <a class="cb-devis hidden" id="cb-devis" href="#" target="_blank" rel="noopener">
+        <button type="button" class="cb-devis hidden" id="cb-devis" aria-haspopup="dialog" aria-controls="devis-overlay">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
           <span class="cb-devis-txt-full">Voir mon devis</span>
           <span class="cb-devis-txt-short">Devis</span>
-        </a>
+        </button>
       </div>
     </div>
   </div>
@@ -364,6 +390,27 @@
     <div style="max-width:460px;margin:24px auto 0">
       <a href="https://www.sanalia.fr/" class="btn btn-ghost" style="text-decoration:none">Retour sur sanalia.fr</a>
     </div>
+  </div>
+
+  <!-- Panneau latéral : devis PDF -->
+  <div class="devis-overlay" id="devis-overlay" role="dialog" aria-modal="true" aria-labelledby="dd-title">
+    <div class="devis-backdrop" id="devis-backdrop"></div>
+    <aside class="devis-drawer">
+      <div class="dd-head">
+        <div>
+          <div class="dd-title" id="dd-title">Votre devis</div>
+          <div class="dd-sub" id="dd-filename"></div>
+        </div>
+        <button type="button" class="dd-close" id="dd-close" aria-label="Fermer le devis">✕</button>
+      </div>
+      <div class="dd-body">
+        <iframe id="dd-frame" title="Devis Sanalia (PDF)"></iframe>
+      </div>
+      <div class="dd-foot">
+        <span class="dd-hint">Le devis ne s'affiche pas ?</span>
+        <a id="dd-open" href="#" target="_blank" rel="noopener">Ouvrir en plein écran ↗</a>
+      </div>
+    </aside>
   </div>
 
   <script>
@@ -544,13 +591,35 @@
         $('cb-price').classList.remove('hidden');
       }
       if(contact.devisUrl){
-        var link = $('cb-devis');
-        link.href = contact.devisUrl;
-        link.classList.remove('hidden');
-        link.addEventListener('click', function(){ track('intervention_view_devis', { contactId: contactId }); });
+        $('cb-devis').classList.remove('hidden');
+        $('cb-devis').addEventListener('click', openDevis);
+        $('dd-open').href = contact.devisUrl;
+        if(contact.devisFilename) $('dd-filename').textContent = contact.devisFilename;
       }
       $('context-bar').classList.remove('hidden');
     }
+
+    // ---- Panneau latéral : devis PDF ----
+    var devisLoaded = false, devisLastFocus = null;
+    function openDevis(){
+      if(!contact || !contact.devisUrl) return;
+      if(!devisLoaded){ $('dd-frame').src = contact.devisUrl; devisLoaded = true; } // lazy-load
+      devisLastFocus = document.activeElement;
+      $('devis-overlay').classList.add('open');
+      document.body.classList.add('no-scroll');
+      $('dd-close').focus();
+      track('intervention_view_devis', { contactId: contactId });
+    }
+    function closeDevis(){
+      $('devis-overlay').classList.remove('open');
+      document.body.classList.remove('no-scroll');
+      if(devisLastFocus && devisLastFocus.focus) devisLastFocus.focus();
+    }
+    $('dd-close').addEventListener('click', closeDevis);
+    $('devis-backdrop').addEventListener('click', closeDevis);
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && $('devis-overlay').classList.contains('open')) closeDevis();
+    });
 
     // ---- Étape 2 : récap contact (pré-rendu) ----
     function renderContact(){
