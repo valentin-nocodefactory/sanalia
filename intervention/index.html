@@ -76,12 +76,28 @@
 
     .mono{font-family:var(--font-system);font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:11px;color:var(--color-text-light)}
 
-    /* Header */
-    .site-header{background:var(--color-surface);border-bottom:1px solid var(--color-gray-light);padding:14px 20px;position:sticky;top:0;z-index:20}
+    /* Barre supérieure collante : header + contexte prestation/devis */
+    .topbar{position:sticky;top:0;z-index:30}
+    .site-header{background:var(--color-surface);border-bottom:1px solid var(--color-gray-light);padding:14px 20px}
     .site-header .inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .site-header img{height:30px;width:auto;display:block}
     .header-badge{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-system);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted)}
     .header-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--color-primary-600)}
+
+    /* Barre de contexte persistante : prestation + devis toujours visibles */
+    .context-bar{background:var(--color-bg-offwhite);border-bottom:1px solid var(--color-gray-light);box-shadow:var(--shadow-sm)}
+    .cb-inner{max-width:760px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .cb-left{display:flex;align-items:center;gap:14px;min-width:0}
+    .cb-prestation{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--color-primary-900);white-space:nowrap;padding:5px 12px;border-radius:var(--radius-full)}
+    .cb-prestation .ico{font-size:15px;line-height:1}
+    .cb-price{display:inline-flex;align-items:baseline;gap:6px;white-space:nowrap}
+    .cb-price .lbl{font-family:var(--font-system);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-light)}
+    .cb-price .amt{font-size:14px;font-weight:700;color:var(--color-text)}
+    .cb-devis{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-primary);font-weight:700;font-size:14px;padding:9px 15px;border-radius:var(--radius-md);border:1.5px solid var(--color-primary-600);color:var(--color-primary-600);background:transparent;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background .18s ease,color .18s ease}
+    .cb-devis:hover{background:var(--color-primary-600);color:#fff}
+    .cb-devis:focus-visible{outline:2px solid var(--color-primary-400);outline-offset:2px}
+    .cb-devis svg{width:15px;height:15px;flex:0 0 auto}
+    .cb-devis-txt-short{display:none}
 
     /* Layout */
     .wrap{max-width:760px;margin:0 auto;padding:28px 20px 120px}
@@ -191,6 +207,15 @@
       .wrap{padding:22px 16px 100px}
       .card{padding:20px}
       .step .lbl{display:none}
+      .cb-inner{padding:8px 16px;gap:10px}
+      .cb-price{display:none}
+      .cb-prestation{padding:4px 10px;font-size:13px}
+      .cb-devis{padding:8px 13px;font-size:13px}
+      .cb-devis-txt-full{display:none}
+      .cb-devis-txt-short{display:inline}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{transition-duration:.01ms!important;animation-duration:.01ms!important}
     }
   </style>
 
@@ -206,14 +231,31 @@
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="inner">
-      <a href="https://www.sanalia.fr/" aria-label="Sanalia">
-        <img src="/logo-sanalia.svg" alt="Sanalia" />
-      </a>
-      <span class="header-badge"><span class="dot"></span> Confirmation de rendez-vous</span>
+  <div class="topbar">
+    <header class="site-header">
+      <div class="inner">
+        <a href="https://www.sanalia.fr/" aria-label="Sanalia">
+          <img src="/logo-sanalia.svg" alt="Sanalia" />
+        </a>
+        <span class="header-badge"><span class="dot"></span> Confirmation de rendez-vous</span>
+      </div>
+    </header>
+
+    <!-- Contexte persistant : prestation + devis toujours accessibles -->
+    <div class="context-bar hidden" id="context-bar">
+      <div class="cb-inner">
+        <div class="cb-left">
+          <span class="cb-prestation" id="cb-prestation"></span>
+          <span class="cb-price hidden" id="cb-price"><span class="lbl">Devis</span> <span class="amt" id="cb-amount"></span></span>
+        </div>
+        <a class="cb-devis hidden" id="cb-devis" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+          <span class="cb-devis-txt-full">Voir mon devis</span>
+          <span class="cb-devis-txt-short">Devis</span>
+        </a>
+      </div>
     </div>
-  </header>
+  </div>
 
   <!-- ÉTAT : Chargement -->
   <div id="state-loading" class="state">
@@ -282,7 +324,6 @@
       <section class="card" id="recap-card">
         <div class="recap-head">
           <span class="section-title">Vos informations</span>
-          <span id="nuisible-badge" class="nuisible-badge"></span>
         </div>
         <div class="recap-grid" id="recap-grid"></div>
         <p class="recap-note">Une information est incorrecte ? <a href="tel:0667464897">Appelez-nous au 06 67 46 48 97</a> avant de confirmer.</p>
@@ -295,7 +336,7 @@
           <input type="checkbox" id="confirm-check" />
           <span class="ct">
             <strong>Je valide le devis et je confirme mon intervention.</strong>
-            <small>Je reconnais avoir pris connaissance du devis transmis par Sanalia et j'accepte la prise de rendez-vous à la date sélectionnée.</small>
+            <small id="check-sub">Je reconnais avoir pris connaissance du devis transmis par Sanalia et j'accepte la prise de rendez-vous à la date sélectionnée.</small>
           </span>
         </label>
         <button type="button" class="btn" id="confirm-btn" disabled>
@@ -365,7 +406,7 @@
     }
 
     function fail(title,msg){
-      hide('state-loading'); hide('state-app'); hide('state-success');
+      hide('state-loading'); hide('state-app'); hide('state-success'); hide('context-bar');
       if(title) $('error-title').textContent = title;
       if(msg) $('error-msg').textContent = msg;
       show('state-error');
@@ -416,6 +457,7 @@
           fail('Aucune disponibilité', "Aucun créneau n'est disponible pour le moment. Nous vous recontactons rapidement pour fixer une date.");
           return;
         }
+        renderContextBar(); // prestation + devis persistants
         renderContact();   // pré-rempli l'étape 2 (cachée)
         renderDays();
         selectDay(dayKeys[0]);
@@ -447,14 +489,28 @@
             nuisible:  p.nuisible  || data.nuisible  || '',
             statut:    p.statut    || data.status    || '',
             company:   p.company   || '',
-            is_pro:    !!p.is_pro
+            is_pro:    !!p.is_pro,
+            devisUrl:      devisAttachment(data, 'url'),
+            devisFilename: devisAttachment(data, 'filename'),
+            priceTTC:      firstNumber(data.Price_TTC, data.price_ttc, data.priceTTC, p.price_ttc)
           };
         })
         .catch(function(e){
           console.warn('Contact indisponible', e);
-          contact = { id:contactId, firstname:'', lastname:'', email:'', phone:'', address:'', city:'', postalcode:'', nuisible:'', statut:'', company:'', is_pro:false };
+          contact = { id:contactId, firstname:'', lastname:'', email:'', phone:'', address:'', city:'', postalcode:'', nuisible:'', statut:'', company:'', is_pro:false, devisUrl:'', devisFilename:'', priceTTC:null };
         });
     }
+
+    // Récupère l'attachement PDF du devis (champ Airtable "Devis" = tableau d'objets)
+    function devisAttachment(data, key){
+      var d = data.Devis || data.devis || data.Devis_PDF;
+      if(Array.isArray(d) && d[0] && d[0][key]) return d[0][key];
+      if(d && typeof d==='object' && d[key]) return d[key];
+      if(key==='url' && typeof d==='string' && /^https?:\/\//.test(d)) return d;
+      return '';
+    }
+    function firstNumber(){ for(var i=0;i<arguments.length;i++){ var n=Number(arguments[i]); if(arguments[i]!=null && arguments[i]!=='' && !isNaN(n)) return n; } return null; }
+    function formatPrice(n){ try{ return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }catch(e){ return n+' €'; } }
 
     function fetchAvailabilities(){
       return fetch(AVAIL_ENDPOINT, { method:'GET' })
@@ -475,16 +531,35 @@
 
     function countSlots(){ var n=0; dayKeys.forEach(function(k){ n+=slotsByDay[k].length; }); return n; }
 
+    // ---- Barre de contexte persistante : prestation + devis ----
+    function renderContextBar(){
+      var meta = nuisibleMeta(contact.nuisible);
+      var prest = $('cb-prestation');
+      prest.style.background = 'var('+meta.bg+')';
+      prest.style.border = '1px solid var('+meta.dot+')';
+      prest.innerHTML = '<span class="ico">'+meta.ico+'</span> '+esc(meta.label);
+
+      if(contact.priceTTC != null){
+        $('cb-amount').textContent = formatPrice(contact.priceTTC) + ' TTC';
+        $('cb-price').classList.remove('hidden');
+      }
+      if(contact.devisUrl){
+        var link = $('cb-devis');
+        link.href = contact.devisUrl;
+        link.classList.remove('hidden');
+        link.addEventListener('click', function(){ track('intervention_view_devis', { contactId: contactId }); });
+      }
+      $('context-bar').classList.remove('hidden');
+    }
+
     // ---- Étape 2 : récap contact (pré-rendu) ----
     function renderContact(){
-      var meta = nuisibleMeta(contact.nuisible);
-      var badge = $('nuisible-badge');
-      badge.style.background = 'var('+meta.bg+')';
-      badge.style.border = '1px solid var('+meta.dot+')';
-      badge.innerHTML = '<span class="ico">'+meta.ico+'</span> '+esc(meta.label);
-
       if(contact.firstname){
         $('greeting').innerHTML = 'Bonjour '+esc(contact.firstname)+', choisissez votre <span class="accent">créneau d’intervention</span>';
+      }
+      // Montant du devis dans le libellé de validation
+      if(contact.priceTTC != null){
+        $('check-sub').textContent = 'Je reconnais avoir pris connaissance du devis (' + formatPrice(contact.priceTTC) + ' TTC) transmis par Sanalia et j\'accepte la prise de rendez-vous à la date sélectionnée.';
       }
 
       var fullName = [contact.firstname, contact.lastname].filter(Boolean).join(' ');
@@ -645,7 +720,7 @@
     });
 
     function renderSuccess(payload){
-      hide('state-app');
+      hide('state-app'); hide('context-bar');
       $('success-name').textContent = contact.firstname ? (contact.firstname + ',') : '';
       var meta = nuisibleMeta(contact.nuisible);
       $('success-recap').innerHTML =
