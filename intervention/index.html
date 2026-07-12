@@ -586,9 +586,9 @@
       prest.style.border = '1px solid var('+meta.dot+')';
       prest.innerHTML = '<span class="ico">'+meta.ico+'</span> '+esc(meta.label);
 
+      // Le montant est préparé mais reste masqué : il n'apparaît qu'à l'étape 2 (voir goStep)
       if(contact.priceTTC != null){
         $('cb-amount').textContent = formatPrice(contact.priceTTC) + ' TTC';
-        $('cb-price').classList.remove('hidden');
       }
       if(contact.devisUrl){
         $('cb-devis').classList.remove('hidden');
@@ -707,6 +707,8 @@
       $('stp-1').className = 'step ' + (n===1 ? 'active' : 'done');
       $('stp-2').className = 'step ' + (n===2 ? 'active' : '');
       $('stp-line').className = 'step-line' + (n===2 ? ' done' : '');
+      // Le montant du devis n'apparaît dans la barre qu'à l'étape finale
+      $('cb-price').classList.toggle('hidden', !(n===2 && contact && contact.priceTTC != null));
       window.scrollTo({ top:0, behavior:'smooth' });
       track('intervention_step_view', { contactId: contactId, step: n });
     }
