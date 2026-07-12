@@ -321,7 +321,7 @@
 
       <section class="card">
         <div class="section-title">Disponibilités</div>
-        <div class="section-sub">Fuseau horaire : Paris (heure française). Créneaux de 30 minutes.</div>
+        <div class="section-sub">Fuseau horaire : Paris (heure française). Créneaux de 2 heures.</div>
         <div id="day-scroller" class="day-scroller"></div>
         <div id="times-wrap" class="times-wrap"></div>
       </section>
@@ -567,18 +567,38 @@
     function firstNumber(){ for(var i=0;i<arguments.length;i++){ var n=Number(arguments[i]); if(arguments[i]!=null && arguments[i]!=='' && !isNaN(n)) return n; } return null; }
     function formatPrice(n){ try{ return new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n); }catch(e){ return n+' €'; } }
 
+    var SLOT_DURATION_MS = 2 * 60 * 60 * 1000; // durée d'une intervention : 2 h
+
     function fetchAvailabilities(){
       return fetch(AVAIL_ENDPOINT, { method:'GET' })
         .then(function(r){ if(!r.ok) throw new Error('avail '+r.status); return r.json(); })
         .then(function(data){
-          var slots = (data && data.slots) || [];
           var now = Date.now();
-          slots.forEach(function(s){
-            var d = new Date(s.start);
-            if(isNaN(d) || d.getTime() <= now) return;
-            var key = fmtDayKey.format(d);
-            (slotsByDay[key] = slotsByDay[key] || []).push(s);
-          });
+          // Créneaux bruts (30 min), à venir, triés par heure de début
+          var raw = ((data && data.slots) || [])
+            .filter(function(s){ var d=new Date(s.start); return !isNaN(d) && d.getTime() > now; })
+            .sort(function(a,b){ return new Date(a.start) - new Date(b.start); });
+
+          // Construit des créneaux de 2 h à partir des blocs de disponibilité contigus.
+          // Un créneau de 2 h n'est proposé que si la plage est libre en continu (pas de trou),
+          // pour ne jamais chevaucher un moment déjà occupé.
+          for(var i=0; i<raw.length; i++){
+            var startMs = new Date(raw[i].start).getTime();
+            var needEnd = startMs + SLOT_DURATION_MS;
+            var cursor = startMs, j = i, ok = false;
+            while(j < raw.length){
+              var sStart = new Date(raw[j].start).getTime();
+              var sEnd   = new Date(raw[j].end).getTime();
+              if(sStart !== cursor) break;         // trou dans la plage : bloc interrompu
+              cursor = sEnd;
+              if(cursor >= needEnd){ ok = true; break; }
+              j++;
+            }
+            if(!ok) continue;                        // pas 2 h libres en continu à partir d'ici
+            var slot2h = { start: raw[i].start, end: new Date(needEnd).toISOString(), libres: raw[i].libres };
+            var key = fmtDayKey.format(new Date(raw[i].start));
+            (slotsByDay[key] = slotsByDay[key] || []).push(slot2h);
+          }
           dayKeys = Object.keys(slotsByDay).sort();
           dayKeys.forEach(function(k){ slotsByDay[k].sort(function(a,b){ return new Date(a.start)-new Date(b.start); }); });
         });

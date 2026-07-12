@@ -346,7 +346,7 @@
     function render(iv, start){
       var meta = nuisibleMeta(iv.nuisible);
       var hasEnd = iv.end && !isNaN(new Date(iv.end).getTime());
-      var end = hasEnd ? new Date(iv.end) : new Date(start.getTime() + 60*60*1000); // agenda : +1 h par défaut
+      var end = hasEnd ? new Date(iv.end) : new Date(start.getTime() + 2*60*60*1000); // agenda : intervention de 2 h par défaut
 
       // Hero perso
       if(iv.firstname){ $('hero-sub').innerHTML = 'Merci '+esc(iv.firstname)+', votre paiement a bien été reçu. Voici les détails de votre rendez-vous.'; }
