@@ -2274,6 +2274,24 @@
             <h2>Recevez votre devis</h2>
             <p class="devis-msf-sub">Dernière étape. Devis sous 2h, sans engagement.</p>
 
+            <div class="devis-msf-field">
+              <label class="devis-msf-flabel">Niveau d'infestation</label>
+              <div class="devis-msf-seg" id="msfNiveau">
+                <label class="devis-msf-segopt"><input type="radio" name="niveau_infestation" value="leger" required><span>Léger</span></label>
+                <label class="devis-msf-segopt"><input type="radio" name="niveau_infestation" value="important"><span>Important</span></label>
+              </div>
+            </div>
+
+            <div class="devis-msf-field">
+              <label class="devis-msf-flabel">Surface à couvrir</label>
+              <div class="devis-msf-seg" id="msfSurface">
+                <label class="devis-msf-segopt"><input type="radio" name="surface_m2" value="&lt;30" required><span>&lt; 30 m²</span></label>
+                <label class="devis-msf-segopt"><input type="radio" name="surface_m2" value="30-60"><span>30–60 m²</span></label>
+                <label class="devis-msf-segopt"><input type="radio" name="surface_m2" value="60-100"><span>60–100 m²</span></label>
+                <label class="devis-msf-segopt"><input type="radio" name="surface_m2" value="&gt;100"><span>&gt; 100 m²</span></label>
+              </div>
+            </div>
+
             <div class="devis-msf-row">
               <div class="devis-msf-field">
                 <label for="msf-firstname">Prénom</label>
@@ -2305,7 +2323,7 @@
               <input type="email" id="msf-email" name="email" required autocomplete="email" placeholder="marie.durand@exemple.fr">
             </div>
 
-            <p class="devis-msf-error" id="msfContactError" role="alert">Merci de renseigner votre prénom, votre nom, votre téléphone et votre email pour recevoir le devis.</p>
+            <p class="devis-msf-error" id="msfContactError" role="alert">Merci de renseigner le niveau d'infestation, la surface, votre prénom, votre nom, votre téléphone et votre email pour recevoir le devis.</p>
 
             <div class="devis-msf-actions">
               <button type="button" class="devis-msf-btn devis-msf-btn-back" data-back-to="auto">
@@ -2333,6 +2351,17 @@
 </section>
 
 <style>
+/* Champs niveau d'infestation + surface (segmented pills) */
+.devis-msf-flabel{display:block;font-family:var(--font-primary);font-weight:600;font-size:13px;color:var(--color-primary-900);margin-bottom:8px}
+.devis-msf-seg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.devis-msf-segopt{position:relative;cursor:pointer;margin:0}
+.devis-msf-segopt input{position:absolute;opacity:0;width:0;height:0}
+.devis-msf-segopt span{display:inline-flex;align-items:center;justify-content:center;padding:9px 16px;border:1.5px solid var(--color-gray-light);border-radius:100px;font-family:var(--font-primary);font-size:14px;font-weight:600;color:var(--color-primary-900);background:var(--color-surface);transition:border-color .15s ease,background .15s ease,color .15s ease}
+.devis-msf-segopt:hover span{border-color:var(--color-primary-400)}
+.devis-msf-segopt input:checked + span{background:var(--color-primary-600);border-color:var(--color-primary-600);color:#fff}
+.devis-msf-segopt input:focus-visible + span{outline:2px solid var(--color-primary-400);outline-offset:2px}
+.devis-msf-seg.is-invalid .devis-msf-segopt span{border-color:#e0857e}
+
 .devis-simple {
   padding: 120px 0 80px;
   background: var(--color-bg);
@@ -3079,7 +3108,9 @@ body.is-embed .devis-msf {
     var emailEl = form.querySelector('#msf-email');
     var emailOk = emailEl.value.trim() !== '' && emailEl.checkValidity();
     var phoneOk = getPhoneDigits().length >= phoneMinDigits();
-    var ok = fn.length >= 1 && ln.length >= 1 && phoneOk && emailOk;
+    var niveauOk = !!form.querySelector('input[name="niveau_infestation"]:checked');
+    var surfaceOk = !!form.querySelector('input[name="surface_m2"]:checked');
+    var ok = fn.length >= 1 && ln.length >= 1 && phoneOk && emailOk && niveauOk && surfaceOk;
     if (submitBtn) submitBtn.disabled = !ok;
     return ok;
   }
@@ -3090,6 +3121,7 @@ body.is-embed .devis-msf {
     });
     var pg = form.querySelector('.phone-input-group');
     if (pg) pg.classList.remove('is-invalid');
+    ['msfNiveau', 'msfSurface'].forEach(function(id) { var s = document.getElementById(id); if (s) s.classList.remove('is-invalid'); });
     var errEl = document.getElementById('msfContactError');
     if (errEl) errEl.classList.remove('is-visible');
   }
@@ -3110,6 +3142,10 @@ body.is-embed .devis-msf {
     }
     var emailEl = form.querySelector('#msf-email');
     if (!(emailEl.value.trim() !== '' && emailEl.checkValidity())) mark(emailEl);
+    var niveauSeg = document.getElementById('msfNiveau');
+    var surfaceSeg = document.getElementById('msfSurface');
+    if (niveauSeg && !form.querySelector('input[name="niveau_infestation"]:checked')) { niveauSeg.classList.add('is-invalid'); if (!firstInvalid) firstInvalid = niveauSeg; }
+    if (surfaceSeg && !form.querySelector('input[name="surface_m2"]:checked')) { surfaceSeg.classList.add('is-invalid'); if (!firstInvalid) firstInvalid = surfaceSeg; }
     var errEl = document.getElementById('msfContactError');
     if (errEl) errEl.classList.add('is-visible');
     if (firstInvalid) { try { firstInvalid.focus(); } catch (e) {} }
@@ -3121,6 +3157,8 @@ body.is-embed .devis-msf {
     validateStep3();
     validateStepPro();
     validateContact();
+    var nSeg = document.getElementById('msfNiveau'); if (nSeg && form.querySelector('input[name="niveau_infestation"]:checked')) nSeg.classList.remove('is-invalid');
+    var sSeg = document.getElementById('msfSurface'); if (sSeg && form.querySelector('input[name="surface_m2"]:checked')) sSeg.classList.remove('is-invalid');
   });
   form.querySelector('#msf-address').addEventListener('input', validateStep3);
   form.querySelector('#msf-postalcode').addEventListener('input', validateStep3);

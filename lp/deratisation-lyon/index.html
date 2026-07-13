@@ -2680,21 +2680,17 @@ image-slot[src]::before { display: none; }
                 <button type="button" class="hf-option" data-field="surface" data-value="&gt;100">&gt; 100 m²</button>
               </div>
               <div class="hf-label" style="margin-top:18px;">
-                Niveau d'infestation ressenti
-                <small>Vous avez vu… ?</small>
+                Niveau d'infestation
+                <small>Léger ou important&nbsp;?</small>
               </div>
-              <div class="hf-options hf-options-3">
-                <button type="button" class="hf-option" data-field="niveau" data-value="doute">
-                  <span class="hf-option-emoji">🤔</span>
-                  Un doute
+              <div class="hf-options" style="grid-template-columns:repeat(2,1fr);">
+                <button type="button" class="hf-option" data-field="niveau" data-value="leger">
+                  <span class="hf-option-emoji">🟢</span>
+                  Léger
                 </button>
-                <button type="button" class="hf-option" data-field="niveau" data-value="indices">
-                  <span class="hf-option-emoji">👀</span>
-                  Bruits/crottes
-                </button>
-                <button type="button" class="hf-option" data-field="niveau" data-value="visibles">
-                  <span class="hf-option-emoji">🐀</span>
-                  Rats vus
+                <button type="button" class="hf-option" data-field="niveau" data-value="important">
+                  <span class="hf-option-emoji">🔴</span>
+                  Important
                 </button>
               </div>
               <div class="hf-actions">
@@ -3503,8 +3499,8 @@ image-slot[src]::before { display: none; }
       var submitBtn = form.querySelector('.hf-step.is-active .hf-submit');
       var payload = {
         logement: state.logement,
-        surface: state.surface,
-        niveau: state.niveau,
+        surface_m2: state.surface,
+        niveau_infestation: state.niveau,
         prenom: data.get('prenom'),
         tel: data.get('tel'),
         email: data.get('email'),
@@ -3548,8 +3544,8 @@ image-slot[src]::before { display: none; }
           nuisible: payload.nuisible,
           ville: payload.ville,
           logement: payload.logement,
-          surface: payload.surface,
-          niveau: payload.niveau,
+          surface_m2: payload.surface_m2,
+          niveau_infestation: payload.niveau_infestation,
         });
         // Fallback: if gtag is blocked or callback never fires, redirect anyway.
         setTimeout(redirectToThankYou, 2200);

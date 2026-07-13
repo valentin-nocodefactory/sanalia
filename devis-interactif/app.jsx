@@ -108,6 +108,7 @@ function App() {
   const [nuisible, setNuisible] = useState(__INITIAL.nuisible);
   const [logement, setLogement] = useState(__INITIAL.logement);
   const [surface, setSurface]   = useState(__INITIAL.surface);
+  const [niveau, setNiveau]     = useState(__INITIAL.niveau || null);
   const [statut, setStatut]     = useState(__INITIAL.statut);
   const [adresse, setAdresse]   = useState(__INITIAL.adresse);
   const [creneau, setCreneau]   = useState(__INITIAL.creneau);
@@ -153,7 +154,7 @@ function App() {
     switch (STEPS[step]?.id) {
       case 'nuisible': return !!nuisible;
       case 'logement': return Array.isArray(logement) ? logement.length > 0 : !!logement;
-      case 'surface':  return surface >= 10;
+      case 'surface':  return surface >= 10 && !!niveau;
       case 'statut':   return !!statut;
       case 'adresse':  return !!adresse.line && !!adresse.cp && !!adresse.city;
       case 'creneau':  return !!creneau.day && !!creneau.slot && !!creneau.day2 && !!creneau.slot2;
@@ -169,7 +170,7 @@ function App() {
       case 'paiement': return false;
       default:         return false;
     }
-  }, [step, nuisible, logement, surface, statut, adresse, creneau, coords, audience]);
+  }, [step, nuisible, logement, surface, niveau, statut, adresse, creneau, coords, audience]);
 
   // 2 endpoints n8n :
   //   LEAD_WEBHOOK   = création du lead au clic "Recevoir mon devis", awaitResponse → renvoie { leadId }
@@ -222,6 +223,7 @@ function App() {
       logement: Array.isArray(logement) ? logement.join(',') : (logement || ''),
       logement_labels: (Array.isArray(logement) ? logement : [logement]).map(id => LOGEMENTS.find(l => l.id === id)?.label).filter(Boolean).join(' + '),
       surface_m2: surface || '',
+      niveau_infestation: niveau || '',
       statut: statut || '',
       // Créneaux
       rdv1_date: creneau.day || '',
@@ -319,7 +321,7 @@ function App() {
   // lisent toujours la version la plus récente — sinon les closures stales bloquent
   // l'avance après un changement de state asynchrone.
   const stateRef = useRef();
-  stateRef.current = { nuisible, logement, surface, statut, adresse, creneau, coords, audience, step };
+  stateRef.current = { nuisible, logement, surface, niveau, statut, adresse, creneau, coords, audience, step };
 
   // Auto-submitLead quand on arrive sur la page via une share URL.
   // Sans ça, le StepRecap reste bloqué sur "Préparation de votre devis…"
@@ -345,7 +347,7 @@ function App() {
     switch (STEPS[stepIdx]?.id) {
       case 'nuisible': return !!s.nuisible;
       case 'logement': return Array.isArray(s.logement) ? s.logement.length > 0 : !!s.logement;
-      case 'surface':  return s.surface >= 10;
+      case 'surface':  return s.surface >= 10 && !!s.niveau;
       case 'statut':   return !!s.statut;
       case 'adresse':  return !!s.adresse.line && !!s.adresse.cp && !!s.adresse.city;
       case 'creneau':  return !!s.creneau.day && !!s.creneau.slot && !!s.creneau.day2 && !!s.creneau.slot2;
@@ -573,7 +575,7 @@ function App() {
   const sid = STEPS[step]?.id;
   if (sid === 'nuisible') stepNode = <StepNuisible value={nuisible} audience={audience} onAudience={handleAudience} onChange={setNuisible} onAdvance={next} coverMode={coverFormVariant}/>;
   else if (sid === 'logement') stepNode = <StepLogement value={logement} onChange={setLogement}/>;
-  else if (sid === 'surface')  stepNode = <StepSurface surface={surface} onSurface={setSurface}/>;
+  else if (sid === 'surface')  stepNode = <StepSurface surface={surface} onSurface={setSurface} niveau={niveau} onNiveau={setNiveau}/>;
   else if (sid === 'statut')   stepNode = <StepStatut value={statut} logement={logement} onChange={setStatut}/>;
   else if (sid === 'adresse')  stepNode = <StepAdresse adresse={adresse} onChange={setAdresse}/>;
   else if (sid === 'creneau')  stepNode = <StepCreneau value={creneau} onChange={setCreneau}/>;

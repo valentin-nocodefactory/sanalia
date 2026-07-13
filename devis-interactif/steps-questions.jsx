@@ -166,7 +166,7 @@ function StepLogement({ value, onChange }) {
 // ===========================================================
 // Step 4 — Surface
 // ===========================================================
-function StepSurface({ surface, onSurface }) {
+function StepSurface({ surface, onSurface, niveau, onNiveau }) {
   return (
     <div>
       <div className="eyebrow"><span className="dot"></span>Étape 3 · Surface</div>
@@ -184,6 +184,28 @@ function StepSurface({ surface, onSurface }) {
             <div className="counter-value">{surface} m²</div>
             <button className="counter-btn" onClick={()=>onSurface(Math.min(500, surface+10))}>+</button>
           </div>
+        </div>
+      </div>
+
+      <div className="field">
+        <label className="field-label">Niveau d'infestation</label>
+        <div className="choice-grid">
+          <button type="button" className={'choice-card' + (niveau === 'leger' ? ' selected' : '')} onClick={() => onNiveau('leger')}>
+            <div className="choice-emoji">🟢</div>
+            <div className="choice-text">
+              <div className="choice-title">Léger</div>
+              <div className="choice-desc">Quelques individus, début d'infestation</div>
+            </div>
+            <div className="choice-check"></div>
+          </button>
+          <button type="button" className={'choice-card' + (niveau === 'important' ? ' selected' : '')} onClick={() => onNiveau('important')}>
+            <div className="choice-emoji">🔴</div>
+            <div className="choice-text">
+              <div className="choice-title">Important</div>
+              <div className="choice-desc">Présence marquée ou étendue</div>
+            </div>
+            <div className="choice-check"></div>
+          </button>
         </div>
       </div>
     </div>
