@@ -50,11 +50,11 @@ TEMPLATES = {
         "• Notion : {notion_url}"
     ),
     "empty_pipeline": (
-        "📭 *Pipeline blog Sanalia vide aujourd'hui*\n"
-        "Aucun article au statut « Next up » dans Notion pour aujourd'hui ({today}).\n"
+        "📭 *Pipeline blog Sanalia vide*\n"
+        "Aucun article au statut « Next up » dans Notion ({today}).\n"
         "Pour relancer la publication automatique, ajoute un brief dans la base "
-        "« Articles blog à rédiger » et passe-le à « Next up » avec une Date de "
-        "parution ≤ aujourd'hui.\n"
+        "« Articles blog à rédiger » et passe-le à « Next up » (la Date de "
+        "parution n'est plus requise).\n"
         "Notion : {notion_url}"
     ),
 }

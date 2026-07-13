@@ -2,7 +2,8 @@
 name: publish-article-sanalia
 description: >
   Publie un article du blog Sanalia depuis Notion en mode preview. Récupère
-  l'article au statut "Next up" du jour, fait rédiger par ChatSEO en JSON
+  un article au statut "Next up" (priorité la plus haute, peu importe sa date
+  de parution), fait rédiger par ChatSEO en JSON
   structuré, génère les visuels via Recraft, assemble le HTML dans le template
   Sanalia, push sur une branche claude/draft/<slug>, ouvre une PR draft et
   envoie le lien preview Cloudflare sur Slack. Met à jour Notion en "À valider".
@@ -94,16 +95,22 @@ Template : `.claude/skills/publish-article-sanalia/templates/article-skeleton.ht
    tokens) pour un article qui n'aura pas de visuels exploitables, (c)
    préserver un état Notion propre pour le prochain run.
 
-### Étape 1 — Récupérer l'article "Next up" du jour depuis Notion
+### Étape 1 — Récupérer un article "Next up" depuis Notion
 
 Via MCP Notion (tools `mcp__*__notion-*`), query la data source
 `4fc6d199-2674-494a-8959-ba1008034526` :
-- Filtre : `Statut = "Next up"` ET `Date de parution <= today`
-- Tri : `Date de parution` ASC
+- Filtre : `Statut = "Next up"` — **uniquement**. `Date de parution` n'est
+  **PAS** un critère de sélection : la plupart des briefs n'ont pas cette
+  date renseignée, et ce n'est pas bloquant. Dès qu'un brief est en
+  `Next up`, il est éligible, peu importe sa date de parution (vide ou
+  future).
+- Tri : `Score priorité` DESC (le champ de priorisation éditoriale existant),
+  fallback `createdTime` ASC si égalité ou absence de score.
 - Limite : 1
 
-**Si vide** : envoyer une alerte Slack pour prévenir que le pipeline est vide
-(le user doit ajouter un brief dans Notion), puis exit 0.
+**Si vide** (aucune ligne en `Statut = "Next up"`) : envoyer une alerte Slack
+pour prévenir que le pipeline est vide (le user doit ajouter un brief dans
+Notion), puis exit 0.
 
 ```bash
 python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
@@ -111,12 +118,13 @@ python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
   --vars "$(python3 -c 'import json,datetime; print(json.dumps({"today": datetime.date.today().isoformat(), "notion_url": "https://www.notion.so/7cf0a638f2a34caeabc023ed7d4e8481"}))')"
 ```
 
-Puis log "Aucun article Next up aujourd'hui, alerte Slack envoyée" et exit 0.
+Puis log "Aucun article Next up, alerte Slack envoyée" et exit 0.
 
 **Si trouvé** : extraire les champs (cf. NOTION-SCHEMA.md) :
 - `Titre`, `Mot-clé principal`, `Angle / Notes`, `Catégorie`,
-  `Nuisible parent`, `Intent`, `Temps de lecture (min)`, `Date de parution`,
-  `URL cible`, `notion_page_id`, `notion_page_url`
+  `Nuisible parent`, `Intent`, `Temps de lecture (min)`, `Date de parution`
+  (peut être vide — dans ce cas `publishedAt` retombe sur la date du jour,
+  cf. Étape 4), `URL cible`, `notion_page_id`, `notion_page_url`
 
 **Validations** :
 - `Nuisible parent` doit être présent et exister dans

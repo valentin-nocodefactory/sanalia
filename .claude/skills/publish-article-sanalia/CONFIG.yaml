@@ -200,9 +200,9 @@ slack:
     • Erreur : {error}
     • Notion : {notion_url}
   message_template_empty_pipeline: |
-    📭 *Pipeline blog Sanalia vide aujourd'hui*
-    Aucun article au statut « Next up » dans Notion pour aujourd'hui ({today}).
+    📭 *Pipeline blog Sanalia vide*
+    Aucun article au statut « Next up » dans Notion ({today}).
     Pour relancer la publication automatique, ajoute un brief dans la base
-    « Articles blog à rédiger » et passe-le à « Next up » avec une Date de
-    parution ≤ aujourd'hui.
+    « Articles blog à rédiger » et passe-le à « Next up » (la Date de
+    parution n'est plus requise).
     Notion : {notion_url}
