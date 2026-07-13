@@ -126,10 +126,46 @@ Puis log "Aucun article Next up, alerte Slack envoyée" et exit 0.
   (peut être vide — dans ce cas `publishedAt` retombe sur la date du jour,
   cf. Étape 4), `URL cible`, `notion_page_id`, `notion_page_url`
 
-**Validations** :
-- `Nuisible parent` doit être présent et exister dans
-  `CONFIG.parent_nuisible_map`. Sinon → étape Erreur avec
-  "Nuisible parent absent ou invalide".
+**Auto-association du tag nuisible si `Nuisible parent` est manquant** :
+
+La propriété `Nuisible parent` n'existe pas encore dans le data source
+Notion actuel (et même une fois ajoutée, elle sera souvent laissée vide sur
+les anciens briefs). Un `Nuisible parent` absent ou vide n'est donc **plus**
+une raison de partir en étape Erreur — on le déduit automatiquement :
+
+1. **Priorité 1 — valeur explicite** : si `Nuisible parent` est présent sur
+   l'article ET que sa valeur existe dans `CONFIG.parent_nuisible_map` →
+   l'utiliser telle quelle. C'est la source de vérité quand elle est là.
+2. **Priorité 2 — dérivation depuis `Catégorie`** : sinon, regarder
+   `CONFIG.categorie_to_nuisible_map` :
+   - Si la `Catégorie` de l'article mappe directement à un slug (ex.
+     `"Frelons & guêpes"` → `guepes`) → utiliser ce slug.
+   - Cas spécial `"Rats & Souris"` (marqué `AMBIGUOUS`) : désambiguïser en
+     cherchant, dans `Mot-clé principal` + `Titre` concaténés (insensible à
+     la casse/accents), les mots de `rats_souris_disambiguation`. Un match
+     sur `souris_keywords` sans match sur `rats_keywords` → `souris` ; un
+     match sur `rats_keywords` sans match sur `souris_keywords` → `rats` ;
+     sinon (ambigu ou aucun match) → `rats_souris_disambiguation.default`
+     (`rats`).
+   - Si la `Catégorie` n'a **aucune** entrée dans `categorie_to_nuisible_map`
+     (ex. `Tiques`, `Araignées`, `Chenilles processionnaires`, `Mites`,
+     `Lépismes`, `Puces`, `Charançons`, `Taupes`, `Termites`,
+     `Mouches & moucherons`, `Autre`) → `parentNuisible = null`. L'article
+     est traité comme **transverse** : breadcrumb à 3 niveaux
+     (Accueil > Blog > Titre), pas de tag pastel nuisible, pas de card
+     "FICHE COMPLÈTE" en Étape 4bis. C'est un cas normal et documenté dans
+     CLAUDE.md, pas une erreur.
+3. **Ne JAMAIS inventer un slug** qui n'existe pas dans
+   `CONFIG.parent_nuisible_map` (invariant du skill, cf. § Invariants). Si la
+   dérivation aboutit à un slug non présent dans `parent_nuisible_map`
+   (ne devrait pas arriver vu que `categorie_to_nuisible_map` ne référence
+   que des slugs valides), traiter comme le cas "aucune entrée" ci-dessus
+   (`parentNuisible = null`).
+4. Logguer la méthode utilisée pour traçabilité, ex. :
+   `✓ Étape 1 — Nuisible parent="souris" (dérivé de Catégorie="Rats & Souris" via mot-clé "souris")`
+   ou `✓ Étape 1 — Nuisible parent=null (Catégorie="Tiques" non mappée, article transverse)`.
+
+**Autres validations** :
 - `Intent` doit être l'une des 5 valeurs (informational, transactional,
   urgency, prevention, regulatory). Sinon → étape Erreur.
 
@@ -244,7 +280,7 @@ python3 -c "import markdown; print(markdown.markdown('''<RESPONSE>''', extension
 
 | Champ | Calcul |
 |---|---|
-| `parentNuisible` | Champ Notion `Nuisible parent` (clé du `parent_nuisible_map` dans CONFIG.yaml — ex : `guepes`) |
+| `parentNuisible` | Valeur résolue à l'Étape 1 (explicite ou auto-associée depuis `Catégorie`, cf. § Auto-association du tag nuisible) — clé du `parent_nuisible_map` dans CONFIG.yaml, ou `null` si transverse |
 | `intentType` | Champ Notion `Intent` (lowercase EN) |
 | `breadcrumbLabel` | `title` tronqué à 50 chars sur le dernier mot complet |
 | `publishedAt` | Notion `Date de parution`, fallback aujourd'hui ISO |
@@ -914,8 +950,12 @@ git checkout main
   étape 8
 - Ne JAMAIS log le `SLACK_WEBHOOK_URL` ni d'autres secrets
 - Ne JAMAIS bypass l'anti-cannibalisation
-- Ne JAMAIS prendre l'initiative d'ajouter une page nuisible : si
-  `parentNuisible` est absent ou inconnu → étape Erreur
+- Ne JAMAIS prendre l'initiative de créer une nouvelle page nuisible ou un
+  nouveau slug : `parentNuisible` doit toujours provenir soit du `Nuisible
+  parent` explicite, soit être dérivé de `Catégorie` via
+  `CONFIG.categorie_to_nuisible_map` (cf. Étape 1). Si aucun des deux ne
+  donne de slug valide dans `parent_nuisible_map` → `parentNuisible = null`
+  (article transverse), jamais une invention de slug ni une étape Erreur
 
 ## Logs attendus en sortie
 

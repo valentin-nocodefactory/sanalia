@@ -143,6 +143,38 @@ parent_nuisible_map:
     section: "Dépigeonnage"
 
 # ──────────────────────────────────────────────
+# Fallback auto-tag : Catégorie Notion → Nuisible parent
+#
+# Le champ `Nuisible parent` reste TOUJOURS prioritaire s'il est présent et
+# renseigné sur l'article. Ce mapping n'intervient QUE si la propriété est
+# absente du data source Notion, ou vide sur l'article (cf. SKILL.md
+# Étape 1 — Auto-association du tag nuisible).
+#
+# Valeurs de "Catégorie" volontairement absentes d'ici (Tiques, Araignées,
+# Chenilles processionnaires, Mites, Lépismes, Puces, Charançons, Taupes,
+# Termites, Mouches & moucherons, Autre) : aucune fiche `/nuisibles/<slug>/`
+# dédiée n'existe pour elles dans `parent_nuisible_map` ci-dessus → laisser
+# `parentNuisible` à null (article transverse, breadcrumb 3 niveaux, cf.
+# CLAUDE.md). Ne JAMAIS inventer un slug qui n'existe pas dans
+# `parent_nuisible_map`.
+# ──────────────────────────────────────────────
+categorie_to_nuisible_map:
+  "Rats & Souris": AMBIGUOUS   # désambiguïser via rats_souris_disambiguation
+  "Punaises de lit": punaises-de-lit
+  "Cafards & blattes": cafards
+  "Frelons & guêpes": guepes
+  "Moustiques": moustiques
+  "Fourmis": fourmis
+  "Pigeons": pigeons
+
+# Désambiguïsation "Rats & Souris" : recherche insensible à la casse et aux
+# accents dans "Mot-clé principal" + "Titre" concaténés.
+rats_souris_disambiguation:
+  souris_keywords: ["souris", "murin", "mulot"]
+  rats_keywords: ["rat", "rats", "rongeur", "rongeurs"]
+  default: rats   # si les deux groupes matchent, ou aucun des deux
+
+# ──────────────────────────────────────────────
 # Recraft — 2 presets distincts
 #
 # 1. `photo` : photos réalistes, ambiance "expert dératiseur sur le terrain".
