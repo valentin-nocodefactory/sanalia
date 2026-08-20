@@ -690,6 +690,36 @@ def gen_faq_jsonld(faq: list) -> str:
 # Main
 # ──────────────────────────────────────────────────────────────────────
 
+def gen_breadcrumb_nuisible_link(parent_nuisible: str, parent_meta: dict) -> str:
+    """Génère le lien niveau 3 du breadcrumb HTML (`.breadcrumb-nuisible-wrap`).
+
+    Si `parent_nuisible` est vide (article transverse), pointe vers le hub
+    générique `/nuisibles/` sans picto — ne JAMAIS retomber sur un nuisible
+    arbitraire (bug historique : fallback silencieux sur "rats" qui envoyait
+    des articles transverses comme "TVA dératisation" vers `/nuisibles/rats/`
+    avec une `<img>` cassée).
+    """
+    if not parent_nuisible:
+        return '<a href="/nuisibles/" style="display:inline-flex;align-items:center;gap:4px;">Nuisibles</a>'
+    fiche_slug = parent_meta.get("url_slug", parent_nuisible)
+    picto = parent_meta.get("picto", "")
+    bg_class = parent_meta.get("bg_class", "bg-gold")
+    name = parent_meta.get("name", "Nuisibles")
+    return (
+        f'<a href="/nuisibles/{fiche_slug}/" style="display:inline-flex;align-items:center;gap:4px;">'
+        f'<img src="/assets/nuisibles/{picto}" class="breadcrumb-icon {bg_class}" alt="">{html_escape(name)}</a>'
+    )
+
+
+def gen_hero_category_icon(parent_nuisible: str, parent_meta: dict) -> str:
+    """Génère l'icône du pill `.blog-hero-category` : picto image du nuisible,
+    ou emoji 🛡️ pour un article transverse (cf. convention CLAUDE.md)."""
+    if not parent_nuisible:
+        return '<span class="pill-icon pill-icon-emoji" aria-hidden="true">🛡️</span>'
+    picto = parent_meta.get("picto", "")
+    return f'<img src="/assets/nuisibles/{picto}" class="pill-icon" alt="">'
+
+
 def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
     parent_nuisible = data["parentNuisible"]
     parent_meta = cfg["parent_nuisible_map"].get(parent_nuisible, {})
@@ -731,10 +761,8 @@ def assemble(data: dict, slug: str, cfg: dict, skeleton_path: Path) -> str:
         "{{WORD_COUNT}}": str(data["wordCount"]),
         "{{JSONLD_BREADCRUMB_LEVEL3_AND_4}}": gen_breadcrumb_jsonld_level34(parent_nuisible, data["title"], cfg),
         "{{JSONLD_FAQ_ITEMS}}": gen_faq_jsonld(data["faq"]),
-        "{{PARENT_NUISIBLE_SLUG}}": parent_meta.get("url_slug", parent_nuisible) or "rats",
-        "{{PARENT_NUISIBLE_PICTO}}": parent_meta.get("picto", ""),
-        "{{PARENT_NUISIBLE_BG_CLASS}}": parent_meta.get("bg_class", "bg-gold"),
-        "{{PARENT_NUISIBLE_NAME}}": parent_meta.get("name", "Nuisibles"),
+        "{{BREADCRUMB_NUISIBLE_LINK}}": gen_breadcrumb_nuisible_link(parent_nuisible, parent_meta),
+        "{{HERO_CATEGORY_ICON}}": gen_hero_category_icon(parent_nuisible, parent_meta),
         "{{TAG_NUISIBLE_CLASS}}": parent_meta.get("tag_class", "tag-prevention"),
         "{{BREADCRUMB_CURRENT_LABEL}}": breadcrumb_label,
         "{{H1}}": data["title"],
