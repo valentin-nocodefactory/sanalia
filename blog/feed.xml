@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Sat, 18 Jul 2026 06:30:20 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 04:54:28 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Cafard dans la maison : pourquoi ils sont là et comment s'en débarrasser vraiment</title>
+      <link>https://www.sanalia.fr/blog/cafard-maison/</link>
+      <description>Cafard dans la maison ? Découvrez pourquoi ils s'installent, les 5 signes d'infestation et les solutions DIY ou pro pour vous en débarrasser durablement.</description>
+      <pubDate>Thu, 20 Aug 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/cafard-maison/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Assurance habitation et dératisation : ce qui est remboursé (et ce qui ne l'est pas)</title>
       <link>https://www.sanalia.fr/blog/assurance-habitation-deratisation/</link>
