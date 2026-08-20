@@ -141,6 +141,89 @@ parent_nuisible_map:
     bg_class: bg-mint
     name: Pigeons
     section: "Dépigeonnage"
+  chenilles-processionnaires:
+    tag_class: tag-chenilles
+    picto: processionary-caterpillar--thaumetopoea-pityocamp.png
+    bg_class: bg-green
+    name: Chenilles processionnaires
+    section: "Chenilles processionnaires"
+  mites-alimentaires:
+    tag_class: tag-mites
+    picto: pantry-moth--plodia-interpunctella--realistic-bo.png
+    bg_class: bg-gold
+    name: Mites alimentaires
+    section: "Mites alimentaires"
+  puces:
+    tag_class: tag-puces
+    picto: cat-flea--ctenocephalides-felis--realistic-body-sh.png
+    bg_class: bg-peach
+    name: Puces
+    section: "Puces"
+  taupes:
+    tag_class: tag-taupes
+    picto: european-mole--talpa-europaea--realistic-body-shap.png
+    bg_class: bg-peach
+    name: Taupes
+    section: "Taupes"
+  termites:
+    tag_class: tag-termites
+    picto: termite--reticulitermes-flavipes--realistic-body-s.png
+    bg_class: bg-rose
+    name: Termites
+    section: "Termites"
+
+# ──────────────────────────────────────────────
+# Mapping Notion "Catégorie" (select réel de la data source Notion, distinct
+# du champ "Nuisible parent" qui N'EXISTE PAS dans le schéma live — cf.
+# Étape 1 du SKILL.md) → clé `parent_nuisible_map` ci-dessus.
+#
+# `null` = catégorie sans fiche /nuisibles/ dédiée aujourd'hui → un article
+# dans cette catégorie n'est PAS auto-attribuable et doit rester en attente
+# d'une décision humaine (jamais inventer une page nuisible, cf. invariants).
+#
+# "Rats & Souris" est intentionnellement absent d'ici : cette catégorie est
+# ambiguë (2 fiches possibles) et se désambiguïse par mot-clé — voir la
+# règle dédiée à l'Étape 1 du SKILL.md.
+# ──────────────────────────────────────────────
+notion_category_to_parent_nuisible:
+  "Punaises de lit": punaises-de-lit
+  "Cafards & blattes": cafards
+  "Frelons & guêpes": guepes
+  "Moustiques": moustiques
+  "Fourmis": fourmis
+  "Pigeons": pigeons
+  "Chenilles processionnaires": chenilles-processionnaires
+  "Mites": mites-alimentaires
+  "Puces": puces
+  "Taupes": taupes
+  "Termites": termites
+  "Tiques": null
+  "Araignées": null
+  "Mouches & moucherons": null
+  "Charançons": null
+  "Lépismes": null
+  "Autre": null
+
+# ──────────────────────────────────────────────
+# Inférence de l'Intent quand le champ Notion "Intent" est vide (cas
+# fréquent sur les briefs importés en masse — cf. Étape 1 du SKILL.md).
+#
+# Règles évaluées dans l'ordre sur `(Titre + " " + Mot-clé principal)`
+# normalisé (minuscules, accents retirés). La première règle dont le
+# pattern matche (regex, recherche non-ancrée) gagne. La dernière règle
+# ("catch-all") garantit toujours un résultat valide.
+# ──────────────────────────────────────────────
+intent_inference_rules:
+  - pattern: "\\b(loi|reglement|obligation|norme|assurance|tva|certif|amende|responsabilit)"
+    intent: regulatory
+  - pattern: "\\b(top |comparatif|meilleur|quel .* choisir|avis |test |lesquel)"
+    intent: transactional
+  - pattern: "\\b(urgence|urgent|danger|grave|mortel|hopital|choc anaphylactique)"
+    intent: urgency
+  - pattern: "\\b(prevenir|preven|eviter|proteger|astuce|geste|boucher|repulsif)"
+    intent: prevention
+  - pattern: ".*"
+    intent: informational
 
 # ──────────────────────────────────────────────
 # Recraft — 2 presets distincts
