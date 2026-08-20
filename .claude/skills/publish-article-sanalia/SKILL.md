@@ -102,6 +102,13 @@ Via MCP Notion (tools `mcp__*__notion-*`), query la data source
 - Tri : `Date de parution` ASC
 - Limite : 1
 
+⚠️ En pratique, la quasi-totalité des briefs `Next up` n'ont **pas** de
+`Date de parution` renseignée (colonne `date:Date de parution:start` nulle
+en SQL) — le filtre `<= today` ne retourne alors rien même quand des briefs
+valides existent. Si la requête ci-dessus retourne vide, retente sans le
+filtre de date, triée par `createdTime` ASC (le brief `Next up` le plus
+ancien) avant de conclure à un pipeline vide.
+
 **Si vide** : envoyer une alerte Slack pour prévenir que le pipeline est vide
 (le user doit ajouter un brief dans Notion), puis exit 0.
 
@@ -113,23 +120,91 @@ python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
 
 Puis log "Aucun article Next up aujourd'hui, alerte Slack envoyée" et exit 0.
 
-**Si trouvé** : extraire les champs (cf. NOTION-SCHEMA.md) :
+**Si trouvé** : extraire les champs :
 - `Titre`, `Mot-clé principal`, `Angle / Notes`, `Catégorie`,
-  `Nuisible parent`, `Intent`, `Temps de lecture (min)`, `Date de parution`,
+  `Intent`, `Temps de lecture (min)`, `Date de parution`,
   `URL cible`, `notion_page_id`, `notion_page_url`
 
-**Validations** :
-- `Nuisible parent` doit être présent et exister dans
-  `CONFIG.parent_nuisible_map`. Sinon → étape Erreur avec
-  "Nuisible parent absent ou invalide".
-- `Intent` doit être l'une des 5 valeurs (informational, transactional,
-  urgency, prevention, regulatory). Sinon → étape Erreur.
+  ⚠️ Le schéma live de la data source (interroger via `notion-fetch` sur
+  `collection://4fc6d199-2674-494a-8959-ba1008034526` en cas de doute) n'a
+  **pas** de propriété `Nuisible parent` — c'est une propriété qui n'existe
+  pas dans cette base. Le seul champ nuisible réel est `Catégorie` (select).
+  `parentNuisible` se **dérive** de `Catégorie`, cf. auto-attribution
+  ci-dessous.
+
+#### Auto-attribution — `parentNuisible` (depuis `Catégorie`)
+
+En pratique, une bonne partie des briefs `Next up` (import en masse) n'ont
+jamais de propriété nuisible directement exploitable. Plutôt que d'échouer
+systématiquement sur chaque brief (ce qui viderait toute la file en
+statuts `Erreur` un par un sans jamais rien publier), dérive `parentNuisible`
+automatiquement :
+
+1. Regarde `CONFIG.notion_category_to_parent_nuisible[Catégorie]`.
+2. **Cas "Rats & Souris"** (absent de la table car ambigu — 2 fiches
+   possibles) : cherche dans `(Titre + " " + Mot-clé principal)` en
+   minuscules sans accents un token `souris` ou `mouse` → `parentNuisible =
+   souris`. Sinon → `parentNuisible = rats` (fiche par défaut de la
+   catégorie).
+3. **Si la valeur trouvée est `null`, ou si `Catégorie` est vide/absente,
+   ou si la clé résultante n'existe pas dans `CONFIG.parent_nuisible_map`**
+   → ce brief précis n'est **pas** auto-attribuable. Ne le verrouille pas
+   (Étape 2), ne le marque **pas** `Erreur` (ce n'est pas un incident, c'est
+   un brief qui attend une catégorisation humaine) : skip-le silencieusement
+   et relance la requête Étape 1 en excluant les `notion_page_id` déjà
+   écartés dans ce run, pour prendre le prochain "Next up" par ordre de
+   `createdTime` croissant. Si **aucun** candidat de la file n'est
+   auto-attribuable → traite comme "pipeline vide" (template Slack
+   `empty_pipeline`, avec un message précisant "N briefs Next up ignorés,
+   catégorie non mappée à une fiche nuisible"), puis exit 0.
+4. Log toujours la dérivation : `[Étape 1] parentNuisible="cafards" dérivé
+   de Catégorie="Cafards & blattes"` (ou `... + désambiguïsation mot-clé
+   "souris"` le cas échéant).
+5. **Ne JAMAIS inventer une clé absente de `CONFIG.parent_nuisible_map`** —
+   c'est le seul cas qui reste couvert par l'invariant "jamais prendre
+   l'initiative d'ajouter une page nuisible". Si un nouveau nuisible
+   récurrent apparaît côté Notion sans fiche correspondante, c'est au human
+   d'ajouter la fiche `/nuisibles/[espece]/` et l'entrée
+   `CONFIG.parent_nuisible_map` / `CONFIG.notion_category_to_parent_nuisible`
+   — jamais au skill de le faire à la volée.
+
+#### Auto-attribution — `intentType` (quand `Intent` est vide)
+
+Le champ Notion `Intent` est lui aussi souvent vide sur les briefs
+importés en masse. S'il est déjà renseigné avec une des 5 valeurs valides
+(`informational`, `transactional`, `urgency`, `prevention`, `regulatory`),
+utilise-le tel quel. **S'il est vide ou invalide** :
+
+1. Normalise `(Titre + " " + Mot-clé principal)` : minuscules, accents
+   retirés.
+2. Applique `CONFIG.intent_inference_rules` dans l'ordre — premier pattern
+   qui matche gagne (regex non-ancrée). La dernière règle (`.*` →
+   `informational`) garantit toujours un résultat.
+3. Log la dérivation : `[Étape 1] Intent absent — inféré "informational"
+   depuis le titre/mot-clé`.
+4. À l'Étape 2 (lock), écris la valeur inférée dans la propriété Notion
+   `Intent` en même temps que le passage à `In progress` — ça "soigne" la
+   donnée en base pour les prochains runs et pour la relecture humaine sur
+   la PR, sans jamais bloquer la publication sur ce champ.
+
+Ces deux auto-attributions ne sont que des **valeurs par défaut
+raisonnables** : la PR reste en `draft` + statut Notion `À valider`, donc
+une correction humaine (mauvais nuisible parent, mauvais intent → mauvais
+variant de CTA) reste possible avant merge. Elles ne dispensent pas de
+l'anti-cannibalisation (Étape 3) ni d'aucune autre validation.
 
 ### Étape 2 — Lock anti-double-run
 
 Immédiatement passer le statut Notion en `In progress`
-(`mcp__*__notion-update-page`). Si ce write échoue → étape Erreur (sans toucher
-au statut, vu qu'on a pas pu le changer).
+(`mcp__*__notion-update-page`). Si `Intent` a été auto-inféré à l'Étape 1
+(champ vide en base), inclus-le dans le **même** appel `update_properties`
+que le passage à `In progress` (`{"Statut": "In progress", "Intent":
+"<valeur inférée>"}`) — un seul write, la donnée est corrigée en base pour
+de bon. (`parentNuisible`, lui, ne se réécrit jamais côté Notion : ce n'est
+pas une propriété qui existe dans ce schéma, cf. Étape 1.)
+
+Si ce write échoue → étape Erreur (sans toucher au statut, vu qu'on a pas pu
+le changer).
 
 Stocker `notion_page_id` et `notion_page_url` pour la suite.
 
@@ -236,8 +311,8 @@ python3 -c "import markdown; print(markdown.markdown('''<RESPONSE>''', extension
 
 | Champ | Calcul |
 |---|---|
-| `parentNuisible` | Champ Notion `Nuisible parent` (clé du `parent_nuisible_map` dans CONFIG.yaml — ex : `guepes`) |
-| `intentType` | Champ Notion `Intent` (lowercase EN) |
+| `parentNuisible` | Valeur dérivée à l'Étape 1 (depuis `Catégorie`, cf. auto-attribution) — déjà calculée, réutiliser telle quelle |
+| `intentType` | Valeur dérivée à l'Étape 1 (Notion `Intent` si renseigné, sinon inférée, cf. auto-attribution) — déjà calculée, réutiliser telle quelle |
 | `breadcrumbLabel` | `title` tronqué à 50 chars sur le dernier mot complet |
 | `publishedAt` | Notion `Date de parution`, fallback aujourd'hui ISO |
 | `modifiedAt` | Aujourd'hui ISO |
@@ -906,8 +981,13 @@ git checkout main
   étape 8
 - Ne JAMAIS log le `SLACK_WEBHOOK_URL` ni d'autres secrets
 - Ne JAMAIS bypass l'anti-cannibalisation
-- Ne JAMAIS prendre l'initiative d'ajouter une page nuisible : si
-  `parentNuisible` est absent ou inconnu → étape Erreur
+- Ne JAMAIS prendre l'initiative d'ajouter une page nuisible ou une clé
+  `parent_nuisible_map` : si `Catégorie` ne mappe vers aucune fiche
+  existante (valeur `null` dans `CONFIG.notion_category_to_parent_nuisible`,
+  ou absente de la table), le brief n'est pas auto-attribuable → skip-le
+  (cf. Étape 1) plutôt que d'halluciner un `parentNuisible`. Une extension
+  de la table de mapping ne se fait qu'à la main, par un humain qui a créé
+  la fiche `/nuisibles/[espece]/` correspondante
 
 ## Logs attendus en sortie
 
