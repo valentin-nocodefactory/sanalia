@@ -17,11 +17,10 @@
 | Nom (libellé exact) | Type | Valeurs / Format | Rôle |
 |---|---|---|---|
 | **Titre** | title | texte libre | H1 de l'article + base du slug si `URL cible` vide |
-| **Statut** | select | `Next up` · `In progress` · `À valider` · `Validé` · `Publié` · `Erreur` | Pilote le workflow (cf. machine d'état ci-dessous) |
+| **Statut** | select | `Next up` · `In progress` · `À valider` · `Validé` · `Publié` · `Error` ⚠️ (pas "Erreur" — c'est la valeur exacte de l'option select) | Pilote le workflow (cf. machine d'état ci-dessous) |
 | **Mot-clé principal** | text | ex: `se débarrasser des rats appartement` | Cible SEO + anti-cannibalisation grep |
 | **Angle / Notes** | text long | brief éditorial | Passé tel quel à ChatSEO |
 | **Catégorie** | select | `rats-souris` · `punaises-de-lit` · `cafards-insectes` · `guepes-frelons` · `prevention` | Cluster éditorial visible (RSS, filtre hub) |
-| **Nuisible parent** ⚠️ À AJOUTER | select | `rats` · `souris` · `punaises-de-lit` · `cafards` · `fourmis` · `guepes` · `moustiques` · `pigeons` · `taupes` · `puces` · *(vide pour transverse)* | Slug fiche `/nuisibles/<slug>/` — pilote breadcrumb position 3, tag pastel `.tag-<nuisible>`, picto, 1 des 3 cartes related |
 | **Intent** | select | `informational` · `transactional` · `urgency` · `prevention` · `regulatory` (lowercase EN) | Mappe sur `data-variant` des 3 CTAs inline |
 | **Temps de lecture (min)** | number | entier 3-15 | Affiché dans `.blog-hero-meta` |
 | **Date de parution** | date | `YYYY-MM-DD` | Filtre quotidien (`<=today`) + `datePublished` JSON-LD |
@@ -53,7 +52,7 @@ Validé         ← tu changes manuellement (déclencheur humain du merge)
    ▼
 Publié         ← Cloudflare auto-déploie main ; skill met URL prod + Slack notif
 
-(Erreur)       ← si abort à n'importe quel stade ; champ Erreur rempli ; tu corriges + repasses à Next up
+(Error)        ← si abort à n'importe quel stade ; champ Erreur rempli ; tu corriges + repasses à Next up
 ```
 
 ## Mappings appliqués par le skill
@@ -70,6 +69,15 @@ Publié         ← Cloudflare auto-déploie main ; skill met URL prod + Slack n
 
 ### Nuisible parent → tag pastel + picto + breadcrumb
 
+⚠️ **`Nuisible parent` n'est PAS un champ Notion** — il n'existe pas dans le
+schéma de cette base (colonne absente, confirmé par une requête SQL qui
+échoue avec `no such column`). Le skill ne le lit ni ne l'écrit jamais sur
+Notion. C'est l'orchestrateur (Claude) qui le **déduit automatiquement** à
+l'Étape 1 à partir de `Titre` / `Mot-clé principal` / `Angle / Notes`, en
+matchant le nuisible mentionné contre les clés ci-dessous. Si aucun nuisible
+précis ne ressort (article transverse), `parentNuisible` reste `null` — cas
+normal, pas une erreur.
+
 | Slug | Classe tag | Picto (`/assets/nuisibles/`) | Nom affiché |
 |---|---|---|---|
 | `rats` | `tag-rats` | `brown-rat--realistic-body-shape--long-tail--pointe.png` | Rats |
@@ -82,12 +90,16 @@ Publié         ← Cloudflare auto-déploie main ; skill met URL prod + Slack n
 | `pigeons` | `tag-pigeons` | `feral-pigeon--columba-livia--realistic-body-shape-.png` | Pigeons |
 | *(vide)* | `tag-prevention` | 🛡️ (emoji) | — (breadcrumb 3 niveaux) |
 
-## Action manuelle à faire **une seule fois** dans Notion
+## Notes opérationnelles
 
-1. Ouvrir la base de données dont l'ID est `4fc6d199-2674-494a-8959-ba1008034526`.
-2. **Ajouter le champ** `Nuisible parent` (type select) si absent, et y créer les options listées ci-dessus.
-3. **Vérifier le champ `Statut`** : doit contenir exactement les 6 valeurs `Next up` · `In progress` · `À valider` · `Validé` · `Publié` · `Erreur` (accents inclus). Ajouter celles qui manquent.
-4. **Vérifier le champ `Intent`** : doit contenir exactement les 5 valeurs en lowercase EN (`informational` · `transactional` · `urgency` · `prevention` · `regulatory`). Ajouter celles qui manquent.
-5. **Renseigner `Nuisible parent`** sur tous les articles existants en `Next up` avant le 1er run du cron, sinon le skill retournera `Erreur` faute de breadcrumb valide.
-
-> ⚠️ Tant que le champ `Nuisible parent` n'existe pas en Notion, la 1ère routine échouera à l'étape de fetch. Le skill abort avec `Erreur` et alerte Slack.
+- **`Nuisible parent`** : pas un champ Notion à créer — voir section ci-dessus,
+  déduit par l'IA à chaque run.
+- **`Statut`** : les valeurs réelles de l'option select sont `Next up` ·
+  `In progress` · `À valider` · `Validé` · `Publié` · `Error` (en anglais,
+  PAS `Erreur` — un write avec `Erreur` échoue avec `validation_error`).
+- **`Date de parution`** : en pratique quasi jamais renseignée sur cette
+  base. Le skill ne doit pas traiter ça comme "pipeline vide" — cf. Étape 1
+  du SKILL.md pour le fallback (tri par `createdTime`).
+- **`Intent`** : doit contenir les 5 valeurs en lowercase EN
+  (`informational` · `transactional` · `urgency` · `prevention` ·
+  `regulatory`). À vérifier si le skill signale une valeur invalide.

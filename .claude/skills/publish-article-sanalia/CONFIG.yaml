@@ -36,7 +36,7 @@ notion_statuses:
   to_validate: "À valider"
   validated: "Validé"
   published: "Publié"
-  error: "Erreur"
+  error: "Error"  # valeur exacte de l'option select Notion — "Erreur" échoue (validation_error)
 
 # ──────────────────────────────────────────────
 # Mapping Intent → CTA variant

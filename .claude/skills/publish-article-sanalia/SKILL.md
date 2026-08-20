@@ -98,12 +98,24 @@ Template : `.claude/skills/publish-article-sanalia/templates/article-skeleton.ht
 
 Via MCP Notion (tools `mcp__*__notion-*`), query la data source
 `4fc6d199-2674-494a-8959-ba1008034526` :
-- Filtre : `Statut = "Next up"` ET `Date de parution <= today`
-- Tri : `Date de parution` ASC
+- Filtre : `Statut = "Next up"` ET (`Date de parution` est vide OU
+  `Date de parution <= today`)
+- Tri : `Date de parution` ASC (les lignes sans date passent en dernier),
+  puis `createdTime` ASC comme départage
 - Limite : 1
 
-**Si vide** : envoyer une alerte Slack pour prévenir que le pipeline est vide
-(le user doit ajouter un brief dans Notion), puis exit 0.
+⚠️ En pratique, la colonne `Date de parution` n'est quasiment jamais
+renseignée dans cette base (vérifié : aucune ligne `Next up` avec une date
+au moment de l'écriture de cette note). **Ne jamais conclure "pipeline vide"
+sur la seule base du filtre de date** : s'il existe au moins une ligne
+`Statut = "Next up"` (avec ou sans `Date de parution`), il y a du travail à
+faire. Requête recommandée en 2 temps si le filtre date échoue à ramener
+un résultat : retente sans la condition de date, trié par `createdTime` ASC,
+et prends la plus ancienne.
+
+**Si vide** (aucune ligne `Statut = "Next up"` du tout, même sans date) :
+envoyer une alerte Slack pour prévenir que le pipeline est vide (le user doit
+ajouter un brief dans Notion), puis exit 0.
 
 ```bash
 python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
@@ -114,14 +126,34 @@ python3 .claude/skills/publish-article-sanalia/scripts/notify_slack.py \
 Puis log "Aucun article Next up aujourd'hui, alerte Slack envoyée" et exit 0.
 
 **Si trouvé** : extraire les champs (cf. NOTION-SCHEMA.md) :
-- `Titre`, `Mot-clé principal`, `Angle / Notes`, `Catégorie`,
-  `Nuisible parent`, `Intent`, `Temps de lecture (min)`, `Date de parution`,
-  `URL cible`, `notion_page_id`, `notion_page_url`
+- `Titre`, `Mot-clé principal`, `Angle / Notes`, `Catégorie`, `Intent`,
+  `Temps de lecture (min)`, `Date de parution`, `URL cible`,
+  `notion_page_id`, `notion_page_url`
+
+⚠️ **`Nuisible parent` n'est PAS un champ Notion** — cette colonne n'existe
+pas dans la base (confirmé : une requête SQL qui la référence échoue avec
+`no such column`) et ne doit **jamais** être lue ni écrite via Notion. C'est
+l'orchestrateur (toi, Claude) qui déduit `parentNuisible` directement depuis
+le contenu de l'article :
+
+1. Lis `Titre`, `Mot-clé principal` et `Angle / Notes`.
+2. Fais correspondre le sujet à l'une des clés de `CONFIG.parent_nuisible_map`
+   (rats, souris, punaises-de-lit, cafards, fourmis, guepes, moustiques,
+   pigeons) en cherchant le nom du nuisible et ses synonymes évidents dans
+   ces textes — ex. "punaise" → `punaises-de-lit`, "frelon"/"nid de guêpe" →
+   `guepes`, "blatte" → `cafards`, "moustique tigre"/"larve" → `moustiques`,
+   "souris"/"rongeur" → `souris` ou `rats` selon le sujet précis.
+3. Si un nuisible ressort clairement → utilise sa clé comme `parentNuisible`.
+4. Si l'article est structurellement transverse (aucun nuisible identifiable
+   — ex. réglementation générale, Certibiocide, calendrier multi-nuisibles)
+   → `parentNuisible = null`. C'est un cas normal et déjà documenté
+   (breadcrumb à 3 niveaux, tag `tag-prevention`), **PAS une erreur**.
+5. N'aborte en étape Erreur QUE si l'article traite d'un nuisible précis qui
+   ne correspond à AUCUNE clé de `CONFIG.parent_nuisible_map` (nuisible non
+   couvert par le site) — jamais parce que le champ est simplement absent de
+   Notion, puisqu'il ne l'est jamais.
 
 **Validations** :
-- `Nuisible parent` doit être présent et exister dans
-  `CONFIG.parent_nuisible_map`. Sinon → étape Erreur avec
-  "Nuisible parent absent ou invalide".
 - `Intent` doit être l'une des 5 valeurs (informational, transactional,
   urgency, prevention, regulatory). Sinon → étape Erreur.
 
@@ -236,7 +268,7 @@ python3 -c "import markdown; print(markdown.markdown('''<RESPONSE>''', extension
 
 | Champ | Calcul |
 |---|---|
-| `parentNuisible` | Champ Notion `Nuisible parent` (clé du `parent_nuisible_map` dans CONFIG.yaml — ex : `guepes`) |
+| `parentNuisible` | Déduit à l'Étape 1 par l'orchestrateur depuis Titre/Mot-clé/Angle (PAS un champ Notion) — clé du `parent_nuisible_map` dans CONFIG.yaml, ou `null` si l'article est transverse |
 | `intentType` | Champ Notion `Intent` (lowercase EN) |
 | `breadcrumbLabel` | `title` tronqué à 50 chars sur le dernier mot complet |
 | `publishedAt` | Notion `Date de parution`, fallback aujourd'hui ISO |
@@ -795,7 +827,7 @@ Article généré automatiquement par **publish-article-sanalia-daily**.
 📌 Notion : <notion_page_url>
 🎯 Mot-clé cible : <Mot-clé principal>
 📂 Catégorie : <Catégorie>
-🏷️ Nuisible parent : <Nuisible parent>
+🏷️ Nuisible parent (déduit par l'IA) : <parentNuisible>
 
 Quand tu valides, change le statut Notion en **Validé** — la routine
 `sanalia-merge-validated` mergera la PR dans les 15 minutes.
@@ -884,8 +916,9 @@ git checkout main
 À chaque échec :
 
 1. Logger la cause en clair (étape, message, stack si possible).
-2. Update Notion : `Statut` → `Erreur`, `Erreur` → `[étape X] <message>` (max
-   500 chars).
+2. Update Notion : `Statut` → `Error` (⚠️ valeur exacte de l'option select
+   dans cette base — "Erreur" n'existe PAS et fait échouer le write avec
+   `validation_error`), `Erreur` → `[étape X] <message>` (max 500 chars).
 3. Slack `notify_slack.py --template error --vars '{...}'`.
 4. **Ne PAS commit** si l'article est incomplet.
 5. Si la branche a déjà été poussée mais qu'on échoue après : laisser la
@@ -906,8 +939,10 @@ git checkout main
   étape 8
 - Ne JAMAIS log le `SLACK_WEBHOOK_URL` ni d'autres secrets
 - Ne JAMAIS bypass l'anti-cannibalisation
-- Ne JAMAIS prendre l'initiative d'ajouter une page nuisible : si
-  `parentNuisible` est absent ou inconnu → étape Erreur
+- Ne JAMAIS prendre l'initiative d'ajouter une page nuisible : si l'article
+  traite d'un nuisible précis introuvable dans `CONFIG.parent_nuisible_map`
+  → étape Erreur (un `parentNuisible` `null` pour un article réellement
+  transverse reste autorisé, ce n'est pas une erreur)
 
 ## Logs attendus en sortie
 
