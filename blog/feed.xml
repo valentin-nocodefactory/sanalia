@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Thu, 20 Aug 2026 07:47:01 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2026 06:39:30 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Calendrier des nuisibles en France : quels insectes et rongeurs surveiller selon les saisons ?</title>
+      <link>https://www.sanalia.fr/blog/calendrier-nuisibles-france/</link>
+      <description>Découvrez le calendrier complet des nuisibles en France mois par mois : rats, punaises de lit, guêpes, moustiques tigres… Anticipez chaque saison.</description>
+      <pubDate>Sat, 22 Aug 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/calendrier-nuisibles-france/</guid>
+      <category>Prévention</category>
+    </item>
+
     <item>
       <title>Choisir son désinsectiseur : les vérifications indispensables avant de faire confiance à un professionnel</title>
       <link>https://www.sanalia.fr/blog/certibiocide-artisans/</link>
