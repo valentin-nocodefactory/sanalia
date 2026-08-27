@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 25 Aug 2026 06:45:59 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 06:44:44 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Comment devenir dératiseur : formation, certifications et débouchés</title>
+      <link>https://www.sanalia.fr/blog/devenir-deratiseur/</link>
+      <description>Formation, Certibiocide, salaires, débouchés : tout ce qu'il faut savoir pour devenir dératiseur en France en 2026. Guide complet et pratique.</description>
+      <pubDate>Thu, 27 Aug 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/devenir-deratiseur/</guid>
+      <category>Prévention</category>
+    </item>
+
     <item>
       <title>Moustique tigre : photos, identification et que faire si vous en voyez un</title>
       <link>https://www.sanalia.fr/blog/moustique-tigre-photo/</link>
