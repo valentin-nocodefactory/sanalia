@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Fri, 28 Aug 2026 06:43:58 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 Sep 2026 06:37:38 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Nid de frelon : comment l'identifier, le localiser et s'en débarrasser en sécurité</title>
+      <link>https://www.sanalia.fr/blog/nid-de-frelon/</link>
+      <description>Nid de frelon : identifiez l'espèce, localisez-le et agissez en sécurité. Tableaux comparatifs, cycle de vie, conduite à tenir et intervention pro 24h.</description>
+      <pubDate>Tue, 08 Sep 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/nid-de-frelon/</guid>
+      <category>Guêpes & Frelons</category>
+    </item>
+
     <item>
       <title>Piqûre de moustique tigre : symptômes, dangers et que faire</title>
       <link>https://www.sanalia.fr/blog/piqure-moustique-tigre/</link>
