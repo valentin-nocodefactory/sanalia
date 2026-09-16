@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 08 Sep 2026 06:37:38 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 09:06:28 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Piège à souris : lequel choisir et comment l'utiliser efficacement</title>
+      <link>https://www.sanalia.fr/blog/piege-a-souris/</link>
+      <description>Tapette, nasse, électrique ou colle : quel piège à souris choisir ? Comparatif complet, règles de pose, erreurs à éviter et quand appeler un pro.</description>
+      <pubDate>Wed, 16 Sep 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/piege-a-souris/</guid>
+      <category>Rats et souris</category>
+    </item>
+
     <item>
       <title>Nid de frelon : comment l'identifier, le localiser et s'en débarrasser en sécurité</title>
       <link>https://www.sanalia.fr/blog/nid-de-frelon/</link>
