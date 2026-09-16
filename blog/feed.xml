@@ -7,7 +7,7 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 16 Sep 2026 09:10:11 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 09:11:36 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
@@ -21,6 +21,15 @@
       <pubDate>Wed, 16 Sep 2026 09:00:00 +0200</pubDate>
       <guid isPermaLink="true">https://www.sanalia.fr/blog/piege-a-souris/</guid>
       <category>Rats et souris</category>
+    </item>
+
+    <item>
+      <title>Cafards en cuisine professionnelle : obligations légales, risques et protocole conforme HACCP</title>
+      <link>https://www.sanalia.fr/blog/cafards-cuisine-restaurant/</link>
+      <description>Cafards en cuisine professionnelle : risques sanitaires, obligations HACCP et protocole de désinsectisation conforme. Intervention Sanalia sous 24h.</description>
+      <pubDate>Tue, 15 Sep 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/cafards-cuisine-restaurant/</guid>
+      <category>Cafards & Insectes</category>
     </item>
 
     <item>
