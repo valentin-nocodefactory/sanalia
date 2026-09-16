@@ -7,7 +7,7 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 16 Sep 2026 09:06:28 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 09:10:11 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
@@ -21,6 +21,15 @@
       <pubDate>Wed, 16 Sep 2026 09:00:00 +0200</pubDate>
       <guid isPermaLink="true">https://www.sanalia.fr/blog/piege-a-souris/</guid>
       <category>Rats et souris</category>
+    </item>
+
+    <item>
+      <title>Protéger sa maison des rongeurs en hiver : le guide complet</title>
+      <link>https://www.sanalia.fr/blog/proteger-sa-maison-rongeurs-avant-l-hiver/</link>
+      <description>Rats, souris, campagnols : comment protéger votre maison des rongeurs en hiver. 10 points d'entrée à sécuriser, méthodes DIY et pro, tableaux comparatifs.</description>
+      <pubDate>Mon, 14 Sep 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/proteger-sa-maison-rongeurs-avant-l-hiver/</guid>
+      <category>Prévention</category>
     </item>
 
     <item>
