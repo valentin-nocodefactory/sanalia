@@ -310,4 +310,11 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://www.sanalia.fr/blog/piege-a-souris/</loc>
+    <lastmod>2026-09-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
