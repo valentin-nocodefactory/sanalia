@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 16 Sep 2026 09:11:36 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2026 06:35:25 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Blatte germanique (Blattella germanica) : identification, cycle de vie et traitement</title>
+      <link>https://www.sanalia.fr/blog/blatte-germanique/</link>
+      <description>13-16 mm, deux bandes noires, cycle en 100 jours : reconnaissez la blatte germanique, repérez les signes d'infestation et éliminez-la avec un pro.</description>
+      <pubDate>Fri, 25 Sep 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/blatte-germanique/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Piège à souris : lequel choisir et comment l'utiliser efficacement</title>
       <link>https://www.sanalia.fr/blog/piege-a-souris/</link>
