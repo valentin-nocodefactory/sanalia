@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Fri, 02 Oct 2026 06:30:56 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 06:15:17 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Lampe anti moustique : le guide d'achat d'un pro de la désinsectisation</title>
+      <link>https://www.sanalia.fr/blog/lampe-anti-moustique/</link>
+      <description>Lampe anti moustique : ce qu'elle fait vraiment, ses limites et nos critères de choix. Guide d'achat d'un pro. Diagnostic gratuit.</description>
+      <pubDate>Sun, 04 Oct 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/lampe-anti-moustique/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Punaise de lit : traitement naturel, ce qui marche vraiment</title>
       <link>https://www.sanalia.fr/blog/punaise-de-lit-traitement-naturel/</link>
