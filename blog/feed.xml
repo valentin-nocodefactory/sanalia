@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Wed, 07 Oct 2026 06:33:31 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 06:33:10 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Produit anti cafard : lequel choisir (et quand il ne suffit pas)</title>
+      <link>https://www.sanalia.fr/blog/produit-anti-cafard/</link>
+      <description>Gel, poudre, spray, pièges : un pro de la désinsectisation compare les produits anti cafard, leurs limites réelles et le moment d'appeler un expert.</description>
+      <pubDate>Fri, 09 Oct 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/produit-anti-cafard/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Répulsif punaise de lit : ce qu'il peut vraiment faire (et quand appeler un pro)</title>
       <link>https://www.sanalia.fr/blog/repulsif-punaise-de-lit/</link>
