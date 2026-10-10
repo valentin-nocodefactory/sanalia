@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Fri, 09 Oct 2026 06:33:10 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 10 Oct 2026 06:16:36 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Répulsif moustique : le guide d'achat et d'usage d'un professionnel de la désinsectisation</title>
+      <link>https://www.sanalia.fr/blog/repulsif-moustique/</link>
+      <description>DEET, IR3535, PMD : quel répulsif moustique marche vraiment ? Un pro de la désinsectisation compare actifs, formats et limites. Devis gratuit.</description>
+      <pubDate>Sat, 10 Oct 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/repulsif-moustique/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Produit anti cafard : lequel choisir (et quand il ne suffit pas)</title>
       <link>https://www.sanalia.fr/blog/produit-anti-cafard/</link>
