@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 13 Oct 2026 06:28:02 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 16 Oct 2026 06:23:11 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Fourmi balle de fusil : identification, piqûre et danger réel</title>
+      <link>https://www.sanalia.fr/blog/fourmi-balle-de-fusil/</link>
+      <description>Fourmi balle de fusil (Paraponera clavata) : taille, piqûre 4/4 sur l'échelle de Schmidt, danger réel et présence en France. Lisez le guide complet.</description>
+      <pubDate>Fri, 16 Oct 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/fourmi-balle-de-fusil/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Allergie piqûre moustique : reconnaître une vraie réaction et agir au bon moment</title>
       <link>https://www.sanalia.fr/blog/allergie-piqure-moustique/</link>
