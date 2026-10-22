@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 13 Oct 2026 06:28:02 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 22 Oct 2026 06:18:38 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Piqûre de fourmi : ce qu'elle fait vraiment, comment la soulager et quand s'inquiéter</title>
+      <link>https://www.sanalia.fr/blog/piqure-fourmi/</link>
+      <description>Une piqûre de fourmi fait mal, gonfle, puis démange. Un technicien Certibiocide explique les gestes heure par heure et les signes qui imposent le 15.</description>
+      <pubDate>Thu, 22 Oct 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/piqure-fourmi/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Allergie piqûre moustique : reconnaître une vraie réaction et agir au bon moment</title>
       <link>https://www.sanalia.fr/blog/allergie-piqure-moustique/</link>
