@@ -7,13 +7,22 @@
     <description>Conseils, guides et actualités Sanalia sur la dératisation, la désinsectisation et la prévention des nuisibles pour particuliers et professionnels.</description>
     <language>fr-FR</language>
     <copyright>Copyright 2026 Sanalia</copyright>
-    <lastBuildDate>Tue, 13 Oct 2026 06:28:02 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Oct 2026 06:11:13 +0000</lastBuildDate>
     <generator>Sanalia Static Build</generator>
     <image>
       <url>https://www.sanalia.fr/logo-sanalia.svg</url>
       <title>Blog Sanalia</title>
       <link>https://www.sanalia.fr/blog/</link>
     </image>
+    <item>
+      <title>Appareil anti moustique : le guide d'achat sans promesses</title>
+      <link>https://www.sanalia.fr/blog/appareil-anti-moustique/</link>
+      <description>Appareil anti moustique : ce qui marche vraiment, prix, surfaces, entretien. Comparatif des 5 familles et quand passer au traitement pro Sanalia.</description>
+      <pubDate>Fri, 23 Oct 2026 09:00:00 +0200</pubDate>
+      <guid isPermaLink="true">https://www.sanalia.fr/blog/appareil-anti-moustique/</guid>
+      <category>Cafards & Insectes</category>
+    </item>
+
     <item>
       <title>Allergie piqûre moustique : reconnaître une vraie réaction et agir au bon moment</title>
       <link>https://www.sanalia.fr/blog/allergie-piqure-moustique/</link>
